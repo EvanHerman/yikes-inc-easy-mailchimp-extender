@@ -1,0 +1,88 @@
+#yksmf-icon
+	{
+	background: transparent url('/wp-content/plugins/yks-mailchimp-form/images/yksmf_32px_color.png') no-repeat 0 0;
+	}
+	
+.yks-status
+	{
+	display: none;
+	width: 100%;
+	clear: both;
+	}
+	.yks-status .yks-success
+		{
+		color: #000;
+		width: 80%;
+		height: auto;
+		border: 2px solid #00AA00;
+		background: #C1FFC1;
+		clear: both;
+		margin: 15px auto 15px auto;
+		text-align: center;
+		}
+	.yks-status .yks-error
+		{
+		color: #000;
+		width: 80%;
+		height: auto;
+		border: 2px solid #AA0000;
+		background: #FFC1C1;
+		clear: both;
+		margin: 15px auto 15px auto;
+		text-align: center;
+		}
+		
+.yks-mailchimp-fields-td
+	{
+	display: block;
+	padding: 15px 0 15px 0;
+	}
+	
+.yks-mailchimp-fields-container label
+	{
+	clear: both;
+	display: block;
+	padding: 5px 0 5px 0;
+	}
+	
+.yks-mailchimp-fields-placeholder
+	{
+	background: #DEDEDE;
+	display: block;
+	height: 22px;
+	}
+		
+.yks-mailchimp-sorthandle
+	{
+	background: 	transparent url('/wp-content/plugins/yks-mailchimp-form/images/16px_sortable_color.png') no-repeat 0 0;
+	margin:				4px 7px 2px 4px !important;
+	padding:			0;
+	overflow:			hidden;
+	height:				16px !important;
+	width:				16px !important;
+	text-indent:	-9000px;
+	display:			inline-block;
+	}
+	
+.yks-mailchimp-delete {
+	background: #890B0B !important;
+	border-color: #890B0B !important; 
+	}
+	
+#yks-list-wrapper .yks-list-container
+	{
+	border-bottom: 3px dashed #DEDEDE;
+	}
+#yks-list-wrapper .yks-list-container:last-child
+	{
+	border-bottom: 0px dashed #DEDEDE !important;
+	}
+	
+.yks-mailchimpFormTable
+	{
+	border-bottom: 0px !important;
+	}
+.yks-mailchimpFormTableSubmit
+	{
+	text-align:	center;
+	}
