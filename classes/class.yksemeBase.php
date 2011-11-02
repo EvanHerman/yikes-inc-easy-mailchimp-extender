@@ -1,7 +1,7 @@
 <?php
-if(!class_exists("yksmfBase"))
+if(!class_exists("yksemeBase"))
 	{
-  class yksmfBase
+  class yksemeBase
 		{
 		
 		
@@ -11,15 +11,16 @@ if(!class_exists("yksmfBase"))
  */
 private	$error		    = false;
 private	$errorMsg	    = '';
-public	$sessName	    = 'yksmf';
+public	$sessName	    = 'ykseme';
 public	$optionVal		= false;
+public	$currentLists	= false;
 
 /**
  *	Construct
  */
 public function __construct()
 	{
-	yksmfBase::initialize();
+	yksemeBase::initialize();
 	}
 
 /**
@@ -42,7 +43,7 @@ public function deactivate()
 	}
 public function uninstall()
 	{
-	delete_option(YKSMF_OPTION);
+	delete_option(YKSEME_OPTION);
 	}
 
 
@@ -73,6 +74,8 @@ private function initialize()
 	if(!$this->optionVal)		$this->getOptionValue();
 	// Setup outfit shortcodes
 	$this->createShortcodes();
+	// Initialize current list array
+	$this->currentLists	= array();
 	}
 public function createShortcodes()
 	{
@@ -84,7 +87,7 @@ public function getOptionValue()
 									'api-key'	=> '',
 									'lists'		=> array()
 								);
-	$ov	= get_option(YKSMF_OPTION, $defaultVals);
+	$ov	= get_option(YKSEME_OPTION, $defaultVals);
 	$this->optionVal	= $ov;
 	return $ov;
 	}
@@ -219,7 +222,7 @@ public function getBlankFieldsArray()
 public function updateApiKey($k)
 	{
 	$this->optionVal['api-key']	= $k; 
-	return update_option(YKSMF_OPTION, $this->optionVal);
+	return update_option(YKSEME_OPTION, $this->optionVal);
 	}
 
 
@@ -236,7 +239,7 @@ public function addList()
 					'fields'	=> $this->getBlankFieldsArray()
 				);
 	$this->optionVal['lists'][$list['id']]	= $list;
-	if(update_option(YKSMF_OPTION, $this->optionVal))
+	if(update_option(YKSEME_OPTION, $this->optionVal))
 		{
 		return $this->generateListContainers(array($list));
 		}
@@ -259,7 +262,7 @@ public function sortList($p)
 				}
 			}
 		uasort($this->optionVal['lists'][$p['list_id']]['fields'], array(&$this, 'sortListFields'));
-		return update_option(YKSMF_OPTION, $this->optionVal);
+		return update_option(YKSEME_OPTION, $this->optionVal);
 		}
 	return false;
 	}
@@ -290,7 +293,7 @@ public function updateList($p)
 					$this->optionVal['lists'][$fd['yks-mailchimp-unique-id']]['fields'][$k]['active']	= (isset($fd[$v['name']]) ? '1' : '0');
 					}
 				}
-			return update_option(YKSMF_OPTION, $this->optionVal);
+			return update_option(YKSEME_OPTION, $this->optionVal);
 			}
 		}
 	return false;
@@ -301,7 +304,7 @@ public function deleteList($i=false)
 	else
 		{
 		unset($this->optionVal['lists'][$i]);
-		return update_option(YKSMF_OPTION, $this->optionVal);
+		return update_option(YKSEME_OPTION, $this->optionVal);
 		}
 	} 
 
@@ -314,18 +317,18 @@ public function deleteList($i=false)
 public function addStyles()
 	{
 	// Register Styles
-	wp_register_style('yksmf-css-base', 				YKSMF_URL.'css/style.yksmf.css', 									array(), '1.0.0', 'all');
+	wp_register_style('ykseme-css-base', 				YKSEME_URL.'css/style.ykseme.css', 									array(), '1.0.0', 'all');
 	// Enqueue Styles
 	wp_enqueue_style('thickbox');
-	wp_enqueue_style('yksmf-css-base');
+	wp_enqueue_style('ykseme-css-base');
 	}
 	
 public function addStyles_frontend()
 	{
 	// Register Styles
-	wp_register_style('yksmf-css-base', 				YKSMF_URL.'css/style.yksmf.css', 									array(), '1.0.0', 'all');
+	wp_register_style('ykseme-css-base', 				YKSEME_URL.'css/style.ykseme.css', 									array(), '1.0.0', 'all');
 	// Enqueue Styles
-	wp_enqueue_style('yksmf-css-base');
+	wp_enqueue_style('ykseme-css-base');
 	}
 	
 public function addScripts()
@@ -336,7 +339,7 @@ public function addScripts()
 	wp_enqueue_script('thickbox');
 	wp_enqueue_script('jquery-ui-sortable');
 	wp_enqueue_script('jquery-ui-tabs');
-	wp_enqueue_script('yksmf-base',				  		YKSMF_URL.'js/script.yksmf.js',										array('jquery'));
+	wp_enqueue_script('ykseme-base',				  		YKSEME_URL.'js/script.ykseme.js',										array('jquery'));
 	}
 	
 public function addScripts_frontend()
@@ -359,15 +362,28 @@ public function processShortcode($p)
 	&& (is_array($this->optionVal['lists'][$p['id']]) && !empty($this->optionVal['lists'][$p['id']]['list-id'])))
 		{
 		$list	= $this->optionVal['lists'][$p['id']];
-		include YKSMF_PATH.'templates/shortcode_form.php';
+		if(!in_array($list, $this->currentLists))
+			{
+			include YKSEME_PATH.'templates/shortcode_form.php';
+			$this->currentLists[]	= $list;
+			}
+		else
+			{
+			require_once YKSEME_PATH.'templates/shortcode_error_exists.php';
+			}
 		}
 	else
 		{
-		require_once YKSMF_PATH.'templates/shortcode_error.php';
+		require_once YKSEME_PATH.'templates/shortcode_error_data.php';
 		}
 	$shortcode = ob_get_contents();
 	ob_end_clean();
 	return $shortcode;
+	}
+public function processSnippet($list=false)
+	{
+	$p	= array('id' => $list);
+	return $this->processShortcode($p);
 	}
 
 
@@ -379,7 +395,7 @@ public function processShortcode($p)
 public function addAdministrationMenu()
 	{
 	// Top Level Menu
-	add_menu_page('Mailchimp Form', 'Mailchimp Form', 'manage_options', 'yks-mailchimp-form', array(&$this, 'generatePageOptions'), YKSMF_URL.'images/yksmf_16px.png', 400);
+	add_menu_page('Mailchimp Form', 'Mailchimp Form', 'manage_options', 'yks-mailchimp-form', array(&$this, 'generatePageOptions'), YKSEME_URL.'images/ykseme_16px.png', 400);
 	// Sub Items
 	add_submenu_page('yks-mailchimp-form', 'Manage Lists', 'Manage Lists', 'manage_options', 'yks-mailchimp-form-lists', array(&$this, 'generatePageLists'));
 	}
@@ -392,11 +408,11 @@ public function addAdministrationMenu()
  ****************************************************************************************************/
 public function generatePageOptions()
 	{
-	require_once YKSMF_PATH.'pages/options.php';
+	require_once YKSEME_PATH.'pages/options.php';
 	}
 public function generatePageLists()
 	{
-	require_once YKSMF_PATH.'pages/lists.php';
+	require_once YKSEME_PATH.'pages/lists.php';
 	}
 	
 
@@ -458,6 +474,10 @@ public function generateListContainers($listArr=false)
 								<td><strong>[yks-mailchimp-list id="<?php echo $list['id']; ?>"]</strong></td>
 							</tr>
 							<tr valign="top">
+								<th scope="row"><label for="yks-mailchimp-api-key">Snippet</label></th>
+								<td><strong><?php echo htmlentities('<?php echo yksemeProcessSnippet(\''.$list['id'].'\'); ?>'); ?></strong></td>
+							</tr>
+							<tr valign="top">
 								<th scope="row"><label for="yks-mailchimp-api-key">Mailchimp List Id</label></th>
 								<td><input name="yks-mailchimp-list-id" type="text" id="yks-mailchimp-list-id" value="<?php echo $list['list-id']; ?>" class="regular-text" /></td>
 							</tr>
@@ -507,13 +527,13 @@ public function generateDropdown($name, $html='', $sel='', $type=false, $zopt=fa
 	switch($type)
 		{
 		case 'yes_no':
-			return yksmfBase::yesNoDropdown($name, $html, $sel);
+			return yksemeBase::yesNoDropdown($name, $html, $sel);
 			break;
 		case 'and_or':
-			return yksmfBase::andOrDropdown($name, $html, $sel);
+			return yksemeBase::andOrDropdown($name, $html, $sel);
 			break;
 		case 'wpsc_products':
-			return yksmfBase::wpscProductDropdown($name, $html, $sel, $zopt);
+			return yksemeBase::wpscProductDropdown($name, $html, $sel, $zopt);
 			break;
 			
 		default:

@@ -52,9 +52,9 @@
 		});
 </script>
 <div class="wrap">
-	<div id="yksmf-icon" class="icon32"><br /></div>
+	<div id="ykseme-icon" class="icon32"><br /></div>
 	
-	<h2 id="yksmf-page-header">
+	<h2 id="ykseme-page-header">
 		Yikes' Mailchimp Form
 	</h2>
 

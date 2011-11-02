@@ -1,9 +1,9 @@
 <?php
-add_action('wp_ajax_yks_mailchimp_form', 'yksmf_ajaxActions');
-function yksmf_ajaxActions()
+add_action('wp_ajax_yks_mailchimp_form', 'ykseme_ajaxActions');
+function ykseme_ajaxActions()
 	{
-	global $yksmfBase;
-	require_once YKSMF_PATH.'process/ajax.php';
+	global $yksemeBase;
+	require_once YKSEME_PATH.'process/ajax.php';
 	exit;
 	}
 ?>

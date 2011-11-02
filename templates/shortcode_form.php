@@ -36,7 +36,7 @@ endif; endforeach;
 				$('#yks-status-<?php echo $list['id']; ?>').slideUp('fast');
 				$.ajax({
 					type:	'POST',
-					url:	'<?php echo YKSMF_URL_WP_AJAX; ?>',
+					url:	'<?php echo YKSEME_URL_WP_AJAX; ?>',
 					data: {
 								action:					'yks_mailchimp_form',
 								form_action:		'frontend_submit_form',

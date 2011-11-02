@@ -16,7 +16,7 @@ default:
 	break;
 	
 case 'update_api_key':
-	$action	= $yksmfBase->updateApiKey($_POST['api_key']);
+	$action	= $yksemeBase->updateApiKey($_POST['api_key']);
 	if($action)
 		{
 		echo '1';
@@ -25,7 +25,7 @@ case 'update_api_key':
 	break;
 
 case 'list_add':
-	$list	= $yksmfBase->addList();
+	$list	= $yksemeBase->addList();
 	if($list)
 		{
 		echo json_encode($list);
@@ -34,7 +34,7 @@ case 'list_add':
 	break;
 	
 case 'list_update':
-	$action	= $yksmfBase->updateList($_POST);
+	$action	= $yksemeBase->updateList($_POST);
 	if($action)
 		{
 		echo '1';
@@ -43,7 +43,7 @@ case 'list_update':
 	break;
 	
 case 'list_sort':
-	$action	= $yksmfBase->sortList($_POST);
+	$action	= $yksemeBase->sortList($_POST);
 	if($action)
 		{
 		echo '1';
@@ -52,7 +52,7 @@ case 'list_sort':
 	break;
 	
 case 'list_delete':
-	$action	= $yksmfBase->deleteList($_POST['id']);
+	$action	= $yksemeBase->deleteList($_POST['id']);
 	if($action)
 		{
 		echo '1';
@@ -61,7 +61,7 @@ case 'list_delete':
 	break;
 
 case 'frontend_submit_form':
-	$action	= $yksmfBase->addUserToMailchimp($_POST);
+	$action	= $yksemeBase->addUserToMailchimp($_POST);
 	if($action)
 		{
 		echo '1';
