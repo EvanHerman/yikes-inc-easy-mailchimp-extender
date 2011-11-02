@@ -4,7 +4,7 @@ Donate link: http://yikesinc.com
 Tags: mailchimp, forms, e-commerce
 Requires at least: 3.2
 Tested up to: 3.2
-Stable tag: v1.0.1
+Stable tag: v1.0.0
 
 The MailChimp extender allows you to easily control your eMarketing with the simple addition of a shortcode or with the addition of simple php in your template file.
 
