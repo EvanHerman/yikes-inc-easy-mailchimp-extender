@@ -6,7 +6,7 @@ Requires at least: 3.2
 Tested up to: 3.2
 Stable tag: v1.0.0
 
-The MailChimp extender allows you to easily control your eMarketing with the simple addition of a shortcode or with the addition of simple php in your template file.
+The MailChimp extender allows you to easily control your eMarketing with the simple addition of a shortcode or php snippet.
 
 == Description ==
 
@@ -27,13 +27,21 @@ The advantages of using MailChimp are vast and now you can expand upon its abili
 
 == Frequently Asked Questions ==
 
+* Do I need to have a Mailchimp Account?
+Yes, you can register one for free at https://mailchimp.com/signup/. You get 12,000 emails per month free.
 
+* Do I need to already have lists configured?
+Yes, you can configure them through mailchimp. All the plugin needs is your list id.
 
 == Screenshots ==
 
-
+* http://www.yikesinc.com/img/wp_plugins/yks-easy-mailchimp-extender/sidebar.png
+* http://www.yikesinc.com/img/wp_plugins/yks-easy-mailchimp-extender/options.png
+* http://www.yikesinc.com/img/wp_plugins/yks-easy-mailchimp-extender/list.png
 
 == Changelog ==
 
 = v1.0.0 =
 * Initial Release
+
+== Upgrade Notice ==
