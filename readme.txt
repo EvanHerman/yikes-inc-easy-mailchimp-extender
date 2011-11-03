@@ -35,9 +35,9 @@ Yes, you can configure them through mailchimp. All the plugin needs is your list
 
 == Screenshots ==
 
-* http://www.yikesinc.com/img/wp_plugins/yks-easy-mailchimp-extender/sidebar.png
-* http://www.yikesinc.com/img/wp_plugins/yks-easy-mailchimp-extender/options.png
-* http://www.yikesinc.com/img/wp_plugins/yks-easy-mailchimp-extender/list.png
+1. Sidebar menu
+2. Options page
+3. List page
 
 == Changelog ==
 
