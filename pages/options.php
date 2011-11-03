@@ -55,7 +55,7 @@
 	<div id="ykseme-icon" class="icon32"><br /></div>
 	
 	<h2 id="ykseme-page-header">
-		Yikes' Mailchimp Form
+		Easy Mailchimp Extender
 	</h2>
 
 	<h3>Manage the Mailchimp API Form Options</h3>

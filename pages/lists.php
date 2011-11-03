@@ -151,7 +151,7 @@
 	<div id="ykseme-icon" class="icon32"><br /></div>
 	
 	<h2 id="ykseme-page-header">
-		Yikes' Mailchimp Form
+		Easy Mailchimp Extender
 		<a href="#" class="button add-new-h2 yks-mailchimp-list-add">Add New List</a>
 	</h2>
 
