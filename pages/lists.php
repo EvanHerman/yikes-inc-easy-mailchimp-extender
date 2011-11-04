@@ -157,6 +157,17 @@
 
 	<h3>Manage the Mailchimp Lists</h3>
 	
+	<div class="yks-status" style="display: block;">
+		<div class="yks-notice">
+			<p>
+				<strong>Notice:</strong> For the lists to work correctly right now, you need to use specific names for the MERGE VARS. I'm working on a proper fix that will allow you to use custom MERGE VARS, until then, please name them as follows:<br />
+				<strong>First Name:</strong> *|FNAME|*<br />
+				<strong>Last Name:</strong> *|LNAME|*<br />
+				<strong>Address:</strong> *|ADDR1|*
+			</p>
+		</div>
+	</div>
+	
 	<div id="yks-list-wrapper"><?php echo $this->generateListContainers(); ?></div>
 	
 </div>

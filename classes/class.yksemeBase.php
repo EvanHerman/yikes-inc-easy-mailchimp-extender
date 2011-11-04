@@ -429,17 +429,43 @@ public function addUserToMailchimp($p)
 		if(!empty($fd['yks-mailchimp-list-id']))
 			{
 			$api	= new MCAPI($this->optionVal['api-key']);
-			$mv = array(
-										'FNAME'			=> $fd['yks-mailchimp-field-name-first'],
-										'LNAME'			=> $fd['yks-mailchimp-field-name-last'],
-										'address1'	=> array(
-																	'addr1'	=> $fd['yks-mailchimp-field-address'].(!empty($fd['yks-mailchimp-field-apt-suite']) ? ' '.$fd['yks-mailchimp-field-apt-suite'] : ''),
-																	'city'	=> $fd['yks-mailchimp-field-city'],
-																	'state'	=> $fd['yks-mailchimp-field-state'],
-																	'zip'		=> $fd['yks-mailchimp-field-zip']
-																),
-										'phone'			=> $fd['yks-mailchimp-field-phone']
-									);
+			$mv = array();
+			
+			// First name
+			if(isset($fd['yks-mailchimp-field-phone']))
+				{
+				$mv['FNAME']	= $fd['yks-mailchimp-field-name-first'];
+				}
+				
+			// Last name
+			if(isset($fd['yks-mailchimp-field-phone']))
+				{
+				$mv['LNAME']	= $fd['yks-mailchimp-field-name-last'];
+				}
+			
+			// Address
+			if(isset($fd['yks-mailchimp-field-address'])
+			|| isset($fd['yks-mailchimp-field-apt-suite'])
+			|| isset($fd['yks-mailchimp-field-city'])
+			|| isset($fd['yks-mailchimp-field-state'])
+			|| isset($fd['yks-mailchimp-field-zip']))
+				{
+				$mv['ADDR1']	= array(
+												'addr1'=> $fd['yks-mailchimp-field-address'].(!empty($fd['yks-mailchimp-field-apt-suite']) ? ' '.$fd['yks-mailchimp-field-apt-suite'] : ''),
+												'city'	=> $fd['yks-mailchimp-field-city'],
+												'state'	=> $fd['yks-mailchimp-field-state'],
+												'zip'		=> $fd['yks-mailchimp-field-zip']
+											);
+				}
+				
+			// Phone
+			if(isset($fd['yks-mailchimp-field-phone']))
+				{
+				$mv['PHONE']	= $fd['yks-mailchimp-field-phone'];
+				}
+				
+
+			
 			// By default this sends a confirmation email - you will not see new members
 			// until the link contained in it is clicked!
 			$retval = $api->listSubscribe($fd['yks-mailchimp-list-id'], $fd['yks-mailchimp-field-email'], $mv);

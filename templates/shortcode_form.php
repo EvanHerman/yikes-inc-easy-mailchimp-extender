@@ -54,6 +54,7 @@ endif; endforeach;
 							}
 						else
 							{
+							$('#ykfmc-submit_<?php echo $list['id']; ?>').removeAttr('disabled');
 							$('#yks-status-<?php echo $list['id']; ?>').html('<div class="yks-error"><p>There was an error submiting the form -- please try again!</p></div>');
 							$('#yks-status-<?php echo $list['id']; ?>').slideDown('fast');
 							}

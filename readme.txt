@@ -4,7 +4,7 @@ Donate link: http://yikesinc.com
 Tags: mailchimp, marketing, email, mailing lists, newsletter, signup
 Requires at least: 3.2
 Tested up to: 3.2
-Stable tag: 1.0.1
+Stable tag: 1.1.0
 
 The YIKES, Inc. MailChimp extender allows you to easily add a MailChimp signup form to a page or post using a shortcode or template tag.
 
@@ -40,13 +40,20 @@ For more help visit [The API Key Help Article](http://kb.mailchimp.com/article/w
 From your MailChimp Dashboard go to Lists. Under the specific list you want to make a signup form for, click settings > list settings and unique ID.
 For more help visit [The List Id Help Article](http://kb.mailchimp.com/article/how-can-i-find-my-list-id/ "List Id Help Article")
 
+= My Information isn't showing up when people subscribe! =
+This is a temporary issue that has to do with the MERGE VARS naming. Follow the instruction of the notice on the lists page. The next major version will fix this issue.
+
 == Screenshots ==
 
 1. Sidebar menu
 2. Options page
 3. List page
+4. List setup you need to use
 
 == Changelog ==
+
+= 1.1.0 =
+* Changed the list logic and added a notice for the MERGE VAR naming schema
 
 = 1.0.1 =
 * Changed CSS paths from Absolute to Relative
