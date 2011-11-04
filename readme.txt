@@ -4,7 +4,7 @@ Donate link: http://yikesinc.com
 Tags: mailchimp, marketing, email, mailing lists, newsletter, signup
 Requires at least: 3.2
 Tested up to: 3.2
-Stable tag: 1.0.0
+Stable tag: 1.0.1
 
 The YIKES, Inc. MailChimp extender allows you to easily add a MailChimp signup form to a page or post using a shortcode or template tag.
 
@@ -47,6 +47,9 @@ For more help visit [The List Id Help Article](http://kb.mailchimp.com/article/h
 3. List page
 
 == Changelog ==
+
+= 1.0.1 =
+* Changed CSS paths from Absolute to Relative
 
 = 1.0.0 =
 * Initial Release

@@ -1,6 +1,6 @@
 #ykseme-icon
 	{
-	background: transparent url('/wp-content/plugins/yikes-inc-easy-mailchimp-extender/images/ykseme_32px_color.png') no-repeat 0 0;
+	background: transparent url('../images/ykseme_32px_color.png') no-repeat 0 0;
 	}
 	
 .yks-status
@@ -54,7 +54,7 @@
 		
 .yks-mailchimp-sorthandle
 	{
-	background: 	transparent url('/wp-content/plugins/yikes-inc-easy-mailchimp-extender/images/16px_sortable_color.png') no-repeat 0 0;
+	background: 	transparent url('../images/16px_sortable_color.png') no-repeat 0 0;
 	margin:				4px 7px 2px 4px !important;
 	padding:			0;
 	overflow:			hidden;
