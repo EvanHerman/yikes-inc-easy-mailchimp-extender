@@ -52,7 +52,7 @@ public function uninstall()
 
 /***** INITIAL SETUP
  ****************************************************************************************************/
-private function initialize()
+public function initialize()
 	{
 	// If it's not already set up, initialize our plugin session
 	if(session_id() == '') session_start();
@@ -76,6 +76,8 @@ private function initialize()
 	$this->createShortcodes();
 	// Initialize current list array
 	$this->currentLists	= array();
+	// Do any update tasks if needed
+	$this->runUpdateCheck();
 	}
 public function createShortcodes()
 	{
@@ -84,6 +86,7 @@ public function createShortcodes()
 public function getOptionValue()
 	{
 	$defaultVals	= array(
+									'version'	=> '',
 									'api-key'	=> '',
 									'lists'		=> array()
 								);
@@ -91,7 +94,15 @@ public function getOptionValue()
 	$this->optionVal	= $ov;
 	return $ov;
 	}
-	
+private function runUpdateCheck()
+	{
+	if(!isset($this->optionVal['version'])
+	|| $this->optionVal['version'] < YKSEME_VERSION_CURRENT)
+		{
+		$this->runUpdateTasks();
+		}
+	}
+
 
 
 
@@ -119,9 +130,9 @@ public function getBlankFieldsArray()
 						'id'			=> uniqid(),
 						'name'		=> 'yks-mailchimp-field-name-first',
 						'label'		=> 'First Name',
-						'require'	=> '1',
+						'require'	=> '0',
 						'active'	=> '1',
-						'locked'	=> '1',
+						'locked'	=> '0',
 						'sort'		=> 0
 						);
 	$fields[$addField['id']]	= $addField;
@@ -131,9 +142,9 @@ public function getBlankFieldsArray()
 						'id'			=> uniqid(),
 						'name'		=> 'yks-mailchimp-field-name-last',
 						'label'		=> 'Last Name',
-						'require'	=> '1',
+						'require'	=> '0',
 						'active'	=> '1',
-						'locked'	=> '1',
+						'locked'	=> '0',
 						'sort'		=> 1
 						);
 	$fields[$addField['id']]	= $addField;
@@ -222,6 +233,11 @@ public function getBlankFieldsArray()
 public function updateApiKey($k)
 	{
 	$this->optionVal['api-key']	= $k; 
+	return update_option(YKSEME_OPTION, $this->optionVal);
+	}
+public function updateVersion($k)
+	{
+	$this->optionVal['version']	= $k; 
 	return update_option(YKSEME_OPTION, $this->optionVal);
 	}
 
@@ -583,6 +599,57 @@ private function andOrDropdown($name, $html, $sel)
 	// Dropdown
 	$dd	= '<select name="'.$name.'" id="'.$name.'"'.(!empty($html) ? ' '.$html : '').'>'.$ddo.'</select>';
 	return $dd;
+	}
+
+
+
+
+
+/***** UPDATES
+ ****************************************************************************************************/
+public function runUpdateTasks()
+	{
+	$currentVersion	= (!isset($this->optionVal['version']) || empty($this->optionVal['version']) ? '1.1.0' : $this->optionVal['version']);
+	$latestVersion	= YKSEME_VERSION_CURRENT;
+	if($currentVersion < $latestVersion)
+		{
+		$updateFunction	= 'runUpdateTasks_'.str_replace('.', '_', $currentVersion);
+		if(!method_exists($this, $updateFunction)) return false;
+		else
+			{
+			$updatedOptionVal	= call_user_func(array(&$this, $updateFunction));
+			update_option(YKSEME_OPTION, $this->optionVal);
+			if($updatedVersion > $currentVersion) $this->runUpdateTasks();
+			}
+		}
+	else return false;
+	}
+	
+/**
+ * This update make the first name and last name optional
+ * To do this we need to loop through the existing fields and
+ * change the 'require' key to 0
+ */
+private function runUpdateTasks_1_1_0()
+	{
+	if($this->optionVal['lists'])
+		{
+		foreach($this->optionVal['lists'] as $lid => $list)
+			{
+			foreach($list['fields'] as $fid => $field)
+				{
+				switch($field['name'])
+					{
+					case 'yks-mailchimp-field-name-first':
+					case 'yks-mailchimp-field-name-last':
+						$this->optionVal['lists'][$lid]['fields'][$fid]['locked'] = 0;
+						break;
+					}
+				}
+			}
+		}
+	$this->optionVal['version']	= '1.2.0';
+	return true;
 	}
 			
 		

@@ -4,7 +4,7 @@ Donate link: http://yikesinc.com
 Tags: mailchimp, marketing, email, mailing lists, newsletter, signup
 Requires at least: 3.2
 Tested up to: 3.2
-Stable tag: 1.1.0
+Stable tag: 1.2.0
 
 The YIKES, Inc. MailChimp extender allows you to easily add a MailChimp signup form to a page or post using a shortcode or template tag.
 
@@ -15,6 +15,8 @@ The MailChimp extender allows you to easily control your eMarketing with the add
 In addition, this plugin allows you to customize your signup forms with CSS. You can add as many of the base MailChimp list fields as you like and order them via an easy drag-and-drop interface.
 
 Targeted email messages are a more effective form of eMarketing for your business. The advantages of using MailChimp are vast and now you can expand upon its abilities in Wordpress easily. With simple installation and easy to follow instructions, this extender will considerably improve your email marketing campaigns.
+
+If you notice any issues, please submit a bug on our [Github Issue Tracker](https://github.com/yikesinc/yikes-inc-easy-mailchimp-extender/issues "Github Issue Tracker") and I'll look in to it as soon as possible.
 
 == Installation ==
 
@@ -52,6 +54,10 @@ This is a temporary issue that has to do with the MERGE VARS naming. Follow the 
 
 == Changelog ==
 
+= 1.2.0 =
+* Removed required from First Name and Last Name fields
+* Added update routines for future versions
+
 = 1.1.0 =
 * Changed the list logic and added a notice for the MERGE VAR naming schema
 
@@ -62,3 +68,6 @@ This is a temporary issue that has to do with the MERGE VARS naming. Follow the 
 * Initial Release
 
 == Upgrade Notice ==
+
+= 1.2.0 =
+* First Name and Last Name fields are no longer required
