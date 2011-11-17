@@ -160,7 +160,7 @@
 	<div class="yks-status" style="display: block;">
 		<div class="yks-notice">
 			<p>
-				<strong>Notice:</strong> This plugin is actively in development. If you experience any bugs or have a feature request, please submit them to our <a href="https://github.com/yikesinc/yikes-inc-easy-mailchimp-extender">Github Issue Tracker</a>.
+				<strong>Notice:</strong> when adding custom merge vars, keep in mind that apt, city, state and zip all use the address merge var because of the way MailChimp processes those fields. If you experience any bugs or have a feature request, please submit them to our <a href="https://github.com/yikesinc/yikes-inc-easy-mailchimp-extender">Github Issue Tracker</a>.
 			</p>
 		</div>
 	</div>

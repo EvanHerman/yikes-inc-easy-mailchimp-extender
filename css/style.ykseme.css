@@ -42,6 +42,10 @@
 		margin: 15px auto 15px auto;
 		text-align: center;
 		}
+		.yks-status .yks-notice p
+			{
+			padding: 5px;
+			}
 		
 .yks-mailchimp-fields-td
 	{
