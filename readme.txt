@@ -54,6 +54,9 @@ This is a temporary issue that has to do with the MERGE VARS naming. Follow the 
 
 == Changelog ==
 
+= 1.3.0 =
+* Added custom merge_vars field
+
 = 1.2.0 =
 * Removed required from First Name and Last Name fields
 * Added update routines for future versions
@@ -68,6 +71,9 @@ This is a temporary issue that has to do with the MERGE VARS naming. Follow the 
 * Initial Release
 
 == Upgrade Notice ==
+
+= 1.3.0 =
+* Custom merge vars allows more customized field configuration
 
 = 1.2.0 =
 * First Name and Last Name fields are no longer required
