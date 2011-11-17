@@ -109,18 +109,6 @@ private function runUpdateCheck()
 
 /***** FUNCTIONS
  ****************************************************************************************************/
-public function multidimensionalArraySearch($parents, $searched)
-	{ 
-  if(empty($searched) || empty($parents)) return false;
-  foreach($parents as $key => $value)
-  	{ 
-    $exists	= true; 
-    foreach($searched as $skey => $svalue)
-    	$exists = ($exists && IsSet($parents[$key][$skey]) && $parents[$key][$skey] == $svalue);
-    if($exists){ return $key; }
-  } 
-  return false; 
-	}
 public function getBlankFieldsArray()
 	{
 	$fields		= array();
@@ -128,11 +116,12 @@ public function getBlankFieldsArray()
 	// Add Field
 	$addField	= array(
 						'id'			=> uniqid(),
-						'name'		=> 'yks-mailchimp-field-name-first',
-						'label'		=> 'First Name',
-						'require'	=> '0',
+						'name'		=> 'yks-mailchimp-field-email',
+						'merge'		=> 'EMAIL',
+						'label'		=> 'Email',
+						'require'	=> '1',
 						'active'	=> '1',
-						'locked'	=> '0',
+						'locked'	=> '1',
 						'sort'		=> 0
 						);
 	$fields[$addField['id']]	= $addField;
@@ -140,8 +129,9 @@ public function getBlankFieldsArray()
 	// Add Field
 	$addField	= array(
 						'id'			=> uniqid(),
-						'name'		=> 'yks-mailchimp-field-name-last',
-						'label'		=> 'Last Name',
+						'name'		=> 'yks-mailchimp-field-name-first',
+						'merge'		=> 'FNAME',
+						'label'		=> 'First Name',
 						'require'	=> '0',
 						'active'	=> '1',
 						'locked'	=> '0',
@@ -152,11 +142,12 @@ public function getBlankFieldsArray()
 	// Add Field
 	$addField	= array(
 						'id'			=> uniqid(),
-						'name'		=> 'yks-mailchimp-field-email',
-						'label'		=> 'Email',
-						'require'	=> '1',
+						'name'		=> 'yks-mailchimp-field-name-last',
+						'merge'		=> 'LNAME',
+						'label'		=> 'Last Name',
+						'require'	=> '0',
 						'active'	=> '1',
-						'locked'	=> '1',
+						'locked'	=> '0',
 						'sort'		=> 2
 						);
 	$fields[$addField['id']]	= $addField;
@@ -165,6 +156,7 @@ public function getBlankFieldsArray()
 	$addField	= array(
 						'id'			=> uniqid(),
 						'name'		=> 'yks-mailchimp-field-address',
+						'merge'		=> 'ADDR1',
 						'label'		=> 'Address',
 						'require'	=> '0',
 						'active'	=> '0',
@@ -177,6 +169,7 @@ public function getBlankFieldsArray()
 	$addField	= array(
 						'id'			=> uniqid(),
 						'name'		=> 'yks-mailchimp-field-apt-suite',
+						'merge'		=> false,
 						'label'		=> 'Apt/Suite',
 						'require'	=> '0',
 						'active'	=> '0',
@@ -189,6 +182,7 @@ public function getBlankFieldsArray()
 	$addField	= array(
 						'id'			=> uniqid(),
 						'name'		=> 'yks-mailchimp-field-city',
+						'merge'		=> false,
 						'label'		=> 'City',
 						'require'	=> '0',
 						'active'	=> '0',
@@ -202,6 +196,7 @@ public function getBlankFieldsArray()
 						'id'			=> uniqid(),
 						'name'		=> 'yks-mailchimp-field-state',
 						'label'		=> 'State',
+						'merge'		=> false,
 						'require'	=> '0',
 						'active'	=> '0',
 						'locked'	=> '0',
@@ -213,6 +208,7 @@ public function getBlankFieldsArray()
 	$addField	= array(
 						'id'			=> uniqid(),
 						'name'		=> 'yks-mailchimp-field-zip',
+						'merge'		=> false,
 						'label'		=> 'Zip/Postal Code',
 						'require'	=> '0',
 						'active'	=> '0',
@@ -307,6 +303,10 @@ public function updateList($p)
 					{
 					// Make sure this field was included in the update
 					$this->optionVal['lists'][$fd['yks-mailchimp-unique-id']]['fields'][$k]['active']	= (isset($fd[$v['name']]) ? '1' : '0');
+					if($v['merge'] !== false)
+						{
+						$this->optionVal['lists'][$fd['yks-mailchimp-unique-id']]['fields'][$k]['merge']	= $fd[$v['name'].'-merge'];
+						}
 					}
 				}
 			return update_option(YKSEME_OPTION, $this->optionVal);
@@ -444,19 +444,20 @@ public function addUserToMailchimp($p)
 		parse_str($p['form_data'], $fd);
 		if(!empty($fd['yks-mailchimp-list-id']))
 			{
+			$lid	= $fd['yks-mailchimp-list-id'];
 			$api	= new MCAPI($this->optionVal['api-key']);
-			$mv = array();
+			$mv 	= array();
 			
 			// First name
-			if(isset($fd['yks-mailchimp-field-phone']))
+			if(isset($fd['yks-mailchimp-field-name-first']))
 				{
-				$mv['FNAME']	= $fd['yks-mailchimp-field-name-first'];
+				$mv[$this->getFieldMergeVar('yks-mailchimp-field-name-first', $lid)]	= $fd['yks-mailchimp-field-name-first'];
 				}
 				
 			// Last name
-			if(isset($fd['yks-mailchimp-field-phone']))
+			if(isset($fd['yks-mailchimp-field-name-last']))
 				{
-				$mv['LNAME']	= $fd['yks-mailchimp-field-name-last'];
+				$mv[$this->getFieldMergeVar('yks-mailchimp-field-name-last', $lid)]	= $fd['yks-mailchimp-field-name-last'];
 				}
 			
 			// Address
@@ -466,7 +467,7 @@ public function addUserToMailchimp($p)
 			|| isset($fd['yks-mailchimp-field-state'])
 			|| isset($fd['yks-mailchimp-field-zip']))
 				{
-				$mv['ADDR1']	= array(
+				$mv[$this->getFieldMergeVar('yks-mailchimp-field-address', $lid)]	= array(
 												'addr1'=> $fd['yks-mailchimp-field-address'].(!empty($fd['yks-mailchimp-field-apt-suite']) ? ' '.$fd['yks-mailchimp-field-apt-suite'] : ''),
 												'city'	=> $fd['yks-mailchimp-field-city'],
 												'state'	=> $fd['yks-mailchimp-field-state'],
@@ -477,14 +478,12 @@ public function addUserToMailchimp($p)
 			// Phone
 			if(isset($fd['yks-mailchimp-field-phone']))
 				{
-				$mv['PHONE']	= $fd['yks-mailchimp-field-phone'];
+				$mv[$this->getFieldMergeVar('yks-mailchimp-field-phone', $lid)]	= $fd['yks-mailchimp-field-phone'];
 				}
-				
-
 			
 			// By default this sends a confirmation email - you will not see new members
 			// until the link contained in it is clicked!
-			$retval = $api->listSubscribe($fd['yks-mailchimp-list-id'], $fd['yks-mailchimp-field-email'], $mv);
+			$retval = $api->listSubscribe($lid, $fd['yks-mailchimp-field-email'], $mv);
 		
 			if($api->errorCode)
 				{
@@ -494,6 +493,31 @@ public function addUserToMailchimp($p)
 			}
 		}
 	return false;
+	}
+	
+private function getFieldMergeVar($fn, $lid)
+	{
+	$mk	= '_YKS_UNKNOWN';
+	switch($fn)
+		{
+		case 'yks-mailchimp-field-name-first':
+		case 'yks-mailchimp-field-name-last':
+		case 'yks-mailchimp-field-email':
+		case 'yks-mailchimp-field-address':
+			foreach($this->optionVal['lists'] as $lud => $list)
+				{
+				if($list['list-id'] == $lid)
+					{
+					foreach($this->optionVal['lists'][$lud]['fields'] as $fud => $field)
+						{
+						if($field['name'] == $fn)
+							$mk = $field['merge'];
+						}
+					}
+				}
+			break;
+		}
+	return $mk;
 	}
 	
 public function generateListContainers($listArr=false)
@@ -530,12 +554,15 @@ public function generateListContainers($listArr=false)
 										<legend class="screen-reader-text"><span>Active Fields</span></legend>
 										<div class="yks-mailchimp-fields-list" id="yks-mailchimp-fields-list_<?php echo $list['id']; ?>" rel="<?php echo $list['id']; ?>">
 											<?php foreach($list['fields'] as $field){ ?>
-											<label title="<?php echo $field['name']; ?>" rel="<?php echo $field['id']; ?>">
-												<span class="yks-mailchimp-sorthandle">Drag &amp; drop</span>
-												<input type="checkbox" name="<?php echo $field['name']; ?>" id="<?php echo $field['id']; ?>" value="1" <?php echo ($field['active'] == 1 ? 'checked="checked"' : ''); ?><?php echo ($field['locked'] == 1 ? 'disabled="disabled"' : ''); ?> />
-												&nbsp;
-												<span><?php echo $field['label']; ?></span>
-											</label>
+											<div class="yks-mailchimp-fields-list-row">
+												<label title="<?php echo $field['name']; ?>" rel="<?php echo $field['id']; ?>">
+													<span class="yks-mailchimp-sorthandle">Drag &amp; drop</span>
+													<input type="checkbox" name="<?php echo $field['name']; ?>" id="<?php echo $field['id']; ?>" value="1" <?php echo ($field['active'] == 1 ? 'checked="checked"' : ''); ?><?php echo ($field['locked'] == 1 ? 'disabled="disabled"' : ''); ?> />
+													&nbsp;
+													<span class="yks-mailchimp-field-name"><?php echo $field['label']; ?></span>
+												</label>
+												<span class="yks-mailchimp-field-merge">*|<input type="text" name="<?php echo $field['name']; ?>-merge" id="<?php echo $field['id']; ?>-merge" value="<?php echo $field['merge']; ?>"<?php echo (($field['locked'] == 1 || $field['merge'] == false) ? ' disabled="disabled"' : ''); ?> />|*</span>
+											</div>
 											<?php } ?>
 										</div>
 									</fieldset>
@@ -626,7 +653,7 @@ public function runUpdateTasks()
 	}
 	
 /**
- * This update make the first name and last name optional
+ * This update makes the first name and last name optional
  * To do this we need to loop through the existing fields and
  * change the 'require' key to 0
  */
@@ -649,6 +676,46 @@ private function runUpdateTasks_1_1_0()
 			}
 		}
 	$this->optionVal['version']	= '1.2.0';
+	return true;
+	}
+
+/**
+ * This update adds a merge_vars key to each
+ * field array so that users can specify their
+ * own merge_var names
+ */
+private function runUpdateTasks_1_2_0()
+	{
+	if($this->optionVal['lists'])
+		{
+		foreach($this->optionVal['lists'] as $lid => $list)
+			{
+			$fct = 1;
+			foreach($list['fields'] as $fid => $field)
+				{
+				switch($field['name'])
+					{
+					case 'yks-mailchimp-field-email':
+						$this->optionVal['lists'][$lid]['fields'][$fid]['merge']	= 'EMAIL';
+						break;
+						
+					case 'yks-mailchimp-field-apt-suite':
+					case 'yks-mailchimp-field-city':
+					case 'yks-mailchimp-field-state':
+					case 'yks-mailchimp-field-zip':
+						$this->optionVal['lists'][$lid]['fields'][$fid]['merge']	= false;
+						break;
+						
+					default:
+						if(empty($this->optionVal['lists'][$lid]['fields'][$fid]['merge']) || !isset($this->optionVal['lists'][$lid]['fields'][$fid]['merge']))
+							$this->optionVal['lists'][$lid]['fields'][$fid]['merge']	= 'MERGE'.$fct;
+						$fct++;
+						break;
+					}
+				}
+			}
+		}
+	$this->optionVal['version']	= '1.3.0';
 	return true;
 	}
 			
