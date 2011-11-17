@@ -644,9 +644,11 @@ public function runUpdateTasks()
 		if(!method_exists($this, $updateFunction)) return false;
 		else
 			{
-			$updatedOptionVal	= call_user_func(array(&$this, $updateFunction));
-			update_option(YKSEME_OPTION, $this->optionVal);
-			if($updatedVersion > $currentVersion) $this->runUpdateTasks();
+			if(call_user_func(array(&$this, $updateFunction)))
+				{
+				update_option(YKSEME_OPTION, $this->optionVal);
+				$this->runUpdateTasks();
+				}
 			}
 		}
 	else return false;
