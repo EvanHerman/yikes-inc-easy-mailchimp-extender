@@ -3,8 +3,8 @@ Contributors: seriouslysean
 Donate link: http://yikesinc.com
 Tags: mailchimp, marketing, email, mailing lists, newsletter, signup
 Requires at least: 3.2
-Tested up to: 3.2
-Stable tag: 1.2.0
+Tested up to: 3.3
+Stable tag: 1.3.1
 
 The YIKES, Inc. MailChimp extender allows you to easily add a MailChimp signup form to a page or post using a shortcode or template tag.
 
@@ -54,6 +54,9 @@ This is a temporary issue that has to do with the MERGE VARS naming. Follow the 
 
 == Changelog ==
 
+= 1.3.1 =
+* Added nopriv ajax action for anonymous users
+
 = 1.3.0 =
 * Added custom merge_vars field
 
@@ -71,6 +74,9 @@ This is a temporary issue that has to do with the MERGE VARS naming. Follow the 
 * Initial Release
 
 == Upgrade Notice ==
+
+= 1.3.1 =
+* Fixed form not submitting for anonymous users bug
 
 = 1.3.0 =
 * Custom merge vars allows more customized field configuration

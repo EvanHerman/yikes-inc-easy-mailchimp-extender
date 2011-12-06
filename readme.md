@@ -1,12 +1,13 @@
 YIKES, Inc. Easy MailChimp Extender
 ===========
 
-The MailChimp extender allows you to easily control your eMarketing with the simple addition of a shortcode or with the addition of simple php in your template file. Targeted email messages are a more effective form of eMarketing for your business. This easy to use plugin allows your user to choose the exact information they want to receive.  Simply create your lists in MailChimp and copy and paste the list ID created by MailChimp.
+The MailChimp extender allows you to easily control your eMarketing with the addition of a shortcode in a post or page or a PHP tag in your template file. Simply create your lists in MailChimp and copy and paste the list ID created by MailChimp into the plugin admin.
 
-In addition, this plugin allows you to collect information from your visitors through a custom form. Collect as much or as little detail as you like!
-You can collect information from your visitors such as name, city, zip code to further personalize and target your email marketing.
+In addition, this plugin allows you to customize your signup forms with CSS. You can add as many of the base MailChimp list fields as you like and order them via an easy drag-and-drop interface.
 
-The advantages of using MailChimp are vast and now you can expand upon its abilities easily. With simple installation and easy to follow instructions, this extender will considerably improve your email marketing campaigns.
+Targeted email messages are a more effective form of eMarketing for your business. The advantages of using MailChimp are vast and now you can expand upon its abilities in Wordpress easily. With simple installation and easy to follow instructions, this extender will considerably improve your email marketing campaigns.
+
+If you notice any issues, please submit a bug on our [Github Issue Tracker](https://github.com/yikesinc/yikes-inc-easy-mailchimp-extender/issues "Github Issue Tracker") and I'll look in to it as soon as possible.
 
 Installation
 ===========
@@ -17,8 +18,45 @@ Installation
 1. Activate the plugin
 1. You're finished!
 
+Frequently Asked Questions
+===========
+
+### Do I need to have a MailChimp Account?:
+Yes, you can register one for free at [MailChimp](https://mailchimp.com/signup/ "MailChimp Signup").
+
+### Do I need to already have lists configured?:
+Yes, you can configure them through mailchimp. All the plugin needs is your list id.
+
+### Where do I find my API Key?:
+From your MailChimp Dashboard go to Account > API Keys and Authorized Apps. There you will need to add a key if you do not already have one.
+For more help visit [The API Key Help Article](http://kb.mailchimp.com/article/where-can-i-find-my-api-key/ "API Key Help Article")
+
+### Where do I find my List ID?:
+From your MailChimp Dashboard go to Lists. Under the specific list you want to make a signup form for, click settings > list settings and unique ID.
+For more help visit [The List Id Help Article](http://kb.mailchimp.com/article/how-can-i-find-my-list-id/ "List Id Help Article")
+
+### My Information isn't showing up when people subscribe!:
+This is a temporary issue that has to do with the MERGE VARS naming. Follow the instruction of the notice on the lists page. The next major version will fix this issue.
+
+
 Changes
 ===========
 
-### v1.0.0:
-*Initial Release*
+### 1.3.1:
+*Added nopriv ajax action for anonymous users*
+
+### 1.3.0:
+*Added custom merge_vars field*
+
+### 1.2.0:
+*Removed required from First Name and Last Name fields*
+*Added update routines for future versions*
+
+### 1.1.0:
+*Changed the list logic and added a notice for the MERGE VAR naming schema*
+
+### 1.0.1:
+*Changed CSS paths from Absolute to Relative*
+
+### 1.0.0:
+*Initial Release
