@@ -3,6 +3,20 @@
 	background: transparent url('../images/ykseme_32px_color.png') no-repeat 0 0;
 	}
 	
+#yksme-yikes-logo
+	{
+	padding: ;
+	margin: 0 0 15px 15px;
+	width: 400px;
+	height: 395px;
+	clear: right;
+	float: right;
+	display: block;
+	}
+.yks-hidden
+	{
+	display: none;
+	}
 .yks-status
 	{
 	display: none;
@@ -40,12 +54,40 @@
 		background: #CCDDFF;
 		clear: both;
 		margin: 15px auto 15px auto;
-		text-align: center;
+		padding: 5px;
+		position: relative;
+		text-align: left;
 		}
+		.yks-status .yks-notice a.yks-notice-close,
+		.yks-status .yks-notice a.yks-notice-close:active,
+		.yks-status .yks-notice a.yks-notice-close:link,
+		.yks-status .yks-notice a.yks-notice-close:visited
+			{
+			background: #0033AA;
+			color: #FFF;
+			position: absolute;
+			padding: 0 5px !important;
+			margin: 0 !important;
+			top: 0;
+			right: 0;
+			font-size: 10px;
+			text-decoration: none;
+			}
+			.yks-status .yks-notice a.yks-notice-close:hover
+				{
+				text-decoration: underline;
+				}
 		.yks-status .yks-notice p
 			{
 			padding: 5px;
 			}
+			
+.yks-notice-toggle
+	{
+	background: #c9cced !important;
+	border-color: #9ea0ba !important;
+	color: #3c3a44 !important;
+	}
 		
 .yks-mailchimp-fields-td
 	{
@@ -82,6 +124,12 @@
 .yks-mailchimp-delete {
 	background: #890B0B !important;
 	border-color: #890B0B !important; 
+	}
+.yks-mailchimp-import {
+	background: #ffc000 !important;
+	border-color: #ffc000 !important;
+	float: right;
+	margin: 0 10px 0 0;
 	}
 	
 #yks-list-wrapper .yks-list-container
@@ -135,4 +183,50 @@
 .yks-mailchimpFormTableSubmit
 	{
 	text-align:	center;
+	}
+	
+.yks-mailchimpFormTableRow,
+.yks-mailchimpFormDivRow
+	{
+	width: 100%;
+	}
+.yks-mailchimpFormTableRowLabel,
+.yks-mailchimpFormTableRowField,
+.yks-mailchimpFormDivRowLabel,
+.yks-mailchimpFormDivRowField
+	{
+	vertical-align: top !important;
+	}
+.yks-mailchimpFormDivRowLabel,
+.yks-mailchimpFormDivRowField
+	{
+	display: inline-block;
+	width: 50%;
+	}
+.yks-mailchimpFormDivSubmit
+	{
+	display: inline-block;
+	width: 100%;
+	}
+
+.yks-mailchimp-form-tooltip
+	{
+	color: #CCC !important;
+	font-size: 10px;
+	margin: 0;
+	padding: 0 0 0 10px;
+	}
+	
+#yks-mailchimp-debug-info,
+#yks-mailchimp-debug-info table,
+#yks-mailchimp-debug-info table label,
+#yks-mailchimp-debug-info table th,
+#yks-mailchimp-debug-info table td
+	{
+	color: #CCC !important;
+	font-size: 10px;
+	margin-top: 0;
+	margin-bottom: 0;
+	padding-top: 0;
+	padding-bottom: 0;
 	}

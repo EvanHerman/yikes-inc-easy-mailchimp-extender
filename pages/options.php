@@ -27,21 +27,21 @@
 					type:	'POST',
 					url:	ajaxurl,
 					data: {
-								action:					'yks_mailchimp_form',
-								form_action:		'update_api_key',
-								api_key:				$('#yks-mailchimp-api-key').val()
+								action:				'yks_mailchimp_form',
+								form_action:	'update_options',
+								form_data:			$('#yks-mailchimp-form').serialize()
 								},
 					dataType: 'json',
 					success: function(MAILCHIMP)
 						{
 						if(MAILCHIMP == '1')
 							{
-							$('#yks-status').html('<div class="yks-success"><p>The api key was saved successfully!</p></div>');
+							$('#yks-status').html('<div class="yks-success"><p>The options were saved successfully!</p></div>');
 							$('#yks-status').slideDown('fast');
 							}
 						else
 							{
-							$('#yks-status').html('<div class="yks-error"><p>The api key could not be saved (or you forgot to change it)!</p></div>');
+							$('#yks-status').html('<div class="yks-error"><p>The options could not be saved (or you forgot to change them)!</p></div>');
 							$('#yks-status').slideDown('fast');
 							}
 						}
@@ -72,11 +72,48 @@
 					<td><input name="yks-mailchimp-api-key" type="text" id="yks-mailchimp-api-key" value="<?php echo $this->optionVal['api-key']; ?>" class="regular-text" /></td>
 				</tr>
 				
+				<tr valign="top">
+					<th scope="row"><label for="yks-mailchimp-flavor">What's Your Flavor?</label></th>
+					<td>
+						<select name="yks-mailchimp-flavor" id="yks-mailchimp-flavor" class="regular-text" />
+							<option value="0"<?php echo ($this->optionVal['flavor'] === '0' ? ' selected' : ''); ?>>Tables</option>
+							<option value="1"<?php echo ($this->optionVal['flavor'] === '1' ? ' selected' : ''); ?>>Divs</option>
+						</select>
+						<span class="description">What you choose determines how the form is built with the shortcode (Default: Tables)</span>
+					</td>
+				</tr>
+				
 			</tbody>
 		</table>
 
-		<p class="submit"><input type="submit" name="submit" id="submit" class="button-primary" value="Save API Key"></p>
+		<p class="submit"><input type="submit" name="submit" id="submit" class="button-primary" value="Update Options"></p>
 	
 	</form>
+	
+	<div id="yks-mailchimp-debug-info">
+		<table class="form-table">
+			<tbody>
+				
+				<tr valign="top">
+					<th scope="row"><label>Plugin Version</label></th>
+					<td><?php echo YKSEME_VERSION_CURRENT; ?></td>
+				</tr>
+				<tr valign="top">
+					<th scope="row"><label>Wordpress Version</label></th>
+					<td><?php echo get_bloginfo( 'version' ); ?></td>
+				</tr>
+				<tr valign="top">
+					<th scope="row"><label>Browser Information</label></th>
+					<td>
+						<?php
+						$theBrowser = $this->getBrowser();
+						echo $theBrowser['name'].' '.$theBrowser['version'].' on '.$theBrowser['platform'];
+						?>
+					</td>
+				</tr>
+				
+			</tbody>
+		</table>
+	</div>
 	
 </div>

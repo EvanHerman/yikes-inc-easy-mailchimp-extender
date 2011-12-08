@@ -1,25 +1,10 @@
-<?php
-$yksFormReqJs		= '';
-$yksFormFields	= '';
-foreach($list['fields'] as $field) : if($field['active'] == 1) :
-	// Setup javascript
-	if($field['require'] == '1') $yksFormReqJs .= "\n".'if($(\'#'.$field['id'].'\').val() == \'\'){msg+= \'* '.$field['label'].'\'+"\n";err++;}'."\n";
-	// Setup form fields
-	$yksFormFields	.= '<tr>';
-		$yksFormFields	.= '<td class="prompt">'.$field['label'].'</td>';
-		$yksFormFields	.= '<td>';
-			$yksFormFields	.= '<input type="text" name="'.$field['name'].'" class="'.$field['name'].($field['require'] == 1 ? ' yks-require' : '').'" id="'.$field['id'].'" value="" />';
-		$yksFormFields	.= '</td>';
-	$yksFormFields	.= '</tr>';
-endif; endforeach;
-?>	
 <script type="text/javascript">
 	jQuery(document).ready(function($){
 		function blankFieldCheck()
 			{
 			err	= 0;
 			msg	= '';
-			<?php echo $yksFormReqJs; ?>
+			<?php echo $this->getFrontendFormJavascript($list); ?>
 			if(msg != '')
 				{
 				msg	= 'Please fix the following fields before submitting the form:'+"\n\n"+msg;
@@ -62,7 +47,14 @@ endif; endforeach;
 				});
 				}
 			return false;
-		})
+		});
+		$('.yks-field-type-date').datepicker({
+			changeMonth:	true,
+			changeYear:		true,
+			yearRange:		((new Date).getFullYear()-100)+':'+((new Date).getFullYear()),
+			altFormat:		'yy-mm-dd'
+		});
+		$('#ui-datepicker-div').addClass('yks-mailchimpFormDatepickerContainer');
 	});
 </script>
 
@@ -72,16 +64,7 @@ endif; endforeach;
 	<div class="yks-mailchimpFormContainerInner" id="yks-mailchimpFormContainerInner_<?php echo $list['id']; ?>">
 		<form method="post" name="yks-mailchimp-form" id="yks-mailchimp-form_<?php echo $list['id']; ?>" rel="<?php echo $list['id']; ?>">
 			<input type="hidden" name="yks-mailchimp-list-id" id="yks-mailchimp-list-id_<?php echo $list['id']; ?>" value="<?php echo $list['list-id']; ?>" />
-			<table class="yks-mailchimpFormTable">
-				<tbody>
-					<?php echo $yksFormFields; ?>
-					<tr>
-						<td colspan="2" class="yks-mailchimpFormTableSubmit">
-							<p><input type="submit" class="ykfmc-submit" id="ykfmc-submit_<?php echo $list['id']; ?>" value="Submit" /></p>
-						</td>
-					</tr>
-				</tbody>
-			</table>
+			<?php echo $this->getFrontendFormDisplay($list); ?>
 		</form>
 	</div>
 	

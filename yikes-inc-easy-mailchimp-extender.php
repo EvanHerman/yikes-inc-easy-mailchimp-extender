@@ -4,7 +4,7 @@
 Plugin Name: Yikes, Inc Easy Mailchimp Extender
 Plugin URI: http://www.yikesinc.com
 Description: Mailchimp API integration in the form of a shortcode or php snippet
-Version: 1.3.1
+Version: 2.0.0
 Author: Yikes, Inc
 Author URI: http://www.yikesinc.com
 License: GPL2
@@ -29,7 +29,7 @@ Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 #_________________________________________________ CONSTANTS
 /** Configuration **/
 if(!defined('YKSEME_DEBUG'))									define('YKSEME_DEBUG',				         false);
-if(!defined('YKSEME_VERSION_CURRENT'))				define('YKSEME_VERSION_CURRENT',			'1.3.1');
+if(!defined('YKSEME_VERSION_CURRENT'))				define('YKSEME_VERSION_CURRENT',			'2.0.0');
 if(!defined('YKSEME_REQ_PHP'))								define('YKSEME_REQ_PHP',							'5.0');
 if(!defined('YKSEME_AUTHOR'))									define('YKSEME_AUTHOR',								'Sean Kennedy');
 if(!defined('YKSEME_SITE'))										define('YKSEME_SITE',									site_url().'/');
@@ -44,14 +44,14 @@ if(!defined('YKSEME_URL_CURRENT'))						define('YKSEME_URL_CURRENT',					$_SERVE
 /** Database Tables **/
 if(!defined('YKSEME_OPTION'))									define('YKSEME_OPTION',								YKSEME_PREFIX.'storage');
 
+/** Initial Configuration **/
+if(YKSEME_DEBUG) error_reporting(E_ALL ^ E_NOTICE);
+
 /** Include Required Plugin Files **/
 require_once YKSEME_PATH.'classes/class.yksemeBase.php';
 require_once YKSEME_PATH.'classes/MCAPI.class.php';
 require_once YKSEME_PATH.'lib/lib.ajax.php';
 require_once YKSEME_PATH.'lib/lib.func.php';
-
-/** Initial Configuration **/
-if(YKSEME_DEBUG) error_reporting(E_ALL ^ E_NOTICE);
 
 /** Initialize the plugin's base class **/
 $yksemeBase			= new yksemeBase();

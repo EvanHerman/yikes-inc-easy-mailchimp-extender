@@ -15,8 +15,8 @@ default:
 	echo '-1';
 	break;
 	
-case 'update_api_key':
-	$action	= $yksemeBase->updateApiKey($_POST['api_key']);
+case 'update_options':
+	$action	= $yksemeBase->updateOptions($_POST);
 	if($action)
 		{
 		echo '1';
@@ -25,7 +25,7 @@ case 'update_api_key':
 	break;
 
 case 'list_add':
-	$list	= $yksemeBase->addList();
+	$list	= $yksemeBase->addList($_POST['list_id']);
 	if($list)
 		{
 		echo json_encode($list);
@@ -59,6 +59,15 @@ case 'list_delete':
 		}
 	else echo '-1';
 	break;
+	
+case 'list_import':
+	$list	= $yksemeBase->importList($_POST['id']);
+	if($list)
+		{
+		echo json_encode($list);
+		}
+	else echo '-1';
+	break;
 
 case 'frontend_submit_form':
 	$action	= $yksemeBase->addUserToMailchimp($_POST);
@@ -67,6 +76,11 @@ case 'frontend_submit_form':
 		echo '1';
 		}
 	else echo '-1';
+	break;
+	
+case 'notice_hide':
+	setcookie('yks-mailchimp-notice-hidden', '1', time()+60*60*24*30);
+	echo '1';
 	break;
 	
 
