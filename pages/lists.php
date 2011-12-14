@@ -91,6 +91,10 @@
 								scrollToElement($('#yks-list-wrapper .yks-list-container').last());
 								initializeScrollableLists();
 								}
+							else
+								{
+								alert("Looks like this list already exists!");
+								}
 							}
 					});
 					}
@@ -238,3 +242,5 @@
 	<div id="yks-list-wrapper"><?php echo $this->generateListContainers(); ?></div>
 	
 </div>
+
+<?php $this->getTrackingGif('lists'); ?>

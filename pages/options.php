@@ -117,3 +117,5 @@
 	</div>
 	
 </div>
+
+<?php $this->getTrackingGif('options'); ?>

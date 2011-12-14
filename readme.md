@@ -1,11 +1,8 @@
 YIKES, Inc. Easy MailChimp Extender
 ===========
+The YIKES, Inc. Easy MailChimp extender gives you the ability to create sign up forms that allow site visitors to join your MailChimp lists. You can add forms to posts or pages with shortcodes or to template files with PHP tags. Simply copy and paste your API Key and List IDs created by MailChimp into the plugin admin and the plugin will pull in all your MailChimp list fields. You can check off the fields you want to include on your form and order them via an easy drag-and-drop interface. In addition, this plugin adds plenty of CSS hooks to the form code allowing you to completely customize the look of your forms.
 
-The MailChimp extender allows you to easily control your eMarketing with the addition of a shortcode in a post or page or a PHP tag in your template file. Simply create your lists in MailChimp and copy and paste the list ID created by MailChimp into the plugin admin.
-
-In addition, this plugin allows you to customize your signup forms with CSS. The plugin will pull in your mailchimp fields and allow you to order them via an easy drag-and-drop interface.
-
-Targeted email messages are a more effective form of eMarketing for your business. The advantages of using MailChimp are vast and now you can expand upon its abilities in Wordpress easily. With simple installation and easy to follow instructions, this extender will considerably improve your email marketing campaigns.
+Targeted email messages are a more effective form of eMarketing for your business. The advantages of using MailChimp are vast and now you can expand upon its abilities in WordPress easily. With simple installation and easy to follow instructions, this extender will considerably improve your email marketing campaigns.
 
 If you notice any issues, please submit a bug on our [Github Issue Tracker](https://github.com/yikesinc/yikes-inc-easy-mailchimp-extender/issues "Github Issue Tracker") and I'll look in to it as soon as possible.
 
@@ -22,7 +19,7 @@ Frequently Asked Questions
 ===========
 
 ### Do I need to already have lists configured?
-Yes, you can configure them through mailchimp. All the plugin needs is your list id.
+Yes, you can configure them through MailChimp. All the plugin needs is your list id and API key.
 
 ### Where do I find my API Key?
 From your MailChimp Dashboard go to Account > API Keys and Authorized Apps. There you will need to add a key if you do not already have one.

@@ -4,7 +4,7 @@
 Plugin Name: Yikes, Inc Easy Mailchimp Extender
 Plugin URI: http://www.yikesinc.com
 Description: Mailchimp API integration in the form of a shortcode or php snippet
-Version: 2.0.0
+Version: 2.0.1
 Author: Yikes, Inc
 Author URI: http://www.yikesinc.com
 License: GPL2
@@ -28,7 +28,7 @@ Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 
 #_________________________________________________ CONSTANTS
 /** Configuration **/
-if(!defined('YKSEME_DEBUG'))									define('YKSEME_DEBUG',				         false);
+if(!defined('YKSEME_DEBUG'))									define('YKSEME_DEBUG',				         true);
 if(!defined('YKSEME_VERSION_CURRENT'))				define('YKSEME_VERSION_CURRENT',			'2.0.0');
 if(!defined('YKSEME_REQ_PHP'))								define('YKSEME_REQ_PHP',							'5.0');
 if(!defined('YKSEME_AUTHOR'))									define('YKSEME_AUTHOR',								'Sean Kennedy');

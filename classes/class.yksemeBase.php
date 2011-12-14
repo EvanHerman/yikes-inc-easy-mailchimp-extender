@@ -9,11 +9,12 @@ if(!class_exists("yksemeBase"))
 /**
  *	Variables
  */
-private	$error		    = false;
-private	$errorMsg	    = '';
-public	$sessName	    = 'ykseme';
-public	$optionVal		= false;
-public	$currentLists	= false;
+private	$error		    	= false;
+private	$errorMsg	    	= '';
+public	$sessName	    	= 'ykseme';
+public	$optionVal			= false;
+public	$currentLists		= false;
+public	$currentListsCt	= false;
 
 /**
  *	Construct
@@ -76,7 +77,8 @@ public function initialize()
 	// Setup outfit shortcodes
 	$this->createShortcodes();
 	// Initialize current list array
-	$this->currentLists	= array();
+	$this->currentLists		= array();
+	$this->currentListsCt	= array();
 	// Do any update tasks if needed
 	$this->runUpdateCheck();
 	}
@@ -275,6 +277,22 @@ public function getBrowser()
 			'pattern'    => $pattern
 	);
 	}
+public function getTrackingGif($page='')
+	{
+	?>
+	<script type="text/javascript">
+  	var _gaq = _gaq || [];
+  	_gaq.push(['_setAccount', 'UA-3024863-1']);
+  	_gaq.push(['_trackPageview', '/virtual/wordpress/plugin/yikes-inc-easy-mailchimp-extender/<?php echo $this->slugify($page); ?>']);
+
+  	(function() {
+    	var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    	ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    	var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  	})();
+	</script>
+	<?php
+	}
 
 
 
@@ -312,7 +330,7 @@ public function updateVersion($k)
  ****************************************************************************************************/
 public function addList($lid='')
 	{
-	if($lid == '') return false;
+	if($lid == '' || isset($this->optionVal['lists'][$list['id']])) return false;
 	$api	= new MCAPI($this->optionVal['api-key']);
 	$mv	= $api->listMergeVars($lid);
 	if($mv)
@@ -472,20 +490,29 @@ public function processShortcode($p)
 	if($this->optionVal['api-key'] != ''
 	&& (is_array($this->optionVal['lists'][$p['id']]) && !empty($this->optionVal['lists'][$p['id']]['list-id'])))
 		{
-		$list	= $this->optionVal['lists'][$p['id']];
-		if(!in_array($list, $this->currentLists))
-			{
-			include YKSEME_PATH.'templates/shortcode_form.php';
-			$this->currentLists[]	= $list;
-			}
+		// Setup this list
+		$list		= $this->optionVal['lists'][$p['id']];
+		// Which form are we on?
+		if(!isset($this->currentLists[$p['id']]))
+			$this->currentLists[$p['id']]	= 0;
 		else
+			$this->currentLists[$p['id']]++;
+		$listCt	= $this->currentLists[$p['id']];
+		// Add the count to the list vars
+		$list['id']		= $listCt.'-'.$list['id'];
+		if(count($list['fields']))
 			{
-			require_once YKSEME_PATH.'templates/shortcode_error_exists.php';
+			foreach($list['fields'] as $fieldId => $field)
+				{
+				$list['fields'][$fieldId]['id']		= $listCt.'-'.$field['id'];
+				}
 			}
+		// List form
+		include YKSEME_PATH.'templates/shortcode_form.php';
 		}
 	else
 		{
-		require_once YKSEME_PATH.'templates/shortcode_error_data.php';
+		include YKSEME_PATH.'templates/shortcode_error_data.php';
 		}
 	$shortcode = ob_get_contents();
 	ob_end_clean();
@@ -588,7 +615,6 @@ public function addUserToMailchimp($p)
 		
 			if($api->errorCode)
 				{
-				echo $api->errorCode;
 				return false;
 				}
 			else return true;
@@ -762,7 +788,7 @@ public function getFrontendFormDisplay($list='')
 					<?php foreach($list['fields'] as $field) : if($field['active'] == 1) : ?>
 						<tr class="yks-mailchimpFormTableRow">
 							<td class="prompt yks-mailchimpFormTableRowLabel"><?php echo $field['label']; ?></td>
-							<td class="prompt yks-mailchimpFormTableRowField">
+							<td class="yks-mailchimpFormTableRowField">
 								<?php echo $this->getFrontendFormDisplay_field($field); ?>
 							</td>
 						</tr>
@@ -783,7 +809,7 @@ public function getFrontendFormDisplay($list='')
 				<?php foreach($list['fields'] as $field) : if($field['active'] == 1) : ?>
 					<div class="yks-mailchimpFormDivRow">
 						<label class="prompt yks-mailchimpFormDivRowLabel" for="<?php echo $field['name']; ?>"><?php echo $field['label']; ?></label>
-						<div class="prompt yks-mailchimpFormDivRowField">
+						<div class="yks-mailchimpFormDivRowField">
 							<?php echo $this->getFrontendFormDisplay_field($field); ?>
 						</div>
 					</div>
