@@ -38,6 +38,14 @@ Due to the code overhaul required for the features of the new version, the struc
 Changes
 ===========
 
+### 2.1.0:
+*Now supports multiples of the same list
+*Fixed the date format issue
+*Removed prompt class from the field wrapper
+*Updated plugin description
+*Disallowed adding the same list twice on the admin side
+*About page now links to the YIKES, Inc. page
+
 ### 2.0.0:
 *Added import function to pull in existing custom fields
 *Added new field handling to work with any list configuration
