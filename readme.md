@@ -4,7 +4,7 @@ The YIKES, Inc. Easy MailChimp extender gives you the ability to create sign up 
 
 Targeted email messages are a more effective form of eMarketing for your business. The advantages of using MailChimp are vast and now you can expand upon its abilities in WordPress easily. With simple installation and easy to follow instructions, this extender will considerably improve your email marketing campaigns.
 
-If you notice any issues, please submit a bug on our [Github Issue Tracker](https://github.com/yikesinc/yikes-inc-easy-mailchimp-extender/issues "Github Issue Tracker") and I'll look in to it as soon as possible.
+If you notice any issues, please submit a bug on our [Github Issue Tracker](https://github.com/yikesinc/yikes-inc-easy-mailchimp-extender/issues "Github Issue Tracker") and we'll look in to it as soon as possible.
 
 Installation
 ===========
@@ -18,16 +18,36 @@ Installation
 Frequently Asked Questions
 ===========
 
-### Do I need to already have lists configured?
-Yes, you can configure them through MailChimp. All the plugin needs is your list id and API key.
+### Do I need to have a MailChimp Account?
+Yes, you can register one for free at [MailChimp](https://mailchimp.com/signup/ "MailChimp Signup").
+
+### Do I need to already have lists configured? =
+Yes, you can configure them through mailchimp. All the plugin needs is your list id and api key.
 
 ### Where do I find my API Key?
 From your MailChimp Dashboard go to Account > API Keys and Authorized Apps. There you will need to add a key if you do not already have one.
 For more help visit [The API Key Help Article](http://kb.mailchimp.com/article/where-can-i-find-my-api-key/ "API Key Help Article")
 
 ### Where do I find my List ID?
-From your MailChimp Dashboard go to Lists. Under the specific list you want to make a signup form for, click settings > list settings and unique ID.
+From your MailChimp Dashboard go to Lists. Under the specific list you want to make a signup form for, click Settings > List Settings and Unique ID.
 For more help visit [The List Id Help Article](http://kb.mailchimp.com/article/how-can-i-find-my-list-id/ "List Id Help Article")
+
+### Hey, my checkboxes are not appearing in the active Fields options. What gives? =
+Mailchimp only supports the following fields from the "FIELDS & MERGE tags"
+
+Text
+Number
+Radio Buttons
+Drop Down
+Date
+Birthday
+Address
+Zip Code
+Phone
+Website
+Image
+
+Unfortunately, checkboxes is not currently an option. We will implement in our plugin as soon as MailChimp offers it as option from their API.
 
 ### My Information isn't showing up when people subscribe!
 You're likely using an old version of the plugin. Please update to the latest version and import your list data.
