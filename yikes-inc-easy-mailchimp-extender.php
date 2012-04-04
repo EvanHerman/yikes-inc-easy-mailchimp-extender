@@ -73,7 +73,7 @@ add_action('wp_head','yikes_mailch_jquery_js');
 
 
 function yikes_mailch_jquery_js() {?>
-  <script type="ext/javascript" src="/wp-content/plugins/yikes-inc-easy-mailchimp-extender/js/prototype.js"></script>
+  <script type="ext/javascript" src="<?php echo YKSEME_URL; ?>js/prototype.js"></script>
   <script type="text/javascript">
   jQueryScriptOutputted = <?php echo ($checkJQuery===false?"true":"false");?>;
 	function initJQuery() {
