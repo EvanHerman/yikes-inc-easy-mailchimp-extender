@@ -3,7 +3,7 @@
 #_________________________________________________ PLUGIN
 Plugin Name: Yikes, Inc Easy Mailchimp Extender
 Plugin URI: http://www.yikesinc.com
-Description: Description: The YIKES, Inc. Easy MailChimp extender gives you the ability to create sign up forms that allow site visitors to join your MailChimp lists. You can add forms to posts or pages with shortcodes or to template files with PHP tags. Simply copy and paste your API Key and List IDs created by MailChimp into the plugin admin and the plugin will pull in all your MailChimp list fields. You can check off the fields you want to include on your form and order them via an easy drag-and-drop interface. In addition, this plugin adds plenty of CSS hooks to the form code allowing you to completely customize the look of your forms. Targeted email messages are a more effective form of eMarketing for your business. The advantages of using MailChimp are vast and now you can expand upon its abilities in WordPress easily. With simple installation and easy to follow instructions, this extender will considerably improve your email marketing campaigns.<br />If you notice any issues, please submit a bug on our <a href="https://github.com/yikesinc/yikes-inc-easy-mailchimp-extender/issues?sort=created&direction=desc&state=open">Github Issue Tracker</a> and we will look in to it as soon as possible.
+Description: Mailchimp API integration in the form of a shortcode or php snippet
 Version: 2.0.2
 Author: Yikes, Inc, Sean Kennedy, Tracy Levesque, Carlos Zuniga
 Author URI: http://www.yikesinc.com
