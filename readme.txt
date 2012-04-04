@@ -1,5 +1,5 @@
 === YIKES, Inc. Easy MailChimp Extender ===
-Contributors: seriouslysean
+Contributors: seriouslysean, yikesinc, hiwhatsup, liljimmi
 Donate link: http://www.yikesinc.com
 Tags: mailchimp, marketing, email, mailing lists, newsletter, signup
 Requires at least: 3.0
