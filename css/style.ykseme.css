@@ -2,15 +2,19 @@
 	{
 	background: transparent url('../images/ykseme_32px_color.png') no-repeat 0 0;
 	}
+
+#yksme-yikes-logo-container {float:right;
+	margin: 0 20px 20px 20px;
+	width: 300px;}	
 	
+#yksme-yikes-logo-container .b-sbn {float:right;
+	margin: 0 0 0 -8px;}	
+
 #yksme-yikes-logo
 	{
-	padding: ;
-	margin: 0 0 15px 15px;
-	width: 400px;
-	height: 395px;
-	clear: right;
-	float: right;
+	border: 0;
+	padding: 0;
+	margin: 0 0 20px 0;
 	display: block;
 	}
 .yks-hidden
