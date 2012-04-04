@@ -1,55 +1,47 @@
+
 <script type="text/javascript">
-	jQuery(document).ready(function($)
-		{
-		function blankFieldCheck()
-			{
-			err	= 0;
-			msg	= '';
-			if($('#yks-mailchimp-api-key').val() == '')
-				{
-				msg	+= '* Enter a Mailchimp API Key!'+"\n";
-				err++;
-				}
-			if(msg != '')
-				{
-				msg	= 'Please fix the following before submitting the form:'+"\n\n"+msg;
-				alert(msg);
-				}
-			return (err > 0 ? false : true);
-			}
-		$('#yks-mailchimp-form').submit(function(e){
-			e.preventDefault();
-			// Make sure the api key exists
-			if(blankFieldCheck())
-				{
-				$('#yks-status').slideUp('fast');
-				$.ajax({
-					type:	'POST',
-					url:	ajaxurl,
-					data: {
-								action:				'yks_mailchimp_form',
-								form_action:	'update_options',
-								form_data:			$('#yks-mailchimp-form').serialize()
-								},
-					dataType: 'json',
-					success: function(MAILCHIMP)
-						{
-						if(MAILCHIMP == '1')
-							{
-							$('#yks-status').html('<div class="yks-success"><p>The options were saved successfully!</p></div>');
-							$('#yks-status').slideDown('fast');
-							}
-						else
-							{
-							$('#yks-status').html('<div class="yks-error"><p>The options could not be saved (or you forgot to change them)!</p></div>');
-							$('#yks-status').slideDown('fast');
-							}
-						}
-				});
-				}
-			return false;
-		})
-		});
+jQuery(document).ready(function ($) {
+    function blankFieldCheck() {
+        err = 0;
+        msg = '';
+        if ($('#yks-mailchimp-api-key').val() == '') {
+            msg += '* Enter a Mailchimp API Key!' + "\n";
+            err++;
+        }
+        if (msg != '') {
+            msg = 'Please fix the following before submitting the form:' + "\n\n" + msg;
+            alert(msg);
+        }
+        return (err > 0 ? false : true);
+    }
+    $('#yks-mailchimp-form').submit(function (e) {
+        e.preventDefault();
+        // Make sure the api key exists
+        if (blankFieldCheck()) {
+            $('#yks-status').slideUp('fast');
+            $.ajax({
+                type: 'POST',
+                url: ajaxurl,
+                data: {
+                    action: 'yks_mailchimp_form',
+                    form_action: 'update_options',
+                    form_data: $('#yks-mailchimp-form').serialize()
+                },
+                dataType: 'json',
+                success: function (MAILCHIMP) {
+                    if (MAILCHIMP == '1') {
+                        $('#yks-status').html('<div class="yks-success"><p>The options were saved successfully!</p></div>');
+                        $('#yks-status').slideDown('fast');
+                    } else {
+                        $('#yks-status').html('<div class="yks-error"><p>The options could not be saved (or you forgot to change them)!</p></div>');
+                        $('#yks-status').slideDown('fast');
+                    }
+                }
+            });
+        }
+        return false;
+    })
+});
 </script>
 <div class="wrap">
 	<div id="ykseme-icon" class="icon32"><br /></div>
