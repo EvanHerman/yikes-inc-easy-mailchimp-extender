@@ -1,4 +1,8 @@
+
+<script type='text/javascript' src='<?php echo YKSEME_URL; ?>js/jquery.1.7.1.min.js'></script>
 <script type="text/javascript">
+$.noConflict(true);
+jQuery.noConflict(true);
 	jQuery(document).ready(function($){
 		function blankFieldCheck()
 			{
