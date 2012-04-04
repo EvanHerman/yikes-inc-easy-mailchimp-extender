@@ -331,7 +331,7 @@ public function updateVersion($k)
 public function addList($lid='')
 	{
 	if($lid == '' || isset($this->optionVal['lists'][$list['id']])) return false;
-	$api	= new MCAPI($this->optionVal['api-key']);
+	$api	= new wpyksMCAPI($this->optionVal['api-key']);
 	$mv	= $api->listMergeVars($lid);
 	if($mv)
 		{
@@ -415,7 +415,7 @@ public function importList($i=false)
 	else
 		{
 		$lid	= $this->optionVal['lists'][$i]['list-id'];
-		$api	= new MCAPI($this->optionVal['api-key']);
+		$api	= new wpyksMCAPI($this->optionVal['api-key']);
 		$mv	= $api->listMergeVars($lid);
 		if($mv)
 			{
@@ -573,7 +573,7 @@ public function addUserToMailchimp($p)
 			{
 			$email	= false;
 			$lid		= $fd['yks-mailchimp-list-id'];
-			$api		= new MCAPI($this->optionVal['api-key']);
+			$api		= new wpyksMCAPI($this->optionVal['api-key']);
 			$mv 		= array();
 			
 			foreach($this->optionVal['lists'][$lid]['fields'] as $field) : if($field['active'] == '1') :
