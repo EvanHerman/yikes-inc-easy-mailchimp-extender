@@ -35,17 +35,17 @@ For more help visit [The List Id Help Article](http://kb.mailchimp.com/article/h
 ### Hey, my checkboxes are not appearing in the active Fields options. What gives? =
 Mailchimp only supports the following fields from the "FIELDS & MERGE tags"
 
-Text
-Number
-Radio Buttons
-Drop Down
-Date
-Birthday
-Address
-Zip Code
-Phone
-Website
-Image
+*Text
+*Number
+*Radio Buttons
+*Drop Down
+*Date
+*Birthday
+*Address
+*Zip Code
+*Phone
+*Website
+*Image
 
 Unfortunately, checkboxes is not currently an option. We will implement in our plugin as soon as MailChimp offers it as option from their API.
 
@@ -57,13 +57,15 @@ Due to the code overhaul required for the features of the new version, the struc
 
 Changes
 ===========
+### 2.0.3:
+*Add labels to table option for form
+
 ### 2.0.2:
-*Fix class MCAPI conflict issue
 *Fix class MCAPI conflict issue
 *Automtically check for jquery if not use version 1.7.1
 *fix jquery conflict issue (specifically when multiple instance of "jQuery(document).ready..."
 *fix jquery conflict with ".cycle" jquery command commonly used in slideshows.
-*add jquery libraries 1.7.1 and protype 
+*add jquery libraries 1.7.1 and prototype 
 *use "noConflict" in each jquery instance to avoid future conflicts.  
 *update Yikes about us info.
 

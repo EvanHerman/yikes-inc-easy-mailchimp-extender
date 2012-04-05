@@ -4,7 +4,7 @@ Donate link: http://www.yikesinc.com
 Tags: mailchimp, marketing, email, mailing lists, newsletter, signup
 Requires at least: 3.0
 Tested up to: 3.3
-Stable tag: 2.0.2
+Stable tag: 2.0.3
 
 The YIKES, Inc. Easy MailChimp extender gives you the ability to create sign up forms that allow site visitors to join your MailChimp lists.
 
@@ -43,17 +43,17 @@ For more help visit [The List Id Help Article](http://kb.mailchimp.com/article/h
 = Hey, my checkboxes are not appearing in the active Fields options. What gives? =
 Mailchimp only supports the following fields from the "FIELDS & MERGE tags"
 
-Text
-Number
-Radio Buttons
-Drop Down
-Date
-Birthday
-Address
-Zip Code
-Phone
-Website
-Image
+* Text
+* Number
+* Radio Buttons
+* Drop Down
+* Date
+* Birthday
+* Address
+* Zip Code
+* Phone
+* Website
+* Image
 
 Unfortunately, checkboxes is not currently an option. We will implement in our plugin as soon as MailChimp offers it as option from their API.
 
@@ -72,14 +72,17 @@ Due to the code overhaul required for the features of the new version, the struc
 4. Sample list setup screen on MailChimp
 
 == Changelog ==
+= 2.0.3 =
+* Add labels to table option for form
+
 = 2.0.2 =
-*Fix class MCAPI conflict issue
-*Automtically check for jquery if not use version 1.7.1
-*fix jquery conflict issue (specifically when multiple instance of "jQuery(document).ready..."
-*fix jquery conflict with ".cycle" jquery command commonly used in slideshows.
-*add jquery libraries 1.7.1 and protype 
-*use "noConflict" in each jquery instance to avoid future conflicts.  
-*update Yikes about us info.
+* Fix class MCAPI conflict issue
+* Automtically check for jquery if not use version 1.7.1
+* fix jquery conflict issue (specifically when multiple instance of "jQuery(document).ready..."
+* fix jquery conflict with ".cycle" jquery command commonly used in slideshows.
+* add jquery libraries 1.7.1 and protype 
+* use "noConflict" in each jquery instance to avoid future conflicts.  
+* update Yikes about us info.
 
 
 = 2.0.1 =
