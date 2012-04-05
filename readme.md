@@ -35,17 +35,17 @@ For more help visit [The List Id Help Article](http://kb.mailchimp.com/article/h
 ### Hey, my checkboxes are not appearing in the active Fields options. What gives? =
 Mailchimp only supports the following fields from the "FIELDS & MERGE tags"
 
-*Text
-*Number
-*Radio Buttons
-*Drop Down
-*Date
-*Birthday
-*Address
-*Zip Code
-*Phone
-*Website
-*Image
+* Text
+* Number
+* Radio Buttons
+* Drop Down
+* Date
+* Birthday
+* Address
+* Zip Code
+* Phone
+* Website
+* Image
 
 Unfortunately, checkboxes is not currently an option. We will implement in our plugin as soon as MailChimp offers it as option from their API.
 
@@ -58,46 +58,46 @@ Due to the code overhaul required for the features of the new version, the struc
 Changes
 ===========
 ### 2.0.3:
-*Add labels to table option for form
+* Add labels to table option for form
 
 ### 2.0.2:
-*Fix class MCAPI conflict issue
-*Automtically check for jquery if not use version 1.7.1
-*fix jquery conflict issue (specifically when multiple instance of "jQuery(document).ready..."
-*fix jquery conflict with ".cycle" jquery command commonly used in slideshows.
-*add jquery libraries 1.7.1 and prototype 
-*use "noConflict" in each jquery instance to avoid future conflicts.  
-*update Yikes about us info.
+* Fix class MCAPI conflict issue
+* Automtically check for jquery if not use version 1.7.1
+* fix jquery conflict issue (specifically when multiple instance of "jQuery(document).ready..."
+* fix jquery conflict with ".cycle" jquery command commonly used in slideshows.
+* add jquery libraries 1.7.1 and prototype 
+* use "noConflict" in each jquery instance to avoid future conflicts.  
+* update Yikes about us info.
 
 ### 2.0.1:
-*Now supports multiples of the same list
-*Fixed the date format issue
-*Removed prompt class from the field wrapper
-*Updated plugin description
-*Disallowed adding the same list twice on the admin side
-*About page now links to the YIKES, Inc. page
+* Now supports multiples of the same list
+* Fixed the date format issue
+* Removed prompt class from the field wrapper
+* Updated plugin description
+* Disallowed adding the same list twice on the admin side
+* About page now links to the YIKES, Inc. page
 
 ### 2.0.0:
-*Added import function to pull in existing custom fields
-*Added new field handling to work with any list configuration
-*Required fields in MailChimp are now reflected properly in the list view
-*Added ability to choose Divs or Tables
+* Added import function to pull in existing custom fields
+* Added new field handling to work with any list configuration
+* Required fields in MailChimp are now reflected properly in the list view
+* Added ability to choose Divs or Tables
 
 ### 1.3.1:
-*Added nopriv ajax action for anonymous users*
+* Added nopriv ajax action for anonymous users*
 
 ### 1.3.0:
-*Added custom merge_vars field*
+* Added custom merge_vars field*
 
 ### 1.2.0:
-*Removed required from First Name and Last Name fields*
-*Added update routines for future versions*
+* Removed required from First Name and Last Name fields*
+* Added update routines for future versions*
 
 ### 1.1.0:
-*Changed the list logic and added a notice for the MERGE VAR naming schema*
+* Changed the list logic and added a notice for the MERGE VAR naming schema*
 
 ### 1.0.1:
-*Changed CSS paths from Absolute to Relative*
+* Changed CSS paths from Absolute to Relative*
 
 ### 1.0.0:
-*Initial Release
+* Initial Release
