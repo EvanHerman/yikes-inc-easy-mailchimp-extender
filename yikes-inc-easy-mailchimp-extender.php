@@ -1,7 +1,7 @@
 <?php
 /*
 #_________________________________________________ PLUGIN
-Plugin Name: Yikes, Inc Easy Mailchimp Extender
+Plugin Name: YIKES, Inc Easy Mailchimp Extender
 Plugin URI: http://www.yikesinc.com
 Description: Mailchimp API integration in the form of a shortcode or php snippet
 Version: 2.0.2
@@ -28,21 +28,21 @@ Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 
 #_________________________________________________ CONSTANTS
 /** Configuration **/
-if(!defined('YKSEME_DEBUG'))									define('YKSEME_DEBUG',				         true);
-if(!defined('YKSEME_VERSION_CURRENT'))				define('YKSEME_VERSION_CURRENT',			'2.0.2');
-if(!defined('YKSEME_REQ_PHP'))								define('YKSEME_REQ_PHP',							'5.0');
-if(!defined('YKSEME_AUTHOR'))									define('YKSEME_AUTHOR',								'Yikes, Inc, Sean Kennedy, Tracy Levesque, Carlos Zuniga');
-if(!defined('YKSEME_SITE'))										define('YKSEME_SITE',									site_url().'/');
-if(!defined('YKSEME_PREFIX'))									define('YKSEME_PREFIX',								'ykseme_');
-if(!defined('YKSEME_PATH'))										define('YKSEME_PATH',									ABSPATH.'wp-content/plugins/yikes-inc-easy-mailchimp-extender/');
-if(!defined('YKSEME_URL'))										define('YKSEME_URL',									plugins_url('yikes-inc-easy-mailchimp-extender/'));
-if(!defined('YKSEME_URL_WP'))									define('YKSEME_URL_WP',								get_bloginfo('url'));
-if(!defined('YKSEME_URL_WP_ADM'))							define('YKSEME_URL_WP_ADM',						YKSEME_URL_WP.'/wp-admin/');
-if(!defined('YKSEME_URL_WP_AJAX'))						define('YKSEME_URL_WP_AJAX',					admin_url('admin-ajax.php'));
-if(!defined('YKSEME_URL_CURRENT'))						define('YKSEME_URL_CURRENT',					$_SERVER['REQUEST_URI']);
+if(!defined('YKSEME_DEBUG'))						define('YKSEME_DEBUG',		         true);
+if(!defined('YKSEME_VERSION_CURRENT'))				define('YKSEME_VERSION_CURRENT',	'2.0.2');
+if(!defined('YKSEME_REQ_PHP'))						define('YKSEME_REQ_PHP',			'5.0');
+if(!defined('YKSEME_AUTHOR'))						define('YKSEME_AUTHOR',				'Yikes, Inc, Sean Kennedy, Tracy Levesque, Carlos Zuniga');
+if(!defined('YKSEME_SITE'))							define('YKSEME_SITE',				site_url().'/');
+if(!defined('YKSEME_PREFIX'))						define('YKSEME_PREFIX',				'ykseme_');
+if(!defined('YKSEME_PATH'))							define('YKSEME_PATH',				ABSPATH.'wp-content/plugins/yikes-inc-easy-mailchimp-extender/');
+if(!defined('YKSEME_URL'))							define('YKSEME_URL',				plugins_url('yikes-inc-easy-mailchimp-extender/'));
+if(!defined('YKSEME_URL_WP'))						define('YKSEME_URL_WP',				get_bloginfo('url'));
+if(!defined('YKSEME_URL_WP_ADM'))					define('YKSEME_URL_WP_ADM',			YKSEME_URL_WP.'/wp-admin/');
+if(!defined('YKSEME_URL_WP_AJAX'))					define('YKSEME_URL_WP_AJAX',		admin_url('admin-ajax.php'));
+if(!defined('YKSEME_URL_CURRENT'))					define('YKSEME_URL_CURRENT',		$_SERVER['REQUEST_URI']);
 
 /** Database Tables **/
-if(!defined('YKSEME_OPTION'))									define('YKSEME_OPTION',								YKSEME_PREFIX.'storage');
+if(!defined('YKSEME_OPTION'))						define('YKSEME_OPTION',				YKSEME_PREFIX.'storage');
 
 /** Initial Configuration **/
 if(YKSEME_DEBUG) error_reporting(E_ALL ^ E_NOTICE);
@@ -57,9 +57,9 @@ require_once YKSEME_PATH.'lib/lib.func.php';
 $yksemeBase			= new yksemeBase();
 
 /** Activation Hooks **/
-register_activation_hook(__FILE__,						array(&$yksemeBase, 'activate'));
-register_deactivation_hook(__FILE__,					array(&$yksemeBase, 'deactivate'));
-register_uninstall_hook(__FILE__,							array(&$yksemeBase, 'uninstall'));
+register_activation_hook(__FILE__,					array(&$yksemeBase, 'activate'));
+register_deactivation_hook(__FILE__,				array(&$yksemeBase, 'deactivate'));
+register_uninstall_hook(__FILE__,					array(&$yksemeBase, 'uninstall'));
 
 //Check for jquery
 $checkJQuery = true;

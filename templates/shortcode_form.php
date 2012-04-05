@@ -27,7 +27,7 @@ jQuery.noConflict(true);
 					type:	'POST',
 					url:	'<?php echo YKSEME_URL_WP_AJAX; ?>',
 					data: {
-								action:					'yks_mailchimp_form',
+								action:				'yks_mailchimp_form',
 								form_action:		'frontend_submit_form',
 								form_data:			$(this).serialize()
 								},

@@ -139,7 +139,7 @@ public function getBlankFieldsArray($lid='')
 	// Add Field
 	$name	= $this->slugify('Email Address'.'-'.'EMAIL');
 	$addField	= array(
-						'id'			=> $lid.'-'.$name,
+						'id'		=> $lid.'-'.$name,
 						'name'		=> $lid.'-'.$name,
 						'merge'		=> 'EMAIL',
 						'label'		=> 'Email Address',
@@ -167,7 +167,7 @@ public function getImportedFieldsArray($lid, $mv)
 		// Add Field
 		$name	= $this->slugify($field['label'].'-'.$field['tag']);
 		$addField	= array(
-							'id'			=> $lid.'-'.$name,
+							'id'		=> $lid.'-'.$name,
 							'name'		=> $lid.'-'.$field['tag'],
 							'merge'		=> $field['tag'],
 							'label'		=> $field['name'],
@@ -787,7 +787,7 @@ public function getFrontendFormDisplay($list='')
 				<tbody>
 					<?php foreach($list['fields'] as $field) : if($field['active'] == 1) : ?>
 						<tr class="yks-mailchimpFormTableRow">
-							<td class="prompt yks-mailchimpFormTableRowLabel"><?php echo $field['label']; ?></td>
+							<td class="prompt yks-mailchimpFormTableRowLabel"><label class="yks-mailchimpFormTdLabel" for="<?php echo $field['name']; ?>"><?php echo $field['label']; ?></label></td>
 							<td class="yks-mailchimpFormTableRowField">
 								<?php echo $this->getFrontendFormDisplay_field($field); ?>
 							</td>
