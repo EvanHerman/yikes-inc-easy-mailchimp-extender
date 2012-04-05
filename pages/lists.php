@@ -221,13 +221,13 @@
 	<h2 id="ykseme-page-header">
 		Easy Mailchimp Extender
 		<a href="#" class="button add-new-h2 yks-mailchimp-list-add">Add New List</a>
-		<a href="#" class="button add-new-h2 yks-notice-toggle">Show Notice</a>
+		<a href="#" class="button add-new-h2 yks-notice-toggle">Show Notice for Version 1 Users</a>
 	</h2>
 
 	<h3>Manage the Mailchimp Lists</h3>
 	
 	<div class="yks-status" style="display: block;">
-		<div class="yks-notice<?php echo ($_COOKIE['yks-mailchimp-notice-hidden'] == '1' ? ' yks-hidden' : ''); ?>">
+		<div class="yks-hidden<?php echo ($_COOKIE['yks-mailchimp-notice-hidden'] == '1' ? ' yks-notice' : ''); ?>">
 			<a href="#" class="yks-notice-close">Hide Notice</a>
 			<p>
 				<strong>Notice:</strong> Version 2 is out! When you add a new list you will now be prompted to put the list id in immediately. We'll contact MailChimp for you and pull in all of your custom fields! <em>Lists created after version 2.0 use a different format for the shortcodes. Instead of a unique id being generated, I now use the MailChimp List Id. The 2.0 update had so many changes in functionality that I had to import the old lists to the new format -- if anything isn't working, please let me know!</em><br />
