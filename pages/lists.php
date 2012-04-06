@@ -93,7 +93,7 @@
 								}
 							else
 								{
-								alert("Looks like this list already exists!");
+								alert('Oops.. Looks like you entered an incorrect or duplicate "List ID"');
 								}
 							}
 					});
@@ -220,11 +220,12 @@
 	
 	<h2 id="ykseme-page-header">
 		Easy Mailchimp Extender
-		<a href="#" class="button add-new-h2 yks-mailchimp-list-add">Add New List</a>
+		<a href="#" class="button add-new-h2 yks-mailchimp-list-add">Add New List by MailChimp "List ID"</a>
 		<a href="#" class="button add-new-h2 yks-notice-toggle">Show Notice for Version 1 Users</a>
 	</h2>
+<p><a href="http://kb.mailchimp.com/article/how-can-i-find-my-list-id/" target="_blank">Click here to find out how to find your "MailChimp List ID"</a></p>
 
-	<h3>Manage the Mailchimp Lists</h3>
+<h3>Manage the Mailchimp Lists</h3>
 	
 	<div class="yks-status" style="display: block;">
 		<div class="yks-hidden<?php echo ($_COOKIE['yks-mailchimp-notice-hidden'] == '1' ? ' yks-notice' : ''); ?>">
