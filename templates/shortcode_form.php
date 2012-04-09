@@ -8,7 +8,7 @@ $ymce = jQuery.noConflict(true);
 			<?php echo $this->getFrontendFormJavascript($list); ?>
 			if(msg != '')
 				{
-				msg	= 'Please fix the following fields before submitting the form:'+"\n\n"+msg;
+				msg	= 'Oops.. Don\'t forget the fill-in the following fields:'+"\n\n"+msg;
 				alert(msg);
 				}
 			return (err > 0 ? false : true);
@@ -41,7 +41,7 @@ $ymce = jQuery.noConflict(true);
 						else
 							{
 							$ymce('#ykfmc-submit_<?php echo $list['id']; ?>').removeAttr('disabled');
-							$ymce('#yks-status-<?php echo $list['id']; ?>').html('<div class="yks-error"><p>There was an error submiting the form -- please try again!</p></div>');
+							$ymce('#yks-status-<?php echo $list['id']; ?>').html('<div class="yks-error"><p>Sorry the email address you used has previously been submitted.</p></div>');
 							$ymce('#yks-status-<?php echo $list['id']; ?>').slideDown('fast');
 							}
 						}
