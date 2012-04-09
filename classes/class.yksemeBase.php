@@ -533,9 +533,9 @@ public function processSnippet($list=false)
 public function addAdministrationMenu()
 	{
 	// Top Level Menu
-	add_menu_page('Mailchimp Form', 'Mailchimp Form', 'manage_options', 'yks-mailchimp-form', array(&$this, 'generatePageOptions'), YKSEME_URL.'images/ykseme_16px.png', 400);
+	add_menu_page('Mailchimp Forms', 'Mailchimp Forms', 'manage_options', 'yks-mailchimp-form', array(&$this, 'generatePageOptions'), YKSEME_URL.'images/ykseme_16px.png', 400);
 	// Sub Items
-	add_submenu_page('yks-mailchimp-form', 'Manage Lists', 'Manage Lists', 'manage_options', 'yks-mailchimp-form-lists', array(&$this, 'generatePageLists'));
+	add_submenu_page('yks-mailchimp-form', 'Manage List Forms', 'Manage List Forms', 'manage_options', 'yks-mailchimp-form-lists', array(&$this, 'generatePageLists'));
 	add_submenu_page('yks-mailchimp-form', 'About YIKES, Inc.', 'About YIKES, Inc.', 'manage_options', 'yks-mailchimp-about-yikes', array(&$this, 'generatePageAboutYikes'));
 	}
 
@@ -717,17 +717,18 @@ public function generateListContainers($listArr=false)
 public function getFrontendFormJavascript($list='')
 	{
 	if($list === '') return false;
+	
 	$js	= false;
 	foreach($list['fields'] as $field) : if($field['active'] == 1) :	
 		// Setup javascript
 		if($field['require'] == '1') :
-		
+		$prefix = "ymce";
 			$js .= "\n";
 			switch($field['type'])
 				{
 				default:
 					$js .= <<<JSC
-if($('#{$field[id]}').val() == '')
+if($$prefix('#{$field[id]}').val() == '')
 	{
 	msg += '* {$field[label]}'+"\\n";
 	err++;
@@ -736,22 +737,22 @@ JSC;
 					break;
 				case 'address':
 					$js .= <<<JSC
-if($('#{$field[id]}').val() == '')
+if($$prefix('#{$field[id]}').val() == '')
 	{
 	msg += '* {$field[label]}: Street Address'+"\\n";
 	err++;
 	}
-if($('#{$field[id]}-city').val() == '')
+if($$prefix('#{$field[id]}-city').val() == '')
 	{
 	msg += '* {$field[label]}: City'+"\\n";
 	err++;
 	}
-if($('#{$field[id]}-state').val() == '')
+if($$prefix('#{$field[id]}-state').val() == '')
 	{
 	msg += '* {$field[label]}: State'+"\\n";
 	err++;
 	}
-if($('#{$field[id]}-zip').val() == '')
+if($$prefix('#{$field[id]}-zip').val() == '')
 	{
 	msg += '* {$field[label]}: Zip Code'+"\\n";
 	err++;
@@ -760,7 +761,7 @@ JSC;
 					break;
 				case 'radio':
 					$js .= <<<JSC
-if($('.{$field[name]}:checked').length <= 0)
+if($$prefix('.{$field[name]}:checked').length <= 0)
 	{
 	msg += '* {$field[label]}'+"\\n";
 	err++;

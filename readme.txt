@@ -4,7 +4,7 @@ Donate link: http://www.yikesinc.com
 Tags: mailchimp, marketing, email, mailing lists, newsletter, signup
 Requires at least: 3.0
 Tested up to: 3.3
-Stable tag: 2.0.3
+Stable tag: 2.1.0
 
 The YIKES, Inc. Easy MailChimp extender gives you the ability to create sign up forms that allow site visitors to join your MailChimp lists.
 
@@ -72,6 +72,10 @@ Due to the code overhaul required for the features of the new version, the struc
 4. Sample list setup screen on MailChimp
 
 == Changelog ==
+= 2.1.0 =
+* Fix more jquery conflict issues
+* Clarification on how to add and manage list forms
+
 = 2.0.3 =
 * Add labels to table option for form
 

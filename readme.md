@@ -57,6 +57,10 @@ Due to the code overhaul required for the features of the new version, the struc
 
 Changes
 ===========
+### 2.1.0
+* Fix more jquery conflict issues
+* Clarification on how to add and manage list forms
+
 ### 2.0.3:
 * Add labels to table option for form
 

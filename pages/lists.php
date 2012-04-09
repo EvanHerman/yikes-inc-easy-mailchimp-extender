@@ -5,7 +5,7 @@
 			{
 			if($('#yks-list-wrapper .yks-list-container').size() <= 0)
 				{
-				$('#yks-list-wrapper').html('<p>Looks like you don\'t have any lists setup -- why don\'t you try <a href="#" class="yks-mailchimp-list-add">adding one?</a></p>');
+				$('#yks-list-wrapper').html('<p>In order to setup a form for your mailing list you will first need to retrieve the list ID code from the Mailchimp list you wish to use.</p><p><a href="http://kb.mailchimp.com/article/how-can-i-find-my-list-id/" target="_blank">Click here for instructions on retrieving your "MailChimp list ID"</a></p><p>After retrieving your list ID <a href="#" class="yks-mailchimp-list-add">click here to get started.</a></p>');
 				}
 			}
 		function scrollToElement(e)
@@ -64,10 +64,7 @@
 		noListsCheck();
 		initializeScrollableLists();
 		$('.yks-mailchimp-list-add').live('click', function(e){
-			a	= confirm("Are you sure you want to add a new list?");
-			if(a)
-				{
-				lid	= prompt("Please enter the list id.");
+				lid	= prompt("Please enter your MailChimp list ID code.");
 				if(lid !== '')
 					{
 					$.ajax({
@@ -93,12 +90,12 @@
 								}
 							else
 								{
-								alert('Oops.. Looks like you entered an incorrect or duplicate "List ID"');
+								alert('Oops.. The list ID you entered appears to be incorrect. If you need help retrieving your list ID click on the "How to find your MailChimp list ID" link located on this page');
 								}
 							}
 					});
 					}
-				}
+				
 			return false;
 		});
 		$('.yks-mailchimp-list-update').live('click', function(e){
@@ -220,12 +217,12 @@
 	
 	<h2 id="ykseme-page-header">
 		Easy Mailchimp Extender
-		<a href="#" class="button add-new-h2 yks-mailchimp-list-add">Add New List by MailChimp "List ID"</a>
+		<a href="#" class="button add-new-h2 yks-mailchimp-list-add">Add New list form by MailChimp "list ID"</a>
 		<a href="#" class="button add-new-h2 yks-notice-toggle">Show Notice for Version 1 Users</a>
 	</h2>
-<p><a href="http://kb.mailchimp.com/article/how-can-i-find-my-list-id/" target="_blank">Click here to find out how to find your "MailChimp List ID"</a></p>
+<p><a href="http://kb.mailchimp.com/article/how-can-i-find-my-list-id/" target="_blank">How to find your MailChimp list ID</a></p>
 
-<h3>Manage the Mailchimp Lists</h3>
+<h3>Manage the Mailchimp List Forms</h3>
 	
 	<div class="yks-status" style="display: block;">
 		<div class="yks-hidden<?php echo ($_COOKIE['yks-mailchimp-notice-hidden'] == '1' ? ' yks-notice' : ''); ?>">
