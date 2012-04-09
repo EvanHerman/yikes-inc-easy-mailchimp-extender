@@ -1035,7 +1035,7 @@ private function runUpdateTasks_1_3_0()
 			$this->addList($list['list-id']);
 			}
 		}
-	$this->optionVal['version']	= '2.0.0';
+	$this->optionVal['version']	= '2.1.0';
 	return true;
 	}
 			
