@@ -61,33 +61,11 @@ register_activation_hook(__FILE__,					array(&$yksemeBase, 'activate'));
 register_deactivation_hook(__FILE__,				array(&$yksemeBase, 'deactivate'));
 register_uninstall_hook(__FILE__,					array(&$yksemeBase, 'uninstall'));
 
-//Check for jquery
-$checkJQuery = true;
-
-if(!function_exists('get_option'))
-  require_once('../../../wp-config.php');
-
 
 // Output jquery
 add_action('wp_head','yikes_mailch_jquery_js');
 
-
 function yikes_mailch_jquery_js() {?>
   <script type="ext/javascript" src="<?php echo YKSEME_URL; ?>js/prototype.js"></script>
-  <script type="text/javascript">
-  jQueryScriptOutputted = <?php echo ($checkJQuery===false?"true":"false");?>;
-	function initJQuery() {
-		if (typeof($) == 'undefined') {
-		
-		
-			if (! jQueryScriptOutputted) {
-				jQueryScriptOutputted = true;
-				document.write("<scr" + "ipt type='text/javascript' src='<?php echo YKSEME_URL; ?>js/jquery.1.7.1.min.js'></scr" + "ipt>");
-			}
-			setTimeout("initJQuery()", 50);
-		}
-	}
-	initJQuery();
-  </script>
   
 <?php } ?>

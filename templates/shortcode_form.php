@@ -1,5 +1,5 @@
 <script type="text/javascript">
-$ymce = jQuery.noConflict(true);
+$ymce = jQuery.noConflict();
 	jQuery(document).ready(function($ymce){
 		function blankFieldCheck()
 			{
