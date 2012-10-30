@@ -445,7 +445,9 @@ public function addStyles()
 	// Register Styles
 	wp_register_style('ykseme-css-base', 				YKSEME_URL.'css/style.ykseme.css', 											array(), '1.0.0', 'all');
 	// Enqueue Styles
-	wp_enqueue_style('thickbox');
+	if ( ! wp_style_is('thickbox', 'queue' ) ) {
+		wp_enqueue_style('thickbox');
+	}
 	wp_enqueue_style('ykseme-css-base');
 	}
 	
@@ -461,20 +463,34 @@ public function addStyles_frontend()
 	
 public function addScripts()
 	{
+	if ( ! wp_script_is('jquery', 'queue' ) ) {
 	wp_enqueue_script('jquery');
+	}
 	// Everything else
+	if ( ! wp_script_is('jquery-ui-core', 'queue' ) ) {
 	wp_enqueue_script('jquery-ui-core');
+	}
+	if ( ! wp_script_is('thickbox', 'queue' ) ) {
 	wp_enqueue_script('thickbox');
+	}
+	if ( ! wp_script_is('jquery-ui-sortable', 'queue' ) ) {
 	wp_enqueue_script('jquery-ui-sortable');
+	}
+	if ( ! wp_script_is('jquery-ui-tabs', 'queue' ) ) {
 	wp_enqueue_script('jquery-ui-tabs');
+	}
 	wp_enqueue_script('ykseme-base',				  		YKSEME_URL.'js/script.ykseme.js',											array('jquery'));
 	}
 	
 public function addScripts_frontend()
 	{
+	if ( ! wp_script_is('jquery', 'queue' ) ) {
 	wp_enqueue_script('jquery');
+	}
 	// Everything else
+	if ( ! wp_script_is('jquery-ui-core', 'queue' ) ) {
 	wp_enqueue_script('jquery-ui-core');
+	}
 	wp_enqueue_script('jquery-ui-datepicker',			YKSEME_URL.'js/jquery-ui-1.8.16.datepicker.min.js',		array('jquery'), '1.8.16');
 	}
 
@@ -1022,7 +1038,7 @@ private function runUpdateTasks_1_2_0()
  * just about all of the data with the new schema. We also
  * add in the flavor key (for table/div usage)
  *
- * 1.3.0 => 2.0.0
+ * 1.3.0 => 2.1.0
  */
 private function runUpdateTasks_1_3_0()
 	{
