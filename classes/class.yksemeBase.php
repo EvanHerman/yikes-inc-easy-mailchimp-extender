@@ -348,6 +348,23 @@ public function addList($lid='')
 		}
 	return false;
 	}
+public function getLists()
+	{
+	$api	= new wpyksMCAPI($this->optionVal['api-key']);
+	$lists	= $api->lists();
+	//print_r($lists);
+	if($lists)
+		{
+		echo "<select id='yks-list-select' name='yks-list-select'>";
+		echo "<option value=''> Select List</option>";
+		foreach ($lists['data'] as $list)
+			{
+		echo "<option value='".$list['id']."'>".$list['name']."</option>";		
+			}
+		echo "</select>";
+		}
+	return false;
+	}	
 public function sortList($p)
 	{
 	if(empty($p['update_string'])

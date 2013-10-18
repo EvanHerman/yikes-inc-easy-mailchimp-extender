@@ -8,6 +8,41 @@
 				$('#yks-list-wrapper').html('<p>In order to setup a form for your mailing list you will first need to retrieve the list ID code from the Mailchimp list you wish to use.</p><p><a href="http://kb.mailchimp.com/article/how-can-i-find-my-list-id/" target="_blank">Click here for instructions on retrieving your "MailChimp list ID"</a></p><p>After retrieving your list ID <a href="#" class="yks-mailchimp-list-add">click here to get started.</a></p>');
 				}
 			}
+		function EnterListID (lid)
+			{
+				if(lid !== '')
+					{
+					$.ajax({
+						type:	'POST',
+						url:	ajaxurl,
+						data: {
+									action:					'yks_mailchimp_form',
+									form_action:		'list_add',
+									list_id:				lid
+									},
+						dataType: 'json',
+						success: function(MAILCHIMP)
+							{
+							if(MAILCHIMP != '-1')
+								{
+								if($('#yks-list-wrapper .yks-list-container').size() <= 0)
+									{
+									$('#yks-list-wrapper').html('');
+									}
+								$('#yks-list-wrapper').append(MAILCHIMP);
+								scrollToElement($('#yks-list-wrapper .yks-list-container').last());
+								initializeScrollableLists();
+								}
+							else
+								{
+								alert('Oops.. The list ID you entered appears to be incorrect. If you need help retrieving your list ID click on the "How to find your MailChimp list ID" link located on this page');
+								}
+							}
+					});
+					}
+						
+			return false;
+			}
 		function scrollToElement(e)
 			{
 			$('html,body').animate({
@@ -64,40 +99,37 @@
 		noListsCheck();
 		initializeScrollableLists();
 		$('.yks-mailchimp-list-add').live('click', function(e){
-				lid	= prompt("Please enter your MailChimp list ID code.");
-				if(lid !== '')
+				var lid	= prompt("Please enter your MailChimp list ID code.");
+				if (lid)
 					{
-					$.ajax({
-						type:	'POST',
-						url:	ajaxurl,
-						data: {
-									action:					'yks_mailchimp_form',
-									form_action:		'list_add',
-									list_id:				lid
-									},
-						dataType: 'json',
-						success: function(MAILCHIMP)
-							{
-							if(MAILCHIMP != '-1')
-								{
-								if($('#yks-list-wrapper .yks-list-container').size() <= 0)
-									{
-									$('#yks-list-wrapper').html('');
-									}
-								$('#yks-list-wrapper').append(MAILCHIMP);
-								scrollToElement($('#yks-list-wrapper .yks-list-container').last());
-								initializeScrollableLists();
-								}
-							else
-								{
-								alert('Oops.. The list ID you entered appears to be incorrect. If you need help retrieving your list ID click on the "How to find your MailChimp list ID" link located on this page');
-								}
-							}
-					});
+						EnterListID (lid);
+						return false;
 					}
-				
-			return false;
+				else 
+					{
+						alert ('List ID is required to create a form');
+						return false;
+					}
 		});
+		$('#yks-lists-dropdown').submit(function(e) {
+        		e.preventDefault();
+        		var lid	= $("select#yks-list-select option:selected").val();
+				if (lid)
+					{
+						var listIDsubmit = EnterListID (lid);
+						$('#yks-submit-list-add').attr("disabled", true);
+						setInterval(function()
+							{
+								$('#yks-submit-list-add').removeAttr("disabled");
+							},3000);
+					}
+				else 
+					{
+						alert ('Selecting a Mailchimp list is required to create a form');
+					}
+        		return false; 
+		});
+
 		$('.yks-mailchimp-list-update').live('click', function(e){
 			i	= $(this).attr('rel');
 			f	= '#yks-mailchimp-form_'+i;
@@ -214,16 +246,29 @@
 </script>
 <div class="wrap">
 	<div id="ykseme-icon" class="icon32"><br /></div>
-	
-	<h2 id="ykseme-page-header">
+		<h2 id="ykseme-page-header">
 		Easy Mailchimp Extender
-		<a href="#" class="button add-new-h2 yks-mailchimp-list-add">Add New list form by MailChimp "list ID"</a>
-		<a href="#" class="button add-new-h2 yks-notice-toggle">Show Notice for Version 1 Users</a>
 	</h2>
+		<div>
+	<h3>Add Mailing List Form retrieved with your API Key</h3>
+	<p>(The API Key must be created by user with Admin Role)</p>
+		<form id="yks-lists-dropdown" name="yks-lists-dropdown">
+		<p>
+		<?php $this->getLists(); ?>							
+		<input type="submit" name="submit" class="button-primary" id="yks-submit-list-add" value="Add List" >
+		</p>
+		</form>
+	</div>
+	<h3>OR Manually Add Mailing List Form with "List ID"</h3>
+	<p>(The API Key must be created by user with Admin or Manager Role)</p>
+	<a href="#" class="button add-new-h2 yks-mailchimp-list-add">Add New list form by MailChimp "list ID"</a>
+
 <p><a href="http://kb.mailchimp.com/article/how-can-i-find-my-list-id/" target="_blank">How to find your MailChimp list ID</a></p>
 
-<h3>Manage the Mailchimp List Forms</h3>
-	
+	<h3>Manage the Mailchimp List Forms</h3>
+	<div id="yks-list-wrapper"><?php echo $this->generateListContainers(); ?></div>	
+<h3>Version 1 Users</h3>	
+		<a href="#" class="button add-new-h2 yks-notice-toggle">Version 1 users click here for important info</a>
 	<div class="yks-status" style="display: block;">
 		<div class="yks-hidden<?php echo ($_COOKIE['yks-mailchimp-notice-hidden'] == '1' ? ' yks-notice' : ''); ?>">
 			<a href="#" class="yks-notice-close">Hide Notice</a>
@@ -236,8 +281,7 @@
 			</p>
 		</div>
 	</div>
-	
-	<div id="yks-list-wrapper"><?php echo $this->generateListContainers(); ?></div>
+
 	
 </div>
 
