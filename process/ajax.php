@@ -25,7 +25,7 @@ case 'update_options':
 	break;
 
 case 'list_add':
-	$list	= $yksemeBase->addList($_POST['list_id'], $_POST['name']);
+	$list	= $yksemeBase->addList($_POST['list_id'], $_POST['list_id']);
 	if($list)
 		{
 		echo json_encode($list);
@@ -72,11 +72,11 @@ case 'list_import':
 
 case 'frontend_submit_form':
 	$action	= $yksemeBase->addUserToMailchimp($_POST);
-	if($action)
+	if($action  == "done")
 		{
 		echo '1';
 		}
-	else echo '-1';
+	else echo $action;
 	break;
 	
 case 'notice_hide':

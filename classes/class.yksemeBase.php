@@ -353,14 +353,25 @@ public function getLists()
 	{
 	$api	= new wpyksMCAPI($this->optionVal['api-key']);
 	$lists	= $api->lists();
-	//print_r($lists);
+	$listArr	= ($listArr == false ? $this->optionVal['lists'] : $listArr);
+	$theusedlist = array();
+	if(count($listArr) > 0)
+		{
+		foreach($listArr as $list)
+			{
+				$theusedlist[] = $list['id'];
+			}
+		}
 	if($lists)
 		{
 		echo "<select id='yks-list-select' name='yks-list-select'>";
 		echo "<option value=''> Select List</option>";
 		foreach ($lists['data'] as $list)
 			{
-		echo "<option value='".$list['id']."'>".$list['name']."</option>";		
+				if (!in_array($list['id'], $theusedlist))
+					{
+						echo "<option value='".$list['id']."'>".$list['name']."</option>";		
+					}
 			}
 		echo "</select>";
 		}
@@ -553,6 +564,7 @@ public function addAdministrationMenu()
 	// Top Level Menu
 	add_menu_page('Mailchimp Forms', 'Mailchimp Forms', 'manage_options', 'yks-mailchimp-form', array(&$this, 'generatePageOptions'), YKSEME_URL.'images/ykseme_16px.png', 400);
 	// Sub Items
+	add_submenu_page('yks-mailchimp-form', 'Mailchimp Forms', 'Mailchimp Settings', 'manage_options', 'yks-mailchimp-form', array(&$this, 'generatePageOptions'));
 	add_submenu_page('yks-mailchimp-form', 'Manage List Forms', 'Manage List Forms', 'manage_options', 'yks-mailchimp-form-lists', array(&$this, 'generatePageLists'));
 	add_submenu_page('yks-mailchimp-form', 'About YIKES, Inc.', 'About YIKES, Inc.', 'manage_options', 'yks-mailchimp-about-yikes', array(&$this, 'generatePageAboutYikes'));
 	}
@@ -625,7 +637,8 @@ public function addUserToMailchimp($p)
 			endif; endforeach;
 			
 			// If no email, fail
-			if($email === false) return false;
+			$noemail = "The email address is blank";
+			if($email === false) return $noemail;
 			
 			// By default this sends a confirmation email - you will not see new members
 			// until the link contained in it is clicked!
@@ -633,12 +646,12 @@ public function addUserToMailchimp($p)
 		
 			if($api->errorCode)
 				{
-				return false;
+				return $api->errorCode;
 				}
-			else return true;
+			else return "done";
 			}
 		}
-	return false;
+	return "One or more fields are empty";
 	}
 	
 private function getFieldMergeVar($fn, $lid)
@@ -750,8 +763,10 @@ public function getFrontendFormJavascript($list='')
 			switch($field['type'])
 				{
 				default:
+				$prefixa = "ymce";
+					$js .= "if ($".$prefixa."('#{$field[id]}').val() == '')";
 					$js .= <<<JSC
-if($prefix('#{$field[id]}').val() == '')
+
 	{
 	msg += '* {$field[label]}'+"\\n";
 	err++;

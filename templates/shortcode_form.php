@@ -41,7 +41,7 @@ $ymce = jQuery.noConflict();
 						else
 							{
 							$ymce('#ykfmc-submit_<?php echo $list['id']; ?>').removeAttr('disabled');
-							$ymce('#yks-status-<?php echo $list['id']; ?>').html('<div class="yks-error"><p>Sorry the email address you entered was previously submitted.</p></div>');
+							$ymce('#yks-status-<?php echo $list['id']; ?>').html('<div class="yks-error"><p>'+ MAILCHIMP +'</p></div>');
 							$ymce('#yks-status-<?php echo $list['id']; ?>').slideDown('fast');
 							}
 						}
