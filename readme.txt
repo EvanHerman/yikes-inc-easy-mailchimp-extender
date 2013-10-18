@@ -12,7 +12,7 @@ The YIKES, Inc. Easy MailChimp extender allows you to easily add MailChimp forms
 
 The YIKES, Inc. Easy MailChimp extender allows you to easily add MailChimp forms to your WordPress site. You can add forms to posts or pages with shortcodes or to template files with PHP tags. Simply copy and paste your MailChimp API Key into the plugin admin settings and it will pull in all your MailChimp lists. From there you can choose the lists you want to make forms for. For a single list you can check off the fields you want to include on your form and order them via an easy drag-and-drop interface. This plugin adds plenty of CSS selectors to the form code allowing you to completely customize the look of your forms.
 
-If you notice any issues, please submit a bug on our [Github Issue Tracker](https://github.com/yikesinc/yikes-inc-easy-mailchimp-extender/issues "Github Issue Tracker") and we'll look in to it as soon as possible.
+Instructions on how to use the plugin can be [found on the FAQ](http://wordpress.org/plugins/yikes-inc-easy-mailchimp-extender/faq/ "found on the FAQ"). If you notice any issues, please submit a bug on our [Github Issue Tracker](https://github.com/yikesinc/yikes-inc-easy-mailchimp-extender/issues "Github Issue Tracker") and we'll look in to it as soon as possible.
 
 == Installation ==
 
@@ -40,6 +40,9 @@ For more help, visit the MailChimp Support article [Where can I find my API Key?
 
 = How to I add my MailChimp lists? =
 After you add your API key, the plugin will fetch all of your MailChimp list information and load it into the plugin admin. Go to the plugin "Manage List Forms" page to choose the lists you want to make forms for.
+
+= How do I add the MailChimp signup forms to my site? =
+You can use a shortcode to add a form to a page or post. For each list on the plugin "Manage List Forms" page you will see a Shortcode at the top. Copy the shortcode and paste it into any post or page where you want a form to appear. For example, if my form had the shortcode "[yks-mailchimp-list id="1234567891"]" I would copy and paste that into the page or post I wanted to add that form to.
 
 = Don't I have to enter a list ID for each list I want to add to my site? =
 Not anymore! With the 2.0 version of the MailChimp API all list information can be imported with just the API key.
