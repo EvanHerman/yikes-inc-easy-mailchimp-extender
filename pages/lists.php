@@ -8,7 +8,7 @@
 				$('#yks-list-wrapper').html('<p>In order to setup a form for your mailing list you will first need to retrieve the list ID code from the Mailchimp list you wish to use.</p><p><a href="http://kb.mailchimp.com/article/how-can-i-find-my-list-id/" target="_blank">Click here for instructions on retrieving your "MailChimp list ID"</a></p><p>After retrieving your list ID <a href="#" class="yks-mailchimp-list-add">click here to get started.</a></p>');
 				}
 			}
-		function EnterListID (lid)
+		function EnterListID (lid, name)
 			{
 				if(lid !== '')
 					{
@@ -16,9 +16,10 @@
 						type:	'POST',
 						url:	ajaxurl,
 						data: {
-									action:					'yks_mailchimp_form',
-									form_action:		'list_add',
-									list_id:				lid
+									action:			'yks_mailchimp_form',
+									form_action:	'list_add',
+									list_id:		lid,
+									name: 			name,
 									},
 						dataType: 'json',
 						success: function(MAILCHIMP)
@@ -98,25 +99,13 @@
 			}
 		noListsCheck();
 		initializeScrollableLists();
-		$('.yks-mailchimp-list-add').live('click', function(e){
-				var lid	= prompt("Please enter your MailChimp list ID code.");
-				if (lid)
-					{
-						EnterListID (lid);
-						return false;
-					}
-				else 
-					{
-						alert ('List ID is required to create a form');
-						return false;
-					}
-		});
 		$('#yks-lists-dropdown').submit(function(e) {
         		e.preventDefault();
         		var lid	= $("select#yks-list-select option:selected").val();
+        		var name = $('select#yks-list-select option:selected').html();
 				if (lid)
 					{
-						var listIDsubmit = EnterListID (lid);
+						EnterListID (lid, name);
 						$('#yks-submit-list-add').attr("disabled", true);
 						setInterval(function()
 							{
@@ -259,11 +248,6 @@
 		</p>
 		</form>
 	</div>
-	<h3>OR Manually Add Mailing List Form with "List ID"</h3>
-	<p>(The API Key must be created by user with Admin or Manager Role)</p>
-	<a href="#" class="button add-new-h2 yks-mailchimp-list-add">Add New list form by MailChimp "list ID"</a>
-
-<p><a href="http://kb.mailchimp.com/article/how-can-i-find-my-list-id/" target="_blank">How to find your MailChimp list ID</a></p>
 
 	<h3>Manage the Mailchimp List Forms</h3>
 	<div id="yks-list-wrapper"><?php echo $this->generateListContainers(); ?></div>	

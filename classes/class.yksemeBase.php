@@ -328,7 +328,7 @@ public function updateVersion($k)
 
 /***** LIST ACTIONS
  ****************************************************************************************************/
-public function addList($lid='')
+public function addList($lid='' , $name='')
 	{
 	if($lid == '' || isset($this->optionVal['lists'][$list['id']])) return false;
 	$api	= new wpyksMCAPI($this->optionVal['api-key']);
@@ -338,6 +338,7 @@ public function addList($lid='')
 		$list	= array(
 						'id'			=> $lid,
 						'list-id'	=> $lid,
+						'name'	=> $name,
 						'fields'	=> $this->getImportedFieldsArray($lid, $mv)
 					);
 		$this->optionVal['lists'][$list['id']]	= $list;
@@ -462,9 +463,7 @@ public function addStyles()
 	// Register Styles
 	wp_register_style('ykseme-css-base', 				YKSEME_URL.'css/style.ykseme.css', 											array(), '1.0.0', 'all');
 	// Enqueue Styles
-	if ( ! wp_style_is('thickbox', 'queue' ) ) {
-		wp_enqueue_style('thickbox');
-	}
+	wp_enqueue_style('thickbox');
 	wp_enqueue_style('ykseme-css-base');
 	}
 	
@@ -480,34 +479,20 @@ public function addStyles_frontend()
 	
 public function addScripts()
 	{
-	if ( ! wp_script_is('jquery', 'queue' ) ) {
 	wp_enqueue_script('jquery');
-	}
 	// Everything else
-	if ( ! wp_script_is('jquery-ui-core', 'queue' ) ) {
 	wp_enqueue_script('jquery-ui-core');
-	}
-	if ( ! wp_script_is('thickbox', 'queue' ) ) {
 	wp_enqueue_script('thickbox');
-	}
-	if ( ! wp_script_is('jquery-ui-sortable', 'queue' ) ) {
 	wp_enqueue_script('jquery-ui-sortable');
-	}
-	if ( ! wp_script_is('jquery-ui-tabs', 'queue' ) ) {
 	wp_enqueue_script('jquery-ui-tabs');
-	}
 	wp_enqueue_script('ykseme-base',				  		YKSEME_URL.'js/script.ykseme.js',											array('jquery'));
 	}
 	
 public function addScripts_frontend()
 	{
-	if ( ! wp_script_is('jquery', 'queue' ) ) {
 	wp_enqueue_script('jquery');
-	}
 	// Everything else
-	if ( ! wp_script_is('jquery-ui-core', 'queue' ) ) {
 	wp_enqueue_script('jquery-ui-core');
-	}
 	wp_enqueue_script('jquery-ui-datepicker',			YKSEME_URL.'js/jquery-ui-1.8.16.datepicker.min.js',		array('jquery'), '1.8.16');
 	}
 
@@ -697,6 +682,10 @@ public function generateListContainers($listArr=false)
 					<table class="form-table">
 						<tbody>
 							<tr valign="top">
+								<th scope="row"><label for="yks-mailchimp-api-key">Mailing List name</label></th>
+								<td><strong><?php echo $list['name']; ?></strong></td>
+							</tr>						
+							<tr valign="top">
 								<th scope="row"><label for="yks-mailchimp-api-key">Shortcode</label></th>
 								<td><strong>[yks-mailchimp-list id="<?php echo $list['id']; ?>"]</strong></td>
 							</tr>
@@ -706,7 +695,8 @@ public function generateListContainers($listArr=false)
 							</tr>
 							<tr valign="top">
 								<th scope="row"><label for="yks-mailchimp-api-key">Mailchimp List Id</label></th>
-								<td><strong><?php echo $list['list-id']; ?></strong></td>
+								<td><strong><?php echo $list['list-id'];  ?></strong>
+								</td>
 							</tr>
 							<tr valign="top">
 								<th scope="row"><label for="api-key">Active Fields</label></th>
@@ -755,13 +745,13 @@ public function getFrontendFormJavascript($list='')
 	foreach($list['fields'] as $field) : if($field['active'] == 1) :	
 		// Setup javascript
 		if($field['require'] == '1') :
-		$prefix = "ymce";
+		$prefix = "$ymce";
 			$js .= "\n";
 			switch($field['type'])
 				{
 				default:
 					$js .= <<<JSC
-if($$prefix('#{$field[id]}').val() == '')
+if($prefix('#{$field[id]}').val() == '')
 	{
 	msg += '* {$field[label]}'+"\\n";
 	err++;
@@ -770,22 +760,22 @@ JSC;
 					break;
 				case 'address':
 					$js .= <<<JSC
-if($$prefix('#{$field[id]}').val() == '')
+if($prefix('#{$field[id]}').val() == '')
 	{
 	msg += '* {$field[label]}: Street Address'+"\\n";
 	err++;
 	}
-if($$prefix('#{$field[id]}-city').val() == '')
+if($prefix('#{$field[id]}-city').val() == '')
 	{
 	msg += '* {$field[label]}: City'+"\\n";
 	err++;
 	}
-if($$prefix('#{$field[id]}-state').val() == '')
+if($prefix('#{$field[id]}-state').val() == '')
 	{
 	msg += '* {$field[label]}: State'+"\\n";
 	err++;
 	}
-if($$prefix('#{$field[id]}-zip').val() == '')
+if($prefix('#{$field[id]}-zip').val() == '')
 	{
 	msg += '* {$field[label]}: Zip Code'+"\\n";
 	err++;
@@ -794,7 +784,7 @@ JSC;
 					break;
 				case 'radio':
 					$js .= <<<JSC
-if($$prefix('.{$field[name]}:checked').length <= 0)
+if($prefix('.{$field[name]}:checked').length <= 0)
 	{
 	msg += '* {$field[label]}'+"\\n";
 	err++;
@@ -1055,7 +1045,7 @@ private function runUpdateTasks_1_2_0()
  * just about all of the data with the new schema. We also
  * add in the flavor key (for table/div usage)
  *
- * 1.3.0 => 2.1.0
+ * 1.3.0 => 2.0.0
  */
 private function runUpdateTasks_1_3_0()
 	{
