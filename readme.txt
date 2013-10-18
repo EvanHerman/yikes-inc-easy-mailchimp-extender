@@ -42,7 +42,7 @@ For more help visit the MailChimp Support article [Where can I find my API Key?]
 After you add your API key, the plugin will fetch all of your MailChimp list information and load it into the plugin admin. Go to the plugin "Manage List Forms" page to choose the lists you want to make forms for.
 
 = Don't I have to enter a list ID for each list I want to add to my site? =
-Not any more! With the 2.0 version of the MailChimp API all list information can be imported with just the API key.
+Not anymore! With the 2.0 version of the MailChimp API all list information can be imported with just the API key.
 
 = My Information isn't showing up when people subscribe, what gives? =
 You're likely using an old version of the plugin. Please update to the latest version and import your list data.
