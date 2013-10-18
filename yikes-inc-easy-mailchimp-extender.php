@@ -5,7 +5,7 @@ Plugin Name: YIKES, Inc Easy Mailchimp Extender
 Plugin URI: http://yikesinc.com
 Description: Mailchimp API integration in the form of a shortcode or php snippet
 Version: 2.2.0
-Author: YIKES Inc, Sean Kennedy, Tracy Levesque, Carlos Zuniga
+Author: YIKES Inc, Carlos Zuniga, Tracy Levesque, Sean Kennedy
 Author URI: http://ikesinc.com
 License: GPL2
 
@@ -29,9 +29,9 @@ Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 #_________________________________________________ CONSTANTS
 /** Configuration **/
 if(!defined('YKSEME_DEBUG'))						define('YKSEME_DEBUG',		         true);
-if(!defined('YKSEME_VERSION_CURRENT'))				define('YKSEME_VERSION_CURRENT',	'2.1.0');
+if(!defined('YKSEME_VERSION_CURRENT'))				define('YKSEME_VERSION_CURRENT',	'2.2.0');
 if(!defined('YKSEME_REQ_PHP'))						define('YKSEME_REQ_PHP',			'5.0');
-if(!defined('YKSEME_AUTHOR'))						define('YKSEME_AUTHOR',				'Yikes, Inc, Sean Kennedy, Tracy Levesque, Carlos Zuniga');
+if(!defined('YKSEME_AUTHOR'))						define('YKSEME_AUTHOR',				'YIKES Inc, Carlos Zuniga, Tracy Levesque, Sean Kennedy');
 if(!defined('YKSEME_SITE'))							define('YKSEME_SITE',				site_url().'/');
 if(!defined('YKSEME_PREFIX'))						define('YKSEME_PREFIX',				'ykseme_');
 if(!defined('YKSEME_PATH'))							define('YKSEME_PATH',				ABSPATH.'wp-content/plugins/yikes-inc-easy-mailchimp-extender/');

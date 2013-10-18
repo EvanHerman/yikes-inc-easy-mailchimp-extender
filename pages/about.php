@@ -32,7 +32,7 @@
 			YIKES is located in the Fishtown neighborhood of Philadelphia where we build custom WordPress themes and plugins every day.
 		</p>
 
-		<p> At YIKES we love WordPress! Co-Owner, Tracy Levesque has presented at WordCamps <a href="http://wordpress.tv/2013/04/12/tracy-levesque-custom-post-types-for-right-brained-folks/" target="_blank">Philly</a>, NYC, Montreal and <a href="http://wordpress.tv/2013/07/31/tracy-levesque-what-you-dont-know-you-can-do-wordpress-development-for-absolutely-everyone/" target="_blank">San Francisco. She also teaches WordPress classes for <a href="http://www.meetup.com/Girl-Develop-It-Philadelphia/events/134330962/" target="_blank">Girl Develop It Philadelphia</a>.
+		<p> At YIKES we love WordPress! Co-Owner, Tracy Levesque has presented at WordCamps <a href="http://wordpress.tv/2013/04/12/tracy-levesque-custom-post-types-for-right-brained-folks/" target="_blank">Philly</a>, NYC, Montreal and <a href="http://wordpress.tv/2013/07/31/tracy-levesque-what-you-dont-know-you-can-do-wordpress-development-for-absolutely-everyone/" target="_blank">San Francisco</a>. She also teaches WordPress classes for <a href="http://www.meetup.com/Girl-Develop-It-Philadelphia/events/134330962/" target="_blank">Girl Develop It Philadelphia</a>.
 		</p>
 
 		<p>
