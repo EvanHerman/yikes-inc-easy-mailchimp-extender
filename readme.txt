@@ -42,7 +42,7 @@ For more help, visit the MailChimp Support article [Where can I find my API Key?
 After you add your API key, the plugin will fetch all of your MailChimp list information and load it into the plugin admin. Go to the plugin "Manage List Forms" page to choose the lists you want to make forms for.
 
 = How do I add the MailChimp signup forms to my site? =
-You can use a shortcode to add a form to a page or post. For each list on the plugin "Manage List Forms" page you will see a Shortcode at the top. Copy the shortcode and paste it into any post or page where you want a form to appear. For example, if my form had the shortcode "[yks-mailchimp-list id="1234567891"]" I would copy and paste that into the page or post I wanted to add that form to.
+You can use a shortcode to add a form to a page or post. For each list on the plugin "Manage List Forms" page you will see a Shortcode at the top. Copy the shortcode and paste it into any post or page where you want a form to appear. For example, if my form had the shortcode [yks-mailchimp-list id="1234567891"] I would copy and paste that into the page or post I wanted to add that form to.
 
 = Don't I have to enter a list ID for each list I want to add to my site? =
 Not anymore! With the 2.0 version of the MailChimp API all list information can be imported with just the API key.
