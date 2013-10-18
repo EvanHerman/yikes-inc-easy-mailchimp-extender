@@ -29,6 +29,7 @@ Yes, you can register for one for free at [MailChimp](https://mailchimp.com/sign
 
 = Do I need to have lists already set up in MailChimp? =
 Yes, you have to have at least 1 list set up in MailChimp. 
+
 For more help, visit the MailChimp Support article [How do I create a new list?](http://kb.mailchimp.com/article/where-can-i-find-my-api-key "How do I create a new list?")
 
 = What do I do first? =
@@ -36,6 +37,7 @@ The first step is to add your MailChimp API key. This will allow your site to co
 
 = Where do I find my API Key? =
 From your MailChimp Dashboard, click on your account name in the upper left hand corner of the screen under the MailChimp logo to expose the "Account Settings" menu. Click on "Account Settings" to go to the Account Settings screen and the click on the "Extras" menu. Under "Extras" choose "API keys" there you can create a new key if you do not already have one.
+
 For more help, visit the MailChimp Support article [Where can I find my API Key?](http://kb.mailchimp.com/article/where-can-i-find-my-api-key "Where can I find my API Key?")
 
 = How to I add my MailChimp lists? =
