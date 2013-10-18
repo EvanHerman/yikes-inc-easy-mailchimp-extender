@@ -47,43 +47,63 @@ jQuery(document).ready(function ($) {
 	<div id="ykseme-icon" class="icon32"><br /></div>
 	
 	<h2 id="ykseme-page-header">
-		Easy Mailchimp Extender
+		YIKES, Inc. Easy Mailchimp Extender
 	</h2>
 
-	<h3>Manage the Mailchimp API Form Options</h3>
+	<h3>Manage Mailchimp Forms Settings</h3>
 	
 	<div class="yks-status" id="yks-status"></div>
 	
 	<form method="post" name="yks-mailchimp-form" id="yks-mailchimp-form">
 		
-		<table class="form-table">
+		<table class="form-table yks-admin-form">
 			<tbody>
 				
 				<tr valign="top">
-					<th scope="row"><label for="yks-mailchimp-api-key">Mailchimp API Key</label></th>
+					<th scope="row"><label for="yks-mailchimp-api-key">Your Mailchimp API Key</label></th>
 					<td><input name="yks-mailchimp-api-key" type="text" id="yks-mailchimp-api-key" value="<?php echo $this->optionVal['api-key']; ?>" class="regular-text" /></td>
+				</tr>
+
+				<tr>
+					<td></td>
+					<td class="yks-settings-description">
+						Please enter your MailChimp API Key above. Your MailChimp API Key allows your site to communicate with your MailChimp account. For more help, visit the MailChimp Support article <a href="http://kb.mailchimp.com/article/where-can-i-find-my-api-key" target="_blank">Where can I find my API Key?</a>
+					</td>
 				</tr>
 				
 				<tr valign="top">
-					<th scope="row"><label for="yks-mailchimp-flavor">What's Your Flavor?</label></th>
+					<th scope="row"><label for="yks-mailchimp-flavor">Preferred Form Layout</label></th>
 					<td>
 						<select name="yks-mailchimp-flavor" id="yks-mailchimp-flavor" class="regular-text" />
 							<option value="0"<?php echo ($this->optionVal['flavor'] === '0' ? ' selected' : ''); ?>>Tables</option>
 							<option value="1"<?php echo ($this->optionVal['flavor'] === '1' ? ' selected' : ''); ?>>Divs</option>
 						</select>
-						<span class="description">What you choose determines how the form is built with the shortcode (Default: Tables)</span>
+					</td>
+				</tr>
+
+				<tr>
+					<td></td>
+					<td class="yks-settings-description">
+						Choose whether you want your forms to use a table or div layout.
 					</td>
 				</tr>
 				
+				<tr>
+					<td></td>
+					<td><input type="submit" name="submit" id="submit" class="button-primary" value="Save Settings"></td>
+				</tr>	
 			</tbody>
 		</table>
 
-		<p class="submit"><input type="submit" name="submit" id="submit" class="button-primary" value="Update Options"></p>
-	
 	</form>
 	
-	<div id="yks-mailchimp-debug-info">
-		<table class="form-table">
+	<h3>Plugin Information</h3>
+
+	<p>
+		If you experience any issues with our plugin, please <a href="https://github.com/yikesinc/yikes-inc-easy-mailchimp-extender/issues" target="_blank">submit a New Issue on our Github Issue Tracker</a>. Please include the information below to help us troubleshoot your problem.
+	</p>
+
+		<table class="form-table yks-admin-form">
 			<tbody>
 				
 				<tr valign="top">

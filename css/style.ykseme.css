@@ -1,8 +1,13 @@
 /* =========== Helper Classes =========== */
 
-.yks-hidden {
-	display: none;
-}
+.yks-hidden {display: none;}
+
+.yks-text-right {text-align: right;}
+.yks-text-left {text-align: left;}
+.yks-text-center {text-align: center;}
+
+.yks-right {float: right;}
+.yks-left {float: left;}
 
 
 /* =========== Admin screens =========== */
@@ -68,6 +73,22 @@
 		.yks-status .yks-notice p {
 			padding: 5px;
 		}
+
+/* Plugin settings page*/
+
+.yks-admin-form {
+	margin-bottom: 3em;
+}
+
+	.yks-admin-form th {
+		font-weight: bold;
+	}
+
+.yks-settings-description {
+	padding-bottom: 2em !important;
+	color: #666;
+}
+
 
 /* Configure Lists page*/
 
