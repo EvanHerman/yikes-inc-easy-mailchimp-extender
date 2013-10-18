@@ -1,8 +1,6 @@
 YIKES, Inc. Easy MailChimp Extender
 ===========
-The YIKES, Inc. Easy MailChimp extender gives you the ability to create sign up forms that allow site visitors to join your MailChimp lists. You can add forms to posts or pages with shortcodes or to template files with PHP tags. Simply copy and paste your API Key and List IDs created by MailChimp into the plugin admin and the plugin will pull in all your MailChimp list fields. You can check off the fields you want to include on your form and order them via an easy drag-and-drop interface. In addition, this plugin adds plenty of CSS hooks to the form code allowing you to completely customize the look of your forms.
-
-Targeted email messages are a more effective form of eMarketing for your business. The advantages of using MailChimp are vast and now you can expand upon its abilities in WordPress easily. With simple installation and easy to follow instructions, this extender will considerably improve your email marketing campaigns.
+The YIKES, Inc. Easy MailChimp extender allows you to easily add MailChimp forms to your WordPress site. You can add forms to posts or pages with shortcodes or to template files with PHP tags. Simply copy and paste your MailChimp API Key into the plugin admin settings and it will pull in all your MailChimp lists. From there you can choose the lists you want to make forms for. For a single list you can check off the fields you want to include on your form and order them via an easy drag-and-drop interface. This plugin adds plenty of CSS selectors to the form code allowing you to completely customize the look of your forms.
 
 If you notice any issues, please submit a bug on our [Github Issue Tracker](https://github.com/yikesinc/yikes-inc-easy-mailchimp-extender/issues "Github Issue Tracker") and we'll look in to it as soon as possible.
 
@@ -21,42 +19,38 @@ Frequently Asked Questions
 ### Do I need to have a MailChimp Account?
 Yes, you can register one for free at [MailChimp](https://mailchimp.com/signup/ "MailChimp Signup").
 
-### Do I need to already have lists configured? =
-Yes, you can configure them through mailchimp. All the plugin needs is your list id and api key.
 
-### Where do I find my API Key?
-From your MailChimp Dashboard go to Account > API Keys and Authorized Apps. There you will need to add a key if you do not already have one.
-For more help visit [The API Key Help Article](http://kb.mailchimp.com/article/where-can-i-find-my-api-key/ "API Key Help Article")
+### Do I need to have a MailChimp Account? 
+Yes, you can register one for free at [MailChimp](https://mailchimp.com/signup/ "MailChimp Signup").
 
-### Where do I find my List ID?
-From your MailChimp Dashboard go to Lists. Under the specific list you want to make a signup form for, click Settings > List Settings and Unique ID.
-For more help visit [The List Id Help Article](http://kb.mailchimp.com/article/how-can-i-find-my-list-id/ "List Id Help Article")
+### Do I need to have lists already set up in MailChimp? 
+Yes, you have to have at least 1 list set up in MailChimp. 
+For more help visit the MailChimp Support article [How do I create a new list?](http://kb.mailchimp.com/article/where-can-i-find-my-api-key "How do I create a new list?")
 
-### Hey, my checkboxes are not appearing in the active Fields options. What gives? =
-Mailchimp only supports the following fields from the "FIELDS & MERGE tags"
+### What do I do first? 
+The first step is to add your MailChimp API key. This will allow your site to communicate with your MailChimp account. This is done on the plugin "MailChimp Settings" page.
 
-* Text
-* Number
-* Radio Buttons
-* Drop Down
-* Date
-* Birthday
-* Address
-* Zip Code
-* Phone
-* Website
-* Image
+### Where do I find my API Key? 
+From your MailChimp Dashboard click on your account name in the upper left hand corner of the screen under the MailChimp logo to expose the "Account Settings" menu. Click on "Account Settings" to go to the Account Settings screen and the click on the "Extras" menu. Under "Extras" choose "API keys" there you can create a new key if you do not already have one.
+For more help visit the MailChimp Support article [Where can I find my API Key?](http://kb.mailchimp.com/article/where-can-i-find-my-api-key "Where can I find my API Key?")
 
-Unfortunately, checkboxes is not currently an option. We will implement in our plugin as soon as MailChimp offers it as option from their API.
+### How to I add my MailChimp lists? 
+After you add your API key, the plugin will fetch all of your MailChimp list information and load it into the plugin admin. Go to the plugin "Manage List Forms" page to choose the lists you want to make forms for.
 
-### My Information isn't showing up when people subscribe!
+### Don't I have to enter a list ID for each list I want to add to my site? 
+Not any more! With the 2.0 version of the MailChimp API all list information can be imported with just the API key.
+
+### My Information isn't showing up when people subscribe, what gives? 
 You're likely using an old version of the plugin. Please update to the latest version and import your list data.
 
-### My list data was changed/the form isn't showing up since the 2.0 update, what gives?
-Due to the code overhaul required for the features of the new version, the structure we were using to save data had to be completely changed over to conform to the MailChimp schema. The old unique ids that the plugin gave to lists have been deprecated. The custom fields that you have are now pulled in from the MailChimp servers. If your form isn't showing up with the shortcode, just copy and paste it again to fix this issue.
+### My list data was changed/the form isn't showing up since the 2.0 update, what's up with that? =
+Due to the code overhaul required for new version features, the structure we were using to save data had to be completely changed over to conform to the MailChimp schema. The old unique ids the plugin assigned to lists have been deprecated. The custom fields are now pulled in from the MailChimp servers. If your form isn't showing up with the shortcode, just copy and paste it again to fix this issue.
 
 Changes
 ===========
+### 2.2.0
+* 
+
 ### 2.1.0
 * Fix more jquery conflict issues
 * Clarification on how to add and manage list forms
