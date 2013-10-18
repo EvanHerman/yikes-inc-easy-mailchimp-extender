@@ -40,7 +40,7 @@
 		</p>
 		
 		<p>
-			If you're interested in hiring us for WordPress development or want to learn more about us at please visit <a href="http://www.yikesinc.com" title="YIKES, Inc." target="_blank">yikesinc.com</a>
+			If you're interested in hiring us for WordPress development, or just want to learn more about us, please visit <a href="http://www.yikesinc.com" title="YIKES, Inc." target="_blank">yikesinc.com</a>
 		</p>
 	</div>
 	
