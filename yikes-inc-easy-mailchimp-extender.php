@@ -57,9 +57,9 @@ require_once YKSEME_PATH.'lib/lib.func.php';
 $yksemeBase			= new yksemeBase();
 
 /** Activation Hooks **/
-register_activation_hook(__FILE__,					array(&$yksemeBase, 'activate'));
-register_deactivation_hook(__FILE__,				array(&$yksemeBase, 'deactivate'));
-register_uninstall_hook(__FILE__,					array(&$yksemeBase, 'uninstall'));
+register_activation_hook(__FILE__,		array(&$yksemeBase, 'activate'));
+register_deactivation_hook(__FILE__,	array(&$yksemeBase, 'deactivate'));
+register_uninstall_hook(__FILE__,		array(&$yksemeBase, 'uninstall'));
 
 
 // Output jquery

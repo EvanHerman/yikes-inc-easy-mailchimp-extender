@@ -562,9 +562,9 @@ public function processSnippet($list=false)
 public function addAdministrationMenu()
 	{
 	// Top Level Menu
-	add_menu_page('Mailchimp Forms', 'Mailchimp Forms', 'manage_options', 'yks-mailchimp-form', array(&$this, 'generatePageOptions'), YKSEME_URL.'images/ykseme_16px.png', 400);
+	add_menu_page('MailChimp Forms', 'MailChimp Forms', 'manage_options', 'yks-mailchimp-form', array(&$this, 'generatePageOptions'), YKSEME_URL.'images/ykseme_16px.png', 400);
 	// Sub Items
-	add_submenu_page('yks-mailchimp-form', 'Mailchimp Forms', 'Mailchimp Settings', 'manage_options', 'yks-mailchimp-form', array(&$this, 'generatePageOptions'));
+	add_submenu_page('yks-mailchimp-form', 'MailChimp Forms', 'MailChimp Settings', 'manage_options', 'yks-mailchimp-form', array(&$this, 'generatePageOptions'));
 	add_submenu_page('yks-mailchimp-form', 'Manage List Forms', 'Manage List Forms', 'manage_options', 'yks-mailchimp-form-lists', array(&$this, 'generatePageLists'));
 	add_submenu_page('yks-mailchimp-form', 'About YIKES, Inc.', 'About YIKES, Inc.', 'manage_options', 'yks-mailchimp-about-yikes', array(&$this, 'generatePageAboutYikes'));
 	}
@@ -692,27 +692,36 @@ public function generateListContainers($listArr=false)
 				<div class="yks-status" id="yks-status_<?php echo $list['id']; ?>"></div>
 				<form method="post" name="yks-mailchimp-form" id="yks-mailchimp-form_<?php echo $list['id']; ?>" rel="<?php echo $list['id']; ?>">
 					<input type="hidden" name="yks-mailchimp-unique-id" id="yks-mailchimp-unique-id_<?php echo $list['id']; ?>" value="<?php echo $list['id']; ?>" />
-					<table class="form-table">
+					<table class="form-table  yks-admin-form">
 						<tbody>
 							<tr valign="top">
-								<th scope="row"><label for="yks-mailchimp-api-key">Mailing List name</label></th>
-								<td><strong><?php echo $list['name']; ?></strong></td>
-							</tr>						
+								<th scope="row"><label for="yks-mailchimp-api-key">MailChimp List name</label></th>
+								<td><?php echo $list['name']; ?></td>
+							</tr>		
+							<tr valign="top">
+								<th scope="row"><label for="yks-mailchimp-api-key">MailChimp List ID</label></th>
+								<td><?php echo $list['list-id'];  ?>
+								</td>
+							</tr>				
 							<tr valign="top">
 								<th scope="row"><label for="yks-mailchimp-api-key">Shortcode</label></th>
-								<td><strong>[yks-mailchimp-list id="<?php echo $list['id']; ?>"]</strong></td>
-							</tr>
-							<tr valign="top">
-								<th scope="row"><label for="yks-mailchimp-api-key">Snippet</label></th>
-								<td><strong><?php echo htmlentities('<?php echo yksemeProcessSnippet(\''.$list['id'].'\'); ?>'); ?></strong></td>
-							</tr>
-							<tr valign="top">
-								<th scope="row"><label for="yks-mailchimp-api-key">Mailchimp List Id</label></th>
-								<td><strong><?php echo $list['list-id'];  ?></strong>
+								<td>
+									[yks-mailchimp-list id="<?php echo $list['id']; ?>"]
+									<span class="description yks-margin-left">Paste this shortcode into whatever page or post you want to add this form to</span>
 								</td>
 							</tr>
 							<tr valign="top">
-								<th scope="row"><label for="api-key">Active Fields</label></th>
+								<th scope="row"><label for="yks-mailchimp-api-key">PHP Snippet</label></th>
+								<td>
+									<?php echo htmlentities('<?php echo yksemeProcessSnippet(\''.$list['id'].'\'); ?>'); ?>
+									<span class="description yks-margin-left">Use this code to add this form to a template file</span>
+								</td>
+							</tr>
+							<tr valign="top">
+								<td scope="row">
+									<label for="api-key"><strong>Form Fields</strong></label>
+									<p class="description">Check the fields you want included in your form (Email Address is required). Drag-and-drop the fields to rearrange their order.</p>
+								</th>
 								<td class="yks-mailchimp-fields-td" id="yks-mailchimp-fields-td_<?php echo $list['id']; ?>">
 									<fieldset class="yks-mailchimp-fields-container" id="yks-mailchimp-fields-container_<?php echo $list['id']; ?>">
 										<legend class="screen-reader-text"><span>Active Fields</span></legend>
@@ -732,14 +741,18 @@ public function generateListContainers($listArr=false)
 									</fieldset>
 								</td>
 							</tr>
+							<tr>
+								<td></td>
+								<td>
+									<input type="submit" name="submit" class="yks-mailchimp-list-update button-primary" value="Save Form Settings" rel="<?php echo $list['id']; ?>" />
+									<input type="button" name="delete" class="yks-mailchimp-delete button-primary" value="Delete Form" rel="<?php echo $list['id']; ?>" />
+									<input type="button" name="import" class="yks-mailchimp-import button-primary" value="Re-Import Form Fields" rel="<?php echo $list['id']; ?>" />
+								</td>
+							</tr>
 						</tbody>
 					</table>
 			
-					<p class="submit">
-						<input type="submit" name="submit" class="yks-mailchimp-list-update button-primary" value="Update List Options" rel="<?php echo $list['id']; ?>" />
-						<input type="button" name="delete" class="yks-mailchimp-delete button-primary" value="Delete List" rel="<?php echo $list['id']; ?>" />
-						<input type="button" name="import" class="yks-mailchimp-import button-primary" value="Import List Data" rel="<?php echo $list['id']; ?>" />
-					</p>
+					
 				</form>
 			</div>
 			<?php

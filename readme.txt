@@ -82,7 +82,6 @@ Due to the code overhaul required for the features of the new version, the struc
 * use "noConflict" in each jquery instance to avoid future conflicts.  
 * update Yikes about us info.
 
-
 = 2.0.1 =
 * Now supports multiples of the same list
 * Fixed the date format issue
@@ -117,6 +116,10 @@ Due to the code overhaul required for the features of the new version, the struc
 * Initial Release
 
 == Upgrade Notice ==
+
+= 2.2.0 =
+* Added support for multiples of the same list
+* Bug fixes
 
 = 2.1.0 =
 * Added support for multiples of the same list
