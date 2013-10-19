@@ -120,7 +120,7 @@
 		
 .yks-mailchimp-sorthandle {
 	background: 	transparent url('../images/16px_sortable_color.png') no-repeat 0 0;
-	margin:			4px 7px 2px 4px !important;
+	margin:			0 7px -4px 4px !important;
 	padding:		0;
 	overflow:		hidden;
 	height:			16px !important;
@@ -128,6 +128,22 @@
 	text-indent:	-9000px;
 	display:		inline-block;
 }
+
+.yks-mailchimp-fields-container label input[type="checkbox"] {
+	margin-top: -1px;
+}
+	
+.yks-mailchimp-field-name {
+	display: inline-block;
+	width: 200px;
+}
+
+.yks-mailchimp-field-merge {
+	display: inline-block;
+}
+	.yks-mailchimp-field-merge .yks-mailchimp-field-merge {
+		width: 100px;
+	}
 
 #yks-list-wrapper .yks-list-container 	{
 	border-bottom: 3px dashed #DEDEDE;
@@ -148,9 +164,16 @@
 }
 	.yks-mailchimp-fields-list .yks-mailchimp-fields-list-row {
 		display: block;
+		height: 30px;
+		padding-top: 3px;
 	}
 		.yks-mailchimp-fields-list .yks-mailchimp-fields-list-row label {
 			display: inline-block;
+		}
+
+		.yks-mailchimp-listname {
+			font-size: 1.4em !important;
+			font-weight: 600;
 		}
 
 /* About page */
@@ -188,20 +211,8 @@
 .yks-mailchimp-fields-container label {
 	clear: both;
 	display: block;
-	padding: 5px 0 5px 0;
+	padding: 2px 0;
 }
-	
-.yks-mailchimp-field-name {
-	display: inline-block;
-	width: 200px;
-}
-
-.yks-mailchimp-field-merge {
-	display: inline-block;
-}
-	.yks-mailchimp-field-merge .yks-mailchimp-field-merge {
-		width: 100px;
-	}
 	
 .yks-mailchimpFormTable	{
 	border-bottom: 0px !important;

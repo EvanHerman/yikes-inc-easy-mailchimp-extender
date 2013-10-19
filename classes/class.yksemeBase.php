@@ -696,7 +696,7 @@ public function generateListContainers($listArr=false)
 						<tbody>
 							<tr valign="top">
 								<th scope="row"><label for="yks-mailchimp-api-key">MailChimp List name</label></th>
-								<td><?php echo $list['name']; ?></td>
+								<td class="yks-mailchimp-listname"><?php echo $list['name']; ?></td>
 							</tr>		
 							<tr valign="top">
 								<th scope="row"><label for="yks-mailchimp-api-key">MailChimp List ID</label></th>
@@ -732,9 +732,9 @@ public function generateListContainers($listArr=false)
 													<span class="yks-mailchimp-sorthandle">Drag &amp; drop</span>
 													<input type="checkbox" name="<?php echo $field['name']; ?>" id="<?php echo $field['id']; ?>" value="1" <?php echo ($field['active'] == 1 ? 'checked="checked"' : ''); ?><?php echo ($field['require'] == 1 ? 'disabled="disabled"' : ''); ?> />
 													&nbsp;
-													<span class="yks-mailchimp-field-name"><?php echo $field['label']; ?></span>
+													<div class="yks-mailchimp-field-name"><?php echo $field['label']; ?></div>
 												</label>
-												<span class="yks-mailchimp-field-merge">*|<input type="text" name="<?php echo $field['name']; ?>-merge" id="<?php echo $field['id']; ?>-merge" value="<?php echo $field['merge']; ?>"<?php echo (($field['locked'] == 1 || $field['merge'] == false) ? ' disabled="disabled"' : ''); ?> />|*</span>
+												<span class="yks-mailchimp-field-merge"><span class="description">MailChimp merge field:</span> &nbsp; *|<input type="text" name="<?php echo $field['name']; ?>-merge" id="<?php echo $field['id']; ?>-merge" value="<?php echo $field['merge']; ?>"<?php echo (($field['locked'] == 1 || $field['merge'] == false) ? ' disabled="disabled"' : ''); ?> />|*</span>
 											</div>
 											<?php } ?>
 										</div>
@@ -746,7 +746,7 @@ public function generateListContainers($listArr=false)
 								<td>
 									<input type="submit" name="submit" class="yks-mailchimp-list-update button-primary" value="Save Form Settings" rel="<?php echo $list['id']; ?>" />
 									<input type="button" name="delete" class="yks-mailchimp-delete button-primary" value="Delete Form" rel="<?php echo $list['id']; ?>" />
-									<input type="button" name="import" class="yks-mailchimp-import button-primary" value="Re-Import Form Fields" rel="<?php echo $list['id']; ?>" />
+									<input type="button" name="import" class="yks-mailchimp-import button-primary" value="Re-Import Form Fields from MailChimp" rel="<?php echo $list['id']; ?>" />
 								</td>
 							</tr>
 						</tbody>
