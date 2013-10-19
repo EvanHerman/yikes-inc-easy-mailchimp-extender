@@ -720,7 +720,13 @@ public function generateListContainers($listArr=false)
 							<tr valign="top">
 								<td scope="row">
 									<label for="api-key"><strong>Form Fields</strong></label>
-									<p class="description">Check the fields you want included in your form (Email Address is required). Drag-and-drop the fields to rearrange their order.</p>
+									<p class="description">
+										Check the fields you want included in your form (Email Address is required).
+									</p> 
+									<p class="description">
+										Use the green arrows to drag-and-drop the fields and rearrange their order.
+										<span class="yks-mailchimp-sorthandle-img"></span>
+									</p>
 								</th>
 								<td class="yks-mailchimp-fields-td" id="yks-mailchimp-fields-td_<?php echo $list['id']; ?>">
 									<fieldset class="yks-mailchimp-fields-container" id="yks-mailchimp-fields-container_<?php echo $list['id']; ?>">

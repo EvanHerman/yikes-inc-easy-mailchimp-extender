@@ -129,6 +129,13 @@
 	display:		inline-block;
 }
 
+	.yks-mailchimp-sorthandle-img {
+		background: transparent url('../images/16px_sortable_color.png') no-repeat 0 0;
+		height:			16px !important;
+		width:			16px !important;
+		display:		inline-block;
+		}
+
 .yks-mailchimp-fields-container label input[type="checkbox"] {
 	margin-top: -1px;
 }
