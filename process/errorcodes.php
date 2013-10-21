@@ -1,6 +1,4 @@
-
 <?php
-
 
 //Server Errors
 $errorcode['-32601'] = 'ServerError_MethodUnknown';
@@ -15,7 +13,7 @@ $errorcode['-90'] = 'XML_RPC2_FaultException';
 $errorcode['-50'] = 'Too_Many_Connections';
 $errorcode['0'] = 'Parse_Exception';
 
-//API User or API Key error
+//API User or API Key error (THis is my error for user)
 $errorcode['100'] = 'User_Unknown';
 $errorcode['101'] = 'User_Disabled';
 $errorcode['102'] = 'User_DoesNotExist';
@@ -48,6 +46,7 @@ $errorcode['215'] = 'List_NotSubscribed';
 $errorcode['220'] = 'List_InvalidImport';
 $errorcode['221'] = 'MC_PastedList_Duplicate';
 $errorcode['222'] = 'MC_PastedList_InvalidImport';
+
 $errorcode['230'] = 'Email_AlreadySubscribed';
 $errorcode['231'] = 'Email_AlreadyUnsubscribed';
 $errorcode['232'] = 'Email_NotExists';
@@ -78,8 +77,9 @@ $errorcode['352'] = 'Absplit_UnknownTestType';
 $errorcode['353'] = 'Absplit_UnknownWaitUnit';
 $errorcode['354'] = 'Absplit_UnknownWinnerType';
 $errorcode['355'] = 'Absplit_WinnerNotSelected';
+// Validation errors
 $errorcode['500'] = 'Invalid_Analytics';
-$errorcode['501'] = 'Invalid_DateTime';
+$errorcode['501'] = 'Invalid_DateTimel';
 $errorcode['502'] = 'Invalid_Email';
 $errorcode['503'] = 'Invalid_SendType';
 $errorcode['504'] = 'Invalid_Template';
