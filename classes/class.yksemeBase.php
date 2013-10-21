@@ -323,6 +323,14 @@ public function updateVersion($k)
 	}
 
 
+/********Mailchimp Error Codes
+*****************************************************************************************************/
+
+public function YksMCErrorCodes ($error) 
+{
+	include YKSEME_PATH.'process/errorcodes.php';
+
+}
 
 
 
@@ -647,7 +655,7 @@ public function addUserToMailchimp($p)
 		
 			if($api->errorCode)
 				{
-				return $api->errorCode;
+				return this->YksMCErrorCodes ($api->errorCode);
 				}
 			else return "done";
 			}

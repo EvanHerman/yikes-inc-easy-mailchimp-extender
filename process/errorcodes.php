@@ -1,118 +1,139 @@
 <?php
+//Server Errors	
+$errorcode['-32601'][1] = 'ServerError_MethodUnknown';
+$errorcode['-32602'][1] = 'ServerError_InvalidParameters';
+$errorcode['-99'][1] = 'Unknown_Exception';
+$errorcode['-98'][1] = 'Request_TimedOut';
+$errorcode['-92'][1] = 'Zend_Uri_Exception';
+$errorcode['-91'][1] = 'PDOException';
+$errorcode['-91'][1] = 'Avesta_Db_Exception';
+$errorcode['-90'][1] = 'XML_RPC2_Exception';
+$errorcode['-90'][1] = 'XML_RPC2_FaultException';
+$errorcode['-50'][1] = 'Too_Many_Connections';
+$errorcode['0'][1] = 'Parse_Exception';
 
-// General Message "Sorry, MailChimp could not process your signup. They gave the error code <strong>[error]</strong> For more help <a href="http://apidocs.mailchimp.com/api/1.3/exceptions.field.php">visit the MailChimp website</a> or <a href="http://kb.mailchimp.com/home">contact MailChimp</a>"
-
-//Server Errors
-// Message "Sorry, we can't connect to MailChimp at this time. Please come back again and try later."
-$errorcode['-32601'] = 'ServerError_MethodUnknown';
-$errorcode['-32602'] = 'ServerError_InvalidParameters';
-$errorcode['-99'] = 'Unknown_Exception';
-$errorcode['-98'] = 'Request_TimedOut';
-$errorcode['-92'] = 'Zend_Uri_Exception';
-$errorcode['-91'] = 'PDOException';
-$errorcode['-91'] = 'Avesta_Db_Exception';
-$errorcode['-90'] = 'XML_RPC2_Exception';
-$errorcode['-90'] = 'XML_RPC2_FaultException';
-$errorcode['-50'] = 'Too_Many_Connections';
-$errorcode['0'] = 'Parse_Exception';
+$errormessage[1] = "Sorry, we can't connect to MailChimp at this time. Please come back again and try later.";
 
 //API User or API Key error
-// Message "Sorry, this MailChimp account does not exist."
-$errorcode['100'] = 'User_Unknown';
-$errorcode['101'] = 'User_Disabled';
-$errorcode['102'] = 'User_DoesNotExist';
-$errorcode['103'] = 'User_NotApproved';
-$errorcode['104'] = 'Invalid_ApiKey';
-$errorcode['105'] = 'User_UnderMaintenance';
-$errorcode['106'] = 'Invalid_AppKey';
-$errorcode['107'] = 'Invalid_IP';
-$errorcode['108'] = 'User_DoesExist';
-$errorcode['109'] = 'User_InvalidRole';
-$errorcode['120'] = 'User_InvalidAction';
-$errorcode['121'] = 'User_MissingEmail';
-$errorcode['122'] = 'User_CannotSendCampaign';
-$errorcode['123'] = 'User_MissingModuleOutbox';
-$errorcode['124'] = 'User_ModuleAlreadyPurchased';
-$errorcode['125'] = 'User_ModuleNotPurchased';
-$errorcode['126'] = 'User_NotEnoughCredit';
-$errorcode['127'] = 'MC_InvalidPayment';
+$errorcode['100'][2] = 'User_Unknown';
+$errorcode['101'][2] = 'User_Disabled';
+$errorcode['102'][2] = 'User_DoesNotExist';
+$errorcode['103'][2] = 'User_NotApproved';
+$errorcode['104'][2] = 'Invalid_ApiKey';
+$errorcode['105'][2] = 'User_UnderMaintenance';
+$errorcode['106'][2] = 'Invalid_AppKey';
+$errorcode['107'][2] = 'Invalid_IP';
+$errorcode['108'][2] = 'User_DoesExist';
+$errorcode['109'][2] = 'User_InvalidRole';
+$errorcode['120'][2] = 'User_InvalidAction';
+$errorcode['121'][2] = 'User_MissingEmail';
+$errorcode['122'][2] = 'User_CannotSendCampaign';
+$errorcode['123'][2] = 'User_MissingModuleOutbox';
+$errorcode['124'][2] = 'User_ModuleAlreadyPurchased';
+$errorcode['125'][2] = 'User_ModuleNotPurchased';
+$errorcode['126'][2] = 'User_NotEnoughCredit';
+$errorcode['127'][2] = 'MC_InvalidPayment';
 
-// List errors
-// Message "Sorry,  this list does not exist."
-$errorcode['200'] = 'List_DoesNotExist';
-$errorcode['210'] = 'List_InvalidInterestFieldType';
-$errorcode['211'] = 'List_InvalidOption';
-$errorcode['212'] = 'List_InvalidUnsubMember';
-$errorcode['213'] = 'List_InvalidBounceMember';
+$errormessage[2] = "Sorry, this MailChimp account does not exist.";
+
+// List errors 
+$errorcode['200'][3] = 'List_DoesNotExist';
+$errorcode['210'][3] = 'List_InvalidInterestFieldType';
+$errorcode['211'][3] = 'List_InvalidOption';
+$errorcode['212'][3] = 'List_InvalidUnsubMember';
+$errorcode['213'][3] = 'List_InvalidBounceMember';
+
+$errormessage[3] = "Sorry,  this list does not exist.";
 
 //Already subscribed or unsubscribed
+$errorcode['214'][4] = 'List_AlreadySubscribed';
+$errorcode['215'][4] = 'List_NotSubscribed';
+$errorcode['220'][4] = 'List_InvalidImport';
+$errorcode['221'][4] = 'MC_PastedList_Duplicate';
+$errorcode['222'][4] = 'MC_PastedList_InvalidImport';
+$errorcode['230'][4] = 'Email_AlreadySubscribed';
+$errorcode['231'][4] = 'Email_AlreadyUnsubscribed';
+$errorcode['232'][4] = 'Email_NotExists';
+$errorcode['233'][4] = 'Email_NotSubscribed';
 
-// Message "Sorry, you are already subscribed to this list."
-$errorcode['214'] = 'List_AlreadySubscribed';
-$errorcode['215'] = 'List_NotSubscribed';
-$errorcode['220'] = 'List_InvalidImport';
-$errorcode['221'] = 'MC_PastedList_Duplicate';
-$errorcode['222'] = 'MC_PastedList_InvalidImport';
-$errorcode['230'] = 'Email_AlreadySubscribed';
-$errorcode['231'] = 'Email_AlreadyUnsubscribed';
-$errorcode['232'] = 'Email_NotExists';
-$errorcode['233'] = 'Email_NotSubscribed';
+$errormessage[4] = "Sorry, you are already subscribed to this list.";
 
-$errorcode['250'] = 'List_MergeFieldRequired';
-$errorcode['251'] = 'List_CannotRemoveEmailMerge';
-$errorcode['252'] = 'List_Merge_InvalidMergeID';
-$errorcode['253'] = 'List_TooManyMergeFields';
-$errorcode['254'] = 'List_InvalidMergeField';
-$errorcode['270'] = 'List_InvalidInterestGroup';
-$errorcode['271'] = 'List_TooManyInterestGroups';
-$errorcode['300'] = 'Campaign_DoesNotExist';
-$errorcode['301'] = 'Campaign_StatsNotAvailable';
-$errorcode['310'] = 'Campaign_InvalidAbsplit';
-$errorcode['311'] = 'Campaign_InvalidContent';
-$errorcode['312'] = 'Campaign_InvalidOption';
-$errorcode['313'] = 'Campaign_InvalidStatus';
-$errorcode['314'] = 'Campaign_NotSaved';
-$errorcode['315'] = 'Campaign_InvalidSegment';
-$errorcode['316'] = 'Campaign_InvalidRss';
-$errorcode['317'] = 'Campaign_InvalidAuto';
-$errorcode['318'] = 'MC_ContentImport_InvalidArchive';
-$errorcode['319'] = 'Campaign_BounceMissing';
-$errorcode['330'] = 'Invalid_EcommOrder';
-$errorcode['350'] = 'Absplit_UnknownError';
-$errorcode['351'] = 'Absplit_UnknownSplitTest';
-$errorcode['352'] = 'Absplit_UnknownTestType';
-$errorcode['353'] = 'Absplit_UnknownWaitUnit';
-$errorcode['354'] = 'Absplit_UnknownWinnerType';
-$errorcode['355'] = 'Absplit_WinnerNotSelected';
+// General Message 
+$errorcode['250'][5] = 'List_MergeFieldRequired';
+$errorcode['251'][5] = 'List_CannotRemoveEmailMerge';
+$errorcode['252'][5] = 'List_Merge_InvalidMergeID';
+$errorcode['253'][5] = 'List_TooManyMergeFields';
+$errorcode['254'][5] = 'List_InvalidMergeField';
+$errorcode['270'][5] = 'List_InvalidInterestGroup';
+$errorcode['271'][5] = 'List_TooManyInterestGroups';
+$errorcode['300'][5] = 'Campaign_DoesNotExist';
+$errorcode['301'][5] = 'Campaign_StatsNotAvailable';
+$errorcode['310'][5] = 'Campaign_InvalidAbsplit';
+$errorcode['311'][5] = 'Campaign_InvalidContent';
+$errorcode['312'][5] = 'Campaign_InvalidOption';
+$errorcode['313'][5] = 'Campaign_InvalidStatus';
+$errorcode['314'][5] = 'Campaign_NotSaved';
+$errorcode['315'][5] = 'Campaign_InvalidSegment';
+$errorcode['316'][5] = 'Campaign_InvalidRss';
+$errorcode['317'][5] = 'Campaign_InvalidAuto';
+$errorcode['318'][5] = 'MC_ContentImport_InvalidArchive';
+$errorcode['319'][5] = 'Campaign_BounceMissing';
+$errorcode['330'][5] = 'Invalid_EcommOrder';
+$errorcode['350'][5] = 'Absplit_UnknownError';
+$errorcode['351'][5] = 'Absplit_UnknownSplitTest';
+$errorcode['352'][5] = 'Absplit_UnknownTestType';
+$errorcode['353'][5] = 'Absplit_UnknownWaitUnit';
+$errorcode['354'][5] = 'Absplit_UnknownWinnerType';
+$errorcode['355'][5] = 'Absplit_WinnerNotSelected';
+
+$errormessage[5] = 'Sorry, MailChimp could not process your signup. They gave the error code';
 
 // Validation errors
-// General Validation Message "Sorry, MailChimp doesn't like the data you are trying to send. They gave the error code <strong>[error]</strong> For more help <a href="http://apidocs.mailchimp.com/api/1.3/exceptions.field.php">visit the MailChimp website</a> or <a href="http://kb.mailchimp.com/home">contact MailChimp</a>"
-$errorcode['500'] = 'Invalid_Analytics';
-$errorcode['503'] = 'Invalid_SendType';
-$errorcode['504'] = 'Invalid_Template';
-$errorcode['505'] = 'Invalid_TrackingOptions';
-$errorcode['506'] = 'Invalid_Options';
-$errorcode['507'] = 'Invalid_Folder';
-$errorcode['550'] = 'Module_Unknown';
-$errorcode['551'] = 'MonthlyPlan_Unknown';
-$errorcode['552'] = 'Order_TypeUnknown';
-$errorcode['553'] = 'Invalid_PagingLimit';
-$errorcode['554'] = 'Invalid_PagingStart';
-$errorcode['555'] = 'Max_Size_Reached';
-$errorcode['556'] = 'MC_SearchException';
+$errorcode['500'][6] = 'Invalid_Analytics';
+$errorcode['503'][6] = 'Invalid_SendType';
+$errorcode['504'][6] = 'Invalid_Template';
+$errorcode['505'][6] = 'Invalid_TrackingOptions';
+$errorcode['506'][6] = 'Invalid_Options';
+$errorcode['507'][6] = 'Invalid_Folder';
+$errorcode['550'][6] = 'Module_Unknown';
+$errorcode['551'][6] = 'MonthlyPlan_Unknown';
+$errorcode['552'][6] = 'Order_TypeUnknown';
+$errorcode['553'][6] = 'Invalid_PagingLimit';
+$errorcode['554'][6] = 'Invalid_PagingStart';
+$errorcode['555'][6] = 'Max_Size_Reached';
+$errorcode['556'][6] = 'MC_SearchException';
 
+$errormessage[6] = "Sorry, MailChimp doesn't like the data you are trying to send. They gave the error code";
 
-// Message "Sorry, that date and time is invalid. Please try again."
-$errorcode['501'] = 'Invalid_DateTimel';
+// Validate date and time field
+$errorcode['501'][7] = 'Invalid_DateTimel';
 
-// Message "Sorry, that email address is invalid. Please try again."
-$errorcode['502'] = 'Invalid_Email';
+$errormessage[7] = "Sorry, that date and time is invalid. Please try again.";
 
-// Message "Sorry, that URL is invalid. Please try again."
-$errorcode['508'] = 'Invalid_URL';
+//Validate Email
+$errorcode['502'][8] = 'Invalid_Email';
 
+$errormessage[8] = "Sorry, that email address is invalid. Please try again.";
 
-$error = "There was an error communicating with ";
+// Validate URL fields
+$errorcode['508'][9] = 'Invalid_URL';
 
+$errormessage[9] = "Sorry, that URL is invalid. Please try again.";
 
+// Get error message
+
+foreach ($errorCode as $value )
+	{
+	if (key($errorCode) == $error)
+		{
+		foreach ($value as $mssg => $key)
+			{
+				$Message = $errormessage[$key];
+				$Message .= '<br /><strong>Error Code: '.$error.' - '.$mssg.'</strong><br />';
+				$Message .= 'For more help <a href="http://apidocs.mailchimp.com/api/1.3/exceptions.field.php">visit the MailChimp website</a> or <a href="http://kb.mailchimp.com/home">contact MailChimp</a>"';	
+			}			
+		}
+	}	
+	return $Message;
+}
 ?>
