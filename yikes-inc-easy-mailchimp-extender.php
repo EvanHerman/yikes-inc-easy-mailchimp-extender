@@ -1,7 +1,7 @@
 <?php
 /*
 #_________________________________________________ PLUGIN
-Plugin Name: YIKES, Inc Easy Mailchimp Extender
+Plugin Name: Easy MailChimp Forms
 Plugin URI: http://www.yikesinc.com/services/yikes-inc-easy-mailchimp-extender/
 Description: Mailchimp API integration in the form of a shortcode or php snippet
 Version: 2.2.0

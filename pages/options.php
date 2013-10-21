@@ -49,7 +49,7 @@ jQuery(document).ready(function ($) {
 	<div id="ykseme-icon" class="icon32"></div>
 	
 	<h2 id="ykseme-page-header">
-		YIKES, Inc. Easy Mailchimp Extender
+		Easy Mailchimp Forms by YIKES, Inc.
 	</h2>
 
 	<h3>Manage Mailchimp Forms Settings</h3>

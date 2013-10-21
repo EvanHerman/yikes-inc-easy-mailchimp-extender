@@ -1,16 +1,16 @@
-=== YIKES, Inc. Easy MailChimp Extender ===
+=== Easy MailChimp Forms ===
 Contributors: yikesinc, hiwhatsup, liljimmi, seriouslysean
-Donate link: http://www.yikesinc.com
+Donate link: http://yikesinc.com
 Tags: mailchimp, marketing, email, mailing lists, newsletter, signup
 Requires at least: 3.0
 Tested up to: 3.6.1
 Stable tag: 2.2
 
-The YIKES, Inc. Easy MailChimp extender allows you to easily add MailChimp forms to your WordPress site.
+Easy MailChimp Forms allows you to painlessly add MailChimp signup forms to your WordPress site.
 
 == Description ==
 
-The YIKES, Inc. Easy MailChimp extender allows you to easily add MailChimp forms to your WordPress site. You can add forms to posts or pages with shortcodes or to template files with PHP tags. Simply copy and paste your MailChimp API Key into the plugin admin settings and it will pull in all your MailChimp lists. From there you can choose the lists you want to make forms for. For a single list you can check off the fields you want to include on your form and order them via an easy drag-and-drop interface. This plugin adds plenty of CSS selectors to the form code allowing you to completely customize the look of your forms.
+Easy MailChimp Forms allows you to painlessly add MailChimp signup forms to your WordPress site. You can add forms to posts or pages with shortcodes or to template files with PHP tags. Simply copy and paste your MailChimp API Key into the plugin admin settings and it will pull in all your MailChimp lists. From there you can choose the lists you want to make forms for. For a single list you can check off the fields you want to include on your form and order them via an easy drag-and-drop interface. This plugin adds plenty of CSS selectors to the form code allowing you to completely customize the look of your forms.
 
 Instructions on how to use the plugin can be [found on the FAQ](http://wordpress.org/plugins/yikes-inc-easy-mailchimp-extender/faq/ "found on the FAQ"). If you notice any issues, please submit a bug on our [Github Issue Tracker](https://github.com/yikesinc/yikes-inc-easy-mailchimp-extender/issues "Github Issue Tracker") and we'll look in to it as soon as possible.
 
@@ -65,7 +65,13 @@ Due to the code overhaul required for the features of the new version, the struc
 
 == Changelog ==
 = 2.2.0 =
-* 
+* Change plugin name
+* Add better MailChimp error messaging
+* Improve admin UI
+* Update FAQ and screenshots
+* Add list name to forms on Manage List Forms page
+* Implement fetching list fields via MailChimp API key
+* Fix incorrect use of register_uninstall_hook()
 
 = 2.1.0 =
 * Fix more jquery conflict issues
