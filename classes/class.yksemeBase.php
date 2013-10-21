@@ -444,6 +444,7 @@ public function importList($i=false)
 	else
 		{
 		$lid	= $this->optionVal['lists'][$i]['list-id'];
+		$name	= $this->optionVal['lists'][$i]['name'];
 		$api	= new wpyksMCAPI($this->optionVal['api-key']);
 		$mv	= $api->listMergeVars($lid);
 		if($mv)

@@ -25,7 +25,7 @@ case 'update_options':
 	break;
 
 case 'list_add':
-	$list	= $yksemeBase->addList($_POST['list_id'], $_POST['list_id']);
+	$list	= $yksemeBase->addList($_POST['list_id'], $_POST['name']);
 	if($list)
 		{
 		echo json_encode($list);
