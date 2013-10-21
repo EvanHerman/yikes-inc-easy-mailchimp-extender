@@ -174,7 +174,7 @@
                 });
                 $('.yks-mailchimp-import').live('click', function(e){
                         i       = $(this).attr('rel');
-                        a       = confirm("Are you sure you want to re-import this form's list data from MailChimp?\n\nNOTICE: THE CURRENT LIST FIELDS WILL BE REPLACED WITH NEW FIELDS FROM MAILCHIMP!");
+                        a       = confirm("Are you sure you want to re-import your fields from MailChimp?");
                         if(a)
                                 {
                                 $.ajax({
@@ -233,38 +233,32 @@
                 });
                 });
 </script>
-
 <div class="wrap">
-
-        <div id="ykseme-icon" class="icon32"></div>
-
+    <div id="ykseme-icon" class="icon32"></div>
         <h2 id="ykseme-page-header">
                 YIKES, Inc. Easy Mailchimp Extender
         </h2>
-
+    <?php  if (!$this->optionVal['api-key']) { ?>    
+		<p>Before you can add MailChimp forms to your site, you need to <a href="admin.php?page=yks-mailchimp-form" class="yks-mailchimp-list-add">go to the MailChimp Settings page</a> and add your API Key</p>
+	<?php } else {  //end if statement if no api key ?>
         <h3>Add Forms</h3>
-
-
-        <form id="yks-lists-dropdown" name="yks-lists-dropdown">
-                <table class="form-table yks-admin-form">
-                        <tbody>
-                                
-                                <tr valign="top">
-                                        <th scope="row">Choose a list you want to create a form for</th>
-                                        <td>
-                                                <?php $this->getLists(); ?>                                                     
-                                                <input type="submit" name="submit" class="button-primary" id="yks-submit-list-add" value="Create a Form For This List" >
-                                        </td>
-                                </tr>   
-                        </tbody>
+        	<form id="yks-lists-dropdown" name="yks-lists-dropdown">
+            	<table class="form-table yks-admin-form">
+                	<tbody>            
+                        <tr valign="top">
+                        	<th scope="row">Choose a list you want to create a form for</th>
+                            	<td>
+                            		<?php $this->getLists(); ?>                                                     
+                                    <input type="submit" name="submit" class="button-primary" id="yks-submit-list-add" value="Create a Form For This List" >
+                                </td>
+                        </tr>   
+                    </tbody>
                 </table>
-        </form>
-
-
+        	</form>
         <h3>Manage Forms</h3>
-
-        <div id="yks-list-wrapper"><?php echo $this->generateListContainers(); ?></div> 
-                
+        	<div id="yks-list-wrapper">
+        		<?php echo $this->generateListContainers(); ?>
+        	</div> 
+    <?php }  //end else statement if there is an api key ?>         
 </div>
-
 <?php $this->getTrackingGif('lists'); ?>
