@@ -741,7 +741,7 @@ public function generateListContainers($listArr=false)
 													&nbsp;
 													<div class="yks-mailchimp-field-name"><?php echo $field['label']; ?></div>
 												</label>
-												<span class="yks-mailchimp-field-merge"><span class="description">MailChimp merge field:</span> &nbsp; *|<input type="text" name="<?php echo $field['name']; ?>-merge" id="<?php echo $field['id']; ?>-merge" value="<?php echo $field['merge']; ?>"<?php echo (($field['locked'] == 1 || $field['merge'] == false) ? ' disabled="disabled"' : ''); ?> />|*</span>
+												<span class="yks-mailchimp-field-merge"><span class="description">Merge field:</span> &nbsp; *|<input type="text" name="<?php echo $field['name']; ?>-merge" id="<?php echo $field['id']; ?>-merge" value="<?php echo $field['merge']; ?>"<?php echo (($field['locked'] == 1 || $field['merge'] == false) ? ' disabled="disabled"' : ''); ?> />|*</span>
 											</div>
 											<?php } ?>
 										</div>

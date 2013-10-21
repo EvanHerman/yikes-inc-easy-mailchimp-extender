@@ -58,9 +58,10 @@ Due to the code overhaul required for the features of the new version, the struc
 == Screenshots ==
 
 1. Sidebar menu
-2. Options page
-3. List page
-4. Sample list setup screen on MailChimp
+2. MailChimp settings page
+3. Manage list forms page
+4. Inserting a MailChimp form shortcode on a page
+5. Form displays on the site front-end
 
 == Changelog ==
 = 2.2.0 =
