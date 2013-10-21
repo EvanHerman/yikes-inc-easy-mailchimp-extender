@@ -26,9 +26,9 @@ $ymce = jQuery.noConflict();
 					data: {
 								action:				'yks_mailchimp_form',
 								form_action:		'frontend_submit_form',
-								form_data:			$ymce(this).serialize()
+								form_data:			$ymce(this).serialize(),
 								},
-					dataType: 'json',
+					dataType: 'text',
 					success: function(MAILCHIMP)
 						{
 						if(MAILCHIMP == '1')

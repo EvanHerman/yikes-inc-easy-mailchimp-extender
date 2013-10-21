@@ -47,7 +47,6 @@ jQuery(document).ready(function ($) {
 <div class="wrap">
 	
 	<div id="ykseme-icon" class="icon32"></div>
-	
 	<h2 id="ykseme-page-header">
 		Easy Mailchimp Forms by YIKES, Inc.
 	</h2>
@@ -82,11 +81,25 @@ jQuery(document).ready(function ($) {
 						</select>
 					</td>
 				</tr>
-
 				<tr>
 					<td></td>
 					<td class="yks-settings-description">
 						Choose whether you want your forms to use a table or div layout.
+					</td>
+				</tr>				
+				<tr valign="top">
+					<th scope="row"><label for="yks-mailchimp-debug">Enable Advance Error Messaging</label></th>
+					<td>
+						<select name="yks-mailchimp-debug" id="yks-mailchimp-debug" class="regular-text" />
+							<option value="0"<?php echo ($this->optionVal['debug'] === '0' ? ' selected' : ''); ?>>Disabled</option>
+							<option value="1"<?php echo ($this->optionVal['debug'] === '1' ? ' selected' : ''); ?>>Enabled</option>
+						</select>
+					</td>
+				</tr>
+				<tr>
+					<td></td>
+					<td class="yks-settings-description">
+						Descriptive text for advance error messaging.
 					</td>
 				</tr>
 				

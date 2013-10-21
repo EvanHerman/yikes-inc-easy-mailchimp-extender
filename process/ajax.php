@@ -75,7 +75,7 @@ case 'frontend_submit_form':
 	if($action  == "done")
 		{
 		echo '1';
-		}
+		}	
 	else echo $action;
 	break;
 	
