@@ -36,7 +36,7 @@
                                                                 }
                                                         else
                                                                 {
-                                                                alert('Oops.. The list ID you entered appears to be incorrect. If you need help retrieving your list ID click on the "How to find your MailChimp list ID" link located on this page');
+                                                                alert('Oops.. The list ID you entered appears to be incorrect.');
                                                                 }
                                                         }
                                         });
@@ -126,9 +126,9 @@
                                 type:   'POST',
                                 url:    ajaxurl,
                                 data: {
-                                                        action:                                 'yks_mailchimp_form',
+                                                        action:                 'yks_mailchimp_form',
                                                         form_action:            'list_update',
-                                                        form_data:                      $(f).serialize()
+                                                        form_data:               $(f).serialize()
                                                         },
                                 dataType: 'json',
                                 success: function(MAILCHIMP)
@@ -147,14 +147,14 @@
                 });
                 $('.yks-mailchimp-delete').live('click', function(e){
                         i       = $(this).attr('rel');
-                        a       = confirm("Are you sure you want to delete this list?");
+                        a       = confirm("Are you sure you want to delete this form?");
                         if(a)
                                 {
                                 $.ajax({
                                         type:   'POST',
                                         url:    ajaxurl,
                                         data: {
-                                                                action:                                 'yks_mailchimp_form',
+                                                                action:                 'yks_mailchimp_form',
                                                                 form_action:            'list_delete',
                                                                 id:                                                     i
                                                                 },
@@ -181,9 +181,9 @@
                                         type:   'POST',
                                         url:    ajaxurl,
                                         data: {
-                                                                action:                                 'yks_mailchimp_form',
+                                                                action:                         'yks_mailchimp_form',
                                                                 form_action:                    'list_import',
-                                                                id:                                             i
+                                                                id:                              i
                                                                 },
                                         dataType: 'json',
                                         success: function(MAILCHIMP)
@@ -196,7 +196,7 @@
                                                         }
                                                 else
                                                         {
-                                                        alert("Looks like this list is already up to date!");
+                                                        alert("Looks like this form is already up to date!");
                                                         }
                                                 }
                                 });
@@ -208,7 +208,7 @@
                                 type:   'POST',
                                 url:    ajaxurl,
                                 data: {
-                                                        action:                                 'yks_mailchimp_form',
+                                                        action:                 'yks_mailchimp_form',
                                                         form_action:            'notice_hide'
                                                         },
                                 dataType: 'json',
@@ -233,24 +233,29 @@
                 });
                 });
 </script>
+
 <div class="wrap">
     <div id="ykseme-icon" class="icon32"></div>
         <h2 id="ykseme-page-header">
                 YIKES, Inc. Easy Mailchimp Extender
         </h2>
     <?php  if (!$this->optionVal['api-key']) { ?>    
-		<p>Before you can add MailChimp forms to your site, you need to <a href="admin.php?page=yks-mailchimp-form" class="yks-mailchimp-list-add">go to the MailChimp Settings page</a> and add your API Key</p>
+		<p>
+            Before you can add MailChimp forms to your site, you need to <a href="admin.php?page=yks-mailchimp-form" class="yks-mailchimp-list-add">go to the MailChimp Settings page</a> and add your API Key.
+        </p>
 	<?php } else {  //end if statement if no api key ?>
         <h3>Add Forms</h3>
         	<form id="yks-lists-dropdown" name="yks-lists-dropdown">
             	<table class="form-table yks-admin-form">
                 	<tbody>            
                         <tr valign="top">
-                        	<th scope="row">Choose a list you want to create a form for</th>
-                            	<td>
-                            		<?php $this->getLists(); ?>                                                     
-                                    <input type="submit" name="submit" class="button-primary" id="yks-submit-list-add" value="Create a Form For This List" >
-                                </td>
+                        	<th scope="row">
+                                Your Lists
+                            </th>
+                        	<td>
+                        		<?php $this->getLists(); ?>                                                     
+                                <input type="submit" name="submit" class="button-primary" id="yks-submit-list-add" value="Create a Form For This List" >
+                            </td>
                         </tr>   
                     </tbody>
                 </table>
@@ -261,4 +266,5 @@
         	</div> 
     <?php }  //end else statement if there is an api key ?>         
 </div>
+
 <?php $this->getTrackingGif('lists'); ?>

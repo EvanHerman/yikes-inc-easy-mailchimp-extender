@@ -77,8 +77,8 @@ jQuery(document).ready(function ($) {
 					<th scope="row"><label for="yks-mailchimp-flavor">Preferred Form Layout</label></th>
 					<td>
 						<select name="yks-mailchimp-flavor" id="yks-mailchimp-flavor" class="regular-text" />
-							<option value="0"<?php echo ($this->optionVal['flavor'] === '0' ? ' selected' : ''); ?>>Tables</option>
-							<option value="1"<?php echo ($this->optionVal['flavor'] === '1' ? ' selected' : ''); ?>>Divs</option>
+							<option value="0"<?php echo ($this->optionVal['flavor'] === '0' ? ' selected' : ''); ?>>Table</option>
+							<option value="1"<?php echo ($this->optionVal['flavor'] === '1' ? ' selected' : ''); ?>>Div</option>
 						</select>
 					</td>
 				</tr>
