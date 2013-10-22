@@ -55,6 +55,7 @@ Changes
 * Change plugin name
 * Add better MailChimp error messaging
 * Add Advanced Error Messaging option
+* Add required fields indication
 * Improve admin UI
 * Update FAQ and screenshots
 * Add list name to forms on Manage List Forms page
