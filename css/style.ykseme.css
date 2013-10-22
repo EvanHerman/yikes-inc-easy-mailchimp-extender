@@ -225,8 +225,17 @@
 	padding: 2px 0;
 }
 
-.yks-require {}
-	.yks-require-description {}
+.yks-require-description {
+	font-size: 0.9em;
+    padding: 1em 0;
+}
+
+.yks-mailchimpFormDivRowLabel-required {}
+	.yks-required-label {
+		font-weight: bold;
+		color: red;
+	}
+	.yks-require {}
 	
 .yks-mailchimpFormTable	{
 	border-bottom: 0px !important;

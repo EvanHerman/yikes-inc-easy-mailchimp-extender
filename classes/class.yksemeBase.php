@@ -1026,7 +1026,6 @@ public function getFrontendFormDisplay($list='')
 		default:
 		case '0':
 			?>
-	
 			<table class="yks-mailchimpFormTable">
 				<tbody>
 					<?php foreach($list['fields'] as $field) : if($field['active'] == 1) : ?>
