@@ -151,7 +151,7 @@
                         var i		= $(this).attr('rel');
                         var title	= $(this).data('title');
                         var a		= confirm("Are you sure you want to delete this form?");
-                        $("select#yks-list-select").append('<option value="' + i + '">"'.title.'"</option>');
+                        $("select#yks-list-select").append('<option value="' + i + '">' + title +'</option>');
                         if(a)
                                 {
                                 $.ajax({
