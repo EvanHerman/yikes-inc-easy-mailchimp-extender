@@ -51,6 +51,9 @@ Due to the code overhaul required for new version features, the structure we wer
 
 Changes
 ===========
+### 2.2.1
+* Bugfix make sure label matches ID
+
 ### 2.2.0
 * Change plugin name
 * Add better MailChimp error messaging
