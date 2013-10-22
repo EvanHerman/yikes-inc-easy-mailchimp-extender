@@ -869,7 +869,8 @@ public function generateListContainers($listArr=false)
 								<td class="yks-mailchimp-listname"><?php
 								if ($list['name'])
 									{
-										echo $list['name'];
+										$thename = $list['name'];
+										echo $thename;
 									}
 								else
 									{
@@ -877,7 +878,8 @@ public function generateListContainers($listArr=false)
 											{
 											if ($lkey == $list['id'])
 												{
-												echo $lval;
+												$thename = $lval;
+												echo $thename;
 												}
 											}
 									}
@@ -936,7 +938,7 @@ public function generateListContainers($listArr=false)
 								<td></td>
 								<td>
 									<input type="submit" name="submit" class="yks-mailchimp-list-update button-primary" value="Save Form Settings" rel="<?php echo $list['id']; ?>" />
-									<input type="button" name="delete" class="yks-mailchimp-delete button-primary" value="Delete Form" rel="<?php echo $list['id']; ?>" />
+									<input type="button" name="delete" class="yks-mailchimp-delete button-primary" value="Delete Form" rel="<?php echo $list['id']; ?>" data-title="<?php echo $thename; ?>" />
 									<input type="button" name="import" class="yks-mailchimp-import button-primary" value="Re-Import Form Fields from MailChimp" rel="<?php echo $list['id']; ?>" />
 								</td>
 							</tr>

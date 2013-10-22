@@ -107,6 +107,8 @@
                                         {
                                                 EnterListID (lid, name);
                                                 $('#yks-submit-list-add').attr("disabled", true);
+                                                $("select#yks-list-select option[value='']").prop('selected',true);
+                                                $("select#yks-list-select option[value='" + lid + "']").remove();
                                                 setInterval(function()
                                                         {
                                                                 $('#yks-submit-list-add').removeAttr("disabled");
@@ -120,8 +122,8 @@
                 });
 
                 $('.yks-mailchimp-list-update').live('click', function(e){
-                        i       = $(this).attr('rel');
-                        f       = '#yks-mailchimp-form_'+i;
+                        var i       = $(this).attr('rel');
+                        var f       = '#yks-mailchimp-form_'+i;
                         $.ajax({
                                 type:   'POST',
                                 url:    ajaxurl,
@@ -146,8 +148,10 @@
                         return false;
                 });
                 $('.yks-mailchimp-delete').live('click', function(e){
-                        i       = $(this).attr('rel');
-                        a       = confirm("Are you sure you want to delete this form?");
+                        var i		= $(this).attr('rel');
+                        var title	= $(this).data('title');
+                        var a		= confirm("Are you sure you want to delete this form?");
+                        $("select#yks-list-select").append('<option value="' + i + '">"'.title.'"</option>');
                         if(a)
                                 {
                                 $.ajax({
@@ -173,8 +177,8 @@
                         return false;
                 });
                 $('.yks-mailchimp-import').live('click', function(e){
-                        i       = $(this).attr('rel');
-                        a       = confirm("Are you sure you want to re-import your fields from MailChimp?");
+                        var i       = $(this).attr('rel');
+                        var a       = confirm("Are you sure you want to re-import your fields from MailChimp?");
                         if(a)
                                 {
                                 $.ajax({
