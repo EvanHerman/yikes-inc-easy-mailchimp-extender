@@ -48,10 +48,6 @@ public function uninstall()
 	delete_option(YKSEME_OPTION);
 	}
 
-
-
-
-
 /***** INITIAL SETUP
  ****************************************************************************************************/
 public function initialize()
@@ -1044,7 +1040,7 @@ public function getFrontendFormDisplay($list='')
 						}
 						?>
 					<tr class="yks-mailchimpFormTableRow">
-						<td class="prompt yks-mailchimpFormTableRowLabel"><label class="yks-mailchimpFormTdLabel<?php echo $reqlabel; ?>" for="<?php echo $field['name']; ?>"><?php echo $field['label']; ?></label><?php echo $reqindicator; ?></td>
+						<td class="prompt yks-mailchimpFormTableRowLabel"><label class="yks-mailchimpFormTdLabel<?php echo $reqlabel; ?>" for="<?php echo $field['id']; ?>"><?php echo $field['label']; ?></label><?php echo $reqindicator; ?></td>
 						<td class="yks-mailchimpFormTableRowField">
 							<?php echo $this->getFrontendFormDisplay_field($field); ?>
 						</td>
@@ -1079,7 +1075,7 @@ public function getFrontendFormDisplay($list='')
 						}
 						?>
 					<div class="yks-mailchimpFormDivRow">
-						<label class="prompt yks-mailchimpFormDivRowLabel<?php echo $reqlabel; ?>" for="<?php echo $field['name']; ?>"><?php echo $field['label']; ?><?php echo $reqindicator; ?></label>
+						<label class="prompt yks-mailchimpFormDivRowLabel<?php echo $reqlabel; ?>" for="<?php echo $field['id']; ?>"><?php echo $field['label']; ?><?php echo $reqindicator; ?></label>
 						<div class="yks-mailchimpFormDivRowField">
 							<?php echo $this->getFrontendFormDisplay_field($field); ?>
 						</div>
