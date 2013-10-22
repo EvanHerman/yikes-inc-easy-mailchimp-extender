@@ -343,7 +343,7 @@ $errorcode['-90'][1] = 'XML_RPC2_FaultException';
 $errorcode['-50'][1] = 'Too_Many_Connections';
 $errorcode['0'][1] = 'Parse_Exception';
 
-$errormessage[1] = "Sorry, we can't connect to MailChimp at this time. Please come back again and try later.";
+$errormessage[1] = "Sorry, we can't connect to MailChimp at this time. Please come back later and try again.";
 
 //API User or API Key error
 $errorcode['100'][2] = 'User_Unknown';
@@ -417,7 +417,7 @@ $errorcode['353'][5] = 'Absplit_UnknownWaitUnit';
 $errorcode['354'][5] = 'Absplit_UnknownWinnerType';
 $errorcode['355'][5] = 'Absplit_WinnerNotSelected';
 
-$errormessage[5] = 'Sorry, MailChimp could not process your signup. They gave the error code';
+$errormessage[5] = 'Sorry, MailChimp could not process your signup.';
 
 // Validation errors
 $errorcode['500'][6] = 'Invalid_Analytics';
@@ -434,7 +434,7 @@ $errorcode['554'][6] = 'Invalid_PagingStart';
 $errorcode['555'][6] = 'Max_Size_Reached';
 $errorcode['556'][6] = 'MC_SearchException';
 
-$errormessage[6] = "Sorry, MailChimp doesn't like the data you are trying to send. They gave the error code";
+$errormessage[6] = "Sorry, MailChimp doesn't like the data you are trying to send.";
 
 // Validate date and time field
 $errorcode['501'][7] = 'Invalid_DateTimel';
@@ -990,27 +990,30 @@ public function getFrontendFormDisplay($list='')
 		default:
 		case '0':
 			?>
+	
 			<table class="yks-mailchimpFormTable">
 				<tbody>
 					<?php foreach($list['fields'] as $field) : if($field['active'] == 1) : ?>
-						<tr class="yks-mailchimpFormTableRow">
-							<td class="prompt yks-mailchimpFormTableRowLabel"><label class="yks-mailchimpFormTdLabel" for="<?php echo $field['name']; ?>"><?php echo $field['label']; ?></label></td>
-							<td class="yks-mailchimpFormTableRowField">
-								<?php echo $this->getFrontendFormDisplay_field($field); ?>
-							</td>
-						</tr>
+					<tr class="yks-mailchimpFormTableRow">
+						<td class="prompt yks-mailchimpFormTableRowLabel"><label class="yks-mailchimpFormTdLabel" for="<?php echo $field['name']; ?>"><?php echo $field['label']; ?></label></td>
+						<td class="yks-mailchimpFormTableRowField">
+							<?php echo $this->getFrontendFormDisplay_field($field); ?>
+						</td>
+					</tr>
 					<?php endif; endforeach; ?>
 					<tr>
 						<td colspan="2" class="yks-mailchimpFormTableSubmit">
-							<p><input type="submit" class="ykfmc-submit" id="ykfmc-submit_<?php echo $list['id']; ?>" value="Submit" /></p>
+							<p>
+								<input type="submit" class="ykfmc-submit" id="ykfmc-submit_<?php echo $list['id']; ?>" value="Submit" />
+							</p>
 						</td>
 					</tr>
 				</tbody>
 			</table>
 			<?php
-			break;
-			
-		case '1':
+				break;
+				
+				case '1':
 			?>
 			<div class="yks-mailchimpFormDiv">
 				<?php foreach($list['fields'] as $field) : if($field['active'] == 1) : ?>

@@ -33,7 +33,7 @@ jQuery(document).ready(function ($) {
                         $('#yks-status').html('<div class="yks-success"><p>The options were saved successfully!</p></div>');
                         $('#yks-status').slideDown('fast');
                     } else {
-                        $('#yks-status').html('<div class="yks-error"><p>The options could not be saved (or you forgot to change them)!</p></div>');
+                        $('#yks-status').html('<div class="yks-error"><p>The options could not be saved (or you did not change them).</p></div>');
                         $('#yks-status').slideDown('fast');
                     }
                 }
@@ -68,7 +68,8 @@ jQuery(document).ready(function ($) {
 				<tr>
 					<td></td>
 					<td class="yks-settings-description">
-						Please enter your MailChimp API Key above. Your MailChimp API Key allows your site to communicate with your MailChimp account. For more help, visit the MailChimp Support article <a href="http://kb.mailchimp.com/article/where-can-i-find-my-api-key" target="_blank">Where can I find my API Key?</a>
+						Please enter your MailChimp API Key above. The API Key allows your WordPress site to communicate with your MailChimp account.<br />
+						For more help, visit the MailChimp Support article <a href="http://kb.mailchimp.com/article/where-can-i-find-my-api-key" target="_blank">Where can I find my API Key?</a>
 					</td>
 				</tr>
 				
@@ -88,7 +89,7 @@ jQuery(document).ready(function ($) {
 					</td>
 				</tr>				
 				<tr valign="top">
-					<th scope="row"><label for="yks-mailchimp-debug">Enable Advance Error Messaging</label></th>
+					<th scope="row"><label for="yks-mailchimp-debug">Advanced Error Messaging</label></th>
 					<td>
 						<select name="yks-mailchimp-debug" id="yks-mailchimp-debug" class="regular-text" />
 							<option value="0"<?php echo ($this->optionVal['debug'] === '0' ? ' selected' : ''); ?>>Disabled</option>
@@ -99,7 +100,7 @@ jQuery(document).ready(function ($) {
 				<tr>
 					<td></td>
 					<td class="yks-settings-description">
-						Descriptive text for advance error messaging.
+						Enable if you're having problems with your forms sending data to MailChimp. Enabling Advanced Error Messaging will show you the exact error codes MailChimp is returning. 
 					</td>
 				</tr>
 				

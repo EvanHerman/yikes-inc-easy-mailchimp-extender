@@ -45,6 +45,10 @@
 		margin: 15px auto 15px auto;
 		text-align: center;
 	}
+			.yks-status .yks-error p, .yks-status .yks-success p {
+				margin: .4em 0;
+			}
+			
 	.yks-status .yks-notice {
 		color: #000;
 		width: 80%;
