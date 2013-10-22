@@ -5,7 +5,7 @@ Plugin Name: Easy MailChimp Forms
 Plugin URI: http://www.yikesinc.com/services/yikes-inc-easy-mailchimp-extender/
 Description: Mailchimp API integration in the form of a shortcode or php snippet
 Version: 2.2.1
-Author: YIKES Inc, Carlos Zuniga, Tracy Levesque, Sean Kennedy
+Author: YIKES Inc
 Author URI: http://yikesinc.com
 License: GPL2
 
