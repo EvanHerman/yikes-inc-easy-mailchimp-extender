@@ -1029,8 +1029,20 @@ public function getFrontendFormDisplay($list='')
 			<table class="yks-mailchimpFormTable">
 				<tbody>
 					<?php foreach($list['fields'] as $field) : if($field['active'] == 1) : ?>
+					<?php 
+					if ($field['require'] == 1) 
+						{ 
+							$reqindicator 	= " <span class='yks-required-label'>*</span>";
+							$reqlabel		= " yks-mailchimpFormDivRowLabel-required";
+						}
+					else
+						{
+							$reqindicator  = "";
+							$reqlabel		= "";
+						}
+						?>
 					<tr class="yks-mailchimpFormTableRow">
-						<td class="prompt yks-mailchimpFormTableRowLabel"><label class="yks-mailchimpFormTdLabel" for="<?php echo $field['name']; ?>"><?php echo $field['label']; ?></label></td>
+						<td class="prompt yks-mailchimpFormTableRowLabel"><label class="yks-mailchimpFormTdLabel<?php echo $reqlabel; ?>" for="<?php echo $field['name']; ?>"><?php echo $field['label']; ?></label><?php echo $reqindicator; ?></td>
 						<td class="yks-mailchimpFormTableRowField">
 							<?php echo $this->getFrontendFormDisplay_field($field); ?>
 						</td>
@@ -1053,7 +1065,6 @@ public function getFrontendFormDisplay($list='')
 			<div class="yks-mailchimpFormDiv">
 				<?php foreach($list['fields'] as $field) : if($field['active'] == 1) : ?>
 					<?php 
-					//print_r($field);
 					if ($field['require'] == 1) 
 						{ 
 							$reqindicator 	= " <span class='yks-required-label'>*</span>";
