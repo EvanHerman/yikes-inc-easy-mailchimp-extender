@@ -500,7 +500,7 @@ public function addList($lid='' , $name='')
 public function getLists()
 	{
 	$api	= new wpyksMCAPI($this->optionVal['api-key']);
-	$lists	= $api->lists();
+	$lists	= $this->getListsData();
 	$listArr	= ($listArr == false ? $this->optionVal['lists'] : $listArr);
 	$theusedlist = array();
 	if(count($listArr) > 0)
@@ -514,16 +514,36 @@ public function getLists()
 		{
 		echo "<select id='yks-list-select' name='yks-list-select'>";
 		echo "<option value=''> Select List</option>";
-		foreach ($lists['data'] as $list)
+		foreach ($lists as  $lkey => $lvalue)
 			{
-				if (!in_array($list['id'], $theusedlist))
+				if (!in_array($lkey, $theusedlist))
 					{
-						echo "<option value='".$list['id']."'>".$list['name']."</option>";		
+						echo "<option value='".$lkey."'>".$lvalue."</option>";		
 					}
 			}
 		echo "</select>";
 		}
 	return false;
+	}	
+public function getListsData()
+	{
+	$theListItems = get_transient('yks-mcp-listdata-retrieved');
+	if (!$theListItems)
+		{
+		$api	= new wpyksMCAPI($this->optionVal['api-key']);
+		$lists	= $api->lists();
+		if($lists)
+			{
+			foreach ($lists['data'] as $list)
+				{
+
+					$theListItems[$list['id']] =  $list['name'];		
+					
+				}
+			}
+			set_transient( 'yks-mcp-listdata-retrieved', $theListItems, 60*5 ); //cache lists for 5 minutes 
+		}
+	return $theListItems;
 	}	
 public function sortList($p)
 	{
@@ -831,6 +851,7 @@ private function getFieldMergeVar($fn, $lid)
 public function generateListContainers($listArr=false)
 	{
 	$listArr	= ($listArr == false ? $this->optionVal['lists'] : $listArr);
+	$thelistdata = $this->getListsData(); //Get list names from API
 	if(count($listArr) > 0)
 		{
 		ob_start();
@@ -845,7 +866,22 @@ public function generateListContainers($listArr=false)
 						<tbody>
 							<tr valign="top">
 								<th scope="row"><label for="yks-mailchimp-api-key">MailChimp List name</label></th>
-								<td class="yks-mailchimp-listname"><?php echo $list['name']; ?></td>
+								<td class="yks-mailchimp-listname"><?php
+								if ($list['name'])
+									{
+										echo $list['name'];
+									}
+								else
+									{
+										foreach ($thelistdata as $lkey => $lval)
+											{
+											if ($lkey == $list['id'])
+												{
+												echo $lval;
+												}
+											}
+									}
+									?></td>
 							</tr>		
 							<tr valign="top">
 								<th scope="row"><label for="yks-mailchimp-api-key">MailChimp List ID</label></th>
@@ -1017,8 +1053,21 @@ public function getFrontendFormDisplay($list='')
 			?>
 			<div class="yks-mailchimpFormDiv">
 				<?php foreach($list['fields'] as $field) : if($field['active'] == 1) : ?>
+					<?php 
+					//print_r($field);
+					if ($field['require'] == 1) 
+						{ 
+							$reqindicator 	= " <span class='yks-required-label'>*</span>";
+							$reqlabel		= " yks-mailchimpFormDivRowLabel-required";
+						}
+					else
+						{
+							$reqindicator  = "";
+							$reqlabel		= "";
+						}
+						?>
 					<div class="yks-mailchimpFormDivRow">
-						<label class="prompt yks-mailchimpFormDivRowLabel" for="<?php echo $field['name']; ?>"><?php echo $field['label']; ?></label>
+						<label class="prompt yks-mailchimpFormDivRowLabel<?php echo $reqlabel; ?>" for="<?php echo $field['name']; ?>"><?php echo $field['label']; ?><?php echo $reqindicator; ?></label>
 						<div class="yks-mailchimpFormDivRowField">
 							<?php echo $this->getFrontendFormDisplay_field($field); ?>
 						</div>
