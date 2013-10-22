@@ -460,10 +460,10 @@ foreach ($errorcode as $eid => $value )
 		foreach ($value as  $key => $mssg)
 			{
 				$Message = $errormessage[$key];
-				if (($key == 5 || $key == 6) && $this->optionVal['flavor']	== '1')
+				if ( $this->optionVal['debug']	== '1')
 					{
 					$Message .= '<br /><strong>Error Code: '.$error.' - '.$mssg.'</strong><br />';
-					$Message .= 'For more help <a href="http://apidocs.mailchimp.com/api/1.3/exceptions.field.php">visit the MailChimp website</a> or <a href="http://kb.mailchimp.com/home">contact MailChimp</a>"';	
+					$Message .= 'For more info, <a href="http://apidocs.mailchimp.com/api/1.3/exceptions.field.php">visit the MailChimp website</a> or <a href="http://kb.mailchimp.com/home">contact MailChimp</a>';	
 					}
 			}			
 		}

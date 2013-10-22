@@ -48,7 +48,7 @@
 			.yks-status .yks-error p, .yks-status .yks-success p {
 				margin: .4em 0;
 			}
-			
+
 	.yks-status .yks-notice {
 		color: #000;
 		width: 80%;
@@ -224,6 +224,9 @@
 	display: block;
 	padding: 2px 0;
 }
+
+.yks-require {}
+	.yks-require-description {}
 	
 .yks-mailchimpFormTable	{
 	border-bottom: 0px !important;

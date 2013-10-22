@@ -47,6 +47,7 @@ jQuery(document).ready(function ($) {
 <div class="wrap">
 	
 	<div id="ykseme-icon" class="icon32"></div>
+
 	<h2 id="ykseme-page-header">
 		Easy Mailchimp Forms by YIKES, Inc.
 	</h2>
@@ -119,31 +120,29 @@ jQuery(document).ready(function ($) {
 		If you experience any issues with our plugin, please <a href="https://github.com/yikesinc/yikes-inc-easy-mailchimp-extender/issues" target="_blank">submit a New Issue on our Github Issue Tracker</a>. Please include the information below to help us troubleshoot your problem.
 	</p>
 
-		<table class="form-table yks-admin-form">
-			<tbody>
-				
-				<tr valign="top">
-					<th scope="row"><label>Plugin Version</label></th>
-					<td><?php echo YKSEME_VERSION_CURRENT; ?></td>
-				</tr>
-				<tr valign="top">
-					<th scope="row"><label>Wordpress Version</label></th>
-					<td><?php echo get_bloginfo( 'version' ); ?></td>
-				</tr>
-				<tr valign="top">
-					<th scope="row"><label>Browser Information</label></th>
-					<td>
-						<?php
-						$theBrowser = $this->getBrowser();
-						echo $theBrowser['name'].' '.$theBrowser['version'].' on '.$theBrowser['platform'];
-						?>
-					</td>
-				</tr>
-				
-			</tbody>
-		</table>
-	</div>
-	
+	<table class="form-table yks-admin-form">
+		<tbody>
+			
+			<tr valign="top">
+				<th scope="row"><label>Plugin Version</label></th>
+				<td><?php echo YKSEME_VERSION_CURRENT; ?></td>
+			</tr>
+			<tr valign="top">
+				<th scope="row"><label>Wordpress Version</label></th>
+				<td><?php echo get_bloginfo( 'version' ); ?></td>
+			</tr>
+			<tr valign="top">
+				<th scope="row"><label>Browser Information</label></th>
+				<td>
+					<?php
+					$theBrowser = $this->getBrowser();
+					echo $theBrowser['name'].' '.$theBrowser['version'].' on '.$theBrowser['platform'];
+					?>
+				</td>
+			</tr>
+			
+		</tbody>
+	</table>
 </div>
 
 <?php $this->getTrackingGif('options'); ?>
