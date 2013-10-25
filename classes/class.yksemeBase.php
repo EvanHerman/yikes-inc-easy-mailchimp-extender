@@ -861,7 +861,7 @@ public function generateListContainers($listArr=false)
 					<table class="form-table  yks-admin-form">
 						<tbody>
 							<tr valign="top">
-								<th scope="row"><label for="yks-mailchimp-api-key">MailChimp List name</label></th>
+								<th scope="row"><label for="yks-mailchimp-api-key">MailChimp List Name</label></th>
 								<td class="yks-mailchimp-listname"><?php
 								if ($list['name'])
 									{
