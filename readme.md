@@ -48,6 +48,9 @@ Due to the code overhaul required for new version features, the structure we wer
 
 Changes
 ===========
+### 2.2.2
+* Bugfix change plugin directory path
+
 ### 2.2.1
 * Bugfix make sure label matches ID
 
