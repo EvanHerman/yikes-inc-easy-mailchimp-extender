@@ -34,7 +34,7 @@ if(!defined('YKSEME_REQ_PHP'))						define('YKSEME_REQ_PHP',			'5.0');
 if(!defined('YKSEME_AUTHOR'))						define('YKSEME_AUTHOR',				'YIKES Inc');
 if(!defined('YKSEME_SITE'))							define('YKSEME_SITE',				site_url().'/');
 if(!defined('YKSEME_PREFIX'))						define('YKSEME_PREFIX',				'ykseme_');
-if(!defined('YKSEME_PATH'))							define('YKSEME_PATH',				ABSPATH.'wp-content/plugins/yikes-inc-easy-mailchimp-extender/');
+if(!defined('YKSEME_PATH'))							define('YKSEME_PATH',				plugin_dir_path( __FILE__ ));
 if(!defined('YKSEME_URL'))							define('YKSEME_URL',				plugins_url('yikes-inc-easy-mailchimp-extender/'));
 if(!defined('YKSEME_URL_WP'))						define('YKSEME_URL_WP',				get_bloginfo('url'));
 if(!defined('YKSEME_URL_WP_ADM'))					define('YKSEME_URL_WP_ADM',			YKSEME_URL_WP.'/wp-admin/');
