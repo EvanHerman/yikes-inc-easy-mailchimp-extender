@@ -3,7 +3,7 @@ if(!class_exists("yksemeBase"))
 	{
   class yksemeBase
 		{
-		// Fire bug php debugger
+
 		
 		
 /**
@@ -561,7 +561,7 @@ public function getListsData()
 					$theListItems[$list['id']] =  $list['name'];			
 				}
 			}
-			set_transient( 'yks-mcp-listdata-retrieved', $theListItems, 60*5 ); //cache lists for 15 minutes
+			set_transient( 'yks-mcp-listdata-retrieved', $theListItems, 60/4 ); //cache lists for 15 seconds for testing, originally 5 mins 60*5 
 		}
 	return $theListItems;
 	}	
@@ -872,7 +872,7 @@ public function addUserToMailchimp($p)
 				  'email'             => array( 'email' => $email ),
 				  'merge_vars'        => $mv
 			));
-						
+			
 			if($api->errorCode)
 				{
 				return $this->YksMCErrorCodes ($api->errorCode);
@@ -919,7 +919,6 @@ public function generateListContainers($listArr=false)
 		ob_start();
 		foreach($listArr as $list)
 			{
-			// print_r($list);
 			?>
 			<div class="yks-list-container" id="yks-list-container_<?php echo $list['id']; ?>">
 				<div class="yks-status" id="yks-status" style="display: none;">

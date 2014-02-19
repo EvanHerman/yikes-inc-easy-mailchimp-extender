@@ -1,8 +1,3 @@
-<?php 
-/* enqueue our js files to check the api  key */
-
-?>	
-
 <script type="text/javascript">
 jQuery(document).ready(function ($) {
     function blankFieldCheck() {
