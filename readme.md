@@ -52,8 +52,8 @@ Due to the code overhaul required for new version features, the structure we wer
 Changes
 ===========
 ### 3.0
-* Fix more jquery conflict issues
-* Clarification on how to add and manage list forms
+* Update MailChimp API to v2.0
+* Added API Validation Check on settings page
 
 ### 2.2.1
 * Bugfix make sure label matches ID

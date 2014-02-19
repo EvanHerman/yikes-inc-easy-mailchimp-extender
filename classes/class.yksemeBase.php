@@ -38,6 +38,13 @@ public function __destruct()
  */
 public function activate()
 	{
+		// check if our option is already set
+		if( get_option( 'api_validation' ) ) {
+			return;
+		} else {
+			add_option('api_validation' , 'invalid_api_key');
+		}
+		
 	}
 public function deactivate()
 	{
@@ -46,6 +53,7 @@ public function deactivate()
 public function uninstall()
 	{
 	delete_option(YKSEME_OPTION);
+	delete_option('api_validation');
 	}
 
 /***** INITIAL SETUP
@@ -553,7 +561,7 @@ public function getListsData()
 					$theListItems[$list['id']] =  $list['name'];			
 				}
 			}
-			set_transient( 'yks-mcp-listdata-retrieved', $theListItems, 60/4 ); //cache lists for 15 seconds for testing, originally 5 mins 60*5 
+			set_transient( 'yks-mcp-listdata-retrieved', $theListItems, 60*5 ); //cache lists for 15 minutes
 		}
 	return $theListItems;
 	}	
@@ -780,6 +788,35 @@ public function generatePageAboutYikes()
 
 /***** FORM DATA
  ****************************************************************************************************/	
+ 
+public function validateAPIkeySettings()
+	{		
+		$apiKey = $_POST['api_key'];
+		$dataCenter = $_POST['data_center'];	
+		
+		$api	= new Mailchimp($apiKey);
+		
+		
+		// if there is an error with the $resp variable
+		// display the error
+		
+		// need to add an exception for mailchimp HTTP error
+		// not sur ehow to yet.
+		try {
+			//First try getting our user numero uno
+			$resp = $api->call('helper/ping', array('apikey' => $apiKey));
+			echo $resp['msg'];
+			update_option('api_validation', 'valid_api_key');
+		} catch( Exception $e ) {
+			$errorMessage = str_replace('API call to helper/ping failed:', '', $e->getMessage());
+			echo $errorMessage;
+			update_option('api_validation', 'invalid_api_key');
+		}
+		
+		
+		wp_die();
+ }
+ 
 public function addUserToMailchimp($p)
 	{
 	if(!empty($p['form_data']))
@@ -835,7 +872,7 @@ public function addUserToMailchimp($p)
 				  'email'             => array( 'email' => $email ),
 				  'merge_vars'        => $mv
 			));
-			
+						
 			if($api->errorCode)
 				{
 				return $this->YksMCErrorCodes ($api->errorCode);
@@ -882,6 +919,7 @@ public function generateListContainers($listArr=false)
 		ob_start();
 		foreach($listArr as $list)
 			{
+			// print_r($list);
 			?>
 			<div class="yks-list-container" id="yks-list-container_<?php echo $list['id']; ?>">
 				<div class="yks-status" id="yks-status" style="display: none;">

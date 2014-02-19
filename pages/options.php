@@ -1,3 +1,8 @@
+<?php 
+/* enqueue our js files to check the api  key */
+
+?>	
+
 <script type="text/javascript">
 jQuery(document).ready(function ($) {
     function blankFieldCheck() {
@@ -69,18 +74,20 @@ jQuery(document).ready(function ($) {
 							type: 'POST',
 							url: ajaxurl,
 							data: {
-								action: 'yks_mailchimp_validate_api',
+								 action: 'yks_mailchimp_form',
+								form_action: 'validate_api_key',
 								api_key: apiKey,
 								data_center: dataCenter
 							},
 							success: function(response) {
-								if(response == "valid") {
+								if(response == "Everything's Chimpy!") {
 									jQuery('.mailChimp_api_key_preloader').fadeOut('fast', function() {
 										jQuery('.mailChimp_api_key_validation_message').html('<img src="<?php echo plugins_url().'/yikes-inc-easy-mailchimp-extender/images/yikes-mc-checkmark.png'; ?>" alt=message > Valid API Key').css("color", "green").fadeIn();
 									});
 								} else {
+									// alert(response);
 									jQuery('.mailChimp_api_key_preloader').fadeOut('fast', function() {
-										jQuery('.mailChimp_api_key_validation_message').html('<img src="<?php echo plugins_url().'/yikes-inc-easy-mailchimp-extender/images/yikes-mc-error-icon.png'; ?>" alt=message > We\'re sorry there was a problem with your API key. Please confirm that you are using a valid MailChimp API key.').css("color", "red").fadeIn();
+										jQuery('.mailChimp_api_key_validation_message').html('<img src="<?php echo plugins_url().'/yikes-inc-easy-mailchimp-extender/images/yikes-mc-error-icon.png'; ?>" alt=message > Error: '+response+'.').css("color", "red").fadeIn();
 									});								
 								};
 							},

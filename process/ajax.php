@@ -84,6 +84,10 @@ case 'notice_hide':
 	echo '1';
 	break;
 	
+case 'validate_api_key':
+	$validate_action = $yksemeBase->validateAPIkeySettings($_POST);
+	break;
+	
 
 		
 		}

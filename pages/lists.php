@@ -251,9 +251,19 @@
             Easy Mailchimp Forms by YIKES, Inc.
         </h2>
     <?php  if (!$this->optionVal['api-key']) { ?>    
-		<p>
-            Before you can add MailChimp forms to your site, you need to <a href="admin.php?page=yks-mailchimp-form" class="yks-mailchimp-list-add">go to the MailChimp Settings page</a> and add your API Key.
-        </p>
+		<div class="error">	
+			<p>
+				Before you can add MailChimp forms to your site, you need to <a href="admin.php?page=yks-mailchimp-form" class="yks-mailchimp-list-add">go to the MailChimp Settings page</a> and add your API Key.
+			</p>
+		</div>	
+	<?php } else if ( get_option('api_validation') == 'invalid_api_key' ) { ?>
+			<p>
+				<div class="error">
+					<p>
+						You must enter a valid API key to import and manage your lists.
+					</p>
+				</div>
+			</p>
 	<?php } else {  //end if statement if no api key ?>
         <h3>Add Forms</h3>
         	<form id="yks-lists-dropdown" name="yks-lists-dropdown">

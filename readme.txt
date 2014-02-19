@@ -66,7 +66,7 @@ Due to the code overhaul required for the features of the new version, the struc
 == Changelog ==
 = 3.0 =
 * Update Mail Chimp API to v2.0
-* Added API Key Validation Check
+* Added API Key Validation Check on settings page
 
 = 2.2.1 =
 * Bugfix make sure label matches ID
