@@ -553,7 +553,7 @@ public function getListsData()
 	if (!$theListItems)
 		{
 		$api	= new Mailchimp($this->optionVal['api-key']);
-		$lists	= $api->call('lists/list', '');
+		$lists	= $api->call('lists/list', array( 'limit' => 100 ));
 		if($lists)
 			{
 			foreach ($lists['data'] as $list)

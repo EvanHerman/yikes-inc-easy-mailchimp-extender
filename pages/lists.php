@@ -174,9 +174,7 @@
                                                 {
                                                 if(MAILCHIMP == '1')
                                                         {
-                                                        $('#yks-list-container_'+i).fadeOut('fast', function() {
-															$(this).remove();
-														});
+                                                        $('#yks-list-container_'+i).remove();
                                                         noListsCheck();
                                                         scrollToElement($('#yks-list-wrapper'));
                                                         }
