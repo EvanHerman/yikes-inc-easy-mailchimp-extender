@@ -51,6 +51,10 @@ Due to the code overhaul required for new version features, the structure we wer
 
 Changes
 ===========
+### 3.0
+* Fix more jquery conflict issues
+* Clarification on how to add and manage list forms
+
 ### 2.2.1
 * Bugfix make sure label matches ID
 
