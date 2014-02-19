@@ -279,3 +279,23 @@
 	padding-top: 0;
 	padding-bottom: 0;
 }
+
+.mailChimp_api_key_preloader {
+	margin-left:.5em;
+	display:none;
+}
+
+.mailChimp_api_key_validation_message {
+	margin-left:.5em;
+	display:none;
+	font-size:10px;
+}
+
+	.mailChimp_api_key_validation { 
+
+	}
+
+.yikes-api-key-error {
+	display:none;
+	color:red;
+}

@@ -41,16 +41,16 @@ You can use a shortcode to add a form to a page or post. For each list on the pl
 Alternatively, you can use the PHP snippet to add the form to a template file.
 
 ### Don't I have to enter a list ID for each list I want to add to my site? 
-Not anymore! With the 2.0 version of the MailChimp API, all list information can be imported with just the API key.
+Not anymore! With the 2.0 version of the MailChimp API all list information can be imported with just the API key.
 
-### My list data was changed/the form isn't showing up since the 2.0 update (from 12/2011), what's up with that?
-Due to the code overhaul required for new version features, the structure we were using to save data had to be completely changed over to conform to the MailChimp schema. The old unique IDs the plugin assigned to lists have been deprecated. The custom fields are now pulled in from the MailChimp servers. If your form isn't showing up, just re-add your API key to pull in the correct data and re-add your shortcode.
+### My Information isn't showing up when people subscribe, what gives? 
+You're likely using an old version of the plugin. Please update to the latest version and import your list data.
+
+### My list data was changed/the form isn't showing up since the 2.0 update, what's up with that?
+Due to the code overhaul required for new version features, the structure we were using to save data had to be completely changed over to conform to the MailChimp schema. The old unique IDs the plugin assigned to lists have been deprecated. The custom fields are now pulled in from the MailChimp servers. If your form isn't showing up with the shortcode, just copy and paste it again to fix this issue.
 
 Changes
 ===========
-### 2.2.2
-* Bugfix change plugin directory path
-
 ### 2.2.1
 * Bugfix make sure label matches ID
 

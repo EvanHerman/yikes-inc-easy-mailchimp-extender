@@ -1,10 +1,10 @@
 === Easy MailChimp Forms ===
-Contributors: yikesinc, hiwhatsup, liljimmi, seriouslysean
+Contributors: yikesinc, hiwhatsup, liljimmi, seriouslysean, eherman24
 Donate link: http://yikesinc.com
-Tags: mailchimp, marketing, email, mailing lists, newsletter, signup, forms, signup form.
+Tags: mailchimp, marketing, email, mailing lists, newsletter, signup, forms, signup form
 Requires at least: 3.0
-Tested up to: 3.7.1
-Stable tag: 2.2.1
+Tested up to: 3.8.1
+Stable tag: 3.0
 
 Easy MailChimp Forms allows you to painlessly add MailChimp signup forms to your WordPress site.
 
@@ -47,10 +47,13 @@ After you add your API key, the plugin will fetch all of your MailChimp list inf
 You can use a shortcode to add a form to a page or post. For each list on the plugin "Manage List Forms" page you will see a shortcode at the top. Copy the shortcode and paste it into any post or page where you want a form to appear. For example, if my form had the shortcode [yks-mailchimp-list id="1234567891"] I would copy and paste that into the page or post I wanted to add that form to.
 
 = Don't I have to enter a list ID for each list I want to add to my site? =
-Not anymore! With the 2.0 version of the MailChimp API, all list information can be imported with just the API key.
+Not anymore! With the 2.0 version of the MailChimp API all list information can be imported with just the API key.
 
-= My list data was changed/the form isn't showing up since the 2.0 update (from 12/2011), what's up with that? =
-Due to the code overhaul required for the features of the new version, the structure we were using to save data had to be completely changed over to conform to the MailChimp schema. The old unique IDs the plugin gave to lists have been deprecated. The custom fields that you have are now pulled in from the MailChimp servers. If your form isn't showing up, just re-add your API key to pull in the correct data and re-add your shortcode.
+= My Information isn't showing up when people subscribe, what gives? =
+You're likely using an old version of the plugin. Please update to the latest version and import your list data.
+
+= My list data was changed/the form isn't showing up since the 2.0 update, what's up with that? =
+Due to the code overhaul required for the features of the new version, the structure we were using to save data had to be completely changed over to conform to the MailChimp schema. The old unique IDs the plugin gave to lists have been deprecated. The custom fields that you have are now pulled in from the MailChimp servers. If your form isn't showing up with the shortcode, just copy and paste it again to fix this issue.
 
 == Screenshots ==
 
@@ -61,8 +64,9 @@ Due to the code overhaul required for the features of the new version, the struc
 5. Form displays on the site front-end
 
 == Changelog ==
-= 2.2.2 =
-* Bugfix change plugin directory path
+= 3.0 =
+* Update Mail Chimp API to v2.0
+* Added API Key Validation Check
 
 = 2.2.1 =
 * Bugfix make sure label matches ID
@@ -128,6 +132,9 @@ Due to the code overhaul required for the features of the new version, the struc
 * Initial Release
 
 == Upgrade Notice ==
+= 3.0 =
+* Update Mail Chimp API to v2.0
+* Added API Key Validation Check
 
 = 2.2.0 =
 * Added support for multiples of the same list

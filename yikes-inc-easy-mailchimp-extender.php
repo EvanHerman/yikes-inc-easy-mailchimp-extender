@@ -4,7 +4,7 @@
 Plugin Name: Easy MailChimp Forms
 Plugin URI: http://www.yikesinc.com/services/yikes-inc-easy-mailchimp-extender/
 Description: Mailchimp API integration in the form of a shortcode or php snippet
-Version: 2.2.1
+Version: 3.0
 Author: YIKES Inc
 Author URI: http://yikesinc.com
 License: GPL2
@@ -34,7 +34,7 @@ if(!defined('YKSEME_REQ_PHP'))						define('YKSEME_REQ_PHP',			'5.0');
 if(!defined('YKSEME_AUTHOR'))						define('YKSEME_AUTHOR',				'YIKES Inc');
 if(!defined('YKSEME_SITE'))							define('YKSEME_SITE',				site_url().'/');
 if(!defined('YKSEME_PREFIX'))						define('YKSEME_PREFIX',				'ykseme_');
-if(!defined('YKSEME_PATH'))							define('YKSEME_PATH',				plugin_dir_path( __FILE__ ));
+if(!defined('YKSEME_PATH'))							define('YKSEME_PATH',				ABSPATH.'wp-content/plugins/yikes-inc-easy-mailchimp-extender/');
 if(!defined('YKSEME_URL'))							define('YKSEME_URL',				plugins_url('yikes-inc-easy-mailchimp-extender/'));
 if(!defined('YKSEME_URL_WP'))						define('YKSEME_URL_WP',				get_bloginfo('url'));
 if(!defined('YKSEME_URL_WP_ADM'))					define('YKSEME_URL_WP_ADM',			YKSEME_URL_WP.'/wp-admin/');
@@ -49,7 +49,7 @@ if(YKSEME_DEBUG) error_reporting(E_ALL ^ E_NOTICE);
 
 /** Include Required Plugin Files **/
 require_once YKSEME_PATH.'classes/class.yksemeBase.php';
-require_once YKSEME_PATH.'classes/MCAPI.class.php';
+require_once YKSEME_PATH.'classes/MCAPI_2.0.class.php';
 require_once YKSEME_PATH.'lib/lib.ajax.php';
 require_once YKSEME_PATH.'lib/lib.func.php';
 
@@ -65,7 +65,8 @@ register_uninstall_hook(__FILE__,		array('yksemeBase', 'uninstall'));
 // Output jquery
 add_action('wp_head','yikes_mailch_jquery_js');
 
+
 function yikes_mailch_jquery_js() {?>
   <script type="ext/javascript" src="<?php echo YKSEME_URL; ?>js/prototype.js"></script>
-  
+ 
 <?php } ?>
