@@ -52,7 +52,7 @@ jQuery(document).ready(function ($) {
 					
 			// mailchimp api key is 36 characters, could be more. Usually not less.
 			// checking the api key at 30 characters, maybe older api keys contain less characters
-			if (thisLength >= 30) {	
+			if (thisLength >= 1) {	
 					// store Mail Chimp API Key
 					var apiKey = jQuery('#yks-mailchimp-api-key').val();
 					// store datacenter value, from end of api key
@@ -63,7 +63,6 @@ jQuery(document).ready(function ($) {
 					} else {
 						jQuery('.mailChimp_api_key_preloader').fadeIn();
 					}
-					
 						// post the data to our api key validation function inside of lib.ajax.php
 						jQuery.ajax({
 							type: 'POST',
@@ -75,29 +74,38 @@ jQuery(document).ready(function ($) {
 								data_center: dataCenter
 							},
 							success: function(response) {
-								if(response.indexOf('Everything\'s Chimpy!') > -1) {
+								if(response == "Everything's Chimpy!") {
 									jQuery('.mailChimp_api_key_preloader').fadeOut('fast', function() {
 										jQuery('.mailChimp_api_key_validation_message').html('<img src="<?php echo plugins_url().'/yikes-inc-easy-mailchimp-extender/images/yikes-mc-checkmark.png'; ?>" alt=message > Valid API Key').css("color", "green").fadeIn();
+										jQuery('#submit').removeAttr('disabled');
 									});
 								} else {
 									// alert(response);
 									jQuery('.mailChimp_api_key_preloader').fadeOut('fast', function() {
 										jQuery('.mailChimp_api_key_validation_message').html('<img src="<?php echo plugins_url().'/yikes-inc-easy-mailchimp-extender/images/yikes-mc-error-icon.png'; ?>" alt=message > Error: '+response+'.').css("color", "red").fadeIn();
+										jQuery('#submit').attr('disabled', 'disabled');
 									});								
 								};
 							},
 							error: function(response) {
-								alert('There was an error processing your request...');	
+								// alert('There was an error processing your request...');	
 							}
 						});	
 			} else {
-				jQuery('.mailChimp_api_key_preloader').fadeOut();
+				jQuery('.mailChimp_api_key_preloader').fadeOut('fast', function() {
+					jQuery('.mailChimp_api_key_validation_message').html('<img src="<?php echo plugins_url().'/yikes-inc-easy-mailchimp-extender/images/yikes-mc-error-icon.png'; ?>" alt=message > Error: Please enter a valid Mail Chimp API Key.').css("color", "red").fadeIn();
+					jQuery('#submit').attr('disabled', 'disabled');
+				});	
 			}
-		}, 50);
+		}, 1);
+		
+		
+		
 	}
 	
 	// run the validation on keyup
 	jQuery('#yks-mailchimp-api-key').keyup(function() {
+			stop();
 			yikes_mc_api_key_validate();
 	});
 	
