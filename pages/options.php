@@ -44,6 +44,7 @@ jQuery(document).ready(function ($) {
 	
 	/*******************	Validate MailChimp API Key ****************************/
 	function yikes_mc_api_key_validate() {
+		jQuery('#submit').attr('disabled', 'disabled');
 		jQuery('.mailChimp_api_key_validation_message').hide();
 		// delay the function incase the user has deleted their API key
 		setTimeout(function() {
@@ -80,12 +81,10 @@ jQuery(document).ready(function ($) {
 										jQuery('#submit').removeAttr('disabled');
 									});
 								} else if (response.indexOf('Invalid Mailchimp API Key') > -1) {
-									// alert(response);
 									jQuery('.mailChimp_api_key_preloader').fadeOut('fast', function() {
 										jQuery('.mailChimp_api_key_validation_message').html('<img src="<?php echo plugins_url().'/yikes-inc-easy-mailchimp-extender/images/yikes-mc-error-icon.png'; ?>" alt=message > Sorry, that is an invalid MailChimp API key.').css("color", "red").fadeIn();
 									});								
 								} else {
-									// alert(response);
 									jQuery('.mailChimp_api_key_preloader').fadeOut('fast', function() {
 										jQuery('.mailChimp_api_key_validation_message').html('<img src="<?php echo plugins_url().'/yikes-inc-easy-mailchimp-extender/images/yikes-mc-error-icon.png'; ?>" alt=message > Sorry, that is an invalid MailChimp API key.').css("color", "red").fadeIn();
 									});	
