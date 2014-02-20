@@ -1,5 +1,5 @@
 === Easy MailChimp Forms ===
-Contributors: yikesinc, hiwhatsup, liljimmi, seriouslysean, eherman24
+Contributors: yikesinc, hiwhatsup, liljimmi, eherman24, seriouslysean
 Donate link: http://yikesinc.com
 Tags: mailchimp, marketing, email, mailing lists, newsletter, signup, forms, signup form
 Requires at least: 3.0
