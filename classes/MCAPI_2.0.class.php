@@ -10,19 +10,19 @@
 // Double check all methods are MC API 2.0 appropriate
 // Remove PHPDebug tool and comments
 
-require_once '/../Mailchimp/Folders.php';
-require_once '/../Mailchimp/Templates.php';
-require_once '/../Mailchimp/Users.php';
-require_once '/../Mailchimp/Helper.php';
-require_once '/../Mailchimp/Mobile.php';
-require_once '/../Mailchimp/Ecomm.php';
-require_once '/../Mailchimp/Neapolitan.php';
-require_once '/../Mailchimp/Lists.php';
-require_once '/../Mailchimp/Campaigns.php';
-require_once '/../Mailchimp/Vip.php';
-require_once '/../Mailchimp/Reports.php';
-require_once '/../Mailchimp/Gallery.php';
-require_once '/../Mailchimp/Exceptions.php';
+require_once YKSEME_PATH.'/Mailchimp/Folders.php';
+require_once YKSEME_PATH.'/Mailchimp/Templates.php';
+require_once YKSEME_PATH.'/Mailchimp/Users.php';
+require_once YKSEME_PATH.'/Mailchimp/Helper.php';
+require_once YKSEME_PATH.'/Mailchimp/Mobile.php';
+require_once YKSEME_PATH.'/Mailchimp/Ecomm.php';
+require_once YKSEME_PATH.'/Mailchimp/Neapolitan.php';
+require_once YKSEME_PATH.'/Mailchimp/Lists.php';
+require_once YKSEME_PATH.'/Mailchimp/Campaigns.php';
+require_once YKSEME_PATH.'/Mailchimp/Vip.php';
+require_once YKSEME_PATH.'/Mailchimp/Reports.php';
+require_once YKSEME_PATH.'/Mailchimp/Gallery.php';
+require_once YKSEME_PATH.'/Mailchimp/Exceptions.php';
 
 
 if(!class_exists("Mailchimp"))
