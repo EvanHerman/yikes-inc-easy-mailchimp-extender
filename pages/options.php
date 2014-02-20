@@ -79,11 +79,16 @@ jQuery(document).ready(function ($) {
 										jQuery('.mailChimp_api_key_validation_message').html('<img src="<?php echo plugins_url().'/yikes-inc-easy-mailchimp-extender/images/yikes-mc-checkmark.png'; ?>" alt=message > Valid API Key').css("color", "green").fadeIn();
 										jQuery('#submit').removeAttr('disabled');
 									});
+								} else if (response.indexOf('Invalid Mailchimp API Key') > -1) {
+									// alert(response);
+									jQuery('.mailChimp_api_key_preloader').fadeOut('fast', function() {
+										jQuery('.mailChimp_api_key_validation_message').html('<img src="<?php echo plugins_url().'/yikes-inc-easy-mailchimp-extender/images/yikes-mc-error-icon.png'; ?>" alt=message > Sorry, that is an invalid MailChimp API key.').css("color", "red").fadeIn();
+									});								
 								} else {
 									// alert(response);
 									jQuery('.mailChimp_api_key_preloader').fadeOut('fast', function() {
-										jQuery('.mailChimp_api_key_validation_message').html('<img src="<?php echo plugins_url().'/yikes-inc-easy-mailchimp-extender/images/yikes-mc-error-icon.png'; ?>" alt=message > Error: '+response+'.').css("color", "red").fadeIn();
-									});								
+										jQuery('.mailChimp_api_key_validation_message').html('<img src="<?php echo plugins_url().'/yikes-inc-easy-mailchimp-extender/images/yikes-mc-error-icon.png'; ?>" alt=message > Sorry, that is an invalid MailChimp API key.').css("color", "red").fadeIn();
+									});	
 								};
 							},
 							error: function(response) {
