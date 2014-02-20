@@ -74,7 +74,7 @@ jQuery(document).ready(function ($) {
 								data_center: dataCenter
 							},
 							success: function(response) {
-								if(response == "Everything's Chimpy!") {
+								if(response.indexOf('Everything\'s Chimpy!') > -1) {
 									jQuery('.mailChimp_api_key_preloader').fadeOut('fast', function() {
 										jQuery('.mailChimp_api_key_validation_message').html('<img src="<?php echo plugins_url().'/yikes-inc-easy-mailchimp-extender/images/yikes-mc-checkmark.png'; ?>" alt=message > Valid API Key').css("color", "green").fadeIn();
 										jQuery('#submit').removeAttr('disabled');
