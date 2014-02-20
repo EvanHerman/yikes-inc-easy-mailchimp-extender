@@ -83,7 +83,6 @@ jQuery(document).ready(function ($) {
 									// alert(response);
 									jQuery('.mailChimp_api_key_preloader').fadeOut('fast', function() {
 										jQuery('.mailChimp_api_key_validation_message').html('<img src="<?php echo plugins_url().'/yikes-inc-easy-mailchimp-extender/images/yikes-mc-error-icon.png'; ?>" alt=message > Error: '+response+'.').css("color", "red").fadeIn();
-										jQuery('#submit').attr('disabled', 'disabled');
 									});								
 								};
 							},
@@ -94,7 +93,6 @@ jQuery(document).ready(function ($) {
 			} else {
 				jQuery('.mailChimp_api_key_preloader').fadeOut('fast', function() {
 					jQuery('.mailChimp_api_key_validation_message').html('<img src="<?php echo plugins_url().'/yikes-inc-easy-mailchimp-extender/images/yikes-mc-error-icon.png'; ?>" alt=message > Error: Please enter a valid Mail Chimp API Key.').css("color", "red").fadeIn();
-					jQuery('#submit').attr('disabled', 'disabled');
 				});	
 			}
 		}, 1);
@@ -179,7 +177,7 @@ jQuery(document).ready(function ($) {
 				
 				<tr>
 					<td></td>
-					<td><input type="submit" name="submit" id="submit" class="button-primary" value="Save Settings"></td>
+					<td><input type="submit" name="submit" id="submit" class="button-primary" value="Save Settings" disabled="disabled"></td>
 				</tr>	
 			</tbody>
 		</table>
