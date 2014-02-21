@@ -1,7 +1,7 @@
 <?php
 
 class Mailchimp_Templates {
-    public function __construct(Mailchimp $master) {
+    public function __construct(wpyksMCAPI $master) {
         $this->master = $master;
     }
 

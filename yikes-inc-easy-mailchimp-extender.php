@@ -49,7 +49,6 @@ if(YKSEME_DEBUG) error_reporting(E_ALL ^ E_NOTICE);
 
 /** Include Required Plugin Files **/
 require_once YKSEME_PATH.'classes/class.yksemeBase.php';
-// require_once YKSEME_PATH.'classes/MCAPI.class.php';
 require_once YKSEME_PATH.'classes/MCAPI_2.0.class.php';
 require_once YKSEME_PATH.'lib/lib.ajax.php';
 require_once YKSEME_PATH.'lib/lib.func.php';

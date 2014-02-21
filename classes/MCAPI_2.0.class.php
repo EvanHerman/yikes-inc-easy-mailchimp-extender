@@ -25,9 +25,9 @@ require_once YKSEME_PATH.'/Mailchimp/Gallery.php';
 require_once YKSEME_PATH.'/Mailchimp/Exceptions.php';
 
 
-if(!class_exists("Mailchimp"))
+if(!class_exists("wpyksMCAPI"))
 	{
-class Mailchimp {
+class wpyksMCAPI {
 
     /**
      * Placeholder attribute for Mailchimp_Folders class

@@ -490,7 +490,7 @@ foreach ($errorcode as $eid => $value )
 public function addList($lid='' , $name='')
 	{
 	if($lid == '' || isset($this->optionVal['lists'][$list['id']])) return false;
-	$api	= new Mailchimp($this->optionVal['api-key']);
+	$api	= new wpyksMCAPI($this->optionVal['api-key']);
 	
 	// test
 	// $fields = $api->call('lists/list', '');
@@ -520,7 +520,7 @@ public function addList($lid='' , $name='')
 	
 public function getLists()
 	{
-	$api	= new Mailchimp($this->optionVal['api-key']);
+	$api	= new wpyksMCAPI($this->optionVal['api-key']);
 	$lists	= $this->getListsData();
 	$listArr	= ($listArr == false ? $this->optionVal['lists'] : $listArr);
 	$theusedlist = array();
@@ -552,7 +552,7 @@ public function getListsData()
 	$theListItems = get_transient('yks-mcp-listdata-retrieved');
 	if (!$theListItems)
 		{
-		$api	= new Mailchimp($this->optionVal['api-key']);
+		$api	= new wpyksMCAPI($this->optionVal['api-key']);
 		$lists	= $api->call('lists/list', array( 'limit' => 100 ));
 		if($lists)
 			{
@@ -635,7 +635,7 @@ public function importList($i=false)
 		{
 		$lid	= $this->optionVal['lists'][$i]['list-id'];
 		$name	= $this->optionVal['lists'][$i]['name'];
-		$api	= new Mailchimp($this->optionVal['api-key']);
+		$api	= new wpyksMCAPI($this->optionVal['api-key']);
 		$mv	= $api->call('lists/merge-vars', array(
  				'id' => array( $lid )
 			)
@@ -676,7 +676,7 @@ public function addStyles_frontend()
 	{
 	// Register Styles
 	wp_register_style('ykseme-css-base', 				YKSEME_URL.'css/style.ykseme.css', 											array(), '1.0.0', 'all');
-	wp_register_style('ykseme-css-smoothness', 	YKSEME_URL.'css/jquery-ui-1.8.16.smoothness.css', 			array(), '1.0.0', 'all');
+	wp_register_style('ykseme-css-smoothness', 	YKSEME_URL.'css/jquery-ui-1.10.4.smoothness.css', 			array(), '1.0.0', 'all');
 	// Enqueue Styles
 	wp_enqueue_style('ykseme-css-base');
 	wp_enqueue_style('ykseme-css-smoothness');
@@ -698,7 +698,7 @@ public function addScripts_frontend()
 	wp_enqueue_script('jquery');
 	// Everything else
 	wp_enqueue_script('jquery-ui-core');
-	wp_enqueue_script('jquery-ui-datepicker',			YKSEME_URL.'js/jquery-ui-1.8.16.datepicker.min.js',		array('jquery'), '1.8.16');
+	wp_enqueue_script('jquery-ui-datepicker');
 	}
 
 
@@ -794,7 +794,7 @@ public function validateAPIkeySettings()
 		$apiKey = $_POST['api_key'];
 		$dataCenter = $_POST['data_center'];	
 		
-		$api	= new Mailchimp($apiKey);
+		$api	= new wpyksMCAPI($apiKey);
 		
 		
 		// if there is an error with the $resp variable
@@ -826,7 +826,7 @@ public function addUserToMailchimp($p)
 			{
 			$email	= false;
 			$lid		= $fd['yks-mailchimp-list-id'];
-			$api		= new Mailchimp($this->optionVal['api-key']);
+			$api		= new wpyksMCAPI($this->optionVal['api-key']);
 			$mv 		= array();
 			
 			
