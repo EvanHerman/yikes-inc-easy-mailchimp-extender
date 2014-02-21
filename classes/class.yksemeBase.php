@@ -683,8 +683,7 @@ public function addStyles_frontend()
 	}
 	
 public function addScripts()
-	{
-	wp_enqueue_script('jquery');
+	{		
 	// Everything else
 	wp_enqueue_script('jquery-ui-core');
 	wp_enqueue_script('thickbox');
@@ -695,13 +694,22 @@ public function addScripts()
 	
 public function addScripts_frontend()
 	{
-	wp_enqueue_script('jquery');
+		global $wp_scripts;
+        $version ='1.9.0';
+        if ( ( version_compare( $wp_scripts -> registered[jquery] -> ver, $version ) >= 0 ) && jQuery && !is_admin() )
+         {   
+            wp_enqueue_script( 'jquery' );
+        }
+        else
+        {	
+			wp_deregister_script('jquery');
+            wp_register_script('jquery', 'http://ajax.googleapis.com/ajax/libs/jquery/'.$version.'/jquery.min.js', false, $version );
+            wp_enqueue_script( 'jquery' );		
+        }
 	// Everything else
 	wp_enqueue_script('jquery-ui-core');
 	wp_enqueue_script('jquery-ui-datepicker');
 	}
-
-
 
 
 

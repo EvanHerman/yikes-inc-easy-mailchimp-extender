@@ -118,8 +118,7 @@ jQuery(document).ready(function ($) {
 </script>
 
 <div class="wrap">
-
-	<div id="ykseme-icon" class="icon32"></div>
+<div id="ykseme-icon" class="icon32"></div>
 
 	<h2 id="ykseme-page-header">
 		Easy Mailchimp Forms by YIKES, Inc.
