@@ -30,7 +30,7 @@ jQuery(document).ready(function ($) {
                 dataType: 'json',
                 success: function (MAILCHIMP) {
                     if (MAILCHIMP == '1') {
-                        $('#yks-status').html('<div class="updated yks-success"><p>The options were saved successfully!</p></div>');
+                        $('#yks-status').html('<div class="updated"><p>The options were saved successfully!</p></div>');
                         $('#yks-status').slideDown('fast');
                     } else {
                         $('#yks-status').html('<div class="error"><p>The options could not be saved (or you did not change them).</p></div>');
