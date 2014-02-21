@@ -38,11 +38,19 @@ if(!defined('YKSEME_PATH'))							define('YKSEME_PATH',				ABSPATH.'wp-content/p
 if(!defined('YKSEME_URL'))							define('YKSEME_URL',				plugins_url('yikes-inc-easy-mailchimp-extender/'));
 if(!defined('YKSEME_URL_WP'))						define('YKSEME_URL_WP',				get_bloginfo('url'));
 if(!defined('YKSEME_URL_WP_ADM'))					define('YKSEME_URL_WP_ADM',			YKSEME_URL_WP.'/wp-admin/');
-if(!defined('YKSEME_URL_WP_AJAX'))					define('YKSEME_URL_WP_AJAX',		admin_url('admin-ajax.php'));
-if(!defined('YKSEME_URL_CURRENT'))					define('YKSEME_URL_CURRENT',		$_SERVER['REQUEST_URI']);
-
 /** Database Tables **/
 if(!defined('YKSEME_OPTION'))						define('YKSEME_OPTION',				YKSEME_PREFIX.'storage');
+// Conditional check for SSL enabled site
+if(!defined('YKSEME_URL_WP_AJAX')) {
+   if ($_SERVER['SERVER_PORT'] == 80)
+       define('YKSEME_URL_WP_AJAX', admin_url('admin-ajax.php', 'http'));
+   else if ($_SERVER['SERVER_PORT'] == 443)
+      define('YKSEME_URL_WP_AJAX', admin_url('admin-ajax.php', 'https'));
+   else
+      define('YKSEME_URL_WP_AJAX', admin_url('admin-ajax.php'));
+}
+if(!defined('YKSEME_URL_CURRENT'))					define('YKSEME_URL_CURRENT',		$_SERVER['REQUEST_URI']);
+
 
 /** Initial Configuration **/
 if(YKSEME_DEBUG) error_reporting(E_ALL ^ E_NOTICE);
