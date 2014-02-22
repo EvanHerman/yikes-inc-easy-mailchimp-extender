@@ -51,6 +51,9 @@ Due to the code overhaul required for new version features, the structure we wer
 
 Changes
 ===========
+### 3.0.1
+* Replaced missing Mail Chimp api wrapper class
+
 ### 3.0
 * Update MailChimp API to v2.0
 * Added API Validation Check on settings page
