@@ -4,13 +4,56 @@ Donate link: http://yikesinc.com
 Tags: mailchimp, marketing, email, mailing lists, newsletter, signup, forms, signup form
 Requires at least: 3.0
 Tested up to: 3.8.1
-Stable tag: 3.0.1
+Stable tag: 4.0
 
 Easy MailChimp Forms allows you to painlessly add MailChimp signup forms to your WordPress site.
 
 == Description ==
 
-Easy MailChimp Forms allows you to painlessly add MailChimp signup forms to your WordPress site. You can add forms to posts or pages with shortcodes or to template files with PHP tags. Simply copy and paste your MailChimp API Key into the plugin admin settings and it will pull in all your MailChimp lists. From there you can choose the lists you want to make forms for. For a single list you can check off the fields you want to include on your form and order them via an easy drag-and-drop interface. This plugin adds plenty of CSS selectors to the form code allowing you to completely customize the look of your forms.
+Easy MailChimp Forms allows you to painlessly add MailChimp signup forms to your WordPress site. You can add forms to posts, pages or widgets with shortcodes or to template files with PHP tags. Simply copy and paste your MailChimp API Key into the plugin admin settings and it will pull in all your MailChimp lists. From there you can choose the lists you want to make forms for. For a single list you can check off the fields you want to include on your form and order them via an easy drag-and-drop interface. This plugin adds plenty of CSS selectors to the form code allowing you to completely customize the look of your forms.
+
+
+**Features**
+1. Easily Import MailChimp Forms
+1. Interest Group/Segment Support
+1. Custom Widget
+1. Single or Double Opt-In Option
+1. Customize the Success Message
+1. Customize the Submit Button Text
+1. Redirect Users to Selected Page On Submission
+1. Remove Users From MailChimp Lists
+1. View Subscriber MailChimp Profiles
+1. View Individual List Subscriber Count
+1. Display Multiple Forms On a Single Page
+1. Built on the Newest MailChimp API - v2.0
+
+
+Easy MailChimp Forms is now translated into multiple languages:
+<ul>
+	<li>Viatnemese</li>
+	<li>Swedish</li>
+	<li>Hindi</li>
+	<li>Chinese</li>
+	<li>Hong Kong</li>
+	<li>Taiwanese</li>
+	<li>Greek</li>
+	<li>Hebrew</li>
+	<li>Korean</li>
+	<li>Persian</li>
+	<li>Romanian</li>
+	<li>Tamil</li>
+	<li>Urdu</li>
+	<li>English</li>
+	<li>Arabic</li>
+	<li>French</li>
+	<li>Portugese (European)</li>
+	<li>Portugese (Brazilian)</li>
+	<li>Russian</li>
+	<li>Italian</li>
+	<li>Japanese</li>
+	<li>German</li>
+	<li>Welsh</li>
+</ul>
 
 Instructions on how to use the plugin can be [found on the FAQ](http://wordpress.org/plugins/yikes-inc-easy-mailchimp-extender/faq/ "found on the FAQ"). If you experience any problems, please submit a New Issue on our [Github Issue Tracker](https://github.com/yikesinc/yikes-inc-easy-mailchimp-extender/issues "Github Issue Tracker") and we'll look in to it as soon as possible.
 
@@ -20,7 +63,10 @@ Instructions on how to use the plugin can be [found on the FAQ](http://wordpress
 1. Log in to yourdomain.com/wp-admin
 1. Click Plugins -> Add New -> Upload
 1. Activate the plugin
-1. You're finished!
+1. Go over to <a href="http://www.mailchimp.com" target="_blank">MailChimp.com</a>, login.
+1. On the right hand menu, click your profile picture and select 'Account Settings' and then go to 'Extras > API Keys'.
+1. Enter your API key into the text field inside 'MailChimp Forms > MailChimp Settings'
+1. Start importing forms from MailChimp and adding them to posts, pages and widgets!
 
 == Frequently Asked Questions ==
 
@@ -55,6 +101,20 @@ You're likely using an old version of the plugin. Please update to the latest ve
 = My list data was changed/the form isn't showing up since the 2.0 update, what's up with that? =
 Due to the code overhaul required for the features of the new version, the structure we were using to save data had to be completely changed over to conform to the MailChimp schema. The old unique IDs the plugin gave to lists have been deprecated. The custom fields that you have are now pulled in from the MailChimp servers. If your form isn't showing up with the shortcode, just copy and paste it again to fix this issue.
 
+= I don't want the form to be the 100% width. How can I adjust the width my self? =
+You can adjust the width of the forms on your site by changing the width of the element with the class .yks-mailchimpFormContainer. This is the parent container that houses the form. Adjusting this width will control the width of the input fields inside of it as well.
+
+= I input a valid MailChimp API key, but it returns invalid every time. I've already tried a new API key, but no dice. What's up? =
+The MaillChimp API requires that cURL be enabled on your server. If cURL is disabled at the server level, you will see a warning message at the top of the settings page letting you know so. You can enable cURL from within the php.ini file, generally located in the root of your WordPress installation, by following these steps: 
+<ul>
+  <li>Open php.ini</li>
+  <li>Locate the line ';extension=php_curl.dll'</li>
+  <li>Delete the semi-colon (;) from before the line, to uncomment it.</li>
+  <li>Save the file, close out and try again</li>
+</ul>
+
+If you are having trouble locating your php.ini file, you may not have access to directly edit it. If that is the case you should contact your host provider, and have them enable cURL for you.
+
 == Screenshots ==
 
 1. Sidebar menu
@@ -64,8 +124,17 @@ Due to the code overhaul required for the features of the new version, the struc
 5. Form displays on the site front-end
 
 == Changelog ==
-= 3.0.1 =
-* Replaced missing Mail Chimp api wrapper class
+
+= 4.0 =
+* Added Interest Group/Segment Support
+* Ability To See Number of Subscriber Per List
+* View Subscribers MailChimp Profile
+* Customize Segment Group Label
+* Customize Submit Button Text
+* Redirect User to Specified Page On Submission
+* Customize Success Message
+* Added cURL Server Error Checking
+* Added further error checking to pages
 
 = 3.0 =
 * Update Mail Chimp API to v2.0

@@ -1,0 +1,595 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: Yikes Inc. Easy MailChimp Plugin\n"
+"POT-Creation-Date: 2014-03-13 16:22-0500\n"
+"PO-Revision-Date: 2014-03-13 16:23-0500\n"
+"Last-Translator: Evan <evan.m.herman@gmail.com>\n"
+"Language-Team: Yikes Inc. <evan@yikesinc.com>\n"
+"Language: he_IL\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Poedit 1.6.4\n"
+"X-Poedit-Basepath: .\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Poedit-KeywordsList: __;_e\n"
+"X-Poedit-SearchPath-0: ../.\n"
+
+#: .././classes/class.yksemeBase.php:103
+msgid "Thank You for subscribing!"
+msgstr "תודה שנרשם!"
+
+#: .././classes/class.yksemeBase.php:104
+msgid ""
+"Thank You for subscribing! Check your email for the confirmation message."
+msgstr "תודה שנרשם! בדוק את תיבת הדוא\"ל שלך להודעת האישור."
+
+#: .././classes/class.yksemeBase.php:105
+msgid "Select Your Area of Interest"
+msgstr "בחר האזור שלך של ריבית"
+
+#: .././classes/class.yksemeBase.php:804
+msgid "Click on a subscriber to see further information"
+msgstr "לחץ על מנוי כדי לראות מידע נוסף"
+
+#: .././classes/class.yksemeBase.php:807
+msgid "E-Mail"
+msgstr "דואר אלקטרוני"
+
+#: .././classes/class.yksemeBase.php:808
+msgid "Date Subscribed"
+msgstr "תאריך המבוקשים"
+
+#: .././classes/class.yksemeBase.php:828
+msgid "Sorry You Don't Currently Have Any Subscribers In This List!"
+msgstr "מצטער שאתה לא נכון לעכשיו יש לך מנויים ברשימה זו!"
+
+#: .././classes/class.yksemeBase.php:885
+msgid "Back to Subscriber List"
+msgstr "חזור לרשימת מנויים"
+
+#: .././classes/class.yksemeBase.php:886
+msgid "Subscriber Details"
+msgstr "פרטי מנוי"
+
+#: .././classes/class.yksemeBase.php:897
+msgid "Overview"
+msgstr "סקירה"
+
+#: .././classes/class.yksemeBase.php:902
+msgid "First Name"
+msgstr "שם פרטים"
+
+#: .././classes/class.yksemeBase.php:905
+msgid "Last Updated"
+msgstr "עדכון האחרון"
+
+#: .././classes/class.yksemeBase.php:908
+msgid "Preferred Email Type"
+msgstr "סוג דוא\"ל מועדף"
+
+#: .././classes/class.yksemeBase.php:915
+msgid "Last Name"
+msgstr "שם משפחה"
+
+#: .././classes/class.yksemeBase.php:918
+msgid "Language"
+msgstr "שפה"
+
+#: .././classes/class.yksemeBase.php:941
+msgid "Groups Subscribed To"
+msgstr "קבוצות המנויים על"
+
+#: .././classes/class.yksemeBase.php:992
+msgid "Subscriber Notes"
+msgstr "הערות מנויים"
+
+#: .././classes/class.yksemeBase.php:997
+msgid "Written by"
+msgstr "נכתב על ידי"
+
+#: .././classes/class.yksemeBase.php:997
+msgid "Created on"
+msgstr "נוצר על"
+
+#: .././classes/class.yksemeBase.php:1132
+#: .././classes/class.yksemeBase.php:1134
+msgid "MailChimp Forms"
+msgstr "טפסי MailChimp"
+
+#: .././classes/class.yksemeBase.php:1134
+msgid "MailChimp Settings"
+msgstr "הגדרות MailChimp"
+
+#: .././classes/class.yksemeBase.php:1135
+msgid "Manage List Forms"
+msgstr "ניהול טפסי רשימה"
+
+#: .././classes/class.yksemeBase.php:1136 .././pages/about.php:5
+msgid "About YIKES, Inc."
+msgstr "Yikes Inc. על"
+
+#: .././classes/class.yksemeBase.php:1293
+msgid "One or more fields are empty"
+msgstr "אחד או יותר שדות ריקים"
+
+#: .././classes/class.yksemeBase.php:1343
+msgid "Your List Was Successfully Saved!"
+msgstr "רשימה שלך נשמרה בהצלחה!"
+
+#: .././classes/class.yksemeBase.php:1345
+msgid "I'm sorry there was an error with your request."
+msgstr "אני מצטער שיש שגיאה עם בקשתך."
+
+#: .././classes/class.yksemeBase.php:1351
+msgid "MailChimp List name"
+msgstr "שם MailChimp רשימה"
+
+#: .././classes/class.yksemeBase.php:1357
+#: .././classes/class.yksemeBase.php:1367
+#, php-format
+msgid "%1$s"
+msgstr ""
+
+#: .././classes/class.yksemeBase.php:1375
+msgid "MailChimp List ID"
+msgstr "MailChimp רשימת זיהוי"
+
+#: .././classes/class.yksemeBase.php:1381
+msgid "Shortcode"
+msgstr "קוד קצר"
+
+#: .././classes/class.yksemeBase.php:1384
+msgid ""
+"Paste this shortcode into whatever page or post you want to add this form to"
+msgstr "להדביק קוד קצר הזה לכל דף או לפרסם אתה רוצה להוסיף בטופס זה כדי"
+
+#: .././classes/class.yksemeBase.php:1389
+msgid "PHP Snippet"
+msgstr "PHP קטע"
+
+#: .././classes/class.yksemeBase.php:1392
+msgid "Use this code to add this form to a template file"
+msgstr "השתמש בקוד זה כדי להוסיף בטופס זה כדי קובץ תבנית"
+
+#: .././classes/class.yksemeBase.php:1397
+msgid "Number of Subscribers"
+msgstr "מספר המנויים"
+
+#: .././classes/class.yksemeBase.php:1406
+msgid "Form Fields"
+msgstr "שדות טופס"
+
+#: .././classes/class.yksemeBase.php:1408
+msgid ""
+"Check the fields you want included in your form (Email Address is required)."
+msgstr "בדוק את השדות שברצונך לכלול בטופס שלך (נדרשת כתובת דוא\"ל)."
+
+#: .././classes/class.yksemeBase.php:1411
+msgid ""
+"Use the green arrows to drag-and-drop the fields and rearrange their order."
+msgstr ""
+"השתמש בחיצים הירוקים כדי לגרור ולשחרר את השדות ולארגן מחדש את הסדר שלהם."
+
+#: .././classes/class.yksemeBase.php:1417
+msgid "Active Fields"
+msgstr "שדות פעילים"
+
+#: .././classes/class.yksemeBase.php:1426
+msgid "Drag"
+msgstr "גרירה"
+
+#: .././classes/class.yksemeBase.php:1426
+msgid "drop"
+msgstr "ירידה"
+
+#: .././classes/class.yksemeBase.php:1431
+msgid "Merge field"
+msgstr "שדה מיזוג"
+
+#: .././classes/class.yksemeBase.php:1432
+msgid "Placeholder"
+msgstr "מציין מיקום"
+
+#: .././classes/class.yksemeBase.php:1440
+msgid "Redirect User On Submission"
+msgstr "להפנות את המשתמש בהגשה"
+
+#: .././classes/class.yksemeBase.php:1444
+msgid ""
+"choose a page or set a custom URL to redirect the user to after they submit "
+"the form."
+msgstr ""
+"לבחור דף או להגדיר כתובת אתר מותאם אישית כדי לנתב מחדש את המשתמש לאחר ששלחו "
+"את הטופס."
+
+#: .././classes/class.yksemeBase.php:1447
+msgid "Select A Post/Page"
+msgstr "בחר פוסט / דף"
+
+#: .././classes/class.yksemeBase.php:1501
+msgid "Save Form Settings"
+msgstr "ניהול הגדרות טפסי MailChimp"
+
+#: .././classes/class.yksemeBase.php:1502
+msgid "Delete Form"
+msgstr "מחיקת טופס"
+
+#: .././classes/class.yksemeBase.php:1503
+msgid "Re-Import Form Fields from MailChimp"
+msgstr "אנא לייבא כמה רשימות מMailChimp"
+
+#: .././pages/about.php:27
+msgid "YIKES, Inc. Web Design and Development"
+msgstr "עיצוב ובניית אתרים Yikes, Inc."
+
+#: .././pages/about.php:29
+msgid "Smart, effective, beautifully designed web solutions"
+msgstr "פתרונות חכמים, יעילים, מעוצבים להפליא אינטרנט"
+
+#: .././pages/about.php:32
+msgid ""
+"YIKES is located in the Fishtown neighborhood of Philadelphia where we build "
+"custom WordPress themes and plugins every day."
+msgstr ""
+"Yikes, Inc. ממוקם בשכונת Fishtown של פילדלפיה שבו אנו בונים מותאמים אישית "
+"ערכות נושא ותוספים וורדפרס בכל יום."
+
+#: .././pages/about.php:36
+msgid ""
+"At YIKES we love WordPress! Co-Owner, Tracy Levesque has presented at "
+"WordCamps"
+msgstr ""
+"ב Yikes Inc. שאנחנו אוהבים וורדפרס! בעלים משותפים, טרייסי ווסק הציג "
+"בWordCamps"
+
+#: .././pages/about.php:36
+msgid "and"
+msgstr "וגם"
+
+#: .././pages/about.php:36
+msgid "She also teaches WordPress classes for"
+msgstr "היא גם מלמדת שיעורי WordPress עבור"
+
+#: .././pages/about.php:40
+msgid ""
+"In addition to making great WordPress sites we are also committed to the "
+"sustainable business movement. We observe the triple bottom line: people, "
+"planet, profit and work to help build a more socially, environmentally and "
+"financially sustainable local economy. We even have a"
+msgstr ""
+"בנוסף לביצוע אתרים וורדפרס גדולים אנחנו גם מחויבים לתנועה העסקית בר קיימא. "
+"אנו רואים את השורה התחתונה המשולשת: אנשים, כדור הארץ, רווח ולעבוד כדי לסייע "
+"בבניית כלכלה מקומית ברת קיימא יותר מבחינה חברתית, סביבתית וכלכלית. יש לנו "
+"אפילו"
+
+#: .././pages/about.php:40
+msgid "LEED Platinum office"
+msgstr "משרד LEED פלטינום"
+
+#: .././pages/about.php:44
+msgid ""
+"If you're interested in hiring us for WordPress development, or just want to "
+"learn more about us, please visit"
+msgstr ""
+"אם אתה מעוניין בהעסקתנו לפיתוח וורדפרס, או רק רוצה ללמוד יותר על קשר, אנא בקר"
+
+#: .././pages/lists.php:8
+msgid "No forms have been added yet."
+msgstr "אין צורות נוספו עדיין."
+
+#: .././pages/lists.php:39
+msgid "Oops.. The list ID you entered appears to be incorrect."
+msgstr "אופס .. מופיע מזהה הרשימה שהזנת שגוי."
+
+#: .././pages/lists.php:44
+msgid "There was an error!"
+msgstr "הייתה שגיאה!"
+
+#: .././pages/lists.php:135
+msgid "You need to select a Mailchimp list in order to create a form for it"
+msgstr "אתה צריך לבחור רשימת MailChimp כדי ליצור טופס עבורו"
+
+#: .././pages/lists.php:173
+msgid "Are you sure you want to delete this form?"
+msgstr "האם אתה בטוח שברצונך למחוק את הטופס הזה"
+
+#: .././pages/lists.php:206
+msgid "Are you sure you want to re-import your fields from MailChimp?"
+msgstr "האם אתה בטוח שאתה רוצה לייבא מחדש את השדות מMailChimp?"
+
+#: .././pages/lists.php:228
+msgid "Looks like this form is already up to date!"
+msgstr "נראה כמו טופס זה כבר מעודכן!"
+
+#: .././pages/lists.php:326
+msgid "Are you sure you want to unsubscribe"
+msgstr "האם אתה בטוח שאתה רוצה לבטל את המנוי"
+
+#: .././pages/lists.php:326
+msgid "from this list?"
+msgstr "מרשימה זו?"
+
+#: .././pages/lists.php:342
+msgid "was successfully unsubscribed from this list."
+msgstr "היה הוסר בהצלחה מרשימה זו."
+
+#: .././pages/lists.php:448 .././pages/options.php:138
+msgid "Easy Mailchimp Forms by YIKES, Inc."
+msgstr "טפסים קלים MailChimp ידי Yikes, Inc"
+
+#: .././pages/lists.php:454
+msgid "Before you can add MailChimp forms to your site, you need to"
+msgstr "לפני שתוכל להוסיף צורות MailChimp לאתר שלך, אתה צריך"
+
+#: .././pages/lists.php:454
+msgid "go to the MailChimp Settings page"
+msgstr "לעבור לדף הגדרות MailChimp"
+
+#: .././pages/lists.php:454 .././templates/yikes-mailchimp-widget.php:149
+msgid "and add your API Key."
+msgstr "ולהוסיף מפתח API שלך."
+
+#: .././pages/lists.php:462
+msgid "You must enter a valid API key to import and manage your lists."
+msgstr "עליך להזין מפתח API חוקי לייבא ולנהל את הרשימות שלך."
+
+#: .././pages/lists.php:473
+msgid "Your Lists"
+msgstr "הרשימות שלך"
+
+#: .././pages/lists.php:483
+msgid "Manage Forms"
+msgstr "ניהול טפסים"
+
+#: .././pages/options.php:35
+msgid "The options were saved successfully!"
+msgstr "האפשרויות היו נשמרו בהצלחה!"
+
+#: .././pages/options.php:38
+msgid "The options could not be saved (or you did not change them)."
+msgstr "האפשרויות לא היו אפשרות לשמור (או שלא לשנות אותם)."
+
+#: .././pages/options.php:82
+msgid "Valid API Key"
+msgstr "מפתח API תקף"
+
+#: .././pages/options.php:88
+msgid "Sorry, that is an invalid MailChimp API key."
+msgstr "סליחה, זה הוא מפתח API MailChimp לא חוקי."
+
+#: .././pages/options.php:93
+msgid ""
+"Sorry, that is an invalid MailChimp API key. Please check the console for "
+"further information."
+msgstr ""
+"סליחה, זה הוא מפתח API MailChimp לא חוקי. אנא בדוק את הקונסולה לקבלת מידע "
+"נוספת."
+
+#: .././pages/options.php:102
+msgid "Error: Please enter a valid Mail Chimp API Key."
+msgstr "שגיאה: אנא הכנס דואר השימפנזה API מפתח חוקי."
+
+#: .././pages/options.php:141
+msgid "Manage Mailchimp Forms Settings"
+msgstr "ניהול הגדרות טפסי MailChimp"
+
+#: .././pages/options.php:151
+msgid "Your Mailchimp API Key"
+msgstr "MailChimp API המפתח שלך"
+
+#: .././pages/options.php:159
+msgid ""
+"Please enter your MailChimp API Key above. The API Key allows your WordPress "
+"site to communicate with your MailChimp account."
+msgstr ""
+"נא להזין מפתח API MailChimp שלך לעיל. API מפתח מאפשר האתר שלך WordPress כדי "
+"לתקשר עם חשבון MailChimp שלך."
+
+#: .././pages/options.php:160
+msgid "For more help, visit the MailChimp Support article"
+msgstr "לקבלת עזרה נוספת, בקר במאמר MailChimp התמיכה"
+
+#: .././pages/options.php:160
+msgid "Where can I find my API Key?"
+msgstr "איפה אני יכול למצוא את מפתח ה-API שלי?"
+
+#: .././pages/options.php:165
+msgid "Preferred Form Layout"
+msgstr "מועדפת טופס פריסה"
+
+#: .././pages/options.php:168
+msgid "table"
+msgstr "שולחן"
+
+#: .././pages/options.php:169
+msgid "div"
+msgstr "div"
+
+#: .././pages/options.php:177
+msgid "Choose whether you want your forms to use a table or div layout."
+msgstr "לבחור אם אתה רוצה את הטפסים שלך כדי להשתמש בטבלה או פריסת div."
+
+#: .././pages/options.php:182
+msgid "Advanced Error Messaging"
+msgstr "שגיאה מתקדמות מסרים"
+
+#: .././pages/options.php:185
+msgid "Disabled"
+msgstr "מנוטרל"
+
+#: .././pages/options.php:186
+msgid "Enabled"
+msgstr "מאופשר"
+
+#: .././pages/options.php:194
+msgid ""
+"Enable if you're having problems with your forms sending data to MailChimp. "
+"Enabling Advanced Error Messaging will show you the exact error codes "
+"MailChimp is returning."
+msgstr ""
+"אפשר אם אתה נתקלת בבעיות עם הטפסים שלך שליחת נתונים לMailChimp. מה שמאפשר "
+"העברת הודעות שגיאה מתקדמות יראה לכם את קודי שגיאה המדויקים MailChimp חוזר."
+
+#: .././pages/options.php:202
+msgid "Single Opt-In"
+msgstr "אחת Opt-In"
+
+#: .././pages/options.php:203
+msgid "Double Opt-In"
+msgstr "Double opt-in"
+
+#: .././pages/options.php:211
+msgid ""
+"A single opt-in will add the user to your list without any further "
+"interaction."
+msgstr "Opt-in יחיד יהיה להוסיף את המשתמש לרשימה שלך, ללא כל אינטראקציה נוספת."
+
+#: .././pages/options.php:212
+msgid ""
+"A double opt-in will send an email to the user asking them to confirm their "
+"subscription."
+msgstr ""
+"Opt-in כפול יהיה לשלוח דואר אלקטרוני למשתמש ומבקש מהם לאשר את המנוי שלהם."
+
+#: .././pages/options.php:217
+msgid "Custom Opt-In Message"
+msgstr "הודעה מותאמת אישית Opt-in"
+
+#: .././pages/options.php:219
+msgid "Double Opt-In Message"
+msgstr "מסר כפול opt-in"
+
+#: .././pages/options.php:221
+msgid "Single Opt-In Message"
+msgstr "מסר opt-in יחיד"
+
+#: .././pages/options.php:227
+msgid "Interest Group Label"
+msgstr "לייבל קבוצת העניין"
+
+#: .././pages/options.php:236
+msgid ""
+"Text to display above interest groups. Leave blank to use MailChimp interest "
+"group names."
+msgstr ""
+"טקסט שיוצג מעל קבוצות אינטרס. שאר ריק כדי להשתמש בשמות קבוצת אינטרס "
+"MailChimp."
+
+#: .././pages/options.php:248
+msgid "Plugin Information"
+msgstr "מידע Plugin"
+
+#: .././pages/options.php:251
+msgid "If you experience any issues with our plugin, please"
+msgstr "אם אתם נתקלים בבעיות עם התוסף שלנו, אנא"
+
+#: .././pages/options.php:251
+msgid "submit a New Issue on our Github Issue Tracker"
+msgstr "להגיש גיליון חדש בTracker גיליון Github"
+
+#: .././pages/options.php:251
+msgid ""
+"Please include the information below to help us troubleshoot your problem."
+msgstr "אנא כלול את המידע שלהלן כדי לעזור לנו לפתור את הבעיה שלך."
+
+#: .././pages/options.php:259
+msgid "Plugin Version"
+msgstr "גרסת תוסף"
+
+#: .././pages/options.php:263
+msgid "Wordpress Version"
+msgstr "גרסת Wordpress"
+
+#: .././pages/options.php:267
+msgid "Browser Information"
+msgstr "מידע דפדפן"
+
+#: .././templates/shortcode_error.php:1
+msgid "There was an error calling the mailchimp list."
+msgstr "הייתה שגיאה בקריאה לרשימת MailChimp."
+
+#: .././templates/shortcode_error_data.php:1
+msgid "No API Key or List Id Exist!"
+msgstr "אין מפתח API או קוד זיהוי רשימה קיים!"
+
+#: .././templates/shortcode_error_exists.php:1
+msgid "This list was already placed on this page!"
+msgstr "רשימה זו כבר הונחה על דף זה!"
+
+#: .././templates/shortcode_form.php:11
+msgid "Oops.. Don't forget to fill-in the following fields"
+msgstr "אופס .. אל תשכח למלא את השדות הבאים"
+
+#: .././templates/shortcode_form.php:74
+msgid "required field"
+msgstr "שדה נדרש"
+
+#: .././templates/yikes-mailchimp-widget.php:15
+#: .././templates/yikes-mailchimp-widget.php:18
+msgid "MailChimp Signup Form"
+msgstr "טופס הרשמה MailChimp"
+
+#: .././templates/yikes-mailchimp-widget.php:27
+msgid "Select Which Form You Would Like To Display:"
+msgstr "בחר באיזה צורה שאתה רוצה להציג:"
+
+#: .././templates/yikes-mailchimp-widget.php:30
+msgid "Select a Form to Display"
+msgstr "בחר טופס להצגה"
+
+#: .././templates/yikes-mailchimp-widget.php:43
+msgid "Please import MailChimp forms"
+msgstr "אנא לייבא צורות MailChimp"
+
+#: .././templates/yikes-mailchimp-widget.php:45
+msgid "Please import some lists from MailChimp"
+msgstr "אנא לייבא כמה רשימות מMailChimp"
+
+#: .././templates/yikes-mailchimp-widget.php:48
+msgid "Import Lists Now"
+msgstr "רשימות יבוא עכשיו"
+
+#: .././templates/yikes-mailchimp-widget.php:69
+msgid ""
+"Oops! It looks like you haven't imported any lists yet. You must import at "
+"least one list to use the Easy MailChimp widget."
+msgstr ""
+"אופס! זה נראה כאילו אתה לא מיובא כל רשימות עדיין. עליך לייבא את הרשימה לפחות "
+"אחד להשתמש ביישומון קל MailChimp."
+
+#: .././templates/yikes-mailchimp-widget.php:76
+msgid ""
+"Oops! It looks like you forgot to select a form to display here. Go to "
+"'Appearance > Widgets' and select a form to display."
+msgstr ""
+"אופס! זה נראה כאילו ששכחת לבחור צורה להציג כאן. עבור אל 'מראה> יישומונים' "
+"ובחר צורה לתצוגה."
+
+#: .././templates/yikes-mailchimp-widget.php:110
+msgid "Sign Up For Our Newsletter"
+msgstr "הירשם לניוזלטר שלנו"
+
+#: .././templates/yikes-mailchimp-widget.php:122
+msgid "Sign Me Up"
+msgstr "רשום אותי"
+
+#: .././templates/yikes-mailchimp-widget.php:126
+msgid "Title:"
+msgstr "נושא:"
+
+#: .././templates/yikes-mailchimp-widget.php:131
+msgid "Form Text:"
+msgstr "טקסט טופס:"
+
+#: .././templates/yikes-mailchimp-widget.php:139
+msgid "Submit Button Text:"
+msgstr "שלח טקסט לחצן:"
+
+#: .././templates/yikes-mailchimp-widget.php:149
+msgid "Oops! It looks like you haven't added your API key! Head over to the"
+msgstr "אופס! זה נראה כאילו שיש לך לא הוסיף מפתח API שלך! מעל הראש"
+
+#: .././templates/yikes-mailchimp-widget.php:149
+msgid "Settings page"
+msgstr "דף הגדרות"

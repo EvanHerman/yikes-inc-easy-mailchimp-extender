@@ -14,6 +14,90 @@
 
 /* =========== Admin screens =========== */
 
+/*	Widget Icon !!  */
+/* including an image in the widget box
+*[id*="_yikes_mc_widget"] > div.widget-top > div.widget-title > h4:before {
+	content: url('../images/mailchimp_icon_25x25.png');
+	width:33px;
+	float:left;
+	height:8px;
+	margin-top:-7px;
+}
+
+/* including an svg image into the widget header, not working
+*[id*="_yikes_mc_widget"] > div.widget-top > div.widget-title > h4:before {
+	content: "\f119";
+	width:33px;
+	float:left;
+	height:8px;
+	margin-top:-7px;
+}
+*/
+
+
+/*********	User Profile Box And Fields 		*********/
+#userInformation {
+	width:400px;
+	height:125px;
+	position:absolute;
+	right:0;
+	top:0;
+	margin-top:2em;
+	margin-right:2em;
+	/* border:1px dashed rgb(206, 206, 206); */
+	padding:10px;
+	font-size:1.8em;
+}
+	#userInformation p, #userInformation span {
+		margin:0;
+	}
+	
+	#userInformation span { 
+		text-decoration:underline;
+	}
+
+	#yikes-mailchimp-avatar {
+		position:absolute;
+		top:0;
+		left:0;
+		margin-left:10px;
+		margin-top:1.8em;
+		width:100px;
+	}
+	
+	.userProfileInformation {
+		margin-left:110px;
+		margin-top:5px;
+	}
+	
+	.userProfileInformation p {
+		margin: 5px 0 5px 0 !important;
+		font-size:16px;
+	}
+
+
+/*		Widget Styles	*/
+.yikes_widget_form_description, .yikes_mc_widget_selected_form_dropdown { 
+	width:100%;
+	height:200px;
+	resize:none;
+}
+
+.widget_yikes_mc_widget p {
+	margin-bottom:10px;
+}
+
+.widget_yikes_mc_widget input, .widget_yikes_mc_widget .yks-mailchimpFormDivRowField {
+	width:100%;
+}
+	.yks-mailchimpFormDivRowField input {
+		width: 100%;
+	}
+
+.widget_yikes_mc_widget .yks-require-description {
+	padding-top:0;
+}
+
 /* general */
 
 #ykseme-icon {
@@ -79,7 +163,7 @@
 		.yks-status .yks-notice p {
 			padding: 5px;
 		}
-
+		
 /* Plugin settings page*/
 
 .yks-admin-form {
@@ -95,6 +179,15 @@
 	color: #666;
 }
 
+#single-optin-message, #double-optin-message {
+	height:150px;
+	width:600px;
+	resize:none;
+}
+	
+.yks-mailchimp-interest-group-label {
+	width:350px;
+}
 
 /* Configure Lists page*/
 
@@ -187,6 +280,78 @@
 			font-weight: 600;
 		}
 
+.yks-mailchimp-redirect-checkbox-holder {
+	display:block;
+	margin-top:.5em;
+}
+		
+/*	Subscribers table */
+.yks-mailchimp-subscribers-list-row {
+		height: 30px;
+		padding-top: 3px;
+		font-size:1.2em;
+	}
+	
+.yikes-mailchimp-subscribers-table-head {
+	border-bottom:1px solid grey;
+	font-size:1.3em;
+}	
+	
+	.yks-mailchimp-subscribers-list-row:nth-child(even) {
+		background-color: #EEE;
+	}
+	
+	.yks-mailchimp-subscribers-list-row:hover {
+		cursor:pointer;
+		background:rgba(208, 235, 241, 0.58);
+	}
+	
+.subscriber-mail-link {
+	text-decoration:none;
+}	
+	
+.displayListSubscribers {
+	font-size:10px;
+}
+
+	.yks-view-subscriber-profile {
+		float:right;
+		margin-right:.35em;
+		margin-top:-.2em;
+		opacity:.5;
+		color:rgb(24, 138, 56) !important;
+		line-height:1.35;
+	}
+		
+		.yks-view-subscriber-profile:hover {
+			opacity:1;
+		}
+
+	.yks-remove-subscriber {
+		float:right;
+		margin-right:.5em;
+		margin-top:-.2em;
+		opacity:.5;
+		color:rgb(223, 111, 111);
+		line-height:1.35;
+	}
+	.yks-remove-subscriber:hover {
+		opacity:1;
+	}
+	
+	.yks-email-subscriber {
+		float:right;
+		margin-right:.25em;
+		margin-top:-.2em;
+		opacity:.5;
+		color:rgb(60, 143, 175) !important;
+		line-height:1.35;
+	}
+	
+		.yks-email-subscriber:hover {
+			opacity:1;
+		}
+	
 /* About page */
 
 .yksme-page-about {
@@ -217,6 +382,7 @@
 .yks-mailchimp-fields-td {
 	display: block;
 	padding: 15px 0 15px 0;
+	min-width:880px;
 }
 	
 .yks-mailchimp-fields-container label {
@@ -248,11 +414,15 @@
 .yks-mailchimpFormTableRow, .yks-mailchimpFormDivRow {
 	width: 100%;
 }
+	.yks-mailchimpFormDivRow {
+		margin: .5em 0 .5em 0;
+	}
+
 .yks-mailchimpFormTableRowLabel, .yks-mailchimpFormTableRowField,
 .yks-mailchimpFormDivRowLabel, .yks-mailchimpFormDivRowField {
 	vertical-align: top !important;
 }
-.yks-mailchimpFormDivRowLabel, .yks-mailchimpFormDivRowField {
+.yks-mailchimpFormDivRowLabel {
 	display: inline-block;
 	width: 50%;
 }
@@ -298,4 +468,112 @@
 .yikes-api-key-error {
 	display:none;
 	color:red;
+}
+
+/******		Interest Group Stypes 		******/
+.yks_mc_interest_group_text:first-child {
+	display:block;
+	margin-top:1em;
+}
+
+.yks_mc_interest_group_holder {
+	display:inline-block;
+	width:100%;
+	text-align:center;
+	margin-bottom:.5em;
+}
+
+.yks_mc_interest_group_holder select {
+	width:100%;
+}
+
+.yikes_mc_interest_group_checkbox, .yks_mc_interest_group_label { 
+	float:left !important;
+	margin:.35em;
+     width: 75px !important;
+}
+
+.yikes_mc_interest_group_radio {
+	margin-right: .5em;
+}
+
+
+/***	Subscriber List Styles	***/
+.yks-mc-subscriber-go-back {
+	font-size:12px;
+	font-weight:bold;
+	color: #333;
+	opacity: .5;
+	width:300px;
+	display:block;
+	text-align:left;
+	margin-top: 1em !important;
+	width: auto;
+}
+	.yks-mc-subscriber-go-back:hover {
+		opacity: 1;
+		cursor:pointer;
+	}
+
+.yks-mc-subscriber-overview {
+	display:block;
+	float: left;
+	width: 100%;
+}	
+	
+.dashicons-arrow-left-alt2:before {
+	display:inline-block;
+	margin-top:.15em;
+}
+	
+.dashicons-star-filled {color:#FEBE12;}
+
+.yks-mc-subscriber-star-rating {
+	margin-top: 0;
+}
+
+#yks-subscriber-info-email-address {
+	margin-bottom:.5em !important;
+}
+
+.yks-mc-overview-title {
+	font-size:16px;
+	color: #666;
+	opacity:.8;
+	margin-bottom:0 !important;
+}
+
+.yks-mc-overview-info-value {
+	font-size:14px;
+	color: #222222;
+	margin-top:0 !important;
+}
+
+.yks-mc-subscriber-firstName, .yks-mc-subscriber-lastName {
+	text-transform: capitalize;
+}
+
+.yks-subscriber-info-optin-data {
+	display:block;
+	margin-top:.5em;
+}
+
+.yks-mc-subscriber-bottom {
+	display:block;
+	float:left;
+	width:100%;
+}
+
+.yks-mc-subscriber-top {
+	margin-bottom: 1.5em;
+}
+
+.yks-mc-subscriber-header {
+	border-bottom:1px dashed grey;
+	padding-bottom:.5em;
+}
+
+.yks-mc-subscriber-left-container,  .yks-mc-subscriber-right-container {
+	float:left;
+	width:50%;
 }

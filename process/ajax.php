@@ -88,6 +88,21 @@ case 'validate_api_key':
 	$validate_action = $yksemeBase->validateAPIkeySettings($_POST);
 	break;
 	
+case 'yks_get_list_subscribers':
+	$get_subscribers = $yksemeBase->listAllSubscribers($_POST['list_id'], $_POST['list_name']);
+	echo '1';
+	break;	
+	
+case 'yks_remove_subscriber':
+	$get_subscribers = $yksemeBase->yks_removeSubscriber($_POST['list_id'], $_POST['user_email']);
+	echo '1';
+	break;	
+	
+case 'yks_get_subscriberInfo':
+	$get_subscribers = $yksemeBase->getSubscriberInfo($_POST['list_id'], $_POST['user_email']);
+	echo '1';
+	break;	
+	
 
 		
 		}

@@ -4,7 +4,7 @@
 Plugin Name: Easy MailChimp Forms
 Plugin URI: http://www.yikesinc.com/services/yikes-inc-easy-mailchimp-extender/
 Description: Mailchimp API integration in the form of a shortcode or php snippet
-Version: 3.0.1
+Version: 4.0
 Author: YIKES Inc
 Author URI: http://yikesinc.com
 License: GPL2
@@ -27,9 +27,10 @@ Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 */
 
 #_________________________________________________ CONSTANTS
+
 /** Configuration **/
 if(!defined('YKSEME_DEBUG'))						define('YKSEME_DEBUG',		         false);
-if(!defined('YKSEME_VERSION_CURRENT'))				define('YKSEME_VERSION_CURRENT',	'3.0.1');
+if(!defined('YKSEME_VERSION_CURRENT'))				define('YKSEME_VERSION_CURRENT',	'3.1');
 if(!defined('YKSEME_REQ_PHP'))						define('YKSEME_REQ_PHP',			'5.0');
 if(!defined('YKSEME_AUTHOR'))						define('YKSEME_AUTHOR',				'YIKES Inc');
 if(!defined('YKSEME_SITE'))							define('YKSEME_SITE',				site_url().'/');
@@ -52,6 +53,13 @@ if(!defined('YKSEME_URL_WP_AJAX')) {
 if(!defined('YKSEME_URL_CURRENT'))					define('YKSEME_URL_CURRENT',		$_SERVER['REQUEST_URI']);
 
 
+/** Localization **/
+// include translated files
+function myplugin_init() {
+	   load_plugin_textdomain('yikes-inc-easy-mailchimp-extender', false, dirname(plugin_basename(__FILE__)) . '/languages'); 
+}
+add_action('init', 'myplugin_init');
+
 /** Initial Configuration **/
 if(YKSEME_DEBUG) error_reporting(E_ALL ^ E_NOTICE);
 
@@ -63,7 +71,7 @@ require_once YKSEME_PATH.'lib/lib.func.php';
 
 
 /** Initialize the plugin's base class **/
-$yksemeBase			= new yksemeBase();
+$yksemeBase	= new yksemeBase();
 
 
 /** Activation Hooks **/
@@ -76,6 +84,5 @@ register_uninstall_hook(__FILE__,		array('yksemeBase', 'uninstall'));
 add_action('wp_head','yikes_mailch_jquery_js');
 
 function yikes_mailch_jquery_js() {?>
-  <script type="ext/javascript" src="<?php echo YKSEME_URL; ?>js/prototype.js"></script>
- 
+  <script type="text/javascript" src="<?php echo YKSEME_URL; ?>js/prototype.js"></script>
 <?php } ?>

@@ -1,0 +1,30 @@
+Lanaguages Complete
+-------------------
+Viatnemese 	     -  vi
+Swedish 	     -  sv_SE
+Hindi 	 	     -  hi_IN
+Chinese 	     -  zh_CN
+Hong Kong 	     -  zh_HK
+Taiwanese 	     -  zh_TW
+Greek 		     -  el_GR
+Hebrew 	  	     -  he_IL
+Korean 		     -  ko_KR
+Persian 	     -  fa_IR
+Romanian 	     -  ro_RO
+Tamil , Sri Lanka    -  ta_LK
+Urdu 		     -  ur
+English   	     -  en_US
+Arabic 	  	     -  ar_AR
+French 	  	     -  fr_FR
+Portugese (European) -  pt_PT
+Portugese (Brazilian)-  pt_BR
+Russian 	     -  ru_RU
+Italian 	     -  it_IT
+Japanese 	     -  ja
+German 		     -  de_DE
+Welsh 		     -  cy
+
+
+To Do:
+---------------------------
+If you'd like YIKES Inc. Easy MailChimp Extender translated into another language than the one above, please send a request to evan@yikesinc.com 

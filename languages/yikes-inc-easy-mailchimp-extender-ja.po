@@ -1,0 +1,557 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: Yikes Inc. Easy MailChimp Plugin\n"
+"POT-Creation-Date: 2014-03-05 11:44-0500\n"
+"PO-Revision-Date: 2014-03-05 11:52-0500\n"
+"Last-Translator: Evan <evan.m.herman@gmail.com>\n"
+"Language-Team: Yikes Inc. <evan@yikesinc.com>\n"
+"Language: ja_JP\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Poedit 1.6.4\n"
+"X-Poedit-Basepath: .\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Poedit-KeywordsList: __;_e\n"
+"X-Poedit-SearchPath-0: ../.\n"
+
+#: .././classes/class.yksemeBase.php:101
+msgid "Thank You for subscribing!"
+msgstr "サブスクライブしていただきありがとうございます！"
+
+#: .././classes/class.yksemeBase.php:102
+msgid ""
+"Thank You for subscribing! Check your email for the confirmation message."
+msgstr ""
+"サブスクライブしていただきありがとうございます！確認メッセージのためにあなた"
+"の電子メールをチェックしてください。"
+
+#: .././classes/class.yksemeBase.php:103
+msgid "Select Your Area of Interest"
+msgstr "対象エリアを選択"
+
+#: .././classes/class.yksemeBase.php:792
+msgid "Click on a subscriber to send them an email"
+msgstr "それらに電子メールを送信し、加入者をクリックして"
+
+#: .././classes/class.yksemeBase.php:795
+msgid "E-Mail"
+msgstr "メール"
+
+#: .././classes/class.yksemeBase.php:796
+msgid "Date Subscribed"
+msgstr "日付サブスクライブ"
+
+#: .././classes/class.yksemeBase.php:811
+msgid "Sorry You Don't Currently Have Any Subscribers In This List!"
+msgstr "申し訳ありませんが、現在、このリスト内の任意の加​​入者を持っていない！"
+
+#: .././classes/class.yksemeBase.php:936 .././classes/class.yksemeBase.php:938
+msgid "MailChimp Forms"
+msgstr "MailChimpフォーム"
+
+#: .././classes/class.yksemeBase.php:938
+msgid "MailChimp Settings"
+msgstr "MailChimp設定"
+
+#: .././classes/class.yksemeBase.php:939
+msgid "Manage List Forms"
+msgstr "リストフォームを管理"
+
+#: .././classes/class.yksemeBase.php:940 .././pages/about.php:5
+msgid "About YIKES, Inc."
+msgstr "約 YIKES, In."
+
+#: .././classes/class.yksemeBase.php:1110
+msgid "One or more fields are empty"
+msgstr "つまたは複数のフィールドは空です"
+
+#: .././classes/class.yksemeBase.php:1154
+msgid "Your List Was Successfully Saved!"
+msgstr "あなたのリストが正常に保存されました！"
+
+#: .././classes/class.yksemeBase.php:1156
+msgid "I'm sorry there was an error with your request."
+msgstr "私はあなたの要求でエラーが発生したごめんなさい。"
+
+#: .././classes/class.yksemeBase.php:1162
+msgid "MailChimp List name"
+msgstr "MailChimpリスト名"
+
+#: .././classes/class.yksemeBase.php:1168
+#: .././classes/class.yksemeBase.php:1178
+#, php-format
+msgid "%1$s"
+msgstr ""
+
+#: .././classes/class.yksemeBase.php:1185
+msgid "MailChimp List ID"
+msgstr "MailChimpリストのID"
+
+#: .././classes/class.yksemeBase.php:1190
+msgid "Shortcode"
+msgstr "ショートコード"
+
+#: .././classes/class.yksemeBase.php:1193
+msgid ""
+"Paste this shortcode into whatever page or post you want to add this form to"
+msgstr ""
+"あなたはこのフォームを追加したい任意のページや投稿にこのショートコードを貼り"
+"付け"
+
+#: .././classes/class.yksemeBase.php:1197
+msgid "PHP Snippet"
+msgstr "PHPのスニペット"
+
+#: .././classes/class.yksemeBase.php:1200
+msgid "Use this code to add this form to a template file"
+msgstr ""
+"テンプレートファイルにこのフォームを追加するには、このコードを使用します。"
+
+#: .././classes/class.yksemeBase.php:1205
+msgid "Number of Subscribers"
+msgstr "加入者数"
+
+#: .././classes/class.yksemeBase.php:1213
+msgid "Form Fields"
+msgstr "フォームフィールド"
+
+#: .././classes/class.yksemeBase.php:1215
+msgid ""
+"Check the fields you want included in your form (Email Address is required)."
+msgstr ""
+"あなたは、フォームに含めるフィールドをチェックします（電子メールアドレスが必"
+"要です）。"
+
+#: .././classes/class.yksemeBase.php:1218
+msgid ""
+"Use the green arrows to drag-and-drop the fields and rearrange their order."
+msgstr ""
+"ドラッグ＆ドロップのフィールドをし、その順序を変更するには、緑色の矢印を使用"
+"してください。"
+
+#: .././classes/class.yksemeBase.php:1224
+msgid "Active Fields"
+msgstr "アクティブフィールド"
+
+#: .././classes/class.yksemeBase.php:1233
+msgid "Drag"
+msgstr "スライダーを"
+
+#: .././classes/class.yksemeBase.php:1233
+msgid "drop"
+msgstr "ドロップ"
+
+#: .././classes/class.yksemeBase.php:1238
+msgid "Merge field"
+msgstr "差し込みフィールドの"
+
+#: .././classes/class.yksemeBase.php:1239
+msgid "Placeholder"
+msgstr "プレースホルダ"
+
+#: .././classes/class.yksemeBase.php:1247
+msgid "Redirect User On Submission"
+msgstr "送信時にユーザーをリダイレクト"
+
+#: .././classes/class.yksemeBase.php:1251
+msgid ""
+"choose a page or set a custom URL to redirect the user to after they submit "
+"the form."
+msgstr ""
+"ページを選択したり、フォームを送信した後にユーザーをリダイレクトするためのカ"
+"スタムURLを設定します"
+
+#: .././classes/class.yksemeBase.php:1254
+msgid "Select A Page"
+msgstr "ページを選択します"
+
+#: .././classes/class.yksemeBase.php:1284
+msgid "Save Form Settings"
+msgstr "Mailchimpフォームの設定を管理"
+
+#: .././classes/class.yksemeBase.php:1285
+msgid "Delete Form"
+msgstr "フォームを削除"
+
+#: .././classes/class.yksemeBase.php:1286
+msgid "Re-Import Form Fields from MailChimp"
+msgstr "MailChimpからいくつかのリストをインポートしてください"
+
+#: .././pages/about.php:27
+msgid "YIKES, Inc. Web Design and Development"
+msgstr "YIKES, Inc. のWebデザインと開発"
+
+#: .././pages/about.php:29
+msgid "Smart, effective, beautifully designed web solutions"
+msgstr "スマートな、効果的な、美しいデザインのWebソリューション"
+
+#: .././pages/about.php:32
+msgid ""
+"YIKES is located in the Fishtown neighborhood of Philadelphia where we build "
+"custom WordPress themes and plugins every day."
+msgstr ""
+"YIKES は私たちが毎日のカスタムWordPressのテーマやプラグインをビルドし、フィラ"
+"デルフィアのFishtown周辺に位置します。"
+
+#: .././pages/about.php:36
+msgid ""
+"At YIKES we love WordPress! Co-Owner, Tracy Levesque has presented at "
+"WordCamps"
+msgstr ""
+"YIKESで私たちはWordPressのが大好き！共同所有者、トレイシーレベスクはWordCamps"
+"で発表しました"
+
+#: .././pages/about.php:36
+msgid "and"
+msgstr "そして友人たち！"
+
+#: .././pages/about.php:36
+msgid "She also teaches WordPress classes for"
+msgstr "彼女はまたのためのワードプレスのクラスを教えている"
+
+#: .././pages/about.php:40
+msgid ""
+"In addition to making great WordPress sites we are also committed to the "
+"sustainable business movement. We observe the triple bottom line: people, "
+"planet, profit and work to help build a more socially, environmentally and "
+"financially sustainable local economy. We even have a"
+msgstr ""
+"偉大なWordPressのサイトを作ることに加えて、我々はまた、持続可能なビジネスの動"
+"きにコミットしている。より多くの社会的、環境的および経済的に持続可能な地域経"
+"済の構築を支援する人々、地球、利益、仕事：私たちは、トリプルボトムラインを観"
+"察します。私たちも持っている"
+
+#: .././pages/about.php:40
+msgid "LEED Platinum office"
+msgstr "LEEDプラチナオフィス"
+
+#: .././pages/about.php:44
+msgid ""
+"If you're interested in hiring us for WordPress development, or just want to "
+"learn more about us, please visit"
+msgstr ""
+"あなたがワードプレスの開発のための私たちの雇用に興味を持っているか、単に私た"
+"ちの詳細を知りたい場合は、以下をご覧ください"
+
+#: .././pages/lists.php:8
+msgid "No forms have been added yet."
+msgstr "no形式はまだ追加されていません。"
+
+#: .././pages/lists.php:39
+msgid "Oops.. The list ID you entered appears to be incorrect."
+msgstr "おっと..あなたが入力したリストIDが誤っているように見えます。"
+
+#: .././pages/lists.php:43
+msgid "There was an error!"
+msgstr "エラーが発生しました！"
+
+#: .././pages/lists.php:137
+msgid "You need to select a Mailchimp list in order to create a form for it"
+msgstr ""
+"あなたはそれのためのフォームを作成するために、Mailchimpリストを選択する必要が"
+"あります"
+
+#: .././pages/lists.php:205
+msgid "Are you sure you want to re-import your fields from MailChimp?"
+msgstr "あなたはMailChimpからフィールドを再インポートしてもよろしいですか？"
+
+#: .././pages/lists.php:227
+msgid "Looks like this form is already up to date!"
+msgstr "このフォームはすでに最新であるように見えます！"
+
+#: .././pages/lists.php:312
+msgid "Are you sure you want to unsubscribe"
+msgstr "あなたが退会してもよろしいですか"
+
+#: .././pages/lists.php:312
+msgid "from this list?"
+msgstr "このリストの中に？"
+
+#: .././pages/lists.php:329
+msgid "was successfully unsubscribed from this list."
+msgstr "このリストから正常に退会した。"
+
+#: .././pages/lists.php:378 .././pages/options.php:137
+msgid "Easy Mailchimp Forms by YIKES, Inc."
+msgstr "YIKES, Inc.で簡単Mailchimpフォーム"
+
+#: .././pages/lists.php:383
+msgid "Before you can add MailChimp forms to your site, you need to"
+msgstr ""
+"あなたのサイトにMailChimpフォームを追加する前に、以下を行う必要があります"
+
+#: .././pages/lists.php:383
+msgid "go to the MailChimp Settings page"
+msgstr "MailChimp設定ページに移動"
+
+#: .././pages/lists.php:383 .././templates/yikes-mailchimp-widget.php:154
+msgid "and add your API Key."
+msgstr "そして、あなたのAPIキーを追加します。"
+
+#: .././pages/lists.php:390
+msgid "You must enter a valid API key to import and manage your lists."
+msgstr ""
+"あなたのリストをインポートし、管理するための有効なAPIキーを入力する必要があり"
+"ます。"
+
+#: .././pages/lists.php:400
+msgid "Your Lists"
+msgstr "あなたのリスト"
+
+#: .././pages/lists.php:410
+msgid "Manage Forms"
+msgstr "フォームの管理"
+
+#: .././pages/options.php:33
+msgid "The options were saved successfully!"
+msgstr "オプションが正常に保存されました！"
+
+#: .././pages/options.php:36
+msgid "The options could not be saved (or you did not change them)."
+msgstr ""
+"オプションを保存できませんでした（またはあなたがそれらを変更していない）。"
+
+#: .././pages/options.php:80
+msgid "Valid API Key"
+msgstr "有効なAPIキー"
+
+#: .././pages/options.php:85 .././pages/options.php:89
+msgid "Sorry, that is an invalid MailChimp API key."
+msgstr "申し訳ありませんが、それは無効MailChimp APIキーです。"
+
+#: .././pages/options.php:99
+msgid "Error: Please enter a valid Mail Chimp API Key."
+msgstr "エラー：有効なメールチンパンジーAPIキーを入力してください。"
+
+#: .././pages/options.php:140
+msgid "Manage Mailchimp Forms Settings"
+msgstr "Mailchimpフォームの設定を管理"
+
+#: .././pages/options.php:150
+msgid "Your Mailchimp API Key"
+msgstr "あなたMailchimp APIキー"
+
+#: .././pages/options.php:158
+msgid ""
+"Please enter your MailChimp API Key above. The API Key allows your WordPress "
+"site to communicate with your MailChimp account."
+msgstr ""
+"上記のあなたのMailChimp APIキーを入力してください。 APIキーは、WordPressのサ"
+"イトがMailChimpアカウントと通信することができます。"
+
+#: .././pages/options.php:159
+msgid "For more help, visit the MailChimp Support article"
+msgstr "詳細なヘルプについては、MailChimpサポート記事にアクセスしてください"
+
+#: .././pages/options.php:159
+msgid "Where can I find my API Key?"
+msgstr "どこでAPIキーを見つけることができますか？"
+
+#: .././pages/options.php:164
+msgid "Preferred Form Layout"
+msgstr "好ましい形レイアウト"
+
+#: .././pages/options.php:167
+msgid "table"
+msgstr "テーブル"
+
+#: .././pages/options.php:168
+msgid "div"
+msgstr "DIV"
+
+#: .././pages/options.php:175
+msgid "Choose whether you want your forms to use a table or div layout."
+msgstr ""
+"あなたのフォームがテーブルまたはDIVレイアウトを使用するかどうかを選択します。"
+
+#: .././pages/options.php:179
+msgid "Advanced Error Messaging"
+msgstr "高度なエラー·メッセージ"
+
+#: .././pages/options.php:182
+msgid "Disabled"
+msgstr "無効"
+
+#: .././pages/options.php:183
+msgid "Enabled"
+msgstr "有効"
+
+#: .././pages/options.php:190
+msgid ""
+"Enable if you're having problems with your forms sending data to MailChimp. "
+"Enabling Advanced Error Messaging will show you the exact error codes "
+"MailChimp is returning."
+msgstr ""
+"あなたのフォームがMailChimpへのデータ送信に問題がある場合有効にします。高度な"
+"エラーメッセージを有効にすると、あなたにMailChimpが戻っている正確なエラーコー"
+"ドが表示されます。"
+
+#: .././pages/options.php:197
+msgid "Single Opt-In"
+msgstr "シングルオプトイン"
+
+#: .././pages/options.php:198
+msgid "Double Opt-In"
+msgstr "ダブルオプトイン"
+
+#: .././pages/options.php:205
+msgid ""
+"A single opt-in will add the user to your list without any further "
+"interaction."
+msgstr ""
+"シングルオプトインはそれ以上の操作なしにあなたのリストにユーザーを追加しま"
+"す。"
+
+#: .././pages/options.php:206
+msgid ""
+"A double opt-in will send an email to the user asking them to confirm their "
+"subscription."
+msgstr ""
+"ダブルオプトインでは、サブスクリプションを確認するためにそれらを求めるユー"
+"ザーに電子メールを送信いたします。"
+
+#: .././pages/options.php:210
+msgid "Custom Opt-In Message"
+msgstr "カスタムオプトインのメッセージ"
+
+#: .././pages/options.php:212
+msgid "Double Opt-In Message"
+msgstr "ダブルオプトインのメッセージ"
+
+#: .././pages/options.php:214
+msgid "Single Opt-In Message"
+msgstr "シングルオプトインメッセージ"
+
+#: .././pages/options.php:219
+msgid "Interest Group Label"
+msgstr "インタレストグループラベル"
+
+#: .././pages/options.php:227
+msgid ""
+"Text to display above interest groups. Leave blank to use MailChimp interest "
+"group names."
+msgstr ""
+"利益団体の上に表示されるテキスト。 MailChimp金利グループ名を使用する場合は空"
+"白のまま。"
+
+#: .././pages/options.php:239
+msgid "Plugin Information"
+msgstr "プラグイン情報"
+
+#: .././pages/options.php:242
+msgid "If you experience any issues with our plugin, please"
+msgstr "あなたは私たちのプラグインで問題が発生した場合は、してください"
+
+#: .././pages/options.php:242
+msgid "submit a New Issue on our Github Issue Tracker"
+msgstr "私たちのGitHubの課題トラッカー上で新たな課題を提出"
+
+#: .././pages/options.php:242
+msgid ""
+"Please include the information below to help us troubleshoot your problem."
+msgstr ""
+"私たちはあなたの問題のトラブルシューティングに役立つ以下の情報を含めてくださ"
+"い。"
+
+#: .././pages/options.php:249
+msgid "Plugin Version"
+msgstr "プラグインバージョン"
+
+#: .././pages/options.php:253
+msgid "Wordpress Version"
+msgstr "Wordpressのバージョン"
+
+#: .././pages/options.php:257
+msgid "Browser Information"
+msgstr "ブラウザ情報"
+
+#: .././templates/shortcode_error.php:1
+msgid "There was an error calling the mailchimp list."
+msgstr "mailchimpリストを呼び出してエラーが発生しました。"
+
+#: .././templates/shortcode_error_data.php:1
+msgid "No API Key or List Id Exist!"
+msgstr "いいえAPIキーまたはリストIDが存在しません！"
+
+#: .././templates/shortcode_error_exists.php:1
+msgid "This list was already placed on this page!"
+msgstr "このリストはすでにこのページに掲載されました！"
+
+#: .././templates/shortcode_form.php:11
+msgid "Oops.. Don't forget the fill-in the following fields:"
+msgstr "おっと..フィルイン次のフィールドを忘れてはいけない。"
+
+#: .././templates/shortcode_form.php:77
+msgid "required field"
+msgstr "必要なフィールド"
+
+#: .././templates/yikes-mailchimp-widget.php:15
+#: .././templates/yikes-mailchimp-widget.php:18
+msgid "MailChimp Signup Form"
+msgstr "MailChimp登録フォーム"
+
+#: .././templates/yikes-mailchimp-widget.php:28
+msgid "Select Which Form You Would Like To Display:"
+msgstr "あなたが表示したいどのフォームを選択："
+
+#: .././templates/yikes-mailchimp-widget.php:31
+msgid "Select a Form to Display"
+msgstr "表示するフォームを選択します。"
+
+#: .././templates/yikes-mailchimp-widget.php:44
+msgid "Please import MailChimp forms"
+msgstr "MailChimpフォームをインポートしてください"
+
+#: .././templates/yikes-mailchimp-widget.php:46
+msgid "Please import some lists from MailChimp"
+msgstr "MailChimpからいくつかのリストをインポートしてください"
+
+#: .././templates/yikes-mailchimp-widget.php:49
+msgid "Import Lists Now"
+msgstr "今のインポートリスト"
+
+#: .././templates/yikes-mailchimp-widget.php:70
+msgid ""
+"Oops! It looks like you haven't imported any lists yet. You must import at "
+"least one list to use the Easy MailChimp widget."
+msgstr ""
+"おっと！あなたは、どのリストをインポートしていないように見えます。あなたは簡"
+"単MailChimpウィジェットを使用するには、少なくとも1リストをインポートする必要"
+"があります。"
+
+#: .././templates/yikes-mailchimp-widget.php:77
+msgid ""
+"Oops! It looks like you forgot to select a form to display here. Go to "
+"'Appearance > Widgets' and select a form to display."
+msgstr ""
+"おっと！ここで表示するフォームを選択するのを忘れたようです。 「外観>ウィ"
+"ジェット」に移動して、表示​​するフォームを選択します。"
+
+#: .././templates/yikes-mailchimp-widget.php:115
+msgid "Sign Up For Our Newsletter"
+msgstr "ニュースレターのご登録"
+
+#: .././templates/yikes-mailchimp-widget.php:127
+msgid "Sign Me Up"
+msgstr "ミー·アップ"
+
+#: .././templates/yikes-mailchimp-widget.php:131
+msgid "Title:"
+msgstr "タイトル:"
+
+#: .././templates/yikes-mailchimp-widget.php:136
+msgid "Form Text:"
+msgstr "フォームのテキスト："
+
+#: .././templates/yikes-mailchimp-widget.php:144
+msgid "Submit Button Text:"
+msgstr "ボタンテキストを提出する。"
+
+#: .././templates/yikes-mailchimp-widget.php:154
+msgid "Oops! It looks like you haven't added your API key! Head over to the"
+msgstr "おっと！あなたのAPIキーを追加していないようです！ 〜へ向かう"
+
+#: .././templates/yikes-mailchimp-widget.php:154
+msgid "Settings page"
+msgstr "[設定]ページ"

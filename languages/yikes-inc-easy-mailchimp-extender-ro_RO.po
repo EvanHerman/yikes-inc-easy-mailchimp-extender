@@ -1,0 +1,616 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: Yikes Inc. Easy MailChimp Plugin\n"
+"POT-Creation-Date: 2014-03-13 16:31-0500\n"
+"PO-Revision-Date: 2014-03-13 16:31-0500\n"
+"Last-Translator: Evan <evan.m.herman@gmail.com>\n"
+"Language-Team: Yikes Inc. <evan@yikesinc.com>\n"
+"Language: ro\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Poedit 1.6.4\n"
+"X-Poedit-Basepath: .\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Poedit-KeywordsList: __;_e\n"
+"X-Poedit-SearchPath-0: ../.\n"
+
+#: .././classes/class.yksemeBase.php:103
+msgid "Thank You for subscribing!"
+msgstr "Vă mulțumim pentru abonare!"
+
+#: .././classes/class.yksemeBase.php:104
+msgid ""
+"Thank You for subscribing! Check your email for the confirmation message."
+msgstr ""
+"Vă mulțumim pentru abonare! Verifica adresa dvs. de email pentru mesajul de "
+"confirmare."
+
+#: .././classes/class.yksemeBase.php:105
+msgid "Select Your Area of Interest"
+msgstr "Selectați domeniul dumneavoastră de interes"
+
+#: .././classes/class.yksemeBase.php:804
+msgid "Click on a subscriber to see further information"
+msgstr "Faceți clic pe un abonat pentru a vedea mai multe informații"
+
+#: .././classes/class.yksemeBase.php:807
+msgid "E-Mail"
+msgstr "E-Mail"
+
+#: .././classes/class.yksemeBase.php:808
+msgid "Date Subscribed"
+msgstr "Data subscris"
+
+#: .././classes/class.yksemeBase.php:828
+msgid "Sorry You Don't Currently Have Any Subscribers In This List!"
+msgstr "Îmi pare rău că nu au în prezent Orice Abonații în această listă!"
+
+#: .././classes/class.yksemeBase.php:885
+msgid "Back to Subscriber List"
+msgstr "Inapoi la lista de abonat"
+
+#: .././classes/class.yksemeBase.php:886
+msgid "Subscriber Details"
+msgstr "Detalii de abonat"
+
+#: .././classes/class.yksemeBase.php:897
+msgid "Overview"
+msgstr "Prezentare generală"
+
+#: .././classes/class.yksemeBase.php:902
+msgid "First Name"
+msgstr "Nume"
+
+#: .././classes/class.yksemeBase.php:905
+msgid "Last Updated"
+msgstr "Ultima actualizare"
+
+#: .././classes/class.yksemeBase.php:908
+msgid "Preferred Email Type"
+msgstr "E-mail preferat Tip"
+
+#: .././classes/class.yksemeBase.php:915
+msgid "Last Name"
+msgstr "Nume"
+
+#: .././classes/class.yksemeBase.php:918
+msgid "Language"
+msgstr "limbă"
+
+#: .././classes/class.yksemeBase.php:941
+msgid "Groups Subscribed To"
+msgstr "Grupuri abonat la"
+
+#: .././classes/class.yksemeBase.php:992
+msgid "Subscriber Notes"
+msgstr "abonat Note"
+
+#: .././classes/class.yksemeBase.php:997
+msgid "Written by"
+msgstr "scris de"
+
+#: .././classes/class.yksemeBase.php:997
+msgid "Created on"
+msgstr "creat pe"
+
+#: .././classes/class.yksemeBase.php:1132
+#: .././classes/class.yksemeBase.php:1134
+msgid "MailChimp Forms"
+msgstr "Formulare MailChimp"
+
+#: .././classes/class.yksemeBase.php:1134
+msgid "MailChimp Settings"
+msgstr "MailChimp Setări"
+
+#: .././classes/class.yksemeBase.php:1135
+msgid "Manage List Forms"
+msgstr "Gestionați Lista de Formulare"
+
+#: .././classes/class.yksemeBase.php:1136 .././pages/about.php:5
+msgid "About YIKES, Inc."
+msgstr "Despre Vai, Inc"
+
+#: .././classes/class.yksemeBase.php:1293
+msgid "One or more fields are empty"
+msgstr "Unul sau mai multe câmpuri sunt goale"
+
+#: .././classes/class.yksemeBase.php:1343
+msgid "Your List Was Successfully Saved!"
+msgstr "Lista de succes a fost salvata!"
+
+#: .././classes/class.yksemeBase.php:1345
+msgid "I'm sorry there was an error with your request."
+msgstr "Îmi pare rău că a fost o eroare cu cererea dumneavoastră."
+
+#: .././classes/class.yksemeBase.php:1351
+msgid "MailChimp List name"
+msgstr "Numele MailChimp Listă"
+
+#: .././classes/class.yksemeBase.php:1357
+#: .././classes/class.yksemeBase.php:1367
+#, php-format
+msgid "%1$s"
+msgstr ""
+
+#: .././classes/class.yksemeBase.php:1375
+msgid "MailChimp List ID"
+msgstr "MailChimp Listă ID"
+
+#: .././classes/class.yksemeBase.php:1381
+msgid "Shortcode"
+msgstr "Shortcode"
+
+#: .././classes/class.yksemeBase.php:1384
+msgid ""
+"Paste this shortcode into whatever page or post you want to add this form to"
+msgstr ""
+"Inserați această Shortcode în orice pagină sau post pe care doriți să "
+"adăugați acest formular pentru a"
+
+#: .././classes/class.yksemeBase.php:1389
+msgid "PHP Snippet"
+msgstr "PHP Fragment"
+
+#: .././classes/class.yksemeBase.php:1392
+msgid "Use this code to add this form to a template file"
+msgstr "Utilizați acest cod pentru a adăuga acest formular la un fișier șablon"
+
+#: .././classes/class.yksemeBase.php:1397
+msgid "Number of Subscribers"
+msgstr "Numărul de abonați"
+
+#: .././classes/class.yksemeBase.php:1406
+msgid "Form Fields"
+msgstr "Câmpuri de formular"
+
+#: .././classes/class.yksemeBase.php:1408
+msgid ""
+"Check the fields you want included in your form (Email Address is required)."
+msgstr ""
+"Verificați câmpurile care le doriți incluse în formă dvs. (este necesar "
+"Adresa de e-mail)."
+
+#: .././classes/class.yksemeBase.php:1411
+msgid ""
+"Use the green arrows to drag-and-drop the fields and rearrange their order."
+msgstr ""
+"Utilizați săgețile verzi pentru a drag-and-drop domeniile și rearanja "
+"ordinea lor."
+
+#: .././classes/class.yksemeBase.php:1417
+msgid "Active Fields"
+msgstr "Câmpurile active"
+
+#: .././classes/class.yksemeBase.php:1426
+msgid "Drag"
+msgstr "Tragerea"
+
+#: .././classes/class.yksemeBase.php:1426
+msgid "drop"
+msgstr "picătură"
+
+#: .././classes/class.yksemeBase.php:1431
+msgid "Merge field"
+msgstr "Câmpul de îmbinare"
+
+#: .././classes/class.yksemeBase.php:1432
+msgid "Placeholder"
+msgstr "Substituent"
+
+#: .././classes/class.yksemeBase.php:1440
+msgid "Redirect User On Submission"
+msgstr "Redirecționa utilizator pe baza prezentării"
+
+#: .././classes/class.yksemeBase.php:1444
+msgid ""
+"choose a page or set a custom URL to redirect the user to after they submit "
+"the form."
+msgstr ""
+"alege o pagină sau pentru a seta un URL personalizat pentru a redirecționa "
+"utilizatorul a după ce trimiteți formularul."
+
+#: .././classes/class.yksemeBase.php:1447
+msgid "Select A Post/Page"
+msgstr "Selecta un post / pagină"
+
+#: .././classes/class.yksemeBase.php:1501
+msgid "Save Form Settings"
+msgstr "Gestiona MailChimp Formulare Setări"
+
+#: .././classes/class.yksemeBase.php:1502
+msgid "Delete Form"
+msgstr "șterge Form"
+
+#: .././classes/class.yksemeBase.php:1503
+msgid "Re-Import Form Fields from MailChimp"
+msgstr "Vă rugăm să importe unele liste de MailChimp"
+
+#: .././pages/about.php:27
+msgid "YIKES, Inc. Web Design and Development"
+msgstr "Vai, Inc Web Design și dezvoltare"
+
+#: .././pages/about.php:29
+msgid "Smart, effective, beautifully designed web solutions"
+msgstr "Soluții inteligente, eficiente, frumos concepute web"
+
+#: .././pages/about.php:32
+msgid ""
+"YIKES is located in the Fishtown neighborhood of Philadelphia where we build "
+"custom WordPress themes and plugins every day."
+msgstr ""
+"Vai este situat în cartierul Fishtown din Philadelphia, unde vom construi "
+"personalizat WordPress teme și plugin-uri în fiecare zi."
+
+#: .././pages/about.php:36
+msgid ""
+"At YIKES we love WordPress! Co-Owner, Tracy Levesque has presented at "
+"WordCamps"
+msgstr ""
+"La Vai ne place WordPress! Co-proprietar, Tracy Levesque a prezentat la "
+"WordCamps"
+
+#: .././pages/about.php:36
+msgid "and"
+msgstr "și"
+
+#: .././pages/about.php:36
+msgid "She also teaches WordPress classes for"
+msgstr "Ea ne învață, de asemenea, cursuri de WordPress pentru"
+
+#: .././pages/about.php:40
+msgid ""
+"In addition to making great WordPress sites we are also committed to the "
+"sustainable business movement. We observe the triple bottom line: people, "
+"planet, profit and work to help build a more socially, environmentally and "
+"financially sustainable local economy. We even have a"
+msgstr ""
+"În plus, pentru a face site-uri WordPress mari suntem, de asemenea, "
+"angajamentul de a mișcării de afaceri durabile. Observăm linia de jos "
+"triplu: de oameni, planeta, profit și locul de muncă pentru a ajuta la "
+"construirea unei economii locale mai social, ecologic și financiar durabil. "
+"Avem chiar o"
+
+#: .././pages/about.php:40
+msgid "LEED Platinum office"
+msgstr "Birou LEED Platinum"
+
+#: .././pages/about.php:44
+msgid ""
+"If you're interested in hiring us for WordPress development, or just want to "
+"learn more about us, please visit"
+msgstr ""
+"Dacă sunteți interesat în noi angajarea de dezvoltare WordPress, sau vrei "
+"doar pentru a afla mai multe despre noi, va rugam sa vizitati"
+
+#: .././pages/lists.php:8
+msgid "No forms have been added yet."
+msgstr "Niciun forme au fost adăugate încă."
+
+#: .././pages/lists.php:39
+msgid "Oops.. The list ID you entered appears to be incorrect."
+msgstr "Hopa .. Lista de ID-ul pe care ați introdus pare a fi incorecte."
+
+#: .././pages/lists.php:44
+msgid "There was an error!"
+msgstr "Nu a fost o eroare!"
+
+#: .././pages/lists.php:135
+msgid "You need to select a Mailchimp list in order to create a form for it"
+msgstr ""
+"Aveți nevoie pentru a selecta o listă MailChimp, în scopul de a crea un "
+"formular pentru ea"
+
+#: .././pages/lists.php:173
+msgid "Are you sure you want to delete this form?"
+msgstr "Sigur doriți să ștergeți acest formular?Sigur doriți să vă dezabonați"
+
+#: .././pages/lists.php:206
+msgid "Are you sure you want to re-import your fields from MailChimp?"
+msgstr "Sigur doriți să re-import câmpurile din MailChimp?"
+
+#: .././pages/lists.php:228
+msgid "Looks like this form is already up to date!"
+msgstr "Se pare că această formă este deja până la data!"
+
+#: .././pages/lists.php:326
+msgid "Are you sure you want to unsubscribe"
+msgstr "Sigur doriți să vă dezabonați"
+
+#: .././pages/lists.php:326
+msgid "from this list?"
+msgstr "din această listă?"
+
+#: .././pages/lists.php:342
+msgid "was successfully unsubscribed from this list."
+msgstr "a fost dezabonat cu succes de pe această listă."
+
+#: .././pages/lists.php:448 .././pages/options.php:138
+msgid "Easy Mailchimp Forms by YIKES, Inc."
+msgstr "Formulare ușor MailChimp de Vai, Inc"
+
+#: .././pages/lists.php:454
+msgid "Before you can add MailChimp forms to your site, you need to"
+msgstr ""
+"Înainte de a putea adăuga forme MailChimp pentru site-ul dvs., aveți nevoie "
+"pentru a"
+
+#: .././pages/lists.php:454
+msgid "go to the MailChimp Settings page"
+msgstr "du-te la pagina MailChimp Setări"
+
+#: .././pages/lists.php:454 .././templates/yikes-mailchimp-widget.php:149
+msgid "and add your API Key."
+msgstr "și se adaugă cheia API."
+
+#: .././pages/lists.php:462
+msgid "You must enter a valid API key to import and manage your lists."
+msgstr ""
+"Trebuie să introduceți o cheie API validă pentru a importa și de a gestiona "
+"listele."
+
+#: .././pages/lists.php:473
+msgid "Your Lists"
+msgstr "Listele dvs."
+
+#: .././pages/lists.php:483
+msgid "Manage Forms"
+msgstr "Gestiona Forms"
+
+#: .././pages/options.php:35
+msgid "The options were saved successfully!"
+msgstr "Opțiunile au fost salvate cu succes!"
+
+#: .././pages/options.php:38
+msgid "The options could not be saved (or you did not change them)."
+msgstr "Opțiunile nu a putut fi salvat (sau nu le-ai schimba)."
+
+#: .././pages/options.php:82
+msgid "Valid API Key"
+msgstr "Valid API Key"
+
+#: .././pages/options.php:88
+msgid "Sorry, that is an invalid MailChimp API key."
+msgstr "Ne pare rău, că este un MailChimp cheie invalid API."
+
+#: .././pages/options.php:93
+msgid ""
+"Sorry, that is an invalid MailChimp API key. Please check the console for "
+"further information."
+msgstr ""
+"Ne pare rău, că este un MailChimp cheie invalid API. Vă rugăm să verificați "
+"consola pentru informații suplimentare."
+
+#: .././pages/options.php:102
+msgid "Error: Please enter a valid Mail Chimp API Key."
+msgstr "Eroare: Vă rugăm să introduceți o valid Mail Chimp API Key."
+
+#: .././pages/options.php:141
+msgid "Manage Mailchimp Forms Settings"
+msgstr "Gestiona MailChimp Formulare Setări"
+
+#: .././pages/options.php:151
+msgid "Your Mailchimp API Key"
+msgstr "Dvs. MailChimp API Key"
+
+#: .././pages/options.php:159
+msgid ""
+"Please enter your MailChimp API Key above. The API Key allows your WordPress "
+"site to communicate with your MailChimp account."
+msgstr ""
+"Va rugam sa introduceti MailChimp API Key sus. API Key permite site-ul dvs. "
+"WordPress pentru a comunica cu contul tău MailChimp."
+
+#: .././pages/options.php:160
+msgid "For more help, visit the MailChimp Support article"
+msgstr "Pentru mai mult ajutor, accesați articolul MailChimp Suport"
+
+#: .././pages/options.php:160
+msgid "Where can I find my API Key?"
+msgstr "Unde pot găsi meu API Key?"
+
+#: .././pages/options.php:165
+msgid "Preferred Form Layout"
+msgstr "Forma preferată Layout"
+
+#: .././pages/options.php:168
+msgid "table"
+msgstr "masă"
+
+#: .././pages/options.php:169
+msgid "div"
+msgstr "div"
+
+#: .././pages/options.php:177
+msgid "Choose whether you want your forms to use a table or div layout."
+msgstr "Alegeți dacă doriți formularele să utilizați un tabel sau aspect div."
+
+#: .././pages/options.php:182
+msgid "Advanced Error Messaging"
+msgstr "Eroare avansate de mesagerie"
+
+#: .././pages/options.php:185
+msgid "Disabled"
+msgstr "Invalid"
+
+#: .././pages/options.php:186
+msgid "Enabled"
+msgstr "Activat"
+
+#: .././pages/options.php:194
+msgid ""
+"Enable if you're having problems with your forms sending data to MailChimp. "
+"Enabling Advanced Error Messaging will show you the exact error codes "
+"MailChimp is returning."
+msgstr ""
+"Permite, dacă aveți probleme cu formularele trimiterea datelor la MailChimp. "
+"Activarea avansata mesaje de eroare vă va arăta codurile de eroare exact "
+"MailChimp se întorc."
+
+#: .././pages/options.php:202
+msgid "Single Opt-In"
+msgstr "Un singur opt-in"
+
+#: .././pages/options.php:203
+msgid "Double Opt-In"
+msgstr "Double opt-in"
+
+#: .././pages/options.php:211
+msgid ""
+"A single opt-in will add the user to your list without any further "
+"interaction."
+msgstr ""
+"Un singur opt-in va adăuga utilizatorul la lista ta fără nici o interacțiune "
+"mai departe."
+
+#: .././pages/options.php:212
+msgid ""
+"A double opt-in will send an email to the user asking them to confirm their "
+"subscription."
+msgstr ""
+"Un double opt-in va trimite un e-mail pentru utilizator cerându-le să "
+"confirme abonamentul lor."
+
+#: .././pages/options.php:217
+msgid "Custom Opt-In Message"
+msgstr "Personalizat Opt-In Mesaj"
+
+#: .././pages/options.php:219
+msgid "Double Opt-In Message"
+msgstr "Double opt-in Mesaj"
+
+#: .././pages/options.php:221
+msgid "Single Opt-In Message"
+msgstr "Singur mesaj Opt-In"
+
+#: .././pages/options.php:227
+msgid "Interest Group Label"
+msgstr "Label Interest Group"
+
+#: .././pages/options.php:236
+msgid ""
+"Text to display above interest groups. Leave blank to use MailChimp interest "
+"group names."
+msgstr ""
+"Textul de mai sus pentru a afișa grupuri de interese. Lăsați necompletat "
+"pentru a utiliza nume de grupuri de interese MailChimp."
+
+#: .././pages/options.php:248
+msgid "Plugin Information"
+msgstr "Informații Plugin"
+
+#: .././pages/options.php:251
+msgid "If you experience any issues with our plugin, please"
+msgstr "Dacă aveți orice probleme cu plugin nostru, vă rugăm să"
+
+#: .././pages/options.php:251
+msgid "submit a New Issue on our Github Issue Tracker"
+msgstr "să prezinte o nouă emisiune pe Tracker nostru Github Issue"
+
+#: .././pages/options.php:251
+msgid ""
+"Please include the information below to help us troubleshoot your problem."
+msgstr ""
+"Vă rugăm să includeți informațiile de mai jos pentru a ne ajuta să rezolvați "
+"problema ta."
+
+#: .././pages/options.php:259
+msgid "Plugin Version"
+msgstr "Versiunea Plugin"
+
+#: .././pages/options.php:263
+msgid "Wordpress Version"
+msgstr "Versiunea WordPress"
+
+#: .././pages/options.php:267
+msgid "Browser Information"
+msgstr "Informații browser"
+
+#: .././templates/shortcode_error.php:1
+msgid "There was an error calling the mailchimp list."
+msgstr "Nu a fost o eroare de asteptare lista MailChimp."
+
+#: .././templates/shortcode_error_data.php:1
+msgid "No API Key or List Id Exist!"
+msgstr "Nu cheie API sau Lista Id exista!"
+
+#: .././templates/shortcode_error_exists.php:1
+msgid "This list was already placed on this page!"
+msgstr "Această listă a fost deja introdus pe aceasta pagina!"
+
+#: .././templates/shortcode_form.php:11
+msgid "Oops.. Don't forget to fill-in the following fields"
+msgstr "Hopa .. Nu uitați să completați în următoarele domenii"
+
+#: .././templates/shortcode_form.php:74
+msgid "required field"
+msgstr "câmp obligatoriu"
+
+#: .././templates/yikes-mailchimp-widget.php:15
+#: .././templates/yikes-mailchimp-widget.php:18
+msgid "MailChimp Signup Form"
+msgstr "MailChimp Signup Form"
+
+#: .././templates/yikes-mailchimp-widget.php:27
+msgid "Select Which Form You Would Like To Display:"
+msgstr "Selectați care formează Doriți să Afișarea:"
+
+#: .././templates/yikes-mailchimp-widget.php:30
+msgid "Select a Form to Display"
+msgstr "Selectați un formular de afișat"
+
+#: .././templates/yikes-mailchimp-widget.php:43
+msgid "Please import MailChimp forms"
+msgstr "Vă rugăm să importați forme MailChimp"
+
+#: .././templates/yikes-mailchimp-widget.php:45
+msgid "Please import some lists from MailChimp"
+msgstr "Vă rugăm să importe unele liste de MailChimp"
+
+#: .././templates/yikes-mailchimp-widget.php:48
+msgid "Import Lists Now"
+msgstr "Liste de import acum"
+
+#: .././templates/yikes-mailchimp-widget.php:69
+msgid ""
+"Oops! It looks like you haven't imported any lists yet. You must import at "
+"least one list to use the Easy MailChimp widget."
+msgstr ""
+"Oops! Se pare ca și cum nu ați importat încă nici liste. Trebuie să "
+"importați cel puțin o listă a utiliza widget-ul Easy MailChimp."
+
+#: .././templates/yikes-mailchimp-widget.php:76
+msgid ""
+"Oops! It looks like you forgot to select a form to display here. Go to "
+"'Appearance > Widgets' and select a form to display."
+msgstr ""
+"Oops! Se pare ca ai uitat de a selecta un formular pentru a afișa aici. Du-"
+"te la \"Aspect> Widgets\" și selectați un formular pentru a afișa."
+
+#: .././templates/yikes-mailchimp-widget.php:110
+msgid "Sign Up For Our Newsletter"
+msgstr "Înscrieți-vă pentru newsletter-ul nostru"
+
+#: .././templates/yikes-mailchimp-widget.php:122
+msgid "Sign Me Up"
+msgstr "Înregistrează-Me Up"
+
+#: .././templates/yikes-mailchimp-widget.php:126
+msgid "Title:"
+msgstr "Titlu:"
+
+#: .././templates/yikes-mailchimp-widget.php:131
+msgid "Form Text:"
+msgstr "Formă de text:"
+
+#: .././templates/yikes-mailchimp-widget.php:139
+msgid "Submit Button Text:"
+msgstr "Prezenta Button Text:"
+
+#: .././templates/yikes-mailchimp-widget.php:149
+msgid "Oops! It looks like you haven't added your API key! Head over to the"
+msgstr "Oops! Se pare că nu ați adăugat cheia API! Peste cap de la"
+
+#: .././templates/yikes-mailchimp-widget.php:149
+msgid "Settings page"
+msgstr "Pagina de setări"

@@ -1,0 +1,609 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: Yikes Inc. Easy MailChimp Plugin\n"
+"POT-Creation-Date: 2014-03-13 16:32-0500\n"
+"PO-Revision-Date: 2014-03-13 16:32-0500\n"
+"Last-Translator: Evan <evan.m.herman@gmail.com>\n"
+"Language-Team: Yikes Inc. <evan@yikesinc.com>\n"
+"Language: sv\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Poedit 1.6.4\n"
+"X-Poedit-Basepath: .\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Poedit-KeywordsList: __;_e\n"
+"X-Poedit-SearchPath-0: ../.\n"
+
+#: .././classes/class.yksemeBase.php:103
+msgid "Thank You for subscribing!"
+msgstr "Tack för att du prenumererar!"
+
+#: .././classes/class.yksemeBase.php:104
+msgid ""
+"Thank You for subscribing! Check your email for the confirmation message."
+msgstr "Tack för att du prenumererar! Kontrollera din e-post för att bekräfta."
+
+#: .././classes/class.yksemeBase.php:105
+msgid "Select Your Area of Interest"
+msgstr "Välj ditt intresseområde"
+
+#: .././classes/class.yksemeBase.php:804
+msgid "Click on a subscriber to see further information"
+msgstr "Klicka på en abonnent för att se ytterligare information"
+
+#: .././classes/class.yksemeBase.php:807
+msgid "E-Mail"
+msgstr "e-post"
+
+#: .././classes/class.yksemeBase.php:808
+msgid "Date Subscribed"
+msgstr "Datum Bevakade"
+
+#: .././classes/class.yksemeBase.php:828
+msgid "Sorry You Don't Currently Have Any Subscribers In This List!"
+msgstr "Ledsen du för närvarande inte har några prenumeranter I denna lista!"
+
+#: .././classes/class.yksemeBase.php:885
+msgid "Back to Subscriber List"
+msgstr "Tillbaka till Subscriber List"
+
+#: .././classes/class.yksemeBase.php:886
+msgid "Subscriber Details"
+msgstr "abonnent Detaljer"
+
+#: .././classes/class.yksemeBase.php:897
+msgid "Overview"
+msgstr "Översikt"
+
+#: .././classes/class.yksemeBase.php:902
+msgid "First Name"
+msgstr "förnamn"
+
+#: .././classes/class.yksemeBase.php:905
+msgid "Last Updated"
+msgstr "senast uppdaterad"
+
+#: .././classes/class.yksemeBase.php:908
+msgid "Preferred Email Type"
+msgstr "Välj e-post Typ"
+
+#: .././classes/class.yksemeBase.php:915
+msgid "Last Name"
+msgstr "EFTERNAMN"
+
+#: .././classes/class.yksemeBase.php:918
+msgid "Language"
+msgstr "Språk"
+
+#: .././classes/class.yksemeBase.php:941
+msgid "Groups Subscribed To"
+msgstr "Grupper Prenumererar på"
+
+#: .././classes/class.yksemeBase.php:992
+msgid "Subscriber Notes"
+msgstr "Abonnent Anmärkningar"
+
+#: .././classes/class.yksemeBase.php:997
+msgid "Written by"
+msgstr "Skrivet av"
+
+#: .././classes/class.yksemeBase.php:997
+msgid "Created on"
+msgstr "Skapad den"
+
+#: .././classes/class.yksemeBase.php:1132
+#: .././classes/class.yksemeBase.php:1134
+msgid "MailChimp Forms"
+msgstr "MailChimp Forms"
+
+#: .././classes/class.yksemeBase.php:1134
+msgid "MailChimp Settings"
+msgstr "MailChimp Inställningar"
+
+#: .././classes/class.yksemeBase.php:1135
+msgid "Manage List Forms"
+msgstr "Hantera listformulär"
+
+#: .././classes/class.yksemeBase.php:1136 .././pages/about.php:5
+msgid "About YIKES, Inc."
+msgstr "Om USCH, Inc."
+
+#: .././classes/class.yksemeBase.php:1293
+msgid "One or more fields are empty"
+msgstr "Ett eller flera fält är tomma"
+
+#: .././classes/class.yksemeBase.php:1343
+msgid "Your List Was Successfully Saved!"
+msgstr "Din lista har sparats!"
+
+#: .././classes/class.yksemeBase.php:1345
+msgid "I'm sorry there was an error with your request."
+msgstr "Jag är ledsen att det fanns ett fel med din förfrågan."
+
+#: .././classes/class.yksemeBase.php:1351
+msgid "MailChimp List name"
+msgstr "MailChimp Listnamn"
+
+#: .././classes/class.yksemeBase.php:1357
+#: .././classes/class.yksemeBase.php:1367
+#, php-format
+msgid "%1$s"
+msgstr ""
+
+#: .././classes/class.yksemeBase.php:1375
+msgid "MailChimp List ID"
+msgstr "MailChimp Lista ID"
+
+#: .././classes/class.yksemeBase.php:1381
+msgid "Shortcode"
+msgstr "Shortcode"
+
+#: .././classes/class.yksemeBase.php:1384
+msgid ""
+"Paste this shortcode into whatever page or post you want to add this form to"
+msgstr ""
+"Klistra in denna kortkod i vilken sida eller inlägg du vill lägga till detta "
+"formulär för att"
+
+#: .././classes/class.yksemeBase.php:1389
+msgid "PHP Snippet"
+msgstr "PHP Fragmentarisk"
+
+#: .././classes/class.yksemeBase.php:1392
+msgid "Use this code to add this form to a template file"
+msgstr "Använd denna kod för att lägga till detta formulär för att en mallfil"
+
+#: .././classes/class.yksemeBase.php:1397
+msgid "Number of Subscribers"
+msgstr "Antal Prenumeranter"
+
+#: .././classes/class.yksemeBase.php:1406
+msgid "Form Fields"
+msgstr "Formulärfält"
+
+#: .././classes/class.yksemeBase.php:1408
+msgid ""
+"Check the fields you want included in your form (Email Address is required)."
+msgstr ""
+"Kontrollera fälten du vill inkludera i ditt formulär (e-postadress krävs)."
+
+#: .././classes/class.yksemeBase.php:1411
+msgid ""
+"Use the green arrows to drag-and-drop the fields and rearrange their order."
+msgstr ""
+"Använd de gröna pilarna för att dra och släppa fälten och ordna om ordningen."
+
+#: .././classes/class.yksemeBase.php:1417
+msgid "Active Fields"
+msgstr "Aktiva fält"
+
+#: .././classes/class.yksemeBase.php:1426
+msgid "Drag"
+msgstr "Dra"
+
+#: .././classes/class.yksemeBase.php:1426
+msgid "drop"
+msgstr "släpp"
+
+#: .././classes/class.yksemeBase.php:1431
+msgid "Merge field"
+msgstr "Merge fält"
+
+#: .././classes/class.yksemeBase.php:1432
+msgid "Placeholder"
+msgstr "Platshållaren"
+
+#: .././classes/class.yksemeBase.php:1440
+msgid "Redirect User On Submission"
+msgstr "Omdirigera användare On Submission"
+
+#: .././classes/class.yksemeBase.php:1444
+msgid ""
+"choose a page or set a custom URL to redirect the user to after they submit "
+"the form."
+msgstr ""
+"välja en sida eller ange en anpassad webbadress för att omdirigera "
+"användaren till efter att de skicka formuläret."
+
+#: .././classes/class.yksemeBase.php:1447
+msgid "Select A Post/Page"
+msgstr "Välj Efter / Sida"
+
+#: .././classes/class.yksemeBase.php:1501
+msgid "Save Form Settings"
+msgstr "Hantera MailChimp Forms Inställningar"
+
+#: .././classes/class.yksemeBase.php:1502
+msgid "Delete Form"
+msgstr "Radera Form"
+
+#: .././classes/class.yksemeBase.php:1503
+msgid "Re-Import Form Fields from MailChimp"
+msgstr "Vänligen importera vissa listor från MailChimp"
+
+#: .././pages/about.php:27
+msgid "YIKES, Inc. Web Design and Development"
+msgstr "USCH, Inc. Webbdesign och utveckling"
+
+#: .././pages/about.php:29
+msgid "Smart, effective, beautifully designed web solutions"
+msgstr "Smarta, effektiva, vackert designade webblösningar"
+
+#: .././pages/about.php:32
+msgid ""
+"YIKES is located in the Fishtown neighborhood of Philadelphia where we build "
+"custom WordPress themes and plugins every day."
+msgstr ""
+"USCH ligger i Fishtown stadsdel i Philadelphia där vi bygger anpassade "
+"Wordpress teman och plugins varje dag."
+
+#: .././pages/about.php:36
+msgid ""
+"At YIKES we love WordPress! Co-Owner, Tracy Levesque has presented at "
+"WordCamps"
+msgstr ""
+"På USCH vi älskar Wordpress! Delägare, Tracy Levesque har presenteras vid "
+"WordCamps"
+
+#: .././pages/about.php:36
+msgid "and"
+msgstr "och"
+
+#: .././pages/about.php:36
+msgid "She also teaches WordPress classes for"
+msgstr "Hon undervisar också Wordpress klasser för"
+
+#: .././pages/about.php:40
+msgid ""
+"In addition to making great WordPress sites we are also committed to the "
+"sustainable business movement. We observe the triple bottom line: people, "
+"planet, profit and work to help build a more socially, environmentally and "
+"financially sustainable local economy. We even have a"
+msgstr ""
+"Förutom att göra bra Wordpress webbplatser är vi också engagerade i en "
+"hållbar affärsrörelse. Vi observerar triple bottom line: folk, planet, vinst "
+"och arbete för att hjälpa till att bygga ett mer socialt, miljömässigt och "
+"ekonomiskt hållbar lokal ekonomi. Vi har även en"
+
+#: .././pages/about.php:40
+msgid "LEED Platinum office"
+msgstr "LEED Platinum kontor"
+
+#: .././pages/about.php:44
+msgid ""
+"If you're interested in hiring us for WordPress development, or just want to "
+"learn more about us, please visit"
+msgstr ""
+"Om du är intresserad av att anlita oss för Wordpress utveckling, eller bara "
+"vill veta mer om oss, besök gärna"
+
+#: .././pages/lists.php:8
+msgid "No forms have been added yet."
+msgstr "Inga former har lagts ännu."
+
+#: .././pages/lists.php:39
+msgid "Oops.. The list ID you entered appears to be incorrect."
+msgstr "Oj .. Listan ID du angav är inte rätt."
+
+#: .././pages/lists.php:44
+msgid "There was an error!"
+msgstr "Det uppstod ett fel!"
+
+#: .././pages/lists.php:135
+msgid "You need to select a Mailchimp list in order to create a form for it"
+msgstr "Du måste välja en Mailchimp lista för att skapa en form för det"
+
+#: .././pages/lists.php:173
+msgid "Are you sure you want to delete this form?"
+msgstr "Är du säker på att du vill ta bort det här formuläret?"
+
+#: .././pages/lists.php:206
+msgid "Are you sure you want to re-import your fields from MailChimp?"
+msgstr "Är du säker på att du vill importera dina fält från MailChimp?"
+
+#: .././pages/lists.php:228
+msgid "Looks like this form is already up to date!"
+msgstr "Ser ut som denna form är redan uppdaterad!"
+
+#: .././pages/lists.php:326
+msgid "Are you sure you want to unsubscribe"
+msgstr "Är du säker på att du vill avsluta prenumerationen"
+
+#: .././pages/lists.php:326
+msgid "from this list?"
+msgstr "från listan?"
+
+#: .././pages/lists.php:342
+msgid "was successfully unsubscribed from this list."
+msgstr "har avslutat prenumerationen på den här listan."
+
+#: .././pages/lists.php:448 .././pages/options.php:138
+msgid "Easy Mailchimp Forms by YIKES, Inc."
+msgstr "Lätt MailChimp bildar vid USCH, Inc."
+
+#: .././pages/lists.php:454
+msgid "Before you can add MailChimp forms to your site, you need to"
+msgstr "Innan du kan lägga till MailChimp formulär på din webbplats, måste du"
+
+#: .././pages/lists.php:454
+msgid "go to the MailChimp Settings page"
+msgstr "gå till sidan MailChimp inställningar"
+
+#: .././pages/lists.php:454 .././templates/yikes-mailchimp-widget.php:149
+msgid "and add your API Key."
+msgstr "och lägg till din API-nyckel."
+
+#: .././pages/lists.php:462
+msgid "You must enter a valid API key to import and manage your lists."
+msgstr ""
+"Du måste ange en giltig API-nyckel för att importera och hantera dina listor."
+
+#: .././pages/lists.php:473
+msgid "Your Lists"
+msgstr "Dina listor"
+
+#: .././pages/lists.php:483
+msgid "Manage Forms"
+msgstr "Hantera formulär"
+
+#: .././pages/options.php:35
+msgid "The options were saved successfully!"
+msgstr "Optionerna sparats!"
+
+#: .././pages/options.php:38
+msgid "The options could not be saved (or you did not change them)."
+msgstr "Optionerna kunde inte sparas (eller du inte ändra dem)."
+
+#: .././pages/options.php:82
+msgid "Valid API Key"
+msgstr "Valid API-nyckel"
+
+#: .././pages/options.php:88
+msgid "Sorry, that is an invalid MailChimp API key."
+msgstr "Tyvärr är det en ogiltig MailChimp API nyckel."
+
+#: .././pages/options.php:93
+msgid ""
+"Sorry, that is an invalid MailChimp API key. Please check the console for "
+"further information."
+msgstr ""
+"Tyvärr är det en ogiltig MailChimp API nyckel. Kontrollera konsolen för "
+"ytterligare information."
+
+#: .././pages/options.php:102
+msgid "Error: Please enter a valid Mail Chimp API Key."
+msgstr "Fel: Ange ett giltigt Mail Chimp API-nyckel."
+
+#: .././pages/options.php:141
+msgid "Manage Mailchimp Forms Settings"
+msgstr "Hantera MailChimp Forms Inställningar"
+
+#: .././pages/options.php:151
+msgid "Your Mailchimp API Key"
+msgstr "Din Mailchimp API-nyckel"
+
+#: .././pages/options.php:159
+msgid ""
+"Please enter your MailChimp API Key above. The API Key allows your WordPress "
+"site to communicate with your MailChimp account."
+msgstr ""
+"Ange din MailChimp API-nyckel ovan. API Key gör din Wordpress webbplats för "
+"att kommunicera med ditt MailChimp konto."
+
+#: .././pages/options.php:160
+msgid "For more help, visit the MailChimp Support article"
+msgstr "För mer hjälp, besök artikeln MailChimp Support"
+
+#: .././pages/options.php:160
+msgid "Where can I find my API Key?"
+msgstr "Var kan jag hitta min API-nyckel?"
+
+#: .././pages/options.php:165
+msgid "Preferred Form Layout"
+msgstr "Föredragen form Layout"
+
+#: .././pages/options.php:168
+msgid "table"
+msgstr "bord"
+
+#: .././pages/options.php:169
+msgid "div"
+msgstr "div"
+
+#: .././pages/options.php:177
+msgid "Choose whether you want your forms to use a table or div layout."
+msgstr ""
+"Välj om du vill att dina formulär för att använda en tabell eller div layout."
+
+#: .././pages/options.php:182
+msgid "Advanced Error Messaging"
+msgstr "Advanced Fel Meddelanden"
+
+#: .././pages/options.php:185
+msgid "Disabled"
+msgstr "Har inaktiverats"
+
+#: .././pages/options.php:186
+msgid "Enabled"
+msgstr "Aktiverad"
+
+#: .././pages/options.php:194
+msgid ""
+"Enable if you're having problems with your forms sending data to MailChimp. "
+"Enabling Advanced Error Messaging will show you the exact error codes "
+"MailChimp is returning."
+msgstr ""
+"Aktivera om du har problem med dina formulär att skicka data till MailChimp. "
+"Aktivera Advanced Fel Meddelanden kommer att visa dig exakt felkoder "
+"MailChimp är återvänder."
+
+#: .././pages/options.php:202
+msgid "Single Opt-In"
+msgstr "Enkel opt-in"
+
+#: .././pages/options.php:203
+msgid "Double Opt-In"
+msgstr "Dubbel opt-in"
+
+#: .././pages/options.php:211
+msgid ""
+"A single opt-in will add the user to your list without any further "
+"interaction."
+msgstr ""
+"En enda opt-in kommer att lägga till användaren i listan utan vidare "
+"interaktion."
+
+#: .././pages/options.php:212
+msgid ""
+"A double opt-in will send an email to the user asking them to confirm their "
+"subscription."
+msgstr ""
+"En dubbel opt-in kommer att skicka ett mail till användaren ber dem att "
+"bekräfta sin prenumeration."
+
+#: .././pages/options.php:217
+msgid "Custom Opt-In Message"
+msgstr "Custom Opt-In Meddelande"
+
+#: .././pages/options.php:219
+msgid "Double Opt-In Message"
+msgstr "Dubbel opt-in meddelande"
+
+#: .././pages/options.php:221
+msgid "Single Opt-In Message"
+msgstr "Single opt-in meddelande"
+
+#: .././pages/options.php:227
+msgid "Interest Group Label"
+msgstr "Intressegrupp Label"
+
+#: .././pages/options.php:236
+msgid ""
+"Text to display above interest groups. Leave blank to use MailChimp interest "
+"group names."
+msgstr ""
+"Text att visa över intressegrupper. Lämna tomt för att använda MailChimp "
+"räntegruppnamn."
+
+#: .././pages/options.php:248
+msgid "Plugin Information"
+msgstr "Plugin Information"
+
+#: .././pages/options.php:251
+msgid "If you experience any issues with our plugin, please"
+msgstr "Om du upplever några problem med vår plugin, vänligen"
+
+#: .././pages/options.php:251
+msgid "submit a New Issue on our Github Issue Tracker"
+msgstr "skicka in en nyemission på vår Github Issue Tracker"
+
+#: .././pages/options.php:251
+msgid ""
+"Please include the information below to help us troubleshoot your problem."
+msgstr ""
+"Vänligen inkludera informationen nedan för att hjälpa oss att felsöka "
+"problemet."
+
+#: .././pages/options.php:259
+msgid "Plugin Version"
+msgstr "Plugin Version"
+
+#: .././pages/options.php:263
+msgid "Wordpress Version"
+msgstr "Word Version"
+
+#: .././pages/options.php:267
+msgid "Browser Information"
+msgstr "Browser Information"
+
+#: .././templates/shortcode_error.php:1
+msgid "There was an error calling the mailchimp list."
+msgstr "Det uppstod ett fel ringa MailChimp listan."
+
+#: .././templates/shortcode_error_data.php:1
+msgid "No API Key or List Id Exist!"
+msgstr "Ingen API-nyckel eller List Id Exist!"
+
+#: .././templates/shortcode_error_exists.php:1
+msgid "This list was already placed on this page!"
+msgstr "Denna lista har redan släppts ut på den här sidan!"
+
+#: .././templates/shortcode_form.php:11
+msgid "Oops.. Don't forget to fill-in the following fields"
+msgstr "Oj .. Glöm inte att fylla i följande fält"
+
+#: .././templates/shortcode_form.php:74
+msgid "required field"
+msgstr "obligatoriskt fält"
+
+#: .././templates/yikes-mailchimp-widget.php:15
+#: .././templates/yikes-mailchimp-widget.php:18
+msgid "MailChimp Signup Form"
+msgstr "MailChimp Signup Form"
+
+#: .././templates/yikes-mailchimp-widget.php:27
+msgid "Select Which Form You Would Like To Display:"
+msgstr "Välj vilken form du vill visa:"
+
+#: .././templates/yikes-mailchimp-widget.php:30
+msgid "Select a Form to Display"
+msgstr "Välj ett formulär som ska visas"
+
+#: .././templates/yikes-mailchimp-widget.php:43
+msgid "Please import MailChimp forms"
+msgstr "Vänligen importera MailChimp former"
+
+#: .././templates/yikes-mailchimp-widget.php:45
+msgid "Please import some lists from MailChimp"
+msgstr "Vänligen importera vissa listor från MailChimp"
+
+#: .././templates/yikes-mailchimp-widget.php:48
+msgid "Import Lists Now"
+msgstr "Importera listor Nu"
+
+#: .././templates/yikes-mailchimp-widget.php:69
+msgid ""
+"Oops! It looks like you haven't imported any lists yet. You must import at "
+"least one list to use the Easy MailChimp widget."
+msgstr ""
+"Hoppsan! Det ser ut som att du inte har importerat några listor än. Du måste "
+"importera minst en lista att använda Easy MailChimp widgeten."
+
+#: .././templates/yikes-mailchimp-widget.php:76
+msgid ""
+"Oops! It looks like you forgot to select a form to display here. Go to "
+"'Appearance > Widgets' and select a form to display."
+msgstr ""
+"Hoppsan! Det ser ut som du har glömt att välja en form för att visa här. Gå "
+"till \"Utseende> Widgets\" och välj ett formulär för att visa."
+
+#: .././templates/yikes-mailchimp-widget.php:110
+msgid "Sign Up For Our Newsletter"
+msgstr "Registrera dig för vårt nyhetsbrev"
+
+#: .././templates/yikes-mailchimp-widget.php:122
+msgid "Sign Me Up"
+msgstr "Sign Me Up"
+
+#: .././templates/yikes-mailchimp-widget.php:126
+msgid "Title:"
+msgstr "Titel:"
+
+#: .././templates/yikes-mailchimp-widget.php:131
+msgid "Form Text:"
+msgstr "Form Text:"
+
+#: .././templates/yikes-mailchimp-widget.php:139
+msgid "Submit Button Text:"
+msgstr "Skicka in knapptext:"
+
+#: .././templates/yikes-mailchimp-widget.php:149
+msgid "Oops! It looks like you haven't added your API key! Head over to the"
+msgstr ""
+"Hoppsan! Det ser ut som att du inte har lagt till din API-nyckel! Chef över "
+"till"
+
+#: .././templates/yikes-mailchimp-widget.php:149
+msgid "Settings page"
+msgstr "Sidan Inställningar"

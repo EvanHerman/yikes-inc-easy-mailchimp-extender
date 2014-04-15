@@ -1,0 +1,626 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: Yikes Inc. Easy MailChimp Plugin\n"
+"POT-Creation-Date: 2014-03-13 16:20-0500\n"
+"PO-Revision-Date: 2014-03-13 16:20-0500\n"
+"Last-Translator: Evan <evan.m.herman@gmail.com>\n"
+"Language-Team: Yikes Inc. <evan@yikesinc.com>\n"
+"Language: de\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Poedit 1.6.4\n"
+"X-Poedit-Basepath: .\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Poedit-KeywordsList: __;_e\n"
+"X-Poedit-SearchPath-0: ../.\n"
+
+#: .././classes/class.yksemeBase.php:103
+msgid "Thank You for subscribing!"
+msgstr "Vielen Dank für Ihre Anmeldung!"
+
+#: .././classes/class.yksemeBase.php:104
+msgid ""
+"Thank You for subscribing! Check your email for the confirmation message."
+msgstr ""
+"Vielen Dank für Ihre Anmeldung! Überprüfen Sie Ihre E-Mail für die "
+"Bestätigung."
+
+#: .././classes/class.yksemeBase.php:105
+msgid "Select Your Area of Interest"
+msgstr "Wählen Sie Ihr Interessengebiet"
+
+#: .././classes/class.yksemeBase.php:804
+msgid "Click on a subscriber to see further information"
+msgstr "Klicken Sie auf einen Teilnehmer, um weitere Informationen zu sehen"
+
+#: .././classes/class.yksemeBase.php:807
+msgid "E-Mail"
+msgstr "E-Mail"
+
+#: .././classes/class.yksemeBase.php:808
+msgid "Date Subscribed"
+msgstr "Datum Gezeichnetes"
+
+#: .././classes/class.yksemeBase.php:828
+msgid "Sorry You Don't Currently Have Any Subscribers In This List!"
+msgstr ""
+"Es tut uns leid Sie nicht Zeit haben noch keine Teilnehmer in dieser Liste!"
+
+#: .././classes/class.yksemeBase.php:885
+msgid "Back to Subscriber List"
+msgstr "Zurück zum Abonnenten-Liste"
+
+#: .././classes/class.yksemeBase.php:886
+msgid "Subscriber Details"
+msgstr "Subscriber-Details"
+
+#: .././classes/class.yksemeBase.php:897
+msgid "Overview"
+msgstr "Überblick"
+
+#: .././classes/class.yksemeBase.php:902
+msgid "First Name"
+msgstr "Vorname"
+
+#: .././classes/class.yksemeBase.php:905
+msgid "Last Updated"
+msgstr "zuletzt aktualisiert"
+
+#: .././classes/class.yksemeBase.php:908
+msgid "Preferred Email Type"
+msgstr "Bevorzugtes E-Mail-Typ"
+
+#: .././classes/class.yksemeBase.php:915
+msgid "Last Name"
+msgstr "Nachname"
+
+#: .././classes/class.yksemeBase.php:918
+msgid "Language"
+msgstr "Sprache"
+
+#: .././classes/class.yksemeBase.php:941
+msgid "Groups Subscribed To"
+msgstr "Gruppen abonniert"
+
+#: .././classes/class.yksemeBase.php:992
+msgid "Subscriber Notes"
+msgstr "Subscriber Hinweise"
+
+#: .././classes/class.yksemeBase.php:997
+msgid "Written by"
+msgstr "geschrieben von:"
+
+#: .././classes/class.yksemeBase.php:997
+msgid "Created on"
+msgstr "Erstellt am"
+
+#: .././classes/class.yksemeBase.php:1132
+#: .././classes/class.yksemeBase.php:1134
+msgid "MailChimp Forms"
+msgstr "MailChimp Formular"
+
+#: .././classes/class.yksemeBase.php:1134
+msgid "MailChimp Settings"
+msgstr "MailChimp Einstellungen"
+
+#: .././classes/class.yksemeBase.php:1135
+msgid "Manage List Forms"
+msgstr "Verwalten Listenformulare"
+
+#: .././classes/class.yksemeBase.php:1136 .././pages/about.php:5
+msgid "About YIKES, Inc."
+msgstr "Über YIKES, Inc."
+
+#: .././classes/class.yksemeBase.php:1293
+msgid "One or more fields are empty"
+msgstr "Ein oder mehrere Felder leer sind"
+
+#: .././classes/class.yksemeBase.php:1343
+msgid "Your List Was Successfully Saved!"
+msgstr "Ihre Liste erfolgreich gespeichert!"
+
+#: .././classes/class.yksemeBase.php:1345
+msgid "I'm sorry there was an error with your request."
+msgstr "Tut mir leid, es ist ein Fehler mit Ihrer Anfrage."
+
+#: .././classes/class.yksemeBase.php:1351
+msgid "MailChimp List name"
+msgstr "MailChimp Listenname"
+
+#: .././classes/class.yksemeBase.php:1357
+#: .././classes/class.yksemeBase.php:1367
+#, php-format
+msgid "%1$s"
+msgstr ""
+
+#: .././classes/class.yksemeBase.php:1375
+msgid "MailChimp List ID"
+msgstr "MailChimp Liste ID"
+
+#: .././classes/class.yksemeBase.php:1381
+msgid "Shortcode"
+msgstr "Shortcode"
+
+#: .././classes/class.yksemeBase.php:1384
+msgid ""
+"Paste this shortcode into whatever page or post you want to add this form to"
+msgstr ""
+"Fügen Sie diesen Shortcode in das, was-Seite oder schreiben Sie, dieses "
+"Formular hinzufügen möchten"
+
+#: .././classes/class.yksemeBase.php:1389
+msgid "PHP Snippet"
+msgstr "PHP Snippet"
+
+#: .././classes/class.yksemeBase.php:1392
+msgid "Use this code to add this form to a template file"
+msgstr ""
+"Verwenden Sie diesen Code, um diese Form zu einer Vorlage-Datei hinzufügen"
+
+#: .././classes/class.yksemeBase.php:1397
+msgid "Number of Subscribers"
+msgstr "Anzahl der Abonnenten"
+
+#: .././classes/class.yksemeBase.php:1406
+msgid "Form Fields"
+msgstr "Formularfelder"
+
+#: .././classes/class.yksemeBase.php:1408
+msgid ""
+"Check the fields you want included in your form (Email Address is required)."
+msgstr ""
+"Überprüfen Sie die gewünschten Felder im Formular enthalten (E-Mail Adresse "
+"ist erforderlich)."
+
+#: .././classes/class.yksemeBase.php:1411
+msgid ""
+"Use the green arrows to drag-and-drop the fields and rearrange their order."
+msgstr ""
+"Verwenden Sie die grünen Pfeile, um per Drag-and-Drop die Felder und deren "
+"Reihenfolge zu ändern."
+
+#: .././classes/class.yksemeBase.php:1417
+msgid "Active Fields"
+msgstr "Aktive Felder"
+
+#: .././classes/class.yksemeBase.php:1426
+msgid "Drag"
+msgstr "Ziehe"
+
+#: .././classes/class.yksemeBase.php:1426
+msgid "drop"
+msgstr "fallen"
+
+#: .././classes/class.yksemeBase.php:1431
+msgid "Merge field"
+msgstr "Seriendruckfeld"
+
+#: .././classes/class.yksemeBase.php:1432
+msgid "Placeholder"
+msgstr "Platzhalter"
+
+#: .././classes/class.yksemeBase.php:1440
+msgid "Redirect User On Submission"
+msgstr "Redirect Benutzer Submission"
+
+#: .././classes/class.yksemeBase.php:1444
+msgid ""
+"choose a page or set a custom URL to redirect the user to after they submit "
+"the form."
+msgstr ""
+"wählen Sie eine Seite oder einen benutzerdefinierten URL, den Benutzer auf, "
+"nachdem sie das Formular umleiten."
+
+#: .././classes/class.yksemeBase.php:1447
+msgid "Select A Post/Page"
+msgstr "Choose Eine Seite"
+
+#: .././classes/class.yksemeBase.php:1501
+msgid "Save Form Settings"
+msgstr "Formulare verwalten Mailchimp Einstellungen"
+
+#: .././classes/class.yksemeBase.php:1502
+msgid "Delete Form"
+msgstr "Formular löschen"
+
+#: .././classes/class.yksemeBase.php:1503
+msgid "Re-Import Form Fields from MailChimp"
+msgstr "Importieren Sie einige Listen von MailChimp"
+
+#: .././pages/about.php:27
+msgid "YIKES, Inc. Web Design and Development"
+msgstr "YIKES, Inc. Webdesign und-entwicklung"
+
+#: .././pages/about.php:29
+msgid "Smart, effective, beautifully designed web solutions"
+msgstr "Intelligent, effektiv, schön gestalteten Web-Lösungen"
+
+#: .././pages/about.php:32
+msgid ""
+"YIKES is located in the Fishtown neighborhood of Philadelphia where we build "
+"custom WordPress themes and plugins every day."
+msgstr ""
+"YIKES ist in der Nähe von Fishtown Philadelphia, wo wir bauen individuelle "
+"Wordpress-Themes und Plugins jeden Tag entfernt."
+
+#: .././pages/about.php:36
+msgid ""
+"At YIKES we love WordPress! Co-Owner, Tracy Levesque has presented at "
+"WordCamps"
+msgstr ""
+"Bei YIKES wir lieben Wordpress! Co-Owner, Tracy Levesque hat bei WordCamps "
+"vorgestellt"
+
+#: .././pages/about.php:36
+msgid "and"
+msgstr "und"
+
+#: .././pages/about.php:36
+msgid "She also teaches WordPress classes for"
+msgstr "Sie unterrichtet auch Klassen für Wordpress"
+
+#: .././pages/about.php:40
+msgid ""
+"In addition to making great WordPress sites we are also committed to the "
+"sustainable business movement. We observe the triple bottom line: people, "
+"planet, profit and work to help build a more socially, environmentally and "
+"financially sustainable local economy. We even have a"
+msgstr ""
+"Neben der Herstellung von großen Wordpress-Seiten sind wir auch auf den "
+"nachhaltigen Geschäfts Bewegung verpflichtet. Wir beobachten die Triple "
+"Bottom Line: People, Planet, Profit und Arbeit zum Aufbau einer sozial, "
+"ökologisch und finanziell nachhaltigen lokalen Wirtschaft. Wir haben sogar "
+"eine"
+
+#: .././pages/about.php:40
+msgid "LEED Platinum office"
+msgstr "LEED-Platinum-Büro"
+
+#: .././pages/about.php:44
+msgid ""
+"If you're interested in hiring us for WordPress development, or just want to "
+"learn more about us, please visit"
+msgstr ""
+"Wenn Sie sich für die Einstellung uns für Wordpress-Entwicklung, oder wollen "
+"einfach nur mehr über uns zu erfahren, besuchen Sie bitte"
+
+#: .././pages/lists.php:8
+msgid "No forms have been added yet."
+msgstr "Keine Formulare wurden noch aufgenommen."
+
+#: .././pages/lists.php:39
+msgid "Oops.. The list ID you entered appears to be incorrect."
+msgstr "Oops .. Die eingegebene ID-Liste erscheint nicht korrekt zu sein."
+
+#: .././pages/lists.php:44
+msgid "There was an error!"
+msgstr "Es gab einen Fehler!"
+
+#: .././pages/lists.php:135
+msgid "You need to select a Mailchimp list in order to create a form for it"
+msgstr ""
+"Sie müssen eine Mailchimp Liste auswählen, um eine Form für sie zu schaffen"
+
+#: .././pages/lists.php:173
+msgid "Are you sure you want to delete this form?"
+msgstr "Sind Sie sicher, dass Sie dieses Formular löschen?"
+
+#: .././pages/lists.php:206
+msgid "Are you sure you want to re-import your fields from MailChimp?"
+msgstr ""
+"Sind Sie sicher, dass Sie re-importieren Sie Ihre Felder aus MailChimp "
+"wollen?"
+
+#: .././pages/lists.php:228
+msgid "Looks like this form is already up to date!"
+msgstr "Sieht aus wie diese Form bereits auf dem Laufenden!"
+
+#: .././pages/lists.php:326
+msgid "Are you sure you want to unsubscribe"
+msgstr "Sind Sie sicher, dass Sie den Newsletter abbestellen möchten"
+
+#: .././pages/lists.php:326
+msgid "from this list?"
+msgstr "von dieser Liste?"
+
+#: .././pages/lists.php:342
+msgid "was successfully unsubscribed from this list."
+msgstr "wurde erfolgreich aus dieser Liste abgemeldet."
+
+#: .././pages/lists.php:448 .././pages/options.php:138
+msgid "Easy Mailchimp Forms by YIKES, Inc."
+msgstr "Einfach Mailchimp Forms by YIKES, Inc."
+
+#: .././pages/lists.php:454
+msgid "Before you can add MailChimp forms to your site, you need to"
+msgstr "Bevor Sie MailChimp Formen zu Ihrer Website hinzufügen, müssen Sie"
+
+#: .././pages/lists.php:454
+msgid "go to the MailChimp Settings page"
+msgstr "gehen Sie zur Seite Einstellungen MailChimp"
+
+#: .././pages/lists.php:454 .././templates/yikes-mailchimp-widget.php:149
+msgid "and add your API Key."
+msgstr "und fügen Sie Ihren API-Key."
+
+#: .././pages/lists.php:462
+msgid "You must enter a valid API key to import and manage your lists."
+msgstr ""
+"Sie müssen einen gültigen API-Schlüssel zu importieren und verwalten Sie "
+"Ihre Listen eingeben."
+
+#: .././pages/lists.php:473
+msgid "Your Lists"
+msgstr "Ihre Listen"
+
+#: .././pages/lists.php:483
+msgid "Manage Forms"
+msgstr "Formulare verwalten"
+
+#: .././pages/options.php:35
+msgid "The options were saved successfully!"
+msgstr "Die Optionen wurden erfolgreich gespeichert!"
+
+#: .././pages/options.php:38
+msgid "The options could not be saved (or you did not change them)."
+msgstr ""
+"Die Optionen konnten nicht gespeichert werden (oder Sie haben sie nicht)."
+
+#: .././pages/options.php:82
+msgid "Valid API Key"
+msgstr "Gültig API Key"
+
+#: .././pages/options.php:88
+msgid "Sorry, that is an invalid MailChimp API key."
+msgstr "Sorry, ist, dass ein ungültiger MailChimp API-Schlüssel."
+
+#: .././pages/options.php:93
+msgid ""
+"Sorry, that is an invalid MailChimp API key. Please check the console for "
+"further information."
+msgstr ""
+"Sorry, ist, dass ein ungültiger MailChimp API-Schlüssel. Bitte überprüfen "
+"Sie die Konsole für weitere Informationen."
+
+#: .././pages/options.php:102
+msgid "Error: Please enter a valid Mail Chimp API Key."
+msgstr "Fehler: Bitte geben Sie eine gültige E-Mail Chimp API Key."
+
+#: .././pages/options.php:141
+msgid "Manage Mailchimp Forms Settings"
+msgstr "Formulare verwalten Mailchimp Einstellungen"
+
+#: .././pages/options.php:151
+msgid "Your Mailchimp API Key"
+msgstr "Ihre Mailchimp API Key"
+
+#: .././pages/options.php:159
+msgid ""
+"Please enter your MailChimp API Key above. The API Key allows your WordPress "
+"site to communicate with your MailChimp account."
+msgstr ""
+"Bitte geben Sie Ihren MailChimp API Key oben. Die API-Key können Sie Ihre "
+"Wordpress-Seite, um mit Ihrem MailChimp Account zu kommunizieren."
+
+#: .././pages/options.php:160
+msgid "For more help, visit the MailChimp Support article"
+msgstr "Weitere Hilfe finden Sie auf der Support-Artikel MailChimp"
+
+#: .././pages/options.php:160
+msgid "Where can I find my API Key?"
+msgstr "Wo kann ich meine API-Schlüssel finden?"
+
+#: .././pages/options.php:165
+msgid "Preferred Form Layout"
+msgstr "Bevorzugte Formular-Layout"
+
+#: .././pages/options.php:168
+msgid "table"
+msgstr "Tabelle"
+
+#: .././pages/options.php:169
+msgid "div"
+msgstr "div"
+
+#: .././pages/options.php:177
+msgid "Choose whether you want your forms to use a table or div layout."
+msgstr ""
+"Wählen Sie, ob Sie Ihre Formulare, um eine Tabelle oder div-Layout verwenden "
+"möchten."
+
+#: .././pages/options.php:182
+msgid "Advanced Error Messaging"
+msgstr "Advanced Error Messaging"
+
+#: .././pages/options.php:185
+msgid "Disabled"
+msgstr "Behindert"
+
+#: .././pages/options.php:186
+msgid "Enabled"
+msgstr "Aktiviert"
+
+#: .././pages/options.php:194
+msgid ""
+"Enable if you're having problems with your forms sending data to MailChimp. "
+"Enabling Advanced Error Messaging will show you the exact error codes "
+"MailChimp is returning."
+msgstr ""
+"Aktivieren, wenn Sie Probleme mit Ihrer Formulare Senden von Daten an "
+"MailChimp. Aktivieren Advanced Error Messaging zeigen Ihnen die genaue "
+"Fehlercodes MailChimp kehrt zurück."
+
+#: .././pages/options.php:202
+msgid "Single Opt-In"
+msgstr "Einzel-Opt-In"
+
+#: .././pages/options.php:203
+msgid "Double Opt-In"
+msgstr "Doppel Opt-In"
+
+#: .././pages/options.php:211
+msgid ""
+"A single opt-in will add the user to your list without any further "
+"interaction."
+msgstr ""
+"Eine einzige opt-in wird den Benutzer zu Ihrer Liste ohne weitere "
+"Interaktion hinzuzufügen."
+
+#: .././pages/options.php:212
+msgid ""
+"A double opt-in will send an email to the user asking them to confirm their "
+"subscription."
+msgstr ""
+"Ein Double-Opt-in eine E-Mail an den Benutzer senden bat sie, ihr Abonnement "
+"zu bestätigen."
+
+#: .././pages/options.php:217
+msgid "Custom Opt-In Message"
+msgstr "Benutzerdefinierte Opt-In Message"
+
+#: .././pages/options.php:219
+msgid "Double Opt-In Message"
+msgstr "Doppel Opt-In-Adresse"
+
+#: .././pages/options.php:221
+msgid "Single Opt-In Message"
+msgstr "Einzel-Opt-In-Nachricht"
+
+#: .././pages/options.php:227
+msgid "Interest Group Label"
+msgstr "Interest Group Label"
+
+#: .././pages/options.php:236
+msgid ""
+"Text to display above interest groups. Leave blank to use MailChimp interest "
+"group names."
+msgstr ""
+"Text, über Interessensgruppen an. Leer lassen um MailChimp Interesse "
+"Gruppennamen zu verwenden."
+
+#: .././pages/options.php:248
+msgid "Plugin Information"
+msgstr "Plugin Informationen"
+
+#: .././pages/options.php:251
+msgid "If you experience any issues with our plugin, please"
+msgstr ""
+"Wenn Sie irgendwelche Probleme mit unserem Plugin auftreten, wenden Sie sich "
+"bitte"
+
+#: .././pages/options.php:251
+msgid "submit a New Issue on our Github Issue Tracker"
+msgstr "einreichen einer neuen Ausgabe auf unserer Github Issue Tracker"
+
+#: .././pages/options.php:251
+msgid ""
+"Please include the information below to help us troubleshoot your problem."
+msgstr ""
+"Bitte geben Sie die folgenden Informationen, die uns helfen zu beheben Ihr "
+"Problem."
+
+#: .././pages/options.php:259
+msgid "Plugin Version"
+msgstr "Plugin Version"
+
+#: .././pages/options.php:263
+msgid "Wordpress Version"
+msgstr "Wordpress-Version"
+
+#: .././pages/options.php:267
+msgid "Browser Information"
+msgstr "Browser-Informationen"
+
+#: .././templates/shortcode_error.php:1
+msgid "There was an error calling the mailchimp list."
+msgstr "Es gab einen Fehler Aufruf der MailChimp Liste."
+
+#: .././templates/shortcode_error_data.php:1
+msgid "No API Key or List Id Exist!"
+msgstr "Nein API Key-oder Listen-Id gibt!"
+
+#: .././templates/shortcode_error_exists.php:1
+msgid "This list was already placed on this page!"
+msgstr "Diese Liste wurde bereits auf dieser Seite platziert!"
+
+#: .././templates/shortcode_form.php:11
+msgid "Oops.. Don't forget to fill-in the following fields"
+msgstr "Oops .. Vergessen Sie nicht, füllen Sie die folgenden Felder"
+
+#: .././templates/shortcode_form.php:74
+msgid "required field"
+msgstr "Pflichtfeld"
+
+#: .././templates/yikes-mailchimp-widget.php:15
+#: .././templates/yikes-mailchimp-widget.php:18
+msgid "MailChimp Signup Form"
+msgstr "MailChimp Anmelden Formular"
+
+#: .././templates/yikes-mailchimp-widget.php:27
+msgid "Select Which Form You Would Like To Display:"
+msgstr "Wählen welcher Form Sie anzeigen möchten:"
+
+#: .././templates/yikes-mailchimp-widget.php:30
+msgid "Select a Form to Display"
+msgstr "Wählen Sie ein Formular zur Anzeige"
+
+#: .././templates/yikes-mailchimp-widget.php:43
+msgid "Please import MailChimp forms"
+msgstr "Bitte importieren MailChimp Formen"
+
+#: .././templates/yikes-mailchimp-widget.php:45
+msgid "Please import some lists from MailChimp"
+msgstr "Importieren Sie einige Listen von MailChimp"
+
+#: .././templates/yikes-mailchimp-widget.php:48
+msgid "Import Lists Now"
+msgstr "Jetzt importieren Listen"
+
+#: .././templates/yikes-mailchimp-widget.php:69
+msgid ""
+"Oops! It looks like you haven't imported any lists yet. You must import at "
+"least one list to use the Easy MailChimp widget."
+msgstr ""
+"Oops! Wie es aussieht, keine Listen importiert haben noch. Sie müssen "
+"zumindest eine Liste zu importieren, um den Easy MailChimp Widget zu "
+"verwenden."
+
+#: .././templates/yikes-mailchimp-widget.php:76
+msgid ""
+"Oops! It looks like you forgot to select a form to display here. Go to "
+"'Appearance > Widgets' and select a form to display."
+msgstr ""
+"Oops! Es sieht aus wie Sie vergessen haben, eine Form zu wählen, um hier "
+"angezeigt. Gehen Sie auf \"Darstellung> Widgets\" und wählen Sie eine Form, "
+"um anzuzeigen."
+
+#: .././templates/yikes-mailchimp-widget.php:110
+msgid "Sign Up For Our Newsletter"
+msgstr "Anmeldung für unseren Newsletter"
+
+#: .././templates/yikes-mailchimp-widget.php:122
+msgid "Sign Me Up"
+msgstr "Sign Me Up"
+
+#: .././templates/yikes-mailchimp-widget.php:126
+msgid "Title:"
+msgstr "Titel:"
+
+#: .././templates/yikes-mailchimp-widget.php:131
+msgid "Form Text:"
+msgstr "Form-Text:"
+
+#: .././templates/yikes-mailchimp-widget.php:139
+msgid "Submit Button Text:"
+msgstr "Absenden Button Text:"
+
+#: .././templates/yikes-mailchimp-widget.php:149
+msgid "Oops! It looks like you haven't added your API key! Head over to the"
+msgstr ""
+"Oops! Es sieht aus wie Sie hinzugefügt haben Ihren API-Schlüssel! Gehen Sie "
+"zu der"
+
+#: .././templates/yikes-mailchimp-widget.php:149
+msgid "Settings page"
+msgstr "Einstellungen Seite"

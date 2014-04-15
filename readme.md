@@ -4,6 +4,23 @@ Easy MailChimp Forms allows you to painlessly add MailChimp signup forms to your
 
 Instructions on how to use the plugin can be [found on the FAQ](http://wordpress.org/plugins/yikes-inc-easy-mailchimp-extender/faq/ "found on the FAQ"). If you experience any problems, please submit a New Issue on our [Github Issue Tracker](https://github.com/yikesinc/yikes-inc-easy-mailchimp-extender/issues "Github Issue Tracker") and we'll look in to it as soon as possible.
 
+Features
+===========
+
+**Features**
+1. Easily Import MailChimp Forms
+1. Interest Group/Segment Support
+1. Custom Widget
+1. Single or Double Opt-In Option
+1. Customize the Success Message
+1. Customize the Submit Button Text
+1. Redirect Users to Selected Page On Submission
+1. Remove Users From MailChimp Lists
+1. View Subscriber MailChimp Profiles
+1. View Individual List Subscriber Count
+1. Display Multiple Forms On a Single Page
+1. Built on the Newest MailChimp API - v2.0
+
 Installation
 ===========
 
@@ -11,10 +28,15 @@ Installation
 1. Log in to yourdomain.com/wp-admin
 1. Click Plugins -> Add New -> Upload
 1. Activate the plugin
-1. You're finished!
+1. Go over to <a href="http://www.mailchimp.com" target="_blank">MailChimp.com</a>, login.
+1. On the right hand menu, click your profile picture and select 'Account Settings' and then go to 'Extras > API Keys'.
+1. Enter your API key into the text field inside 'MailChimp Forms > MailChimp Settings'
+1. Start importing forms from MailChimp and adding them to posts, pages and widgets!
 
 Frequently Asked Questions
 ===========
+
+== Frequently Asked Questions ==
 
 ### Do I need to have a MailChimp Account? 
 Yes, you can register for one for free at [MailChimp](https://mailchimp.com/signup/ "MailChimp Signup").
@@ -32,13 +54,11 @@ From your MailChimp Dashboard, click on your account name in the upper left hand
 
 For more help, visit the MailChimp Support article [Where can I find my API Key?](http://kb.mailchimp.com/article/where-can-i-find-my-api-key "Where can I find my API Key?")
 
-### How do I add my MailChimp lists? 
+### How to I add my MailChimp lists? 
 After you add your API key, the plugin will fetch all of your MailChimp list information and load it into the plugin admin. Go to the plugin "Manage List Forms" page to choose the lists you want to make forms for.
 
 ### How do I add the MailChimp signup forms to my site? 
 You can use a shortcode to add a form to a page or post. For each list on the plugin "Manage List Forms" page you will see a shortcode at the top. Copy the shortcode and paste it into any post or page where you want a form to appear. For example, if my form had the shortcode [yks-mailchimp-list id="1234567891"] I would copy and paste that into the page or post I wanted to add that form to.
-
-Alternatively, you can use the PHP snippet to add the form to a template file.
 
 ### Don't I have to enter a list ID for each list I want to add to my site? 
 Not anymore! With the 2.0 version of the MailChimp API all list information can be imported with just the API key.
@@ -46,13 +66,35 @@ Not anymore! With the 2.0 version of the MailChimp API all list information can 
 ### My Information isn't showing up when people subscribe, what gives? 
 You're likely using an old version of the plugin. Please update to the latest version and import your list data.
 
-### My list data was changed/the form isn't showing up since the 2.0 update, what's up with that?
-Due to the code overhaul required for new version features, the structure we were using to save data had to be completely changed over to conform to the MailChimp schema. The old unique IDs the plugin assigned to lists have been deprecated. The custom fields are now pulled in from the MailChimp servers. If your form isn't showing up with the shortcode, just copy and paste it again to fix this issue.
+### My list data was changed/the form isn't showing up since the 2.0 update, what's up with that? 
+Due to the code overhaul required for the features of the new version, the structure we were using to save data had to be completely changed over to conform to the MailChimp schema. The old unique IDs the plugin gave to lists have been deprecated. The custom fields that you have are now pulled in from the MailChimp servers. If your form isn't showing up with the shortcode, just copy and paste it again to fix this issue.
+
+### I don't want the form to be the 100% width. How can I adjust the width my self? 
+You can adjust the width of the forms on your site by changing the width of the element with the class .yks-mailchimpFormContainer. This is the parent container that houses the form. Adjusting this width will control the width of the input fields inside of it as well.
+
+### I input a valid MailChimp API key, but it returns invalid every time. I've already tried a new API key, but no dice. What's up? 
+The MaillChimp API requires that cURL be enabled on your server. If cURL is disabled at the server level, you will see a warning message at the top of the settings page letting you know so. You can enable cURL from within the php.ini file, generally located in the root of your WordPress installation, by following these steps: 
+<ul>
+  <li>Open php.ini</li>
+  <li>Locate the line ';extension=php_curl.dll'</li>
+  <li>Delete the semi-colon (;) from before the line, to uncomment it.</li>
+  <li>Save the file, close out and try again</li>
+</ul>
+
+If you are having trouble locating your php.ini file, you may not have access to directly edit it. If that is the case you should contact your host provider, and have them enable cURL for you
 
 Changes
 ===========
-### 3.0.1
-* Replaced missing Mail Chimp api wrapper class
+### 4.0
+* Added Interest Group/Segment Support
+* Ability To See Number of Subscriber Per List
+* View Subscribers MailChimp Profile
+* Customize Segment Group Label
+* Customize Submit Button Text
+* Redirect User to Specified Page On Submission
+* Customize Success Message
+* Added cURL Server Error Checking
+* Added further error checking to pages
 
 ### 3.0
 * Update MailChimp API to v2.0

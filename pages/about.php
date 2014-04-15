@@ -2,7 +2,7 @@
 	<div id="ykseme-icon" class="icon32"></div>
 	
 	<h2 id="ykseme-page-header">
-		About YIKES, Inc.
+		<?php _e('About YIKES, Inc.','yikes-inc-easy-mailchimp-extender'); ?>
 	</h2>
 
 	<div id="yksme-page-content">
@@ -24,24 +24,24 @@
 			</div>
 		</div>
 		
-		<h3>YIKES, Inc. Web Design and Development</h3>
+		<h3><?php _e('YIKES, Inc. Web Design and Development','yikes-inc-easy-mailchimp-extender'); ?></h3>
 		
-		<h4>Smart, effective, beautifully designed web solutions</h4>
+		<h4><?php _e('Smart, effective, beautifully designed web solutions','yikes-inc-easy-mailchimp-extender'); ?></h4>
 
 		<p>
-			YIKES is located in the Fishtown neighborhood of Philadelphia where we build custom WordPress themes and plugins every day.
+			<?php _e('YIKES is located in the Fishtown neighborhood of Philadelphia where we build custom WordPress themes and plugins every day.','yikes-inc-easy-mailchimp-extender'); ?>
 		</p>
 
 		<p> 
-			At YIKES we love WordPress! Co-Owner, Tracy Levesque has presented at WordCamps <a href="http://wordpress.tv/2013/04/12/tracy-levesque-custom-post-types-for-right-brained-folks/" target="_blank">Philly</a>, NYC, Montreal and <a href="http://wordpress.tv/2013/07/31/tracy-levesque-what-you-dont-know-you-can-do-wordpress-development-for-absolutely-everyone/" target="_blank">San Francisco</a>. She also teaches WordPress classes for <a href="http://www.meetup.com/Girl-Develop-It-Philadelphia/events/134330962/" target="_blank">Girl Develop It Philadelphia</a>.
+			<?php _e('At YIKES we love WordPress! Co-Owner, Tracy Levesque has presented at WordCamps','yikes-inc-easy-mailchimp-extender'); ?> <a href="http://wordpress.tv/2013/04/12/tracy-levesque-custom-post-types-for-right-brained-folks/" target="_blank">Philadelphia</a>, New York City, Montreal <?php _e('and','yikes-inc-easy-mailchimp-extender'); ?> <a href="http://wordpress.tv/2013/07/31/tracy-levesque-what-you-dont-know-you-can-do-wordpress-development-for-absolutely-everyone/" target="_blank">San Francisco</a>. <?php _e('She also teaches WordPress classes for','yikes-inc-easy-mailchimp-extender'); ?> <a href="http://www.meetup.com/Girl-Develop-It-Philadelphia/events/134330962/" target="_blank">Girl Develop It Philadelphia</a>.
 		</p>
 
 		<p>
-			In addition to making great WordPress sites we are also committed to the sustainable business movement. We observe the triple bottom line: people, planet, profit and work to help build a more socially, environmentally and financially sustainable local economy. We even have a <a href="http://www.yikesinc.com/company/our-office/" target="_blank">LEED Platinum office</a>.
+			<?php _e('In addition to making great WordPress sites we are also committed to the sustainable business movement. We observe the triple bottom line: people, planet, profit and work to help build a more socially, environmentally and financially sustainable local economy. We even have a','yikes-inc-easy-mailchimp-extender'); ?> <a href="http://www.yikesinc.com/company/our-office/" target="_blank"><?php _e('LEED Platinum office','yikes-inc-easy-mailchimp-extender'); ?></a>.
 		</p>
 		
 		<p>
-			If you're interested in hiring us for WordPress development, or just want to learn more about us, please visit <a href="http://www.yikesinc.com" title="YIKES, Inc." target="_blank">yikesinc.com</a>
+			<?php _e('If you\'re interested in hiring us for WordPress development, or just want to learn more about us, please visit','yikes-inc-easy-mailchimp-extender'); ?> <a href="http://www.yikesinc.com" title="YIKES, Inc." target="_blank">http://www.yikesinc.com</a>
 		</p>
 	</div>
 	

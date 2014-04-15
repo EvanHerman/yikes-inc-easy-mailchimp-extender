@@ -1,1 +1,1 @@
-<p>No API Key or List Id Exist!</p>
+<p><?php _e('No API Key or List Id Exist!','yikes-inc-easy-mailchimp-extender'); ?></p>
