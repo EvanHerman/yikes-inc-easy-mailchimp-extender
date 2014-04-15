@@ -7,7 +7,6 @@ Instructions on how to use the plugin can be [found on the FAQ](http://wordpress
 Features
 ===========
 
-**Features**
 1. Easily Import MailChimp Forms
 1. Interest Group/Segment Support
 1. Custom Widget
@@ -35,8 +34,6 @@ Installation
 
 Frequently Asked Questions
 ===========
-
-== Frequently Asked Questions ==
 
 ### Do I need to have a MailChimp Account? 
 Yes, you can register for one for free at [MailChimp](https://mailchimp.com/signup/ "MailChimp Signup").
