@@ -1060,8 +1060,7 @@ public function addScripts_frontend()
 		
         $version ='1.9.0';
 		// compare the registered version of jQuery with 1.9.0
-		
-        if ( ( version_compare( $wp_scripts["registered['jquery']"]['ver'], $version ) >= 0 ) && !is_admin() )
+        if ( ( version_compare( $wp_scripts->registered['jquery']->ver, $version ) >= 0 ) && !is_admin() )
          {   
             wp_enqueue_script( 'jquery' );
         }
