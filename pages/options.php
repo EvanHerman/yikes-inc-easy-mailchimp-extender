@@ -16,7 +16,7 @@ jQuery(document).ready(function ($) {
         return (err > 0 ? false : true);
     }
 	// ajax save the WordPress Plugin options page
-    $('#yks-mailchimp-form').submit(function (e) {
+    $('#yks-mailchimp-form').submit(function (e) {	
         e.preventDefault();
         // Make sure the api key exists
         if (blankFieldCheck()) {
@@ -32,11 +32,13 @@ jQuery(document).ready(function ($) {
                 dataType: 'json',
                 success: function (MAILCHIMP) {
                     if (MAILCHIMP == '1') {
+						console.log(MAILCHIMP);
                         $('#yks-status').html('<div class="updated"><p><?php _e('The options were saved successfully!', 'yikes-inc-easy-mailchimp-extender'); ?></p></div>');
                         $('#yks-status').slideDown('fast');
                     } else {
                         $('#yks-status').html('<div class="error"><p><?php _e('The options could not be saved (or you did not change them).', 'yikes-inc-easy-mailchimp-extender'); ?></p></div>');
                         $('#yks-status').slideDown('fast');
+						console.log(MAILCHIMP);
                     }
                 }
             });
@@ -86,7 +88,8 @@ jQuery(document).ready(function ($) {
 								} else if (response.indexOf('Invalid Mailchimp API Key') > -1) {
 									jQuery('.mailChimp_api_key_preloader').fadeOut('fast', function() {
 										jQuery('.mailChimp_api_key_validation_message').html('<img src="<?php echo plugins_url().'/yikes-inc-easy-mailchimp-extender/images/yikes-mc-error-icon.png'; ?>" alt=message > <?php _e('Sorry, that is an invalid MailChimp API key.','yikes-inc-easy-mailchimp-extender'); ?>').css("color", "red").fadeIn();
-									});								
+									});
+									console.log('MailChimp API Response : '+response);
 								} else {
 								// if our response contains anything else, other than whats above, just let them know its invalid
 									jQuery('.mailChimp_api_key_preloader').fadeOut('fast', function() {
@@ -116,6 +119,7 @@ jQuery(document).ready(function ($) {
 	yikes_mc_api_key_validate();
 	
 });
+
 // function which runs when we change the OptIn value (from single to double, or double to single)
 function changeOptinValue() {
 	var newOptinValue = jQuery('#yks-mailchimp-optIn').val();
@@ -129,6 +133,18 @@ function changeOptinValue() {
 		});	
 	}
 }
+
+function changeOptinSubscribeCheckbox() {
+	var newOptinValue = jQuery('#yks-mailchimp-optIn-checkbox').val();
+	if ( newOptinValue == '1' ) {
+		jQuery('.optin-checkbox-default-list-container').fadeIn('fast');
+	} else {
+		jQuery('.optin-checkbox-default-list-container').fadeOut('fast');
+	}
+}
+jQuery(document).ready(function() {
+	changeOptinSubscribeCheckbox();
+});
 </script>
 
 <div class="wrap">
@@ -209,7 +225,8 @@ function changeOptinValue() {
 					<!-- Optin Description -->
 					<td class="yks-settings-description">
 						<?php _e('A single opt-in will add the user to your list without any further interaction.','yikes-inc-easy-mailchimp-extender'); ?> <br /> 
-						<?php _e('A double opt-in will send an email to the user asking them to confirm their subscription.','yikes-inc-easy-mailchimp-extender'); ?>
+						<?php _e('A double opt-in will send an email to the user asking them to confirm their subscription.','yikes-inc-easy-mailchimp-extender'); ?> <br />
+						<?php _e('This will also dictate the opt-in settings for people leaving comments.','yikes-inc-easy-mailchimp-extender'); ?>
 					</td>
 				</tr>
 				<tr valign="top">
@@ -234,6 +251,45 @@ function changeOptinValue() {
 					<!-- Custom Interest Group Label Description -->
 					<td class="yks-settings-description">
 						<?php _e('Text to display above interest groups. Leave blank to use MailChimp interest group names.','yikes-inc-easy-mailchimp-extender'); ?>
+					</td>
+				</tr>
+				<tr valign="top">
+					<!-- Display OPTIN CHECKBOX SETTING -->
+					<th scope="row"><label for="yks-mailchimp-optIn-checkbox"><?php _e('Display opt-in checkbox on comment forms?','yikes-inc-easy-mailchimp-extender'); ?></label></th>
+					<td>
+						<select name="yks-mailchimp-optIn-checkbox" id="yks-mailchimp-optIn-checkbox" class="regular-text" onchange="changeOptinSubscribeCheckbox();" />
+							<option value="0"<?php echo ($this->optionVal['yks-mailchimp-optIn-checkbox'] === '0' ? ' selected' : ''); ?>><?php _e('Hide','yikes-inc-easy-mailchimp-extender'); ?></option>
+							<option value="1"<?php echo ($this->optionVal['yks-mailchimp-optIn-checkbox'] === '1' ? ' selected' : ''); ?>><?php _e('Show','yikes-inc-easy-mailchimp-extender'); ?></option>
+						</select>
+					</td>
+				</tr>
+				<tr>
+					<td></td>
+					<!-- OPTIN CHECKBOX SETTING Description -->
+					<td class="yks-settings-description">
+						<?php _e('This will display a checkbox just above the submit button on all comment forms. If selected, any users leaving comments will also be added to the mailing list.','yikes-inc-easy-mailchimp-extender'); ?>
+					</td>
+				</tr>
+				<tr class="optin-checkbox-default-list-container">
+					<!-- Custom Interest Group Label -->
+					<th scope="row"><label for="yks-mailchimp-optin-checkbox-text"><?php _e('Custom Comment Checkbox Text','yikes-inc-easy-mailchimp-extender'); ?></label></th>
+					<td>
+						<input type="text" name="yks-mailchimp-optin-checkbox-text" placeholder="Sign Me Up For <?php echo bloginfo('name'); ?>'s Newsletter" class="yks-mailchimp-interest-group-label" value="<?php echo $this->optionVal['yks-mailchimp-optin-checkbox-text']; ?>" />
+					</td>
+				</tr>
+				<tr valign="top" class="optin-checkbox-default-list-container">
+					<!-- Optin Checkbox Default List to Submit Subscribers Too -->
+					<th scope="row"><label for="yks-mailchimp-custom-optIn-message"><?php _e('Default List','yikes-inc-easy-mailchimp-extender'); ?></label></th>
+					<td>
+						<!-- get all lists from MailChimp -->
+						<?php $this->getOptionsLists(); ?>
+					</td>
+				</tr>
+				<tr class="optin-checkbox-default-list-container">
+					<td></td>
+					<td class="yks-settings-description"> <!-- Description of optin checkbox default list-->
+						<?php _e('This is the default list users will be subscribed too when submitting a comment.','yikes-inc-easy-mailchimp-extender'); ?><br />
+						<em><?php _e('It is best to select a form where only the email , first name and/or last name are required or you may run into issues.','yikes-inc-easy-mailchimp-extender'); ?></em>
 					</td>
 				</tr>
 				<tr>

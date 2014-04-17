@@ -20,6 +20,7 @@ public	$currentListsCt	= false;
 public function __construct()
 	{
 	yksemeBase::initialize();
+	add_action('init', array(&$this, 'ykes_mc_apply_filters'));
 	}
 
 /**
@@ -337,6 +338,9 @@ public function updateOptions($p)
 		$this->optionVal['single-optin-message']	= $fd['single-optin-message'];
 		$this->optionVal['double-optin-message']	= $fd['double-optin-message'];
 		$this->optionVal['interest-group-label']	= $fd['interest-group-label'];
+		$this->optionVal['yks-mailchimp-optIn-checkbox']	= $fd['yks-mailchimp-optIn-checkbox'];
+		$this->optionVal['yks-mailchimp-optIn-default-list']	= $fd['yks-mailchimp-optIn-default-list'];
+		$this->optionVal['yks-mailchimp-optin-checkbox-text']	= $fd['yks-mailchimp-optin-checkbox-text'];
 		return update_option(YKSEME_OPTION, $this->optionVal);
 		}
 	return false;
@@ -643,6 +647,25 @@ public function getLists()
 					{
 						echo "<option value='".$lkey."'>".$lvalue."</option>";		
 					}
+			}
+		echo "</select>";
+		}
+	return false;
+	}	
+// Get lists for the settings page
+// Used for default subscription list		
+public function getOptionsLists()
+	{
+	$api	= new wpyksMCAPI($this->optionVal['api-key']);
+	$lists	= $this->getListsData();
+	$listArr	= (!isset($listArr) ? $this->optionVal['lists'] : $listArr);
+	if($lists)
+		{
+		echo "<select id='yks-mailchimp-optIn-default-list' name='yks-mailchimp-optIn-default-list'>";
+		echo "<option value=''> Select List</option>";
+		foreach ($lists as  $lkey => $lvalue)
+			{
+				echo "<option ".selected( $this->optionVal['yks-mailchimp-optIn-default-list'], $lkey )." value='".$lkey."'>".$lvalue."</option>";		
 			}
 		echo "</select>";
 		}
@@ -1658,6 +1681,7 @@ public function getFrontendFormDisplay($list='', $submit_text)
 						<td colspan="2" class="yks-mailchimpFormTableSubmit">
 							<p>
 								<input type="submit" class="ykfmc-submit" id="ykfmc-submit_<?php echo $list['id']; ?>" value="Submit" />
+								<input type="hidden" name="SIGNUP" id="SIGNUP" value="blogarrific" />
 							</p>
 						</td>
 					</tr>
@@ -1972,6 +1996,133 @@ private function runUpdateTasks_1_3_0()
 	$this->optionVal['version']	= '2.2.1';
 	return true;
 	}
+
+
+		//
+		// Adding Opt-In Checkbox to comment forms
+		// To Do : Add setting to show/hide checkbox on frontend
+		//
+		// display a checkbox in the comment form
+		// submit the user to mailchimp on a successful comment submission
+		function ymc_add_meta_settings($comment_id) {
+			  add_comment_meta(
+				$comment_id, 
+				'mailchimp_subscribe', 
+				$_POST['mailchimp_subscribe'], 
+				true
+			  );
+		}
+
+		function add_after_comment_form($arg) {
+			$custom_text = trim($this->optionVal['yks-mailchimp-optin-checkbox-text']);
+			if ( $custom_text == '' ) {
+				$custom_text = __("Sign Me Up For MAILCHIMP-REPLACE-THIS-TEXT's Newsletter", "gettext");
+			} else {
+				$custom_text = $custom_text;
+			}
+			
+			$arg['comment_notes_after'] = '<input type="checkbox" name="mailchimp_subscribe" id="mailchimp_subscribe" checked="checked" /> 
+					<label for="mailchimp_subscribe">
+					 '.$custom_text.'
+					</label><br /><br />';
+			return $arg;	
+		}
+
+		// Replacing 'MAILCHIMP-REPLACE-THIS-TEXT' text with sitename
+		function wpsnippy_replace_howdy( $text ) {			
+			$newtext = get_bloginfo('name');
+			$text = str_replace( 'MAILCHIMP-REPLACE-THIS-TEXT', $newtext, $text );
+			return $text;
+		}
+		
+		
+		function ymc_subscription_add( $cid, $comment='' ) {
+			  $cid = (int) $cid;
+			  $yikes_api_key = $this->optionVal['api-key'];
+			  $exploded_api_key = explode('-',$yikes_api_key);
+			  $yikes_data_center = $exploded_api_key[1];
+			  
+			  if ( !is_object($comment) )
+				$comment = get_comment($cid);
+					
+			  if ( $comment->comment_karma == 0 ) {
+				$subscribe = get_comment_meta($cid, 'mailchimp_subscribe', true);
+					if ( $subscribe == 'on' ) {
+						global $current_user;
+						get_currentuserinfo();
+						$commenter_first_name = trim($current_user->user_firstname);
+						$commenter_last_name = trim($current_user->user_lastname);
+						
+						if( isset( $commenter_first_name ) && $commenter_first_name != '' ) { 
+							$commenter_first_name = $commenter_first_name; // use the users first name set in the profile
+						} else { 
+							$commenter_first_name = $comment->comment_author; // if no first name is set in the user profile, we will use the account name
+						}
+						
+						if( isset( $commenter_last_name ) && $commenter_last_name != '' ) { 
+							$commenter_last_name = $commenter_last_name; // use the users last name set in the profile
+						} else { 
+							$commenter_last_name = 'n/a'; // if the user has not set a last name in their profile, we set it to n/a
+						}
+						
+						// store our API key
+						// on the settings page, if they have chosen to display the checkbox
+						$api = new wpyksMCAPI($this->optionVal['api-key']);
+						
+						$apikey   = $yikes_api_key;
+						$listid   = $this->optionVal['yks-mailchimp-optIn-default-list']; // Need to set up a default list to subscribe all users to
+						$endpoint   = 'https://api.mailchimp.com';
+						$optin	= $this->optionVal['optin'];
+						
+						// try adding subscriber, catch any error thrown
+						try {
+							$retval = $api->call('lists/subscribe', array(
+								  'id'              => $listid, // form id
+								 'email'	=>	array(	
+										'email'	=>	$comment->comment_author_email
+									),
+								  'merge_vars'        => array( 
+									'FNAME'	=>	$commenter_first_name,
+									'LNAME'	=>	$commenter_last_name
+								   ), 
+								  'double_optin'	=> $optin, // double optin value (retreived from the settings page)
+								  'update_existing' => true // used to avoid the error thrown when user is already subscribed
+							));
+							return "done";
+						} catch( Exception $e ) { // catch any errors returned from MailChimp
+							$errorCode = $e->getCode;
+							if ( $errorCode = '214' ) {
+								$errorMessage = str_replace('Click here to update your profile.', '', $e->getMessage());
+								echo explode('to list', $errorMessage)[0].'.';
+								yikes_add_subscriber_alert_error();
+								// die();
+							} else { 
+								echo $e->getMessage;
+								yikes_add_subscriber_alert_error();
+								// die();
+							}
+						}
+									
+						
+					}
+			  }
+		}
+		
+		
+		// add our actions on initialize
+		// inside of __construct()
+		public function ykes_mc_apply_filters() {
+			// if the optin checkbox setting is set to show
+			// we wiill display the checkbox on the front end
+			if ( $this->optionVal['yks-mailchimp-optIn-checkbox'] == 1 ) {
+				add_action('comment_post', array(&$this, 'ymc_add_meta_settings'), 10, 2);
+				add_action('comment_approved_', array(&$this, 'ymc_subscription_add'), 60, 2);
+				add_action('comment_post', array(&$this, 'ymc_subscription_add'));
+				add_filter('gettext', array(&$this, 'wpsnippy_replace_howdy'));
+				add_filter('comment_form_defaults', array(&$this, 'add_after_comment_form'));
+			}
+		}
+	
 				
 		}
 	}

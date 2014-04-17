@@ -26,6 +26,7 @@ Easy MailChimp Forms allows you to painlessly add MailChimp signup forms to your
 1. View Individual List Subscriber Count
 1. Display Multiple Forms On a Single Page
 1. Built on the Newest MailChimp API - v2.0
+1. Comment form subscribe checkbox - add users who leave comments to your MailChimp lists
 
 
 Easy MailChimp Forms is now translated into multiple languages:

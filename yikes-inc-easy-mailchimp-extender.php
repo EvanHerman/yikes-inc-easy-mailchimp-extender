@@ -85,4 +85,4 @@ add_action('wp_head','yikes_mailch_jquery_js');
 
 function yikes_mailch_jquery_js() {?>
   <script type="text/javascript" src="<?php echo YKSEME_URL; ?>js/prototype.js"></script>
-<?php } ?>
+<?php }
