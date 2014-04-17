@@ -1203,7 +1203,7 @@ public function validateAPIkeySettings()
 		try {
 			$resp = $api->call('helper/ping', array('apikey' => $apiKey));
 			echo $resp['msg'];
-			$do_options_list = $this->getOptionsLists();
+			$this->getOptionsLists();
 			update_option('api_validation', 'valid_api_key');
 		} catch( Exception $e ) {
 			$errorMessage = str_replace('API call to helper/ping failed:', '', $e->getMessage());
