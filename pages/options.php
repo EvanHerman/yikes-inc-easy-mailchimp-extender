@@ -293,7 +293,7 @@ jQuery(document).ready(function() {
 						<!-- get all lists from MailChimp -->
 						<?php 
 						if ( $api_key_option == 'invalid_api_key' ) {
-							echo '<select><option>Please Enter a Valid API Key</option></select>';
+							echo '<div id="ajax_list_replace"><select><option>Please Enter a Valid API Key</option></select></div>';
 						} else {
 							echo '<div id="ajax_list_replace"></div>'; 
 						}
