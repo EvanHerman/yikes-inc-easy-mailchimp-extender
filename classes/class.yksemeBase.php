@@ -104,6 +104,9 @@ public function getOptionValue()
 									'single-optin-message' => __('Thank You for subscribing!', 'yikes-inc-easy-mailchimp-extender'),
 									'double-optin-message' => __('Thank You for subscribing! Check your email for the confirmation message.', 'yikes-inc-easy-mailchimp-extender'),
 									'interest-group-label'	=>	__('Select Your Area of Interest', 'yikes-inc-easy-mailchimp-extender'),
+									'yks-mailchimp-optIn-checkbox'	=> 'hide',
+									'yks-mailchimp-optIn-default-list' => array(),
+									'yks-mailchimp-optin-checkbox-text'	=> 'SIGN ME UP!',
 									'lists'		=> array()
 								);
 	$ov	= get_option(YKSEME_OPTION, $defaultVals);
