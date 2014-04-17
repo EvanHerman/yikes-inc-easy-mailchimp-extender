@@ -1203,6 +1203,7 @@ public function validateAPIkeySettings()
 		try {
 			$resp = $api->call('helper/ping', array('apikey' => $apiKey));
 			echo $resp['msg'];
+			$do_options_list = $this->getOptionsLists();
 			update_option('api_validation', 'valid_api_key');
 		} catch( Exception $e ) {
 			$errorMessage = str_replace('API call to helper/ping failed:', '', $e->getMessage());
@@ -2024,10 +2025,10 @@ private function runUpdateTasks_1_3_0()
 				$custom_text = $custom_text;
 			}
 			
-			$arg['comment_notes_after'] = '<input type="checkbox" name="mailchimp_subscribe" id="mailchimp_subscribe" checked="checked" /> 
-					<label for="mailchimp_subscribe">
+			$arg['comment_notes_after'] = '<label for="yikes_mailchimp_comment_subscribe">
+					<input type="checkbox" name="mailchimp_subscribe" id="yikes_mailchimp_comment_subscribe" checked="checked" /> 
 					 '.$custom_text.'
-					</label><br /><br />';
+					</label>';
 			return $arg;	
 		}
 

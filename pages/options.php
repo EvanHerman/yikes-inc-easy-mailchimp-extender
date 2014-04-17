@@ -80,6 +80,11 @@ jQuery(document).ready(function ($) {
 							success: function(response) {
 								// if our response contains 'Everything's Chimpty' - everythings good to go
 								if(response.indexOf('Everything\'s Chimpy!') > -1) {
+										var yikes_mc_ajax_response = response;
+										jQuery('#ajax_list_replace').html(yikes_mc_ajax_response);
+										var yikes_mc_ajax_html_content = jQuery('#ajax_list_replace').html();
+										var replaced_text = yikes_mc_ajax_html_content.replace("Everything's Chimpy!", "");
+										jQuery('#ajax_list_replace').html(replaced_text);
 									jQuery('.mailChimp_api_key_preloader').fadeOut('fast', function() {
 										jQuery('.mailChimp_api_key_validation_message').html('<img src="<?php echo plugins_url().'/yikes-inc-easy-mailchimp-extender/images/yikes-mc-checkmark.png'; ?>" alt=message > <?php _e('Valid API Key','yikes-inc-easy-mailchimp-extender'); ?>').css("color", "green").fadeIn();
 										jQuery('#submit').removeAttr('disabled');
@@ -147,6 +152,10 @@ jQuery(document).ready(function() {
 });
 </script>
 
+<!-- get and store our api key option -->
+<?php
+	$api_key_option = get_option( 'api_validation' );
+?>
 <div class="wrap">
 
 <div id="ykseme-icon" class="icon32"></div>
@@ -282,13 +291,19 @@ jQuery(document).ready(function() {
 					<th scope="row"><label for="yks-mailchimp-custom-optIn-message"><?php _e('Default List','yikes-inc-easy-mailchimp-extender'); ?></label></th>
 					<td>
 						<!-- get all lists from MailChimp -->
-						<?php $this->getOptionsLists(); ?>
+						<?php 
+						if ( $api_key_option == 'invalid_api_key' ) {
+							echo '<select><option>Please Enter a Valid API Key</option></select>';
+						} else {
+							echo '<div id="ajax_list_replace"></div>'; 
+						}
+						?>
 					</td>
 				</tr>
 				<tr class="optin-checkbox-default-list-container">
 					<td></td>
 					<td class="yks-settings-description"> <!-- Description of optin checkbox default list-->
-						<?php _e('This is the default list users will be subscribed too when submitting a comment.','yikes-inc-easy-mailchimp-extender'); ?><br />
+						<?php _e('This is the default list users will be subscribed to when submitting a comment.','yikes-inc-easy-mailchimp-extender'); ?><br />
 						<em><?php _e('It is best to select a form where only the email , first name and/or last name are required or you may run into issues.','yikes-inc-easy-mailchimp-extender'); ?></em>
 					</td>
 				</tr>

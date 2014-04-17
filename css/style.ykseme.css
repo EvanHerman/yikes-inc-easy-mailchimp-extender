@@ -577,3 +577,9 @@
 	float:left;
 	width:50%;
 }
+label[for="yikes_mailchimp_comment_subscribe"] {
+	margin: .5em 0 .5em 0;
+}
+label[for="yikes_mailchimp_comment_subscribe"]:hover {
+	cursor:pointer;
+}
