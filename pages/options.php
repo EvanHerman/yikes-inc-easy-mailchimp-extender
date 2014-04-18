@@ -72,7 +72,7 @@ jQuery(document).ready(function ($) {
 							type: 'POST',
 							url: ajaxurl,
 							data: {
-								 action: 'yks_mailchimp_form',
+								action: 'yks_mailchimp_form',
 								form_action: 'validate_api_key',
 								api_key: apiKey,
 								data_center: dataCenter
@@ -84,7 +84,8 @@ jQuery(document).ready(function ($) {
 										jQuery('#ajax_list_replace').html(yikes_mc_ajax_response);
 										var yikes_mc_ajax_html_content = jQuery('#ajax_list_replace').html();
 										var replaced_text = yikes_mc_ajax_html_content.replace("Everything's Chimpy!", "");
-										jQuery('#ajax_list_replace').html(replaced_text);
+										var new_replaced_text = replaced_text.replace("You must provide a MailChimp API key", "<select><option>Save Settings and Refresh The Page</option></select>");
+										jQuery('#ajax_list_replace').html(new_replaced_text);
 									jQuery('.mailChimp_api_key_preloader').fadeOut('fast', function() {
 										jQuery('.mailChimp_api_key_validation_message').html('<img src="<?php echo plugins_url().'/yikes-inc-easy-mailchimp-extender/images/yikes-mc-checkmark.png'; ?>" alt=message > <?php _e('Valid API Key','yikes-inc-easy-mailchimp-extender'); ?>').css("color", "green").fadeIn();
 										jQuery('#submit').removeAttr('disabled');
@@ -122,6 +123,31 @@ jQuery(document).ready(function ($) {
 	
 	// check the API key on page load
 	yikes_mc_api_key_validate();
+	
+	// Reset Plugin Ajax Request
+	$('#yks-mc-reset-plugin-settings').click(function(e) {
+		if ( confirm('Are you sure? This cannot be undone.') ) {
+			 $.ajax({
+                type: 'POST',
+                url: ajaxurl,
+                data: {
+                    action: 'yks_mailchimp_form',
+                    form_action: 'yks_mc_reset_plugin_settings'
+                },
+                dataType: 'json',
+                success: function (MAILCHIMP) {
+					alert('plugin settings successfully reset');
+					location.reload();
+                },
+				error: function() {
+					alert('Error resetting plugin settings. If the error persists, uninstall and reinstall the plugin to reset your options.');
+				}
+            });
+		} else {
+			e.preventDefault();
+		}
+		e.preventDefault();
+	});
 	
 });
 
@@ -293,7 +319,7 @@ jQuery(document).ready(function() {
 						<!-- get all lists from MailChimp -->
 						<?php 
 						if ( $api_key_option == 'invalid_api_key' ) {
-							echo '<div id="ajax_list_replace"><select><option>Please Enter a Valid API Key and Refresh The Page</option></select></div>';
+							echo '<div id="ajax_list_replace"><select><option>Please Enter a Valid API Key</option></select></div>';
 						} else {
 							echo '<div id="ajax_list_replace"><img class="mailChimp_api_key_preloader" src="'.admin_url("/images/wpspin_light.gif").'" alt="preloader" ></div>'; 
 						}
@@ -309,7 +335,7 @@ jQuery(document).ready(function() {
 				</tr>
 				<tr>
 					<td></td>
-					<td><input type="submit" name="submit" id="submit" class="button-primary" value="Save Settings" disabled="disabled"></td>
+					<td><input type="submit" name="submit" id="submit" class="button-primary" value="Save Settings" disabled="disabled"><input type="submit" name="yks-mc-reset-plugin-settings" id="yks-mc-reset-plugin-settings" class="button yikes-mc-button-red" value="Reset Plugin Settings"></td>
 				</tr>	
 			</tbody>
 		</table>

@@ -1190,7 +1190,23 @@ public function registerMailChimpWidget()
 
 
 /***** FORM DATA
- ****************************************************************************************************/	
+ ****************************************************************************************************/
+public function yks_resetPluginSettings() {
+	// reset the plugin settings back to defaults
+	$this->optionVal['api-key']	= '';
+	$this->optionVal['flavor']	= '1';
+	$this->optionVal['debug']	= '0';
+	$this->optionVal['optin']	= 'true';
+	$this->optionVal['single-optin-message']	= __('Thank You for subscribing!', 'yikes-inc-easy-mailchimp-extender');
+	$this->optionVal['double-optin-message']	= __('Thank You for subscribing! Check your email for the confirmation message.', 'yikes-inc-easy-mailchimp-extender');
+	$this->optionVal['interest-group-label']	= $fd['interest-group-label'];
+	$this->optionVal['yks-mailchimp-optIn-checkbox']	= 'hide';
+	$this->optionVal['yks-mailchimp-optIn-default-list']	= array();
+	$this->optionVal['yks-mailchimp-optin-checkbox-text']	= 'SIGN ME UP!';
+	update_option('api_validation' , 'invalid_api_key');
+		return update_option(YKSEME_OPTION, $this->optionVal);	
+}
+ 
 // Make a call to MailChimp API to validate the provided API key
 // calls the helper/ping method, and returns true or false 
 public function validateAPIkeySettings()
@@ -2033,7 +2049,7 @@ private function runUpdateTasks_1_3_0()
 		}
 
 		// Replacing 'MAILCHIMP-REPLACE-THIS-TEXT' text with sitename
-		function wpsnippy_replace_howdy( $text ) {			
+		function yikes_mc_replace_this_text( $text ) {			
 			$newtext = get_bloginfo('name');
 			$text = str_replace( 'MAILCHIMP-REPLACE-THIS-TEXT', $newtext, $text );
 			return $text;
@@ -2122,7 +2138,7 @@ private function runUpdateTasks_1_3_0()
 				add_action('comment_post', array(&$this, 'ymc_add_meta_settings'), 10, 2);
 				add_action('comment_approved_', array(&$this, 'ymc_subscription_add'), 60, 2);
 				add_action('comment_post', array(&$this, 'ymc_subscription_add'));
-				add_filter('gettext', array(&$this, 'wpsnippy_replace_howdy'));
+				add_filter('gettext', array(&$this, 'yikes_mc_replace_this_text'));
 				add_filter('comment_form_defaults', array(&$this, 'add_after_comment_form'));
 			}
 		}
