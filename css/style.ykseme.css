@@ -660,3 +660,9 @@ label[for="yikes_mailchimp_comment_subscribe"] {
 label[for="yikes_mailchimp_comment_subscribe"]:hover {
 	cursor:pointer;
 }
+
+.yikes_widget_logo {
+	display:block;
+	margin:0 auto;
+	width: 80px;
+}

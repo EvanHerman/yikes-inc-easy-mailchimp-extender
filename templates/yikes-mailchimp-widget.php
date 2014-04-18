@@ -65,14 +65,14 @@ class yikes_MC_widget extends WP_Widget {
 					if (empty($imported_lists)) {
 						?>
 							<div class="yikes-mailchimp-widget-error" style="text-align:center;">
-								<!--  <img src="<?php echo plugins_url(); ?>/yikes-inc-easy-mailchimp-extender/images/mailchimp_icon_50x50.png" alt="MailChimp Logo" /> -->
+								<img src="<?php echo plugins_url(); ?>/yikes-inc-easy-mailchimp-extender/images/yikes_logo.png" class="yikes_widget_logo" />
 								<p><?php _e('Oops! It looks like you haven\'t imported any lists yet. You must import at least one list to use the Easy MailChimp widget.','yikes-inc-easy-mailchimp-extender'); ?></p>
 							</div>
 						<?php	
 						} elseif (!empty($imported_lists) && $instance['selected_form'] == 'Select a Form to Display' || !empty($imported_lists) && !$instance['selected_form'] ) {
 						?>
 							<div class="yikes-mailchimp-widget-error" style="text-align:center;">
-								<!--  <img src="<?php echo plugins_url(); ?>/yikes-inc-easy-mailchimp-extender/images/mailchimp_icon_50x50.png" alt="MailChimp Logo" /> -->
+								<img src="<?php echo plugins_url(); ?>/yikes-inc-easy-mailchimp-extender/images/yikes_logo.png" class="yikes_widget_logo" />
 								<p><?php _e('Oops! It looks like you forgot to select a form to display here. Go to \'Appearance > Widgets\' and select a form to display.','yikes-inc-easy-mailchimp-extender'); ?></p>
 							</div>
 						<?php	
@@ -97,11 +97,14 @@ class yikes_MC_widget extends WP_Widget {
 		}
 			
 		// Widget Backend 
-		 function form($instance) {    
-			$instance = wp_parse_args( (array) $instance, $this->w_arg );
+		 function form($instance) {    			
+		 
 			$is_api_valid = get_option('api_validation');
-			
+		 
 			if( $is_api_valid == 'valid_api_key' ) {
+				
+				$instance = wp_parse_args( (array) $instance );
+				
 				// check and store values for each field
 					//title
 					if ( isset( $instance[ 'title' ] ) ) {
@@ -145,7 +148,7 @@ class yikes_MC_widget extends WP_Widget {
 				?>
 					<div class="yikes-mailchimp-widget-error" style="text-align:center;">
 						<br />
-						<!-- <img src="<?php echo plugins_url(); ?>/yikes-inc-easy-mailchimp-extender/images/mailchimp_icon_50x50.png" alt="MailChimp Logo" /> -->
+						<img src="<?php echo plugins_url(); ?>/yikes-inc-easy-mailchimp-extender/images/yikes_logo.png" class="yikes_widget_logo" />
 						<p><?php _e('Oops! It looks like you haven\'t added your API key! Head over to the','yikes-inc-easy-mailchimp-extender'); ?> <a href="admin.php?page=yks-mailchimp-form" class="yks-mailchimp-list-add">MailChimp <?php _e('Settings page','yikes-inc-easy-mailchimp-extender'); ?></a> <?php _e('and add your API Key.','yikes-inc-easy-mailchimp-extender'); ?></p>
 					</div>
 				<?php

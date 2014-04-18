@@ -94,8 +94,6 @@ Changes
 * Customize Success Message
 * Added cURL Server Error Checking
 * Added further error checking to pages
-* Added checkbox to comment forms, to subscribe commenters 
-* Added ability to reset plugin settings to default
 
 ### 3.0
 * Update MailChimp API to v2.0
