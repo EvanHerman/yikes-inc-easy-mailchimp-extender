@@ -7,7 +7,6 @@ Instructions on how to use the plugin can be [found on the FAQ](http://wordpress
 Features
 ===========
 
-**Features**
 1. Easily Import MailChimp Forms
 1. Interest Group/Segment Support
 1. Custom Widget
@@ -95,6 +94,8 @@ Changes
 * Customize Success Message
 * Added cURL Server Error Checking
 * Added further error checking to pages
+* Added checkbox to comment forms, to subscribe commenters 
+* Added ability to reset plugin settings to default
 
 ### 3.0
 * Update MailChimp API to v2.0
