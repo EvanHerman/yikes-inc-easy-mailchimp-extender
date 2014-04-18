@@ -12,27 +12,15 @@
 .yks-margin-left {margin-left: 2em;}
 
 
-/* =========== Admin screens =========== */
-
 /*	Widget Icon !!  */
-/* including an image in the widget box
+/* including an image in the widget box */
 *[id*="_yikes_mc_widget"] > div.widget-top > div.widget-title > h4:before {
-	content: url('../images/mailchimp_icon_25x25.png');
+	content: url('../images/yikes_logo_widget_icon.png');
 	width:33px;
 	float:left;
 	height:8px;
-	margin-top:-7px;
+	margin: -5px 8px 0 -5px;
 }
-
-/* including an svg image into the widget header, not working
-*[id*="_yikes_mc_widget"] > div.widget-top > div.widget-title > h4:before {
-	content: "\f119";
-	width:33px;
-	float:left;
-	height:8px;
-	margin-top:-7px;
-}
-*/
 
 /* Red Button Style */
 .wp-core-ui .yikes-mc-button-red {

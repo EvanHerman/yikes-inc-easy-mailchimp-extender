@@ -27,14 +27,18 @@ class yikes_MC_widget extends WP_Widget {
 					<label for="<?php echo $this->get_field_id( 'selected_form' ); ?>"><?php _e('Select Which Form You Would Like To Display:','yikes-inc-easy-mailchimp-extender'); ?> <br />
 							<select id="<?php echo $this->get_field_id('selected_form'); ?>" class="yikes_mc_widget_selected_form_dropdown" name="<?php echo $this->get_field_name('selected_form'); ?>" type="text">
 									<!-- construct selectable options based on imported lists -->
-									<option value="Select a Form to Display"<?php selected($instance["selected_form"], 'Select a Form to Display' ); ?>><?php _e('Select a Form to Display','yikes-inc-easy-mailchimp-extender'); ?></option>
+									<option value="Select a Form to Display"><?php _e('Select a Form to Display','yikes-inc-easy-mailchimp-extender'); ?></option>
 									<?php 
 									foreach ($imported_lists as $list_id) { 
 											$listID = $list_id['id'];
 											$listName = $list_id['name'];
-									?>		
-											<option value="<?php echo $listID; ?>" <?php selected($instance["selected_form"], $listID ); ?>><?php echo $listName; ?></option>
-									<?php } ?>
+											// determine if instance['selected_form'] isset to avoid PHP warnings
+											if ( isset ( $instance["selected_form"] ) ) {
+												?><option value="<?php echo $listID; ?>" <?php selected($instance["selected_form"], $listID ); ?>><?php echo $listName; ?></option><?php
+											} else {
+												?><option value="<?php echo $listID; ?>"><?php echo $listName; ?></option><?php
+											}
+									 } ?>
 							</select>
 					</label>
 			<?php
