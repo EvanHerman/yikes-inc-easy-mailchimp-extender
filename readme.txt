@@ -3,7 +3,7 @@ Contributors: yikesinc, hiwhatsup, liljimmi, eherman24, seriouslysean
 Donate link: http://yikesinc.com
 Tags: mailchimp, marketing, email, mailing lists, newsletter, signup, forms, signup form
 Requires at least: 3.0
-Tested up to: 3.8.1
+Tested up to: 3.9
 Stable tag: 4.0
 
 Easy MailChimp Forms allows you to painlessly add MailChimp signup forms to your WordPress site.
