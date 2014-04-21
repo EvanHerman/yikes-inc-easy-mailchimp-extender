@@ -27,6 +27,8 @@ Easy MailChimp Forms allows you to painlessly add MailChimp signup forms to your
 1. Display Multiple Forms On a Single Page
 1. Built on the Newest MailChimp API - v2.0
 1. Comment form subscribe checkbox - add users who leave comments to your MailChimp lists
+1. cURL error detection
+1. custom tinyMCE button
 
 
 Easy MailChimp Forms is now translated into multiple languages:
@@ -136,6 +138,8 @@ If you are having trouble locating your php.ini file, you may not have access to
 * Customize Success Message
 * Added cURL Server Error Checking
 * Added further error checking to pages
+* added cURL error detection
+* Custom TinyMCE shortcode button
 
 = 3.0 =
 * Update Mail Chimp API to v2.0

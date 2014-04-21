@@ -1,3 +1,8 @@
+<?php 
+	// check if cURL is enabled on the server level
+	// if it is enabled, carry on...
+	if ( $this->yikes_curl_check() ) { 
+?>	
 <script type="text/javascript">
 jQuery(document).ready(function ($) {
 	// check for blank fields
@@ -135,7 +140,7 @@ jQuery(document).ready(function ($) {
                     form_action: 'yks_mc_reset_plugin_settings'
                 },
                 dataType: 'json',
-                success: function (MAILCHIMP) {
+                success: function () {
 					alert('plugin settings successfully reset');
 					location.reload();
                 },
@@ -148,7 +153,7 @@ jQuery(document).ready(function ($) {
 		}
 		e.preventDefault();
 	});
-	
+		
 });
 
 // function which runs when we change the OptIn value (from single to double, or double to single)
@@ -188,9 +193,9 @@ jQuery(document).ready(function() {
 	<h2 id="ykseme-page-header">
 		<?php _e('Easy Mailchimp Forms by YIKES, Inc.','yikes-inc-easy-mailchimp-extender'); ?>
 	</h2>
-
+		
 	<h3><?php _e('Manage Mailchimp Forms Settings','yikes-inc-easy-mailchimp-extender'); ?></h3>
-	
+
 	<div class="yks-status" id="yks-status"></div>
 	
 	<form method="post" name="yks-mailchimp-form" id="yks-mailchimp-form">
@@ -374,4 +379,44 @@ jQuery(document).ready(function() {
 </div>
 
 <!-- Display Tracking Info? -->
-<?php $this->getTrackingGif('options'); ?>
+<?php $this->getTrackingGif('options'); 
+
+// if cURL is not enabled on the site
+// we need to display an error and let the user know how to resolve the issue
+} else {
+?>
+
+<div class="wrap">
+
+<div id="ykseme-icon" class="icon32"></div>
+	<h2 id="ykseme-page-header">
+		<?php _e('Easy Mailchimp Forms by YIKES, Inc.','yikes-inc-easy-mailchimp-extender'); ?>
+	</h2>
+	
+	<div class="error">
+		<h2><?php _e( 'Error', 'yikes-inc-easy-mailchimp-extender' ); ?></h2>
+        <p><?php _e( 'We\'re sorry, but cURL is disabled on your server. The MailChimp API utilizes cURL to send and retreive data.', 'yikes-inc-easy-mailchimp-extender' ); ?></p>
+		<?php
+			$this->yks_check_if_php_ini_exists();
+		?>
+		<hr />
+		<input type="submit" name="submit" class="button-primary yikes_cURL_help_button" value="<?php _e('Help!', 'yikes-inc-easy-mailchimp-extender'); ?>" onclick=" jQuery('.yikes_phpinfo_container').slideUp(); jQuery('.yikes_cURL_instructions_hidden').slideToggle();" /> <input type="submit" name="submit" class="button-secondary yikes_cURL_info_button" value="<?php _e('What is cURL?', 'yikes-inc-easy-mailchimp-extender'); ?>" onclick="window.open('http://www.php.net/manual/en/book.curl.php');" /> <input type="submit" name="submit" class="button-secondary yikes_cURL_info_button" value="<?php _e('Check phpinfo()', 'yikes-inc-easy-mailchimp-extender'); ?>" onclick="jQuery('.yikes_phpinfo_container').slideToggle(); jQuery('.yikes_cURL_instructions_hidden').slideUp();" />
+		<div class="yikes_cURL_instructions_hidden">	
+			<strong><p><?php _e( 'Steps To Resolve The Issue', 'yikes-inc-easy-mailchimp-extender' ); ?> :</p></strong>
+			<ol style="margin-left:2em;">
+				<li><?php _e( 'You can enable cURL by turning on the cURL module within your php.ini file', 'yikes-inc-easy-mailchimp-extender' ); ?> <em style="margin-left:.75em;">   <?php _e('You should find the php.ini file located here : ', 'yikes-inc-easy-mailchimp-extender' ); ?><?php echo $this->yks_display_php_ini_location(); ?></em></li>
+				<li><?php _e( 'Once found, open up php.ini and locate the line ";extension=php_curl.dll".', 'yikes-inc-easy-mailchimp-extender' ); ?></li>
+				<li><?php _e( 'Remove the semi colon before the line, to un-comment it and make the module active.', 'yikes-inc-easy-mailchimp-extender' ); ?></li>
+				<li><?php _e( 'Re-save and close the file.', 'yikes-inc-easy-mailchimp-extender' ); ?></li>
+				<li><?php _e( 'Re-load this page.', 'yikes-inc-easy-mailchimp-extender' ); ?></li>
+			</ol>
+		</div>
+		<div class="yikes_phpinfo_container">
+			<?php
+				include_once (YKSEME_PATH . 'process/php_info.php');
+			?>
+		</div>
+    </div>
+	
+</div>
+<?php } ?>

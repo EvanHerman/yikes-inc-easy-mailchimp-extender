@@ -106,7 +106,6 @@ case 'yks_get_subscriberInfo':
 	$get_subscribers = $yksemeBase->getSubscriberInfo($_POST['list_id'], $_POST['user_email']);
 	echo '1';
 	break;	
-	
 
 		
 		}

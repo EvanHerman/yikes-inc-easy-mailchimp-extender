@@ -69,6 +69,11 @@ public function initialize()
 	// Add the CSS/JS files
 	add_action('admin_print_styles',		array(&$this, 'addStyles'));
 	add_action('admin_print_scripts',		array(&$this, 'addScripts'));
+	// tinymce buttons
+	add_action( 'admin_head', array(&$this, 'yks_mc_add_tinyMCE') );
+	add_filter( 'mce_external_plugins', array(&$this, 'yks_mc_add_tinymce_plugin') );
+	// Add to line 1 form WP TinyMCE
+	add_filter( 'mce_buttons', array(&$this, 'yks_mc_add_tinymce_button') );
 	if(!is_admin())
 		{
 		add_action('wp_print_styles', array(&$this, 'addStyles_frontend'));
@@ -1272,12 +1277,13 @@ public function yks_resetPluginSettings() {
 	$this->optionVal['optin']	= 'true';
 	$this->optionVal['single-optin-message']	= __('Thank You for subscribing!', 'yikes-inc-easy-mailchimp-extender');
 	$this->optionVal['double-optin-message']	= __('Thank You for subscribing! Check your email for the confirmation message.', 'yikes-inc-easy-mailchimp-extender');
-	$this->optionVal['interest-group-label']	= $fd['interest-group-label'];
+	$this->optionVal['interest-group-label']	= '';
 	$this->optionVal['yks-mailchimp-optIn-checkbox']	= 'hide';
 	$this->optionVal['yks-mailchimp-optIn-default-list']	= array();
 	$this->optionVal['yks-mailchimp-optin-checkbox-text']	= 'SIGN ME UP!';
 	update_option('api_validation' , 'invalid_api_key');
-		return update_option(YKSEME_OPTION, $this->optionVal);	
+		return update_option(YKSEME_OPTION, $this->optionVal);
+		
 }
  
 // Make a call to MailChimp API to validate the provided API key
@@ -2244,8 +2250,7 @@ private function runUpdateTasks_1_3_0()
 						
 					}
 			  }
-		}
-		
+		}	
 		
 		// add our actions on initialize
 		// inside of __construct()
@@ -2260,7 +2265,75 @@ private function runUpdateTasks_1_3_0()
 				add_filter('comment_form_defaults', array(&$this, 'add_after_comment_form'));
 			}
 		}
-	
+		
+		// Check if cURL is enabled at the server level
+		// used on the options.php page
+		public function yikes_curl_check() {
+				if  (in_array  ('curl', get_loaded_extensions())) {
+					return true;
+				}
+				else {
+					return false;
+				}
+		}
+
+		// check if php.ini exists in the site root
+		function yks_check_if_php_ini_exists() {
+
+			// get php ini path from
+			// the actively loaded php ini file
+			$wordpress_site_root = str_replace('php.ini','',php_ini_loaded_file());
+			// file name
+			$filename = '/php.ini';
+			
+			$php_ini_location = php_ini_loaded_file();
+			
+			if (file_exists($wordpress_site_root.$filename)) {
+				echo "<span class='yks_mc_no_phpini_success'>Good News </span>: We have located your <strong>".str_replace('/','',$filename)."</strong> file inside the directory <strong>".$wordpress_site_root."</strong>";
+				$filename = '/php.ini';
+			} else {
+				echo "<span class='yks_mc_no_phpini_alert'>Alert </span>: No <strong>".str_replace('/','',$filename)."</strong> was located in <strong>".$wordpress_site_root.'/'."</strong>.";
+				$filename = '/php.ini';
+			}
+		
+		
+		}
+		
+		// display the php.ini location to the user
+		function yks_display_php_ini_location() {
+			echo php_ini_loaded_file();
+		}
+			
+
+		//
+		//	Add TinyMCE Buttons to the TinyMCE Editor
+		//	We'll use the button to place form shortcodes!
+		//
+			// Custom TinyMCE Button to insert form shortcodes onto pages and posts
+			function yks_mc_add_tinyMCE() {
+				global $typenow;
+				// only on Post Type: post and page
+				if( ! in_array( $typenow, array( 'post', 'page' ) ) )
+					return ;
+			}
+
+			// inlcude the js for tinymce
+			function yks_mc_add_tinymce_plugin( $plugin_array ) {
+				$plugin_array['yks_mc_tinymce_button'] = plugins_url( '/../js/yks_mc_tinymce_button.js', __FILE__ );
+				// Print all plugin js path
+				// var_dump( $plugin_array );
+				return $plugin_array;
+			}
+
+			// Add the button key for address via JS
+			function yks_mc_add_tinymce_button( $buttons ) {
+				array_push( $buttons, 'yks_mc_tinymce_button_key' );
+				// Print all buttons
+				// var_dump( $buttons );
+				return $buttons;
+			}
+		
+			
 				
 		}
 	}

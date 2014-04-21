@@ -257,7 +257,7 @@ class wpyksMCAPI {
         curl_setopt($this->ch, CURLOPT_FOLLOWLOCATION, true);
         curl_setopt($this->ch, CURLOPT_HEADER, false);
         curl_setopt($this->ch, CURLOPT_RETURNTRANSFER, true);
-        curl_setopt($this->ch, CURLOPT_CONNECTTIMEOUT, 30);
+        curl_setopt($this->ch, CURLOPT_CONNECTTIMEOUT, 45);
         curl_setopt($this->ch, CURLOPT_TIMEOUT, $opts['timeout']);
 
 		
