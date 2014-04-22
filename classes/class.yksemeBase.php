@@ -70,10 +70,15 @@ public function initialize()
 	add_action('admin_print_styles',		array(&$this, 'addStyles'));
 	add_action('admin_print_scripts',		array(&$this, 'addScripts'));
 	// tinymce buttons
-	add_action( 'admin_head', array(&$this, 'yks_mc_add_tinyMCE') );
-	add_filter( 'mce_external_plugins', array(&$this, 'yks_mc_add_tinymce_plugin') );
-	// Add to line 1 form WP TinyMCE
-	add_filter( 'mce_buttons', array(&$this, 'yks_mc_add_tinymce_button') );
+	// only add filters and actions on wp 3.9 and above
+	if ( get_bloginfo( 'version' ) >= '3.9' ) {
+		add_action( 'admin_head', array(&$this, 'yks_mc_add_tinyMCE') );
+		add_filter( 'mce_external_plugins', array(&$this, 'yks_mc_add_tinymce_plugin') );
+		add_filter( 'mce_buttons', array(&$this, 'yks_mc_add_tinymce_button') );
+		// pass our lists data to tinyMCE button for use
+		foreach( array('post.php','post-new.php') as $hook )
+		 add_action( "admin_head-$hook", array(&$this, 'yks_mc_js_admin_head') );
+	}
 	if(!is_admin())
 		{
 		add_action('wp_print_styles', array(&$this, 'addStyles_frontend'));
@@ -2266,6 +2271,7 @@ private function runUpdateTasks_1_3_0()
 			}
 		}
 		
+		
 		// Check if cURL is enabled at the server level
 		// used on the options.php page
 		public function yikes_curl_check() {
@@ -2308,33 +2314,69 @@ private function runUpdateTasks_1_3_0()
 		//
 		//	Add TinyMCE Buttons to the TinyMCE Editor
 		//	We'll use the button to place form shortcodes!
-		//
+		//  NOTE: This only runs on 3.9 or greater -> due to tinyMCE 4.0
+		//		
 			// Custom TinyMCE Button to insert form shortcodes onto pages and posts
-			function yks_mc_add_tinyMCE() {
-				global $typenow;
-				// only on Post Type: post and page
-				if( ! in_array( $typenow, array( 'post', 'page' ) ) )
-					return ;
-			}
+					function yks_mc_add_tinyMCE() {
+						
+							global $typenow;
+							// only on Post Type: post and page
+							if( ! in_array( $typenow, array( 'post', 'page' ) ) )
+								return ;
+						
+					}
 
-			// inlcude the js for tinymce
-			function yks_mc_add_tinymce_plugin( $plugin_array ) {
-				$plugin_array['yks_mc_tinymce_button'] = plugins_url( '/../js/yks_mc_tinymce_button.js', __FILE__ );
-				// Print all plugin js path
-				// var_dump( $plugin_array );
-				return $plugin_array;
-			}
+					// inlcude the js for tinymce
+					function yks_mc_add_tinymce_plugin( $plugin_array ) {
+						
+							$plugin_array['yks_mc_tinymce_button'] = plugins_url( '/../js/yks_mc_tinymce_button.js', __FILE__ );
+							// Print all plugin js path
+							// var_dump( $plugin_array );
+							return $plugin_array;
+						
+					}
 
-			// Add the button key for address via JS
-			function yks_mc_add_tinymce_button( $buttons ) {
-				array_push( $buttons, 'yks_mc_tinymce_button_key' );
-				// Print all buttons
-				// var_dump( $buttons );
-				return $buttons;
-			}
-		
+					// Add the button key for address via JS
+					function yks_mc_add_tinymce_button( $buttons ) {
+					
+							array_push( $buttons, 'yks_mc_tinymce_button_key' );
+							// Print all buttons
+							// var_dump( $buttons );
+							return $buttons;
+						
+					}
+					
+					 /**
+					 * Localize Script
+					 * Pass our imported list data, to the JS file
+					 * to build the dropdown list in the modal
+					 */
+					function yks_mc_js_admin_head() 
+					{
+						
+							$yks_mc_imported_list_data = $this->optionVal['lists'];
+								// our list data array, we will pass to the js file
+								$list_value_array = array();
+								$i = 0;
+							// loop over the list data
+							foreach ( $yks_mc_imported_list_data as $single_list ) {
+								// store it temporarily and push it back to our array
+								$list_value_array[$i]['text'] = $single_list['name'];
+								$list_value_array[$i]['value'] = $single_list['id'];
+								$i++;
+							}
+							?>
+						<!-- TinyMCE Shortcode Plugin -->
+						<script type='text/javascript'>
+						var yks_mc_lists_data = {
+							'lists': <?php echo json_encode($list_value_array); ?>
+						};
+						</script>
+						<!-- TinyMCE Shortcode Plugin -->
+							<?php
+					
+					}
 			
-				
 		}
 	}
 ?>

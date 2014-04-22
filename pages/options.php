@@ -82,6 +82,7 @@ jQuery(document).ready(function ($) {
 								api_key: apiKey,
 								data_center: dataCenter
 							},
+							dataType: 'html',
 							success: function(response) {
 								// if our response contains 'Everything's Chimpty' - everythings good to go
 								if(response.indexOf('Everything\'s Chimpy!') > -1) {
@@ -186,6 +187,7 @@ jQuery(document).ready(function() {
 <!-- get and store our api key option -->
 <?php
 	$api_key_option = get_option( 'api_validation' );
+	$wordPress_version = get_bloginfo( 'version' );
 ?>
 <div class="wrap">
 
@@ -196,8 +198,16 @@ jQuery(document).ready(function() {
 		
 	<h3><?php _e('Manage Mailchimp Forms Settings','yikes-inc-easy-mailchimp-extender'); ?></h3>
 
-	<div class="yks-status" id="yks-status"></div>
+	<!-- check WordPress version num. and display an error if its outdated -->
+	<?php if ( $wordPress_version < '3.9' ) { ?>
+		<div class="error">
+			<h3><?php _e( 'WordPress Version Number Error', 'yikes-inc-easy-mailchimp-extender' ); ?></h3>
+			<p><?php _e( 'We\'re sorry, but it looks like your using an outdated version of WordPress. You won\'t be able to access the tinyMCE button to insert forms into pages and posts unless you update to 3.9!', 'yikes-inc-easy-mailchimp-extender' ); ?></p>
+		</div>
+	<?php } ?>
 	
+	<div class="yks-status" id="yks-status"></div>
+		
 	<form method="post" name="yks-mailchimp-form" id="yks-mailchimp-form">
 		
 		<table class="form-table yks-admin-form">
