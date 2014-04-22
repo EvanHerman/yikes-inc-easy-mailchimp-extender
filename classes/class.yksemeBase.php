@@ -1219,9 +1219,13 @@ public function processShortcode($p)
 		// List form
 		include YKSEME_PATH.'templates/shortcode_form.php';
 		}
-	else
+		// if there is no api key entered, or it's an invalid api key
+	else if ( $this->optionVal['api-key'] == '' || get_option( 'api_validation' ) == 'invalid_api_key' )
 		{
-		include YKSEME_PATH.'templates/shortcode_error_data.php';
+		include YKSEME_PATH.'templates/shortcode_error_no_API_key.php';
+		// else if the form was removed from the lists page
+		} else {
+			include YKSEME_PATH.'templates/shortcode_error_data.php';
 		}
 	$shortcode = ob_get_contents();
 	ob_end_clean();
