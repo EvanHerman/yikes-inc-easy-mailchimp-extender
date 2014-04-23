@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: Yikes Inc. Easy MailChimp Plugin\n"
-"POT-Creation-Date: 2014-03-13 16:19-0500\n"
-"PO-Revision-Date: 2014-03-13 16:20-0500\n"
+"POT-Creation-Date: 2014-04-23 13:19-0500\n"
+"PO-Revision-Date: 2014-04-23 14:46-0500\n"
 "Last-Translator: Evan <evan.m.herman@gmail.com>\n"
 "Language-Team: Yikes Inc. <evan@yikesinc.com>\n"
 "Language: cy\n"
@@ -15,216 +15,220 @@ msgstr ""
 "X-Poedit-KeywordsList: __;_e\n"
 "X-Poedit-SearchPath-0: ../.\n"
 
-#: .././classes/class.yksemeBase.php:103
+#: .././classes/class.yksemeBase.php:114
+#: .././classes/class.yksemeBase.php:1287
 msgid "Thank You for subscribing!"
 msgstr "Diolch yn fawr am danysgrifio!"
 
-#: .././classes/class.yksemeBase.php:104
+#: .././classes/class.yksemeBase.php:115
+#: .././classes/class.yksemeBase.php:1288
 msgid ""
 "Thank You for subscribing! Check your email for the confirmation message."
 msgstr ""
 "Diolch yn fawr am danysgrifio! Edrychwch ar eich e-bost ar gyfer y neges "
 "cadarnhau."
 
-#: .././classes/class.yksemeBase.php:105
+#: .././classes/class.yksemeBase.php:116
 msgid "Select Your Area of Interest"
 msgstr "Dewiswch Eich Ardal o Ddiddordeb"
 
-#: .././classes/class.yksemeBase.php:804
+#: .././classes/class.yksemeBase.php:917
 msgid "Click on a subscriber to see further information"
 msgstr "Cliciwch ar danysgrifiwr i weld rhagor o wybodaeth"
 
-#: .././classes/class.yksemeBase.php:807
+#: .././classes/class.yksemeBase.php:920
 msgid "E-Mail"
 msgstr "E-bost"
 
-#: .././classes/class.yksemeBase.php:808
+#: .././classes/class.yksemeBase.php:921
 msgid "Date Subscribed"
 msgstr "Dyddiad tanysgrifiedig"
 
-#: .././classes/class.yksemeBase.php:828
+#: .././classes/class.yksemeBase.php:941
 msgid "Sorry You Don't Currently Have Any Subscribers In This List!"
 msgstr ""
 "Mae'n ddrwg gennym Nid ydych hyn o bryd unrhyw Tanysgrifwyr Yn y Rhestr!"
 
-#: .././classes/class.yksemeBase.php:885
+#: .././classes/class.yksemeBase.php:998
 msgid "Back to Subscriber List"
 msgstr "Yn ôl i'r Rhestr Subscriber"
 
-#: .././classes/class.yksemeBase.php:886
+#: .././classes/class.yksemeBase.php:999
 msgid "Subscriber Details"
 msgstr "Manylion tanysgrifiwr"
 
-#: .././classes/class.yksemeBase.php:897
+#: .././classes/class.yksemeBase.php:1010
 msgid "Overview"
 msgstr "trosolwg"
 
-#: .././classes/class.yksemeBase.php:902
+#: .././classes/class.yksemeBase.php:1015
 msgid "First Name"
 msgstr "Enw Cyntaf"
 
-#: .././classes/class.yksemeBase.php:905
+#: .././classes/class.yksemeBase.php:1018
 msgid "Last Updated"
 msgstr "Diweddarwyd ddiwethaf"
 
-#: .././classes/class.yksemeBase.php:908
+#: .././classes/class.yksemeBase.php:1021
 msgid "Preferred Email Type"
 msgstr "Ffefrir Math E-bost"
 
-#: .././classes/class.yksemeBase.php:915
+#: .././classes/class.yksemeBase.php:1028
 msgid "Last Name"
 msgstr "Cyfenw"
 
-#: .././classes/class.yksemeBase.php:918
+#: .././classes/class.yksemeBase.php:1031
 msgid "Language"
 msgstr "iaith"
 
-#: .././classes/class.yksemeBase.php:941
+#: .././classes/class.yksemeBase.php:1054
 msgid "Groups Subscribed To"
 msgstr "Grwpiau tanysgrifio i"
 
-#: .././classes/class.yksemeBase.php:992
+#: .././classes/class.yksemeBase.php:1104
 msgid "Subscriber Notes"
 msgstr "Nodiadau tanysgrifiwr"
 
-#: .././classes/class.yksemeBase.php:997
+#: .././classes/class.yksemeBase.php:1109
 msgid "Written by"
 msgstr "ysgrifennwyd gan"
 
-#: .././classes/class.yksemeBase.php:997
+#: .././classes/class.yksemeBase.php:1109
 msgid "Created on"
 msgstr "Crëwyd ar"
 
-#: .././classes/class.yksemeBase.php:1132
-#: .././classes/class.yksemeBase.php:1134
+#: .././classes/class.yksemeBase.php:1251
+#: .././classes/class.yksemeBase.php:1253
 msgid "MailChimp Forms"
 msgstr "Ffurflenni MailChimp"
 
-#: .././classes/class.yksemeBase.php:1134
+#: .././classes/class.yksemeBase.php:1253
 msgid "MailChimp Settings"
 msgstr "Gosodiadau MailChimp"
 
-#: .././classes/class.yksemeBase.php:1135
+#: .././classes/class.yksemeBase.php:1254
 msgid "Manage List Forms"
 msgstr "Rheoli Ffurflenni Rhestr"
 
-#: .././classes/class.yksemeBase.php:1136 .././pages/about.php:5
+#: .././classes/class.yksemeBase.php:1255 .././pages/about.php:5
 msgid "About YIKES, Inc."
 msgstr "Amdanom YIKES, Inc"
 
-#: .././classes/class.yksemeBase.php:1293
+#: .././classes/class.yksemeBase.php:1430
 msgid "One or more fields are empty"
 msgstr "Un neu fwy o feysydd yn wag"
 
-#: .././classes/class.yksemeBase.php:1343
+#: .././classes/class.yksemeBase.php:1480
 msgid "Your List Was Successfully Saved!"
 msgstr "Eich Rhestr A oedd Cadwyd yn llwyddiannus!"
 
-#: .././classes/class.yksemeBase.php:1345
+#: .././classes/class.yksemeBase.php:1482
 msgid "I'm sorry there was an error with your request."
 msgstr "Mae'n ddrwg gen i, roedd gwall gyda'ch cais."
 
-#: .././classes/class.yksemeBase.php:1351
+#: .././classes/class.yksemeBase.php:1488
 msgid "MailChimp List name"
 msgstr "Enw'r Rhestr MailChimp"
 
-#: .././classes/class.yksemeBase.php:1357
-#: .././classes/class.yksemeBase.php:1367
+#: .././classes/class.yksemeBase.php:1494
+#: .././classes/class.yksemeBase.php:1504
 #, php-format
 msgid "%1$s"
 msgstr ""
 
-#: .././classes/class.yksemeBase.php:1375
+#: .././classes/class.yksemeBase.php:1512
 msgid "MailChimp List ID"
 msgstr "MailChimp Rhestr ID"
 
-#: .././classes/class.yksemeBase.php:1381
+#: .././classes/class.yksemeBase.php:1518
 msgid "Shortcode"
 msgstr "Shortcode"
 
-#: .././classes/class.yksemeBase.php:1384
+#: .././classes/class.yksemeBase.php:1521
 msgid ""
 "Paste this shortcode into whatever page or post you want to add this form to"
 msgstr ""
 "Pastiwch shortcode hwn i beth bynnag dudalen neu swydd yr ydych eisiau "
 "ychwanegu y ffurflen hon i"
 
-#: .././classes/class.yksemeBase.php:1389
+#: .././classes/class.yksemeBase.php:1526
 msgid "PHP Snippet"
 msgstr "PHP Snippet"
 
-#: .././classes/class.yksemeBase.php:1392
+#: .././classes/class.yksemeBase.php:1529
 msgid "Use this code to add this form to a template file"
 msgstr "Defnyddiwch y cod hwn i ychwanegu y ffurflen hon at ffeil dempled"
 
-#: .././classes/class.yksemeBase.php:1397
+#: .././classes/class.yksemeBase.php:1534
 msgid "Number of Subscribers"
 msgstr "Nifer o Tanysgrifwyr"
 
-#: .././classes/class.yksemeBase.php:1406
+#: .././classes/class.yksemeBase.php:1543
 msgid "Form Fields"
 msgstr "Meysydd Ffurflen"
 
-#: .././classes/class.yksemeBase.php:1408
+#: .././classes/class.yksemeBase.php:1545
 msgid ""
 "Check the fields you want included in your form (Email Address is required)."
 msgstr ""
 "Gwiriwch y caeau ydych am eu cynnwys yn eich ffurflen (Mae angen Cyfeiriad e-"
 "bost)."
 
-#: .././classes/class.yksemeBase.php:1411
+#: .././classes/class.yksemeBase.php:1548
 msgid ""
 "Use the green arrows to drag-and-drop the fields and rearrange their order."
 msgstr ""
 "Defnyddiwch y saethau gwyrdd i lusgo-a-gollwng y caeau a ad-drefnu eu trefn."
 
-#: .././classes/class.yksemeBase.php:1417
+#: .././classes/class.yksemeBase.php:1554
 msgid "Active Fields"
 msgstr "Meysydd Actif"
 
-#: .././classes/class.yksemeBase.php:1426
+#: .././classes/class.yksemeBase.php:1563
 msgid "Drag"
 msgstr "Llusgwch"
 
-#: .././classes/class.yksemeBase.php:1426
+#: .././classes/class.yksemeBase.php:1563
 msgid "drop"
 msgstr "galw heibio"
 
-#: .././classes/class.yksemeBase.php:1431
+#: .././classes/class.yksemeBase.php:1568
 msgid "Merge field"
 msgstr "Cyfuno maes"
 
-#: .././classes/class.yksemeBase.php:1432
+#: .././classes/class.yksemeBase.php:1569
 msgid "Placeholder"
 msgstr "Dalfan"
 
-#: .././classes/class.yksemeBase.php:1440
+#: .././classes/class.yksemeBase.php:1577
 msgid "Redirect User On Submission"
 msgstr "Ailgyfeirio Defnyddiwr Ar Cyflwyniad"
 
-#: .././classes/class.yksemeBase.php:1444
-msgid ""
-"choose a page or set a custom URL to redirect the user to after they submit "
-"the form."
+#: .././classes/class.yksemeBase.php:1581
+msgid "choose a page to redirect the user to after they submit the form."
 msgstr ""
 "dewis dudalen neu osod URL arferiad i ailgyfeirio'r defnyddiwr i ar ôl "
 "iddynt gyflwyno'r ffurflen."
 
-#: .././classes/class.yksemeBase.php:1447
+#: .././classes/class.yksemeBase.php:1584
 msgid "Select A Post/Page"
 msgstr "Dewiswch A Bost / Page"
 
-#: .././classes/class.yksemeBase.php:1501
+#: .././classes/class.yksemeBase.php:1638
 msgid "Save Form Settings"
 msgstr "Rheoli Mailchimp Ffurflenni Gosodiadau"
 
-#: .././classes/class.yksemeBase.php:1502
+#: .././classes/class.yksemeBase.php:1639
 msgid "Delete Form"
 msgstr "Dileu Ffurflen"
 
-#: .././classes/class.yksemeBase.php:1503
+#: .././classes/class.yksemeBase.php:1640
 msgid "Re-Import Form Fields from MailChimp"
 msgstr "Os gwelwch yn dda mewnforio rhai rhestrau o MailChimp"
+
+#: .././classes/class.yksemeBase.php:2168
+msgid "Sign Me Up For MAILCHIMP-REPLACE-THIS-TEXT's Newsletter"
+msgstr "Cofrestrwch Me Up For Cylchlythyr MAILCHIMP-LLE'R-HWN-TEXT yn"
 
 #: .././pages/about.php:27
 msgid "YIKES, Inc. Web Design and Development"
@@ -322,7 +326,8 @@ msgstr "o'r rhestr hon?"
 msgid "was successfully unsubscribed from this list."
 msgstr "ei unsubscribed llwyddiannus o'r rhestr hon."
 
-#: .././pages/lists.php:448 .././pages/options.php:138
+#: .././pages/lists.php:448 .././pages/options.php:196
+#: .././pages/options.php:416
 msgid "Easy Mailchimp Forms by YIKES, Inc."
 msgstr "Ffurflenni Hawdd Mailchimp gan YIKES, Inc"
 
@@ -335,7 +340,7 @@ msgstr ""
 msgid "go to the MailChimp Settings page"
 msgstr "ewch i'r dudalen Gosodiadau MailChimp"
 
-#: .././pages/lists.php:454 .././templates/yikes-mailchimp-widget.php:149
+#: .././pages/lists.php:454 .././templates/yikes-mailchimp-widget.php:156
 msgid "and add your API Key."
 msgstr "ac ychwanegwch eich API Allweddol."
 
@@ -351,23 +356,23 @@ msgstr "Eich Rhestrau"
 msgid "Manage Forms"
 msgstr "Rheoli Ffurflenni"
 
-#: .././pages/options.php:35
+#: .././pages/options.php:41
 msgid "The options were saved successfully!"
 msgstr "Yr opsiynau harbed yn llwyddiannus!"
 
-#: .././pages/options.php:38
+#: .././pages/options.php:44
 msgid "The options could not be saved (or you did not change them)."
 msgstr "Ni allai'r opsiynau yn cael eu cadw (neu nad oeddech yn eu newid)."
 
-#: .././pages/options.php:82
+#: .././pages/options.php:96
 msgid "Valid API Key"
 msgstr "API Valid Allweddol"
 
-#: .././pages/options.php:88
+#: .././pages/options.php:102
 msgid "Sorry, that is an invalid MailChimp API key."
 msgstr "Mae'n ddrwg gennyf, hynny yw allwedd API MailChimp annilys."
 
-#: .././pages/options.php:93
+#: .././pages/options.php:108
 msgid ""
 "Sorry, that is an invalid MailChimp API key. Please check the console for "
 "further information."
@@ -375,19 +380,57 @@ msgstr ""
 "Mae'n ddrwg gennyf, hynny yw allwedd API MailChimp annilys. Os gwelwch yn "
 "dda edrych ar y consol am wybodaeth bellach."
 
-#: .././pages/options.php:102
+#: .././pages/options.php:117
 msgid "Error: Please enter a valid Mail Chimp API Key."
 msgstr "Gwall: Rhowch dilys Post Chimp API Allweddol."
 
-#: .././pages/options.php:141
+#: .././pages/options.php:199
 msgid "Manage Mailchimp Forms Settings"
 msgstr "Rheoli Mailchimp Ffurflenni Gosodiadau"
 
-#: .././pages/options.php:151
+#: .././pages/options.php:205
+msgid "WordPress Version Number Error"
+msgstr "Fersiwn wordpress"
+
+#: .././pages/options.php:206
+msgid ""
+"We're sorry, but it looks like your using an outdated version of WordPress. "
+"You won't be able to access the tinyMCE button to insert forms into pages "
+"and posts unless you update to 3.9 or later."
+msgstr ""
+"Mae'n ddrwg gennym, ond mae'n edrych fel eich ddefnyddio fersiwn hen ffasiwn "
+"o WordPress. Ni fyddwch yn gallu cael mynediad i'r botwm TinyMCE i osod "
+"ffurflenni i mewn i tudalennau a swyddi oni bai eich bod yn diweddaru i 3.9 "
+"neu'n hwyrach."
+
+#: .././pages/options.php:215
+msgid "LocalHost Detected :"
+msgstr "Localhost a ddatryswyd:"
+
+#: .././pages/options.php:216
+msgid ""
+"It looks like your using Easy MailChimp Forms by YIKES Inc. on localhost."
+msgstr "Ffurflenni Hawdd Mailchimp gan YIKES, Inc"
+
+#: .././pages/options.php:217
+msgid ""
+"If you are unable to validate your API key, and receive the error message"
+msgstr ""
+"Os nad ydych yn gallu i ddilysu eich allwedd API, ac yn derbyn y neges gwall"
+
+#: .././pages/options.php:217
+msgid "\"SSL certificate problem: unable to get local issuer certificate\" "
+msgstr "\"Broblem tystysgrif SSL: methu â chael tystysgrif cyhoeddwr lleol\" "
+
+#: .././pages/options.php:217
+msgid "follow the tutorial located "
+msgstr "dilynwch y tiwtorial leoli "
+
+#: .././pages/options.php:230
 msgid "Your Mailchimp API Key"
 msgstr "Eich Mailchimp API Allweddol"
 
-#: .././pages/options.php:159
+#: .././pages/options.php:238
 msgid ""
 "Please enter your MailChimp API Key above. The API Key allows your WordPress "
 "site to communicate with your MailChimp account."
@@ -396,44 +439,44 @@ msgstr ""
 "Allweddol yn caniatáu eich safle WordPress i gyfathrebu gyda'ch cyfrif "
 "MailChimp."
 
-#: .././pages/options.php:160
+#: .././pages/options.php:239
 msgid "For more help, visit the MailChimp Support article"
 msgstr "Am fwy o help, ewch i'r erthygl Cymorth MailChimp"
 
-#: .././pages/options.php:160
+#: .././pages/options.php:239
 msgid "Where can I find my API Key?"
 msgstr "Ble y gallaf gael fy API Allweddol?"
 
-#: .././pages/options.php:165
+#: .././pages/options.php:244
 msgid "Preferred Form Layout"
 msgstr "Ffurflen a Ffefrir Layout"
 
-#: .././pages/options.php:168
+#: .././pages/options.php:247
 msgid "table"
 msgstr "tabl"
 
-#: .././pages/options.php:169
+#: .././pages/options.php:248
 msgid "div"
 msgstr "div"
 
-#: .././pages/options.php:177
+#: .././pages/options.php:256
 msgid "Choose whether you want your forms to use a table or div layout."
 msgstr ""
 "Dewiswch a ydych am i'ch ffurflenni i'w defnyddio tabl neu gynllun div."
 
-#: .././pages/options.php:182
+#: .././pages/options.php:261
 msgid "Advanced Error Messaging"
 msgstr "Gwall Uwch Messaging"
 
-#: .././pages/options.php:185
+#: .././pages/options.php:264
 msgid "Disabled"
 msgstr "Anabl"
 
-#: .././pages/options.php:186
+#: .././pages/options.php:265
 msgid "Enabled"
 msgstr "Galluogwyd"
 
-#: .././pages/options.php:194
+#: .././pages/options.php:273
 msgid ""
 "Enable if you're having problems with your forms sending data to MailChimp. "
 "Enabling Advanced Error Messaging will show you the exact error codes "
@@ -443,15 +486,15 @@ msgstr ""
 "MailChimp. Bydd Galluogi Negeseuon Gwall Uwch yn dangos i chi y codau gwall "
 "union MailChimp yn dychwelyd."
 
-#: .././pages/options.php:202
+#: .././pages/options.php:281
 msgid "Single Opt-In"
 msgstr "Sengl Opt-In"
 
-#: .././pages/options.php:203
+#: .././pages/options.php:282
 msgid "Double Opt-In"
 msgstr "Dwbl Opt-In"
 
-#: .././pages/options.php:211
+#: .././pages/options.php:290
 msgid ""
 "A single opt-in will add the user to your list without any further "
 "interaction."
@@ -459,7 +502,7 @@ msgstr ""
 "Bydd un opt-yn ychwanegu'r defnyddiwr at eich rhestr heb unrhyw ryngweithio "
 "pellach."
 
-#: .././pages/options.php:212
+#: .././pages/options.php:291
 msgid ""
 "A double opt-in will send an email to the user asking them to confirm their "
 "subscription."
@@ -467,23 +510,29 @@ msgstr ""
 "Bydd dwbl optio mewn anfon e-bost at y defnyddiwr yn gofyn iddynt gadarnhau "
 "eu tanysgrifiad."
 
-#: .././pages/options.php:217
+#: .././pages/options.php:292
+msgid "This will also dictate the opt-in settings for people leaving comments."
+msgstr ""
+"Bydd hyn hefyd yn pennu'r lleoliadau optio i mewn ar gyfer pobl sy'n gadael "
+"sylwadau."
+
+#: .././pages/options.php:297
 msgid "Custom Opt-In Message"
 msgstr "Custom Opt-In Neges"
 
-#: .././pages/options.php:219
+#: .././pages/options.php:299
 msgid "Double Opt-In Message"
 msgstr "Dwbl Opt-In Neges"
 
-#: .././pages/options.php:221
+#: .././pages/options.php:301
 msgid "Single Opt-In Message"
 msgstr "Neges Opt-In Sengl"
 
-#: .././pages/options.php:227
+#: .././pages/options.php:307
 msgid "Interest Group Label"
 msgstr "Label Grŵp Diddordeb"
 
-#: .././pages/options.php:236
+#: .././pages/options.php:316
 msgid ""
 "Text to display above interest groups. Leave blank to use MailChimp interest "
 "group names."
@@ -491,46 +540,162 @@ msgstr ""
 "Testun i arddangos uchod grwpiau diddordeb. Gadewch yn wag i ddefnyddio "
 "enwau grŵp diddordeb MailChimp."
 
-#: .././pages/options.php:248
+#: .././pages/options.php:321
+msgid "Display opt-in checkbox on comment forms?"
+msgstr "Arddangos optio i mewn blwch ar ffurflenni sylwadau?"
+
+#: .././pages/options.php:324
+msgid "Hide"
+msgstr "Cuddio"
+
+#: .././pages/options.php:325
+msgid "Show"
+msgstr "Dangos"
+
+#: .././pages/options.php:333
+msgid ""
+"This will display a checkbox just above the submit button on all comment "
+"forms. If selected, any users leaving comments will also be added to the "
+"mailing list."
+msgstr ""
+"Bydd hyn yn dangos blwch ticio ychydig uwchben y botwm cyflwyno ar bob "
+"ffurflen sylwadau. Os cewch eich dewis, bydd unrhyw ddefnyddwyr sy'n gadael "
+"sylwadau hefyd yn cael eu hychwanegu at y rhestr bostio."
+
+#: .././pages/options.php:338
+msgid "Custom Comment Checkbox Text"
+msgstr "Custom Sylw Blwch ticio Testun"
+
+#: .././pages/options.php:345
+msgid "Default List"
+msgstr "Rhestr ddiofyn"
+
+#: .././pages/options.php:360
+msgid ""
+"This is the default list users will be subscribed to when submitting a "
+"comment."
+msgstr ""
+"Mae hyn yw y bydd y defnyddwyr rhestr ragosodedig yn cael ei tanysgrifio i "
+"wrth gyflwyno sylw."
+
+#: .././pages/options.php:361
+msgid ""
+"It is best to select a form where only the email , first name and/or last "
+"name are required or you may run into issues."
+msgstr ""
+"Mae'n well i ddewis ffurflen lle mai dim ond yr e-bost, enw cyntaf a / neu "
+"enw olaf yn ofynnol neu efallai y byddwch yn rhedeg i mewn i faterion."
+
+#: .././pages/options.php:373
 msgid "Plugin Information"
 msgstr "Gwybodaeth Ategyn"
 
-#: .././pages/options.php:251
+#: .././pages/options.php:376
 msgid "If you experience any issues with our plugin, please"
 msgstr "Os ydych yn cael unrhyw broblemau gyda'n ategyn, os gwelwch yn dda"
 
-#: .././pages/options.php:251
+#: .././pages/options.php:376
 msgid "submit a New Issue on our Github Issue Tracker"
 msgstr "cyflwyno Mater newydd ar ein Tracker Github Rhifyn"
 
-#: .././pages/options.php:251
+#: .././pages/options.php:376
 msgid ""
 "Please include the information below to help us troubleshoot your problem."
 msgstr "Cofiwch gynnwys y wybodaeth isod i'n helpu i ddatrys eich problem."
 
-#: .././pages/options.php:259
+#: .././pages/options.php:384
 msgid "Plugin Version"
 msgstr "Fersiwn Ategyn"
 
-#: .././pages/options.php:263
+#: .././pages/options.php:388
 msgid "Wordpress Version"
 msgstr "Fersiwn wordpress"
 
-#: .././pages/options.php:267
+#: .././pages/options.php:392
 msgid "Browser Information"
 msgstr "Gwybodaeth Porydd"
+
+#: .././pages/options.php:420
+msgid "Error"
+msgstr "Gwall"
+
+#: .././pages/options.php:421
+msgid ""
+"We're sorry, but cURL is disabled on your server. The MailChimp API utilizes "
+"cURL to send and retreive data."
+msgstr ""
+"Mae'n ddrwg gennym, ond cURL wedi ei analluogi ar eich gweinydd. Mae'r API "
+"MailChimp defnyddio cURL i anfon a retreive data."
+
+#: .././pages/options.php:426
+msgid "Help!"
+msgstr "Help!"
+
+#: .././pages/options.php:426
+msgid "What is cURL?"
+msgstr "Beth yw cURL?"
+
+#: .././pages/options.php:426
+msgid "Check phpinfo()"
+msgstr "Gwiriwch phpinfo ()"
+
+#: .././pages/options.php:428
+msgid "Steps To Resolve The Issue"
+msgstr "Camau i ddatrys y mater"
+
+#: .././pages/options.php:430
+msgid ""
+"You can enable cURL by turning on the cURL module within your php.ini file"
+msgstr ""
+"Gallwch alluogi cURL trwy droi ar y modiwl cURL o fewn eich ffeil php.ini"
+
+#: .././pages/options.php:430
+msgid "You should find the php.ini file located here : "
+msgstr "Dylech ddod o hyd i'r ffeil php.ini lleoli yma: "
+
+#: .././pages/options.php:431
+msgid ""
+"Once found, open up php.ini and locate the line \";extension=php_curl.dll\"."
+msgstr ""
+"Ar ôl dod o hyd, yn agor i fyny php.ini a lleoli'r llinell \"; estyniad = "
+"php_curl.dll\"."
+
+#: .././pages/options.php:432
+msgid ""
+"Remove the semi colon before the line, to un-comment it and make the module "
+"active."
+msgstr ""
+"Tynnwch y colon lled cyn i'r llinell, chi ddad-sylwadau ac yn gwneud y "
+"modiwl gweithredol."
+
+#: .././pages/options.php:433
+msgid "Re-save and close the file."
+msgstr "Ail-arbed a chau'r ffeil."
+
+#: .././pages/options.php:434
+msgid "Re-load this page."
+msgstr "Ail-lwytho'r dudalen hon."
 
 #: .././templates/shortcode_error.php:1
 msgid "There was an error calling the mailchimp list."
 msgstr "Roedd gwall yn galw y rhestr mailchimp."
 
 #: .././templates/shortcode_error_data.php:1
-msgid "No API Key or List Id Exist!"
-msgstr "Dim Allwedd API neu Restr Id Bodoli!"
+msgid ""
+"The list doesn't exist! Make sure you have imported the list on the \"Manage "
+"List Forms\" page."
+msgstr ""
+"Nid yw'r rhestr yn bodoli! Gwnewch yn siŵr eich bod wedi mewnforio y rhestr "
+"ar y \"Rheoli Ffurflenni Rhestr\" dudalen."
 
 #: .././templates/shortcode_error_exists.php:1
 msgid "This list was already placed on this page!"
 msgstr "Mae'r rhestr hon yn ei roi eisoes ar y dudalen hon!"
+
+#: .././templates/shortcode_error_no_API_key.php:1
+msgid "Woops! No Valid API Key Found. Double check your settings."
+msgstr ""
+"Woops! Dim Allwedd API Dilys wedi ei ddarganfod. Dwbl gwirio eich gosodiadau."
 
 #: .././templates/shortcode_form.php:11
 msgid "Oops.. Don't forget to fill-in the following fields"
@@ -553,19 +718,19 @@ msgstr "Dewiswch Pa Ffurflen Hoffech i'w Dangos:"
 msgid "Select a Form to Display"
 msgstr "Dewiswch Ffurflen i Arddangos"
 
-#: .././templates/yikes-mailchimp-widget.php:43
+#: .././templates/yikes-mailchimp-widget.php:47
 msgid "Please import MailChimp forms"
 msgstr "Os gwelwch yn dda mewnforio ffurflenni MailChimp"
 
-#: .././templates/yikes-mailchimp-widget.php:45
+#: .././templates/yikes-mailchimp-widget.php:49
 msgid "Please import some lists from MailChimp"
 msgstr "Os gwelwch yn dda mewnforio rhai rhestrau o MailChimp"
 
-#: .././templates/yikes-mailchimp-widget.php:48
+#: .././templates/yikes-mailchimp-widget.php:52
 msgid "Import Lists Now"
 msgstr "Rhestrau Mewnforio Nawr"
 
-#: .././templates/yikes-mailchimp-widget.php:69
+#: .././templates/yikes-mailchimp-widget.php:73
 msgid ""
 "Oops! It looks like you haven't imported any lists yet. You must import at "
 "least one list to use the Easy MailChimp widget."
@@ -574,7 +739,7 @@ msgstr ""
 "Mae'n rhaid i chi fewnforio o leiaf un rhestr i ddefnyddio'r teclyn Hawdd "
 "MailChimp."
 
-#: .././templates/yikes-mailchimp-widget.php:76
+#: .././templates/yikes-mailchimp-widget.php:80
 msgid ""
 "Oops! It looks like you forgot to select a form to display here. Go to "
 "'Appearance > Widgets' and select a form to display."
@@ -582,32 +747,35 @@ msgstr ""
 "Wps! Mae'n edrych fel chi wedi anghofio i ddewis ffurflen i arddangos yma. "
 "Ewch i 'Ymddangosiad> Widgets' a dewis ffurflen i arddangos."
 
-#: .././templates/yikes-mailchimp-widget.php:110
+#: .././templates/yikes-mailchimp-widget.php:117
 msgid "Sign Up For Our Newsletter"
 msgstr "Cofrestrwch Up For Ein Llythyr Newyddion"
 
-#: .././templates/yikes-mailchimp-widget.php:122
+#: .././templates/yikes-mailchimp-widget.php:129
 msgid "Sign Me Up"
 msgstr "Cofrestrwch Me Up"
 
-#: .././templates/yikes-mailchimp-widget.php:126
+#: .././templates/yikes-mailchimp-widget.php:133
 msgid "Title:"
 msgstr "Teitl:"
 
-#: .././templates/yikes-mailchimp-widget.php:131
+#: .././templates/yikes-mailchimp-widget.php:138
 msgid "Form Text:"
 msgstr "Ffurflen testun:"
 
-#: .././templates/yikes-mailchimp-widget.php:139
+#: .././templates/yikes-mailchimp-widget.php:146
 msgid "Submit Button Text:"
 msgstr "Submit Button testun:"
 
-#: .././templates/yikes-mailchimp-widget.php:149
+#: .././templates/yikes-mailchimp-widget.php:156
 msgid "Oops! It looks like you haven't added your API key! Head over to the"
 msgstr ""
 "Wps! Mae'n edrych yn debyg nad ydych wedi ychwanegu eich allwedd API! Ewch "
 "draw i'r"
 
-#: .././templates/yikes-mailchimp-widget.php:149
+#: .././templates/yikes-mailchimp-widget.php:156
 msgid "Settings page"
 msgstr "Dudalen Gosodiadau"
+
+#~ msgid "No API Key or List Id Exist!"
+#~ msgstr "Dim Allwedd API neu Restr Id Bodoli!"

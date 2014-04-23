@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: Yikes Inc. Easy MailChimp Plugin\n"
-"POT-Creation-Date: 2014-03-13 16:33-0500\n"
-"PO-Revision-Date: 2014-03-13 16:33-0500\n"
+"POT-Creation-Date: 2014-04-23 14:38-0500\n"
+"PO-Revision-Date: 2014-04-23 14:55-0500\n"
 "Last-Translator: Evan <evan.m.herman@gmail.com>\n"
 "Language-Team: Yikes Inc. <evan@yikesinc.com>\n"
 "Language: ur\n"
@@ -15,214 +15,218 @@ msgstr ""
 "X-Poedit-KeywordsList: __;_e\n"
 "X-Poedit-SearchPath-0: ../.\n"
 
-#: .././classes/class.yksemeBase.php:103
+#: .././classes/class.yksemeBase.php:114
+#: .././classes/class.yksemeBase.php:1287
 msgid "Thank You for subscribing!"
 msgstr "رکنیت کے لئے آپ کا شکریہ!"
 
-#: .././classes/class.yksemeBase.php:104
+#: .././classes/class.yksemeBase.php:115
+#: .././classes/class.yksemeBase.php:1288
 msgid ""
 "Thank You for subscribing! Check your email for the confirmation message."
 msgstr "رکنیت کے لئے آپ کا شکریہ! توثیق پیغام کے لئے آپ کا ای میل چیک کریں."
 
-#: .././classes/class.yksemeBase.php:105
+#: .././classes/class.yksemeBase.php:116
 msgid "Select Your Area of Interest"
 msgstr "دلچسپی کے اپنے علاقے کو منتخب کریں"
 
-#: .././classes/class.yksemeBase.php:804
+#: .././classes/class.yksemeBase.php:917
 msgid "Click on a subscriber to see further information"
 msgstr "مزید معلومات دیکھنے کے لئے ایک صارف پر کلک کریں"
 
-#: .././classes/class.yksemeBase.php:807
+#: .././classes/class.yksemeBase.php:920
 msgid "E-Mail"
 msgstr "ای میل"
 
-#: .././classes/class.yksemeBase.php:808
+#: .././classes/class.yksemeBase.php:921
 msgid "Date Subscribed"
 msgstr "تاریخ رکنیت"
 
-#: .././classes/class.yksemeBase.php:828
+#: .././classes/class.yksemeBase.php:941
 msgid "Sorry You Don't Currently Have Any Subscribers In This List!"
 msgstr "معذرت آپ فی الحال اس فہرست میں کسی بھی صارفین نہیں ہے!"
 
-#: .././classes/class.yksemeBase.php:885
+#: .././classes/class.yksemeBase.php:998
 msgid "Back to Subscriber List"
 msgstr "واپس سبسکرائبر کی فہرست"
 
-#: .././classes/class.yksemeBase.php:886
+#: .././classes/class.yksemeBase.php:999
 msgid "Subscriber Details"
 msgstr "سبسکرائبر تفصیلات"
 
-#: .././classes/class.yksemeBase.php:897
+#: .././classes/class.yksemeBase.php:1010
 msgid "Overview"
 msgstr "جائزہ"
 
-#: .././classes/class.yksemeBase.php:902
+#: .././classes/class.yksemeBase.php:1015
 msgid "First Name"
 msgstr "پہلا نام"
 
-#: .././classes/class.yksemeBase.php:905
+#: .././classes/class.yksemeBase.php:1018
 msgid "Last Updated"
 msgstr "اخری تازہ کاری"
 
-#: .././classes/class.yksemeBase.php:908
+#: .././classes/class.yksemeBase.php:1021
 msgid "Preferred Email Type"
 msgstr "پسندیدہ ای میل کی قسم"
 
-#: .././classes/class.yksemeBase.php:915
+#: .././classes/class.yksemeBase.php:1028
 msgid "Last Name"
 msgstr "آخری نام"
 
-#: .././classes/class.yksemeBase.php:918
+#: .././classes/class.yksemeBase.php:1031
 msgid "Language"
 msgstr "زبان"
 
-#: .././classes/class.yksemeBase.php:941
+#: .././classes/class.yksemeBase.php:1054
 msgid "Groups Subscribed To"
 msgstr "رکنیت گروپس"
 
-#: .././classes/class.yksemeBase.php:992
+#: .././classes/class.yksemeBase.php:1104
 msgid "Subscriber Notes"
 msgstr "سبسکرائبر نوٹس"
 
-#: .././classes/class.yksemeBase.php:997
+#: .././classes/class.yksemeBase.php:1109
 msgid "Written by"
 msgstr "کی طرف سے تحریری"
 
-#: .././classes/class.yksemeBase.php:997
+#: .././classes/class.yksemeBase.php:1109
 msgid "Created on"
 msgstr "تخلیق"
 
-#: .././classes/class.yksemeBase.php:1132
-#: .././classes/class.yksemeBase.php:1134
+#: .././classes/class.yksemeBase.php:1251
+#: .././classes/class.yksemeBase.php:1253
 msgid "MailChimp Forms"
 msgstr "MailChimp کے فارم"
 
-#: .././classes/class.yksemeBase.php:1134
+#: .././classes/class.yksemeBase.php:1253
 msgid "MailChimp Settings"
 msgstr "MailChimp کے ترتیبات"
 
-#: .././classes/class.yksemeBase.php:1135
+#: .././classes/class.yksemeBase.php:1254
 msgid "Manage List Forms"
 msgstr "فہرست فارم کا انتظام"
 
-#: .././classes/class.yksemeBase.php:1136 .././pages/about.php:5
+#: .././classes/class.yksemeBase.php:1255 .././pages/about.php:5
 msgid "About YIKES, Inc."
 msgstr "YIKES، انکارپوریٹڈ کے بارے میں"
 
-#: .././classes/class.yksemeBase.php:1293
+#: .././classes/class.yksemeBase.php:1430
 msgid "One or more fields are empty"
 msgstr "ایک یا زیادہ شعبوں خالی ہیں"
 
-#: .././classes/class.yksemeBase.php:1343
+#: .././classes/class.yksemeBase.php:1480
 msgid "Your List Was Successfully Saved!"
 msgstr "آپ کی فہرست کامیابی سے محفوظ کیا گیا تھا!"
 
-#: .././classes/class.yksemeBase.php:1345
+#: .././classes/class.yksemeBase.php:1482
 msgid "I'm sorry there was an error with your request."
 msgstr "مجھے معاف کر دو آپ کی درخواست کے ساتھ ایک خامی تھی ہوں."
 
-#: .././classes/class.yksemeBase.php:1351
+#: .././classes/class.yksemeBase.php:1488
 msgid "MailChimp List name"
 msgstr "MailChimp کے فہرست کا نام"
 
-#: .././classes/class.yksemeBase.php:1357
-#: .././classes/class.yksemeBase.php:1367
+#: .././classes/class.yksemeBase.php:1494
+#: .././classes/class.yksemeBase.php:1504
 #, php-format
 msgid "%1$s"
 msgstr ""
 
-#: .././classes/class.yksemeBase.php:1375
+#: .././classes/class.yksemeBase.php:1512
 msgid "MailChimp List ID"
 msgstr "MailChimp کے فہرست کی شناخت"
 
-#: .././classes/class.yksemeBase.php:1381
+#: .././classes/class.yksemeBase.php:1518
 msgid "Shortcode"
 msgstr "مختصر"
 
-#: .././classes/class.yksemeBase.php:1384
+#: .././classes/class.yksemeBase.php:1521
 msgid ""
 "Paste this shortcode into whatever page or post you want to add this form to"
 msgstr ""
 "جو کچھ بھی صفحہ میں اس مختصر چسپاں یا آپ کو اس فارم کو شامل کرنا چاہتے ہیں "
 "پوسٹ"
 
-#: .././classes/class.yksemeBase.php:1389
+#: .././classes/class.yksemeBase.php:1526
 msgid "PHP Snippet"
 msgstr "پی ایچ پی ٹکڑا"
 
-#: .././classes/class.yksemeBase.php:1392
+#: .././classes/class.yksemeBase.php:1529
 msgid "Use this code to add this form to a template file"
 msgstr "ایک ٹیمپلیٹ فائل کو اس فارم کو شامل کرنے کے لئے یہ کوڈ استعمال کریں"
 
-#: .././classes/class.yksemeBase.php:1397
+#: .././classes/class.yksemeBase.php:1534
 msgid "Number of Subscribers"
 msgstr "صارفین کی تعداد"
 
-#: .././classes/class.yksemeBase.php:1406
+#: .././classes/class.yksemeBase.php:1543
 msgid "Form Fields"
 msgstr "فارم کے کھیتوں"
 
-#: .././classes/class.yksemeBase.php:1408
+#: .././classes/class.yksemeBase.php:1545
 msgid ""
 "Check the fields you want included in your form (Email Address is required)."
 msgstr ""
 "آپ کو آپ کے فارم میں شامل کرنا چاہتے شعبوں کی جانچ پڑتال کریں (ای میل ایڈریس "
 "کی ضرورت ہے)."
 
-#: .././classes/class.yksemeBase.php:1411
+#: .././classes/class.yksemeBase.php:1548
 msgid ""
 "Use the green arrows to drag-and-drop the fields and rearrange their order."
 msgstr ""
 "ھیںچیں اور ڈراپ کے کھیتوں اور ان کے حکم پنرویوستیت کرنے سبز تیر کا استعمال "
 "کریں."
 
-#: .././classes/class.yksemeBase.php:1417
+#: .././classes/class.yksemeBase.php:1554
 msgid "Active Fields"
 msgstr "فعال قطعات"
 
-#: .././classes/class.yksemeBase.php:1426
+#: .././classes/class.yksemeBase.php:1563
 msgid "Drag"
 msgstr "گھسیٹیں"
 
-#: .././classes/class.yksemeBase.php:1426
+#: .././classes/class.yksemeBase.php:1563
 msgid "drop"
 msgstr "چھوڑنا"
 
-#: .././classes/class.yksemeBase.php:1431
+#: .././classes/class.yksemeBase.php:1568
 msgid "Merge field"
 msgstr "ضم قطعہ"
 
-#: .././classes/class.yksemeBase.php:1432
+#: .././classes/class.yksemeBase.php:1569
 msgid "Placeholder"
 msgstr "پلیس ہولڈر"
 
-#: .././classes/class.yksemeBase.php:1440
+#: .././classes/class.yksemeBase.php:1577
 msgid "Redirect User On Submission"
 msgstr "ایسا تسلیم اور استقرار پر صارف کو ری ڈائریکٹ"
 
-#: .././classes/class.yksemeBase.php:1444
-msgid ""
-"choose a page or set a custom URL to redirect the user to after they submit "
-"the form."
+#: .././classes/class.yksemeBase.php:1581
+msgid "choose a page to redirect the user to after they submit the form."
 msgstr ""
 "ایک صفحہ منتخب کریں یا وہ فارم جمع کرانے کے بعد صارف کو ری ڈائریکٹ کرنے کے "
 "لئے ایک اپنی مرضی کے مطابق یو آر ایل قائم کی."
 
-#: .././classes/class.yksemeBase.php:1447
+#: .././classes/class.yksemeBase.php:1584
 msgid "Select A Post/Page"
 msgstr "ایک پوسٹ / صفحہ کے لئے منتخب کریں"
 
-#: .././classes/class.yksemeBase.php:1501
+#: .././classes/class.yksemeBase.php:1638
 msgid "Save Form Settings"
 msgstr "MailChimp کے فارم کی ترتیبات کا انتظام"
 
-#: .././classes/class.yksemeBase.php:1502
+#: .././classes/class.yksemeBase.php:1639
 msgid "Delete Form"
 msgstr "فارم کو حذف کریں"
 
-#: .././classes/class.yksemeBase.php:1503
+#: .././classes/class.yksemeBase.php:1640
 msgid "Re-Import Form Fields from MailChimp"
 msgstr "Mailchimp سے کچھ کی فہرست میں درآمد کریں براہ مہربانی"
+
+#: .././classes/class.yksemeBase.php:2168
+msgid "Sign Me Up For MAILCHIMP-REPLACE-THIS-TEXT's Newsletter"
+msgstr "MAILCHIMP-عوض یہ متن کے نیوز لیٹر کے لئے مجھے سائن اپ کریں"
 
 #: .././pages/about.php:27
 msgid "YIKES, Inc. Web Design and Development"
@@ -323,7 +327,8 @@ msgstr "اس فہرست سے؟"
 msgid "was successfully unsubscribed from this list."
 msgstr "کامیابی سے اس فہرست سے نکال دیا گیا تھا."
 
-#: .././pages/lists.php:448 .././pages/options.php:138
+#: .././pages/lists.php:448 .././pages/options.php:196
+#: .././pages/options.php:416
 msgid "Easy Mailchimp Forms by YIKES, Inc."
 msgstr "YIKES، انکارپوریٹڈ کی طرف سے آرام سے MailChimp فارم"
 
@@ -337,7 +342,7 @@ msgstr ""
 msgid "go to the MailChimp Settings page"
 msgstr "MailChimp کے ترتیبات کے صفحے پر جانے کے لئے"
 
-#: .././pages/lists.php:454 .././templates/yikes-mailchimp-widget.php:149
+#: .././pages/lists.php:454 .././templates/yikes-mailchimp-widget.php:156
 msgid "and add your API Key."
 msgstr "اور آپ API کلید شامل."
 
@@ -355,23 +360,23 @@ msgstr "آپ کی فہرستیں"
 msgid "Manage Forms"
 msgstr "فارم کا انتظام"
 
-#: .././pages/options.php:35
+#: .././pages/options.php:41
 msgid "The options were saved successfully!"
 msgstr "اختیارات کامیابی سے بچ گئے!"
 
-#: .././pages/options.php:38
+#: .././pages/options.php:44
 msgid "The options could not be saved (or you did not change them)."
 msgstr "اختیارات کو محفوظ نہیں کیا جا سکتا (یا اگر آپ ان کو تبدیل نہیں کیا)."
 
-#: .././pages/options.php:82
+#: .././pages/options.php:96
 msgid "Valid API Key"
 msgstr "درست API کلید"
 
-#: .././pages/options.php:88
+#: .././pages/options.php:102
 msgid "Sorry, that is an invalid MailChimp API key."
 msgstr "معذرت، کہ ایک غلط MailChimp کے API کلید ہے."
 
-#: .././pages/options.php:93
+#: .././pages/options.php:108
 msgid ""
 "Sorry, that is an invalid MailChimp API key. Please check the console for "
 "further information."
@@ -379,19 +384,59 @@ msgstr ""
 "معذرت، کہ ایک غلط MailChimp کے API کلید ہے. مزید معلومات کے لئے کنسول براہ "
 "مہربانی چیک کریں."
 
-#: .././pages/options.php:102
+#: .././pages/options.php:117
 msgid "Error: Please enter a valid Mail Chimp API Key."
 msgstr "خامی: ایک درست میل Chimp API کلید داخل کریں."
 
-#: .././pages/options.php:141
+#: .././pages/options.php:199
 msgid "Manage Mailchimp Forms Settings"
 msgstr "MailChimp کے فارم کی ترتیبات کا انتظام"
 
-#: .././pages/options.php:151
+#: .././pages/options.php:205
+msgid "WordPress Version Number Error"
+msgstr "ورڈپریس کے ورژن"
+
+#: .././pages/options.php:206
+msgid ""
+"We're sorry, but it looks like your using an outdated version of WordPress. "
+"You won't be able to access the tinyMCE button to insert forms into pages "
+"and posts unless you update to 3.9 or later."
+msgstr ""
+"ہمیں افسوس ہے، لیکن یہ آپ کے ورڈپریس کی ایک پرانا ورژن کا استعمال کرتے ہوئے "
+"کی طرح لگتا ہے. آپ 3.9 یا اس کے بعد کے لئے اپ ڈیٹ جب تک صفحات اور خطوط میں "
+"فارم داخل کرنے کے tinyMCE بٹن تک رسائی حاصل کرنے کے قابل نہیں ہو گا."
+
+#: .././pages/options.php:215
+msgid "LocalHost Detected :"
+msgstr "لوکل ہوسٹ کا پتہ:"
+
+#: .././pages/options.php:216
+msgid ""
+"It looks like your using Easy MailChimp Forms by YIKES Inc. on localhost."
+msgstr "YIKES، انکارپوریٹڈ کی طرف سے آرام سے MailChimp فارم"
+
+#: .././pages/options.php:217
+msgid ""
+"If you are unable to validate your API key, and receive the error message"
+msgstr ""
+"آپ کو آپ کی API کلید درست کرنے کے قابل نہیں ہیں، اور خرابی کا پیغام موصول "
+"ہوتا ہے"
+
+#: .././pages/options.php:217
+msgid "\"SSL certificate problem: unable to get local issuer certificate\" "
+msgstr ""
+"\"SSL سرٹیفکیٹ مسئلہ: مقامی فراہم کرنے والے سرٹیفکیٹ حاصل کرنے کے قابل نہیں"
+"\" "
+
+#: .././pages/options.php:217
+msgid "follow the tutorial located "
+msgstr "واقع سبق پر عمل "
+
+#: .././pages/options.php:230
 msgid "Your Mailchimp API Key"
 msgstr "آپ MailChimp کے API کلید"
 
-#: .././pages/options.php:159
+#: .././pages/options.php:238
 msgid ""
 "Please enter your MailChimp API Key above. The API Key allows your WordPress "
 "site to communicate with your MailChimp account."
@@ -399,44 +444,44 @@ msgstr ""
 "اوپر آپ MailChimp کے API کلید داخل کریں. API کلید آپ ورڈپریس سائٹ آپ "
 "MailChimp کے اکاؤنٹ کے ساتھ بات چیت کرنے کی اجازت دیتا ہے."
 
-#: .././pages/options.php:160
+#: .././pages/options.php:239
 msgid "For more help, visit the MailChimp Support article"
 msgstr "مزید مدد کے لئے، MailChimp کے سپورٹ مضمون کا دورہ"
 
-#: .././pages/options.php:160
+#: .././pages/options.php:239
 msgid "Where can I find my API Key?"
 msgstr "میں اپنے API کلید مل سکتی ہیں؟"
 
-#: .././pages/options.php:165
+#: .././pages/options.php:244
 msgid "Preferred Form Layout"
 msgstr "پسندیدہ فارم ترتیب"
 
-#: .././pages/options.php:168
+#: .././pages/options.php:247
 msgid "table"
 msgstr "جدول"
 
-#: .././pages/options.php:169
+#: .././pages/options.php:248
 msgid "div"
 msgstr "DIV"
 
-#: .././pages/options.php:177
+#: .././pages/options.php:256
 msgid "Choose whether you want your forms to use a table or div layout."
 msgstr ""
 "آپ کو آپ کے فارم ایک میز یا DIV ترتیب استعمال کرنا چاہتے ہیں کو منتخب کریں."
 
-#: .././pages/options.php:182
+#: .././pages/options.php:261
 msgid "Advanced Error Messaging"
 msgstr "اعلی درجے کی خرابی پیغام رسانی"
 
-#: .././pages/options.php:185
+#: .././pages/options.php:264
 msgid "Disabled"
 msgstr "معذور"
 
-#: .././pages/options.php:186
+#: .././pages/options.php:265
 msgid "Enabled"
 msgstr "چالو"
 
-#: .././pages/options.php:194
+#: .././pages/options.php:273
 msgid ""
 "Enable if you're having problems with your forms sending data to MailChimp. "
 "Enabling Advanced Error Messaging will show you the exact error codes "
@@ -446,15 +491,15 @@ msgstr ""
 "ہیں تو فعال کریں. اعلی درجے کی خرابی پیغام کو چالو کرنے سے آپ MailChimp کے "
 "واپس آ رہا ہے عین مطابق غلطی کوڈ دکھائے گا."
 
-#: .././pages/options.php:202
+#: .././pages/options.php:281
 msgid "Single Opt-In"
 msgstr "ایک آپٹ میں"
 
-#: .././pages/options.php:203
+#: .././pages/options.php:282
 msgid "Double Opt-In"
 msgstr "ڈبل آپٹ میں"
 
-#: .././pages/options.php:211
+#: .././pages/options.php:290
 msgid ""
 "A single opt-in will add the user to your list without any further "
 "interaction."
@@ -462,7 +507,7 @@ msgstr ""
 "ایک آپٹ میں کسی بھی مزید بات چیت کے بغیر آپ کی فہرست کرنے کے لئے صارف کا "
 "اضافہ کریں گے."
 
-#: .././pages/options.php:212
+#: .././pages/options.php:291
 msgid ""
 "A double opt-in will send an email to the user asking them to confirm their "
 "subscription."
@@ -470,23 +515,27 @@ msgstr ""
 "ایک ڈبل آپٹ میں ان کی رکنیت کی تصدیق کے لئے ان سے پوچھ صارف کو ایک ای میل "
 "بھیج دیا جائے گا."
 
-#: .././pages/options.php:217
+#: .././pages/options.php:292
+msgid "This will also dictate the opt-in settings for people leaving comments."
+msgstr "یہ بھی لوگوں کے تبصرے چھوڑ کے لئے آپٹ میں کی ترتیبات کا تعین کریں گے."
+
+#: .././pages/options.php:297
 msgid "Custom Opt-In Message"
 msgstr "اپنی مرضی کے آپٹ میں پیغام"
 
-#: .././pages/options.php:219
+#: .././pages/options.php:299
 msgid "Double Opt-In Message"
 msgstr "ڈبل آپٹ میں پیغام"
 
-#: .././pages/options.php:221
+#: .././pages/options.php:301
 msgid "Single Opt-In Message"
 msgstr "ایک آپٹ میں پیغام"
 
-#: .././pages/options.php:227
+#: .././pages/options.php:307
 msgid "Interest Group Label"
 msgstr "دلچسپی گروپ لیبل"
 
-#: .././pages/options.php:236
+#: .././pages/options.php:316
 msgid ""
 "Text to display above interest groups. Leave blank to use MailChimp interest "
 "group names."
@@ -494,49 +543,162 @@ msgstr ""
 "دلچسپی گروپوں کے اوپر ظاہر کرنے کے لئے متن. MailChimp کے دلچسپی گروپ کے نام "
 "استعمال کرنے کے لئے خالی چھوڑ دیں."
 
-#: .././pages/options.php:248
+#: .././pages/options.php:321
+msgid "Display opt-in checkbox on comment forms?"
+msgstr "ڈسپلے تبصرہ فارم پر چیک باکس میں آپٹ؟"
+
+#: .././pages/options.php:324
+msgid "Hide"
+msgstr "چھپاؤ"
+
+#: .././pages/options.php:325
+msgid "Show"
+msgstr "دکھائیں"
+
+#: .././pages/options.php:333
+msgid ""
+"This will display a checkbox just above the submit button on all comment "
+"forms. If selected, any users leaving comments will also be added to the "
+"mailing list."
+msgstr ""
+"یہ تمام تبصرہ فارم پر جمع کرائیں بٹن کے اوپر ایک چیک باکس کو ظاہر کرے گا. "
+"منتخب تو، تبصرے چھوڑ کی کسی بھی صارفین کو بھی ای میل کی فہرست میں شامل کیا "
+"جائے گا."
+
+#: .././pages/options.php:338
+msgid "Custom Comment Checkbox Text"
+msgstr "اپنی مرضی کے مطابق تبصرہ پڑتال خانہ متن"
+
+#: .././pages/options.php:345
+msgid "Default List"
+msgstr "پہلے سے طے شدہ فہرست"
+
+#: .././pages/options.php:360
+msgid ""
+"This is the default list users will be subscribed to when submitting a "
+"comment."
+msgstr ""
+"یہ پہلے سے طے شدہ فہرست میں صارفین کو ایک تبصرہ کو جمع جب رکنیت جائے گا."
+
+#: .././pages/options.php:361
+msgid ""
+"It is best to select a form where only the email , first name and/or last "
+"name are required or you may run into issues."
+msgstr ""
+"یہ ای میل، سب سے پہلے نام اور / یا آخری نام صرف کی ضرورت ہے یا اگر آپ کو "
+"مسائل میں چلاتے ہیں جہاں ایک شکل کو منتخب کرنے کے لئے بہترین ہے."
+
+#: .././pages/options.php:373
 msgid "Plugin Information"
 msgstr "پلگ ان کی معلومات"
 
-#: .././pages/options.php:251
+#: .././pages/options.php:376
 msgid "If you experience any issues with our plugin, please"
 msgstr "اگر آپ ہماری پلگ ان کے ساتھ کسی بھی مسائل کا تجربہ، تو براہ مہربانی"
 
-#: .././pages/options.php:251
+#: .././pages/options.php:376
 msgid "submit a New Issue on our Github Issue Tracker"
 msgstr "ہمارے Github ایشوذ کو ٹریک پر ایک نیا مسئلہ پیش"
 
-#: .././pages/options.php:251
+#: .././pages/options.php:376
 msgid ""
 "Please include the information below to help us troubleshoot your problem."
 msgstr "ہم آپ کا مسئلہ دور کرنے میں مدد کرنے کے لئے ذیل معلومات شامل کریں."
 
-#: .././pages/options.php:259
+#: .././pages/options.php:384
 msgid "Plugin Version"
 msgstr "پلگ ان ورژن"
 
-#: .././pages/options.php:263
+#: .././pages/options.php:388
 msgid "Wordpress Version"
 msgstr "ورڈپریس کے ورژن"
 
-#: .././pages/options.php:267
+#: .././pages/options.php:392
 msgid "Browser Information"
 msgstr "براؤزر کی معلومات"
+
+#: .././pages/options.php:420
+msgid "Error"
+msgstr "خرابی"
+
+#: .././pages/options.php:421
+msgid ""
+"We're sorry, but cURL is disabled on your server. The MailChimp API utilizes "
+"cURL to send and retreive data."
+msgstr ""
+"ہمیں افسوس ہے، لیکن curl کے آپ کے سرور پر غیر فعال ہے. MailChimp کے API کے "
+"اعداد و شمار کو بھیجنے اور retreive پر curl کے استعمال."
+
+#: .././pages/options.php:426
+msgid "Help!"
+msgstr "مدد کرو!"
+
+#: .././pages/options.php:426
+msgid "What is cURL?"
+msgstr "curl کے کیا ہے؟"
+
+#: .././pages/options.php:426
+msgid "Check phpinfo()"
+msgstr "phpinfo چیک کریں ()"
+
+#: .././pages/options.php:428
+msgid "Steps To Resolve The Issue"
+msgstr "مسئلے کو حل کرنے کے اقدامات"
+
+#: .././pages/options.php:430
+msgid ""
+"You can enable cURL by turning on the cURL module within your php.ini file"
+msgstr ""
+"آپ کو آپ کی php.ini فائل کے اندر اندر curl کے ماڈیول پر تبدیل کر کے curl کے "
+"چالو کر سکتے ہیں"
+
+#: .././pages/options.php:430
+msgid "You should find the php.ini file located here : "
+msgstr "آپ یہاں واقع php.ini فائل کو تلاش کرنا چاہئے: "
+
+#: .././pages/options.php:431
+msgid ""
+"Once found, open up php.ini and locate the line \";extension=php_curl.dll\"."
+msgstr ""
+"ایک بار پایا، php.ini کو کھولنے اور لائن تلاش \"؛ توسیع = php_curl.dll\"."
+
+#: .././pages/options.php:432
+msgid ""
+"Remove the semi colon before the line, to un-comment it and make the module "
+"active."
+msgstr ""
+"، لائن سے پہلے نیم بڑی آنت کے دور کرنے کے لئے اقوام متحدہ تبصرہ اور ماڈیول "
+"فعال بنانے."
+
+#: .././pages/options.php:433
+msgid "Re-save and close the file."
+msgstr "دوبارہ بچانے اور فائل کو بند."
+
+#: .././pages/options.php:434
+msgid "Re-load this page."
+msgstr "اس صفحہ کو دوبارہ لوڈ."
 
 #: .././templates/shortcode_error.php:1
 msgid "There was an error calling the mailchimp list."
 msgstr "MailChimp کے فہرست بلا میں ایک خامی تھی."
 
 #: .././templates/shortcode_error_data.php:1
-msgid "No API Key or List Id Exist!"
-msgstr "کوئی API کلید یا فہرست کی شناخت کا وجود!"
+msgid ""
+"The list doesn't exist! Make sure you have imported the list on the \"Manage "
+"List Forms\" page."
+msgstr ""
+"فہرست موجود نہیں ہے! آپ \"فہرست فارم کا انتظام\" کے صفحے فہرست درآمد یقینی "
+"بنائیں."
 
 #: .././templates/shortcode_error_exists.php:1
 msgid "This list was already placed on this page!"
 msgstr "یہ فہرست اس صفحے پر رکھا گیا تھا!"
 
+#: .././templates/shortcode_error_no_API_key.php:1
+msgid "Woops! No Valid API Key Found. Double check your settings."
+msgstr "Woops! ملا کوئی درست API کلید. ڈبل آپ کی ترتیبات کی جانچ پڑتال."
+
 #: .././templates/shortcode_form.php:11
-#, fuzzy
 msgid "Oops.. Don't forget to fill-in the following fields"
 msgstr "افوہ ... بھرنے میں مندرجہ ذیل شعبوں نہ بھولنا"
 
@@ -557,19 +719,19 @@ msgstr "آپ کو ظاہر کرنے کے لئے چاہوں گا جو شکل کو
 msgid "Select a Form to Display"
 msgstr "ظاہر کرنے کے لئے ایک شکل کو منتخب کریں"
 
-#: .././templates/yikes-mailchimp-widget.php:43
+#: .././templates/yikes-mailchimp-widget.php:47
 msgid "Please import MailChimp forms"
 msgstr "MailChimp کے فارم درآمد براہ مہربانی"
 
-#: .././templates/yikes-mailchimp-widget.php:45
+#: .././templates/yikes-mailchimp-widget.php:49
 msgid "Please import some lists from MailChimp"
 msgstr "Mailchimp سے کچھ کی فہرست میں درآمد کریں براہ مہربانی"
 
-#: .././templates/yikes-mailchimp-widget.php:48
+#: .././templates/yikes-mailchimp-widget.php:52
 msgid "Import Lists Now"
 msgstr "اب درآمد کی فہرستیں"
 
-#: .././templates/yikes-mailchimp-widget.php:69
+#: .././templates/yikes-mailchimp-widget.php:73
 msgid ""
 "Oops! It looks like you haven't imported any lists yet. You must import at "
 "least one list to use the Easy MailChimp widget."
@@ -577,7 +739,7 @@ msgstr ""
 "اوہ! ابھی تک آپ کوئی سیٹ درآمد نہیں کیا ہے، ایسا لگتا ہے. آپ کو آسان "
 "MailChimp کے ویجیٹ استعمال کرنے کے لئے کم از کم ایک فہرست درآمد ضروری ہے."
 
-#: .././templates/yikes-mailchimp-widget.php:76
+#: .././templates/yikes-mailchimp-widget.php:80
 msgid ""
 "Oops! It looks like you forgot to select a form to display here. Go to "
 "'Appearance > Widgets' and select a form to display."
@@ -585,31 +747,34 @@ msgstr ""
 "اوہ! آپ یہاں ظاہر کرنے کے لئے ایک شکل کو منتخب کریں بھول گیا ایسا لگتا ہے. "
 "'ظاہری شکل> وجیٹس' پر جائیں اور ظاہر کرنے کے لئے ایک شکل کو منتخب کریں."
 
-#: .././templates/yikes-mailchimp-widget.php:110
+#: .././templates/yikes-mailchimp-widget.php:117
 msgid "Sign Up For Our Newsletter"
 msgstr "ہماری نیوز لیٹر کے لئے سائن اپ"
 
-#: .././templates/yikes-mailchimp-widget.php:122
+#: .././templates/yikes-mailchimp-widget.php:129
 msgid "Sign Me Up"
 msgstr "مجھے سائن اپ کریں"
 
-#: .././templates/yikes-mailchimp-widget.php:126
+#: .././templates/yikes-mailchimp-widget.php:133
 msgid "Title:"
 msgstr "عنوان:"
 
-#: .././templates/yikes-mailchimp-widget.php:131
+#: .././templates/yikes-mailchimp-widget.php:138
 msgid "Form Text:"
 msgstr "فارم متن:"
 
-#: .././templates/yikes-mailchimp-widget.php:139
+#: .././templates/yikes-mailchimp-widget.php:146
 msgid "Submit Button Text:"
 msgstr "بٹن متن جمع کرائیں:"
 
-#: .././templates/yikes-mailchimp-widget.php:149
+#: .././templates/yikes-mailchimp-widget.php:156
 msgid "Oops! It looks like you haven't added your API key! Head over to the"
 msgstr ""
 "اوہ! آپ کو آپ کی API کلید شامل نہیں ہے ایسا لگتا ہے! کے لئے یہاں دبائیں"
 
-#: .././templates/yikes-mailchimp-widget.php:149
+#: .././templates/yikes-mailchimp-widget.php:156
 msgid "Settings page"
 msgstr "ترتیبات صفحہ"
+
+#~ msgid "No API Key or List Id Exist!"
+#~ msgstr "کوئی API کلید یا فہرست کی شناخت کا وجود!"

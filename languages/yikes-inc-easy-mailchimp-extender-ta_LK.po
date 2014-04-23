@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: Yikes Inc. Easy MailChimp Plugin\n"
-"POT-Creation-Date: 2014-03-13 16:33-0500\n"
-"PO-Revision-Date: 2014-03-13 16:33-0500\n"
+"POT-Creation-Date: 2014-04-23 14:37-0500\n"
+"PO-Revision-Date: 2014-04-23 14:54-0500\n"
 "Last-Translator: Evan <evan.m.herman@gmail.com>\n"
 "Language-Team: Yikes Inc. <evan@yikesinc.com>\n"
 "Language: ta_LK\n"
@@ -15,213 +15,217 @@ msgstr ""
 "X-Poedit-KeywordsList: __;_e\n"
 "X-Poedit-SearchPath-0: ../.\n"
 
-#: .././classes/class.yksemeBase.php:103
+#: .././classes/class.yksemeBase.php:114
+#: .././classes/class.yksemeBase.php:1287
 msgid "Thank You for subscribing!"
 msgstr "ஐ!"
 
-#: .././classes/class.yksemeBase.php:104
+#: .././classes/class.yksemeBase.php:115
+#: .././classes/class.yksemeBase.php:1288
 msgid ""
 "Thank You for subscribing! Check your email for the confirmation message."
 msgstr "ஐ! உறுதிப்படுத்தல் செய்தியை உங்கள் மின்னஞ்சலை பார்க்கவும்."
 
-#: .././classes/class.yksemeBase.php:105
+#: .././classes/class.yksemeBase.php:116
 msgid "Select Your Area of Interest"
 msgstr "வட்டி உங்கள் பகுதியை தேர்வு"
 
-#: .././classes/class.yksemeBase.php:804
+#: .././classes/class.yksemeBase.php:917
 msgid "Click on a subscriber to see further information"
 msgstr "மேலும் தகவல் பார்க்க சந்தாதாரர் கிளிக்"
 
-#: .././classes/class.yksemeBase.php:807
+#: .././classes/class.yksemeBase.php:920
 msgid "E-Mail"
 msgstr "E-Mail:"
 
-#: .././classes/class.yksemeBase.php:808
+#: .././classes/class.yksemeBase.php:921
 msgid "Date Subscribed"
 msgstr "தேதி செய்திருக்கிறீர்கள்"
 
-#: .././classes/class.yksemeBase.php:828
+#: .././classes/class.yksemeBase.php:941
 msgid "Sorry You Don't Currently Have Any Subscribers In This List!"
 msgstr "மன்னிக்கவும், நீங்கள் தற்போது இந்த பட்டியலில் எந்த சந்தாதாரர்கள் இல்லை!"
 
-#: .././classes/class.yksemeBase.php:885
+#: .././classes/class.yksemeBase.php:998
 msgid "Back to Subscriber List"
 msgstr "மீண்டும் சந்தாதாரர் பட்டியலில்"
 
-#: .././classes/class.yksemeBase.php:886
+#: .././classes/class.yksemeBase.php:999
 msgid "Subscriber Details"
 msgstr "சந்தாதாரர் விவரம்"
 
-#: .././classes/class.yksemeBase.php:897
+#: .././classes/class.yksemeBase.php:1010
 msgid "Overview"
 msgstr "கண்ணோட்டம்"
 
-#: .././classes/class.yksemeBase.php:902
+#: .././classes/class.yksemeBase.php:1015
 msgid "First Name"
 msgstr "முதல் பெயர்"
 
-#: .././classes/class.yksemeBase.php:905
+#: .././classes/class.yksemeBase.php:1018
 msgid "Last Updated"
 msgstr "Last Updated"
 
-#: .././classes/class.yksemeBase.php:908
+#: .././classes/class.yksemeBase.php:1021
 msgid "Preferred Email Type"
 msgstr "விருப்புக்குரிய மின்னஞ்சல் வகை"
 
-#: .././classes/class.yksemeBase.php:915
+#: .././classes/class.yksemeBase.php:1028
 msgid "Last Name"
 msgstr "கடைசி பெயர்"
 
-#: .././classes/class.yksemeBase.php:918
+#: .././classes/class.yksemeBase.php:1031
 msgid "Language"
 msgstr "மொழி"
 
-#: .././classes/class.yksemeBase.php:941
+#: .././classes/class.yksemeBase.php:1054
 msgid "Groups Subscribed To"
 msgstr "சேர்ந்துள்ளீர்கள் குழுக்கள்"
 
-#: .././classes/class.yksemeBase.php:992
+#: .././classes/class.yksemeBase.php:1104
 msgid "Subscriber Notes"
 msgstr "சந்தாதாரர் குறிப்புகள்"
 
-#: .././classes/class.yksemeBase.php:997
+#: .././classes/class.yksemeBase.php:1109
 msgid "Written by"
 msgstr "ஆல் எழுதப்பட்டது"
 
-#: .././classes/class.yksemeBase.php:997
+#: .././classes/class.yksemeBase.php:1109
 msgid "Created on"
 msgstr "அன்று உருவாக்கப்பட்டது"
 
-#: .././classes/class.yksemeBase.php:1132
-#: .././classes/class.yksemeBase.php:1134
+#: .././classes/class.yksemeBase.php:1251
+#: .././classes/class.yksemeBase.php:1253
 msgid "MailChimp Forms"
 msgstr "MailChimp படிவங்கள்"
 
-#: .././classes/class.yksemeBase.php:1134
+#: .././classes/class.yksemeBase.php:1253
 msgid "MailChimp Settings"
 msgstr "MailChimp அமைப்புகள்"
 
-#: .././classes/class.yksemeBase.php:1135
+#: .././classes/class.yksemeBase.php:1254
 msgid "Manage List Forms"
 msgstr "பட்டியல் படிவங்கள் நிர்வகி"
 
-#: .././classes/class.yksemeBase.php:1136 .././pages/about.php:5
+#: .././classes/class.yksemeBase.php:1255 .././pages/about.php:5
 msgid "About YIKES, Inc."
 msgstr "மோதிரம், இன்க் பற்றி"
 
-#: .././classes/class.yksemeBase.php:1293
+#: .././classes/class.yksemeBase.php:1430
 msgid "One or more fields are empty"
 msgstr "ஒன்று அல்லது அதற்கு மேற்பட்ட துறைகள் காலியாக உள்ளன"
 
-#: .././classes/class.yksemeBase.php:1343
+#: .././classes/class.yksemeBase.php:1480
 msgid "Your List Was Successfully Saved!"
 msgstr "உங்கள் பட்டியல் வெற்றிகரமாக காப்பாற்ற பட்டது"
 
-#: .././classes/class.yksemeBase.php:1345
+#: .././classes/class.yksemeBase.php:1482
 msgid "I'm sorry there was an error with your request."
 msgstr "நான் வருந்துகிறேன் உங்கள் கோரிக்கையில் பிழை இருந்தது இருக்கிறேன்."
 
-#: .././classes/class.yksemeBase.php:1351
+#: .././classes/class.yksemeBase.php:1488
 msgid "MailChimp List name"
 msgstr "MailChimp பட்டியல் பெயர்"
 
-#: .././classes/class.yksemeBase.php:1357
-#: .././classes/class.yksemeBase.php:1367
+#: .././classes/class.yksemeBase.php:1494
+#: .././classes/class.yksemeBase.php:1504
 #, php-format
 msgid "%1$s"
 msgstr ""
 
-#: .././classes/class.yksemeBase.php:1375
+#: .././classes/class.yksemeBase.php:1512
 msgid "MailChimp List ID"
 msgstr "MailChimp பட்டியல் ஐடி"
 
-#: .././classes/class.yksemeBase.php:1381
+#: .././classes/class.yksemeBase.php:1518
 msgid "Shortcode"
 msgstr "சுருக்குக்குறியீடு"
 
-#: .././classes/class.yksemeBase.php:1384
+#: .././classes/class.yksemeBase.php:1521
 msgid ""
 "Paste this shortcode into whatever page or post you want to add this form to"
 msgstr ""
 "எந்த பக்கம் இந்த சுருக்குக்குறியீடு ஒட்டவும் அல்லது நீங்கள் இந்த படிவத்தை சேர்க்க வேண்டும் பதிவு"
 
-#: .././classes/class.yksemeBase.php:1389
+#: .././classes/class.yksemeBase.php:1526
 msgid "PHP Snippet"
 msgstr "PHP துணுக்கை"
 
-#: .././classes/class.yksemeBase.php:1392
+#: .././classes/class.yksemeBase.php:1529
 msgid "Use this code to add this form to a template file"
 msgstr "ஒரு டெம்ப்ளேட் கோப்பு இந்த வடிவத்தில் சேர்க்க இந்த குறியீடு பயன்படுத்தவும்"
 
-#: .././classes/class.yksemeBase.php:1397
+#: .././classes/class.yksemeBase.php:1534
 msgid "Number of Subscribers"
 msgstr "சந்தாதாரர்களின் எண்ணிக்கை"
 
-#: .././classes/class.yksemeBase.php:1406
+#: .././classes/class.yksemeBase.php:1543
 msgid "Form Fields"
 msgstr "படிவம் புலங்கள்"
 
-#: .././classes/class.yksemeBase.php:1408
+#: .././classes/class.yksemeBase.php:1545
 msgid ""
 "Check the fields you want included in your form (Email Address is required)."
 msgstr ""
 "நீங்கள் உங்கள் வடிவத்தில் சேர்க்கப்பட்டுள்ளது வேண்டிய புலங்களை பாருங்கள் (மின்னஞ்சல் முகவரி "
 "தேவை)."
 
-#: .././classes/class.yksemeBase.php:1411
+#: .././classes/class.yksemeBase.php:1548
 msgid ""
 "Use the green arrows to drag-and-drop the fields and rearrange their order."
 msgstr ""
 "இழுத்து மற்றும் சொட்டு துறைகள் மற்றும் அவர்கள் வரிசையில் மறுசீரமைக்க பச்சை அம்புகள் "
 "பயன்படுத்த."
 
-#: .././classes/class.yksemeBase.php:1417
+#: .././classes/class.yksemeBase.php:1554
 msgid "Active Fields"
 msgstr "செயலில் புலங்கள்"
 
-#: .././classes/class.yksemeBase.php:1426
+#: .././classes/class.yksemeBase.php:1563
 msgid "Drag"
 msgstr "இழுவை"
 
-#: .././classes/class.yksemeBase.php:1426
+#: .././classes/class.yksemeBase.php:1563
 msgid "drop"
 msgstr "ட்ரோப் (drop)"
 
-#: .././classes/class.yksemeBase.php:1431
+#: .././classes/class.yksemeBase.php:1568
 msgid "Merge field"
 msgstr "துறையில் இணை"
 
-#: .././classes/class.yksemeBase.php:1432
+#: .././classes/class.yksemeBase.php:1569
 msgid "Placeholder"
 msgstr "பெட்டிக்கு"
 
-#: .././classes/class.yksemeBase.php:1440
+#: .././classes/class.yksemeBase.php:1577
 msgid "Redirect User On Submission"
 msgstr "சமர்ப்பிப்பு பயனர் திருப்பிவிட"
 
-#: .././classes/class.yksemeBase.php:1444
-msgid ""
-"choose a page or set a custom URL to redirect the user to after they submit "
-"the form."
+#: .././classes/class.yksemeBase.php:1581
+msgid "choose a page to redirect the user to after they submit the form."
 msgstr ""
 "ஒரு பக்கம் தேர்வு அல்லது அவர்கள் வடிவம் 'to பின்னர் பயனர் திருப்பிவிட ஒரு தனிப்பயன் URL "
 "அமைக்க."
 
-#: .././classes/class.yksemeBase.php:1447
+#: .././classes/class.yksemeBase.php:1584
 msgid "Select A Post/Page"
 msgstr "ஒரு போஸ்ட் / பக்கம் தேர்ந்தெடுக்கவும்"
 
-#: .././classes/class.yksemeBase.php:1501
+#: .././classes/class.yksemeBase.php:1638
 msgid "Save Form Settings"
 msgstr "Mailchimp படிவங்கள் அமைப்புகளை நிர்வகி"
 
-#: .././classes/class.yksemeBase.php:1502
+#: .././classes/class.yksemeBase.php:1639
 msgid "Delete Form"
 msgstr "நீக்கு"
 
-#: .././classes/class.yksemeBase.php:1503
+#: .././classes/class.yksemeBase.php:1640
 msgid "Re-Import Form Fields from MailChimp"
 msgstr "Mailchimp இருந்து சில பட்டியல்கள் இறக்குமதி செய்து"
+
+#: .././classes/class.yksemeBase.php:2168
+msgid "Sign Me Up For MAILCHIMP-REPLACE-THIS-TEXT's Newsletter"
+msgstr "MAILCHIMP-இடமாற்றும்-இந்த உரை தான் செய்திமடல் என்னை பதிவு"
 
 #: .././pages/about.php:27
 msgid "YIKES, Inc. Web Design and Development"
@@ -319,7 +323,8 @@ msgstr "இந்த பட்டியலில் இருந்து?"
 msgid "was successfully unsubscribed from this list."
 msgstr "வெற்றிகரமாக இந்த பட்டியலில் இருந்து விலகிவிட்டீர்கள்."
 
-#: .././pages/lists.php:448 .././pages/options.php:138
+#: .././pages/lists.php:448 .././pages/options.php:196
+#: .././pages/options.php:416
 msgid "Easy Mailchimp Forms by YIKES, Inc."
 msgstr "மோதிரம், இன்க் எளிதாக MailChimp படிவங்கள்"
 
@@ -331,7 +336,7 @@ msgstr "நீங்கள் உங்கள் தளத்தில் MailCh
 msgid "go to the MailChimp Settings page"
 msgstr "MailChimp அமைப்புகள் பக்கம் செல்ல"
 
-#: .././pages/lists.php:454 .././templates/yikes-mailchimp-widget.php:149
+#: .././pages/lists.php:454 .././templates/yikes-mailchimp-widget.php:156
 msgid "and add your API Key."
 msgstr "மற்றும் உங்கள் API விசை சேர்க்க."
 
@@ -348,23 +353,23 @@ msgstr "உங்கள் பட்டியல்கள்"
 msgid "Manage Forms"
 msgstr "படிவங்கள் நிர்வகி"
 
-#: .././pages/options.php:35
+#: .././pages/options.php:41
 msgid "The options were saved successfully!"
 msgstr "விருப்பங்கள் வெற்றிகரமாக தப்பித்தோம்!"
 
-#: .././pages/options.php:38
+#: .././pages/options.php:44
 msgid "The options could not be saved (or you did not change them)."
 msgstr "விருப்பங்கள் சேமிக்க முடியவில்லை (அல்லது அவற்றை மாற்ற முடியவில்லை)."
 
-#: .././pages/options.php:82
+#: .././pages/options.php:96
 msgid "Valid API Key"
 msgstr "செல்லுபடியாகும் API விசை"
 
-#: .././pages/options.php:88
+#: .././pages/options.php:102
 msgid "Sorry, that is an invalid MailChimp API key."
 msgstr "மன்னிக்கவும், ஒரு தவறான MailChimp API விசை இருக்கிறது."
 
-#: .././pages/options.php:93
+#: .././pages/options.php:108
 msgid ""
 "Sorry, that is an invalid MailChimp API key. Please check the console for "
 "further information."
@@ -372,19 +377,55 @@ msgstr ""
 "மன்னிக்கவும், ஒரு தவறான MailChimp API விசை இருக்கிறது. மேலும் தகவலுக்கு பணியகம் "
 "சரிபார்க்கவும்."
 
-#: .././pages/options.php:102
+#: .././pages/options.php:117
 msgid "Error: Please enter a valid Mail Chimp API Key."
 msgstr "பிழை: ஒரு செல்லுபடியாகும் மின்னஞ்சல் Chimp ஏபிஐ விசையை உள்ளிடவும்."
 
-#: .././pages/options.php:141
+#: .././pages/options.php:199
 msgid "Manage Mailchimp Forms Settings"
 msgstr "Mailchimp படிவங்கள் அமைப்புகளை நிர்வகி"
 
-#: .././pages/options.php:151
+#: .././pages/options.php:205
+msgid "WordPress Version Number Error"
+msgstr "வேர்ட்பிரஸ் பதிப்பு"
+
+#: .././pages/options.php:206
+msgid ""
+"We're sorry, but it looks like your using an outdated version of WordPress. "
+"You won't be able to access the tinyMCE button to insert forms into pages "
+"and posts unless you update to 3.9 or later."
+msgstr ""
+"மன்னிக்கவும், ஆனால் அது உங்கள் வேர்ட்பிரஸ் பழைய பதிப்பை பயன்படுத்தி தெரிகிறது. நீங்கள் 3.9 "
+"அல்லது அதற்கடுத்த மேம்படுத்த ஒழிய பக்கங்கள் மற்றும் பதிவுகள் ஒரு வகையான நுழைக்க TinyMCE "
+"பொத்தானை அணுக முடியாது."
+
+#: .././pages/options.php:215
+msgid "LocalHost Detected :"
+msgstr "Localhost கண்டறியப்பட்டது:"
+
+#: .././pages/options.php:216
+msgid ""
+"It looks like your using Easy MailChimp Forms by YIKES Inc. on localhost."
+msgstr "மோதிரம், இன்க் எளிதாக MailChimp படிவங்கள்"
+
+#: .././pages/options.php:217
+msgid ""
+"If you are unable to validate your API key, and receive the error message"
+msgstr "நீங்கள் உங்கள் API விசை சரிபார்க்க முடியவில்லை, மற்றும் பிழை செய்தி வந்தால்"
+
+#: .././pages/options.php:217
+msgid "\"SSL certificate problem: unable to get local issuer certificate\" "
+msgstr "\"SSL சான்றிதழ் பிரச்சனை: உள்ளூர் வழங்குபவர் சான்றிதழ் பெற முடியவில்லை\" "
+
+#: .././pages/options.php:217
+msgid "follow the tutorial located "
+msgstr "அமைந்துள்ள பயிற்சி பின்பற்ற "
+
+#: .././pages/options.php:230
 msgid "Your Mailchimp API Key"
 msgstr "உங்கள் MailChimp API விசை"
 
-#: .././pages/options.php:159
+#: .././pages/options.php:238
 msgid ""
 "Please enter your MailChimp API Key above. The API Key allows your WordPress "
 "site to communicate with your MailChimp account."
@@ -392,45 +433,45 @@ msgstr ""
 "மேலே உங்கள் MailChimp API விசையை உள்ளிடுக. API விசை உங்கள் வேர்ட்பிரஸ் தளத்தில் உங்கள் "
 "Mailchimp கணக்கில் தொடர்பு கொள்ள அனுமதிக்கிறது."
 
-#: .././pages/options.php:160
+#: .././pages/options.php:239
 msgid "For more help, visit the MailChimp Support article"
 msgstr "மேலும், MailChimp ஆதரவு கட்டுரை வருகை"
 
-#: .././pages/options.php:160
+#: .././pages/options.php:239
 msgid "Where can I find my API Key?"
 msgstr "எங்கே நான் API விசை கண்டுபிடிக்க முடியும்?"
 
-#: .././pages/options.php:165
+#: .././pages/options.php:244
 msgid "Preferred Form Layout"
 msgstr "விருப்பமான படிவம் அமைப்பை"
 
-#: .././pages/options.php:168
+#: .././pages/options.php:247
 msgid "table"
 msgstr "அட்டவணை, பட்டியல் "
 
-#: .././pages/options.php:169
+#: .././pages/options.php:248
 msgid "div"
 msgstr "DIV"
 
-#: .././pages/options.php:177
+#: .././pages/options.php:256
 msgid "Choose whether you want your forms to use a table or div layout."
 msgstr ""
 "உங்கள் படிவங்களை ஒரு அட்டவணை அல்லது DIV அமைப்பை பயன்படுத்த வேண்டும் என்பதை தேர்வு "
 "செய்யவும்."
 
-#: .././pages/options.php:182
+#: .././pages/options.php:261
 msgid "Advanced Error Messaging"
 msgstr "மேம்பட்ட பிழை செய்தி"
 
-#: .././pages/options.php:185
+#: .././pages/options.php:264
 msgid "Disabled"
 msgstr "முடக்கப்பட்டது"
 
-#: .././pages/options.php:186
+#: .././pages/options.php:265
 msgid "Enabled"
 msgstr "இயக்கப்பட்டது"
 
-#: .././pages/options.php:194
+#: .././pages/options.php:273
 msgid ""
 "Enable if you're having problems with your forms sending data to MailChimp. "
 "Enabling Advanced Error Messaging will show you the exact error codes "
@@ -440,21 +481,21 @@ msgstr ""
 "செய்தி செயல்படுத்துகிறது நீங்கள் MailChimp திரும்பி துல்லியமான பிழை குறியீடுகள் "
 "காண்பிக்கும்."
 
-#: .././pages/options.php:202
+#: .././pages/options.php:281
 msgid "Single Opt-In"
 msgstr "ஒற்றை வேண்டாம் ல்"
 
-#: .././pages/options.php:203
+#: .././pages/options.php:282
 msgid "Double Opt-In"
 msgstr "இரட்டை விருப்ப"
 
-#: .././pages/options.php:211
+#: .././pages/options.php:290
 msgid ""
 "A single opt-in will add the user to your list without any further "
 "interaction."
 msgstr "ஒரு ஒற்றை விருப்ப மேலும் குறுக்கீடு இல்லாமல், உங்கள் பட்டியலில் பயனர் சேர்க்கும்."
 
-#: .././pages/options.php:212
+#: .././pages/options.php:291
 msgid ""
 "A double opt-in will send an email to the user asking them to confirm their "
 "subscription."
@@ -462,23 +503,27 @@ msgstr ""
 "ஒரு இரட்டை விருப்ப தங்கள் சந்தா உறுதிப்படுத்துமாறு கேட்டு பயனர் ஒரு மின்னஞ்சல் அனுப்ப "
 "வேண்டும்."
 
-#: .././pages/options.php:217
+#: .././pages/options.php:292
+msgid "This will also dictate the opt-in settings for people leaving comments."
+msgstr "இது மக்கள் கருத்துக்களை விட்டு விலகல் அமைப்புகளை கட்டளையிட முடியாது."
+
+#: .././pages/options.php:297
 msgid "Custom Opt-In Message"
 msgstr "விருப்ப விருப்ப செய்தி"
 
-#: .././pages/options.php:219
+#: .././pages/options.php:299
 msgid "Double Opt-In Message"
 msgstr "இரட்டை விருப்ப செய்தி"
 
-#: .././pages/options.php:221
+#: .././pages/options.php:301
 msgid "Single Opt-In Message"
 msgstr "ஒற்றை வேண்டாம் ல் செய்தி"
 
-#: .././pages/options.php:227
+#: .././pages/options.php:307
 msgid "Interest Group Label"
 msgstr "வட்டி குழு லேபிள்"
 
-#: .././pages/options.php:236
+#: .././pages/options.php:316
 msgid ""
 "Text to display above interest groups. Leave blank to use MailChimp interest "
 "group names."
@@ -486,47 +531,159 @@ msgstr ""
 "வட்டி குழுக்கள் மேலே காட்ட உரை. MailChimp வட்டி குழு பெயர்களை பயன்படுத்த வெறுமையாக "
 "விடவும்."
 
-#: .././pages/options.php:248
+#: .././pages/options.php:321
+msgid "Display opt-in checkbox on comment forms?"
+msgstr "காட்சி கருத்து படிவங்களை பெட்டியை உள்ள விருப்ப?"
+
+#: .././pages/options.php:324
+msgid "Hide"
+msgstr "மறை"
+
+#: .././pages/options.php:325
+msgid "Show"
+msgstr "காண்பி"
+
+#: .././pages/options.php:333
+msgid ""
+"This will display a checkbox just above the submit button on all comment "
+"forms. If selected, any users leaving comments will also be added to the "
+"mailing list."
+msgstr ""
+"இது, அனைத்து கருத்து படிவங்கள் மீது submit 'பொத்தானை மேலே ஒரு பெட்டியை காண்பிக்கும். "
+"தேர்வு என்றால், கருத்துக்கள் விட்டு எந்த பயனர்கள் அஞ்சல் பட்டியலில் சேர்க்க வேண்டும்."
+
+#: .././pages/options.php:338
+msgid "Custom Comment Checkbox Text"
+msgstr "வழக்கமான கருத்து பெட்டி உரை"
+
+#: .././pages/options.php:345
+msgid "Default List"
+msgstr "இயல்புநிலை பட்டியல்"
+
+#: .././pages/options.php:360
+msgid ""
+"This is the default list users will be subscribed to when submitting a "
+"comment."
+msgstr ""
+"இந்த இயல்புநிலை பட்டியல் பயனர்கள் ஒரு கருத்தை சமர்ப்பிக்கும் போது சந்தாதாரராக வேண்டும் "
+"ஆகிறது."
+
+#: .././pages/options.php:361
+msgid ""
+"It is best to select a form where only the email , first name and/or last "
+"name are required or you may run into issues."
+msgstr ""
+"இது மின்னஞ்சல், முதல் பெயர் மற்றும் / அல்லது கடைசி பெயர் மட்டும் தேவைப்படுகிறது அல்லது "
+"நீங்கள் பிரச்சினைகளை சந்திக்க நேரிடலாம் ஒரு வடிவம் தேர்வு சிறந்த உள்ளது."
+
+#: .././pages/options.php:373
 msgid "Plugin Information"
 msgstr "நீட்சியை தகவல்"
 
-#: .././pages/options.php:251
+#: .././pages/options.php:376
 msgid "If you experience any issues with our plugin, please"
 msgstr "நீங்கள் எங்கள் சொருகி எந்த பிரச்சினைகள் அனுபவிக்கிறீர்கள் என்றால், தயவு செய்து"
 
-#: .././pages/options.php:251
+#: .././pages/options.php:376
 msgid "submit a New Issue on our Github Issue Tracker"
 msgstr "எங்கள் யாகம் மீது ஒரு புதிய பிரச்சனை சமர்ப்பிக்க"
 
-#: .././pages/options.php:251
+#: .././pages/options.php:376
 msgid ""
 "Please include the information below to help us troubleshoot your problem."
 msgstr ""
 "எங்களுக்கு உங்கள் பிரச்சனை பழுதுபார்த்தல் உதவ கீழே உள்ள தகவல்களை சேர்க்க தயவு செய்து."
 
-#: .././pages/options.php:259
+#: .././pages/options.php:384
 msgid "Plugin Version"
 msgstr "செருகுநிரல் பதிப்பு"
 
-#: .././pages/options.php:263
+#: .././pages/options.php:388
 msgid "Wordpress Version"
 msgstr "வேர்ட்பிரஸ் பதிப்பு"
 
-#: .././pages/options.php:267
+#: .././pages/options.php:392
 msgid "Browser Information"
 msgstr "உலாவி தகவல்"
+
+#: .././pages/options.php:420
+msgid "Error"
+msgstr "பிழை"
+
+#: .././pages/options.php:421
+msgid ""
+"We're sorry, but cURL is disabled on your server. The MailChimp API utilizes "
+"cURL to send and retreive data."
+msgstr ""
+"மன்னிக்கவும், ஆனால் சுருட்டை உங்கள் சர்வரில் முடக்கப்பட்டுள்ளது. MailChimp ஏபிஐ தரவு "
+"அனுப்ப மற்றும் retreive செய்ய சுருட்டை பயன்படுத்துகிறது."
+
+#: .././pages/options.php:426
+msgid "Help!"
+msgstr "உதவி"
+
+#: .././pages/options.php:426
+msgid "What is cURL?"
+msgstr "சுருட்டை என்றால் என்ன?"
+
+#: .././pages/options.php:426
+msgid "Check phpinfo()"
+msgstr "சரிபார்க்க phpinfo பாருங்கள் ()"
+
+#: .././pages/options.php:428
+msgid "Steps To Resolve The Issue"
+msgstr "சிக்கலை தீர்க்க படிகள்"
+
+#: .././pages/options.php:430
+msgid ""
+"You can enable cURL by turning on the cURL module within your php.ini file"
+msgstr ""
+"நீங்கள் உங்களுடைய php.ini கோப்பு உள்ள சுருட்டை தொகுதி மீது திருப்புவதன் மூலம் சுருட்டை "
+"இயக்க முடியும்"
+
+#: .././pages/options.php:430
+msgid "You should find the php.ini file located here : "
+msgstr "நீங்கள் இங்கே அமைந்துள்ள php.ini கோப்பு கண்டுபிடிக்க வேண்டும்: "
+
+#: .././pages/options.php:431
+msgid ""
+"Once found, open up php.ini and locate the line \";extension=php_curl.dll\"."
+msgstr ""
+"ஒருமுறை கண்டு, php.ini திறந்து வரி கண்டுபிடிக்க \"; நீட்டிப்பு = php_curl.dll\"."
+
+#: .././pages/options.php:432
+msgid ""
+"Remove the semi colon before the line, to un-comment it and make the module "
+"active."
+msgstr ", வரி முன் அரை பெருங்குடல் நீக்க un-கருத்து மற்றும் தொகுதி செயலில் செய்யும்."
+
+#: .././pages/options.php:433
+msgid "Re-save and close the file."
+msgstr "மீண்டும் சேமிக்க மற்றும் கோப்பு மூட."
+
+#: .././pages/options.php:434
+msgid "Re-load this page."
+msgstr "இந்த பக்கம் மீண்டும் சுமை."
 
 #: .././templates/shortcode_error.php:1
 msgid "There was an error calling the mailchimp list."
 msgstr "MailChimp பட்டியல் அழைப்பதில் பிழை இருந்தது."
 
 #: .././templates/shortcode_error_data.php:1
-msgid "No API Key or List Id Exist!"
-msgstr "இல்லை API விசை அல்லது பட்டியல் ஐடி Exist!"
+msgid ""
+"The list doesn't exist! Make sure you have imported the list on the \"Manage "
+"List Forms\" page."
+msgstr ""
+"பட்டியலில் இல்லை! நீங்கள் \"பட்டியல் படிவங்கள் நிர்வகிக்க \" பக்கம் பட்டியலில் இறக்குமதி "
+"உறுதி."
 
 #: .././templates/shortcode_error_exists.php:1
 msgid "This list was already placed on this page!"
 msgstr "இந்த பட்டியலில் ஏற்கனவே இந்த பக்கத்தில் வைக்கப்பட்டார்!"
+
+#: .././templates/shortcode_error_no_API_key.php:1
+msgid "Woops! No Valid API Key Found. Double check your settings."
+msgstr "Woops! அது செல்லுபடியாகும் API விசை. இரட்டை உங்கள் அமைப்புகளை சரிபார்க்கவும்."
 
 #: .././templates/shortcode_form.php:11
 msgid "Oops.. Don't forget to fill-in the following fields"
@@ -549,19 +706,19 @@ msgstr "நீங்கள் காட்ட விரும்புகிற�
 msgid "Select a Form to Display"
 msgstr "காண்பிக்க ஒரு வடிவம் தேர்வு"
 
-#: .././templates/yikes-mailchimp-widget.php:43
+#: .././templates/yikes-mailchimp-widget.php:47
 msgid "Please import MailChimp forms"
 msgstr "MailChimp வடிவங்களில் இறக்குமதி செய்து"
 
-#: .././templates/yikes-mailchimp-widget.php:45
+#: .././templates/yikes-mailchimp-widget.php:49
 msgid "Please import some lists from MailChimp"
 msgstr "Mailchimp இருந்து சில பட்டியல்கள் இறக்குமதி செய்து"
 
-#: .././templates/yikes-mailchimp-widget.php:48
+#: .././templates/yikes-mailchimp-widget.php:52
 msgid "Import Lists Now"
 msgstr "இப்போது இறக்குமதி பட்டியல்கள்"
 
-#: .././templates/yikes-mailchimp-widget.php:69
+#: .././templates/yikes-mailchimp-widget.php:73
 msgid ""
 "Oops! It looks like you haven't imported any lists yet. You must import at "
 "least one list to use the Easy MailChimp widget."
@@ -569,7 +726,7 @@ msgstr ""
 "அச்சச்சோ! நீங்கள் இதுவரை எந்த பட்டியல்கள் இறக்குமதி இல்லை போல் தெரிகிறது. நீங்கள் எளிதாக "
 "MailChimp விட்ஜெட்டை பயன்படுத்த குறைந்தது ஒரு பட்டியலை இறக்குமதி வேண்டும்."
 
-#: .././templates/yikes-mailchimp-widget.php:76
+#: .././templates/yikes-mailchimp-widget.php:80
 msgid ""
 "Oops! It looks like you forgot to select a form to display here. Go to "
 "'Appearance > Widgets' and select a form to display."
@@ -577,30 +734,33 @@ msgstr ""
 "அச்சச்சோ! நீங்கள் இங்கே காண்பிக்க ஒரு வடிவம் தேர்வு மறந்துவிட்டேன் தெரிகிறது. 'தோற்றம்> "
 "சாளரம்' சென்று காண்பிக்க ஒரு வடிவம் தேர்வு."
 
-#: .././templates/yikes-mailchimp-widget.php:110
+#: .././templates/yikes-mailchimp-widget.php:117
 msgid "Sign Up For Our Newsletter"
 msgstr "எங்கள் செய்திமடல் பதிவுபெறுக"
 
-#: .././templates/yikes-mailchimp-widget.php:122
+#: .././templates/yikes-mailchimp-widget.php:129
 msgid "Sign Me Up"
 msgstr "என்னை பதிவு"
 
-#: .././templates/yikes-mailchimp-widget.php:126
+#: .././templates/yikes-mailchimp-widget.php:133
 msgid "Title:"
 msgstr "Srini "
 
-#: .././templates/yikes-mailchimp-widget.php:131
+#: .././templates/yikes-mailchimp-widget.php:138
 msgid "Form Text:"
 msgstr "படிவம் உரை:"
 
-#: .././templates/yikes-mailchimp-widget.php:139
+#: .././templates/yikes-mailchimp-widget.php:146
 msgid "Submit Button Text:"
 msgstr "பட்டன் உரை சமர்ப்பி:"
 
-#: .././templates/yikes-mailchimp-widget.php:149
+#: .././templates/yikes-mailchimp-widget.php:156
 msgid "Oops! It looks like you haven't added your API key! Head over to the"
 msgstr "அச்சச்சோ! நீங்கள் உங்கள் API விசை கூறினார் இல்லை போல் தெரிகிறது! மீது தலைமை"
 
-#: .././templates/yikes-mailchimp-widget.php:149
+#: .././templates/yikes-mailchimp-widget.php:156
 msgid "Settings page"
 msgstr "அமைப்புகள் பக்கம்"
+
+#~ msgid "No API Key or List Id Exist!"
+#~ msgstr "இல்லை API விசை அல்லது பட்டியல் ஐடி Exist!"

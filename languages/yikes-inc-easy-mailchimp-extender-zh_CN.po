@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: Yikes Inc. Easy MailChimp Plugin\n"
-"POT-Creation-Date: 2014-03-05 12:01-0500\n"
-"PO-Revision-Date: 2014-03-05 12:01-0500\n"
+"POT-Creation-Date: 2014-04-23 14:41-0500\n"
+"PO-Revision-Date: 2014-04-23 14:56-0500\n"
 "Last-Translator: Evan <evan.m.herman@gmail.com>\n"
 "Language-Team: Yikes Inc. <evan@yikesinc.com>\n"
 "Language: zh_CN\n"
@@ -15,157 +15,210 @@ msgstr ""
 "X-Poedit-KeywordsList: __;_e\n"
 "X-Poedit-SearchPath-0: ../.\n"
 
-#: .././classes/class.yksemeBase.php:101
+#: .././classes/class.yksemeBase.php:114
+#: .././classes/class.yksemeBase.php:1287
 msgid "Thank You for subscribing!"
 msgstr "感谢您"
 
-#: .././classes/class.yksemeBase.php:102
+#: .././classes/class.yksemeBase.php:115
+#: .././classes/class.yksemeBase.php:1288
 msgid ""
 "Thank You for subscribing! Check your email for the confirmation message."
 msgstr "感谢您的订阅！检查你的电子邮件的确认消息。"
 
-#: .././classes/class.yksemeBase.php:103
+#: .././classes/class.yksemeBase.php:116
 msgid "Select Your Area of Interest"
 msgstr "请选择您感兴趣的领域"
 
-#: .././classes/class.yksemeBase.php:792
-msgid "Click on a subscriber to send them an email"
+#: .././classes/class.yksemeBase.php:917
+msgid "Click on a subscriber to see further information"
 msgstr "点击一个用户向他们发送一封电子邮件"
 
-#: .././classes/class.yksemeBase.php:795
+#: .././classes/class.yksemeBase.php:920
 msgid "E-Mail"
 msgstr "电子邮件"
 
-#: .././classes/class.yksemeBase.php:796
+#: .././classes/class.yksemeBase.php:921
 msgid "Date Subscribed"
 msgstr "订阅日期"
 
-#: .././classes/class.yksemeBase.php:811
+#: .././classes/class.yksemeBase.php:941
 msgid "Sorry You Don't Currently Have Any Subscribers In This List!"
 msgstr "对不起，您目前没有任何订户在此列表！"
 
-#: .././classes/class.yksemeBase.php:936 .././classes/class.yksemeBase.php:938
+#: .././classes/class.yksemeBase.php:998
+msgid "Back to Subscriber List"
+msgstr "用户数"
+
+#: .././classes/class.yksemeBase.php:999
+msgid "Subscriber Details"
+msgstr "订户资料"
+
+#: .././classes/class.yksemeBase.php:1010
+msgid "Overview"
+msgstr "概要"
+
+#: .././classes/class.yksemeBase.php:1015
+msgid "First Name"
+msgstr "名字"
+
+#: .././classes/class.yksemeBase.php:1018
+msgid "Last Updated"
+msgstr "最后更新"
+
+#: .././classes/class.yksemeBase.php:1021
+msgid "Preferred Email Type"
+msgstr "首选表单布局"
+
+#: .././classes/class.yksemeBase.php:1028
+msgid "Last Name"
+msgstr "姓"
+
+#: .././classes/class.yksemeBase.php:1031
+msgid "Language"
+msgstr "语言"
+
+#: .././classes/class.yksemeBase.php:1054
+msgid "Groups Subscribed To"
+msgstr "订阅日期"
+
+#: .././classes/class.yksemeBase.php:1104
+msgid "Subscriber Notes"
+msgstr "认购债券"
+
+#: .././classes/class.yksemeBase.php:1109
+msgid "Written by"
+msgstr "撰稿"
+
+#: .././classes/class.yksemeBase.php:1109
+msgid "Created on"
+msgstr "创建于"
+
+#: .././classes/class.yksemeBase.php:1251
+#: .././classes/class.yksemeBase.php:1253
 msgid "MailChimp Forms"
 msgstr "MailChimp表格"
 
-#: .././classes/class.yksemeBase.php:938
+#: .././classes/class.yksemeBase.php:1253
 msgid "MailChimp Settings"
 msgstr "MailChimp设置"
 
-#: .././classes/class.yksemeBase.php:939
+#: .././classes/class.yksemeBase.php:1254
 msgid "Manage List Forms"
 msgstr "管理列表形式"
 
-#: .././classes/class.yksemeBase.php:940 .././pages/about.php:5
+#: .././classes/class.yksemeBase.php:1255 .././pages/about.php:5
 msgid "About YIKES, Inc."
 msgstr "关于YIKES公司"
 
-#: .././classes/class.yksemeBase.php:1110
+#: .././classes/class.yksemeBase.php:1430
 msgid "One or more fields are empty"
 msgstr "一个或多个字段为空"
 
-#: .././classes/class.yksemeBase.php:1154
+#: .././classes/class.yksemeBase.php:1480
 msgid "Your List Was Successfully Saved!"
 msgstr "您的列表保存成功！"
 
-#: .././classes/class.yksemeBase.php:1156
+#: .././classes/class.yksemeBase.php:1482
 msgid "I'm sorry there was an error with your request."
 msgstr "对不起，有您的请求错误。"
 
-#: .././classes/class.yksemeBase.php:1162
+#: .././classes/class.yksemeBase.php:1488
 msgid "MailChimp List name"
 msgstr "MailChimp列表名称"
 
-#: .././classes/class.yksemeBase.php:1168
-#: .././classes/class.yksemeBase.php:1178
+#: .././classes/class.yksemeBase.php:1494
+#: .././classes/class.yksemeBase.php:1504
 #, php-format
 msgid "%1$s"
 msgstr ""
 
-#: .././classes/class.yksemeBase.php:1185
+#: .././classes/class.yksemeBase.php:1512
 msgid "MailChimp List ID"
 msgstr "MailChimp列表ID"
 
-#: .././classes/class.yksemeBase.php:1190
+#: .././classes/class.yksemeBase.php:1518
 msgid "Shortcode"
 msgstr "简码"
 
-#: .././classes/class.yksemeBase.php:1193
+#: .././classes/class.yksemeBase.php:1521
 msgid ""
 "Paste this shortcode into whatever page or post you want to add this form to"
 msgstr "这个短代码粘贴到任何网页或发布您想要这个窗体添加到"
 
-#: .././classes/class.yksemeBase.php:1197
+#: .././classes/class.yksemeBase.php:1526
 msgid "PHP Snippet"
 msgstr "PHP代码段"
 
-#: .././classes/class.yksemeBase.php:1200
+#: .././classes/class.yksemeBase.php:1529
 msgid "Use this code to add this form to a template file"
 msgstr "使用此代码这种形式添加到模板文件"
 
-#: .././classes/class.yksemeBase.php:1205
+#: .././classes/class.yksemeBase.php:1534
 msgid "Number of Subscribers"
 msgstr "用户数"
 
-#: .././classes/class.yksemeBase.php:1213
+#: .././classes/class.yksemeBase.php:1543
 msgid "Form Fields"
 msgstr "表单域"
 
-#: .././classes/class.yksemeBase.php:1215
+#: .././classes/class.yksemeBase.php:1545
 msgid ""
 "Check the fields you want included in your form (Email Address is required)."
 msgstr "检查要包括在你的表单中的字段（需要电子邮件地址）。"
 
-#: .././classes/class.yksemeBase.php:1218
+#: .././classes/class.yksemeBase.php:1548
 msgid ""
 "Use the green arrows to drag-and-drop the fields and rearrange their order."
 msgstr "使用绿色箭头拖动和拖放等领域，并重新安排它们的顺序。"
 
-#: .././classes/class.yksemeBase.php:1224
+#: .././classes/class.yksemeBase.php:1554
 msgid "Active Fields"
 msgstr "活跃​​的领域"
 
-#: .././classes/class.yksemeBase.php:1233
+#: .././classes/class.yksemeBase.php:1563
 msgid "Drag"
 msgstr "拖"
 
-#: .././classes/class.yksemeBase.php:1233
+#: .././classes/class.yksemeBase.php:1563
 msgid "drop"
 msgstr "降"
 
-#: .././classes/class.yksemeBase.php:1238
+#: .././classes/class.yksemeBase.php:1568
 msgid "Merge field"
 msgstr "合并域"
 
-#: .././classes/class.yksemeBase.php:1239
+#: .././classes/class.yksemeBase.php:1569
 msgid "Placeholder"
 msgstr "占位符"
 
-#: .././classes/class.yksemeBase.php:1247
+#: .././classes/class.yksemeBase.php:1577
 msgid "Redirect User On Submission"
 msgstr "重定向用戶在提交"
 
-#: .././classes/class.yksemeBase.php:1251
-msgid ""
-"choose a page or set a custom URL to redirect the user to after they submit "
-"the form."
+#: .././classes/class.yksemeBase.php:1581
+msgid "choose a page to redirect the user to after they submit the form."
 msgstr "選擇一個頁面或一組自定義URL將用戶重定向到後，他們提交表單"
 
-#: .././classes/class.yksemeBase.php:1254
-msgid "Select A Page"
+#: .././classes/class.yksemeBase.php:1584
+msgid "Select A Post/Page"
 msgstr "選擇頁面"
 
-#: .././classes/class.yksemeBase.php:1284
+#: .././classes/class.yksemeBase.php:1638
 msgid "Save Form Settings"
 msgstr "管理Mailchimp表格设置"
 
-#: .././classes/class.yksemeBase.php:1285
+#: .././classes/class.yksemeBase.php:1639
 msgid "Delete Form"
 msgstr "刪除表格"
 
-#: .././classes/class.yksemeBase.php:1286
+#: .././classes/class.yksemeBase.php:1640
 msgid "Re-Import Form Fields from MailChimp"
 msgstr "请MailChimp导入某些列表"
+
+#: .././classes/class.yksemeBase.php:2168
+msgid "Sign Me Up For MAILCHIMP-REPLACE-THIS-TEXT's Newsletter"
+msgstr "向我对于MAILCHIMP-REPLACE-THIS-TEXT的时事通讯"
 
 #: .././pages/about.php:27
 msgid "YIKES, Inc. Web Design and Development"
@@ -225,91 +278,137 @@ msgstr "任何形式已添加呢。"
 msgid "Oops.. The list ID you entered appears to be incorrect."
 msgstr "哎呀..你输入的列表ID似乎是不正确的。"
 
-#: .././pages/lists.php:43
+#: .././pages/lists.php:44
 msgid "There was an error!"
 msgstr "有一个错误！"
 
-#: .././pages/lists.php:137
+#: .././pages/lists.php:135
 msgid "You need to select a Mailchimp list in order to create a form for it"
 msgstr "你需要选择一个Mailchimp列表，以便为它创建一个窗体"
 
-#: .././pages/lists.php:205
+#: .././pages/lists.php:173
+msgid "Are you sure you want to delete this form?"
+msgstr "您确定要取消订阅"
+
+#: .././pages/lists.php:206
 msgid "Are you sure you want to re-import your fields from MailChimp?"
 msgstr "您确定要从MailChimp重新导入您的信息？"
 
-#: .././pages/lists.php:227
+#: .././pages/lists.php:228
 msgid "Looks like this form is already up to date!"
 msgstr "貌似这种形式已经是最新的！"
 
-#: .././pages/lists.php:312
+#: .././pages/lists.php:326
 msgid "Are you sure you want to unsubscribe"
 msgstr "您确定要取消订阅"
 
-#: .././pages/lists.php:312
+#: .././pages/lists.php:326
 msgid "from this list?"
 msgstr "从这个名单？"
 
-#: .././pages/lists.php:329
+#: .././pages/lists.php:342
 msgid "was successfully unsubscribed from this list."
 msgstr "已成功从该列表中取消订阅。"
 
-#: .././pages/lists.php:378 .././pages/options.php:137
+#: .././pages/lists.php:448 .././pages/options.php:196
+#: .././pages/options.php:416
 msgid "Easy Mailchimp Forms by YIKES, Inc."
 msgstr "易Mailchimp形式由YIKES公司"
 
-#: .././pages/lists.php:383
+#: .././pages/lists.php:454
 msgid "Before you can add MailChimp forms to your site, you need to"
 msgstr "之前，你可以添加MailChimp形式到您的网站，您需要"
 
-#: .././pages/lists.php:383
+#: .././pages/lists.php:454
 msgid "go to the MailChimp Settings page"
 msgstr "进入MailChimp设置页面"
 
-#: .././pages/lists.php:383 .././templates/yikes-mailchimp-widget.php:154
+#: .././pages/lists.php:454 .././templates/yikes-mailchimp-widget.php:156
 msgid "and add your API Key."
 msgstr "并添加你的API密钥。"
 
-#: .././pages/lists.php:390
+#: .././pages/lists.php:462
 msgid "You must enter a valid API key to import and manage your lists."
 msgstr "您必须输入一个有效的API密钥导入和管理您的名单。"
 
-#: .././pages/lists.php:400
+#: .././pages/lists.php:473
 msgid "Your Lists"
 msgstr "您的列表"
 
-#: .././pages/lists.php:410
+#: .././pages/lists.php:483
 msgid "Manage Forms"
 msgstr "管理表单"
 
-#: .././pages/options.php:33
+#: .././pages/options.php:41
 msgid "The options were saved successfully!"
 msgstr "该方案已成功保存！"
 
-#: .././pages/options.php:36
+#: .././pages/options.php:44
 msgid "The options could not be saved (or you did not change them)."
 msgstr "该选项无法保存（或您未改变它们）。"
 
-#: .././pages/options.php:80
+#: .././pages/options.php:96
 msgid "Valid API Key"
 msgstr "有效的API密钥"
 
-#: .././pages/options.php:85 .././pages/options.php:89
+#: .././pages/options.php:102
 msgid "Sorry, that is an invalid MailChimp API key."
 msgstr "对不起，这是一个无效的MailChimp API密钥。"
 
-#: .././pages/options.php:99
+#: .././pages/options.php:108
+msgid ""
+"Sorry, that is an invalid MailChimp API key. Please check the console for "
+"further information."
+msgstr "对不起，这是一个无效的MailChimp API密钥。"
+
+#: .././pages/options.php:117
 msgid "Error: Please enter a valid Mail Chimp API Key."
 msgstr "错误：请输入有效的邮件黑猩猩API密钥。"
 
-#: .././pages/options.php:140
+#: .././pages/options.php:199
 msgid "Manage Mailchimp Forms Settings"
 msgstr "管理Mailchimp表格设置"
 
-#: .././pages/options.php:150
+#: .././pages/options.php:205
+msgid "WordPress Version Number Error"
+msgstr "WordPress的版本"
+
+#: .././pages/options.php:206
+msgid ""
+"We're sorry, but it looks like your using an outdated version of WordPress. "
+"You won't be able to access the tinyMCE button to insert forms into pages "
+"and posts unless you update to 3.9 or later."
+msgstr ""
+"我们很抱歉，但它看起来像你使用的是过时的版本的WordPress。你将无法访问tinyMCE"
+"的按钮来插入表格插入网页和帖子，除非你升级到3.9或更高版本。"
+
+#: .././pages/options.php:215
+msgid "LocalHost Detected :"
+msgstr "本地主机检测到："
+
+#: .././pages/options.php:216
+msgid ""
+"It looks like your using Easy MailChimp Forms by YIKES Inc. on localhost."
+msgstr "易Mailchimp形式由YIKES公司"
+
+#: .././pages/options.php:217
+msgid ""
+"If you are unable to validate your API key, and receive the error message"
+msgstr "如果您无法验证您的API密钥，并收到错误消息"
+
+#: .././pages/options.php:217
+msgid "\"SSL certificate problem: unable to get local issuer certificate\" "
+msgstr "“SSL证书的问题：无法获取本地颁发者证书”"
+
+#: .././pages/options.php:217
+msgid "follow the tutorial located "
+msgstr "遵循本教程"
+
+#: .././pages/options.php:230
 msgid "Your Mailchimp API Key"
 msgstr "您Mailchimp API密钥"
 
-#: .././pages/options.php:158
+#: .././pages/options.php:238
 msgid ""
 "Please enter your MailChimp API Key above. The API Key allows your WordPress "
 "site to communicate with your MailChimp account."
@@ -317,43 +416,43 @@ msgstr ""
 "请输入您的以上MailChimp API密钥。该API密钥可以让你的WordPress网站与您的"
 "MailChimp帐户沟通。"
 
-#: .././pages/options.php:159
+#: .././pages/options.php:239
 msgid "For more help, visit the MailChimp Support article"
 msgstr "如需更多帮助，请访问MailChimp支持文章"
 
-#: .././pages/options.php:159
+#: .././pages/options.php:239
 msgid "Where can I find my API Key?"
 msgstr "我在哪里可以找到我的API密钥？"
 
-#: .././pages/options.php:164
+#: .././pages/options.php:244
 msgid "Preferred Form Layout"
 msgstr "首选表单布局"
 
-#: .././pages/options.php:167
+#: .././pages/options.php:247
 msgid "table"
 msgstr "表"
 
-#: .././pages/options.php:168
+#: .././pages/options.php:248
 msgid "div"
 msgstr "格"
 
-#: .././pages/options.php:175
+#: .././pages/options.php:256
 msgid "Choose whether you want your forms to use a table or div layout."
 msgstr "选择您是否希望您的表单使用一个Table或者div布局。"
 
-#: .././pages/options.php:179
+#: .././pages/options.php:261
 msgid "Advanced Error Messaging"
 msgstr "高级错误讯息"
 
-#: .././pages/options.php:182
+#: .././pages/options.php:264
 msgid "Disabled"
 msgstr "残"
 
-#: .././pages/options.php:183
+#: .././pages/options.php:265
 msgid "Enabled"
 msgstr "已启用"
 
-#: .././pages/options.php:190
+#: .././pages/options.php:273
 msgid ""
 "Enable if you're having problems with your forms sending data to MailChimp. "
 "Enabling Advanced Error Messaging will show you the exact error codes "
@@ -362,94 +461,203 @@ msgstr ""
 "启用如果你有你的方式将数据发送到MailChimp的问题。启用高级错误消息会告诉你确切"
 "的错误代码MailChimp正在恢复。"
 
-#: .././pages/options.php:197
+#: .././pages/options.php:281
 msgid "Single Opt-In"
 msgstr "单选项，在"
 
-#: .././pages/options.php:198
+#: .././pages/options.php:282
 msgid "Double Opt-In"
 msgstr "双重选择"
 
-#: .././pages/options.php:205
+#: .././pages/options.php:290
 msgid ""
 "A single opt-in will add the user to your list without any further "
 "interaction."
 msgstr "一个单一的选择，在将用户添加到列表中没有任何进一步的互动。"
 
-#: .././pages/options.php:206
+#: .././pages/options.php:291
 msgid ""
 "A double opt-in will send an email to the user asking them to confirm their "
 "subscription."
 msgstr "双选入将发送一封电子邮件给用户，要求他们确认他们的订阅。"
 
-#: .././pages/options.php:210
+#: .././pages/options.php:292
+msgid "This will also dictate the opt-in settings for people leaving comments."
+msgstr "这也将决定人们留下的意见选入的设置。"
+
+#: .././pages/options.php:297
 msgid "Custom Opt-In Message"
 msgstr "自定义选择接受的消息"
 
-#: .././pages/options.php:212
+#: .././pages/options.php:299
 msgid "Double Opt-In Message"
 msgstr "双重选择留言"
 
-#: .././pages/options.php:214
+#: .././pages/options.php:301
 msgid "Single Opt-In Message"
 msgstr "单选项，在留言"
 
-#: .././pages/options.php:219
+#: .././pages/options.php:307
 msgid "Interest Group Label"
 msgstr "兴趣小组标签"
 
-#: .././pages/options.php:227
+#: .././pages/options.php:316
 msgid ""
 "Text to display above interest groups. Leave blank to use MailChimp interest "
 "group names."
 msgstr "要显示的文本上面利益群体。留空以使用MailChimp利益集团的名称。"
 
-#: .././pages/options.php:239
+#: .././pages/options.php:321
+msgid "Display opt-in checkbox on comment forms?"
+msgstr "显示器选择在复选框上的评论形式？"
+
+#: .././pages/options.php:324
+msgid "Hide"
+msgstr "隐藏"
+
+#: .././pages/options.php:325
+msgid "Show"
+msgstr "显示"
+
+#: .././pages/options.php:333
+msgid ""
+"This will display a checkbox just above the submit button on all comment "
+"forms. If selected, any users leaving comments will also be added to the "
+"mailing list."
+msgstr ""
+"这将显示一个复选框，略高于上的所有注释的形式提交按钮。如果选中，留下评论的所"
+"有用户也将被添加到邮件列表。"
+
+#: .././pages/options.php:338
+msgid "Custom Comment Checkbox Text"
+msgstr "自定义注释文本复选框"
+
+#: .././pages/options.php:345
+msgid "Default List"
+msgstr "默认列表"
+
+#: .././pages/options.php:360
+msgid ""
+"This is the default list users will be subscribed to when submitting a "
+"comment."
+msgstr "这是默认的列表用户将认购提交评论的时候。"
+
+#: .././pages/options.php:361
+msgid ""
+"It is best to select a form where only the email , first name and/or last "
+"name are required or you may run into issues."
+msgstr ""
+"这是最好的选择，其中只有电子邮件，名字和/或姓氏是必需的，否则您可能会遇到的问"
+"题的一种形式。"
+
+#: .././pages/options.php:373
 msgid "Plugin Information"
 msgstr "插件信息"
 
-#: .././pages/options.php:242
+#: .././pages/options.php:376
 msgid "If you experience any issues with our plugin, please"
 msgstr "如果您遇到任何问题，我们的插件，请"
 
-#: .././pages/options.php:242
+#: .././pages/options.php:376
 msgid "submit a New Issue on our Github Issue Tracker"
 msgstr "提交一个新的问题在我们的Github的问题跟踪"
 
-#: .././pages/options.php:242
+#: .././pages/options.php:376
 msgid ""
 "Please include the information below to help us troubleshoot your problem."
 msgstr "请提供以下信息，以帮助我们解决您的问题。"
 
-#: .././pages/options.php:249
+#: .././pages/options.php:384
 msgid "Plugin Version"
 msgstr "插件版本"
 
-#: .././pages/options.php:253
+#: .././pages/options.php:388
 msgid "Wordpress Version"
 msgstr "WordPress的版本"
 
-#: .././pages/options.php:257
+#: .././pages/options.php:392
 msgid "Browser Information"
 msgstr "浏览器信息"
+
+#: .././pages/options.php:420
+msgid "Error"
+msgstr "错误"
+
+#: .././pages/options.php:421
+msgid ""
+"We're sorry, but cURL is disabled on your server. The MailChimp API utilizes "
+"cURL to send and retreive data."
+msgstr ""
+"我们很抱歉，但卷曲禁用您的服务器上。该MailChimp的API利用卷曲发送和retreive数"
+"据。"
+
+#: .././pages/options.php:426
+msgid "Help!"
+msgstr "帮助！"
+
+#: .././pages/options.php:426
+msgid "What is cURL?"
+msgstr "什么是卷曲？"
+
+#: .././pages/options.php:426
+msgid "Check phpinfo()"
+msgstr "检查phpinfo（）函数"
+
+#: .././pages/options.php:428
+msgid "Steps To Resolve The Issue"
+msgstr "步骤来解决此问题"
+
+#: .././pages/options.php:430
+msgid ""
+"You can enable cURL by turning on the cURL module within your php.ini file"
+msgstr "你可以通过在你的php.ini文件打开卷曲模块上启用卷曲"
+
+#: .././pages/options.php:430
+msgid "You should find the php.ini file located here : "
+msgstr "你应该找到设在这里的php.ini文件："
+
+#: .././pages/options.php:431
+msgid ""
+"Once found, open up php.ini and locate the line \";extension=php_curl.dll\"."
+msgstr "一旦发现，开辟php.ini并找到行“;扩展= p​​hp_curl.dll”。"
+
+#: .././pages/options.php:432
+msgid ""
+"Remove the semi colon before the line, to un-comment it and make the module "
+"active."
+msgstr "前行中删除分号，取消注释它，使模块处于活动状态。"
+
+#: .././pages/options.php:433
+msgid "Re-save and close the file."
+msgstr "重新保存并关闭文件。"
+
+#: .././pages/options.php:434
+msgid "Re-load this page."
+msgstr "重新加载该页面。"
 
 #: .././templates/shortcode_error.php:1
 msgid "There was an error calling the mailchimp list."
 msgstr "有一个错误调用mailchimp列表。"
 
 #: .././templates/shortcode_error_data.php:1
-msgid "No API Key or List Id Exist!"
-msgstr "没有API密钥或列表ID存在！"
+msgid ""
+"The list doesn't exist! Make sure you have imported the list on the \"Manage "
+"List Forms\" page."
+msgstr "该列表不存在！请确定您已经导入的列表中的“管理列表表单”页面。"
 
 #: .././templates/shortcode_error_exists.php:1
 msgid "This list was already placed on this page!"
 msgstr "这个列表已经放在这个页面上！"
 
+#: .././templates/shortcode_error_no_API_key.php:1
+msgid "Woops! No Valid API Key Found. Double check your settings."
+msgstr "Woops！无有效的API密钥发现。请仔细检查您的设置。"
+
 #: .././templates/shortcode_form.php:11
-msgid "Oops.. Don't forget the fill-in the following fields:"
+msgid "Oops.. Don't forget to fill-in the following fields"
 msgstr "哎呀......不要忘了填充在以下领域："
 
-#: .././templates/shortcode_form.php:77
+#: .././templates/shortcode_form.php:74
 msgid "required field"
 msgstr "必填字段"
 
@@ -458,27 +666,27 @@ msgstr "必填字段"
 msgid "MailChimp Signup Form"
 msgstr "MailChimp注册表单"
 
-#: .././templates/yikes-mailchimp-widget.php:28
+#: .././templates/yikes-mailchimp-widget.php:27
 msgid "Select Which Form You Would Like To Display:"
 msgstr "选择哪种形式你想显示："
 
-#: .././templates/yikes-mailchimp-widget.php:31
+#: .././templates/yikes-mailchimp-widget.php:30
 msgid "Select a Form to Display"
 msgstr "选择一个表格显示"
 
-#: .././templates/yikes-mailchimp-widget.php:44
+#: .././templates/yikes-mailchimp-widget.php:47
 msgid "Please import MailChimp forms"
 msgstr "请输入MailChimp形式"
 
-#: .././templates/yikes-mailchimp-widget.php:46
+#: .././templates/yikes-mailchimp-widget.php:49
 msgid "Please import some lists from MailChimp"
 msgstr "请MailChimp导入某些列表"
 
-#: .././templates/yikes-mailchimp-widget.php:49
+#: .././templates/yikes-mailchimp-widget.php:52
 msgid "Import Lists Now"
 msgstr "立即导入列表"
 
-#: .././templates/yikes-mailchimp-widget.php:70
+#: .././templates/yikes-mailchimp-widget.php:73
 msgid ""
 "Oops! It looks like you haven't imported any lists yet. You must import at "
 "least one list to use the Easy MailChimp widget."
@@ -486,7 +694,7 @@ msgstr ""
 "糟糕！它看起来像你没有输入任何名单呢。你必须导入至少一个列表中使用的简易"
 "MailChimp部件。"
 
-#: .././templates/yikes-mailchimp-widget.php:77
+#: .././templates/yikes-mailchimp-widget.php:80
 msgid ""
 "Oops! It looks like you forgot to select a form to display here. Go to "
 "'Appearance > Widgets' and select a form to display."
@@ -494,30 +702,33 @@ msgstr ""
 "糟糕！它看起来像你忘了选择一个形式在这里显示。转到“外观>窗口小部件”，选择一个"
 "表单来显示。"
 
-#: .././templates/yikes-mailchimp-widget.php:115
+#: .././templates/yikes-mailchimp-widget.php:117
 msgid "Sign Up For Our Newsletter"
 msgstr "注册我们的通讯"
 
-#: .././templates/yikes-mailchimp-widget.php:127
+#: .././templates/yikes-mailchimp-widget.php:129
 msgid "Sign Me Up"
 msgstr "我要注册"
 
-#: .././templates/yikes-mailchimp-widget.php:131
+#: .././templates/yikes-mailchimp-widget.php:133
 msgid "Title:"
 msgstr "标题:"
 
-#: .././templates/yikes-mailchimp-widget.php:136
+#: .././templates/yikes-mailchimp-widget.php:138
 msgid "Form Text:"
 msgstr "表格文字："
 
-#: .././templates/yikes-mailchimp-widget.php:144
+#: .././templates/yikes-mailchimp-widget.php:146
 msgid "Submit Button Text:"
 msgstr "提交按钮文字："
 
-#: .././templates/yikes-mailchimp-widget.php:154
+#: .././templates/yikes-mailchimp-widget.php:156
 msgid "Oops! It looks like you haven't added your API key! Head over to the"
 msgstr "糟糕！看起来你还没有加入您的API密钥！头部到"
 
-#: .././templates/yikes-mailchimp-widget.php:154
+#: .././templates/yikes-mailchimp-widget.php:156
 msgid "Settings page"
 msgstr "设置页面"
+
+#~ msgid "No API Key or List Id Exist!"
+#~ msgstr "没有API密钥或列表ID存在！"

@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: Yikes Inc. Easy MailChimp Plugin\n"
-"POT-Creation-Date: 2014-03-13 16:34-0500\n"
-"PO-Revision-Date: 2014-03-13 16:34-0500\n"
+"POT-Creation-Date: 2014-04-23 14:40-0500\n"
+"PO-Revision-Date: 2014-04-23 14:55-0500\n"
 "Last-Translator: Evan <evan.m.herman@gmail.com>\n"
 "Language-Team: Yikes Inc. <evan@yikesinc.com>\n"
 "Language: vi_VN\n"
@@ -15,213 +15,217 @@ msgstr ""
 "X-Poedit-KeywordsList: __;_e\n"
 "X-Poedit-SearchPath-0: ../.\n"
 
-#: .././classes/class.yksemeBase.php:103
+#: .././classes/class.yksemeBase.php:114
+#: .././classes/class.yksemeBase.php:1287
 msgid "Thank You for subscribing!"
 msgstr "Cảm ơn bạn đã đăng ký!"
 
-#: .././classes/class.yksemeBase.php:104
+#: .././classes/class.yksemeBase.php:115
+#: .././classes/class.yksemeBase.php:1288
 msgid ""
 "Thank You for subscribing! Check your email for the confirmation message."
 msgstr "Cảm ơn bạn đã đăng ký! Kiểm tra email của bạn để thông báo xác nhận."
 
-#: .././classes/class.yksemeBase.php:105
+#: .././classes/class.yksemeBase.php:116
 msgid "Select Your Area of Interest"
 msgstr "Chọn khu vực của bạn yêu thich"
 
-#: .././classes/class.yksemeBase.php:804
+#: .././classes/class.yksemeBase.php:917
 msgid "Click on a subscriber to see further information"
 msgstr "Nhấp chuột vào một thuê bao để xem thêm thông tin"
 
-#: .././classes/class.yksemeBase.php:807
+#: .././classes/class.yksemeBase.php:920
 msgid "E-Mail"
 msgstr "E-Mail"
 
-#: .././classes/class.yksemeBase.php:808
+#: .././classes/class.yksemeBase.php:921
 msgid "Date Subscribed"
 msgstr "Đăng ký ngày"
 
-#: .././classes/class.yksemeBase.php:828
+#: .././classes/class.yksemeBase.php:941
 msgid "Sorry You Don't Currently Have Any Subscribers In This List!"
 msgstr "Xin lỗi bạn không có bất kỳ thuê bao Hiện nay trong Danh sách này!"
 
-#: .././classes/class.yksemeBase.php:885
+#: .././classes/class.yksemeBase.php:998
 msgid "Back to Subscriber List"
 msgstr "Trở lại vào danh sách thuê bao"
 
-#: .././classes/class.yksemeBase.php:886
+#: .././classes/class.yksemeBase.php:999
 msgid "Subscriber Details"
 msgstr "Thông tin chi tiết thuê bao"
 
-#: .././classes/class.yksemeBase.php:897
+#: .././classes/class.yksemeBase.php:1010
 msgid "Overview"
 msgstr "tổng quan"
 
-#: .././classes/class.yksemeBase.php:902
+#: .././classes/class.yksemeBase.php:1015
 msgid "First Name"
 msgstr "Tên đầu tiên"
 
-#: .././classes/class.yksemeBase.php:905
+#: .././classes/class.yksemeBase.php:1018
 msgid "Last Updated"
 msgstr "Cập nhật lần cuối"
 
-#: .././classes/class.yksemeBase.php:908
+#: .././classes/class.yksemeBase.php:1021
 msgid "Preferred Email Type"
 msgstr "Loại ưa thích Email"
 
-#: .././classes/class.yksemeBase.php:915
+#: .././classes/class.yksemeBase.php:1028
 msgid "Last Name"
 msgstr "họ"
 
-#: .././classes/class.yksemeBase.php:918
+#: .././classes/class.yksemeBase.php:1031
 msgid "Language"
 msgstr "ngôn ngư"
 
-#: .././classes/class.yksemeBase.php:941
+#: .././classes/class.yksemeBase.php:1054
 msgid "Groups Subscribed To"
 msgstr "Đăng ký nhóm Để"
 
-#: .././classes/class.yksemeBase.php:992
+#: .././classes/class.yksemeBase.php:1104
 msgid "Subscriber Notes"
 msgstr "Ghi chú thuê bao"
 
-#: .././classes/class.yksemeBase.php:997
+#: .././classes/class.yksemeBase.php:1109
 msgid "Written by"
 msgstr "được viết bởi"
 
-#: .././classes/class.yksemeBase.php:997
+#: .././classes/class.yksemeBase.php:1109
 msgid "Created on"
 msgstr "tạo ra trên"
 
-#: .././classes/class.yksemeBase.php:1132
-#: .././classes/class.yksemeBase.php:1134
+#: .././classes/class.yksemeBase.php:1251
+#: .././classes/class.yksemeBase.php:1253
 msgid "MailChimp Forms"
 msgstr "MailChimp hình thức"
 
-#: .././classes/class.yksemeBase.php:1134
+#: .././classes/class.yksemeBase.php:1253
 msgid "MailChimp Settings"
 msgstr "MailChimp chỉnh"
 
-#: .././classes/class.yksemeBase.php:1135
+#: .././classes/class.yksemeBase.php:1254
 msgid "Manage List Forms"
 msgstr "Danh sách quản lý hình thức"
 
-#: .././classes/class.yksemeBase.php:1136 .././pages/about.php:5
+#: .././classes/class.yksemeBase.php:1255 .././pages/about.php:5
 msgid "About YIKES, Inc."
 msgstr "Về yikes, Inc"
 
-#: .././classes/class.yksemeBase.php:1293
+#: .././classes/class.yksemeBase.php:1430
 msgid "One or more fields are empty"
 msgstr "Một hoặc nhiều lĩnh vực có sản phẩm nào"
 
-#: .././classes/class.yksemeBase.php:1343
+#: .././classes/class.yksemeBase.php:1480
 msgid "Your List Was Successfully Saved!"
 msgstr "Danh sách đã lưu lại thành công!"
 
-#: .././classes/class.yksemeBase.php:1345
+#: .././classes/class.yksemeBase.php:1482
 msgid "I'm sorry there was an error with your request."
 msgstr "Tôi xin lỗi đã có lỗi với yêu cầu của bạn."
 
-#: .././classes/class.yksemeBase.php:1351
+#: .././classes/class.yksemeBase.php:1488
 msgid "MailChimp List name"
 msgstr "Danh sách tên MailChimp"
 
-#: .././classes/class.yksemeBase.php:1357
-#: .././classes/class.yksemeBase.php:1367
+#: .././classes/class.yksemeBase.php:1494
+#: .././classes/class.yksemeBase.php:1504
 #, php-format
 msgid "%1$s"
 msgstr ""
 
-#: .././classes/class.yksemeBase.php:1375
+#: .././classes/class.yksemeBase.php:1512
 msgid "MailChimp List ID"
 msgstr "Danh sách MailChimp ID"
 
-#: .././classes/class.yksemeBase.php:1381
+#: .././classes/class.yksemeBase.php:1518
 msgid "Shortcode"
 msgstr "Shortcode"
 
-#: .././classes/class.yksemeBase.php:1384
+#: .././classes/class.yksemeBase.php:1521
 msgid ""
 "Paste this shortcode into whatever page or post you want to add this form to"
 msgstr ""
 "Dán shortcode này vào bất cứ trang hoặc gửi bạn muốn thêm mẫu đơn này để"
 
-#: .././classes/class.yksemeBase.php:1389
+#: .././classes/class.yksemeBase.php:1526
 msgid "PHP Snippet"
 msgstr "PHP số câu liên quan"
 
-#: .././classes/class.yksemeBase.php:1392
+#: .././classes/class.yksemeBase.php:1529
 msgid "Use this code to add this form to a template file"
 msgstr "Sử dụng mã này để thêm hình thức này vào một tập tin mẫu"
 
-#: .././classes/class.yksemeBase.php:1397
+#: .././classes/class.yksemeBase.php:1534
 msgid "Number of Subscribers"
 msgstr "Số thuê bao"
 
-#: .././classes/class.yksemeBase.php:1406
+#: .././classes/class.yksemeBase.php:1543
 msgid "Form Fields"
 msgstr "Các lĩnh vực hình thức"
 
-#: .././classes/class.yksemeBase.php:1408
+#: .././classes/class.yksemeBase.php:1545
 msgid ""
 "Check the fields you want included in your form (Email Address is required)."
 msgstr ""
 "Kiểm tra các lĩnh vực bạn muốn đưa vào hình thức của bạn (Địa chỉ email được "
 "yêu cầu)."
 
-#: .././classes/class.yksemeBase.php:1411
+#: .././classes/class.yksemeBase.php:1548
 msgid ""
 "Use the green arrows to drag-and-drop the fields and rearrange their order."
 msgstr ""
 "Sử dụng các mũi tên màu xanh lá cây để kéo và thả các lĩnh vực, sắp xếp lại "
 "thứ tự của chúng."
 
-#: .././classes/class.yksemeBase.php:1417
+#: .././classes/class.yksemeBase.php:1554
 msgid "Active Fields"
 msgstr "Lĩnh vực hoạt động"
 
-#: .././classes/class.yksemeBase.php:1426
+#: .././classes/class.yksemeBase.php:1563
 msgid "Drag"
 msgstr "Kéo"
 
-#: .././classes/class.yksemeBase.php:1426
+#: .././classes/class.yksemeBase.php:1563
 msgid "drop"
 msgstr "rơi"
 
-#: .././classes/class.yksemeBase.php:1431
+#: .././classes/class.yksemeBase.php:1568
 msgid "Merge field"
 msgstr "Hợp nhất lĩnh vực"
 
-#: .././classes/class.yksemeBase.php:1432
+#: .././classes/class.yksemeBase.php:1569
 msgid "Placeholder"
 msgstr "Giữ chỗ"
 
-#: .././classes/class.yksemeBase.php:1440
+#: .././classes/class.yksemeBase.php:1577
 msgid "Redirect User On Submission"
 msgstr "Chuyển hướng người sử dụng trên những thông tin"
 
-#: .././classes/class.yksemeBase.php:1444
-msgid ""
-"choose a page or set a custom URL to redirect the user to after they submit "
-"the form."
+#: .././classes/class.yksemeBase.php:1581
+msgid "choose a page to redirect the user to after they submit the form."
 msgstr ""
 "chọn một trang hoặc thiết lập một URL tùy chỉnh để chuyển hướng người sử "
 "dụng sau khi gửi biểu mẫu."
 
-#: .././classes/class.yksemeBase.php:1447
+#: .././classes/class.yksemeBase.php:1584
 msgid "Select A Post/Page"
 msgstr "Chọn Một bài viết / trang"
 
-#: .././classes/class.yksemeBase.php:1501
+#: .././classes/class.yksemeBase.php:1638
 msgid "Save Form Settings"
 msgstr "Quản lý MailChimp hình thức thiết lập"
 
-#: .././classes/class.yksemeBase.php:1502
+#: .././classes/class.yksemeBase.php:1639
 msgid "Delete Form"
 msgstr "xóa Mẫu"
 
-#: .././classes/class.yksemeBase.php:1503
+#: .././classes/class.yksemeBase.php:1640
 msgid "Re-Import Form Fields from MailChimp"
 msgstr "Xin vui lòng nhập một số danh sách từ MailChimp"
+
+#: .././classes/class.yksemeBase.php:2168
+msgid "Sign Me Up For MAILCHIMP-REPLACE-THIS-TEXT's Newsletter"
+msgstr "Đăng Me Up Đối với tin MailChimp-thay thế-NÀY-văn bản của"
 
 #: .././pages/about.php:27
 msgid "YIKES, Inc. Web Design and Development"
@@ -320,7 +324,8 @@ msgstr "từ danh sách này?"
 msgid "was successfully unsubscribed from this list."
 msgstr "đã được bỏ đăng ký thành công từ danh sách này."
 
-#: .././pages/lists.php:448 .././pages/options.php:138
+#: .././pages/lists.php:448 .././pages/options.php:196
+#: .././pages/options.php:416
 msgid "Easy Mailchimp Forms by YIKES, Inc."
 msgstr "Dễ dàng MailChimp hình thức bởi yikes, Inc"
 
@@ -334,7 +339,7 @@ msgstr ""
 msgid "go to the MailChimp Settings page"
 msgstr "đi đến trang MailChimp chỉnh"
 
-#: .././pages/lists.php:454 .././templates/yikes-mailchimp-widget.php:149
+#: .././pages/lists.php:454 .././templates/yikes-mailchimp-widget.php:156
 msgid "and add your API Key."
 msgstr "và thêm API Key của bạn."
 
@@ -351,23 +356,23 @@ msgstr "Danh sách của bạn"
 msgid "Manage Forms"
 msgstr "Quản lý hình thức"
 
-#: .././pages/options.php:35
+#: .././pages/options.php:41
 msgid "The options were saved successfully!"
 msgstr "Các tùy chọn đã được lưu thành công!"
 
-#: .././pages/options.php:38
+#: .././pages/options.php:44
 msgid "The options could not be saved (or you did not change them)."
 msgstr "Các tùy chọn có thể không được lưu (hoặc bạn đã không thay đổi)."
 
-#: .././pages/options.php:82
+#: .././pages/options.php:96
 msgid "Valid API Key"
 msgstr "Hợp lệ API Key"
 
-#: .././pages/options.php:88
+#: .././pages/options.php:102
 msgid "Sorry, that is an invalid MailChimp API key."
 msgstr "Xin lỗi, đó là một khóa API MailChimp không hợp lệ."
 
-#: .././pages/options.php:93
+#: .././pages/options.php:108
 msgid ""
 "Sorry, that is an invalid MailChimp API key. Please check the console for "
 "further information."
@@ -375,19 +380,59 @@ msgstr ""
 "Xin lỗi, đó là một khóa API MailChimp không hợp lệ. Hãy kiểm tra các giao "
 "diện điều khiển để biết thêm thông tin."
 
-#: .././pages/options.php:102
+#: .././pages/options.php:117
 msgid "Error: Please enter a valid Mail Chimp API Key."
 msgstr "Lỗi: Xin vui lòng nhập một thư hợp lệ tinh tinh API Key."
 
-#: .././pages/options.php:141
+#: .././pages/options.php:199
 msgid "Manage Mailchimp Forms Settings"
 msgstr "Quản lý MailChimp hình thức thiết lập"
 
-#: .././pages/options.php:151
+#: .././pages/options.php:205
+msgid "WordPress Version Number Error"
+msgstr "Phiên bản wordpress"
+
+#: .././pages/options.php:206
+msgid ""
+"We're sorry, but it looks like your using an outdated version of WordPress. "
+"You won't be able to access the tinyMCE button to insert forms into pages "
+"and posts unless you update to 3.9 or later."
+msgstr ""
+"Chúng tôi xin lỗi, nhưng có vẻ như cách sử dụng của bạn một phiên bản lỗi "
+"thời của WordPress. Bạn sẽ không thể truy cập vào nút TinyMCE để chèn các "
+"hình thức vào các trang và các bài viết, trừ khi bạn cập nhật đến 3,9 hoặc "
+"sau đó."
+
+#: .././pages/options.php:215
+msgid "LocalHost Detected :"
+msgstr "Localhost phát hiện:"
+
+#: .././pages/options.php:216
+msgid ""
+"It looks like your using Easy MailChimp Forms by YIKES Inc. on localhost."
+msgstr "Dễ dàng MailChimp hình thức bởi yikes, Inc"
+
+#: .././pages/options.php:217
+msgid ""
+"If you are unable to validate your API key, and receive the error message"
+msgstr ""
+"Nếu bạn không thể xác nhận khóa API của bạn, và nhận được thông báo lỗi"
+
+#: .././pages/options.php:217
+msgid "\"SSL certificate problem: unable to get local issuer certificate\" "
+msgstr ""
+"\"Vấn đề giấy chứng nhận SSL: không thể có được địa phương tổ chức phát hành "
+"chứng chỉ\" "
+
+#: .././pages/options.php:217
+msgid "follow the tutorial located "
+msgstr "theo các hướng dẫn nằm "
+
+#: .././pages/options.php:230
 msgid "Your Mailchimp API Key"
 msgstr "MailChimp của bạn API Key"
 
-#: .././pages/options.php:159
+#: .././pages/options.php:238
 msgid ""
 "Please enter your MailChimp API Key above. The API Key allows your WordPress "
 "site to communicate with your MailChimp account."
@@ -395,44 +440,44 @@ msgstr ""
 "Vui lòng nhập MailChimp API Key của bạn ở trên. API Key cho phép trang web "
 "WordPress của bạn để giao tiếp với tài khoản MailChimp của bạn."
 
-#: .././pages/options.php:160
+#: .././pages/options.php:239
 msgid "For more help, visit the MailChimp Support article"
 msgstr "Để được trợ giúp thêm, hãy truy bài viết MailChimp Hỗ trợ"
 
-#: .././pages/options.php:160
+#: .././pages/options.php:239
 msgid "Where can I find my API Key?"
 msgstr "Tôi có thể tìm thấy chính API của tôi ở đâu?"
 
-#: .././pages/options.php:165
+#: .././pages/options.php:244
 msgid "Preferred Form Layout"
 msgstr "Mẫu ưa thích Giao diện"
 
-#: .././pages/options.php:168
+#: .././pages/options.php:247
 msgid "table"
 msgstr "bảng"
 
-#: .././pages/options.php:169
+#: .././pages/options.php:248
 msgid "div"
 msgstr "div"
 
-#: .././pages/options.php:177
+#: .././pages/options.php:256
 msgid "Choose whether you want your forms to use a table or div layout."
 msgstr ""
 "Chọn nếu bạn muốn hình thức của bạn để sử dụng một bảng hoặc bố trí div."
 
-#: .././pages/options.php:182
+#: .././pages/options.php:261
 msgid "Advanced Error Messaging"
 msgstr "Nâng cao Lỗi nhắn"
 
-#: .././pages/options.php:185
+#: .././pages/options.php:264
 msgid "Disabled"
 msgstr "Đã vô hiệu hóa"
 
-#: .././pages/options.php:186
+#: .././pages/options.php:265
 msgid "Enabled"
 msgstr "Kích hoạt"
 
-#: .././pages/options.php:194
+#: .././pages/options.php:273
 msgid ""
 "Enable if you're having problems with your forms sending data to MailChimp. "
 "Enabling Advanced Error Messaging will show you the exact error codes "
@@ -442,15 +487,15 @@ msgstr ""
 "MailChimp. Cho phép nâng cao Tin nhắn báo lỗi sẽ hiển thị cho bạn các mã lỗi "
 "chính xác MailChimp đang trở lại."
 
-#: .././pages/options.php:202
+#: .././pages/options.php:281
 msgid "Single Opt-In"
 msgstr "Đơn Opt-In"
 
-#: .././pages/options.php:203
+#: .././pages/options.php:282
 msgid "Double Opt-In"
 msgstr "Đôi Opt-In"
 
-#: .././pages/options.php:211
+#: .././pages/options.php:290
 msgid ""
 "A single opt-in will add the user to your list without any further "
 "interaction."
@@ -458,7 +503,7 @@ msgstr ""
 "Một đơn opt-in sẽ bổ sung thêm người dùng vào danh sách của bạn mà không cần "
 "bất kỳ tương tác hơn nữa."
 
-#: .././pages/options.php:212
+#: .././pages/options.php:291
 msgid ""
 "A double opt-in will send an email to the user asking them to confirm their "
 "subscription."
@@ -466,23 +511,29 @@ msgstr ""
 "Một đôi lựa chọn trong sẽ gửi email cho người sử dụng yêu cầu họ xác nhận "
 "đăng ký của họ."
 
-#: .././pages/options.php:217
+#: .././pages/options.php:292
+msgid "This will also dictate the opt-in settings for people leaving comments."
+msgstr ""
+"Điều này cũng sẽ chỉ ra các thiết lập lựa chọn trong những người để lại ý "
+"kiến."
+
+#: .././pages/options.php:297
 msgid "Custom Opt-In Message"
 msgstr "Tùy chỉnh Opt-In tin nhắn"
 
-#: .././pages/options.php:219
+#: .././pages/options.php:299
 msgid "Double Opt-In Message"
 msgstr "Đôi Opt-Trong tin nhắn"
 
-#: .././pages/options.php:221
+#: .././pages/options.php:301
 msgid "Single Opt-In Message"
 msgstr "Đơn Opt-Trong tin nhắn"
 
-#: .././pages/options.php:227
+#: .././pages/options.php:307
 msgid "Interest Group Label"
 msgstr "Nhóm lợi ích Label"
 
-#: .././pages/options.php:236
+#: .././pages/options.php:316
 msgid ""
 "Text to display above interest groups. Leave blank to use MailChimp interest "
 "group names."
@@ -490,48 +541,160 @@ msgstr ""
 "Văn bản để hiển thị trên các nhóm lợi ích. Để trống để sử dụng MailChimp tên "
 "nhóm lợi ích."
 
-#: .././pages/options.php:248
+#: .././pages/options.php:321
+msgid "Display opt-in checkbox on comment forms?"
+msgstr "Màn hình hiển thị lựa chọn trong hộp kiểm trên các hình thức comment?"
+
+#: .././pages/options.php:324
+msgid "Hide"
+msgstr "Ẩn"
+
+#: .././pages/options.php:325
+msgid "Show"
+msgstr "Hiện"
+
+#: .././pages/options.php:333
+msgid ""
+"This will display a checkbox just above the submit button on all comment "
+"forms. If selected, any users leaving comments will also be added to the "
+"mailing list."
+msgstr ""
+"Điều này sẽ hiển thị một hộp kiểm ngay trên nút gửi trên tất cả các hình "
+"thức bình luận. Nếu được lựa chọn, bất kỳ người sử dụng để lại ý kiến ​​cũng "
+"sẽ được thêm vào danh sách gửi thư."
+
+#: .././pages/options.php:338
+msgid "Custom Comment Checkbox Text"
+msgstr "Tùy chỉnh Comment Checkbox Tiêu đề"
+
+#: .././pages/options.php:345
+msgid "Default List"
+msgstr "Danh sách mặc định"
+
+#: .././pages/options.php:360
+msgid ""
+"This is the default list users will be subscribed to when submitting a "
+"comment."
+msgstr "Đây là danh sách người dùng mặc định sẽ được đăng ký khi nộp xet."
+
+#: .././pages/options.php:361
+msgid ""
+"It is best to select a form where only the email , first name and/or last "
+"name are required or you may run into issues."
+msgstr ""
+"Cách tốt nhất là chọn một hình thức mà chỉ email, tên và / hoặc tên cuối "
+"cùng được yêu cầu hoặc bạn có thể chạy vào các vấn đề."
+
+#: .././pages/options.php:373
 msgid "Plugin Information"
 msgstr "Thông tin Plugin"
 
-#: .././pages/options.php:251
+#: .././pages/options.php:376
 msgid "If you experience any issues with our plugin, please"
 msgstr "Nếu bạn gặp bất kỳ vấn đề với plugin của chúng tôi, xin vui lòng"
 
-#: .././pages/options.php:251
+#: .././pages/options.php:376
 msgid "submit a New Issue on our Github Issue Tracker"
 msgstr "nộp một vấn đề mới trên Github phát hành của chúng tôi Tracker"
 
-#: .././pages/options.php:251
+#: .././pages/options.php:376
 msgid ""
 "Please include the information below to help us troubleshoot your problem."
 msgstr ""
 "Xin vui lòng bao gồm các thông tin dưới đây để giúp chúng tôi gỡ rối vấn đề "
 "của bạn."
 
-#: .././pages/options.php:259
+#: .././pages/options.php:384
 msgid "Plugin Version"
 msgstr "Phiên bản Plugin"
 
-#: .././pages/options.php:263
+#: .././pages/options.php:388
 msgid "Wordpress Version"
 msgstr "Phiên bản wordpress"
 
-#: .././pages/options.php:267
+#: .././pages/options.php:392
 msgid "Browser Information"
 msgstr "Thông tin trình duyệt"
+
+#: .././pages/options.php:420
+msgid "Error"
+msgstr "Lỗi"
+
+#: .././pages/options.php:421
+msgid ""
+"We're sorry, but cURL is disabled on your server. The MailChimp API utilizes "
+"cURL to send and retreive data."
+msgstr ""
+"Chúng tôi xin lỗi, nhưng cURL bị vô hiệu hóa trên máy chủ của bạn. Các "
+"MailChimp API sử dụng cURL để gửi và truy xuất dữ liệu."
+
+#: .././pages/options.php:426
+msgid "Help!"
+msgstr "Cứu!"
+
+#: .././pages/options.php:426
+msgid "What is cURL?"
+msgstr "CURL là gì?"
+
+#: .././pages/options.php:426
+msgid "Check phpinfo()"
+msgstr "Kiểm tra phpinfo ()"
+
+#: .././pages/options.php:428
+msgid "Steps To Resolve The Issue"
+msgstr "Các bước để giải quyết vấn đề"
+
+#: .././pages/options.php:430
+msgid ""
+"You can enable cURL by turning on the cURL module within your php.ini file"
+msgstr ""
+"Bạn có thể bật cURL bằng cách bật module cURL trong file php.ini của bạn"
+
+#: .././pages/options.php:430
+msgid "You should find the php.ini file located here : "
+msgstr "Bạn nên tìm file php.ini nằm ở đây: "
+
+#: .././pages/options.php:431
+msgid ""
+"Once found, open up php.ini and locate the line \";extension=php_curl.dll\"."
+msgstr ""
+"Khi tìm thấy, mở file php.ini và tìm dòng \"; extension = php_curl.dll\"."
+
+#: .././pages/options.php:432
+msgid ""
+"Remove the semi colon before the line, to un-comment it and make the module "
+"active."
+msgstr ""
+"Loại bỏ các dấu chấm phẩy trước khi dòng, để bỏ nhận xét nó và làm cho các "
+"mô-đun hoạt động."
+
+#: .././pages/options.php:433
+msgid "Re-save and close the file."
+msgstr "Lưu lại và đóng file."
+
+#: .././pages/options.php:434
+msgid "Re-load this page."
+msgstr "Tái nạp trang này."
 
 #: .././templates/shortcode_error.php:1
 msgid "There was an error calling the mailchimp list."
 msgstr "Có một lỗi gọi danh sách MailChimp."
 
 #: .././templates/shortcode_error_data.php:1
-msgid "No API Key or List Id Exist!"
-msgstr "Không chính API hoặc Danh sách Id tồn tại!"
+msgid ""
+"The list doesn't exist! Make sure you have imported the list on the \"Manage "
+"List Forms\" page."
+msgstr ""
+"Danh sách này không tồn tại! Hãy chắc chắn rằng bạn đã nhập danh sách trên "
+"\"Quản lý Danh sách hình thức\" trang."
 
 #: .././templates/shortcode_error_exists.php:1
 msgid "This list was already placed on this page!"
 msgstr "Danh sách này đã được đặt trên trang này!"
+
+#: .././templates/shortcode_error_no_API_key.php:1
+msgid "Woops! No Valid API Key Found. Double check your settings."
+msgstr "Woops! Không hợp lệ API Key tìm thấy. Kiểm tra lại thiết lập của bạn."
 
 #: .././templates/shortcode_form.php:11
 msgid "Oops.. Don't forget to fill-in the following fields"
@@ -554,19 +717,19 @@ msgstr "Chọn nào Mẫu Bạn muốn hiển thị:"
 msgid "Select a Form to Display"
 msgstr "Chọn một mẫu để hiển thị"
 
-#: .././templates/yikes-mailchimp-widget.php:43
+#: .././templates/yikes-mailchimp-widget.php:47
 msgid "Please import MailChimp forms"
 msgstr "Xin vui lòng nhập các hình thức MailChimp"
 
-#: .././templates/yikes-mailchimp-widget.php:45
+#: .././templates/yikes-mailchimp-widget.php:49
 msgid "Please import some lists from MailChimp"
 msgstr "Xin vui lòng nhập một số danh sách từ MailChimp"
 
-#: .././templates/yikes-mailchimp-widget.php:48
+#: .././templates/yikes-mailchimp-widget.php:52
 msgid "Import Lists Now"
 msgstr "Chức năng Nhập ngay"
 
-#: .././templates/yikes-mailchimp-widget.php:69
+#: .././templates/yikes-mailchimp-widget.php:73
 msgid ""
 "Oops! It looks like you haven't imported any lists yet. You must import at "
 "least one list to use the Easy MailChimp widget."
@@ -574,7 +737,7 @@ msgstr ""
 "Rất tiếc! Có vẻ như bạn đã không nhập khẩu bất kỳ danh sách nào được nêu ra. "
 "Bạn phải nhập ít nhất một danh sách sử dụng các phụ tùng dễ dàng MailChimp."
 
-#: .././templates/yikes-mailchimp-widget.php:76
+#: .././templates/yikes-mailchimp-widget.php:80
 msgid ""
 "Oops! It looks like you forgot to select a form to display here. Go to "
 "'Appearance > Widgets' and select a form to display."
@@ -582,30 +745,33 @@ msgstr ""
 "Rất tiếc! Có vẻ như bạn quên chọn hình thức hiển thị ở đây. Tới 'Appearance> "
 "Widgets và chọn một hình thức để hiển thị."
 
-#: .././templates/yikes-mailchimp-widget.php:110
+#: .././templates/yikes-mailchimp-widget.php:117
 msgid "Sign Up For Our Newsletter"
 msgstr "Đăng ký Để nhận bản tin của chúng tôi"
 
-#: .././templates/yikes-mailchimp-widget.php:122
+#: .././templates/yikes-mailchimp-widget.php:129
 msgid "Sign Me Up"
 msgstr "Đăng Me Up"
 
-#: .././templates/yikes-mailchimp-widget.php:126
+#: .././templates/yikes-mailchimp-widget.php:133
 msgid "Title:"
 msgstr "Chức vụ:"
 
-#: .././templates/yikes-mailchimp-widget.php:131
+#: .././templates/yikes-mailchimp-widget.php:138
 msgid "Form Text:"
 msgstr "Hình thức văn bản:"
 
-#: .././templates/yikes-mailchimp-widget.php:139
+#: .././templates/yikes-mailchimp-widget.php:146
 msgid "Submit Button Text:"
 msgstr "Trình Button Text:"
 
-#: .././templates/yikes-mailchimp-widget.php:149
+#: .././templates/yikes-mailchimp-widget.php:156
 msgid "Oops! It looks like you haven't added your API key! Head over to the"
 msgstr "Rất tiếc! Có vẻ như bạn chưa thêm khóa API của bạn! Đi qua các"
 
-#: .././templates/yikes-mailchimp-widget.php:149
+#: .././templates/yikes-mailchimp-widget.php:156
 msgid "Settings page"
 msgstr "Trang cài đặt"
+
+#~ msgid "No API Key or List Id Exist!"
+#~ msgstr "Không chính API hoặc Danh sách Id tồn tại!"
