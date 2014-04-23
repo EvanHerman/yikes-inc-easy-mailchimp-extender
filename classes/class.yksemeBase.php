@@ -2380,6 +2380,15 @@ private function runUpdateTasks_1_3_0()
 							<?php
 					
 					}
+					
+					
+					/* Checking if the user is on localhost */
+					/* If they are we want to display a warning about SSL on localhost */
+					function yks_mc_is_user_localhost() {
+						$whitelist = array( '127.0.0.1', '::1' );
+						if( in_array( $_SERVER['REMOTE_ADDR'], $whitelist) )
+							return true;
+					}
 			
 		}
 	}

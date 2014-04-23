@@ -198,13 +198,26 @@ jQuery(document).ready(function() {
 		
 	<h3><?php _e('Manage Mailchimp Forms Settings','yikes-inc-easy-mailchimp-extender'); ?></h3>
 
+	<!-- WordPress version number and SSL error checking -->
 	<!-- check WordPress version num. and display an error if its outdated -->
 	<?php if ( $wordPress_version < '3.9' ) { ?>
 		<div class="error">
-			<h3><?php _e( 'WordPress Version Number Error', 'yikes-inc-easy-mailchimp-extender' ); ?></h3>
-			<p><?php _e( 'We\'re sorry, but it looks like your using an outdated version of WordPress. You won\'t be able to access the tinyMCE button to insert forms into pages and posts unless you update to 3.9!', 'yikes-inc-easy-mailchimp-extender' ); ?></p>
+			<h3><div class="dashicons dashicons-no yks_mc_error_x"></div><?php _e( 'WordPress Version Number Error', 'yikes-inc-easy-mailchimp-extender' ); ?></h3>
+			<p><?php _e( 'We\'re sorry, but it looks like your using an outdated version of WordPress. You won\'t be able to access the tinyMCE button to insert forms into pages and posts unless you update to 3.9 or later.', 'yikes-inc-easy-mailchimp-extender' ); ?></p>
+		</div>
+	<?php } 
+	
+	// check if the user is on localhost
+	// if so, they need to enable SSL on localhost
+	if ( $this->yks_mc_is_user_localhost() ) {
+	?>
+		<div class="update-nag">
+			<span class="yks-mc-icon-notice"><h3><?php _e( 'LocalHost Detected :', 'yikes-inc-easy-mailchimp-extender' ); ?></h3></span>
+			<p><?php _e( 'It looks like your using Easy MailChimp Forms by YIKES Inc. on localhost.', 'yikes-inc-easy-mailchimp-extender' ); ?></p>
+			<p><?php _e( 'If you are unable to validate your API key, and receive the error message' , 'yikes-inc-easy-mailchimp-extender' );  ?><em><?php _e('"SSL certificate problem: unable to get local issuer certificate" ', 'yikes-inc-easy-mailchimp-extender' ); ?></em> <?php _e('follow the tutorial located ', 'yikes-inc-easy-mailchimp-extender' ); ?><a href="http://redwebturtle.blogspot.com/2013/09/mailchimp-api-v20-ssl-error-solution.html" target="_blank">here</a></p>
 		</div>
 	<?php } ?>
+	
 	
 	<div class="yks-status" id="yks-status"></div>
 		
