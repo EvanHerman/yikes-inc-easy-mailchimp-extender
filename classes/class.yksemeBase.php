@@ -352,8 +352,9 @@ public function updateOptions($p)
 		$this->optionVal['double-optin-message']	= $fd['double-optin-message'];
 		$this->optionVal['interest-group-label']	= $fd['interest-group-label'];
 		$this->optionVal['yks-mailchimp-optIn-checkbox']	= $fd['yks-mailchimp-optIn-checkbox'];
-		$this->optionVal['yks-mailchimp-optIn-default-list']	= $fd['yks-mailchimp-optIn-default-list'];
+		$this->optionVal['yks-mailchimp-optIn-default-list']	= isset($fd['yks-mailchimp-optIn-default-list']) ? $fd['yks-mailchimp-optIn-default-list'] : null; // if its set, else set to null <- fixes save form settings bug
 		$this->optionVal['yks-mailchimp-optin-checkbox-text']	= $fd['yks-mailchimp-optin-checkbox-text'];
+		update_option('api_validation', 'valid_api_key');
 		return update_option(YKSEME_OPTION, $this->optionVal);
 		}
 	return false;
@@ -1040,15 +1041,19 @@ public function getSubscriberInfo($lid, $email) {
 			<?php
 				// build our segment array to determine if the user is subscribed to any segments
 				$segment_count = [];
-				foreach ($subscriber_data_merges['GROUPINGS'] as $group1) {
-					foreach ($group1['groups'] as $group2) {
-						if ($group2['interested'] == 1) {
-							array_push($segment_count, $group2['name']);
-						}
+				// check if groupings data is set (for segment and interest groups)
+				// this avoids an error being thrown when no segment/interest groups have been selected
+				if ( isset( $subscriber_data_merges['GROUPINGS'] ) ) {
+					foreach ($subscriber_data_merges['GROUPINGS'] as $group1) {
+						foreach ($group1['groups'] as $group2) {
+							if ($group2['interested'] == 1) {
+								array_push($segment_count, $group2['name']);
+							}
+						}	
 					}	
-				}	
-				// test $segment_count array
-				// print_r($segment_count);
+				}
+					// test $segment_count array
+					// print_r($segment_count);
 			?>
 			<!-- returns true always, groupings gets stored, but segments do not // need to check if there are any segments stored in the groupings array -->			
 			<h2 class="yks-mc-subscriber-header"><?php _e('Groups Subscribed To', 'yikes-inc-easy-mailchimp-extender'); ?></h2>	
@@ -1169,7 +1174,7 @@ public function addScripts_frontend()
 		
         $version ='1.9.0';
 		// compare the registered version of jQuery with 1.9.0
-        if ( ( version_compare( $wp_scripts->registered['jquery']->ver, $version ) >= 0 ) && !is_admin() )
+        if ( ( version_compare( @$wp_scripts->registered['jquery']->ver, $version ) >= 0 ) && !is_admin() )
          {   
             wp_enqueue_script( 'jquery' );
         }
@@ -1308,7 +1313,6 @@ public function validateAPIkeySettings()
 			$resp = $api->call('helper/ping', array('apikey' => $apiKey));
 			echo $resp['msg'];
 			$this->getOptionsLists();
-			update_option('api_validation', 'valid_api_key');
 		} catch( Exception $e ) {
 			$errorMessage = str_replace('API call to helper/ping failed:', '', $e->getMessage());
 			_e($errorMessage,'yikes-inc-easy-mailchimp-extender');
@@ -1477,7 +1481,10 @@ public function generateListContainers($listArr=false)
 			?>
 			<div class="yks-list-container" id="yks-list-container_<?php echo $list['id']; ?>">
 				<div class="yks-status" id="yks-status" style="display: none;">
-					<div class="yks-success" style="padding:.25em;"><?php _e('Your List Was Successfully Saved!','yikes-inc-easy-mailchimp-extender'); ?></div>
+					<div class="yks-success" style="padding:.25em;">&nbsp;<?php _e('Your List Was Successfully Saved!','yikes-inc-easy-mailchimp-extender'); ?></div>
+				</div>
+				<div class="yks-status-error" id="yks-status-error" style="display: none;">
+					<div class="yks-error" style="padding:.25em;">&nbsp;<?php _e('Your settings were not saved (or you did not change them).','yikes-inc-easy-mailchimp-extender'); ?></div>
 				</div>
 				<span class="yikes-lists-error" style="display:none;"><?php _e('I\'m sorry there was an error with your request.','yikes-inc-easy-mailchimp-extender'); ?></span>
 				<form method="post" name="yks-mailchimp-form" id="yks-mailchimp-form_<?php echo $list['id']; ?>" rel="<?php echo $list['id']; ?>">
@@ -1613,14 +1620,17 @@ public function generateListContainers($listArr=false)
 																				// print_r($posts);
 																				?>
 																				<optgroup label="Posts"><?php
+																				
+																				// throwing error -> must resolve
 																				 foreach( $posts as $post ) : setup_postdata($post); ?>
-																						<option <?php selected( $field['page_id_'.$list['id']], $post->ID ); ?> value="<?php echo $post->ID; ?>"><?php the_title(); ?></option>
+																						<option <?php if(isset($field['page_id_'.$list['id']])) { selected( $field['page_id_'.$list['id']], $post->ID ); } ?> value="<?php echo $post->ID; ?>"><?php the_title(); ?></option>
 																				 <?php endforeach; ?>
+																				 
 																				 </optgroup>
 																				 <optgroup label="Pages">
 																				  <?php 
 																				  foreach( $pages as $page ) : ?>
-																						<option <?php selected( $field['page_id_'.$list['id']], $page->ID ); ?> value="<?php echo $page->ID; ?>"><?php echo $page->post_title; ?></option>
+																						<option <?php if(isset($field['page_id_'.$list['id']])) { selected( $field['page_id_'.$list['id']], $page->ID ); } ?> value="<?php echo $page->ID; ?>"><?php echo $page->post_title; ?></option>
 																				 <?php endforeach; ?>
 																				 </optgroup>
 																		 </select>

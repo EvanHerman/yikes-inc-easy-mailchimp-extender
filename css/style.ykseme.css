@@ -30,6 +30,7 @@
 }
 
 /* TinyMCE Button Class */
+/* Icon Fonts */
 .mce-i-yks-mc-icon-yikes-button-image:before {
 	content: "\e600" !important;
 	font-family: 'yks-mc-font' !important;
@@ -53,6 +54,62 @@
 	color: #FFBA00;
 	display:block;
 	margin-right: .25em;
+}
+
+/* Reset Plugin Modal and Icons */
+.yks-mc-icon-yks-mc-warning:before {
+	content: "\e602";
+	font-family: 'yks-mc-font' !important;
+}
+
+.yks-mc-reset-warning-icon {
+	font-size: 3.25em;
+	color: rgb(255, 76, 76);
+	text-align:center;
+	float:left;
+	margin-right:.25em;
+	margin-top:.75em;
+}
+
+.yks_mc_about_icon {
+	display:block;
+	float:left;
+	margin-top:2em;
+}
+
+.yks-mc-delete-form-warning-icon {
+	font-size: 3.25em;
+	color: rgb(255, 76, 76);
+	text-align:center;
+	float:left;
+	margin-right:.25em;
+	margin-top:.55em;
+}
+
+.yks-mc-success-icon {
+	font-size: 3.25em;
+	color: rgb(126, 207, 110);
+	text-align:center;
+	margin-top: .25em;
+	margin-right: .75em;
+	float:left;
+}
+
+.yks-mc-reset-plugin-settings-preloader {
+	width: 15px;
+	text-align:center;
+	display:block;
+	margin:0 auto;
+}
+
+.yks-mc-reset-plugin-settings-preloader-container {
+	width:100%;
+	text-align:center;
+}
+
+#yks_mc_reset_plugin_settings p {
+	float:left;
+	width:80%;
 }
 
 /*	Widget Icon !!  */
@@ -217,7 +274,9 @@
 	width: 100%;
 	clear: both;
 }
+	
 	.yks-status .yks-success {
+		/*
 		color: #000;
 		width: 80%;
 		height: auto;
@@ -226,8 +285,19 @@
 		clear: both;
 		margin: 15px auto 15px auto;
 		text-align: center;
+		*/
+		border-left: 4px solid #7ad03a;
+		padding:1px 12px;
+		background-color:#fff;
+		-webkit-box-shadow: 0 1px 1px 0 rgba(0,0,0,.1);
+		box-shadow: 0 1px 1px 0 rgba(0,0,0,.1);
+		min-height:25px;
+		line-height: 3.2;
+		margin-top:1em;
 	}
-	.yks-status .yks-error {
+	
+	.yks-status-error .yks-error {
+		/*
 		color: #000;
 		width: 80%;
 		height: auto;
@@ -236,6 +306,15 @@
 		clear: both;
 		margin: 15px auto 15px auto;
 		text-align: center;
+		*/
+		border-left: 4px solid #dd3d36;
+		background-color: #fff;
+		padding: 1px 12px;
+		-webkit-box-shadow: 0 1px 1px 0 rgba(0,0,0,.1);
+		box-shadow: 0 1px 1px 0 rgba(0,0,0,.1);
+		min-height:25px;
+		line-height: 3.2;
+		margin-top:1em;
 	}
 			.yks-status .yks-error p, .yks-status .yks-success p {
 				margin: .4em 0;

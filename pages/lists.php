@@ -36,7 +36,15 @@
                                                                 }
                                                         else
                                                                 {
-                                                                alert("<?php _e("Oops.. The list ID you entered appears to be incorrect.","yikes-inc-easy-mailchimp-extender"); ?>");
+																$("<div id='yks_mc_reset_plugin_settings'><div class='yks-mc-icon-yks-mc-warning yks-mc-reset-warning-icon'></div><p><?php _e("Oops.. The list ID you entered appears to be incorrect.","yikes-inc-easy-mailchimp-extender"); ?></p></div>").dialog({
+																	 title : "Incorrect List ID",
+																	 buttons : {
+																		"Ok" : function() {
+																			 $(this).dialog("close");
+																		}
+																	  },
+																	  modal: true
+																	});
                                                                 }
                                                         },
 												error: function(MAILCHIMP) {
@@ -132,7 +140,15 @@
                                         }
                                 else 
                                         {
-                                                alert ('<?php _e('You need to select a Mailchimp list in order to create a form for it','yikes-inc-easy-mailchimp-extender'); ?>');
+												 $("<div id='yks_mc_reset_plugin_settings'><div class='yks-mc-icon-yks-mc-warning yks-mc-delete-form-warning-icon'></div><p><?php _e('You need to select a Mailchimp list in order to create a form for it','yikes-inc-easy-mailchimp-extender'); ?></p></div>").dialog({
+													title : "Select a List",
+													buttons : {
+														"Ok" : function() {
+															$(this).dialog("close");
+														}
+													},
+													modal: true
+												});
                                         }
                         return false; 
                 });
@@ -152,15 +168,25 @@
                                 dataType: 'json',
                                 success: function(MAILCHIMP)
                                         {
-											
+										console.log(MAILCHIMP);	
 										// alert($(f).serialize());
-                                        if(MAILCHIMP != '-1')
+                                        if(MAILCHIMP == '-1')
                                                 {
-                                                $('#yks-list-container_'+i).yksYellowFade();
+													if ( theButton.parents('.yks-list-container').find('.yks-status-error').is(':visible') ) {
+														return;
+													} else {
+														theButton.parents('.yks-list-container').find('.yks-status-error').stop().slideDown().delay(3000).fadeOut();
+													}
+												console.log(MAILCHIMP);
                                                 }
                                         else
                                                 {
-                                                theButton.parents('.yks-list-container').find('.yks-status').slideDown().delay(3000).fadeOut();
+													if ( theButton.parents('.yks-list-container').find('.yks-status').is(':visible') ) {
+														return;
+													} else {
+														theButton.parents('.yks-list-container').find('.yks-status').stop().slideDown().delay(3000).fadeOut();
+													}
+												console.log(MAILCHIMP);
                                                 }
                                         }
                         });
@@ -169,19 +195,22 @@
 				// function which deletes a list from our lists page
                 $('.yks-mailchimp-delete').live('click', function(e){
                         var i		= $(this).attr('rel');
-                        var title	= $(this).data('title');
-                        var a		= confirm("<?php _e("Are you sure you want to delete this form?",'yikes-inc-easy-mailchimp-extender'); ?>");
-                        $("select#yks-list-select").append('<option value="' + i + '">' + title +'</option>');
-                        if(a)
-                                {
-                                $.ajax({
+                        var title	= $(this).data('title');						
+						$("select#yks-list-select").append('<option value="' + i + '">' + title +'</option>');
+
+						$("<div id='yks_mc_reset_plugin_settings'><div class='yks-mc-icon-yks-mc-warning yks-mc-delete-form-warning-icon'></div><p><?php _e("Are you sure you want to delete this form?",'yikes-inc-easy-mailchimp-extender'); ?></p></div>").dialog({
+							 title : "Delete Imported Form?",
+							 buttons : {
+								"Yes" : function() {
+									 $(this).dialog("close");
+									 $.ajax({
                                         type:   'POST',
                                         url:    ajaxurl,
                                         data: {
-                                                                action:                 'yks_mailchimp_form',
-                                                                form_action:            'list_delete',
-                                                                id:                                                     i
-                                                                },
+                                              action:                 'yks_mailchimp_form',
+                                              form_action:            'list_delete',
+                                              id:      i
+                                         },
                                         dataType: 'json',
                                         success: function(MAILCHIMP)
                                                 {
@@ -196,24 +225,34 @@
 															}, 800);
                                                         }
                                                 }
-                                });
-                                }
+									});
+								},
+								"Cancel" : function() {
+								  $(this).dialog("close");
+								}
+							  },
+							  modal: true
+							});
+							
                         return false;
                 });
 				// function which imports a specified list from MailChimp
                 $('.yks-mailchimp-import').live('click', function(e){
                         var i       = $(this).attr('rel');
-                        var a       = confirm("<?php _e("Are you sure you want to re-import your fields from MailChimp?","yikes-inc-easy-mailchimp-extender"); ?>");
-                        if(a)
-                                {
-                                $.ajax({
+                 						
+						$("<div id='yks_mc_reset_plugin_settings'><div class='yks-mc-icon-yks-mc-warning yks-mc-delete-form-warning-icon'></div><p><?php _e("Are you sure you want to re-import this form and its fields from MailChimp?",'yikes-inc-easy-mailchimp-extender'); ?></p></div>").dialog({
+							 title : "Re-Import Form?",
+							 buttons : {
+								"Yes" : function() {
+									 $(this).dialog("close");
+									 $.ajax({
                                         type:   'POST',
                                         url:    ajaxurl,
                                         data: {
-                                                                action:                         'yks_mailchimp_form',
-                                                                form_action:                    'list_import',
-                                                                id:                              i
-                                                                },
+                                            action:                         'yks_mailchimp_form',
+                                            form_action:                    'list_import',
+                                            id:                              i
+                                        },
                                         dataType: 'json',
                                         success: function(MAILCHIMP)
                                                 {
@@ -225,11 +264,26 @@
                                                         }
                                                 else
                                                         {
-                                                        alert("<?php _e('Looks like this form is already up to date!','yikes-inc-easy-mailchimp-extender'); ?>");
+                                                        $("<div id='yks_mc_reset_plugin_settings'><div class='dashicons dashicons-yes yks-mc-success-icon'></div><p><?php _e("It looks like this form is already up to date!", "yikes-inc-easy-mailchimp-extender" ); ?></p></div>").dialog({
+														 title : "Reset MailChimp Settings?",
+														 buttons : {
+															"Ok" : function() {
+																$(this).dialog("close");
+															}
+														  },
+														  modal: true
+														});
                                                         }
                                                 }
                                 });
-                                }
+								},
+								"Cancel" : function() {
+								  $(this).dialog("close");
+								}
+							  },
+							  modal: true
+							});
+
                         return false;
                 });
 				// Function which hides the notification at the top of the lists page
@@ -298,7 +352,7 @@
 							var statusMessage = xhr.status + ' ' + xhr.statusText;
 							var message  = 'Query failed, php script returned this status: ';
 							var message = message + statusMessage + ' response: ' + response;
-							alert(message);
+							console.log(message);
 							jQuery('#TB_ajaxContent').find('.yks_mc_subscribers').html(message);
 						}
 				});
@@ -361,7 +415,7 @@
 								var statusMessage = xhr.status + ' ' + xhr.statusText;
 								var message  = 'Query failed, php script returned this status: ';
 								var message = message + statusMessage + ' response: ' + response;
-								alert(message);
+								console.log(message);
 								jQuery('#TB_ajaxContent').find('.yks_mc_subscribers').html(message);
 							}
 					});
@@ -419,7 +473,7 @@
 								var statusMessage = xhr.status + ' ' + xhr.statusText;
 								var message  = 'Query failed, php script returned this status: ';
 								var message = message + statusMessage + ' response: ' + response;
-								alert(message);
+								console.log(message);
 								jQuery('#TB_ajaxContent').find('.yks_mc_subscribers').html(message);
 							}
 					});	
@@ -464,7 +518,10 @@
 				</div>
 			</p>
 	<!-- if there is an API key -->
-	<?php } else {  //end if statement if no api key ?>
+	<?php } else {  //end if statement if no api key 
+		wp_enqueue_script('jquery-ui-dialog');
+		wp_enqueue_style("wp-jquery-ui-dialog");
+	?>
         	<form id="yks-lists-dropdown" name="yks-lists-dropdown">
             	<table class="form-table yks-admin-form">
                 	<tbody>            
