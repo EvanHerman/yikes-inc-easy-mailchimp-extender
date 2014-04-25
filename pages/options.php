@@ -3,6 +3,11 @@
 	// if it is enabled, carry on...
 	if ( $this->yikes_curl_check() ) { 
 		wp_enqueue_script('jquery-ui-dialog');
+		// if blog is greater than or equal to WordPress 3.9
+		// enqueue our new jQuery UI dialog styles
+		if ( get_bloginfo( 'version' ) >= '3.9' ) {
+			wp_enqueue_style("wp-jquery-ui-dialog");
+		}
 ?>	
 <script type="text/javascript">
 jQuery(document).ready(function ($) {

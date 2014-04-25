@@ -1,3 +1,11 @@
+<?php
+	// if blog is greater than or equal to WordPress 3.9
+	// enqueue our new jQuery UI dialog styles
+	wp_enqueue_script('jquery-ui-dialog');
+	if ( get_bloginfo( 'version' ) >= '3.9' ) {
+		wp_enqueue_style("wp-jquery-ui-dialog");
+	}
+?>
 <script type="text/javascript">
         jQuery(document).ready(function($)
                 {
@@ -523,10 +531,7 @@
 				</div>
 			</p>
 	<!-- if there is an API key -->
-	<?php } else {  //end if statement if no api key 
-		wp_enqueue_script('jquery-ui-dialog');
-		wp_enqueue_style("wp-jquery-ui-dialog");
-	?>
+	<?php } else {  //end if statement if no api key ?>
         	<form id="yks-lists-dropdown" name="yks-lists-dropdown">
             	<table class="form-table yks-admin-form">
                 	<tbody>            
