@@ -3,7 +3,6 @@
 	// if it is enabled, carry on...
 	if ( $this->yikes_curl_check() ) { 
 		wp_enqueue_script('jquery-ui-dialog');
-		wp_enqueue_style("wp-jquery-ui-dialog");
 ?>	
 <script type="text/javascript">
 jQuery(document).ready(function ($) {
@@ -167,7 +166,8 @@ jQuery(document).ready(function ($) {
 			  $(this).dialog("close");
 			}
 		  },
-		  modal: true
+		  modal: true,
+		  resizable: false
 		});
 		e.preventDefault();
 	});

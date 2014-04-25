@@ -43,7 +43,8 @@
 																			 $(this).dialog("close");
 																		}
 																	  },
-																	  modal: true
+																	  modal: true,
+																	  resizable: false
 																	});
                                                                 }
                                                         },
@@ -147,7 +148,8 @@
 															$(this).dialog("close");
 														}
 													},
-													modal: true
+													modal: true,
+													resizable: false
 												});
                                         }
                         return false; 
@@ -231,7 +233,8 @@
 								  $(this).dialog("close");
 								}
 							  },
-							  modal: true
+							  modal: true,
+							 resizable: false
 							});
 							
                         return false;
@@ -271,7 +274,8 @@
 																$(this).dialog("close");
 															}
 														  },
-														  modal: true
+														  modal: true,
+														  resizable: false
 														});
                                                         }
                                                 }
@@ -281,7 +285,8 @@
 								  $(this).dialog("close");
 								}
 							  },
-							  modal: true
+							  modal: true,
+							  resizable: false
 							});
 
                         return false;

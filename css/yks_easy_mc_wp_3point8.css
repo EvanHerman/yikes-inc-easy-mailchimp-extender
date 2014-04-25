@@ -1,0 +1,20 @@
+/**
+*
+* Styles to make sure jquery ui modal
+* is compatable with WordPress 3.8 and below
+* - Even tho users should have updated by now!
+**/
+
+#yks_mc_reset_plugin_settings p {
+	width:77% !important;
+}
+
+#yks_mc_reset_plugin_settings .yks-mc-reset-plugin-settings-preloader {
+	margin-bottom:1em;
+}	
+
+/* Dialog Styles */
+/* Should always remain on top */
+.ui-dialog {
+	z-index: 999999 !important
+}

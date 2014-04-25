@@ -78,6 +78,13 @@ public function initialize()
 		// pass our lists data to tinyMCE button for use
 		foreach( array('post.php','post-new.php') as $hook )
 		 add_action( "admin_head-$hook", array(&$this, 'yks_mc_js_admin_head') );
+	} else { 
+		// if the WordPress is older than 3.9
+		// load jQuery UI 1.10 CSS for dialogs
+		wp_enqueue_style('yks_easy_mc_extender-admin-ui-css',
+                '//code.jquery.com/ui/1.10.4/themes/smoothness/jquery-ui.css'
+            );
+		wp_enqueue_style('yks_easy_mc_wp_3.8', plugin_dir_url(__FILE__).'../css/yks_easy_mc_wp_3point8.css');
 	}
 	if(!is_admin())
 		{
