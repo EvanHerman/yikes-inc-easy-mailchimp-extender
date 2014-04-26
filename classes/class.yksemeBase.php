@@ -1047,7 +1047,7 @@ public function getSubscriberInfo($lid, $email) {
 			
 			<?php
 				// build our segment array to determine if the user is subscribed to any segments
-				$segment_count = [];
+				$segment_count = array();
 				// check if groupings data is set (for segment and interest groups)
 				// this avoids an error being thrown when no segment/interest groups have been selected
 				if ( isset( $subscriber_data_merges['GROUPINGS'] ) ) {
@@ -1428,7 +1428,8 @@ public function addUserToMailchimp($p)
 					$errorCode = $e->getCode();
 					if ( $errorCode = '214' ) {
 						$errorMessage = str_replace('Click here to update your profile.', '', $e->getMessage());
-						echo explode('to list', $errorMessage)[0].'.';
+						$error_catch = explode('to list', $errorMessage);
+						echo $error_catch[0].'.';
 						die();
 					} else { 
 						echo $e->getMessage();
@@ -1485,6 +1486,8 @@ public function generateListContainers($listArr=false)
 		// loop over each lists and build the page
 		foreach($listArr as $list)
 			{
+			
+			$get_list_data = $this->getListsData();
 			?>
 			<div class="yks-list-container" id="yks-list-container_<?php echo $list['id']; ?>">
 				<div class="yks-status" id="yks-status" style="display: none;">
@@ -1548,7 +1551,7 @@ public function generateListContainers($listArr=false)
 								<th scope="row"><label for="yks-mailchimp-api-key"><?php _e('Number of Subscribers','yikes-inc-easy-mailchimp-extender'); ?></label></th>
 								<td>
 									<!-- rel contains list id that we pass along to our function to ajax retreive all subscribers -->
-									<span class="number-of-subscribers-<?php echo $list['id']; ?>"><?php print_r($this->getListsData()['subscriber-count']['subscriber-count-'.$list['id']]); ?>&nbsp;</span><a href="#TB_inline?width=600&height=550&inlineId=yikes-mailchimp-subscribers-box" class="thickbox displayListSubscribers" rel="<?php echo $list['id']; ?>">View</a>	
+									<span class="number-of-subscribers-<?php echo $list['id']; ?>"><?php echo $get_list_data['subscriber-count']['subscriber-count-'.$list['id']]; ?>&nbsp;</span><a href="#TB_inline?width=600&height=550&inlineId=yikes-mailchimp-subscribers-box" class="thickbox displayListSubscribers" rel="<?php echo $list['id']; ?>">View</a>	
 								</td>
 							</tr>
 							<!-- display the forms fields, with options to customize -->
@@ -1778,8 +1781,8 @@ public function getFrontendFormDisplay($list='', $submit_text)
 					$num = 1;				
 					foreach($list['fields'] as $field) : if($field['active'] == 1) : 
 					// get field placeholders
-					$form_id = explode( '-', $field['id'])[1];
-					$field_placeholder_ = (isset($field['placeholder-'.$form_id.'-'.$num]) ? $field['placeholder-'.$form_id.'-'.$num] : '');
+					$form_id = explode( '-', $field['id']);
+					$field_placeholder_ = (isset($field['placeholder-'.$form_id[1].'-'.$num]) ? $field['placeholder-'.$form_id[1].'-'.$num] : '');
 					echo '<input type="hidden" class="'.$field['name'].'_placeholder_value" value="'.$field_placeholder_.'">';
 					?>
 						<!-- javascript to populate the correct form fields, with the specified place-holder value, on the lists page -->
@@ -1823,9 +1826,9 @@ public function getFrontendFormDisplay($list='', $submit_text)
 				</table>
 			<?php 
 			// Create and store our variables for the redirection
-			$form_id = explode('-', $field['id'])[1]; // get the form ID
-			$redirect_value = (isset($field['yks_mailchimp_redirect_'.$form_id]) ? $field['yks_mailchimp_redirect_'.$form_id] : ''); // get the redirect value from the lists page redirect checkbox
-			$redirect_page = (isset($field['page_id_'.$form_id]) ? $field['page_id_'.$form_id] : '') ; // get the redirect page that was set in the pages dropdown on the lists page
+			$form_id = explode('-', $field['id']); // get the form ID
+			$redirect_value = (isset($field['yks_mailchimp_redirect_'.$form_id[1]]) ? $field['yks_mailchimp_redirect_'.$form_id[1]] : ''); // get the redirect value from the lists page redirect checkbox
+			$redirect_page = (isset($field['page_id_'.$form_id[1]]) ? $field['page_id_'.$form_id[1]] : '') ; // get the redirect page that was set in the pages dropdown on the lists page
 			$site_url = "http://".$_SERVER['HTTP_HOST'].$_SERVER['REQUEST_URI']; // grab and store the current sites URL
 			$redirect_url = get_permalink($redirect_page); // get the permalink of the page we are going to redirect too
 				// if redirection was set up for this form, print out our javascript to complete the redirect
@@ -1835,7 +1838,7 @@ public function getFrontendFormDisplay($list='', $submit_text)
 						jQuery(document).ready(function() {								
 							// jquery redirect on form submission
 							var formRedirectPage = '<?php echo $redirect_url ?>';
-							var formID = '<?php echo $form_id ?>';
+							var formID = '<?php echo $form_id[1] ?>';
 							jQuery('#yks-mailchimp-form_0-'+formID).submit(function() {
 								
 									// delay a few seconds to display the success message
@@ -1866,8 +1869,8 @@ public function getFrontendFormDisplay($list='', $submit_text)
 				$num = 1;				
 				foreach($list['fields'] as $field) : if($field['active'] == 1) : 
 				// get field placeholders
-				$form_id = explode( '-', $field['id'])[1];
-				$field_placeholder_ = (isset($field['placeholder-'.$form_id.'-'.$num]) ? $field['placeholder-'.$form_id.'-'.$num] : '');
+				$form_id = explode( '-', $field['id']);
+				$field_placeholder_ = (isset($field['placeholder-'.$form_id[1].'-'.$num]) ? $field['placeholder-'.$form_id[1].'-'.$num] : '');
 				echo '<input type="hidden" class="'.$field['name'].'_placeholder_value" value="'.$field_placeholder_.'">';
 				?>
 					<!-- javascript to populate the correct form fields, with the specified place-holder value, on the lists page -->
@@ -1904,7 +1907,7 @@ public function getFrontendFormDisplay($list='', $submit_text)
 					?>
 				<div class="yks-mailchimpFormDivRow">
 					<!-- run our function to generate the interest group fields for the form, passing in the form id -->
-					<?php $this->getInterestGroups($form_id); ?>
+					<?php $this->getInterestGroups($form_id[1]); ?>
 					<div class="yks-mailchimpFormDivSubmit">
 						<p><input type="submit" class="ykfmc-submit" id="ykfmc-submit_<?php echo $list['id']; ?>" value="<?php if($submit_text != '') { echo $submit_text; } else {  echo 'Sign Up'; } ?>" /></p>
 					</div>
@@ -1912,9 +1915,9 @@ public function getFrontendFormDisplay($list='', $submit_text)
 			</div>
 			<?php 
 			// Create and store our variables for the redirection
-			$form_id = explode('-', $field['id'])[1]; // get the form ID
-			$redirect_value = (isset($field['yks_mailchimp_redirect_'.$form_id]) ? $field['yks_mailchimp_redirect_'.$form_id] : ''); // get the redirect value from the lists page redirect checkbox
-			$redirect_page = (isset($field['page_id_'.$form_id]) ? $field['page_id_'.$form_id] : '') ; // get the redirect page that was set in the pages dropdown on the lists page
+			$form_id = explode('-', $field['id']); // get the form ID
+			$redirect_value = (isset($field['yks_mailchimp_redirect_'.$form_id[1]]) ? $field['yks_mailchimp_redirect_'.$form_id[1]] : ''); // get the redirect value from the lists page redirect checkbox
+			$redirect_page = (isset($field['page_id_'.$form_id[1]]) ? $field['page_id_'.$form_id[1]] : '') ; // get the redirect page that was set in the pages dropdown on the lists page
 			$site_url = "http://".$_SERVER['HTTP_HOST'].$_SERVER['REQUEST_URI']; // grab and store the current sites URL
 			$redirect_url = get_permalink($redirect_page); // get the permalink of the page we are going to redirect too
 				// if redirection was set up for this form, print out our javascript to complete the redirect
@@ -1924,7 +1927,7 @@ public function getFrontendFormDisplay($list='', $submit_text)
 						jQuery(document).ready(function() {								
 							// jquery redirect on form submission
 							var formRedirectPage = '<?php echo $redirect_url ?>';
-							var formID = '<?php echo $form_id ?>';
+							var formID = '<?php echo $form_id[1] ?>';
 							jQuery('#yks-mailchimp-form_0-'+formID).submit(function() {
 								
 									// delay a few seconds to display the success message
@@ -2259,7 +2262,8 @@ private function runUpdateTasks_1_3_0()
 							$error_message = $e->getMessage();
 							if (strpos($error_message,'Click here to update your profile.') !== false) {
 								$errorMessage = str_replace('Click here to update your profile.', '', $e->getMessage());
-								echo explode('to list', $errorMessage)[0].'.';
+								$errorMessage_explode = explode('to list', $errorMessage);
+								echo $errorMessage_explode[0].'.';
 								die();
 							}
 							if (strpos($error_message,'Invalid') !== false) {
