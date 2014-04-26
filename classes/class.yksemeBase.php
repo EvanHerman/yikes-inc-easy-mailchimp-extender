@@ -1380,36 +1380,42 @@ public function addUserToMailchimp($p)
 			// Interest group loop to build the GROUPINGS array	
 			// The GROUPINGS array passes our interest group, and values back to the specific form
 			$interest_group_option = json_decode($fd['interest-group-data'], true);
-			// print_r($interest_group_option);
-			$mv['GROUPINGS'] = array();
-			
-			// loop over each interest group
-			foreach ($interest_group_option as $group ) :
+				
+				// if interest groups exist, continue and form an array
+				if ( $interest_group_option ) {
+				
+					// print_r($interest_group_option);
+					$mv['GROUPINGS'] = array();
 					
-					switch($group['form_field'])
-						{
-							case 'radio':
-							case 'dropdown':
-								array_push($mv['GROUPINGS'], array(
-										'id'	=>	$group['id'],
-										// 'groups'	=>	array($fd['interest-group'])
-										'groups'	=>	array(isset($fd[$group['form_field'].'-'.$group['id']]) ? $fd[$group['form_field'].'-'.$group['id']] : '')
-									)	
-								);
-							break;
+					// loop over each interest group
+					foreach ($interest_group_option as $group ) :
 							
-							case 'checkboxes':
-								array_push($mv['GROUPINGS'], array(
-										'id'	=>	$group['id'],
-										// 'groups'	=>	array($fd['interest-group'])
-										'groups'	=>	(isset($fd[$group['form_field'].'-'.$group['id']]) ? $fd[$group['form_field'].'-'.$group['id']] : '')
-										// $fd[$group['form_field'].'-'.$group['id']]
-										
-									)	
-								);
-							break;
-						}	
-			endforeach; // end loo[p
+							switch($group['form_field'])
+								{
+									case 'radio':
+									case 'dropdown':
+										array_push($mv['GROUPINGS'], array(
+												'id'	=>	$group['id'],
+												// 'groups'	=>	array($fd['interest-group'])
+												'groups'	=>	array(isset($fd[$group['form_field'].'-'.$group['id']]) ? $fd[$group['form_field'].'-'.$group['id']] : '')
+											)	
+										);
+									break;
+									
+									case 'checkboxes':
+										array_push($mv['GROUPINGS'], array(
+												'id'	=>	$group['id'],
+												// 'groups'	=>	array($fd['interest-group'])
+												'groups'	=>	(isset($fd[$group['form_field'].'-'.$group['id']]) ? $fd[$group['form_field'].'-'.$group['id']] : '')
+												// $fd[$group['form_field'].'-'.$group['id']]
+												
+											)	
+										);
+									break;
+								}	
+					endforeach; // end loop
+					
+				}
 						
 			// If no email provided, fail
 			$noemail = "The email address is blank";
