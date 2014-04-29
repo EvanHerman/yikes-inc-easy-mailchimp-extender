@@ -62,7 +62,7 @@ public function initialize()
 	{
 	// If it's not already set up, initialize our plugin session
 	if(session_id() == '') session_start();
-	if(!is_array($_SESSION[$this->sessName]))
+	if(!is_array(@$_SESSION[$this->sessName]))
 	 {
 	 $_SESSION[$this->sessName]	= array();
 	 }
@@ -919,28 +919,29 @@ public function listAllSubscribers($lid, $list_name) {
 		// display all subscribers in a table
 		if($subscribers_list['total'] > 0) {
 			?>
+				<h2><?php echo $list_name; echo '   <span class="subscriber-count" style="font-size:11px;">(<span class="number">'.$subscribers_list['total'].'</span> subscribers)</span>'; ?></h2>
+				<p><?php _e('Click on a subscriber to see further information','yikes-inc-easy-mailchimp-extender'); ?></p>
+				
 				<table id="yikes-mailchimp-subscribers-table" class="yks-mailchimp-fields-list" style="width:100%;">
-			
-					<h2><?php echo $list_name; echo '   <span class="subscriber-count" style="font-size:11px;">(<span class="number">'.$subscribers_list['total'].'</span> subscribers)</span>'; ?></h2>
-					<p><?php _e('Click on a subscriber to see further information','yikes-inc-easy-mailchimp-extender'); ?></p>
-					
-					<tr class="yikes-mailchimp-subscribers-table-head">
-						<th width="50%"><?php _e('E-Mail','yikes-inc-easy-mailchimp-extender'); ?></th>
-						<th width="50%"><?php _e('Date Subscribed','yikes-inc-easy-mailchimp-extender'); ?></th>
-					</tr>
+					<thead class="yikes-mailchimp-subscribers-table-head">
+						<tr>
+							<th width="50%"><?php _e('E-Mail','yikes-inc-easy-mailchimp-extender'); ?></th>
+							<th width="50%"><?php _e('Date Subscribed','yikes-inc-easy-mailchimp-extender'); ?></th>
+						</tr>
+					</thead>
 					<?php
 						foreach ( $subscribers_list['data'] as $subscriber  ) {
 							$timeStamp = explode(' ', $subscriber['timestamp_opt'] );
-							echo '<tr class="yks-mailchimp-subscribers-list-row">';
+							echo '<tr class="yks-mailchimp-subscribers-list-row" id="yks-mailchimp-subscribers-list-row">';
 								echo '<td><a class="subscriber-mail-link" rel="'.$subscriber["email"].'" class="subscriberEmailAddress">'.$subscriber['email'].'</a></td>';
 								// echo '<td>'.str_replace('-', ' ', date("M-jS-Y", strtotime($subscriber['timestamp_opt']))).'</td>';
-								echo '<td>'.str_replace('-', ' ', date("M-jS-Y", strtotime($timeStamp[0]))).'</td>';
+								echo '<td>'.str_replace('-', ' ', date("M-jS-Y", strtotime($timeStamp[0]))).'</td></tr>';
 						}
 					?>
-				</table>	
+				</table>
+
 				<!-- display a single user profile in this div -->
 				<div id="individual_subscriber_information" style="display:none;"></div>
-				
 			<?php
 		} else { // else display an error of sorts
 			?>
@@ -1150,9 +1151,11 @@ public function addStyles()
 	{
 	// Register Styles
 	wp_register_style('ykseme-css-base', 				YKSEME_URL.'css/style.ykseme.css', 											array(), '1.0.0', 'all');
+	wp_register_style('jquery-datatables-pagination', 				YKSEME_URL.'css/jquery.dataTables.css', 											array(), '1.0.0', 'all');	
 	// Enqueue Styles
 	wp_enqueue_style('thickbox');
-	wp_enqueue_style('ykseme-css-base');
+	wp_enqueue_style('ykseme-css-base');	
+	wp_enqueue_style('jquery-datatables-pagination');
 	}
 	
 public function addStyles_frontend()
@@ -1173,6 +1176,7 @@ public function addScripts()
 	wp_enqueue_script('jquery-ui-sortable');
 	wp_enqueue_script('jquery-ui-tabs');
 	wp_enqueue_script('ykseme-base',				  		YKSEME_URL.'js/script.ykseme.js',											array('jquery'));
+	wp_enqueue_script('jquery-datatables-pagination',				  		YKSEME_URL.'js/jquery.dataTables.js',											array('jquery'));
 	}
 	
 public function addScripts_frontend()

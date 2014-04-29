@@ -68,8 +68,24 @@ $ymce = jQuery.noConflict();
 	});
 </script>
 
+
+
 <div class="yks-mailchimpFormContainer">
-	<div class="yks-status" id="yks-status-<?php echo $list['id']; ?>"></div>	
+	<div class="yks-status" id="yks-status-<?php echo $list['id']; ?>"></div>
+	
+	<?php 
+	
+		// custom action to print text before ALL forms
+		do_action( 'yks_mc_before_all_forms');
+	
+		// custom action to print text for a specific form
+		// using the form ID
+		$form_id = explode('-', $list['id']);
+		do_action( 'yks_mc_before_form_'.$form_id[1] );
+
+	
+	?>
+	
 	<div class="yks-require-description">
 			<span class='yks-required-label'>*</span> = <?php _e('required field','yikes-inc-easy-mailchimp-extender'); ?>
 	</div>
@@ -81,5 +97,15 @@ $ymce = jQuery.noConflict();
 			<?php echo $this->getFrontendFormDisplay($list, $submit_text); ?>
 		</form>
 	</div>
+	
+	<?php 
+	
+		// custom action to print text after ALL forms
+		do_action("yks_mc_after_all_forms"); 
+		
+		// custom action to print text after a specific form
+		// using the form ID set above
+		do_action( 'yks_mc_after_form_'.$form_id[1] );
+	?>
 	
 </div>

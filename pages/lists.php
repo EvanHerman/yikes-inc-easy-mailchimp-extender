@@ -335,6 +335,7 @@
 		jQuery('#yks-list-wrapper').delegate('.displayListSubscribers', 'click', function() {
 			var specifiedListID = jQuery(this).attr('rel');
 			var thisListName = jQuery(this).parents('tbody').find('.yks-mailchimp-listname').text();
+						 
 			// run our ajax function and pass along our clicked link ID
 				$.ajax({
                        type:   "POST",
@@ -351,12 +352,21 @@
 									// on a successfull call, hide the ajax preloader and populate the thickbox with our subscribers
 									jQuery(".mailChimp_get_subscribers_preloader").fadeOut('fast',function() {
 										jQuery("#TB_ajaxContent").find(".yks_mc_subscribers").html(MAILCHIMP).append('<input class="mailChimp_list_id" type="hidden" value="'+specifiedListID+'" />').delay(800);
+										 // initialize pagination
+										 // and change some of the default strings
+										jQuery('#yikes-mailchimp-subscribers-table').DataTable( {
+											"oLanguage": {
+												"sLengthMenu":	   "Show _MENU_ subscribers",
+												"sInfo":		   "Showing _START_ to _END_ of _TOTAL_ subscribers"
+											  }									
+										} );
 										// update cached subscriber count on list view 
 											var current_subscribers = jQuery("body").find('.number-of-subscribers-'+specifiedListID).text();
 											var header_current_subscribers_count = jQuery("#TB_window").find('.yks_mc_subscribers').find('.subscriber-count').find('.number').text();
 											jQuery("#TB_window").find('.yks_mc_subscribers').find('.subscriber-count').find('.number').text(header_current_subscribers_count);
 											jQuery("body").find('.number-of-subscribers-'+specifiedListID).text(header_current_subscribers_count+'  ');
 									});	
+															
 							},
 						// display an error if one is returned	
 						error: function(xhr) {
@@ -471,6 +481,8 @@
 							dataType: "html", // again must pass as HTML and not JSON
 							success: function(MAILCHIMP)
 								  {	
+									// hide our subscriber data table
+									jQuery('#yikes-mailchimp-subscribers-table_wrapper').fadeOut('fast');
 									// slide list to the left, to display the Users information
 									// alert(MAILCHIMP);
 									$('.yks_mc_subscribers').find('h2').fadeOut('fast');
@@ -495,6 +507,8 @@
 		// hide user profile, display the table again
 		jQuery('.yks_mc_subscribers').delegate('.yks-mc-subscriber-go-back', 'click', function() {
 			$('#individual_subscriber_information').fadeOut('fast', function() {
+				// show our subscriber data table again
+				jQuery('#yikes-mailchimp-subscribers-table_wrapper').fadeIn('fast');
 				$('.yks_mc_subscribers').find('h2').fadeIn();
 				$('.yks_mc_subscribers').find('p').fadeIn();
 				$('#yikes-mailchimp-subscribers-table').fadeIn();
