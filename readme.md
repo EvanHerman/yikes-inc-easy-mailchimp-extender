@@ -338,8 +338,8 @@ These functions are defined inside of the Easy MailChimp plugin and they exist t
 These functions should be used within the `yikes_mc_get_form_data` or the `yikes_mc_get_form_data_$formID` filters. Whatever data the user has provided will be returned for easy viewing.
 
 ##### Provided Functions :
-`yks_mc_print_user_data( $form_ID, $merge_variables );` and `yks_mc_var_dump_user_data( $form_ID, $merge_variables );`
-
+`yks_mc_print_user_data( $form_ID, $merge_variables );` and `yks_mc_dump_user_data( $form_ID, $merge_variables );`
+*Defined In: class.yksemeBase.php on line 2441 and 2510 respectively.*
 
 ##### _Example Useage_:
 *Print User Data*
@@ -350,12 +350,15 @@ These functions should be used within the `yikes_mc_get_form_data` or the `yikes
 	* user data In a nice readable format
 	*/
 	function print_user_data_from_form( $form_ID, $merge_variables ) {
-		yks_mc_print_user_data( $form_ID, $merge_variables );
+		if( class_exists( 'yksemeBase' ) ) {
+			$yikes_easy_mailchimp = new yksemeBase();
+		}
+		$yikes_easy_mailchimp->yks_mc_print_user_data( $form_ID, $merge_variables );
 	}
-	add_filter( 'yikes_mc_get_form_data' , 'print_user_data_from_form', 10, 2 );
+	add_filter( 'yikes_mc_get_form_data' , 'print_user_data_from_form', 10, 2 );	
 ?>
 ```
-
+	
 *Dump User Data*
 ```php
 <?php
@@ -365,7 +368,10 @@ These functions should be used within the `yikes_mc_get_form_data` or the `yikes
 	* being returned
 	*/
 	function dump_user_data_from_form( $form_ID, $merge_variables ) {
-		yks_mc_var_dump_user_data( $form_ID, $merge_variables );
+		if( class_exists( 'yksemeBase' ) ) {
+			$yikes_easy_mailchimp = new yksemeBase();
+		}
+		$yikes_easy_mailchimp->yks_mc_dump_user_data( $form_ID, $merge_variables );
 	}
 	add_filter( 'yikes_mc_get_form_data' , 'dump_user_data_from_form', 10, 2 );
 ?>

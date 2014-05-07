@@ -1425,6 +1425,12 @@ public function addUserToMailchimp($p)
 			$noemail = "The email address is blank";
 			if($email === false) return $noemail;
 				
+				// Add custom filter here, to capture user submitted 
+				// data before it's sent off to MailChimp
+				$form_data = apply_filters( 'yikes_mc_get_form_data', $lid, $mv ); 
+				$specific_form_data = apply_filters( 'yikes_mc_get_form_data_'.$lid, $lid, $mv ); 
+				
+				
 				// try adding subscriber, catch any error thrown
 				try {
 					$retval = $api->call('lists/subscribe', array(
@@ -2419,6 +2425,92 @@ private function runUpdateTasks_1_3_0()
 						$whitelist = array( '127.0.0.1', '::1' );
 						if( in_array( $_SERVER['REMOTE_ADDR'], $whitelist) )
 							return true;
+					}
+					
+					/*******************************************************/
+					/*							Helper Functions						 */
+					/******************************************************/
+					/* 
+					*
+					* Helper function when testing user submitted data
+					* to be used inside of the yikes_mc_get_form_data filter
+					*
+					*/
+					function yks_mc_print_user_data( $form_ID, $merge_variables ) {
+
+						echo '<h3>The Data Returned From This Form</h3>';
+
+						echo '<strong>MailChimp List ID : </strong> '.$form_ID.' <br />';
+						
+						echo '<hr />';
+						
+						if ( isset( $merge_variables['FNAME'] ) && $merge_variables['FNAME'] != '' ) {
+							echo '<strong>User\'s Name : </strong> '.$merge_variables['FNAME'].' <br />';
+							
+							echo '<hr />';
+							
+						}
+							
+						if ( isset( $merge_variables['LNAME'] ) && $merge_variables['LNAME'] != '' ) {
+							echo '<strong>User\'s Name : </strong> '.$merge_variables['LNAME'].' <br />';
+							
+							echo '<hr />';
+							
+						}
+						
+						echo '<strong>Users Email : </strong>'.$merge_variables['EMAIL'].' <br />';
+							
+						if ( isset( $merge_variables['GROUPINGS'] ) ) {	
+							
+							echo '<hr />';
+						
+							echo '<strong>Interest Group Data : </strong><br /><br />';
+
+							foreach ( $merge_variables['GROUPINGS'] as $grouping_variable ) {
+								
+								echo '<ol style="list-style:none;">Interest Group : '.$grouping_variable['id'].'</ol>';
+								
+								if ( !isset($grouping_variable['groups'][0]) || $grouping_variable['groups'][0] == '' ) {
+								
+									echo '<li style="list-style:none;">No interest groups selected</li><br />';
+									
+								} else {
+								
+									// loop over interest groups to build array
+									$interest_group_array = array();
+									foreach ( $grouping_variable['groups'] as $interest_group ) {
+										array_push( $interest_group_array , $interest_group );
+									}
+									
+									if ( count($interest_group_array)  > 0 ) {
+										foreach ( $interest_group_array as $interest_group_label ) {
+											echo '<li style="list-style:none;">'.$interest_group_label.'</li>';
+										}
+										echo '<br />';
+									}
+									
+								}
+							}
+						
+						}
+						
+						echo '<em style="color:rgb(238, 93, 93);">Form data has not been sent to MailChimp</em><br />';
+							
+						die(); // die to prevent data being sent over to MailChimp
+
+					}
+					/* 
+					*
+					* Helper function when testing user submitted data
+					* print_r($merge_variables) is returned
+					*
+					*/
+					function yks_mc_dump_user_data( $form_ID, $merge_variables ) {
+						echo '<strong>Form ID :</strong> '.$form_ID. '<br />';
+						echo '<strong>Merge Variables :</strong><br />';
+						print_r($merge_variables);
+						echo '<br /><em style="color:rgb(238, 93, 93);">Form data has not been sent to MailChimp</em>';
+						die(); // die to prevent data being sent over to MailChimp
 					}
 			
 		}
