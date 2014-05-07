@@ -35,41 +35,41 @@ Installation
 Frequently Asked Questions
 ===========
 
-### Do I need to have a MailChimp Account? 
+#### Do I need to have a MailChimp Account? 
 Yes, you can register for one for free at [MailChimp](https://mailchimp.com/signup/ "MailChimp Signup").
 
-### Do I need to have lists already set up in MailChimp? 
+#### Do I need to have lists already set up in MailChimp? 
 Yes, you have to have at least 1 list set up in MailChimp. 
 
 For more help, visit the MailChimp Support article [How do I create a new list?](http://kb.mailchimp.com/article/where-can-i-find-my-api-key "How do I create a new list?")
 
-### What do I do first? 
+#### What do I do first? 
 The first step is to add your MailChimp API key. This will allow your site to communicate with your MailChimp account. This is done on the plugin "MailChimp Settings" page.
 
-### Where do I find my API Key? 
+#### Where do I find my API Key? 
 From your MailChimp Dashboard, click on your account name in the upper left hand corner of the screen under the MailChimp logo to expose the "Account Settings" menu. Click on "Account Settings" to go to the Account Settings screen and the click on the "Extras" menu. Under "Extras" choose "API keys." From there you can create a new key if you do not already have one.
 
 For more help, visit the MailChimp Support article [Where can I find my API Key?](http://kb.mailchimp.com/article/where-can-i-find-my-api-key "Where can I find my API Key?")
 
-### How to I add my MailChimp lists? 
+#### How to I add my MailChimp lists? 
 After you add your API key, the plugin will fetch all of your MailChimp list information and load it into the plugin admin. Go to the plugin "Manage List Forms" page to choose the lists you want to make forms for.
 
-### How do I add the MailChimp signup forms to my site? 
+#### How do I add the MailChimp signup forms to my site? 
 You can use a shortcode to add a form to a page or post. For each list on the plugin "Manage List Forms" page you will see a shortcode at the top. Copy the shortcode and paste it into any post or page where you want a form to appear. For example, if my form had the shortcode [yks-mailchimp-list id="1234567891"] I would copy and paste that into the page or post I wanted to add that form to.
 
-### Don't I have to enter a list ID for each list I want to add to my site? 
+#### Don't I have to enter a list ID for each list I want to add to my site? 
 Not anymore! With the 2.0 version of the MailChimp API all list information can be imported with just the API key.
 
-### My Information isn't showing up when people subscribe, what gives? 
+#### My Information isn't showing up when people subscribe, what gives? 
 You're likely using an old version of the plugin. Please update to the latest version and import your list data.
 
-### My list data was changed/the form isn't showing up since the 2.0 update, what's up with that? 
+#### My list data was changed/the form isn't showing up since the 2.0 update, what's up with that? 
 Due to the code overhaul required for the features of the new version, the structure we were using to save data had to be completely changed over to conform to the MailChimp schema. The old unique IDs the plugin gave to lists have been deprecated. The custom fields that you have are now pulled in from the MailChimp servers. If your form isn't showing up with the shortcode, just copy and paste it again to fix this issue.
 
-### I don't want the form to be the 100% width. How can I adjust the width my self? 
+#### I don't want the form to be the 100% width. How can I adjust the width my self? 
 You can adjust the width of the forms on your site by changing the width of the element with the class .yks-mailchimpFormContainer. This is the parent container that houses the form. Adjusting this width will control the width of the input fields inside of it as well.
 
-### I input a valid MailChimp API key, but it returns invalid every time. I've already tried a new API key, but no dice. What's up? 
+#### I input a valid MailChimp API key, but it returns invalid every time. I've already tried a new API key, but no dice. What's up? 
 The MaillChimp API requires that cURL be enabled on your server. If cURL is disabled at the server level, you will see a warning message at the top of the settings page letting you know so. You can enable cURL from within the php.ini file, generally located in the root of your WordPress installation, by following these steps: 
 <ul>
   <li>Open php.ini</li>
@@ -80,7 +80,7 @@ The MaillChimp API requires that cURL be enabled on your server. If cURL is disa
 
 If you are having trouble locating your php.ini file, you may not have access to directly edit it. If that is the case you should contact your host provider, and have them enable cURL for you
 
-= Do you provide any hooks, or filters for me to take advantage of? =
+#### Do you provide any hooks, or filters for me to take advantage of?
 Yes! With the latest release we have added a few places for you to hook into, to add or manipulate existing data. Check out the developer documentation tab for more information.
 
 Developer Documentation
