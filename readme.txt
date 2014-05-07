@@ -351,6 +351,46 @@ This example will catch the user submitted data *from a specific form*, store th
 ?>
 `
 
+**Helper Functions**
+
+** Description**
+These functions are defined inside of the Easy MailChimp plugin and they exist to help test and view the user data that is being submitted by the user through the MailChimp form. These functions will prevent the default form functionality, so no user data will be sent to MailChimp while testing.
+
+These functions should be used within the `yikes_mc_get_form_data` or the `yikes_mc_get_form_data_$formID` filters. Whatever data the user has provided will be returned for easy viewing.
+
+**Provided Functions**
+`yks_mc_print_user_data( $form_ID, $merge_variables );` and `yks_mc_var_dump_user_data( $form_ID, $merge_variables );`
+
+
+**How to Use**
+*Print User Data*
+`
+<?php
+	/**
+	* This example will return all of the submitted 
+	* user data In a nice readable format
+	*/
+	function print_user_data_from_form( $form_ID, $merge_variables ) {
+		yks_mc_print_user_data( $form_ID, $merge_variables );
+	}
+	add_filter( 'yikes_mc_get_form_data' , 'print_user_data_from_form', 10, 2 );
+?>
+`
+*Dump User Data*
+`
+<?php
+	/**
+	* This example will dump all of the submitted 
+	* user data, so you can see the full array of data
+	* being returned
+	*/
+	function dump_user_data_from_form( $form_ID, $merge_variables ) {
+		yks_mc_var_dump_user_data( $form_ID, $merge_variables );
+	}
+	add_filter( 'yikes_mc_get_form_data' , 'dump_user_data_from_form', 10, 2 );
+?>
+`
+
 == Screenshots ==
 
 1. Sidebar menu
