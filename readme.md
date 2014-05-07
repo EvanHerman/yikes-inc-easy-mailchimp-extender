@@ -85,7 +85,7 @@ Developer Documentation
 ===========
 <br />
 ## Text Domain
-------
+
 #### Name: 
 `yikes-inc-easy-mailchimp-extender`
 
@@ -132,7 +132,7 @@ add_filter( 'gettext', 'theme_change_comment_field_names', 20, 3 );
 ```
 <br />
 ## Hooks
-------
+
  
 #### Hook Name : 
 `yks_mc_before_form_$formID`
@@ -236,7 +236,7 @@ add_action( 'yks_mc_after_form' , 'custom_before_all_forms_action' );
 
 <br />
 ## Filters
-------
+
 #### Filter Name :
 `yikes_mc_get_form_data`
 
