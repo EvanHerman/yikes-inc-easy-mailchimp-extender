@@ -86,13 +86,13 @@ Developer Documentation
 <br />
 ## Text Domain
 
-#### Name: 
+##### Name: 
 `yikes-inc-easy-mailchimp-extender`
 
 ##### Description : 
 90% of the plug-in is localized and ready for translation. This means that you can manipulate text using the provided text domain, using a gettext filter.
 
-#### Accepted Parameters: 
+##### Accepted Parameters: 
 _N/A_
 
 ##### _Example_: 
@@ -134,13 +134,13 @@ add_filter( 'gettext', 'theme_change_comment_field_names', 20, 3 );
 ## Hooks
 
  
-#### Hook Name : 
+##### Hook Name : 
 `yks_mc_before_form_$formID`
 
 ##### Description : 
 Used to place content before a specific MailChimp form. Use the form id to specify which form to place text before.
 
-#### Accepted Parameters: 
+##### Accepted Parameters: 
 _N/A_
 
 ##### _Example_: 
@@ -162,13 +162,13 @@ add_action( 'yks_mc_before_form_0b071c0bd1' , 'custom_before_form_action' );
 
 <br />
 
-#### Hook Name : 
+##### Hook Name : 
 `yks_mc_after_form_$formID`
 
 ##### Description : 
 Used to place content after a specific MailChimp form. Use the form id to specify which form to place text after.
 
-#### Accepted Parameters: 
+##### Accepted Parameters: 
 _N/A_
 
 ##### _Example_: 
@@ -190,13 +190,13 @@ add_action( 'yks_mc_after_form_0b071c0bd1' , 'custom_after_form_action' );
 
 <br />
 
-#### Hook Name :
+##### Hook Name :
 `yks_mc_after_form`
 
 ##### Description : 
 Used to place content after **all** MailChimp Forms.
 
-#### Accepted Parameters: 
+##### Accepted Parameters: 
 _N/A_	
 
 ##### _Example_:  
@@ -213,13 +213,13 @@ add_action( 'yks_mc_after_form' , 'custom_after_all_forms_action' );
 
 <br />
 
-#### Hook Name :
+##### Hook Name :
 `yks_mc_before_form`
 
 ##### Description : 
 Used to place content before **all** MailChimp Forms.
 
-#### Accepted Parameters: 
+##### Accepted Parameters: 
 _N/A_	
 
 ##### _Example_:  
@@ -237,13 +237,13 @@ add_action( 'yks_mc_after_form' , 'custom_before_all_forms_action' );
 <br />
 ## Filters
 
-#### Filter Name :
+##### Filter Name :
 `yikes_mc_get_form_data`
 
-#### Accepted Parameters:  
+##### Accepted Parameters:  
 `$Form_ID` and `$merge_variables`
 
-#### Parameter Info:	
+##### Parameter Info:	
 
 `$Form_ID` = the ID of the specific MailChimp Form ( can be retrieved from the 'MailChimp Forms > Manage List Forms' menu ).
 
@@ -283,13 +283,13 @@ add_filter( 'yikes_mc_get_form_data' , 'catch_user_data', 10, 2 );
 
 <br />
 
-#### Filter Name :
+##### Filter Name :
 `yikes_mc_get_form_data_$formID`
 
-#### Accepted Parameters:  
+##### Accepted Parameters:  
 `$Form_ID` and `$merge_variables`
 
-#### Parameter Info:	
+##### Parameter Info:	
 
 `$Form_ID` = the ID of the specific MailChimp Form ( can be retrieved from the 'MailChimp Forms > Manage List Forms' menu ).
 
