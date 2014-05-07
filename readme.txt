@@ -93,7 +93,7 @@ The MaillChimp API requires that cURL be enabled on your server. If cURL is disa
 If you are having trouble locating your php.ini file, you may not have access to directly edit it. If that is the case you should contact your host provider, and have them enable cURL for you.
 
 = Do you provide any hooks, or filters for me to take advantage of? =
-Yes! With the latest release, we have added a few places for you to hook into, to add or manipulate existing data. Check out the developer documentation tab for more information.
+Yes! With the latest release we have added a few places for you to hook into, to add or manipulate existing data. Check out the developer documentation tab for more information.
 
 == Developer Docs. ==
 
@@ -269,7 +269,7 @@ N/A
 
 `$merge_variables` = a multi-dimensional array containing all user entered data being sent to the MailChimp API (The email, first name, last name etc. will be contained here).
 
-**Description :**
+**Description:**
 Used to catch user data, *from all forms*, before it gets sent to the mailchimp API. Useful when you want to manipulate data before being sent to the MailChimp API or if you'd like to use the entered data locally.
 
 **Example:**
@@ -442,20 +442,6 @@ This example will catch the user submitted data *from a specific form*, store th
 * Initial Release
 
 == Upgrade Notice ==
-
-= 4.0 =
-* Added Interest Group/Segment Support
-* Ability To See Number of Subscriber Per List
-* View Subscribers MailChimp Profile
-* Customize Segment Group Label
-* Customize Submit Button Text
-* Redirect User to Specified Page On Submission
-* Customize Success Message
-* Added cURL Server Error Checking
-* Added further error checking to pages
-* added cURL error detection
-* Custom TinyMCE shortcode button
-
 = 3.0 =
 * Update Mail Chimp API to v2.0
 * Added API Key Validation Check

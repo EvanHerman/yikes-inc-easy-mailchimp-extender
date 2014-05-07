@@ -80,6 +80,8 @@ The MaillChimp API requires that cURL be enabled on your server. If cURL is disa
 
 If you are having trouble locating your php.ini file, you may not have access to directly edit it. If that is the case you should contact your host provider, and have them enable cURL for you
 
+= Do you provide any hooks, or filters for me to take advantage of? =
+Yes! With the latest release we have added a few places for you to hook into, to add or manipulate existing data. Check out the developer documentation tab for more information.
 
 Developer Documentation
 ===========
