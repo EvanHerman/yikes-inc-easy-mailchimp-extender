@@ -207,6 +207,31 @@ This example will print out a disclaimer message after a specific form._
 <br />
 
 **Hook Name:**
+`yks_mc_before_form`
+
+**Description:** 
+Used to place content before *all* MailChimp Forms.
+
+**Accepted Parameters:** 
+N/A
+
+**Example:** 
+`
+<?php
+	/**
+	* This example will print out a disclaimer to the user,
+	* above all MailChimp forms. 
+	*/
+	function custom_before_all_forms_action() {
+		echo '<p><em>Your information is for internal use only, and will never be shared with or sold to anyone.</em></p>';
+	}
+	add_action( 'yks_mc_before_form' , 'custom_before_all_forms_action' );
+?>
+`
+
+<br />
+
+**Hook Name:**
 `yks_mc_after_form`
 
 **Description:** 
@@ -228,31 +253,6 @@ N/A
 	add_action( 'yks_mc_after_form' , 'custom_after_all_forms_action' );
 ?>
 `
-<br />
-
-**Hook Name:**
-`yks_mc_before_form`
-
-**Description:** 
-Used to place content before *all* MailChimp Forms.
-
-**Accepted Parameters:** 
-N/A
-
-**Example:** 
-`
-<?php
-	/**
-	* This example will print out a disclaimer to the user,
-	* above all MailChimp forms. 
-	*/
-	function custom_before_all_forms_action() {
-		echo '<p><em>Your information is for internal use only, and will never be shared with or sold to anyone.</em></p>';
-	}
-	add_action( 'yks_mc_after_form' , 'custom_before_all_forms_action' );
-?>
-`
-
 <br />
 
 **Filters**
@@ -356,7 +356,7 @@ This example will catch the user submitted data *from a specific form*, store th
 ** Description**
 These functions are defined inside of the Easy MailChimp plugin and they exist to help test and view the user data that is being submitted by the user through the MailChimp form. These functions will prevent the default form functionality, so no user data will be sent to MailChimp while testing.
 
-These functions should be used within the `yikes_mc_get_form_data` or the `yikes_mc_get_form_data_$formID` filters. Whatever data the user has provided will be returned for easy viewing.
+These functions should be used in conjunction with the `yikes_mc_get_form_data` or the `yikes_mc_get_form_data_$formID` filters. Whatever data the user has provided will be returned for viewing.
 
 **Provided Functions**
 `yks_mc_print_user_data( $form_ID, $merge_variables );` and `yks_mc_dump_user_data( $form_ID, $merge_variables );`
