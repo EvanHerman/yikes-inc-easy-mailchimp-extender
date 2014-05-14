@@ -267,7 +267,27 @@
 
 #ykseme-icon {
 	background: transparent url('../images/ykseme_32px_color.png') no-repeat 0 0;
+	display:block;
+	float:left;
+	padding: 0 0 0 .5em;
+	height: 35px;
+	width:35px;
+	background-size: contain;
 }
+
+.wrap #ykseme-page-header {
+	padding-top:0;
+	margin-bottom:1.5em;
+}
+
+body.toplevel_page_yks-mailchimp-form .wrap {
+	margin-top:2em;
+}
+
+body.mailchimp-forms_page_yks-mailchimp-about-yikes #ykseme-page-header {
+	margin-top:1em;
+}
+
 
 .yks-status	{
 	display: none;
@@ -677,7 +697,8 @@
 .yikes_mc_interest_group_checkbox, .yks_mc_interest_group_label { 
 	float:left !important;
 	margin:.35em;
-     width: 75px !important;
+    max-width: 45% !important;
+	word-break: break-word;
 }
 
 .yikes_mc_interest_group_radio {

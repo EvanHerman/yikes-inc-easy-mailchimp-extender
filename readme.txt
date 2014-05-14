@@ -27,7 +27,7 @@ Easy MailChimp Forms allows you to painlessly add MailChimp signup forms to your
 1. View Individual List Subscriber Count
 1. Display Multiple Forms On a Single Page
 1. Built on the Newest MailChimp API - v2.0
-1. Comment form subscribe checkbox - add users who leave comments to your MailChimp lists
+1. Comment form subscribe check box - add users who leave comments to your MailChimp lists
 1. cURL error detection
 1. custom tinyMCE button
 
@@ -399,11 +399,12 @@ These functions should be used in conjunction with the `yikes_mc_get_form_data` 
 
 == Screenshots ==
 
-1. Sidebar menu
-2. MailChimp settings page
-3. Manage list forms page
-4. Inserting a MailChimp form shortcode on a page
-5. Form displays on the site front-end
+1. YIKES Easy MailChimp Settings Page
+2. Yikes Easy MailChimp form listing page
+3. Display all subscribers of a given list
+4. Display individual subscriber information
+5. Custom widget to easily add forms to sidebars and widgets
+
 
 == Changelog ==
 
@@ -417,7 +418,6 @@ These functions should be used in conjunction with the `yikes_mc_get_form_data` 
 * Customize Success Message
 * Added cURL Server Error Checking
 * Added further error checking to pages
-* added cURL error detection
 * Custom TinyMCE shortcode button
 
 = 3.0 =

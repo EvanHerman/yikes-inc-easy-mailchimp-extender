@@ -37,6 +37,10 @@ public function __destruct()
  */
 public function activate()
 	{
+		// redirect the user on plugin activation
+		// to our MailChimp settings page
+		add_option('yks_easy_mc_plugin_do_activation_redirect', true);
+		
 		// check if our option is already set
 		// if it exists, return
 		if( get_option( 'api_validation' ) ) {
@@ -69,6 +73,7 @@ public function initialize()
 	// Add the CSS/JS files
 	add_action('admin_print_styles',		array(&$this, 'addStyles'));
 	add_action('admin_print_scripts',		array(&$this, 'addScripts'));
+	add_action('admin_init', array( &$this, 'yks_easy_mc_plugin_activation_redirect' ) );
 	// tinymce buttons
 	// only add filters and actions on wp 3.9 and above
 	if ( get_bloginfo( 'version' ) >= '3.9' ) {
@@ -1177,6 +1182,15 @@ public function addScripts()
 	wp_enqueue_script('jquery-ui-tabs');
 	wp_enqueue_script('ykseme-base',				  		YKSEME_URL.'js/script.ykseme.js',											array('jquery'));
 	wp_enqueue_script('jquery-datatables-pagination',				  		YKSEME_URL.'js/jquery.dataTables.js',											array('jquery'));
+	}
+	
+	// redirect the user to the settings page on initial activation
+	function yks_easy_mc_plugin_activation_redirect() {
+		if (get_option('yks_easy_mc_plugin_do_activation_redirect', false)) {
+			delete_option('yks_easy_mc_plugin_do_activation_redirect');
+			// redirect to settings page
+			wp_redirect(admin_url('/admin.php?page=yks-mailchimp-form'));
+		}
 	}
 	
 public function addScripts_frontend()
@@ -2311,7 +2325,7 @@ private function runUpdateTasks_1_3_0()
 				add_filter('comment_form_defaults', array(&$this, 'add_after_comment_form'));
 			}
 		}
-		
+
 		
 		// Check if cURL is enabled at the server level
 		// used on the options.php page
