@@ -1,15 +1,30 @@
 <script type="text/javascript">
 $ymce = jQuery.noConflict();
 	jQuery(document).ready(function($ymce){
-		function blankFieldCheck()
+		function blankFieldCheck(formID)
 			{
 			err	= 0;
 			msg	= '';
 			<?php echo $this->getFrontendFormJavascript($list); ?>
 			if(msg != '')
 				{
-				msg	= "<?php _e('Oops.. Don\'t forget to fill-in the following fields','yikes-inc-easy-mailchimp-extender'); ?>"+":\n\n"+msg;
-				alert(msg);
+				jQuery('#yks_form_error_message').remove();
+				// set up our alert for empty fields,
+				// msg	= "<?php _e('Oops.. Don\'t forget to fill-in the following fields','yikes-inc-easy-mailchimp-extender'); ?>"+":\n\n"+msg;
+				msg	= "<?php _e('Error - The following fields are required, and may not be left blank ','yikes-inc-easy-mailchimp-extender'); ?>"+":\n\n"+'<ul>'+msg+'</ul>';
+				// prepend the notification to the user instead of alerting it	
+					// fade it in
+					// and slide the user back up the the message so they don't miss it.
+					jQuery('#yks-mailchimp-form_'+formID).prepend('<span id="yks_form_error_message">'+	msg+'</span>').delay(550).queue(function(next){
+								jQuery('#yks_form_error_message').fadeIn();
+								var offset_top = jQuery('#yks-mailchimpFormContainerInner_'+formID).offset().top;
+								jQuery("html, body").animate({ scrollTop: offset_top - 50 }, 500 );
+								next();
+							});
+					
+					setTimeout(function() {	
+						
+					}, 600);
 				}
 			return (err > 0 ? false : true);
 			}
@@ -19,7 +34,7 @@ $ymce = jQuery.noConflict();
 			var optinValue = '<?php echo $this->optionVal['optin']; ?>';
 			e.preventDefault();
 			// Make sure the api key exists
-			if(blankFieldCheck())
+			if(blankFieldCheck("<?php echo $list['id']; ?>"))
 				{
 				$ymce('#ykfmc-submit_<?php echo $list['id']; ?>').attr('disabled', 'disabled');
 				$ymce('#yks-status-<?php echo $list['id']; ?>').slideUp('fast');

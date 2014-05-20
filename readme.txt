@@ -3,8 +3,8 @@ Contributors: yikesinc, hiwhatsup, liljimmi, eherman24, seriouslysean
 Donate link: http://yikesinc.com
 Tags: mailchimp, marketing, email, mailing lists, newsletter, signup, forms, signup form
 Requires at least: 3.0
-Tested up to: 3.9
-Stable tag: 4.0
+Tested up to: 3.9.1
+Stable tag: 4.1
 License: GPLv2 or later
 
 Easy MailChimp Forms allows you to painlessly add MailChimp signup forms to your WordPress site.
@@ -14,25 +14,28 @@ Easy MailChimp Forms allows you to painlessly add MailChimp signup forms to your
 Easy MailChimp Forms allows you to painlessly add MailChimp signup forms to your WordPress site. You can add forms to posts, pages or widgets with shortcodes or to template files with PHP tags. Simply copy and paste your MailChimp API Key into the plugin admin settings and it will pull in all your MailChimp lists. From there you can choose the lists you want to make forms for. For a single list you can check off the fields you want to include on your form and order them via an easy drag-and-drop interface. This plugin adds plenty of CSS selectors to the form code allowing you to completely customize the look of your forms.
 
 
+<em>Note:</em> You will need a MailChimp API key to allow this plugin to communicate with your MailChimp account. For help on retreiving your API key, check out #4 of the <a href="http://wordpress.org/plugins/yikes-inc-easy-mailchimp-extender/faq/">FAQ</a> section. You can also read up more <a href="http://kb.mailchimp.com/article/where-can-i-find-my-api-key/" target="_blank">here</a>.
+
 **Features**
-1. Easily Import MailChimp Forms
-1. Interest Group/Segment Support
-1. Custom Widget
-1. Single or Double Opt-In Option
-1. Customize the Success Message
-1. Customize the Submit Button Text
-1. Redirect Users to Selected Page On Submission
-1. Remove Users From MailChimp Lists
-1. View Subscriber MailChimp Profiles
-1. View Individual List Subscriber Count
-1. Display Multiple Forms On a Single Page
-1. Built on the Newest MailChimp API - v2.0
-1. Comment form subscribe check box - add users who leave comments to your MailChimp lists
-1. cURL error detection
-1. custom tinyMCE button
+
+* Easily Import MailChimp Forms
+* MailChimp Interest Group/Segment Support
+* Custom MailChimp Widget
+* Set forms to Single or Double Opt-In Option
+* Customize the Success Message
+* Customize the Submit Button Text
+* Redirect Users to Selected Page On Submission
+* Unsubscribe Users From MailChimp Lists
+* View Subscriber MailChimp Profiles
+* View Individual Form Subscriber Count
+* Display Multiple Forms On a Single Page
+* Built on the Newest MailChimp API - v2.0
+* Comment form opt-in check box - add commenter's to your MailChimp lists with ease
+* custom tinyMCE button to easily add forms to pages and posts
+* cURL error detection
 
 
-Instructions on how to use the plugin can be [found on the FAQ](http://wordpress.org/plugins/yikes-inc-easy-mailchimp-extender/faq/ "found on the FAQ"). If you experience any problems, please submit a New Issue on our [Github Issue Tracker](https://github.com/yikesinc/yikes-inc-easy-mailchimp-extender/issues "Github Issue Tracker") and we'll look in to it as soon as possible.
+Instructions on how to use the plugin can be [found in the FAQ](http://wordpress.org/plugins/yikes-inc-easy-mailchimp-extender/faq/ "found in the FAQ"). If you experience any problems, please submit a New Issue on our [Github Issue Tracker](https://github.com/yikesinc/yikes-inc-easy-mailchimp-extender/issues "Github Issue Tracker") and we'll look in to it as soon as possible.
 
 == Installation ==
 
@@ -40,10 +43,10 @@ Instructions on how to use the plugin can be [found on the FAQ](http://wordpress
 1. Log in to yourdomain.com/wp-admin
 1. Click Plugins -> Add New -> Upload
 1. Activate the plugin
-1. Go over to <a href="http://www.mailchimp.com" target="_blank">MailChimp.com</a>, login.
+1. Head over to <a href="http://www.mailchimp.com" target="_blank">MailChimp.com</a>, login.
 1. On the right hand menu, click your profile picture and select 'Account Settings' and then go to 'Extras > API Keys'.
 1. Enter your API key into the text field inside 'MailChimp Forms > MailChimp Settings'
-1. Start importing forms from MailChimp and adding them to posts, pages and widgets!
+1. Go to the 'Manage List Forms' page, start importing forms from MailChimp and adding them to posts, pages and widgets!
 
 == Frequently Asked Questions ==
 
@@ -82,18 +85,23 @@ Due to the code overhaul required for the features of the new version, the struc
 You can adjust the width of the forms on your site by changing the width of the element with the class .yks-mailchimpFormContainer. This is the parent container that houses the form. Adjusting this width will control the width of the input fields inside of it as well.
 
 = I input a valid MailChimp API key, but it returns invalid every time. I've already tried a new API key, but no dice. What's up? =
-The MaillChimp API requires that cURL be enabled on your server. If cURL is disabled at the server level, you will see a warning message at the top of the settings page letting you know so. You can enable cURL from within the php.ini file, generally located in the root of your WordPress installation, by following these steps: 
-<ul>
-  <li>Open php.ini</li>
-  <li>Locate the line ';extension=php_curl.dll'</li>
-  <li>Delete the semi-colon (;) from before the line, to uncomment it.</li>
-  <li>Save the file, close out and try again</li>
-</ul>
 
-If you are having trouble locating your php.ini file, you may not have access to directly edit it. If that is the case you should contact your host provider, and have them enable cURL for you.
+Step 1) Ensure that cURL is enabled at the server level ( You will see an error at the top of the settings page if cURL is disabled. If you see no error, continue to step 2.
+
+Step 2) If you have entered your MailChimp API key and still find that it is returning the error "<em>Error: Please enter a valid Mail Chimp API Key</em>", please check the developer console inside your browser for further information as to why it's not validating. 
+	
+- You can do this, by right clicking in the API Key input field, and selecting 'Inpsect Element'
+- Once the developer console is open, select the Console tab, where you should see a more specific error.
+- (For information on how to check your browsers developer console, <a href="http://codex.wordpress.org/Using_Your_Browser_to_Diagnose_JavaScript_Errors" target="_blank">read here</a>.)
+	
+<strong>Possible Errors And Resolutions</strong>
+
+* Could not resolve host: xxxx.api.mailchimp.com  - the host you have provided is incorrect. The host is the string after the last dash (example: us2)
+* Invalid Mailchimp API Key: xxxxxxxxxxxxxxxxxx-xxx - Your API key is invalid. You can confirm a valid key by logging into <a href="http://mailchimp.com" target="_blank">MailChimp</a> and checking the active API key registered to your account.
+		
 
 = Do you provide any hooks, or filters for me to take advantage of? =
-Yes! With the latest release we have added a few places for you to hook into, to add or manipulate existing data. Check out the developer documentation tab for more information.
+Yes! With the latest release we have added a few places for you to hook into, to add or manipulate existing data. Check out the <a href="http://wordpress.org/plugins/yikes-inc-easy-mailchimp-extender/other_notes/">Other Notes</a> tab  for more information.
 
 == Developer Docs. ==
 
@@ -401,12 +409,25 @@ These functions should be used in conjunction with the `yikes_mc_get_form_data` 
 
 1. YIKES Easy MailChimp Settings Page
 2. Yikes Easy MailChimp form listing page
-3. Display all subscribers of a given list
-4. Display individual subscriber information
-5. Custom widget to easily add forms to sidebars and widgets
-
+3. View all subscribers of a given list, click to reveal individual subscriber info
+4. Custom widget to easily add forms to sidebars and widgets
+5. Form rendered on the front end of the site
+6. Optional opt-in checkbox on the comment forms, easily add commenter's to your email list
+7. Custom tinyMCE button allows you to easily add importer forms to pages and posts at the click of a button
+8. About YIKES page
 
 == Changelog ==
+
+= 4.1 =
+* Fixed JavaScript errors on when Address field is set to required
+* Added user feedback on successful re-import of form
+* Fixed some style issues
+* Added animate.css
+* Added class to required fields that were left empty
+* Remove outdated jQuery
+* Now error is appended to the form, instead of alerted through JavaScript 
+* Fixed date picker field, and images associated to it
+* Added ability to include html mark-up to confirmation fields
 
 = 4.0 =
 * Added Interest Group/Segment Support

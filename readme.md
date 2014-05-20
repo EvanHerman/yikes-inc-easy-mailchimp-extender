@@ -410,6 +410,17 @@ Easy MailChimp Forms is now translated into multiple languages:
 
 Changes
 ===========
+### 4.1 
+* Fixed JavaScript errors on when Address field is set to required
+* Added user feedback on successful re-import of form
+* Fixed some style issues
+* Added animate.css
+* Added class to required fields that were left empty
+* Remove outdated jQuery
+* Now error is appended to the form, instead of alerted through JavaScript 
+* Fixed date picker field, and images associated to it
+* Added ability to include html mark-up to confirmation fields
+
 ### 4.0
 * Added Interest Group/Segment Support
 * Ability To See Number of Subscriber Per List

@@ -1167,10 +1167,12 @@ public function addStyles_frontend()
 	{
 	// Register Styles
 	wp_register_style('ykseme-css-base', 				YKSEME_URL.'css/style.ykseme.css', 											array(), '1.0.0', 'all');
-	wp_register_style('ykseme-css-smoothness', 	YKSEME_URL.'css/jquery-ui-1.10.4.smoothness.css', 			array(), '1.0.0', 'all');
+	wp_register_style('ykseme-css-smoothness', 	'//code.jquery.com/ui/1.10.4/themes/smoothness/jquery-ui.css', 			array(), '1.0.0', 'all');
+	wp_register_style('ykseme-animate-css', 				YKSEME_URL.'css/animate.css', 											array(), '1.0.0', 'all');
 	// Enqueue Styles
 	wp_enqueue_style('ykseme-css-base');
 	wp_enqueue_style('ykseme-css-smoothness');
+	wp_enqueue_style('ykseme-animate-css');
 	}
 	
 public function addScripts()
@@ -1729,59 +1731,68 @@ public function getFrontendFormJavascript($list='')
 				$prefixa = "ymce";
 					$js .= "if ($".$prefixa."('#".$field['id']."').val() == '')";
 					$js .= "{
-									msg += '".$field['label']."'+'\\n';
+									msg += '<li>".$field['label']."'+'\\n</li>';
 									err++;
+									$".$prefixa."('#".$field['id']."').addClass('yks_error_field_required shake animated').delay(1200).queue(function(next){
+										$".$prefixa."(this).removeClass('shake animated');
+										next();
+									});
+								} else {
+									$".$prefixa."('#".$field['id']."').removeClass('yks_error_field_required');
 								}";
 					break;
 				// address
-				case 'address':
-					$js .= 	"if($prefix('#{".$field['id']."}').val() == '')
-										{
-										msg += '".$field['label'].": Street Address'+\\n;
-										err++;
-										}
-									if($prefix('#{".$field['id']."}-city').val() == '')
-										{
-										msg += '* {".$field['label']."}: City'+\\n;
-										err++;
-										}
-									if($prefix('#{".$field['id']."}-state').val() == '')
-										{
-										msg += '* {".$field['label']."}: State'+\\n;
-										err++;
-										}
-									if($prefix('#{".$field['id']."}-zip').val() == '')
-										{
-										msg += '* {".$field['label']."}: Zip Code'+\\n;
-										err++;
-										}";
-					
-					$js .= "if($prefix('#{".$field['id']."}').val() == '')
+				case 'address':					
+					$js .= "if($".$prefix."('#".$field['id']."').val() == '')
 						{
-						msg += '*{".$field['label']."}: Street Address'+\\n;
+						msg += '<li>Street Address'+'\\n</li>';
 						err++;
+						$".$prefixa."('#".$field['id']."').addClass('yks_error_field_required shake animated').delay(800).queue(function(next){
+								$".$prefixa."(this).removeClass('shake animated');
+								next();
+							});
+						} else {
+							$".$prefixa."('#".$field['id']."').removeClass('yks_error_field_required')
+						}	
+					if($".$prefix."('#".$field['id']."-city').val() == '')
+						{
+						msg += '<li>City'+'\\n</li>';
+						err++;
+						$".$prefixa."('#".$field['id']."-city').addClass('yks_error_field_required shake animated').delay(800).queue(function(next){
+								$".$prefixa."(this).removeClass('shake animated');
+								next();
+							});
+						} else {
+							$".$prefixa."('#".$field['id']."-city').removeClass('yks_error_field_required')
 						}
-					if($prefix('#{".$field['id']."}-city').val() == '')
+					if($".$prefix."('#".$field['id']."-state').val() == '')
 						{
-						msg += '* {".$field['label']."}: City'+\\n;
+						msg += '<li>State'+'\\n</li>';
 						err++;
+						$".$prefixa."('#".$field['id']."-state').addClass('yks_error_field_required shake animated').delay(800).queue(function(next){
+								$".$prefixa."(this).removeClass('shake animated');
+								next();
+							});
+						} else {
+							$".$prefixa."('#".$field['id']."-state').removeClass('yks_error_field_required')
 						}
-					if($prefix('#{".$field['id']."}-state').val() == '')
+					if($".$prefix."('#".$field['id']."-zip').val() == '')
 						{
-						msg += '* {".$field['label']."}: State'+\\n;
+						msg += '<li>Zip Code'+'\\n</li>';
 						err++;
-						}
-					if($prefix('#{".$field['id']."}-zip').val() == '')
-						{
-						msg += '* {".$field['label']."}: Zip Code'+\\n;
-						err++;
+						$".$prefixa."('#".$field['id']."-zip').addClass('yks_error_field_required shake animated').delay(800).queue(function(next){
+								$".$prefixa."(this).removeClass('shake animated');
+								next();
+							});
+						} else {
+							$".$prefixa."('#".$field['id']."-zip').removeClass('yks_error_field_required')
 						}";
 					break;
 				// radio	
 				case 'radio':
-					$js .= 	"if($prefix('.{".$field['name']."}:checked').length <= 0)
+					$js .= 	"if($".$prefix."('.{".$field['name']."}:checked').length <= 0)
 						{
-						msg += '* {".$field['label']."}'+\\n;
+						msg += '* {".$field['label']."}'+'\\n';
 						err++;
 						}";
 					break;
@@ -2014,10 +2025,10 @@ private function getFrontendFormDisplay_field($field=false)
 			break;
 		case 'address':
 			
-			$o	.= '<input type="text" name="'.$field['name'].'" class="'.$field['name'].($field['require'] == 1 ? ' yks-require' : '').'" id="'.$field['id'].'" value="" /><span class="yks-mailchimp-form-tooltip">Street Address</span><br />';
-			$o	.= '<input type="text" name="'.$field['name'].'-add2" class="'.$field['name'].'-add2'.($field['require'] == 1 ? ' yks-require' : '').'" id="'.$field['id'].'-add2" value="" /><span class="yks-mailchimp-form-tooltip">Apt/Suite</span><br />';
-			$o	.= '<input type="text" name="'.$field['name'].'-city" class="'.$field['name'].'-city'.($field['require'] == 1 ? ' yks-require' : '').'" id="'.$field['id'].'-city" value="" /><span class="yks-mailchimp-form-tooltip">City</span><br />';
-			$o	.= '<input type="text" name="'.$field['name'].'-state" class="'.$field['name'].'-state'.($field['require'] == 1 ? ' yks-require' : '').'" id="'.$field['id'].'-state" value="" /><span class="yks-mailchimp-form-tooltip">State</span><br />';
+			$o	.= '<input type="text" name="'.$field['name'].'" class="'.$field['name'].($field['require'] == 1 ? ' yks-require' : '').'" id="'.$field['id'].'" value="" /><span class="yks-mailchimp-form-tooltip">Street Address</span>';
+			$o	.= '<input type="text" name="'.$field['name'].'-add2" class="'.$field['name'].'-add2'.($field['require'] == 1 ? ' yks-require' : '').'" id="'.$field['id'].'-add2" value="" /><span class="yks-mailchimp-form-tooltip">Apt/Suite</span>';
+			$o	.= '<input type="text" name="'.$field['name'].'-city" class="'.$field['name'].'-city'.($field['require'] == 1 ? ' yks-require' : '').'" id="'.$field['id'].'-city" value="" /><span class="yks-mailchimp-form-tooltip">City</span>';
+			$o	.= '<input type="text" name="'.$field['name'].'-state" class="'.$field['name'].'-state'.($field['require'] == 1 ? ' yks-require' : '').'" id="'.$field['id'].'-state" value="" /><span class="yks-mailchimp-form-tooltip">State</span>';
 			$o	.= '<input type="text" name="'.$field['name'].'-zip" class="'.$field['name'].'-zip'.($field['require'] == 1 ? ' yks-require' : '').'" id="'.$field['id'].'-zip" value="" /><span class="yks-mailchimp-form-tooltip">Zip</span>';
 			break;
 		case 'radio':

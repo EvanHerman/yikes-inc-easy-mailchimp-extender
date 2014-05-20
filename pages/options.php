@@ -324,6 +324,13 @@ jQuery(document).ready(function() {
 						<textarea name="single-optin-message" class="single-optin-message" id="single-optin-message" value="<?php echo $this->optionVal['single-optin-message']; ?>"><?php echo $this->optionVal['single-optin-message']; ?></textarea></label>
 					</td>
 				</tr>
+				<tr>
+					<td></td>
+					<!-- Advanced Debug Description -->
+					<td class="yks-settings-description">
+						<em><?php _e('Note: You can include html markup in your confirmation message.','yikes-inc-easy-mailchimp-extender'); ?></em>
+					</td>
+				</tr>
 				<tr valign="top">
 					<!-- Custom Interest Group Label -->
 					<th scope="row"><label for="yks-mailchimp-optIn"><?php _e('Interest Group Label','yikes-inc-easy-mailchimp-extender'); ?></label></th>
@@ -448,13 +455,18 @@ jQuery(document).ready(function() {
 		<input type="submit" name="submit" class="button-primary yikes_cURL_help_button" value="<?php _e('Help!', 'yikes-inc-easy-mailchimp-extender'); ?>" onclick=" jQuery('.yikes_phpinfo_container').slideUp(); jQuery('.yikes_cURL_instructions_hidden').slideToggle();" /> <input type="submit" name="submit" class="button-secondary yikes_cURL_info_button" value="<?php _e('What is cURL?', 'yikes-inc-easy-mailchimp-extender'); ?>" onclick="window.open('http://www.php.net/manual/en/book.curl.php');" /> <input type="submit" name="submit" class="button-secondary yikes_cURL_info_button" value="<?php _e('Check phpinfo()', 'yikes-inc-easy-mailchimp-extender'); ?>" onclick="jQuery('.yikes_phpinfo_container').slideToggle(); jQuery('.yikes_cURL_instructions_hidden').slideUp();" />
 		<div class="yikes_cURL_instructions_hidden">	
 			<strong><p><?php _e( 'Steps To Resolve The Issue', 'yikes-inc-easy-mailchimp-extender' ); ?> :</p></strong>
-			<ol style="margin-left:2em;">
-				<li><?php _e( 'You can enable cURL by turning on the cURL module within your php.ini file', 'yikes-inc-easy-mailchimp-extender' ); ?> <em style="margin-left:.75em;">   <?php _e('You should find the php.ini file located here : ', 'yikes-inc-easy-mailchimp-extender' ); ?><?php echo $this->yks_display_php_ini_location(); ?></em></li>
-				<li><?php _e( 'Once found, open up php.ini and locate the line ";extension=php_curl.dll".', 'yikes-inc-easy-mailchimp-extender' ); ?></li>
-				<li><?php _e( 'Remove the semi colon before the line, to un-comment it and make the module active.', 'yikes-inc-easy-mailchimp-extender' ); ?></li>
-				<li><?php _e( 'Re-save and close the file.', 'yikes-inc-easy-mailchimp-extender' ); ?></li>
-				<li><?php _e( 'Re-load this page.', 'yikes-inc-easy-mailchimp-extender' ); ?></li>
-			</ol>
+			<?php if ( $this->yks_mc_is_user_localhost() ) { // if user is on localhost, display localhost resolution ?>
+				<p>It appears you are working off of a localhost installation. To get cURL working on your localhost instance, work through the following steps.</p>
+				<ol style="margin-left:2em;">
+					<li><?php _e( 'You can enable cURL by turning on the cURL module within your php.ini file', 'yikes-inc-easy-mailchimp-extender' ); ?> <em style="margin-left:.75em;">   <?php _e('You should find the php.ini file located here : ', 'yikes-inc-easy-mailchimp-extender' ); ?><?php echo $this->yks_display_php_ini_location(); ?></em></li>
+					<li><?php _e( 'Once found, open up php.ini and locate the line ";extension=php_curl.dll".', 'yikes-inc-easy-mailchimp-extender' ); ?></li>
+					<li><?php _e( 'Remove the semi colon before the line, to un-comment it and make the cURL module active.', 'yikes-inc-easy-mailchimp-extender' ); ?></li>
+					<li><?php _e( 'Re-save and close the file.', 'yikes-inc-easy-mailchimp-extender' ); ?></li>
+					<li><?php _e( ' Restart your Apache and MySQL services and re-load this page.', 'yikes-inc-easy-mailchimp-extender' ); ?></li>
+				</ol>
+			<?php } else { ?>
+				<p>Please get in touch with your hosting provider, and let them know that you need cURL enabled on your server for the plugin to communicate with the MailChimp API.</p>
+			<?php } ?>
 		</div>
 		<div class="yikes_phpinfo_container">
 			<?php

@@ -307,12 +307,12 @@ body.mailchimp-forms_page_yks-mailchimp-about-yikes #ykseme-page-header {
 		text-align: center;
 		*/
 		border-left: 4px solid #7ad03a;
-		padding:1px 12px;
+		padding: 5px 15px;
 		background-color:#fff;
 		-webkit-box-shadow: 0 1px 1px 0 rgba(0,0,0,.1);
 		box-shadow: 0 1px 1px 0 rgba(0,0,0,.1);
 		min-height:25px;
-		line-height: 3.2;
+		line-height: 1.2;
 		margin-top:1em;
 	}
 	
@@ -641,9 +641,9 @@ body.mailchimp-forms_page_yks-mailchimp-about-yikes #ykseme-page-header {
 
 .yks-mailchimp-form-tooltip {
 	color: #CCC !important;
-	font-size: 10px;
-	margin: 0;
-	padding: 0 0 0 10px;
+	font-size: 12px;
+	display:block;
+	margin: 0 0 15px 0;
 }
 	
 #yks-mailchimp-debug-info, #yks-mailchimp-debug-info table,
@@ -821,3 +821,34 @@ label[for="yikes_mailchimp_comment_subscribe"]:hover {
 	color :#29CA01;
 	font-weight:bold;
 }
+
+
+/** Date Picker Styles **/
+.yks-mailchimpFormDatepickerContainer .ui-datepicker-prev, .yks-mailchimpFormDatepickerContainer .ui-datepicker-next {
+	margin-top:.5em;
+}
+
+/* Form Error Classes */
+.yks_error_field_required {
+	border: 1px solid rgb(252, 182, 182) !important;
+	background: rgb(255, 213, 213) !important;
+ }
+ 
+ #yks_form_error_message {
+	padding:.75em;
+	font-size:12px;
+	float:left;
+	margin-bottom:1em;
+	display:none;
+ }
+	 #yks_form_error_message ul {
+		list-style-type: square;
+		width: 100%;
+		float:left;
+		margin-top:.5em;
+		margin: 0.75em 0 1.25em 1.25em;
+	 }
+		 #yks_form_error_message ul li {
+			width: 33%; 
+			float:left;
+		 }
