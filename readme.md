@@ -31,7 +31,7 @@ Installation
 1. Log in to yourdomain.com/wp-admin
 1. Click Plugins -> Add New -> Upload
 1. Activate the plugin
-1. Go over to <a href="http://www.mailchimp.com" target="_blank">MailChimp.com</a>, login.
+1. Go over to [MailChimp.com](http://www.mailchimp.com) and login.
 1. On the right hand menu, click your profile picture and select 'Account Settings' and then go to 'Extras > API Keys'.
 1. Enter your API key into the text field inside 'MailChimp Forms > MailChimp Settings'
 1. Start importing forms from MailChimp and adding them to posts, pages and widgets!
@@ -70,12 +70,12 @@ You can use a shortcode to add a form to a page or post, use the MailChimp form 
 - Right-click in the API Key input field, and select 'Inpsect Element'
 - Once the developer console is open, select the Console tab to see a more specific error.
 
-For information on how to use your browser's developer console, read the WordPress Codex article, <a href="http://codex.wordpress.org/Using_Your_Browser_to_Diagnose_JavaScript_Errors" target="_blank">Using Your Browser to Diagnose JavaScript Errors</a>.
+For information on how to use your browser's developer console, read the WordPress Codex article, [Using Your Browser to Diagnose JavaScript Errors](http://codex.wordpress.org/Using_Your_Browser_to_Diagnose_JavaScript_Errors).
 	
 <strong>Possible Errors And Resolutions</strong>
 
 * Could not resolve host: xxxx.api.mailchimp.com  - the host you have provided is incorrect. The host is the string after the last dash (example: us2)
-* Invalid Mailchimp API Key: xxxxxxxxxxxxxxxxxx-xxx - Your API key is invalid. You can confirm a valid key by logging into <a href="http://mailchimp.com" target="_blank">MailChimp</a> and checking the active API key registered to your account.
+* Invalid Mailchimp API Key: xxxxxxxxxxxxxxxxxx-xxx - Your API key is invalid. You can confirm a valid key by logging into [MailChimp](http://mailchimp.com) and checking the active API key registered to your account.
 
 #### I don't want the form to be the 100% width. How can I adjust the width myself?
 You can adjust the width of the forms on your site by changing the width of the element with the class .yks-mailchimpFormContainer. This is the parent container for the form. Adjusting this width will control the width of the input fields inside of it.
@@ -110,10 +110,10 @@ Easy MailChimp Forms is now translated into multiple languages:
 	<li>Welsh</li>
 </ul>
 
-Read the Codex article <a href="http://codex.wordpress.org/Installing_WordPress_in_Your_Language">Installing WordPress in Your Language</a> for more information. Also please refer to our <a href="http://wordpress.org/plugins/yikes-inc-easy-mailchimp-extender/other_notes/">Developer Docs</a>.
+Read the Codex article [Installing WordPress in Your Language](http://codex.wordpress.org/Installing_WordPress_in_Your_Language) for more information. Also please refer to our [Developer Docs](http://wordpress.org/plugins/yikes-inc-easy-mailchimp-extender/other_notes/).
 
 #### Do you provide any hooks, or filters for me to take advantage of?
-Yes! With the 4.0 version of our plugin we have added a few hooks that allows you to add or manipulate existing data. Check out the <a href="http://wordpress.org/plugins/yikes-inc-easy-mailchimp-extender/other_notes/">Other Notes</a> tab  for more information.
+Yes! With the 4.0 version of our plugin we have added a few hooks that allows you to add or manipulate existing data. Check out the [Other Notes](http://wordpress.org/plugins/yikes-inc-easy-mailchimp-extender/other_notes/) tab  for more information.
 
 Developer Documentation
 ===========

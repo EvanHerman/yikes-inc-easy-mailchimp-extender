@@ -13,7 +13,7 @@ Easy MailChimp Forms allows you to painlessly add MailChimp signup forms to your
 
 Easy MailChimp Forms allows you to painlessly add MailChimp signup forms to your WordPress site. You can add forms to posts, pages or sidebars with shortcodes, widgets or template tags. Simply copy and paste your MailChimp API Key into the plugin admin settings and it will pull in all your MailChimp lists. From there you can choose the lists you want to make forms for. For a single list you can check off the fields you want to include on your form and order them via an easy drag-and-drop interface. This plugin adds plenty of CSS selectors to the form code allowing you to completely customize the look of your forms.
 
-<em>Note:</em> You will need a MailChimp API key to allow this plugin to communicate with your MailChimp account. For help on retrieving your API key, check out #4 of the <a href="http://wordpress.org/plugins/yikes-inc-easy-mailchimp-extender/faq/">FAQ</a> section. You can also read the MailChimp knowledge base article <a href="http://kb.mailchimp.com/article/where-can-i-find-my-api-key/" target="_blank">Where can I find my API key and how can I use the API</a>.
+*Note:* You will need a MailChimp API key to allow this plugin to communicate with your MailChimp account. For help on retrieving your API key, check out [question #4 of the FAQ](http://wordpress.org/plugins/yikes-inc-easy-mailchimp-extender/faq/). You can also read the MailChimp knowledge base article [Where can I find my API key and how can I use the API](http://kb.mailchimp.com/article/where-can-i-find-my-api-key/).
 
 **Features**
 
@@ -33,19 +33,19 @@ Easy MailChimp Forms allows you to painlessly add MailChimp signup forms to your
 * Use cURL error detection to troubleshoot MailChimp connection issues
 
 
-Instructions on how to use the plugin can be [found in the FAQ](http://wordpress.org/plugins/yikes-inc-easy-mailchimp-extender/faq/ "found in the FAQ"). If you experience any problems, please submit a New Issue on our [Github Issue Tracker](https://github.com/yikesinc/yikes-inc-easy-mailchimp-extender/issues "Github Issue Tracker") and we'll look in to it as soon as possible.
+Instructions on how to use the plugin can be [found in the FAQ](http://wordpress.org/plugins/yikes-inc-easy-mailchimp-extender/faq/). If you experience any problems, please submit a New Issue on our [Github Issue Tracker](https://github.com/yikesinc/yikes-inc-easy-mailchimp-extender/issues) and we'll look in to it as soon as possible.
 
 
 == Installation ==
 
 1. Download the plugin .zip file
-1. Log in to yourdomain.com/wp-admin
-1. Click Plugins -> Add New -> Upload
-1. Activate the plugin
-1. Head over to <a href="http://www.mailchimp.com" target="_blank">MailChimp.com</a>, login.
-1. On the right hand menu, click your profile picture and select 'Account Settings' and then go to 'Extras > API Keys'.
-1. Enter your API key into the text field inside 'MailChimp Forms > MailChimp Settings'
-1. Go to the 'Manage List Forms' page, start importing forms from MailChimp and adding them to posts, pages and widgets!
+2. Log in to yourdomain.com/wp-admin
+3. Click Plugins -> Add New -> Upload
+4. Activate the plugin
+5. Head over to [MailChimp.com](http://www.mailchimp.com) and login.
+6. On the right hand menu, click your profile picture and select 'Account Settings' and then go to 'Extras > API Keys'.
+7. Enter your API key into the text field inside 'MailChimp Forms > MailChimp Settings'
+8. Go to the 'Manage List Forms' page, start importing forms from MailChimp and adding them to posts, pages and widgets!
 
 == Frequently Asked Questions ==
 
@@ -75,17 +75,17 @@ You can use a shortcode to add a form to a page or post, use the MailChimp form 
 
 **Step 1:** Ensure that cURL is enabled at the server level. You will see an error at the top of the settings page if cURL is disabled. If you see no error, continue to step 2.
 
-**Step 2:** If you have entered your MailChimp API key and are still getting the error "<em>Error: Please enter a valid Mail Chimp API Key</em>," please check the developer console inside your browser for further information. 
+**Step 2:** If you have entered your MailChimp API key and are still getting the error "*Error: Please enter a valid Mail Chimp API Key*," please check the developer console inside your browser for further information. 
 	
 - Right-click in the API Key input field, and select 'Inpsect Element'
 - Once the developer console is open, select the Console tab to see a more specific error.
 
-For information on how to use your browser's developer console, read the WordPress Codex article, <a href="http://codex.wordpress.org/Using_Your_Browser_to_Diagnose_JavaScript_Errors" target="_blank">Using Your Browser to Diagnose JavaScript Errors</a>.
+For information on how to use your browser's developer console, read the WordPress Codex article, [Using Your Browser to Diagnose JavaScript Errors](http://codex.wordpress.org/Using_Your_Browser_to_Diagnose_JavaScript_Errors).
 	
 <strong>Possible Errors And Resolutions</strong>
 
 * Could not resolve host: xxxx.api.mailchimp.com  - the host you have provided is incorrect. The host is the string after the last dash (example: us2)
-* Invalid Mailchimp API Key: xxxxxxxxxxxxxxxxxx-xxx - Your API key is invalid. You can confirm a valid key by logging into <a href="http://mailchimp.com" target="_blank">MailChimp</a> and checking the active API key registered to your account.
+* Invalid Mailchimp API Key: xxxxxxxxxxxxxxxxxx-xxx - Your API key is invalid. You can confirm a valid key by logging into [MailChimp](http://mailchimp.com) and checking the active API key registered to your account.
 
 = I don't want the form to be the 100% width. How can I adjust the width myself? =
 You can adjust the width of the forms on your site by changing the width of the element with the class .yks-mailchimpFormContainer. This is the parent container for the form. Adjusting this width will control the width of the input fields inside of it.
@@ -118,10 +118,10 @@ Easy MailChimp Forms is now translated into multiple languages:
 * Vietnamese
 * Welsh
 
-Read the Codex article <a href="http://codex.wordpress.org/Installing_WordPress_in_Your_Language">Installing WordPress in Your Language</a> for more information. Also please refer to our <a href="http://wordpress.org/plugins/yikes-inc-easy-mailchimp-extender/other_notes/">Developer Docs</a>.
+Read the Codex article [Installing WordPress in Your Language](http://codex.wordpress.org/Installing_WordPress_in_Your_Language) for more information. Also please refer to our [Developer Docs](http://wordpress.org/plugins/yikes-inc-easy-mailchimp-extender/other_notes/).
 
 = Do you provide any hooks, or filters for me to take advantage of? =
-Yes! With the 4.0 version of our plugin we have added a few hooks that allows you to add or manipulate existing data. Check out the <a href="http://wordpress.org/plugins/yikes-inc-easy-mailchimp-extender/other_notes/">Other Notes</a> tab  for more information.
+Yes! With the 4.0 version of our plugin we have added a few hooks that allows you to add or manipulate existing data. Check out the [Other Notes](http://wordpress.org/plugins/yikes-inc-easy-mailchimp-extender/other_notes/) tab  for more information.
 
 
 == Developer Docs. ==
