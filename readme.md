@@ -422,6 +422,7 @@ Changes
 * Now error is appended to the form, instead of alerted through JavaScript 
 * Fixed date picker field, and images associated to it
 * Added ability to include html mark-up to confirmation fields
+* Updated FAQ
 
 ### 4.0
 * Added Interest Group/Segment Support
