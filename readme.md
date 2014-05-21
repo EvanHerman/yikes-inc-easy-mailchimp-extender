@@ -113,7 +113,7 @@ Easy MailChimp Forms is now translated into multiple languages:
 Read the Codex article [Installing WordPress in Your Language](http://codex.wordpress.org/Installing_WordPress_in_Your_Language) for more information. Also, please refer to our [Developer Docs](http://wordpress.org/plugins/yikes-inc-easy-mailchimp-extender/other_notes/).
 
 #### Do you provide any hooks, or filters for me to take advantage of?
-Yes! With the 4.0 version of our plugin we have added a few hooks that allows you to add or manipulate existing data. Check out the [Other Notes](http://wordpress.org/plugins/yikes-inc-easy-mailchimp-extender/other_notes/) tab  for more information.
+Yes! With the 4.0 version of our plugin we have added a few hooks that allow you to add or manipulate existing data. Check out the [Other Notes](http://wordpress.org/plugins/yikes-inc-easy-mailchimp-extender/other_notes/) tab  for more information.
 
 Developer Documentation
 ===========
