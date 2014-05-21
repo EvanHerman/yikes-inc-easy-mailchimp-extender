@@ -488,20 +488,20 @@ Changes
 * Added ability to choose Divs or Tables
 
 ### 1.3.1:
-* Added nopriv ajax action for anonymous users*
+* Added nopriv ajax action for anonymous users
 
 ### 1.3.0:
-* Added custom merge_vars field*
+* Added custom merge_vars field
 
 ### 1.2.0:
-* Removed required from First Name and Last Name fields*
-* Added update routines for future versions*
+* Removed required from First Name and Last Name fields
+* Added update routines for future versions
 
 ### 1.1.0:
-* Changed the list logic and added a notice for the MERGE VAR naming schema*
+* Changed the list logic and added a notice for the MERGE VAR naming schema
 
 ### 1.0.1:
-* Changed CSS paths from Absolute to Relative*
+* Changed CSS paths from Absolute to Relative
 
 ### 1.0.0:
 * Initial Release
