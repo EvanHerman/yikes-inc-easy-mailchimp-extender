@@ -439,6 +439,9 @@ These functions should be used in conjunction with the `yikes_mc_get_form_data` 
 
 == Changelog ==
 
+= 4.2 =
+* Updated FAQ
+
 = 4.1 =
 * Fixed JavaScript errors on when Address field is set to required
 * Added user feedback on successful re-import of form
@@ -449,7 +452,6 @@ These functions should be used in conjunction with the `yikes_mc_get_form_data` 
 * Now error is appended to the form, instead of alerted through JavaScript 
 * Fixed date picker field, and images associated to it
 * Added ability to include html mark-up to confirmation fields
-* Updated FAQ
 
 = 4.0 =
 * Added Interest Group/Segment Support
