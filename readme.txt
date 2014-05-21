@@ -76,12 +76,12 @@ You can use a shortcode to add a form to a page or post, use the MailChimp form 
 **Step 1:** Ensure that cURL is enabled at the server level. You will see an error at the top of the settings page if cURL is disabled. If you see no error, continue to step 2.
 
 **Step 2:** If you have entered your MailChimp API key and are still getting the error "*Error: Please enter a valid Mail Chimp API Key*," please check the developer console inside your browser for further information. 
-	
+
 - Right-click in the API Key input field, and select 'Inpsect Element'
 - Once the developer console is open, select the Console tab to see a more specific error.
 
 For information on how to use your browser's developer console, read the WordPress Codex article, [Using Your Browser to Diagnose JavaScript Errors](http://codex.wordpress.org/Using_Your_Browser_to_Diagnose_JavaScript_Errors).
-	
+
 <strong>Possible Errors And Resolutions</strong>
 
 * Could not resolve host: xxxx.api.mailchimp.com  - the host you have provided is incorrect. The host is the string after the last dash (example: us2)
@@ -154,12 +154,12 @@ This example will alter text on the admin dashboard on the manage lists page.
 
 		  $translated_text = __( 'MailChimp Lists', 'yikes-inc-easy-mailchimp-extender' );
 		  break;
-					
+
 		case 'Save Form Settings' :
-		
+
 		  $translated_text = __( 'Save Form', 'yikes-inc-easy-mailchimp-extender' );
 		  break;
-					
+
 		case 'Create a Form For This List' :
 
 		  $translated_text = __( '<== Import This List', 'yikes-inc-easy-mailchimp-extender' );
@@ -313,19 +313,19 @@ This example will catch the user submitted data, *of all forms*, store the users
 	function catch_user_data( $form_ID, $merge_variables ) {
 	  // if the user is logged in
 	  if ( is_user_logged_in() ) {
-			
+
 		// get the logged in user id
 		$user_id = get_current_user_id();
-		
+
 		 // if the first name field is set
 		 if ( isset( $merge_variables['FNAME'] ) ) { 
-				
+
 		 // update logged in users first name with the provided name in MC form
 		 wp_update_user( array( 'ID' => $user_id, 'first_name' => $merge_variables['FNAME'] ) );
-				
+
 		 // can be used for any of the fields in the form + any fields in the user profile
 		 }
-		
+
 	  }
 	}
 	add_filter( 'yikes_mc_get_form_data' , 'catch_user_data', 10, 2 );
@@ -361,19 +361,19 @@ This example will catch the user submitted data *from a specific form*, store th
 	function catch_user_data_from_specific_form( $form_ID, $merge_variables ) {
 	  // if the user is logged in
 	  if ( is_user_logged_in() ) {
-			
+
 		// get the logged in user id
 		$user_id = get_current_user_id();
-		
+
 		 // if the first name field is set
 		 if ( isset( $merge_variables['FNAME'] ) ) { 
-				
+
 		 // update logged in users first name with the provided name in MC form
 		 wp_update_user( array( 'ID' => $user_id, 'first_name' => $merge_variables['FNAME'] ) );
-				
+
 		 // can be used for any of the fields in the form + any fields in the user profile
 		 }
-		
+
 	  }
 	}
 	add_filter( 'yikes_mc_get_form_data_3d13f0f784' , 'catch_user_data_from_specific_form', 10, 2 );
@@ -441,6 +441,10 @@ These functions should be used in conjunction with the `yikes_mc_get_form_data` 
 
 = 4.2 =
 * Updated FAQ
+* Re-worked the redirect for a better user experience
+* Unified error messages into a single container on the front end
+* Converted custom opt-in messages to utilize the WYSIWYG editors ( now allowing for html and images to be used in your success messages )
+* Re-styled front end interest group containers
 
 = 4.1 =
 * Fixed JavaScript errors on when Address field is set to required

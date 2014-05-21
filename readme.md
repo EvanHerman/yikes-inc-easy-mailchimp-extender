@@ -414,6 +414,10 @@ Changes
 ===========
 ### 4.2 
 * Updated FAQ
+* Re-worked the redirect for a better user experience
+* Unified error messages into a single container on the front end
+* Converted custom opt-in messages to utilize the WYSIWYG editors ( now allowing for html and images to be used in your success messages )
+* Re-styled front end interest group containers
 
 ### 4.1 
 * Fixed JavaScript errors on when Address field is set to required

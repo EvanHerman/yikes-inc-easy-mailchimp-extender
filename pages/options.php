@@ -30,34 +30,32 @@ jQuery(document).ready(function ($) {
     $('#yks-mailchimp-form').submit(function (e) {	        
         // Make sure the api key exists
        if (blankFieldCheck()) {
+		tinyMCE.triggerSave();
             $('#yks-status').slideUp('fast');
-            $.ajax({
-                type: 'POST',
-                url: ajaxurl,
-                data: {
-                    action: 'yks_mailchimp_form',
-                    form_action: 'update_options',
-                    form_data: $('#yks-mailchimp-form').serialize()
-                },
-                dataType: 'json',
-                success: function (MAILCHIMP) {
-                    if (MAILCHIMP == '1') {
-						console.log(MAILCHIMP);
-                        $('#yks-status').html('<div class="updated"><p><?php _e('The options were saved successfully!', 'yikes-inc-easy-mailchimp-extender'); ?></p></div>');
-                        $('#yks-status').slideDown('fast');
-                    } else {
-                        $('#yks-status').html('<div class="error"><p><?php _e('The options could not be saved (or you did not change them).', 'yikes-inc-easy-mailchimp-extender'); ?></p></div>');
-                        $('#yks-status').slideDown('fast');
-						console.log(MAILCHIMP);
-                    }
-                },
-				error : function(MAILCHIMP2) {
-					console.log(MAILCHIMP2.responseText);
-				}
-            });
-       } else {
-		// alert('not blank');
-	   }
+				$.ajax({
+					type: 'POST',
+					url: ajaxurl,
+					data: {
+						action: 'yks_mailchimp_form',
+						form_action: 'update_options',
+						form_data: $('#yks-mailchimp-form').serialize()
+					},
+					dataType: 'json',
+					success: function (MAILCHIMP) {
+						if (MAILCHIMP == '1') {	
+							$('#yks-status').html('<div class="updated"><p><?php _e('The options were saved successfully!', 'yikes-inc-easy-mailchimp-extender'); ?></p></div>');
+							$('#yks-status').slideDown('fast');
+						} else {
+							$('#yks-status').html('<div class="error"><p><?php _e('The options could not be saved (or you did not change them).', 'yikes-inc-easy-mailchimp-extender'); ?></p></div>');
+							$('#yks-status').slideDown('fast');
+							console.log(MAILCHIMP);
+						}
+					},
+					error : function(MAILCHIMP2) {
+						console.log(MAILCHIMP2.responseText);
+					}
+				});
+       } 
        e.preventDefault();
     });
 	
@@ -94,7 +92,7 @@ jQuery(document).ready(function ($) {
 							},
 							dataType: 'html',
 							success: function(response) {
-								// if our response contains 'Everything's Chimpty' - everythings good to go
+								// if our response contains 'Everything's Chimpy' - everything's good to go
 								if(response.indexOf('Everything\'s Chimpy!') > -1) {
 										var yikes_mc_ajax_response = response;
 										jQuery('#ajax_list_replace').html(yikes_mc_ajax_response);
@@ -210,6 +208,24 @@ jQuery(document).ready(function() {
 <?php
 	$api_key_option = get_option( 'api_validation' );
 	$wordPress_version = get_bloginfo( 'version' );
+	
+	// set up the options for our WYSIWYG editors
+	// for the optin messages
+	$single_optin_message_parameters = array(
+		'teeny' => true,
+		'textarea_rows' => 15,
+		'tabindex' => 1,
+		'textarea_name' => 'single-optin-message',
+		'drag_drop_upload' => true
+	);
+	
+	$double_optin_message_parameters = array(
+		'teeny' => true,
+		'textarea_rows' => 15,
+		'tabindex' => 1,
+		'textarea_name' => 'double-optin-message',
+		'drag_drop_upload' => true
+	);
 ?>
 <div class="wrap">
 
@@ -318,10 +334,14 @@ jQuery(document).ready(function() {
 					<!-- Custom Opt-In Message -->
 					<th scope="row"><label for="yks-mailchimp-custom-optIn-message"><?php _e('Custom Opt-In Message','yikes-inc-easy-mailchimp-extender'); ?></label></th>
 					<td>
-						<label for="double-optin-message" <?php if ($this->optionVal['optin'] == 'false') { echo 'style="display:none;"'; } ?>><b><?php _e('Double Opt-In Message','yikes-inc-easy-mailchimp-extender'); ?></b><br />
-						<textarea name="double-optin-message" class="double-optin-message" id="double-optin-message" value="<?php echo $this->optionVal['double-optin-message']; ?>"><?php echo $this->optionVal['double-optin-message']; ?></textarea></label>
-						<label for="single-optin-message" <?php if ($this->optionVal['optin'] == 'true') { echo 'style="display:none;"'; } ?>><b><?php _e('Single Opt-In Message','yikes-inc-easy-mailchimp-extender'); ?></b><br />
-						<textarea name="single-optin-message" class="single-optin-message" id="single-optin-message" value="<?php echo $this->optionVal['single-optin-message']; ?>"><?php echo $this->optionVal['single-optin-message']; ?></textarea></label>
+						<label for="double-optin-message" <?php if ($this->optionVal['optin'] == 'false') { echo 'style="display:none;"'; } ?>><b><?php _e('Double Opt-In Message','yikes-inc-easy-mailchimp-extender'); ?></b>
+							<?php wp_editor( $this->optionVal['double-optin-message'] , 'double_optin_message', $double_optin_message_parameters); ?>
+						</label>
+						
+						<label for="single-optin-message" <?php if ($this->optionVal['optin'] == 'true') { echo 'style="display:none;"'; } ?>><b><?php _e('Single Opt-In Message','yikes-inc-easy-mailchimp-extender'); ?></b>
+							<?php wp_editor( $this->optionVal['single-optin-message'] , 'single_optin_message', $single_optin_message_parameters); ?>
+						</label>
+					
 					</td>
 				</tr>
 				<tr>
@@ -447,7 +467,7 @@ jQuery(document).ready(function() {
 	
 	<div class="error">
 		<h2><?php _e( 'Error', 'yikes-inc-easy-mailchimp-extender' ); ?></h2>
-        <p><?php _e( 'We\'re sorry, but cURL is disabled on your server. The MailChimp API utilizes cURL to send and retreive data.', 'yikes-inc-easy-mailchimp-extender' ); ?></p>
+        <p><?php _e( 'We\'re sorry, but cURL is disabled on your server. The MailChimp API utilizes cURL to send and retrieve data.', 'yikes-inc-easy-mailchimp-extender' ); ?></p>
 		<?php
 			$this->yks_check_if_php_ini_exists();
 		?>
@@ -462,7 +482,7 @@ jQuery(document).ready(function() {
 					<li><?php _e( 'Once found, open up php.ini and locate the line ";extension=php_curl.dll".', 'yikes-inc-easy-mailchimp-extender' ); ?></li>
 					<li><?php _e( 'Remove the semi colon before the line, to un-comment it and make the cURL module active.', 'yikes-inc-easy-mailchimp-extender' ); ?></li>
 					<li><?php _e( 'Re-save and close the file.', 'yikes-inc-easy-mailchimp-extender' ); ?></li>
-					<li><?php _e( ' Restart your Apache and MySQL services and re-load this page.', 'yikes-inc-easy-mailchimp-extender' ); ?></li>
+					<li><?php _e( 'Restart your Apache and MySQL services and re-load this page.', 'yikes-inc-easy-mailchimp-extender' ); ?></li>
 				</ol>
 			<?php } else { ?>
 				<p>Please get in touch with your hosting provider, and let them know that you need cURL enabled on your server for the plugin to communicate with the MailChimp API.</p>

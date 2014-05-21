@@ -596,14 +596,13 @@ public function getInterestGroups($list_id)
 									{
 								// table flavor
 								case '0':
-									?><table><?php
 									// loop over each interest group returned
 									foreach($interest_groups as $interest_group) {
 											// if the interest group label is set to '' on the settings page
 											if ( $this->optionVal['interest-group-label'] == '' ) {
-												echo '<b class="yks_mc_interest_group_text">'.$interest_group['name'].'</b>'; // display the interest group name from MailChimp
+												$user_set_interest_group_label = '<label class="prompt yks_table_label yks-mailchimpFormTableRowLabel yks-mailchimpFormTableRowLabel-required font-secondary label-text">'.$interest_group['name'].'</label>'; // display the interest group name from MailChimp
 											} else { 
-												echo '<b class="yks_mc_interest_group_text">'.$this->optionVal['interest-group-label'].'</b>'; // else display the custom name set in the settings page
+												$user_set_interest_group_label =  '<label class="prompt yks_table_label yks-mailchimpFormTableRowLabel yks-mailchimpFormTableRowLabel-required font-secondary label-text">'.$this->optionVal['interest-group-label'].'</label>'; // else display the custom name set in the settings page
 											}
 											?>
 											<!-- pass interest group data in a hidden form field , required to pass the data back to the correct interest-group -->
@@ -618,41 +617,51 @@ public function getInterestGroups($list_id)
 												
 											// checkbox interest groups
 											case 'checkboxes':
-													echo '<div class="yks_mc_interest_group_holder">';
-														foreach ($interest_group['groups'] as $singleGrouping) {
-															$checkboxValue = $interest_group['name'];
-															echo '<label class="yks_mc_interest_group_label" for="'.$singleGrouping['name'].'"><input type="checkbox" id="'.$singleGrouping['name'].'" class="yikes_mc_interest_group_checkbox" name="'.$interest_group['form_field'].'-'.$interest_group['id'].'[]" value="'.$singleGrouping['name'].'">'.$singleGrouping['name'].'</label>';
-														}
-													echo '</div>';					
+													echo '<tr class="yks_mc_table_interest_group_holder yks_mc_table_checkbox_holder">';
+														echo '<td class="yks_mc_table_td">';
+														// display the label
+														echo $user_set_interest_group_label;
+															foreach ($interest_group['groups'] as $singleGrouping) {
+																$checkboxValue = $interest_group['name'];
+																echo '<label class="yks_mc_interest_group_label" for="'.$singleGrouping['name'].'"><input type="checkbox" id="'.$singleGrouping['name'].'" class="yikes_mc_interest_group_checkbox" name="'.$interest_group['form_field'].'-'.$interest_group['id'].'[]" value="'.$singleGrouping['name'].'">'.$singleGrouping['name'].'</label>';
+															}
+														echo '</td>';
+													echo '</tr>';					
 											break;
 												
 											// radiobuttons interest groups									
 											case 'radio':
-												echo '<div class="yks_mc_interest_group_holder">';
-													echo '<div class="yks_mc_interest_radio_button_holder">';
+												echo '<tr class="yks_mc_table_interest_group_holder yks_mc_table_radio_holder">';
+													echo '<td class="yks_mc_interest_radio_button_holder yks_mc_table_td">';
+														// display the label
+														echo $user_set_interest_group_label;
 														foreach ($interest_group['groups'] as $singleGrouping) {
 															$radioValue = $interest_group['name'];
 															echo '<label class="yks_mc_interest_group_label" for="'.$singleGrouping['name'].'"><input type="radio" id="'.$singleGrouping['name'].'" class="yikes_mc_interest_group_radio" name="'.$interest_group['form_field'].'-'.$interest_group['id'].'" value="'.$singleGrouping['name'].'">'.$singleGrouping['name'].'</label>';
 														}
-													echo '</div>';	
-												echo '</div>';	
+													echo '</td>';	
+												echo '</tr>';	
 											break;
 												
 											// drop down interest groups
 											case 'dropdown':	
-												echo '<div class="yks_mc_interest_group_holder">';	
-													echo '<select id="yks_mc_interest_dropdown"  name="'.$interest_group['form_field'].'-'.$interest_group['id'].'" class="yks_mc_interest_group_select">';
-														foreach ($interest_group['groups'] as $singleGrouping) {
-															$dropDownValue = $interest_group['name'];
-															echo '<option value="'.$singleGrouping['name'].'" name="'.$dropDownValue.'">'.$singleGrouping['name'].'</option>';
-														}
-													echo '</select>';	
-												echo '</div>';			
+												echo '<tr class="yks_mc_table_interest_group_holder yks_mc_table_dropdown_holder">';	
+													echo '<td class="yks_mc_table_dropdown_interest_group_holder yks_mc_table_td">';
+														// display the label
+														echo $user_set_interest_group_label;
+														echo '<select id="yks_mc_interest_dropdown"  name="'.$interest_group['form_field'].'-'.$interest_group['id'].'" class="yks_mc_interest_group_select">';
+															foreach ($interest_group['groups'] as $singleGrouping) {
+																$dropDownValue = $interest_group['name'];
+																echo '<option value="'.$singleGrouping['name'].'" name="'.$dropDownValue.'">'.$singleGrouping['name'].'</option>';
+															}
+														echo '</select>';	
+													echo '</td>';
+												echo '</tr>';			
 											break;
 										}
 										$num++;
 									}
-								?></table><?php
+									
 								break;	
 									
 								// div flavor
@@ -761,10 +770,10 @@ public function getOptionsLists()
 	if($lists)
 		{
 		echo "<select id='yks-mailchimp-optIn-default-list' name='yks-mailchimp-optIn-default-list'>";
-		echo "<option value=''> Select List</option>";
-		foreach ($lists as  $lkey => $lvalue)
+		echo "<option value='select_list'> Select List</option>";
+		foreach ($lists as  $lkey => $list_name)
 			{
-				echo "<option ".selected( $this->optionVal['yks-mailchimp-optIn-default-list'], $lkey )." value='".$lkey."'>".$lvalue."</option>";		
+				echo "<option ".selected( isset($this->optionVal['yks-mailchimp-optIn-default-list']) ? $this->optionVal['yks-mailchimp-optIn-default-list'] : "select_list", $lkey )." value='".$lkey."'>".$list_name."</option>";		
 			}
 		echo "</select>";
 		}
@@ -1523,10 +1532,10 @@ public function generateListContainers($listArr=false)
 			?>
 			<div class="yks-list-container" id="yks-list-container_<?php echo $list['id']; ?>">
 				<div class="yks-status" id="yks-status" style="display: none;">
-					<div class="yks-success" style="padding:.25em;">&nbsp;<?php _e('Your List Was Successfully Saved!','yikes-inc-easy-mailchimp-extender'); ?></div>
+					<div class="yks-success" style="padding:.25em;"><p>&nbsp;<?php _e('Your List Was Successfully Saved!','yikes-inc-easy-mailchimp-extender'); ?></p></div>
 				</div>
 				<div class="yks-status-error" id="yks-status-error" style="display: none;">
-					<div class="yks-error" style="padding:.25em;">&nbsp;<?php _e('Your settings were not saved (or you did not change them).','yikes-inc-easy-mailchimp-extender'); ?></div>
+					<div class="yks-error" style="padding:.25em;"><p>&nbsp;<?php _e('Your settings were not saved (or you did not change them).','yikes-inc-easy-mailchimp-extender'); ?></p></div>
 				</div>
 				<span class="yikes-lists-error" style="display:none;"><?php _e('I\'m sorry there was an error with your request.','yikes-inc-easy-mailchimp-extender'); ?></span>
 				<form method="post" name="yks-mailchimp-form" id="yks-mailchimp-form_<?php echo $list['id']; ?>" rel="<?php echo $list['id']; ?>">
@@ -1859,9 +1868,9 @@ public function getFrontendFormDisplay($list='', $submit_text)
 						?>
 					<tr class="yks-mailchimpFormTableRow">
 						<!-- run our function to generate the interest group fields for the form, passing in the form id -->
-						<?php $this->getInterestGroups($form_id); ?>
+						<?php echo $this->getInterestGroups($form_id[1]); ?>
 						<td class="yks-mailchimpFormTableSubmit">
-							<p><input type="submit" class="ykfmc-submit" id="ykfmc-submit_<?php echo $list['id']; ?>" value="<?php if($submit_text != '') { echo $submit_text; } else {  echo 'Sign Up'; } ?>" /></p>
+							<input type="submit" class="ykfmc-submit" id="ykfmc-submit_<?php echo $list['id']; ?>" value="<?php if($submit_text != '') { echo $submit_text; } else {  echo 'Sign Up'; } ?>" />
 						</td>
 					</tr>
 				</table>
@@ -1873,7 +1882,7 @@ public function getFrontendFormDisplay($list='', $submit_text)
 			$site_url = "http://".$_SERVER['HTTP_HOST'].$_SERVER['REQUEST_URI']; // grab and store the current sites URL
 			$redirect_url = get_permalink($redirect_page); // get the permalink of the page we are going to redirect too
 				// if redirection was set up for this form, print out our javascript to complete the redirect
-				if ($redirect_value == 1) {
+				if ($redirect_value == 1) { // only redirect if successful form submission <-----
 				?>			
 				<script>
 						jQuery(document).ready(function() {								
@@ -1881,17 +1890,15 @@ public function getFrontendFormDisplay($list='', $submit_text)
 							var formRedirectPage = '<?php echo $redirect_url ?>';
 							var formID = '<?php echo $form_id[1] ?>';
 							jQuery('#yks-mailchimp-form_0-'+formID).submit(function() {
-								
-									// delay a few seconds to display the success message
-									setTimeout(function() {
-									
-										// when success message is visible - redirect user
-										if(jQuery('.yks-success').is(':visible')) {
-											window.location.replace(formRedirectPage);
+								var i = 0;
+								 setInterval(function(){
+									if ( jQuery('.yks-success').is(':visible') ) {
+										i++;
+										if ( i == 1 ) {
+											window.location.replace(formRedirectPage);	
 										}
-										
-									}, 1500);
-								
+									}
+								 }, 1000);
 							});
 						});
 				</script>
@@ -1970,17 +1977,15 @@ public function getFrontendFormDisplay($list='', $submit_text)
 							var formRedirectPage = '<?php echo $redirect_url ?>';
 							var formID = '<?php echo $form_id[1] ?>';
 							jQuery('#yks-mailchimp-form_0-'+formID).submit(function() {
-								
-									// delay a few seconds to display the success message
-									setTimeout(function() {
-									
-										// when success message is visible - redirect user
-										if(jQuery('.yks-success').is(':visible')) {
-											window.location.replace(formRedirectPage);
+								var i = 0;
+								 setInterval(function(){
+									if ( jQuery('.yks-success').is(':visible') ) {
+										i++;
+										if ( i == 1 ) {
+											window.location.replace(formRedirectPage);	
 										}
-										
-									}, 1500);
-								
+									}
+								 }, 1000);	
 							});
 						});
 				</script>

@@ -252,6 +252,13 @@
 	margin-bottom:10px;
 }
 
+.widget .yks_mc_interest_group_label {
+	text-align:center;
+	width:45%;
+	float:left;
+	word-break: break-word;
+}
+
 .widget_yikes_mc_widget input, .widget_yikes_mc_widget .yks-mailchimpFormDivRowField {
 	width:100%;
 }
@@ -690,21 +697,46 @@ body.mailchimp-forms_page_yks-mailchimp-about-yikes #ykseme-page-header {
 	margin-bottom:.5em;
 }
 
+/* Table Interest Group Styles */
+td.yks_mc_table_dropdown_interest_group_holder, td.yks-mailchimpFormTableSubmit  {
+	border-top:0;
+}
+.yks_table_label {
+	display:block;
+	margin:.75em 0;
+}
+
+.yks_mc_table_interest_group_holder {
+	width: 100%;
+	margin-bottom: 0;
+	display:block;
+}
+	.yks_mc_table_dropdown_interest_group_holder {
+		display:block;
+	}
+
 .yks_mc_interest_group_holder select {
 	width:100%;
 }
 
 .yikes_mc_interest_group_checkbox, .yks_mc_interest_group_label { 
-	float:left !important;
-	margin:.35em;
-    max-width: 45% !important;
-	word-break: break-word;
+	display:inline-block;
+	margin: 0 5px;
+}
+
+.widget .yks_mc_table_td:last-child {
+	border-top:0;
+	border-bottom:0;
 }
 
 .yikes_mc_interest_group_radio {
 	margin-right: .5em;
 }
 
+.content .yks_mc_interest_radio_button_holder, .content .yks_mc_table_td {
+	display:inline-block;
+	width:100%;
+}
 
 /***	Subscriber List Styles	***/
 .yks-mc-subscriber-go-back {
@@ -791,6 +823,16 @@ label[for="yikes_mailchimp_comment_subscribe"] {
 }
 label[for="yikes_mailchimp_comment_subscribe"]:hover {
 	cursor:pointer;
+}
+
+label[for="single-optin-message"], label[for="double-optin-message"] {
+	display:block;
+	width:55%;
+}
+
+#wp-double_optin_message-wrap, #wp-single_optin_message-wrap {
+	display:block;
+	margin-top:1.5em;
 }
 
 .yikes_widget_logo {

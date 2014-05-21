@@ -20,17 +20,14 @@ $ymce = jQuery.noConflict();
 								var offset_top = jQuery('#yks-mailchimpFormContainerInner_'+formID).offset().top;
 								jQuery("html, body").animate({ scrollTop: offset_top - 50 }, 500 );
 								next();
-							});
+							});			
 					
-					setTimeout(function() {	
-						
-					}, 600);
 				}
 			return (err > 0 ? false : true);
 			}
 		$ymce('#yks-mailchimp-form_<?php echo $list['id']; ?>').submit(function(e){
-			var singleOptinMessage = '<?php echo $this->optionVal['single-optin-message']; ?>';
-			var doubleOptinMessage = '<?php echo $this->optionVal['double-optin-message']; ?>';
+			var singleOptinMessage = '<?php echo preg_replace("/\r?\n/", "\\n", apply_filters('the_content' , $this->optionVal['single-optin-message'])); ?>';
+			var doubleOptinMessage = '<?php echo preg_replace("/\r?\n/", "\\n", apply_filters('the_content' , $this->optionVal['double-optin-message'])); ?>';
 			var optinValue = '<?php echo $this->optionVal['optin']; ?>';
 			e.preventDefault();
 			// Make sure the api key exists
@@ -64,9 +61,18 @@ $ymce = jQuery.noConflict();
 							}
 						else
 							{
-							$ymce('#ykfmc-submit_<?php echo $list['id']; ?>').removeAttr('disabled');
-							$ymce('#yks-status-<?php echo $list['id']; ?>').html('<div class="yks-error"><p>'+ MAILCHIMP +'</p></div>');
-							$ymce('#yks-status-<?php echo $list['id']; ?>').slideDown('fast');
+								// bundle the MailChimp returned error
+								// with our yiks mc error messages
+								$ymce('#yks_form_error_message').fadeOut('fast', function() {
+									jQuery(this).remove();
+								});
+								$ymce('#ykfmc-submit_<?php echo $list['id']; ?>').removeAttr('disabled');
+								$ymce('#yks-mailchimp-form_<?php echo $list['id']; ?>').prepend('<span id="yks_form_error_message">'+MAILCHIMP+'</span>').delay(1000).queue(function(next){
+									jQuery('#yks_form_error_message').fadeIn();
+									var offset_top = jQuery('#yks-mailchimpFormContainerInner_<?php echo $list['id']; ?>').offset().top;
+									jQuery("html, body").animate({ scrollTop: offset_top - 50 }, 500 );
+									next();
+								});
 							}
 						}
 				});
@@ -101,11 +107,10 @@ $ymce = jQuery.noConflict();
 	
 	?>
 	
-	<div class="yks-require-description">
-			<span class='yks-required-label'>*</span> = <?php _e('required field','yikes-inc-easy-mailchimp-extender'); ?>
-	</div>
-	
 	<div class="yks-mailchimpFormContainerInner" id="yks-mailchimpFormContainerInner_<?php echo $list['id']; ?>">	
+		<div class="yks-require-description">
+			<span class='yks-required-label'>*</span> = <?php _e('required field','yikes-inc-easy-mailchimp-extender'); ?>
+		</div>
 		<form method="post" name="yks-mailchimp-form" id="yks-mailchimp-form_<?php echo $list['id']; ?>" rel="<?php echo $list['id']; ?>">
 			<input type="hidden" name="yks-mailchimp-list-ct" id="yks-mailchimp-list-ct_<?php echo $list['id']; ?>" value="<?php echo $listCt; ?>" />
 			<input type="hidden" name="yks-mailchimp-list-id" id="yks-mailchimp-list-id_<?php echo $list['id']; ?>" value="<?php echo $list['list-id']; ?>" />
