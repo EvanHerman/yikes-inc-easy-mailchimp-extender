@@ -327,24 +327,6 @@ public function getBrowser()
 			'pattern'    => $pattern
 	);
 	}
-// Store google analytics tracking information
-// Generated on the lists page	
-public function getTrackingGif($page='')
-	{
-	?>
-	<script type="text/javascript">
-  	var _gaq = _gaq || [];
-  	_gaq.push(['_setAccount', 'UA-3024863-1']);
-  	_gaq.push(['_trackPageview', '/virtual/wordpress/plugin/yikes-inc-easy-mailchimp-extender/<?php echo $this->slugify($page); ?>']);
-
-  	(function() {
-    	var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
-    	ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
-    	var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
-  	})();
-	</script>
-	<?php
-	}
 
 
 /***** CONFIGURATION

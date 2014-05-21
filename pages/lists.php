@@ -582,5 +582,3 @@
         	</div> 
     <?php }  //end else statement if there is an api key ?>         
 </div>
-
-<?php $this->getTrackingGif('lists'); ?>

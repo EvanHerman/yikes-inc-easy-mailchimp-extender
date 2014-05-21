@@ -451,7 +451,7 @@ jQuery(document).ready(function() {
 </div>
 
 <!-- Display Tracking Info? -->
-<?php $this->getTrackingGif('options'); 
+<?php
 
 // if cURL is not enabled on the site
 // we need to display an error and let the user know how to resolve the issue

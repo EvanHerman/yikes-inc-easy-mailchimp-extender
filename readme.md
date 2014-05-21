@@ -16,7 +16,7 @@ Features
 1. Customize the success message
 1. Customize the submit button text
 1. Redirect users to a page on submission
-1. Unsubscribe users from MailChimp lists
+1. Unsubscribe users From MailChimp lists
 1. View subscriber MailChimp profiles
 1. View individual form subscriber count
 1. Display multiple forms on a single page
@@ -63,16 +63,16 @@ You can use a shortcode to add a form to a page or post, use the MailChimp form 
 
 #### I input a valid MailChimp API key, but it returns invalid every time. I've already tried a new API key, but no dice. What's up?
 
-**Step 1:** Ensure that cURL is enabled at the server level. You will see an error at the top of the settings page if cURL is disabled. If you see no error, continue to step 2.
+<strong>Step 1:</strong> Ensure that cURL is enabled at the server level. You will see an error at the top of the settings page if cURL is disabled. If you see no error, continue to step 2.
 
-**Step 2:** If you have entered your MailChimp API key and are still getting the error "<em>Error: Please enter a valid Mail Chimp API Key</em>," please check the developer console inside your browser for further information. 
+<strong>Step 2:</strong> If you have entered your MailChimp API key and are still getting the error "<em>Error: Please enter a valid Mail Chimp API Key</em>," please check the developer console inside your browser for further information. 
 	
 - Right-click in the API Key input field, and select 'Inpsect Element'
 - Once the developer console is open, select the Console tab to see a more specific error.
 
 For information on how to use your browser's developer console, read the WordPress Codex article, [Using Your Browser to Diagnose JavaScript Errors](http://codex.wordpress.org/Using_Your_Browser_to_Diagnose_JavaScript_Errors).
 	
-**Possible Errors And Resolutions**
+<strong>Possible Errors And Resolutions</strong>
 
 * Could not resolve host: xxxx.api.mailchimp.com  - the host you have provided is incorrect. The host is the string after the last dash (example: us2)
 * Invalid Mailchimp API Key: xxxxxxxxxxxxxxxxxx-xxx - Your API key is invalid. You can confirm a valid key by logging into [MailChimp](http://mailchimp.com) and checking the active API key registered to your account.
@@ -83,30 +83,32 @@ You can adjust the width of the forms on your site by changing the width of the 
 #### How can I translate this plugin?
 Easy MailChimp Forms is now translated into multiple languages:
 
-+ Arabic
-+ Chinese
-+ English
-+ French
-+ German
-+ Greek
-+ Hebrew
-+ Hindi
-+ Hong Kong
-+ Italian
-+ Japanese
-+ Korean
-+ Persian
-+ Portuguese (Brazilian)
-+ Portuguese (European)
-+ Romanian
-+ Russian
-+ Spanish
-+ Swedish
-+ Taiwanese
-+ Tamil
-+ Urdu
-+ Vietnamese
-+ Welsh
+<ul>
+	<li>Arabic</li>	
+	<li>Chinese</li>	
+	<li>English</li>	
+	<li>French</li>	
+	<li>German</li>	
+	<li>Greek</li>	
+	<li>Hebrew</li>	
+	<li>Hindi</li>	
+	<li>Hong Kong</li>	
+	<li>Italian</li>	
+	<li>Japanese</li>	
+	<li>Korean</li>	
+	<li>Persian</li>	
+	<li>Portuguese (Brazilian)</li>	
+	<li>Portuguese (European)</li>	
+	<li>Romanian</li>	
+	<li>Russian</li>	
+	<li>Spanish</li>	
+	<li>Swedish</li>	
+	<li>Taiwanese</li>	
+	<li>Tamil</li>	
+	<li>Urdu</li>	
+	<li>Vietnamese</li>	
+	<li>Welsh</li>
+</ul>
 
 Read the Codex article [Installing WordPress in Your Language](http://codex.wordpress.org/Installing_WordPress_in_Your_Language) for more information. Also, please refer to our [Developer Docs](http://wordpress.org/plugins/yikes-inc-easy-mailchimp-extender/other_notes/).
 
@@ -410,6 +412,9 @@ These functions should be used in conjunction with the `yikes_mc_get_form_data` 
 
 Changes
 ===========
+### 4.2.1
+* Removed all unnecessary Google tracking codes and functions
+
 ### 4.2 
 * Updated FAQ
 * Re-worked the redirect for a better user experience

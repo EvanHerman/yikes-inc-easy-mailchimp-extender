@@ -61,5 +61,3 @@
 	</div>
 	
 </div>
-
-<?php $this->getTrackingGif('about'); ?>

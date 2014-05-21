@@ -4,7 +4,7 @@ Donate link: http://yikesinc.com
 Tags: mailchimp, marketing, email, mailing lists, newsletter, signup, forms, signup form
 Requires at least: 3.0
 Tested up to: 3.9.1
-Stable tag: 4.2
+Stable tag: 4.2.1
 License: GPLv2 or later
 
 Easy MailChimp Forms allows you to painlessly add MailChimp signup forms to your WordPress site.
@@ -13,7 +13,7 @@ Easy MailChimp Forms allows you to painlessly add MailChimp signup forms to your
 
 Easy MailChimp Forms allows you to painlessly add MailChimp signup forms to your WordPress site. You can add forms to posts, pages or sidebars with shortcodes, widgets or template tags. Simply copy and paste your MailChimp API Key into the plugin admin settings and it will pull in all your MailChimp lists. From there you can choose the lists you want to make forms for. For a single list you can check off the fields you want to include on your form and order them via an easy drag-and-drop interface. This plugin adds plenty of CSS selectors to the form code allowing you to completely customize the look of your forms.
 
-**Note:** You will need a MailChimp API key to allow this plugin to communicate with your MailChimp account. For help on retrieving your API key, check out [question #4 of the FAQ](http://wordpress.org/plugins/yikes-inc-easy-mailchimp-extender/faq/). You can also read the MailChimp knowledge base article [Where can I find my API key and how can I use the API](http://kb.mailchimp.com/article/where-can-i-find-my-api-key/).
+*Note:* You will need a MailChimp API key to allow this plugin to communicate with your MailChimp account. For help on retrieving your API key, check out [question #4 of the FAQ](http://wordpress.org/plugins/yikes-inc-easy-mailchimp-extender/faq/). You can also read the MailChimp knowledge base article [Where can I find my API key and how can I use the API](http://kb.mailchimp.com/article/where-can-i-find-my-api-key/).
 
 **Features**
 
@@ -24,7 +24,7 @@ Easy MailChimp Forms allows you to painlessly add MailChimp signup forms to your
 * Customize the success message
 * Customize the submit button text
 * Redirect users to a page on submission
-* Unsubscribe users from MailChimp lists
+* Unsubscribe users From MailChimp lists
 * View subscriber MailChimp profiles
 * View individual form subscriber count
 * Display multiple forms on a single page
@@ -82,7 +82,7 @@ You can use a shortcode to add a form to a page or post, use the MailChimp form 
 
 For information on how to use your browser's developer console, read the WordPress Codex article, [Using Your Browser to Diagnose JavaScript Errors](http://codex.wordpress.org/Using_Your_Browser_to_Diagnose_JavaScript_Errors).
 
-**Possible Errors And Resolutions**
+<strong>Possible Errors And Resolutions</strong>
 
 * Could not resolve host: xxxx.api.mailchimp.com  - the host you have provided is incorrect. The host is the string after the last dash (example: us2)
 * Invalid Mailchimp API Key: xxxxxxxxxxxxxxxxxx-xxx - Your API key is invalid. You can confirm a valid key by logging into [MailChimp](http://mailchimp.com) and checking the active API key registered to your account.
@@ -90,7 +90,7 @@ For information on how to use your browser's developer console, read the WordPre
 = I don't want the form to be the 100% width. How can I adjust the width myself? =
 You can adjust the width of the forms on your site by changing the width of the element with the class .yks-mailchimpFormContainer. This is the parent container for the form. Adjusting this width will control the width of the input fields inside of it.
 
-= How can I translate this plugin? =
+= How can I translate this plugin?
 Easy MailChimp Forms is now translated into multiple languages:
 
 * Arabic
@@ -438,6 +438,8 @@ These functions should be used in conjunction with the `yikes_mc_get_form_data` 
 8. About YIKES page
 
 == Changelog ==
+= 4.2.1 =
+* Removed all unnecessary Google tracking codes and functions
 
 = 4.2 =
 * Updated FAQ
