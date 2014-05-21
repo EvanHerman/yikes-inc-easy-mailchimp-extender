@@ -16,7 +16,7 @@ Features
 1. Customize the success message
 1. Customize the submit button text
 1. Redirect users to a page on submission
-1. Unsubscribe users From MailChimp lists
+1. Unsubscribe users from MailChimp lists
 1. View subscriber MailChimp profiles
 1. View individual form subscriber count
 1. Display multiple forms on a single page
