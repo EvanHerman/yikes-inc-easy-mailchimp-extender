@@ -75,7 +75,7 @@ You can use a shortcode to add a form to a page or post, use the MailChimp form 
 
 **Step 1:** Ensure that cURL is enabled at the server level. You will see an error at the top of the settings page if cURL is disabled. If you see no error, continue to step 2.
 
-**Step 2:** If you have entered your MailChimp API key and are still getting the error "<em>Error: Please enter a valid Mail Chimp API Key</em>", please check the developer console inside your browser for further information. 
+**Step 2:** If you have entered your MailChimp API key and are still getting the error "<em>Error: Please enter a valid Mail Chimp API Key</em>," please check the developer console inside your browser for further information. 
 	
 - Right-click in the API Key input field, and select 'Inpsect Element'
 - Once the developer console is open, select the Console tab to see a more specific error.
