@@ -39,9 +39,6 @@ Installation
 Frequently Asked Questions
 ===========
 
-#### Do I need to have a MailChimp Account? 
-Yes, you can register for one for free at [MailChimp](https://mailchimp.com/signup/ "MailChimp Signup").
-
 #### Do I need to have a MailChimp Account?
 Yes, you can register for one for free at [MailChimp](https://mailchimp.com/signup/ "MailChimp Signup").
 
