@@ -438,6 +438,7 @@ These functions should be used in conjunction with the `yikes_mc_get_form_data` 
 8. About YIKES page
 
 == Changelog ==
+
 = 4.2.1 =
 * Removed all unnecessary Google tracking codes and functions
 

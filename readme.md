@@ -410,6 +410,7 @@ These functions should be used in conjunction with the `yikes_mc_get_form_data` 
 
 Changes
 ===========
+
 ### 4.2.1
 * Removed all unnecessary Google tracking codes and functions
 
