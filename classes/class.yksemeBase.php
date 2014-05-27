@@ -6,6 +6,7 @@ if(!class_exists("yksemeBase"))
 		
 /**
  *	Variables
+ *
  */
 private	$error		    	= false;
 private	$errorMsg	    	= '';
