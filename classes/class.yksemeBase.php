@@ -65,7 +65,7 @@ public function uninstall()
 public function initialize()
 	{
 	// If it's not already set up, initialize our plugin session
-	if(session_id() == '') session_start();
+	if(@session_id() == '') session_start();
 	if(!is_array(@$_SESSION[$this->sessName]))
 	 {
 	 $_SESSION[$this->sessName]	= array();

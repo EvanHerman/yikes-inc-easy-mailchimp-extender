@@ -13,7 +13,7 @@
                         {
                         if($('#yks-list-wrapper .yks-list-container').size() <= 0)
                                 {
-								var plugin_directory_url = '<?php echo plugin_dir_url( $file ); ?>';
+								var plugin_directory_url = '<?php echo plugin_dir_url( __FILE__ ); ?>';
 								 $('#yks-lists-dropdown').next().css('opacity',0);
 								 $('#yks-list-wrapper').css({ 'background' : 'url("'+plugin_directory_url+'yikes-inc-easy-mailchimp-extender/images/yks_mc_lets_get_started.png")', 'height' : '175px' , 'width' : '400px' , 'background-repeat' : 'no-repeat' , 'background-position' : 'center', 'margin-top' : '-6em' });
 								}
