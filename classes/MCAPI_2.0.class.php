@@ -254,7 +254,12 @@ class wpyksMCAPI {
         $this->ch = curl_init();
         curl_setopt($this->ch, CURLOPT_USERAGENT, 'MailChimp-PHP/2.0.4');
         curl_setopt($this->ch, CURLOPT_POST, true);
-        curl_setopt($this->ch, CURLOPT_FOLLOWLOCATION, true);
+		// if open base directiory is set, toggle to false, else keep true
+        if ( ini_get('open_basedir') ) {
+			curl_setopt($this->ch, CURLOPT_FOLLOWLOCATION, false);
+		} else {
+			curl_setopt($this->ch, CURLOPT_FOLLOWLOCATION, true);
+		}
         curl_setopt($this->ch, CURLOPT_HEADER, false);
         curl_setopt($this->ch, CURLOPT_RETURNTRANSFER, true);
         curl_setopt($this->ch, CURLOPT_CONNECTTIMEOUT, 45);

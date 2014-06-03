@@ -4,7 +4,7 @@ Donate link: http://yikesinc.com
 Tags: mailchimp, marketing, email, mailing lists, newsletter, signup, forms, signup form
 Requires at least: 3.0
 Tested up to: 3.9.1
-Stable tag: 4.2.1
+Stable tag: 4.2.2
 License: GPLv2 or later
 
 Easy MailChimp Forms allows you to painlessly add MailChimp signup forms to your WordPress site.
@@ -438,6 +438,10 @@ These functions should be used in conjunction with the `yikes_mc_get_form_data` 
 8. About YIKES page
 
 == Changelog ==
+
+= 4.2.2 =
+* Added open_basedir conditional check to toggle CURLOPT_FOLLOWLOCATION based on users server settings
+* Prevents warning being thrown for users on shared hosts with an open_basedir set
 
 = 4.2.1 =
 * Removed all unnecessary Google tracking codes and functions
