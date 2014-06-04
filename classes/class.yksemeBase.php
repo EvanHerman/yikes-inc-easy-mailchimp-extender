@@ -6,7 +6,6 @@ if(!class_exists("yksemeBase"))
 		
 /**
  *	Variables
- *
  */
 private	$error		    	= false;
 private	$errorMsg	    	= '';
@@ -1391,10 +1390,11 @@ public function addUserToMailchimp($p)
 			
 			// Interest group loop to build the GROUPINGS array	
 			// The GROUPINGS array passes our interest group, and values back to the specific form
-			$interest_group_option = json_decode($fd['interest-group-data'], true);
-				
+			if ( isset($fd['interest-group-data']) ) {
+				$interest_group_option = json_decode($fd['interest-group-data'], true);
+			}
 				// if interest groups exist, continue and form an array
-				if ( $interest_group_option ) {
+				if ( isset($interest_group_option) ) {
 				
 					// print_r($interest_group_option);
 					$mv['GROUPINGS'] = array();
@@ -1782,10 +1782,16 @@ public function getFrontendFormJavascript($list='')
 					break;
 				// radio	
 				case 'radio':
-					$js .= 	"if($".$prefix."('.{".$field['name']."}:checked').length <= 0)
-						{
-						msg += '* {".$field['label']."}'+'\\n';
+					$js .= 	"if($".$prefix."('.".$field['name'].":checked').length <= 0)
+						{ 
+						msg += '<li>".$field['label']."\\n</li>';
 						err++;
+						$".$prefixa."('label[for=".$field['id']."]').next().find('input').addClass('yks_error_field_required shake animated').delay(800).queue(function(next){
+								$".$prefixa."(this).removeClass('shake animated');
+								next();
+							});
+						} else {
+							$".$prefixa."('#".$field['id']."').removeClass('yks_error_field_required')
 						}";
 					break;
 				}
