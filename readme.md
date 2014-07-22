@@ -9,18 +9,22 @@ Instructions on how to use the plugin can be [found on the FAQ](http://wordpress
 Features
 ===========
 
-1. Easily import MailChimp forms from a MailChimp account
+1. Complete Integration of MailChimp into WordPress
+1. Easily import MailChimp forms from an active MailChimp account
+1. View/Print Interactive Account Growth Reports and Campaign Reports (Statistics Tracking)
+1. reCaptcha spam prevention baked in
+1. Monitor MailChimp account activity
 1. Use MailChimp Interest Group/Segments
 1. Add MailChimp forms sidebars/widgetized areas with widgets
 1. Set forms to single or double opt-in
 1. Customize the success message
 1. Customize the submit button text
 1. Redirect users to a page on submission
-1. Unsubscribe users from MailChimp lists
+1. Un-subscribe users from MailChimp lists
 1. View subscriber MailChimp profiles
 1. View individual form subscriber count
 1. Display multiple forms on a single page
-1. Add commenters to your MailChimp lists with a comment form opt-in check box 
+1. Add commenter's to your MailChimp lists with a comment form opt-in check box 
 1. Easily add forms to pages and posts with a button in the page/post editor
 1. Use cURL error detection to troubleshoot MailChimp connection issues
 
