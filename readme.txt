@@ -437,15 +437,18 @@ These functions should be used in conjunction with the `yikes_mc_get_form_data` 
 
 == Screenshots ==
 
-1. YIKES Easy MailChimp General Settings Page
+1. YIKES Easy MailChimp General Form Settings Page
 2. YIKES Easy MailChimp reCAPTCHA settings page
-3. Yikes Easy MailChimp form listing page
-4. View all subscribers of a given list, click to reveal individual subscriber info
-5. Custom widget to easily add forms to sidebars and widgets
-6. Form rendered on the front end of the site
-7. Optional opt-in checkbox on the comment forms, easily add commenter's to your email list
-8. Custom tinyMCE button allows you to easily add imported forms to pages and posts at the click of a button
-9. About YIKES page
+3. YIKES Easy MailChimp Account Activity Overview
+4. YIKES Easy MailChimp Campaign Overview
+5. YIKES Easy MailChimp Campaign Statistics Reports
+6. Yikes Easy MailChimp Form Listing Page
+7. View all subscribers of a given list, click to reveal individual subscriber info
+8. Custom widget to easily add forms to sidebars and widgets
+9. Form rendered on the front end of the site
+10. Optional opt-in checkbox on the comment forms, easily add commenter's to your email list
+11. Custom tinyMCE button allows you to easily add imported forms to pages and posts at the click of a button
+12. About YIKES page
 
 == Changelog ==
 
