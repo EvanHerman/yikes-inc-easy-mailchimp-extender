@@ -40,6 +40,7 @@
 	padding-top:0;
 	margin-top:0;
 	width:95%;
+	margin-right:0;
 }
 
 .yks-mc-icon-notice {
@@ -254,9 +255,10 @@
 
 .widget .yks_mc_interest_group_label {
 	text-align:center;
-	width:45%;
+	width:33%;
 	float:left;
 	word-break: break-word;
+	margin: 5px 0;
 }
 
 .widget_yikes_mc_widget input, .widget_yikes_mc_widget .yks-mailchimpFormDivRowField {
@@ -284,13 +286,49 @@
 
 .wrap #ykseme-page-header {
 	padding-top:0;
-	margin-bottom:1.5em;
+	margin:1em 0 1.5em 0;
 }
 
-body.toplevel_page_yks-mailchimp-form .wrap {
-	margin-top:2em;
+.wrap #yks_mc_review_this_plugin_container {
+	padding:.5em;
+	border:1px dashed lightgrey;
+	float:right;
 }
 
+.wrap .nav-tab-wrapper {
+	padding-top:2.5em;
+}
+
+.wrap .account-nav-tab {
+	padding-top:0;
+}
+
+/* Settings Page Top Container */
+/* Houses links to leave us a review, links to YIKES Inc. Website etc. */
+#yks_mc_review_this_plugin_container {
+	display:inline-block;
+}
+	#yks_mc_review_this_plugin_container .yks_review_this_divider {
+		border-right:1px solid #333;
+	}
+	
+#yks_mc_review_this_plugin_container a, #yks_mc_review_this_plugin_container a:hover {
+	color: #333;
+}
+	#yks_mc_review_this_plugin_container div, #yks_mc_review_this_plugin_container span, #yks_mc_review_this_plugin_container .yks_header_logo {
+		float:left;
+		margin: 0 .5em;
+		text-align:center;
+	}
+		#yks_mc_review_this_plugin_container div.dashicons {
+			margin: 0 5px;
+		}
+		#yks_mc_review_this_plugin_container div.dashicons-plus-alt {
+			display:block;
+			width:100%;
+			margin: 0 auto;
+		}
+		
 body.mailchimp-forms_page_yks-mailchimp-about-yikes #ykseme-page-header {
 	margin-top:1em;
 }
@@ -321,6 +359,11 @@ body.mailchimp-forms_page_yks-mailchimp-about-yikes #ykseme-page-header {
 		min-height:25px;
 		line-height: 1.2;
 		margin-top:1em;
+		color: #333;
+	}
+	
+	.yks-status .yks-success a {
+		color: auto !important;
 	}
 	
 	.yks-status-error .yks-error {
@@ -569,7 +612,7 @@ body.mailchimp-forms_page_yks-mailchimp-about-yikes #ykseme-page-header {
 /* About page */
 
 .yksme-page-about {
-	width: 75%;	
+	width: 98%;	
 }
 
 #yksme-yikes-logo-container {
@@ -693,9 +736,9 @@ body.mailchimp-forms_page_yks-mailchimp-about-yikes #ykseme-page-header {
 .yks_mc_interest_group_holder {
 	display:inline-block;
 	width:100%;
-	text-align:center;
 	margin-bottom:.5em;
 }
+
 
 /* Table Interest Group Styles */
 td.yks_mc_table_dropdown_interest_group_holder, td.yks-mailchimpFormTableSubmit  {
@@ -827,7 +870,8 @@ label[for="yikes_mailchimp_comment_subscribe"]:hover {
 
 label[for="single-optin-message"], label[for="double-optin-message"] {
 	display:block;
-	width:55%;
+	max-width: 598px;
+	min-width:55% !important;
 }
 
 #wp-double_optin_message-wrap, #wp-single_optin_message-wrap {
@@ -882,6 +926,7 @@ label[for="single-optin-message"], label[for="double-optin-message"] {
 	float:left;
 	margin-bottom:1em;
 	display:none;
+	width:100%;
  }
 	 #yks_form_error_message ul {
 		list-style-type: square;
@@ -894,3 +939,624 @@ label[for="single-optin-message"], label[for="double-optin-message"] {
 			width: 33%; 
 			float:left;
 		 }
+		 
+/* reCAPTCHA Responsiveness */
+#recaptcha_area {
+	margin-bottom:1.5em;
+}
+
+	.widget-area #recaptcha_area .recaptcha_input_area, .widget-area #recaptcha_table td, .widget #recaptcha_area .recaptcha_input_area, .widget #recaptcha_table td {
+		margin-left:0 !important;
+		padding-left:0 !important;
+	}
+	
+    .widget-area .recaptchatable #recaptcha_image, .widget .recaptchatable #recaptcha_image {
+        margin: 0 !important;
+        width: 200px !important;
+        float:left !important;
+    }
+    .widget-area .recaptchatable #recaptcha_image img {
+        max-width:100%;
+    }
+    .widget-area .recaptchatable .recaptcha_r1_c1, .widget-area .recaptchatable .recaptcha_r3_c1, .widget-area .recaptchatable .recaptcha_r3_c2, .widget-area .recaptchatable .recaptcha_r7_c1, .widget-area .recaptchatable .recaptcha_r8_c1, 
+	.widget-area .recaptchatable .recaptcha_r3_c3, .widget-area .recaptchatable .recaptcha_r2_c1, .widget-area .recaptchatable .recaptcha_r4_c1, .widget-area .recaptchatable .recaptcha_r4_c2, .widget-area .recaptchatable .recaptcha_r4_c4, 
+	.widget-area .recaptchatable .recaptcha_image_cell, .widget-area .recaptchatable .recaptcha_r2_c2 {
+		
+    }
+	
+	.widget-area .recaptchatable #recaptcha_image, .widget-area #recaptcha_area, .widget-area #recaptcha_table, .widget .recaptchatable #recaptcha_image, .widget #recaptcha_area, .widget #recaptcha_table {
+		width: 100% !important;
+		max-width:300px;
+	}
+	
+	/*
+	.widget-area img#recaptcha_switch_audio, .widget-area img#recaptcha_reload, .widget-area img#recaptcha_whatsthis {
+		display:none !important;
+	}	
+	*/
+	
+	.widget-area input#recaptcha_response_field {
+		margin-left: 3px !important;
+	}
+	
+ input[name="yks-mailchimp-recaptcha-private-api-key"] , input[name="yks-mailchimp-recaptcha-api-key"] {
+	width: 40%;
+	min-width:357px;
+ }
+ 
+#debug_loaded_apache_modules {
+	width: 75%;
+	height:124px;
+	resize: none;
+}
+ 
+ .reCAPTCHA_preview_div {
+	float:left;
+	border:1px dashed lightgrey;
+	text-align:center;
+ }
+	.reCAPTCHA_preview_div strong {
+		display:block;
+		font-size:15px;
+	}
+ 
+textarea#debug_loaded_apache_modules {
+	color: #333 !important;
+ }
+ 
+ #single_optin_message_ifr, #double_optin_message_ifr {
+	max-height:200px !important;
+ }
+ 
+ /* Dashboard Mobile Responsive Styles */
+ @media only screen and (max-width : 782px) {
+	label[for="single-optin-message"], label[for="double-optin-message"] {
+		width: 100% !important;
+	}
+ }
+ 
+ /* reCAPTCHA API Key Error */
+ .yks_mc_recaptcha_api_key_error {
+	width: 100%;
+	text-align:center;
+	color: red;
+	margin: 1em 0;
+	text-style:italic;
+	font-style: italic;
+ }
+ 
+ /**
+ *
+ *	My MailChimp Page	
+ *
+ **/
+ 
+ /* Chimp Chatter */
+ .chimp-chatter-message-title {
+	border-bottom: 1px solid #C7C6C6;
+	width:100%;
+	display:block;
+ }
+ 
+ #yks-admin-chimp-chatter {
+	width: 100%;
+ }	
+ 
+ #yks-admin-chimp-chatter .chatter-table-row {
+	margin-top: 1em;
+ }
+	 #yks-admin-chimp-chatter .chatter-table-row td:first-child, #yks-admin-chimp-chatter .chatter-table-row td:nth-child(2), #yks-admin-chimp-chatter .chatter-table-row td:nth-child(3) {
+		width: 10%;
+		text-align:center;
+	 }
+ 
+  #yks-admin-chimp-chatter .chatter-table-row td:nth-child(2) {
+	color: #b7b7b7;
+	font-weight:bold;
+ }
+ 
+ 
+ /* Chimp Chatter Message Container Styles */
+.chimp-chatter-message {
+	vertical-align:middle;
+	border:2px solid #e0e0e0;
+	padding:18px;
+	border-radius:6px;
+	background-color:#fff;
+	width:66.66666666666667%
+}
+@media screen and (max-width:60em){
+	.chimp-chatter-message {
+		width:83%;vertical-align:top
+	}
+}
+@media screen and (max-width:40em){
+	.chimp-chatter-message {
+		width:100%
+	}
+}
+	
+/* Chimp Chatter Triangle on Container */
+*, *:before, *:after {
+	box-sizing: border-box
+}
+
+.chimp-chatter-message:after, .chimp-chatter-message:before {
+	left:-19px;
+	top:42%;
+	border:solid transparent;
+	content:" ";
+	height:0;
+	width:0;
+	position:absolute;
+	pointer-events:none;
+	border-right-color:#fff;
+	border-width:10px
+}
+
+.chimp-chatter-message:before {
+	border-right-color: #e0e0e0;
+}
+
+@media screen and (max-width:60em) {
+	.chimp-chatter-message:after, .chimp-chatter-message:before {
+		top:77px
+	}
+}
+@media screen and (max-width:40em) {
+	.chimp-chatter-message:after,.chimp-chatter-message:before {
+		border-right-color:transparent;
+		border-bottom-color:#fff;
+		left:9px;
+		top:-17px
+	}
+}
+
+/** Stats Page 
+.stats_list_name {
+	padding:2em;
+	margin:1.5em 1em;
+	display:block;
+	float:left;
+	text-align:center;
+	text-decoration:none;
+	background:#333;
+	color:white;
+	max-width:18%;
+	min-width:18%;
+	min-height: 100px;
+}
+**/
+
+.mailChimpStatisticsDiv .no_data_found, #yks-admin-chimp-chatter .no_data_found {
+	padding-top:6em;
+	font-size:1.25em;
+	color:rgb(212, 93, 93);
+	text-align:center;
+}
+
+.wp-admin .active-parent-button, .wp-admin .active-parent-button:hover  {
+	color: red;
+}
+
+.list_container_for_stats .active_button {
+	color: #38E7FF;
+}
+
+.mailChimp_get_subscribers_preloader {
+	display:block; 
+	margin:0 auto;
+	margin-top:2em;
+}
+
+/**
+*
+*	Campaign Report Styles
+*
+**/
+#yks-admin-campaign-stats-table { 
+	width: 100%;
+}
+
+#yks-admin-campaign-stats-table td:nth-child(2) {
+	width: 42%;
+	max-width:42%;
+}
+
+#yks-admin-campaign-stats-table td:last-child {
+	text-align:right !important;
+}
+
+#yks-admin-campaign-stats-table .single_report_row {
+	border-bottom:1px solid lightgrey;
+}
+
+#yks-admin-campaign-stats-table .single_report_row:last-child {
+	border-bottom: none;
+}
+
+#yks-admin-campaign-stats-table .yks_campaign_report_link, .yks_campaign_report_disabled_link {
+	font-size:1.5em;
+	text-decoration:none;
+}
+
+.yks_campaign_report_click_data {
+	height:35px;
+	font-size:1.25em;
+}
+
+.yks_campaign_report_click_data:hover {
+	cursor:pointer;
+}
+
+.yks_campaign_report_click_data .hover_view {
+	display:none;
+	font-size:15px;
+}
+
+
+.yks_campaign_report_click_data .campaign_summary_data {
+	width:15%;
+	margin:0 .5em;
+	float:left;
+	text-align:center;
+}
+
+.yks_campaign_report_click_data .campaign_summary_data:first-child {
+	margin-left: 5em;
+}
+
+.overview_information_section {
+	width: 100%;
+	margin: 1em 0;
+	display:block;
+	float:left;
+}
+
+.overview-info-container {
+	font-size:18px;
+	line-height:1.8;
+	width:100%;
+}
+
+.overview-info-container .overview_information {
+	float:left;
+	width:47%;
+	margin: 1.5% 0 0 0;
+}
+
+.overview_information_right {
+	float:right !important;
+}
+
+.overview_information a {
+	display:block; 
+	float:right;
+}
+
+.overview_information .info_overview_avg_tag {
+	width: 100%;
+	float:left;
+}
+
+.overview_information .info_overview_percentage {
+	float:right !important;
+}
+
+.yks_mc_child_report , .yks_mc_child_report+tr {
+	display:none;
+}	
+
+
+/* Progress Bar Styles */
+.progress-bar {
+    background-color: #1a1a1a;
+    height: 25px;
+    padding: 1px;
+    width: 100%;
+    border-radius: 5px;
+    box-shadow: 0 1px 5px #000 inset, 0 1px 0 #444;           
+	float:left;
+	margin-bottom:1em;
+}
+
+.progress-bar span {
+    display: inline-block;
+    height: 100%;
+    border-radius: 3px;
+    box-shadow: 0 1px 0 rgba(255, 255, 255, .5) inset;
+    transition: width .4s ease-in-out;    
+}
+
+.blue span {
+    background-color: #34c2e3;   
+}
+
+.orange span {
+      background-color: #fecf23;
+      background-image: linear-gradient(top, #fecf23, #fd9215);  
+}   
+
+.green span {
+      background-color: #a5df41;
+      background-image: linear-gradient(top, #a5df41, #4ca916);  
+}
+
+.stripes span {
+    background-size: 30px 30px;
+    background-image: linear-gradient(135deg, rgba(255, 255, 255, .15) 25%, transparent 25%,
+                        transparent 50%, rgba(255, 255, 255, .15) 50%, rgba(255, 255, 255, .15) 75%,
+                        transparent 75%, transparent);            
+    
+    animation: animate-stripes 3s linear infinite;             
+}
+
+@keyframes animate-stripes {
+    0% {background-position: 0 0;} 100% {background-position: 60px 0;}
+}
+
+.yks-campaign-report-recipients {
+	font-size:25px;
+}
+
+#opened_clicked_bounced_unsubscribed {
+	display:inline-block;
+	width:100%;
+	margin: 3.5em 0;
+	text-align:center;
+}
+
+#opened_clicked_bounced_unsubscribed .centered_container {
+	display:block;
+	margin:0 auto;
+}
+
+#opened_clicked_bounced_unsubscribed .yks_mc_ocbu {
+	width:25%;
+	float:left;
+	padding: 2.5em;
+	border:1px solid lightgrey;
+		-webkit-transition: background 0.25s linear;
+        -moz-transition: background 0.25s linear;
+        -ms-transition: background 0.25s linear;
+        -o-transition: background 0.25s linear;
+        transition: background 0.25s linear;
+}
+
+.yks_mc_ocbu:hover {
+	cursor:pointer;
+	background-color: #333333;
+	color:#ffffff;
+}
+
+#opened_clicked_bounced_unsubscribed a {
+	color: #333;
+}
+
+#opened_clicked_bounced_unsubscribed a:first-child .yks_mc_ocbu {
+	-webkit-border-top-left-radius: 10px;
+	-webkit-border-bottom-left-radius: 10px;
+	-moz-border-radius-topleft: 10px;
+	-moz-border-radius-bottomleft: 10px;
+	border-top-left-radius: 10px;
+	border-bottom-left-radius: 10px;
+}
+
+#opened_clicked_bounced_unsubscribed a:last-child .yks_mc_ocbu {
+	-webkit-border-top-right-radius: 10px;
+	-webkit-border-bottom-right-radius: 10px;
+	-moz-border-radius-topright: 10px;
+	-moz-border-radius-bottomright: 10px;
+	border-top-right-radius: 10px;
+	border-bottom-right-radius: 10px;
+}
+
+#opened_clicked_bounced_unsubscribed .centered_container {
+	display:block;
+	margin:0 auto;
+}
+
+#opened_clicked_bounced_unsubscribed .yks_mc_ocbu_number {
+	font-size: 25px;
+	font-weight:bold;
+	margin:0;
+}
+
+
+/** Click Data Chart Styles **/
+#yks-admin-link-data-table {
+	width: 100%;
+	font-size: 18px;
+}
+
+	#yks-admin-link-data-table .link_data_table_head {
+		background:#333;
+		color: white;
+		padding: .5em 0;
+	}
+
+	#yks-admin-link-data-table .single_click_item {
+		text-align:center;
+	}
+	
+	#yks-admin-link-data-table .single_click_item.first {
+		text-align:left;
+		width:66%;
+	}
+
+	
+#click-data h2:first-child {
+	float:left;
+}
+
+.view_clicks_as_piechart {
+	float:right;
+	margin-bottom:2em;
+}
+
+.yks-mc-view-recipients {
+	text-decoration: none;
+}
+
+/* Opens Tracking Disabled */
+#open_tracking_disabled_warning {
+	display:none;
+	background: #FFD8D8;
+	border-radius: 5px;
+	padding: .5em;
+	margin: 2em 0;
+}
+
+	#open_tracking_disabled_warning p:first-child {
+		font-size: 1.2em;
+	}
+	
+	#open_tracking_disabled_warning p:first-child:before {
+		content: "\f348";
+	}
+
+	#open_tracking_disabled_warning .dashicons-info {
+		float:left;
+		margin:.5em;
+		font-size:3em;
+		margin-right:1em;
+	}
+	
+.yks-mc-report-error {
+	width:100%;
+	text-align:center;
+	display:block;
+	color:red;
+	margin:1.5em 0;
+}
+
+#geo_map_no_data img {
+	display:block;
+	margin:0 auto;
+	opacity: .25;
+	max-width:100%;
+}
+
+#geo_map_no_data_overlay {
+	background: #333;
+	opacity: .25;
+}
+
+
+.geo_map_no_data_error {
+	position: absolute;
+    top: 87%;
+    left: 40%;
+	padding: 0 1em;
+    margin-top: -25px;
+    margin-left: -50px;
+}
+
+/* Profile Section Styles */
+.profile_section {
+	display:inline-block;
+	width:100%;
+	margin: 0 0 1em 0;
+	width: 100%;
+}
+
+	.profile_section .profile_information {
+		display:inline-block;
+		width: 100%;
+		float:left;
+	}
+	
+	.profile_section .profile_information .profile_info_span {
+		float:left;
+		margin: 0 1em;
+		width:15%;
+	}
+	
+	.profile_section .profile_information .profile_info_span:first-child {
+		margin-left: 0 !important;
+	}
+
+/* Account Overview Styles */
+
+#yks-mc-account-activated {
+			display:block;
+			margin:0 auto;
+			height:35px;
+			width:35px;
+			border-radius:50%;
+			background:rgba(52, 233, 52, 0.63);
+		}
+
+#yks-mc-account-not-activated {
+			display:block;
+			margin:0 auto;
+			height:35px;
+			width:35px;
+			border-radius:50%;
+			background:rgba(233, 59, 52, 0.63);
+		}
+	
+/** Admin Break Points **/
+
+@media only screen and (max-width: 1175px) {
+		
+	/* Opened, Clicked, Unsubscribed etc. sats boxes */
+	#opened_clicked_bounced_unsubscribed .yks_mc_ocbu {
+		width: 50% !important;
+	}
+	
+	#opened_clicked_bounced_unsubscribed a:first-child .yks_mc_ocbu {
+		border-bottom-left-radius: 0 !important;
+	}
+	
+	#opened_clicked_bounced_unsubscribed .yks_mc_ocbu:nth-child(2) {
+		border-top-right-radius: 10px;
+	}
+	
+	#opened_clicked_bounced_unsubscribed a .yks_mc_bounced_data {
+		border-bottom-left-radius: 10px !important;
+	}
+	
+	#opened_clicked_bounced_unsubscribed a:last-child .yks_mc_ocbu {
+		border-bottom-right-radius: 10px;
+		border-top-right-radius: 0 !important;
+	}
+	
+}
+
+
+/*		Print Stylesheet		*/
+/**************************/
+
+
+@media print
+{    
+	
+	html, body.mailchimp-forms_page_yks-mailchimp-my-mailchimp #wpwrap, body.mailchimp-forms_page_yks-mailchimp-my-mailchimp #wpbody-content {
+		background:white;
+	}
+
+	/* Main Content Body */
+	#wpcontent, .centered_container {
+		margin-left: 0 !important;
+		width: 100% !important;
+	}
+
+    .yks-mc-no-print
+    {
+        display: none !important;
+    }
+	
+	.overview-info-container .overview_information {
+		width: 45%;
+		margin: 1% 1% 0 0;
+	}
+	
+	#opened_clicked_bounced_unsubscribed, #opened_clicked_bounced_unsubscribed .centered_container {
+		width: 100% !important;
+		display:block;
+		margin:0 auto;
+	}
+
+	
+}

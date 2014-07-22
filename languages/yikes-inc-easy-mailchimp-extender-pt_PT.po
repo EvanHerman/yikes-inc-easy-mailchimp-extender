@@ -1,243 +1,328 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: Yikes Inc. Easy MailChimp Plugin\n"
-"POT-Creation-Date: 2014-04-23 14:32-0500\n"
-"PO-Revision-Date: 2014-04-23 14:52-0500\n"
-"Last-Translator: Evan <evan.m.herman@gmail.com>\n"
+"POT-Creation-Date: 2014-07-22 13:13-0500\n"
+"PO-Revision-Date: 2014-07-22 13:13-0500\n"
+"Last-Translator: Evan <Evan@yikesinc.com>\n"
 "Language-Team: Yikes Inc. <evan@yikesinc.com>\n"
-"Language: pt\n"
+"Language: en\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Poedit 1.6.4\n"
+"X-Generator: Poedit 1.6.6\n"
 "X-Poedit-Basepath: .\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "X-Poedit-KeywordsList: __;_e\n"
 "X-Poedit-SearchPath-0: ../.\n"
 
-#: .././classes/class.yksemeBase.php:114
-#: .././classes/class.yksemeBase.php:1287
+#: .././classes/class.yksemeBase.php:130
+#: .././classes/class.yksemeBase.php:1456
 msgid "Thank You for subscribing!"
 msgstr "Obrigado por subscrever!"
 
-#: .././classes/class.yksemeBase.php:115
-#: .././classes/class.yksemeBase.php:1288
+#: .././classes/class.yksemeBase.php:131
+#: .././classes/class.yksemeBase.php:1457
 msgid ""
 "Thank You for subscribing! Check your email for the confirmation message."
 msgstr ""
 "Obrigado por subscrever! Verifique seu e-mail para a mensagem de confirmação."
 
-#: .././classes/class.yksemeBase.php:116
+#: .././classes/class.yksemeBase.php:132
 msgid "Select Your Area of Interest"
 msgstr "Selecione sua área de interesse"
 
-#: .././classes/class.yksemeBase.php:917
+#: .././classes/class.yksemeBase.php:824
+msgid "Create a Form For This List"
+msgstr "Criar um formulário para esta lista"
+
+#: .././classes/class.yksemeBase.php:826
+msgid ""
+"Error - No Lists Found On Your Account. Please create at least one list on "
+"your MailChimp account."
+msgstr ""
+"Erro - Não há listas detectados na sua conta. Por favor, crie pelo menos uma "
+"lista em sua conta MailChimp."
+
+#: .././classes/class.yksemeBase.php:900
+msgid "All Lists"
+msgstr "Suas listas"
+
+#: .././classes/class.yksemeBase.php:1046
+#: .././classes/class.yksemeBase.php:1072
+msgid " subscribers"
+msgstr "Notas Assinante"
+
+#: .././classes/class.yksemeBase.php:1047
 msgid "Click on a subscriber to see further information"
 msgstr "Clique em um assinante para ver mais informações"
 
-#: .././classes/class.yksemeBase.php:920
+#: .././classes/class.yksemeBase.php:1052
+#: .././classes/class.yksemeBase.php:1696
+#: .././classes/class.yksemeBase.php:1880
+#: .././classes/class.yksemeBase.php:1983
+#: .././classes/class.yksemeBase.php:2085
 msgid "E-Mail"
 msgstr "E-Mail"
 
-#: .././classes/class.yksemeBase.php:921
+#: .././classes/class.yksemeBase.php:1053
 msgid "Date Subscribed"
 msgstr "Data subscrito"
 
-#: .././classes/class.yksemeBase.php:941
+#: .././classes/class.yksemeBase.php:1074
 msgid "Sorry You Don't Currently Have Any Subscribers In This List!"
 msgstr "Desculpe Você não possuímos nenhuma Inscritos nesta lista!"
 
-#: .././classes/class.yksemeBase.php:998
+#: .././classes/class.yksemeBase.php:1131
 msgid "Back to Subscriber List"
 msgstr "Voltar para lista de assinantes"
 
-#: .././classes/class.yksemeBase.php:999
+#: .././classes/class.yksemeBase.php:1132
 msgid "Subscriber Details"
 msgstr "Detalhes Assinante"
 
-#: .././classes/class.yksemeBase.php:1010
+#: .././classes/class.yksemeBase.php:1143
+#: .././templates/mailChimp-campaign-report.php:335
 msgid "Overview"
-msgstr "visão global"
+msgstr "Visão Geral"
 
-#: .././classes/class.yksemeBase.php:1015
+#: .././classes/class.yksemeBase.php:1148
+#: .././classes/class.yksemeBase.php:1697
+#: .././classes/class.yksemeBase.php:1882
+#: .././classes/class.yksemeBase.php:1984
+#: .././classes/class.yksemeBase.php:2086
 msgid "First Name"
 msgstr "Nome"
 
-#: .././classes/class.yksemeBase.php:1018
+#: .././classes/class.yksemeBase.php:1151
 msgid "Last Updated"
 msgstr "Última Atualização"
 
-#: .././classes/class.yksemeBase.php:1021
+#: .././classes/class.yksemeBase.php:1154
 msgid "Preferred Email Type"
-msgstr "Preferencial Email Tipo"
+msgstr "Seleccionados Email Tipo"
 
-#: .././classes/class.yksemeBase.php:1028
+#: .././classes/class.yksemeBase.php:1161
+#: .././classes/class.yksemeBase.php:1698
+#: .././classes/class.yksemeBase.php:1883
+#: .././classes/class.yksemeBase.php:1985
+#: .././classes/class.yksemeBase.php:2087
 msgid "Last Name"
-msgstr "Sobrenome"
+msgstr "Apelido"
 
-#: .././classes/class.yksemeBase.php:1031
+#: .././classes/class.yksemeBase.php:1164
 msgid "Language"
-msgstr "Língua"
+msgstr "Idioma"
 
-#: .././classes/class.yksemeBase.php:1054
+#: .././classes/class.yksemeBase.php:1191
 msgid "Groups Subscribed To"
 msgstr "Grupos subscrito"
 
-#: .././classes/class.yksemeBase.php:1104
+#: .././classes/class.yksemeBase.php:1241
 msgid "Subscriber Notes"
 msgstr "Notas Assinante"
 
-#: .././classes/class.yksemeBase.php:1109
+#: .././classes/class.yksemeBase.php:1246
 msgid "Written by"
-msgstr "escrito por"
+msgstr "Escrito por"
 
-#: .././classes/class.yksemeBase.php:1109
+#: .././classes/class.yksemeBase.php:1246
 msgid "Created on"
 msgstr "Criado em"
 
-#: .././classes/class.yksemeBase.php:1251
-#: .././classes/class.yksemeBase.php:1253
+#: .././classes/class.yksemeBase.php:1409
+#: .././classes/class.yksemeBase.php:1411
 msgid "MailChimp Forms"
 msgstr "Formas MailChimp"
 
-#: .././classes/class.yksemeBase.php:1253
+#: .././classes/class.yksemeBase.php:1411
 msgid "MailChimp Settings"
 msgstr "Configurações MailChimp"
 
-#: .././classes/class.yksemeBase.php:1254
+#: .././classes/class.yksemeBase.php:1414 .././pages/myMailChimp.php:77
+msgid "My MailChimp"
+msgstr "Formas MailChimp"
+
+#: .././classes/class.yksemeBase.php:1416
 msgid "Manage List Forms"
 msgstr "Gerenciar Lista de Formas"
 
-#: .././classes/class.yksemeBase.php:1255 .././pages/about.php:5
+#: .././classes/class.yksemeBase.php:1417 .././pages/about.php:5
 msgid "About YIKES, Inc."
 msgstr "Sobre YIKES, Inc."
 
-#: .././classes/class.yksemeBase.php:1430
+#: .././classes/class.yksemeBase.php:1699
+#: .././classes/class.yksemeBase.php:1884
+#: .././classes/class.yksemeBase.php:1986
+#: .././classes/class.yksemeBase.php:2088
+msgid "Member Rating"
+msgstr "Classificação Membro"
+
+#: .././classes/class.yksemeBase.php:1700
+msgid "Last Changed"
+msgstr "Última Atualização"
+
+#: .././classes/class.yksemeBase.php:1856
+#: .././templates/mailChimp-campaign-report.php:515
+msgid "Unique Opens"
+msgstr "Abre exclusivos"
+
+#: .././classes/class.yksemeBase.php:1858
+#: .././templates/mailChimp-campaign-stats-template.php:369
+msgid "Total Opens"
+msgstr "Total de Opens"
+
+#: .././classes/class.yksemeBase.php:1881
+#: .././templates/mailChimp-campaign-click-geo-map.php:134
+msgid "Opens"
+msgstr "Abre"
+
+#: .././classes/class.yksemeBase.php:1961
+msgid "Total Bounced Emails"
+msgstr "Total de e-mails devolvidos"
+
+#: .././classes/class.yksemeBase.php:2063
+msgid "Total Unsubscribes"
+msgstr "Data subscrito"
+
+#: .././classes/class.yksemeBase.php:2089
+msgid "Reason"
+msgstr "Razão"
+
+#: .././classes/class.yksemeBase.php:2438
 msgid "One or more fields are empty"
 msgstr "Um ou mais campos estão vazios"
 
-#: .././classes/class.yksemeBase.php:1480
+#: .././classes/class.yksemeBase.php:2490
 msgid "Your List Was Successfully Saved!"
 msgstr "Sua Lista de sucesso foi salva!"
 
-#: .././classes/class.yksemeBase.php:1482
+#: .././classes/class.yksemeBase.php:2493
+msgid "Your settings were not saved (or you did not change them)."
+msgstr "Suas configurações não foram salvas (ou você não alterá-los)."
+
+#: .././classes/class.yksemeBase.php:2495
 msgid "I'm sorry there was an error with your request."
 msgstr "Lamento que houve um erro com seu pedido."
 
-#: .././classes/class.yksemeBase.php:1488
+#: .././classes/class.yksemeBase.php:2501
 msgid "MailChimp List name"
 msgstr "Nome da lista MailChimp"
 
-#: .././classes/class.yksemeBase.php:1494
-#: .././classes/class.yksemeBase.php:1504
+#: .././classes/class.yksemeBase.php:2507
+#: .././classes/class.yksemeBase.php:2517
 #, php-format
 msgid "%1$s"
 msgstr "%1$s"
 
-#: .././classes/class.yksemeBase.php:1512
+#: .././classes/class.yksemeBase.php:2525
 msgid "MailChimp List ID"
 msgstr "MailChimp Lista ID"
 
-#: .././classes/class.yksemeBase.php:1518
+#: .././classes/class.yksemeBase.php:2531
 msgid "Shortcode"
 msgstr "Shortcode"
 
-#: .././classes/class.yksemeBase.php:1521
+#: .././classes/class.yksemeBase.php:2534
 msgid ""
 "Paste this shortcode into whatever page or post you want to add this form to"
 msgstr ""
 "Cole este shortcode em qualquer página ou post que você quiser adicionar "
 "este formulário para"
 
-#: .././classes/class.yksemeBase.php:1526
+#: .././classes/class.yksemeBase.php:2539
 msgid "PHP Snippet"
 msgstr "Trecho de PHP"
 
-#: .././classes/class.yksemeBase.php:1529
+#: .././classes/class.yksemeBase.php:2543
 msgid "Use this code to add this form to a template file"
 msgstr ""
 "Use este código para adicionar este formulário para um arquivo de modelo"
 
-#: .././classes/class.yksemeBase.php:1534
+#: .././classes/class.yksemeBase.php:2548
 msgid "Number of Subscribers"
 msgstr "Número de Assinantes"
 
-#: .././classes/class.yksemeBase.php:1543
+#: .././classes/class.yksemeBase.php:2557
 msgid "Form Fields"
 msgstr "Campos de formulário"
 
-#: .././classes/class.yksemeBase.php:1545
+#: .././classes/class.yksemeBase.php:2559
 msgid ""
 "Check the fields you want included in your form (Email Address is required)."
 msgstr ""
 "Verifique os campos que deseja incluir na sua forma (é necessária endereço "
 "de email)."
 
-#: .././classes/class.yksemeBase.php:1548
+#: .././classes/class.yksemeBase.php:2562
 msgid ""
 "Use the green arrows to drag-and-drop the fields and rearrange their order."
 msgstr ""
 "Use as setas verdes para arrastar e soltar os campos e reorganizar a ordem."
 
-#: .././classes/class.yksemeBase.php:1554
+#: .././classes/class.yksemeBase.php:2568
 msgid "Active Fields"
 msgstr "Campos Ativos"
 
-#: .././classes/class.yksemeBase.php:1563
+#: .././classes/class.yksemeBase.php:2577
 msgid "Drag"
 msgstr "Arrasto"
 
-#: .././classes/class.yksemeBase.php:1563
+#: .././classes/class.yksemeBase.php:2577
 msgid "drop"
 msgstr "cair"
 
-#: .././classes/class.yksemeBase.php:1568
+#: .././classes/class.yksemeBase.php:2582
 msgid "Merge field"
 msgstr "Campo de mesclagem"
 
-#: .././classes/class.yksemeBase.php:1569
+#: .././classes/class.yksemeBase.php:2583
 msgid "Placeholder"
 msgstr "Espaço reservado"
 
-#: .././classes/class.yksemeBase.php:1577
+#: .././classes/class.yksemeBase.php:2591
 msgid "Redirect User On Submission"
 msgstr "Redirecionar usuário mediante a apresentação"
 
-#: .././classes/class.yksemeBase.php:1581
+#: .././classes/class.yksemeBase.php:2595
 msgid "choose a page to redirect the user to after they submit the form."
 msgstr ""
-"escolher uma página ou definir uma URL personalizada para redirecionar o "
-"usuário para depois enviar o formulário."
+"escolher uma página para redirecionar o usuário para depois de enviar o "
+"formulário."
 
-#: .././classes/class.yksemeBase.php:1584
+#: .././classes/class.yksemeBase.php:2598
 msgid "Select A Post/Page"
 msgstr "Selecione Um Post / Página"
 
-#: .././classes/class.yksemeBase.php:1638
+#: .././classes/class.yksemeBase.php:2655
 msgid "Save Form Settings"
-msgstr "Gerenciar Configurações MailChimp Formulários"
+msgstr "Salvar configurações de formulário"
 
-#: .././classes/class.yksemeBase.php:1639
+#: .././classes/class.yksemeBase.php:2656
 msgid "Delete Form"
 msgstr "Excluir Form"
 
-#: .././classes/class.yksemeBase.php:1640
+#: .././classes/class.yksemeBase.php:2657
 msgid "Re-Import Form Fields from MailChimp"
-msgstr "Por favor, importar algumas listas de MailChimp"
+msgstr "Re-Import campos de formulário a partir de MailChimp"
 
-#: .././classes/class.yksemeBase.php:2168
+#: .././classes/class.yksemeBase.php:2862
+#: .././classes/class.yksemeBase.php:2976
+msgid "reCAPTCHA API Key Error. Please double check your API Keys."
+msgstr "reCAPTCHA API erro Key. Por favor, verifique suas chaves de API."
+
+#: .././classes/class.yksemeBase.php:3252
 msgid "Sign Me Up For MAILCHIMP-REPLACE-THIS-TEXT's Newsletter"
 msgstr "Sign Me Up For Boletim do MailChimp-REPLACE-THIS-TEXT"
 
-#: .././pages/about.php:27
+#: .././pages/about.php:42
 msgid "YIKES, Inc. Web Design and Development"
 msgstr "YIKES, Inc. Web Design e Desenvolvimento"
 
-#: .././pages/about.php:29
+#: .././pages/about.php:44
 msgid "Smart, effective, beautifully designed web solutions"
-msgstr "Soluções inteligentes e eficazes, muito bem desenhados web"
+msgstr "Soluções inteligentes, eficazes, muito bem desenhados web"
 
-#: .././pages/about.php:32
+#: .././pages/about.php:47
 msgid ""
 "YIKES is located in the Fishtown neighborhood of Philadelphia where we build "
 "custom WordPress themes and plugins every day."
@@ -245,7 +330,7 @@ msgstr ""
 "YIKES está localizado no bairro de Fishtown de Filadélfia, onde vamos "
 "construir personalizado WordPress temas e plugins a cada dia."
 
-#: .././pages/about.php:36
+#: .././pages/about.php:51
 msgid ""
 "At YIKES we love WordPress! Co-Owner, Tracy Levesque has presented at "
 "WordCamps"
@@ -253,15 +338,15 @@ msgstr ""
 "No YIKES amamos WordPress! Co-proprietário, Tracy Levesque tem se "
 "apresentado em WordCamps"
 
-#: .././pages/about.php:36
+#: .././pages/about.php:51
 msgid "and"
 msgstr "e"
 
-#: .././pages/about.php:36
+#: .././pages/about.php:51
 msgid "She also teaches WordPress classes for"
 msgstr "Ela também dá aulas para WordPress"
 
-#: .././pages/about.php:40
+#: .././pages/about.php:55
 msgid ""
 "In addition to making great WordPress sites we are also committed to the "
 "sustainable business movement. We observe the triple bottom line: people, "
@@ -271,13 +356,13 @@ msgstr ""
 "Além de fazer grandes sites WordPress também estamos comprometidos com o "
 "movimento de negócios sustentáveis. Observamos o triple bottom line: "
 "pessoas, planeta, lucro e trabalho para ajudar a construir uma economia "
-"local mais social, ambiental e financeiramente sustentável. Temos até um"
+"local mais social, ambiental e economicamente sustentável. Temos até um"
 
-#: .././pages/about.php:40
+#: .././pages/about.php:55
 msgid "LEED Platinum office"
 msgstr "LEED Platinum escritório"
 
-#: .././pages/about.php:44
+#: .././pages/about.php:59
 msgid ""
 "If you're interested in hiring us for WordPress development, or just want to "
 "learn more about us, please visit"
@@ -285,97 +370,154 @@ msgstr ""
 "Se você estiver interessado em contratar-nos para o desenvolvimento do "
 "WordPress, ou apenas quer saber mais sobre nós, visite"
 
-#: .././pages/lists.php:8
-msgid "No forms have been added yet."
-msgstr "Nenhuma forma foi adicionado ainda."
-
-#: .././pages/lists.php:39
+#: .././pages/lists.php:56
 msgid "Oops.. The list ID you entered appears to be incorrect."
 msgstr "Opa .. O ID de lista que introduziu parece estar incorreto."
 
-#: .././pages/lists.php:44
+#: .././pages/lists.php:70
 msgid "There was an error!"
 msgstr "Houve um erro!"
 
-#: .././pages/lists.php:135
+#: .././pages/lists.php:161
 msgid "You need to select a Mailchimp list in order to create a form for it"
 msgstr ""
 "Você precisa selecionar uma lista Mailchimp, a fim de criar um formulário "
 "para ele"
 
-#: .././pages/lists.php:173
+#: .././pages/lists.php:220
 msgid "Are you sure you want to delete this form?"
 msgstr "Tem certeza de que deseja excluir este formulário?"
 
-#: .././pages/lists.php:206
-msgid "Are you sure you want to re-import your fields from MailChimp?"
-msgstr "Tem certeza de que quer voltar a importar os seus campos de MailChimp?"
+#: .././pages/lists.php:263
+msgid ""
+"Are you sure you want to re-import this form and its fields from MailChimp?"
+msgstr ""
+"Tem certeza de que quer voltar a importar este formulário e seus campos de "
+"MailChimp?"
 
-#: .././pages/lists.php:228
-msgid "Looks like this form is already up to date!"
+#: .././pages/lists.php:284
+msgid "Your MailChimp form"
+msgstr "Formas MailChimp"
+
+#: .././pages/lists.php:284
+msgid " was successfully updated"
+msgstr " foi atualizado com sucesso"
+
+#: .././pages/lists.php:298
+msgid "It looks like this form is already up to date!"
 msgstr "Parece que este formulário já está atualizado!"
 
-#: .././pages/lists.php:326
+#: .././pages/lists.php:423
 msgid "Are you sure you want to unsubscribe"
 msgstr "Tem certeza de que deseja cancelar a inscrição"
 
-#: .././pages/lists.php:326
+#: .././pages/lists.php:423
 msgid "from this list?"
 msgstr "desta lista?"
 
-#: .././pages/lists.php:342
+#: .././pages/lists.php:439
 msgid "was successfully unsubscribed from this list."
 msgstr "foi não subscritas com sucesso a partir dessa lista."
 
-#: .././pages/lists.php:448 .././pages/options.php:196
-#: .././pages/options.php:416
+#: .././pages/lists.php:549 .././pages/myMailChimp.php:74
+#: .././pages/options.php:354 .././pages/options.php:707
 msgid "Easy Mailchimp Forms by YIKES, Inc."
 msgstr "Fácil MailChimp Formas de YIKES, Inc."
 
-#: .././pages/lists.php:454
+#: .././pages/lists.php:555
 msgid "Before you can add MailChimp forms to your site, you need to"
 msgstr ""
 "Antes que você pode adicionar formas MailChimp para o seu site, você precisa"
 
-#: .././pages/lists.php:454
+#: .././pages/lists.php:555
 msgid "go to the MailChimp Settings page"
 msgstr "ir para a página Configurações MailChimp"
 
-#: .././pages/lists.php:454 .././templates/yikes-mailchimp-widget.php:156
+#: .././pages/lists.php:555 .././templates/yikes-mailchimp-widget.php:156
 msgid "and add your API Key."
 msgstr "e adicionar a sua chave de API."
 
-#: .././pages/lists.php:462
+#: .././pages/lists.php:563
 msgid "You must enter a valid API key to import and manage your lists."
 msgstr ""
 "Você deve digitar uma chave de API válida para importar e gerenciar suas "
 "listas."
 
-#: .././pages/lists.php:473
+#: .././pages/lists.php:574
 msgid "Your Lists"
 msgstr "Suas listas"
 
-#: .././pages/lists.php:483
+#: .././pages/lists.php:583
 msgid "Manage Forms"
 msgstr "Gerenciar formulários"
 
-#: .././pages/options.php:41
+#: .././pages/myMailChimp.php:48 .././pages/options.php:326
+msgid "Need Help?"
+msgstr "Precisa de Ajuda?"
+
+#: .././pages/myMailChimp.php:49 .././pages/options.php:327
+msgid "Get In Contact!"
+msgstr "Entrar em contato!"
+
+#: .././pages/myMailChimp.php:57 .././pages/options.php:335
+msgid "Loving the plugin?"
+msgstr "Amar o plugin?"
+
+#: .././pages/myMailChimp.php:58 .././pages/options.php:336
+msgid "Leave us a nice review"
+msgstr "Deixe-nos um comentário agradável"
+
+#: .././pages/myMailChimp.php:78
+msgid ""
+"Here you will find recent activity for your MailChimp account, as well as "
+"statistics for lists and campaigns."
+msgstr ""
+"Aqui você vai encontrar a atividade recente de sua conta MailChimp, bem como "
+"estatísticas de listas e campanhas."
+
+#: .././pages/myMailChimp.php:83
+msgid "Account Overview"
+msgstr "Visão Geral"
+
+#: .././pages/myMailChimp.php:84
+msgid "Account Activity"
+msgstr "Account Activity"
+
+#: .././pages/myMailChimp.php:85
+msgid "List Statistics"
+msgstr "Lista de Estatísticas"
+
+#: .././pages/myMailChimp.php:173
+msgid "Recent Activity"
+msgstr "Atividade recente"
+
+#: .././pages/myMailChimp.php:207
+msgid "Growth History"
+msgstr "História crescimento"
+
+#: .././pages/myMailChimp.php:208
+msgid "Campaign Stats"
+msgstr "Estatísticas da campanha"
+
+#: .././pages/options.php:54 .././pages/options.php:86
+#: .././pages/options.php:118
 msgid "The options were saved successfully!"
 msgstr "As opções foram salvas com sucesso!"
 
-#: .././pages/options.php:44
+#: .././pages/options.php:57 .././pages/options.php:89
+#: .././pages/options.php:121
 msgid "The options could not be saved (or you did not change them)."
 msgstr "As opções não poderiam ser salvos (ou você não alterá-los)."
 
-#: .././pages/options.php:96
+#: .././pages/options.php:176
 msgid "Valid API Key"
 msgstr "API Key Válido"
 
-#: .././pages/options.php:102
+#: .././pages/options.php:182
 msgid "Sorry, that is an invalid MailChimp API key."
 msgstr "Desculpe, que é uma chave de API MailChimp inválido."
 
-#: .././pages/options.php:108
+#: .././pages/options.php:189
 msgid ""
 "Sorry, that is an invalid MailChimp API key. Please check the console for "
 "further information."
@@ -383,19 +525,43 @@ msgstr ""
 "Desculpe, que é uma chave de API MailChimp inválido. Por favor, verifique o "
 "console para mais informações."
 
-#: .././pages/options.php:117
+#: .././pages/options.php:199
 msgid "Error: Please enter a valid Mail Chimp API Key."
 msgstr "Erro: Por favor insira um email Chimp API chave válida."
 
-#: .././pages/options.php:199
+#: .././pages/options.php:217
+msgid ""
+"Are you sure you want to reset your MailChimp settings? This cannot be "
+"undone."
+msgstr ""
+"Tem certeza de que deseja redefinir as configurações do MailChimp? Isso não "
+"pode ser desfeita."
+
+#: .././pages/options.php:230
+msgid "MailChimp settings have successfully been reset"
+msgstr "Configurações MailChimp foram redefinida com êxito"
+
+#: .././pages/options.php:348
+msgid "Form Options"
+msgstr "Opções de Formulário"
+
+#: .././pages/options.php:349
+msgid "ReCaptcha Options"
+msgstr "Opções reCAPTCHA"
+
+#: .././pages/options.php:350
+msgid "Debug Options"
+msgstr "Opções de depuração"
+
+#: .././pages/options.php:361
 msgid "Manage Mailchimp Forms Settings"
 msgstr "Gerenciar Configurações MailChimp Formulários"
 
-#: .././pages/options.php:205
+#: .././pages/options.php:367
 msgid "WordPress Version Number Error"
-msgstr "Versão Wordpress"
+msgstr "WordPress Versão Número de erro"
 
-#: .././pages/options.php:206
+#: .././pages/options.php:368
 msgid ""
 "We're sorry, but it looks like your using an outdated version of WordPress. "
 "You won't be able to access the tinyMCE button to insert forms into pages "
@@ -406,37 +572,40 @@ msgstr ""
 "formulários em páginas e posts a menos que você atualizar para 3.9 ou "
 "posterior."
 
-#: .././pages/options.php:215
+#: .././pages/options.php:377
 msgid "LocalHost Detected :"
 msgstr "LocalHost detectado:"
 
-#: .././pages/options.php:216
+#: .././pages/options.php:378
 msgid ""
 "It looks like your using Easy MailChimp Forms by YIKES Inc. on localhost."
-msgstr "Fácil MailChimp Formas de YIKES, Inc."
+msgstr ""
+"Parece que o seu usando formulários Fácil MailChimp por YIKES Inc. em "
+"localhost."
 
-#: .././pages/options.php:217
+#: .././pages/options.php:379
 msgid ""
 "If you are unable to validate your API key, and receive the error message"
 msgstr ""
 "Se você não conseguir validar a sua chave de API, e receber a mensagem de "
 "erro"
 
-#: .././pages/options.php:217
-msgid "\"SSL certificate problem: unable to get local issuer certificate\" "
+#: .././pages/options.php:379
+#, fuzzy
+msgid "SSL certificate problem: unable to get local issuer certificate"
 msgstr ""
 "\"Problema de certificado SSL: não foi possível obter certificado do emissor "
 "local,\" "
 
-#: .././pages/options.php:217
+#: .././pages/options.php:379
 msgid "follow the tutorial located "
 msgstr "siga o tutorial localizado "
 
-#: .././pages/options.php:230
+#: .././pages/options.php:389
 msgid "Your Mailchimp API Key"
 msgstr "Seu Mailchimp API chave"
 
-#: .././pages/options.php:238
+#: .././pages/options.php:406
 msgid ""
 "Please enter your MailChimp API Key above. The API Key allows your WordPress "
 "site to communicate with your MailChimp account."
@@ -444,63 +613,41 @@ msgstr ""
 "Por favor, digite a sua chave de API MailChimp acima. A chave API permite "
 "que o seu site WordPress para se comunicar com a sua conta MailChimp."
 
-#: .././pages/options.php:239
+#: .././pages/options.php:407
 msgid "For more help, visit the MailChimp Support article"
 msgstr "Para obter mais ajuda, visite o artigo Suporte MailChimp"
 
-#: .././pages/options.php:239
+#: .././pages/options.php:407
 msgid "Where can I find my API Key?"
 msgstr "Onde posso encontrar a minha chave de API?"
 
-#: .././pages/options.php:244
+#: .././pages/options.php:412
 msgid "Preferred Form Layout"
 msgstr "Seleccionados layout do formulário"
 
-#: .././pages/options.php:247
+#: .././pages/options.php:415
 msgid "table"
 msgstr "mesa"
 
-#: .././pages/options.php:248
+#: .././pages/options.php:416
 msgid "div"
 msgstr "div"
 
-#: .././pages/options.php:256
+#: .././pages/options.php:424
 msgid "Choose whether you want your forms to use a table or div layout."
 msgstr ""
 "Escolha se você quer que seus formulários para usar uma tabela ou o layout "
 "div."
 
-#: .././pages/options.php:261
-msgid "Advanced Error Messaging"
-msgstr "Erro avançada Messaging"
-
-#: .././pages/options.php:264
-msgid "Disabled"
-msgstr "Desactivado "
-
-#: .././pages/options.php:265
-msgid "Enabled"
-msgstr "Ativo"
-
-#: .././pages/options.php:273
-msgid ""
-"Enable if you're having problems with your forms sending data to MailChimp. "
-"Enabling Advanced Error Messaging will show you the exact error codes "
-"MailChimp is returning."
-msgstr ""
-"Ativar se você está tendo problemas com seus formulários a enviar dados para "
-"MailChimp. Ativando Mensagens de erro avançada irá mostrar-lhe os códigos de "
-"erro exatas MailChimp está retornando."
-
-#: .././pages/options.php:281
+#: .././pages/options.php:432
 msgid "Single Opt-In"
 msgstr "Único Opt-In"
 
-#: .././pages/options.php:282
+#: .././pages/options.php:433
 msgid "Double Opt-In"
 msgstr "Duplo Opt-In"
 
-#: .././pages/options.php:290
+#: .././pages/options.php:441
 msgid ""
 "A single opt-in will add the user to your list without any further "
 "interaction."
@@ -508,7 +655,7 @@ msgstr ""
 "Um único opt-in irá adicionar o usuário à sua lista, sem qualquer outra "
 "interação."
 
-#: .././pages/options.php:291
+#: .././pages/options.php:442
 msgid ""
 "A double opt-in will send an email to the user asking them to confirm their "
 "subscription."
@@ -516,29 +663,33 @@ msgstr ""
 "Um double opt-in irá enviar um e-mail para o usuário pedindo-lhes para "
 "confirmar a sua inscrição."
 
-#: .././pages/options.php:292
+#: .././pages/options.php:443
 msgid "This will also dictate the opt-in settings for people leaving comments."
 msgstr ""
 "Isso também irá ditar as configurações de opt-in para as pessoas deixando "
 "comentários."
 
-#: .././pages/options.php:297
+#: .././pages/options.php:448
 msgid "Custom Opt-In Message"
 msgstr "Personalizado Opt-In Mensagem"
 
-#: .././pages/options.php:299
+#: .././pages/options.php:450
 msgid "Double Opt-In Message"
 msgstr "Duplo Opt-In Mensagem"
 
-#: .././pages/options.php:301
+#: .././pages/options.php:454
 msgid "Single Opt-In Message"
 msgstr "Opt-In Mensagem Única"
 
-#: .././pages/options.php:307
+#: .././pages/options.php:464
+msgid "Note: You can include html markup in your confirmation message."
+msgstr "Nota: Você pode incluir marcação HTML em sua mensagem de confirmação."
+
+#: .././pages/options.php:469
 msgid "Interest Group Label"
 msgstr "Label Group juros"
 
-#: .././pages/options.php:316
+#: .././pages/options.php:478
 msgid ""
 "Text to display above interest groups. Leave blank to use MailChimp interest "
 "group names."
@@ -546,19 +697,19 @@ msgstr ""
 "Texto a ser exibido acima grupos de interesse. Deixe em branco para usar "
 "nomes de grupos de interesse MailChimp."
 
-#: .././pages/options.php:321
+#: .././pages/options.php:483
 msgid "Display opt-in checkbox on comment forms?"
 msgstr "Mostrar opt-in caixa de seleção sobre as formas de comentário?"
 
-#: .././pages/options.php:324
+#: .././pages/options.php:486
 msgid "Hide"
 msgstr "Esconder"
 
-#: .././pages/options.php:325
+#: .././pages/options.php:487
 msgid "Show"
 msgstr "Mostrar"
 
-#: .././pages/options.php:333
+#: .././pages/options.php:495
 msgid ""
 "This will display a checkbox just above the submit button on all comment "
 "forms. If selected, any users leaving comments will also be added to the "
@@ -568,22 +719,22 @@ msgstr ""
 "formas de comentário. Se for selecionado, todos os usuários que deixam "
 "comentários também será adicionado à lista de discussão."
 
-#: .././pages/options.php:338
+#: .././pages/options.php:500
 msgid "Custom Comment Checkbox Text"
 msgstr "Personalizado Comentário Caixa de seleção de texto"
 
-#: .././pages/options.php:345
+#: .././pages/options.php:507
 msgid "Default List"
 msgstr "Lista Padrão"
 
-#: .././pages/options.php:360
+#: .././pages/options.php:522
 msgid ""
 "This is the default list users will be subscribed to when submitting a "
 "comment."
 msgstr ""
 "Esta é a lista de usuários padrão serão subscritas ao enviar um comentário."
 
-#: .././pages/options.php:361
+#: .././pages/options.php:523
 msgid ""
 "It is best to select a form where only the email , first name and/or last "
 "name are required or you may run into issues."
@@ -591,96 +742,568 @@ msgstr ""
 "É melhor escolher um formulário onde apenas o e-mail, nome e / ou sobrenome "
 "são obrigatórios ou você pode ter problemas."
 
-#: .././pages/options.php:373
+#: .././pages/options.php:528
+msgid "Save Settings"
+msgstr "Salve as configurações"
+
+#: .././pages/options.php:528
+msgid "Reset Plugin Settings"
+msgstr "Redefinir configurações Plug-in"
+
+#: .././pages/options.php:539
+msgid "ReCaptcha Settings"
+msgstr "Configurações reCAPTCHA"
+
+#: .././pages/options.php:540
+msgid ""
+"reCAPTCHA is a free service to protect your website from spam and abuse. "
+"reCAPTCHA uses an advanced risk analysis engine and adaptive CAPTCHAs to "
+"keep automated software from engaging in abusive activities on your site. It "
+"does this while letting your valid users pass through with ease."
+msgstr ""
+"reCAPTCHA é um serviço gratuito para proteger seu site de spam e abuso. "
+"reCAPTCHA usa um motor de análise de risco avançado e CAPTCHAs adaptativos "
+"para manter o software automatizado de se envolver em atividades abusivas em "
+"seu site. Ele faz isso, deixando seus usuários válidos passar com facilidade."
+
+#: .././pages/options.php:542
+msgid "Note"
+msgstr "Nota  "
+
+#: .././pages/options.php:542
+msgid ""
+"if you're displaying multiple forms on a single page, reCAPTCHA will only "
+"display on one form at a time."
+msgstr ""
+"se você está exibindo vários formulários em uma única página, reCAPTCHA só "
+"vai exibir em uma forma de cada vez."
+
+#: .././pages/options.php:549
+msgid "ReCaptcha Spam Protection"
+msgstr "ReCaptcha Spam Proteção"
+
+#: .././pages/options.php:552 .././pages/options.php:635
+msgid "Disabled"
+msgstr "Desactivado "
+
+#: .././pages/options.php:553 .././pages/options.php:636
+msgid "Enabled"
+msgstr "Ativo"
+
+#: .././pages/options.php:561
+msgid "ReCaptcha prevents excessive form entires from spammers and bots."
+msgstr "ReCaptcha impede entires forma excessiva a partir de spammers e bots."
+
+#: .././pages/options.php:569
+msgid "ReCaptcha Public API Key"
+msgstr "ReCaptcha Chave Pública API"
+
+#: .././pages/options.php:577
+msgid "ReCaptcha Private API Key"
+msgstr "ReCaptcha Privada API chave"
+
+#: .././pages/options.php:586
+msgid "to retreive a recaptcha API key, sign up for an account"
+msgstr "recuperá uma chave API recaptcha, se inscrever para uma conta"
+
+#: .././pages/options.php:586
+msgid "here"
+msgstr "aqui"
+
+#: .././pages/options.php:591
+msgid "ReCaptcha Style"
+msgstr "ReCaptcha Estilo"
+
+#: .././pages/options.php:594
+msgid "Default"
+msgstr "Padrão"
+
+#: .././pages/options.php:595
+msgid "White"
+msgstr "Branco"
+
+#: .././pages/options.php:596
+msgid "Black Glass"
+msgstr "Vidro Preto"
+
+#: .././pages/options.php:597
+msgid "Clean"
+msgstr "Limpo"
+
+#: .././pages/options.php:605
+msgid "reCAPTCHA Preview"
+msgstr "reCAPTCHA visualização"
+
+#: .././pages/options.php:624
+msgid "Debug Settings"
+msgstr "Configurações de depuração"
+
+#: .././pages/options.php:632
+msgid "Advanced Error Messaging"
+msgstr "Erro avançada Messaging"
+
+#: .././pages/options.php:644
+msgid ""
+"Enable if you're having problems with your forms sending data to MailChimp. "
+"Enabling Advanced Error Messaging will show you the exact error codes "
+"MailChimp is returning."
+msgstr ""
+"Ativar se você está tendo problemas com seus formulários a enviar dados para "
+"MailChimp. Ativando Mensagens de erro avançada irá mostrar-lhe os códigos de "
+"erro exatas MailChimp está retornando."
+
+#: .././pages/options.php:651
 msgid "Plugin Information"
 msgstr "Informações Plugin"
 
-#: .././pages/options.php:376
+#: .././pages/options.php:654
 msgid "If you experience any issues with our plugin, please"
 msgstr "Se você tiver problemas com o nosso plugin, por favor"
 
-#: .././pages/options.php:376
+#: .././pages/options.php:654
 msgid "submit a New Issue on our Github Issue Tracker"
 msgstr "Enviar um novo problema em nosso Github Issue Tracker"
 
-#: .././pages/options.php:376
+#: .././pages/options.php:654
 msgid ""
 "Please include the information below to help us troubleshoot your problem."
 msgstr ""
 "Por favor, inclua as informações abaixo para ajudar-nos a resolver o seu "
 "problema."
 
-#: .././pages/options.php:384
+#: .././pages/options.php:659
 msgid "Plugin Version"
 msgstr "Versão Plugin"
 
-#: .././pages/options.php:388
+#: .././pages/options.php:663
 msgid "Wordpress Version"
 msgstr "Versão Wordpress"
 
-#: .././pages/options.php:392
+#: .././pages/options.php:667
 msgid "Browser Information"
 msgstr "Information Browser"
 
-#: .././pages/options.php:420
+#: .././pages/options.php:676
+msgid "Server Information"
+msgstr "Information Server"
+
+#: .././pages/options.php:711
 msgid "Error"
 msgstr "Erro "
 
-#: .././pages/options.php:421
+#: .././pages/options.php:712
 msgid ""
 "We're sorry, but cURL is disabled on your server. The MailChimp API utilizes "
-"cURL to send and retreive data."
+"cURL to send and retrieve data."
 msgstr ""
 "Lamentamos, mas cURL está ativado em seu servidor. A API MailChimp utiliza "
-"cURL para enviar e recuperá dados."
+"cURL para enviar e recuperar dados."
 
-#: .././pages/options.php:426
+#: .././pages/options.php:717
 msgid "Help!"
 msgstr "Ajudem!"
 
-#: .././pages/options.php:426
+#: .././pages/options.php:717
 msgid "What is cURL?"
 msgstr "O que é cURL?"
 
-#: .././pages/options.php:426
+#: .././pages/options.php:717
 msgid "Check phpinfo()"
 msgstr "Verifique phpinfo ()"
 
-#: .././pages/options.php:428
+#: .././pages/options.php:719
 msgid "Steps To Resolve The Issue"
 msgstr "Passos para resolver o problema"
 
-#: .././pages/options.php:430
+#: .././pages/options.php:723
 msgid ""
 "You can enable cURL by turning on the cURL module within your php.ini file"
 msgstr "Você pode ativar o cURL ligando o módulo cURL no seu arquivo php.ini"
 
-#: .././pages/options.php:430
+#: .././pages/options.php:723
 msgid "You should find the php.ini file located here : "
 msgstr "Você deve encontrar o arquivo php.ini localizado aqui: "
 
-#: .././pages/options.php:431
+#: .././pages/options.php:724
 msgid ""
 "Once found, open up php.ini and locate the line \";extension=php_curl.dll\"."
 msgstr ""
 "Uma vez encontrado, abrir php.ini e localize a linha \"; extension = "
 "php_curl.dll\"."
 
-#: .././pages/options.php:432
+#: .././pages/options.php:725
 msgid ""
-"Remove the semi colon before the line, to un-comment it and make the module "
-"active."
+"Remove the semi colon before the line, to un-comment it and make the cURL "
+"module active."
 msgstr ""
 "Remova o ponto e vírgula antes da linha, para un comment-lo e fazer o módulo "
-"ativo."
+"cURL ativo."
 
-#: .././pages/options.php:433
+#: .././pages/options.php:726
 msgid "Re-save and close the file."
 msgstr "Re-salve e feche o arquivo."
 
-#: .././pages/options.php:434
-msgid "Re-load this page."
-msgstr "Re-carregar esta página."
+#: .././pages/options.php:727
+msgid "Restart your Apache and MySQL services and re-load this page."
+msgstr "Reinicie seus serviços Apache e MySQL e re-load nesta página."
+
+#: .././templates/mailChimp-account-overview.php:32
+#: .././templates/mailChimp-account-overview.php:79
+msgid "Free Forever"
+msgstr "Free Forever"
+
+#: .././templates/mailChimp-account-overview.php:37
+#: .././templates/mailChimp-account-overview.php:79
+msgid "Pay As You Go"
+msgstr "Pague o Que Gasta"
+
+#: .././templates/mailChimp-account-overview.php:42
+msgid "Premium Chimp"
+msgstr "Prêmio Chimp"
+
+#: .././templates/mailChimp-account-overview.php:70
+msgid "Account Not Yet Activated"
+msgstr "Conta ainda não ativado"
+
+#: .././templates/mailChimp-account-overview.php:70
+msgid "Account Active"
+msgstr "Conta Ativa"
+
+#: .././templates/mailChimp-account-overview.php:73
+msgid "Company"
+msgstr "Empresa"
+
+#: .././templates/mailChimp-account-overview.php:74
+msgid "Member Since"
+msgstr "Membro desde"
+
+#: .././templates/mailChimp-account-overview.php:76
+msgid "Account Type"
+msgstr "Tipo de Conta"
+
+#: .././templates/mailChimp-account-overview.php:82
+msgid "Emails Left"
+msgstr "Emails Esquerda"
+
+#: .././templates/mailChimp-account-overview.php:83
+msgid "Emails will reset on"
+msgstr "Os e-mails irá repor em"
+
+#: .././templates/mailChimp-account-overview.php:89
+msgid "Industry"
+msgstr "De Entretenimento Para Adultos"
+
+#: .././templates/mailChimp-campaign-click-geo-map.php:97
+msgid "Number of Campaign Opens"
+msgstr "Número de campanha Opens"
+
+#: .././templates/mailChimp-campaign-click-geo-map.php:121
+msgid "Campaign Activity Geo Map"
+msgstr "Campanha Atividade Geo Map"
+
+#: .././templates/mailChimp-campaign-click-geo-map.php:127
+msgid "Top Opens By Country"
+msgstr "Top Abre Por País"
+
+#: .././templates/mailChimp-campaign-click-geo-map.php:133
+msgid "Country"
+msgstr "País  "
+
+#: .././templates/mailChimp-campaign-click-report.php:59
+#: .././templates/mailChimp-campaign-click-report.php:71
+msgid "Visualize Me"
+msgstr "Visualize-me"
+
+#: .././templates/mailChimp-campaign-click-report.php:62
+#: .././templates/mailChimp-campaign-click-report.php:74
+msgid "URL"
+msgstr "URL"
+
+#: .././templates/mailChimp-campaign-click-report.php:63
+#: .././templates/mailChimp-campaign-click-report.php:75
+msgid "Clicks"
+msgstr "Cliques"
+
+#: .././templates/mailChimp-campaign-click-report.php:64
+#: .././templates/mailChimp-campaign-click-report.php:76
+msgid "Click Percent"
+msgstr "Clique Percent"
+
+#: .././templates/mailChimp-campaign-click-report.php:65
+#: .././templates/mailChimp-campaign-click-report.php:77
+#: .././templates/mailChimp-campaign-report.php:518
+msgid "Unique Clicks"
+msgstr "Cliques exclusivos"
+
+#: .././templates/mailChimp-campaign-click-report.php:66
+#: .././templates/mailChimp-campaign-click-report.php:78
+msgid "Unique Percent"
+msgstr "Único Percent"
+
+#: .././templates/mailChimp-campaign-click-report.php:81
+msgid "No Links Clicked"
+msgstr "Não há links clicados"
+
+#: .././templates/mailChimp-campaign-clicks-pie-chart.php:15
+msgid "Link Click Percentage - Pie Chart"
+msgstr "Link Clique Porcentagem - Pie Chart"
+
+#: .././templates/mailChimp-campaign-report.php:306
+#: .././templates/mailChimp-campaign-report.php:307
+msgid "Back to Campaigns"
+msgstr "Voltar para Campanhas"
+
+#: .././templates/mailChimp-campaign-report.php:321
+msgid "Campaign Statistics Report"
+msgstr "Campanha Relatório de Estatísticas"
+
+#: .././templates/mailChimp-campaign-report.php:328
+msgid "Open tracking was disabled on this campaign"
+msgstr "Rastreamento Abrir foi desativado nesta campanha"
+
+#: .././templates/mailChimp-campaign-report.php:329
+msgid ""
+"You did not enable open tracking for this campaign, so the data in this "
+"report will be incomplete."
+msgstr ""
+"Você não habilitar o rastreamento aberto para esta campanha, para que os "
+"dados deste relatório será incompleto."
+
+#: .././templates/mailChimp-campaign-report.php:329
+msgid "about open tracking"
+msgstr "acompanhamento sobre aberto"
+
+#: .././templates/mailChimp-campaign-report.php:336
+msgid "Recipients"
+msgstr "Destinatários"
+
+#: .././templates/mailChimp-campaign-report.php:347
+msgid "Subject"
+msgstr "Assunto"
+
+#: .././templates/mailChimp-campaign-report.php:348
+msgid "Delivered"
+msgstr "Entregue"
+
+#: .././templates/mailChimp-campaign-report.php:353
+msgid "View Email"
+msgstr "Ver e-mail"
+
+#: .././templates/mailChimp-campaign-report.php:354
+msgid "Download Report"
+msgstr "Download do Relatório"
+
+#: .././templates/mailChimp-campaign-report.php:355
+msgid "Print Report"
+msgstr "Imprimir relatório"
+
+#: .././templates/mailChimp-campaign-report.php:363
+msgid "Open Rate"
+msgstr "Taxa de Abertura"
+
+#: .././templates/mailChimp-campaign-report.php:369
+#: .././templates/mailChimp-campaign-report.php:381
+msgid "Industry Avg"
+msgstr "Indústria Média"
+
+#: .././templates/mailChimp-campaign-report.php:374
+msgid "Click Rate"
+msgstr "Clique Taxa"
+
+#: .././templates/mailChimp-campaign-report.php:389
+msgid "Opened"
+msgstr "Inaugurado"
+
+#: .././templates/mailChimp-campaign-report.php:394
+msgid "Clicked"
+msgstr "Clicado"
+
+#: .././templates/mailChimp-campaign-report.php:399
+msgid "Bounced"
+msgstr "Saltou"
+
+#: .././templates/mailChimp-campaign-report.php:405
+msgid "Unsubscribed"
+msgstr "Data subscrito"
+
+#: .././templates/mailChimp-campaign-report.php:413
+msgid "Successful deliveries"
+msgstr "Entregas de sucesso"
+
+#: .././templates/mailChimp-campaign-report.php:414
+msgid "Total opens"
+msgstr "Total abre"
+
+#: .././templates/mailChimp-campaign-report.php:415
+msgid "Last opened"
+msgstr "Última Atualização"
+
+#: .././templates/mailChimp-campaign-report.php:416
+msgid "Forwarded"
+msgstr "Transmitido"
+
+#: .././templates/mailChimp-campaign-report.php:420
+msgid "Clicks per unique opens"
+msgstr "Cliques por única abre"
+
+#: .././templates/mailChimp-campaign-report.php:421
+msgid "Total clicks"
+msgstr "Total de cliques"
+
+#: .././templates/mailChimp-campaign-report.php:422
+msgid "Last clicked"
+msgstr "Última clicado"
+
+#: .././templates/mailChimp-campaign-report.php:423
+msgid "Abuse reports"
+msgstr "Denúncias de abuso"
+
+#: .././templates/mailChimp-campaign-report.php:430
+msgid "Campaign Link Performance"
+msgstr "Desempenho Campanha de Link"
+
+#: .././templates/mailChimp-campaign-report.php:488
+msgid "24 Hour Campaign Performance"
+msgstr "24 horas Desempenho da campanha"
+
+#: .././templates/mailChimp-campaign-report.php:491
+msgid "begins from the time your campaign is sent"
+msgstr "começa a partir do momento a sua campanha é enviado"
+
+#: .././templates/mailChimp-campaign-report.php:499
+msgid "Number of Opens/Clicks"
+msgstr "Número de Assinantes"
+
+#: .././templates/mailChimp-campaign-stats-template.php:92
+msgid "Previous Campaigns"
+msgstr "Campanhas anteriores"
+
+#: .././templates/mailChimp-campaign-stats-template.php:158
+#: .././templates/mailChimp-campaign-stats-template.php:249
+msgid "Sent"
+msgstr "Enviada"
+
+#: .././templates/mailChimp-campaign-stats-template.php:158
+msgid "on "
+msgstr "ligado "
+
+#: .././templates/mailChimp-campaign-stats-template.php:158
+msgid "at "
+msgstr "em "
+
+#: .././templates/mailChimp-campaign-stats-template.php:161
+#: .././templates/mailChimp-campaign-stats-template.php:252
+msgid "Recurring Campaign"
+msgstr "Campanha Retornado"
+
+#: .././templates/mailChimp-campaign-stats-template.php:163
+#: .././templates/mailChimp-campaign-stats-template.php:192
+#: .././templates/mailChimp-campaign-stats-template.php:254
+#: .././templates/mailChimp-campaign-stats-template.php:275
+msgid "Not Yet Sent"
+msgstr "Ainda não enviado"
+
+#: .././templates/mailChimp-campaign-stats-template.php:173
+#: .././templates/mailChimp-campaign-stats-template.php:263
+msgid " Subscriber"
+msgstr "Data subscrito"
+
+#: .././templates/mailChimp-campaign-stats-template.php:173
+#: .././templates/mailChimp-campaign-stats-template.php:263
+msgid " Subscribers"
+msgstr "Notas Assinante"
+
+#: .././templates/mailChimp-campaign-stats-template.php:174
+#: .././templates/mailChimp-campaign-stats-template.php:264
+#: .././templates/mailChimp-campaign-stats-template.php:332
+msgid " Open"
+msgstr " Abrir"
+
+#: .././templates/mailChimp-campaign-stats-template.php:174
+#: .././templates/mailChimp-campaign-stats-template.php:180
+#: .././templates/mailChimp-campaign-stats-template.php:264
+#: .././templates/mailChimp-campaign-stats-template.php:332
+msgid " Opens"
+msgstr " Abre"
+
+#: .././templates/mailChimp-campaign-stats-template.php:175
+#: .././templates/mailChimp-campaign-stats-template.php:265
+#: .././templates/mailChimp-campaign-stats-template.php:333
+msgid " Click"
+msgstr " Clique"
+
+#: .././templates/mailChimp-campaign-stats-template.php:175
+#: .././templates/mailChimp-campaign-stats-template.php:181
+#: .././templates/mailChimp-campaign-stats-template.php:265
+#: .././templates/mailChimp-campaign-stats-template.php:333
+msgid " Clicks"
+msgstr " Cliques"
+
+#: .././templates/mailChimp-campaign-stats-template.php:179
+msgid " Campaigns Sent"
+msgstr " Campanhas Enviados"
+
+#: .././templates/mailChimp-campaign-stats-template.php:302
+msgid "It looks like you haven't sent any campaigns yet."
+msgstr "Parece que você não enviou todas as campanhas ainda."
+
+#: .././templates/mailChimp-campaign-stats-template.php:323
+msgid "Campaigns Sent"
+msgstr "Campanhas Enviados"
+
+#: .././templates/mailChimp-campaign-stats-template.php:370
+msgid "Total Clicks"
+msgstr "Total de Cliques"
+
+#: .././templates/mailChimp-list-growth-template.php:371
+msgid "Total Subscribers"
+msgstr "Data subscrito"
+
+#: .././templates/mailChimp-list-growth-template.php:376
+msgid "Imported Subscribers"
+msgstr "Data subscrito"
+
+#: .././templates/mailChimp-list-growth-template.php:381
+msgid "Opt-in Subscribers"
+msgstr "Data subscrito"
+
+#: .././templates/mailChimp-list-growth-template.php:390
+msgid "There is no growth data for"
+msgstr "Não há dados de crescimento para o"
+
+#: .././templates/mailChimp-list-growth-template.php:390
+msgid " yet"
+msgstr " ainda"
+
+#: .././templates/mailChimp-list-growth-template.php:397
+msgid "No growth data found yet. Please try again at a later time."
+msgstr ""
+"Não há dados de crescimento encontrado ainda. Por favor tente novamente mais "
+"tarde."
+
+#: .././templates/mailChimp-profile-template.php:10
+msgid "MailChimp Account Overview"
+msgstr "MailChimp Overview Conta"
+
+#: .././templates/mailChimp-profile-template.php:14
+msgid "Username"
+msgstr "Nome de usúario"
+
+#: .././templates/mailChimp-profile-template.php:15
+msgid "Name"
+msgstr "Apelido"
+
+#: .././templates/mailChimp-profile-template.php:16
+msgid "Email"
+msgstr "E-mail"
+
+#: .././templates/mailChimp-profile-template.php:17
+msgid "Account Role"
+msgstr "Conta Role"
+
+#: .././templates/mailChimpChatter-template.php:72
+msgid "No recent account activity. Check back again later."
+msgstr "Nenhuma atividade de conta recente. Volte novamente mais tarde."
 
 #: .././templates/shortcode_error.php:1
 msgid "There was an error calling the mailchimp list."
@@ -688,27 +1311,28 @@ msgstr "Houve um erro ao chamar a lista MailChimp."
 
 #: .././templates/shortcode_error_data.php:1
 msgid ""
-"The list doesn't exist! Make sure you have imported the list on the \"Manage "
-"List Forms\" page."
+"The list doesn't exist! Make sure you have imported the list on the 'Manage "
+"List Forms' page."
 msgstr ""
 "A lista não existe! Certifique-se de ter importado a lista no \"Gerenciar "
 "Lista Forms\" página."
 
-#: .././templates/shortcode_error_exists.php:1
+#: .././templates/shortcode_error_exists.php:2
 msgid "This list was already placed on this page!"
 msgstr "Esta lista já foi colocado esta página!"
 
-#: .././templates/shortcode_error_no_API_key.php:1
+#: .././templates/shortcode_error_no_API_key.php:2
 msgid "Woops! No Valid API Key Found. Double check your settings."
 msgstr ""
-"Woops! Sem chave API válido encontrado. Verificar suas configurações de "
-"duplo."
+"Woops! Sem chave API Valid encontrado. Verificar suas configurações de duplo."
 
-#: .././templates/shortcode_form.php:11
-msgid "Oops.. Don't forget to fill-in the following fields"
-msgstr "Opa .. Não se esqueça de preencher os seguintes campos"
+#: .././templates/shortcode_form.php:13
+msgid "Error - The following fields are required, and may not be left blank "
+msgstr ""
+"Erro - Os seguintes campos são de preenchimento obrigatório, e não pode ser "
+"deixado em branco "
 
-#: .././templates/shortcode_form.php:74
+#: .././templates/shortcode_form.php:121
 msgid "required field"
 msgstr "campo obrigatório"
 
@@ -751,7 +1375,7 @@ msgid ""
 "'Appearance > Widgets' and select a form to display."
 msgstr ""
 "Ops! Parece que você esqueceu de selecionar um formulário para exibir aqui. "
-"Ir para 'Appearance> Widgets \"e selecione um formulário para exibir."
+"Ir para \"Appearance > Widgets\" e selecione um formulário para exibir."
 
 #: .././templates/yikes-mailchimp-widget.php:117
 msgid "Sign Up For Our Newsletter"
@@ -782,5 +1406,16 @@ msgstr ""
 msgid "Settings page"
 msgstr "Página Configurações"
 
-#~ msgid "No API Key or List Id Exist!"
-#~ msgstr "Sem chave API ou Lista de Id existe!"
+#~ msgid "to retreive your recaptcha API keys, you must sign up for an account"
+#~ msgstr ""
+#~ "recuperá suas chaves de API recaptcha, você deve se inscrever para uma "
+#~ "conta"
+
+#~ msgid "Loaded Server Modules"
+#~ msgstr "Módulos do Servidor Loaded"
+
+#~ msgid "The following modules are active at the server level, on this site"
+#~ msgstr "Os seguintes módulos estão activos ao nível do servidor, no site"
+
+#~ msgid "Oops.. Don't forget to fill-in the following fields"
+#~ msgstr "Opa .. Não se esqueça de preencher os seguintes campos"

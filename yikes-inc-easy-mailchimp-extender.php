@@ -3,8 +3,8 @@
 #_________________________________________________ PLUGIN
 Plugin Name: Easy MailChimp Forms
 Plugin URI: http://www.yikesinc.com/services/yikes-inc-easy-mailchimp-extender/
-Description: Mailchimp API integration in the form of a shortcode or php snippet
-Version: 4.3
+Description: Mailchimp integration in the form of a shortcode, php snippet or widget. Now track account status, campaign stats, view subscribers and so much more!
+Version: 5.0
 Author: YIKES Inc
 Author URI: http://yikesinc.com
 License: GPL2
@@ -30,7 +30,7 @@ Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 
 /** Configuration **/
 if(!defined('YKSEME_DEBUG'))						define('YKSEME_DEBUG',		         false);
-if(!defined('YKSEME_VERSION_CURRENT'))				define('YKSEME_VERSION_CURRENT',	'4.3');
+if(!defined('YKSEME_VERSION_CURRENT'))				define('YKSEME_VERSION_CURRENT',	'5.0');
 if(!defined('YKSEME_REQ_PHP'))						define('YKSEME_REQ_PHP',			'5.0');
 if(!defined('YKSEME_AUTHOR'))						define('YKSEME_AUTHOR',				'YIKES Inc');
 if(!defined('YKSEME_SITE'))							define('YKSEME_SITE',				site_url().'/');
@@ -78,11 +78,3 @@ $yksemeBase	= new yksemeBase();
 register_activation_hook(__FILE__,		array(&$yksemeBase, 'activate'));
 register_deactivation_hook(__FILE__,	array(&$yksemeBase, 'deactivate'));
 register_uninstall_hook(__FILE__,		array('yksemeBase', 'uninstall'));
-
-
-// Output jquery
-add_action('wp_head','yikes_mailch_jquery_js');
-
-function yikes_mailch_jquery_js() {?>
-  <script type="text/javascript" src="<?php echo YKSEME_URL; ?>js/prototype.js"></script>
-<?php }

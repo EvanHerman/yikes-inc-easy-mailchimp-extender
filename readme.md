@@ -410,6 +410,14 @@ These functions should be used in conjunction with the `yikes_mc_get_form_data` 
 
 Changes
 ===========
+* Added reCAPTCHA support to prevent bots and spammers from submitting forms
+* Split settings page into three seperate sections
+* Removed Jetpack sharing icons from appearing in the success messages (removed sharedaddy filter)
+* Updated translation files with new strings
+* Update existing screen shots and add new screen shot
+* Update FAQ
+* Added "loaded server modules" to the debug page, to better aid in support requests
+
 ### 4.3
 * Updated radio button fields
 * Re-worked related JS and PHP functions

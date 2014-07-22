@@ -4,31 +4,35 @@ Donate link: http://yikesinc.com
 Tags: mailchimp, marketing, email, mailing lists, newsletter, signup, forms, signup form
 Requires at least: 3.0
 Tested up to: 3.9.1
-Stable tag: 4.3
+Stable tag: 5.0
 License: GPLv2 or later
 
-Easy MailChimp Forms allows you to painlessly add MailChimp signup forms to your WordPress site.
+Easy MailChimp Forms allows you to painlessly add MailChimp signup forms to your WordPress site and track user activity with interactive reports.
 
 == Description ==
 
-Easy MailChimp Forms allows you to painlessly add MailChimp signup forms to your WordPress site. You can add forms to posts, pages or sidebars with shortcodes, widgets or template tags. Simply copy and paste your MailChimp API Key into the plugin admin settings and it will pull in all your MailChimp lists. From there you can choose the lists you want to make forms for. For a single list you can check off the fields you want to include on your form and order them via an easy drag-and-drop interface. This plugin adds plenty of CSS selectors to the form code allowing you to completely customize the look of your forms.
+Easy MailChimp Forms allows you to painlessly add MailChimp signup forms to your WordPress site. You can add forms to posts, pages or sidebars with shortcodes, widgets or template tags. Simply copy and paste your MailChimp API Key into the plugin admin settings and it will pull in all your MailChimp lists. From there you can choose the lists you want to make forms for. For a single list you can check off the fields you want to include on your form and order them via an easy drag-and-drop interface. This plugin adds plenty of CSS selectors to the form code allowing you to completely customize the look of your forms. Now with the ability to track sent campaigns, you can view and print interactive reports from based on previously sent campaigns.
 
 **Note:** You will need a MailChimp API key to allow this plugin to communicate with your MailChimp account. For help on retrieving your API key, check out [question #4 of the FAQ](http://wordpress.org/plugins/yikes-inc-easy-mailchimp-extender/faq/). You can also read the MailChimp knowledge base article [Where can I find my API key and how can I use the API](http://kb.mailchimp.com/article/where-can-i-find-my-api-key/).
 
 **Features**
 
-* Easily import MailChimp forms from a MailChimp account
+* Complete Integration of MailChimp into WordPress
+* Easily import MailChimp forms from an active MailChimp account
+* View/Print Interactive Account Growth Reports and Campaign Reports (Statistics Tracking)
+* reCaptcha spam prevention baked in
+* Monitor MailChimp account activity
 * Use MailChimp Interest Group/Segments
 * Add MailChimp forms sidebars/widgetized areas with widgets
 * Set forms to single or double opt-in
 * Customize the success message
 * Customize the submit button text
 * Redirect users to a page on submission
-* Unsubscribe users from MailChimp lists
+* Un-subscribe users from MailChimp lists
 * View subscriber MailChimp profiles
 * View individual form subscriber count
 * Display multiple forms on a single page
-* Add commenters to your MailChimp lists with a comment form opt-in check box 
+* Add commenter's to your MailChimp lists with a comment form opt-in check box 
 * Easily add forms to pages and posts with a button in the page/post editor
 * Use cURL error detection to troubleshoot MailChimp connection issues
 
@@ -45,7 +49,10 @@ Instructions on how to use the plugin can be [found in the FAQ](http://wordpress
 5. Head over to [MailChimp.com](http://www.mailchimp.com) and login.
 6. On the right hand menu, click your profile picture and select 'Account Settings' and then go to 'Extras > API Keys'.
 7. Enter your API key into the text field inside 'MailChimp Forms > MailChimp Settings'
-8. Go to the 'Manage List Forms' page, start importing forms from MailChimp and adding them to posts, pages and widgets!
+8. (Optional) Sign up for a reCAPTCHA API Key Head over to [https://www.google.com/recaptcha/admin#whyrecaptcha](https://www.google.com/recaptcha/admin#whyrecaptcha) and login.
+9. (Optional) Register for an API key. Enter your public <em>and</em> private keys into the reCAPTCHA settings page and save your settings.
+9. Go to the 'Manage List Forms' page, start importing forms from MailChimp and adding them to posts, pages and widgets!
+10. Start collecting user emails and growing your subscriber list!
 
 == Frequently Asked Questions ==
 
@@ -78,7 +85,7 @@ You can use a shortcode to add a form to a page or post, use the MailChimp form 
 **Step 2:** If you have entered your MailChimp API key and are still getting the error "*Error: Please enter a valid Mail Chimp API Key*," please check the developer console inside your browser for further information. 
 
 - Right-click in the API Key input field, and select 'Inpsect Element'
-- Once the developer console is open, select the Console tab to see a more specific error.
+- Once the developer console is open, select the Console tab to view a more specific error returned from the MailChimp API.
 
 For information on how to use your browser's developer console, read the WordPress Codex article, [Using Your Browser to Diagnose JavaScript Errors](http://codex.wordpress.org/Using_Your_Browser_to_Diagnose_JavaScript_Errors).
 
@@ -123,6 +130,8 @@ Read the Codex article [Installing WordPress in Your Language](http://codex.word
 = Do you provide any hooks, or filters for me to take advantage of? =
 Yes! With the 4.0 version of our plugin we have added a few hooks that allow you to add or manipulate existing data. Check out the [Other Notes](http://wordpress.org/plugins/yikes-inc-easy-mailchimp-extender/other_notes/) tab for more information.
 
+= Do you offer integration with reCAPTCHA? I keep getting spam entries from bots and spammers. =
+Yes! Since version 4.4 of Easy MailChimp Extender, we have added [reCAPTCHA](https://www.google.com/recaptcha/intro/index.html) support. You can sign up for a reCAPTCHA API key [here](https://www.google.com/recaptcha/admin#whyrecaptcha). You will need to provide your <em>public</em> key as well as the <em>private</em> key. Don't worry, its free :)
 
 == Developer Docs. ==
 
@@ -428,16 +437,47 @@ These functions should be used in conjunction with the `yikes_mc_get_form_data` 
 
 == Screenshots ==
 
-1. YIKES Easy MailChimp Settings Page
-2. Yikes Easy MailChimp form listing page
-3. View all subscribers of a given list, click to reveal individual subscriber info
-4. Custom widget to easily add forms to sidebars and widgets
-5. Form rendered on the front end of the site
-6. Optional opt-in checkbox on the comment forms, easily add commenter's to your email list
-7. Custom tinyMCE button allows you to easily add importer forms to pages and posts at the click of a button
-8. About YIKES page
+1. YIKES Easy MailChimp General Settings Page
+2. YIKES Easy MailChimp reCAPTCHA settings page
+3. Yikes Easy MailChimp form listing page
+4. View all subscribers of a given list, click to reveal individual subscriber info
+5. Custom widget to easily add forms to sidebars and widgets
+6. Form rendered on the front end of the site
+7. Optional opt-in checkbox on the comment forms, easily add commenter's to your email list
+8. Custom tinyMCE button allows you to easily add imported forms to pages and posts at the click of a button
+9. About YIKES page
 
 == Changelog ==
+
+= 5.0 =
+* Added reCAPTCHA support to prevent bots and spammers from submitting forms
+* Split settings page into three seperate sections
+* Custom content filter to prevent other plugins from accidentally hooking in
+* Updated translation files with new text and translations
+* Update existing screen shots and added new screen shots
+* Update FAQ
+* Updated plugin activation hooks
+* base64_encoded MailChimp API Key for privacy on multi-admin sites
+* Added an entirely new "My MailChimp" section
+* "My MailChimp" section now includes account overview details
+* Added much needed campaign statistic tracking page
+* Added ability to track Campaign Click/Opens with geo-data and interactive charts including world map
+* Added account /listgrowth section with interactive bar chart
+* Added "Chimp Chatter" feed to track account activity
+* Ability to export interactive charts to png,jpg,svg
+* Printable Campaign Reports
+* View campaign
+* Re-Branded entire Plugin
+
+
+= 4.4 =
+* Added reCAPTCHA support to prevent bots and spammers from submitting forms
+* Split settings page into three seperate sections
+* Removed Jetpack sharing icons from appearing in the success messages (removed sharedaddy filter)
+* Updated translation files with new strings
+* Update existing screen shots and add new screen shot
+* Update FAQ
+* Added "loaded server modules" to the debug page, to better aid in support requests
 
 = 4.3 =
 * Updated radio button fields
@@ -548,6 +588,16 @@ These functions should be used in conjunction with the `yikes_mc_get_form_data` 
 * Initial Release
 
 == Upgrade Notice ==
+
+= 4.5 =
+* Added reCAPTCHA support to prevent bots and spammers from submitting forms
+* Split settings page into three seperate sections
+* Removed Jetpack sharing icons from appearing in the success messages (removed sharedaddy filter)
+* Updated translation files with new strings
+* Update existing screen shots and add new screen shot
+* Update FAQ
+* Added "loaded server modules" to the debug page, to better aid in support requests
+
 = 3.0 =
 * Update Mail Chimp API to v2.0
 * Added API Key Validation Check
@@ -573,3 +623,12 @@ These functions should be used in conjunction with the `yikes_mc_get_form_data` 
 
 = 1.2.0 =
 * First Name and Last Name fields are no longer required
+
+
+
+
+// To Do 
+ - Click Pie Chart visualization twice throws an error and doesn't re-draw the chart
+ - Style arrow before chimp chatter messages
+ - Time returned from MailChimp is wrong by 4 hours, something to do with the timezone or something
+ - Need 4 icons ( Regular, Plain-text, A/B-split, RSS-driven )

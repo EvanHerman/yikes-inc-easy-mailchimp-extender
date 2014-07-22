@@ -10,6 +10,17 @@
 			];
 		}
 		
+		/* Styles Dropdown
+		Will Be Included In Future Iterations
+		style_values = [
+				{text: "Default", value: "default"},
+				{text: "Simple 1", value: "simple_1"},
+				{text: "Simple 2", value: "simple_2"},
+				{text: "Type 1", value: "type_1"},
+				{text: "Type 2", value: "type_2"},
+			];
+		*/
+		
 		// test data
 		/*
 		console.log(values);
@@ -46,7 +57,15 @@
 								type: 'textbox',
 								name: 'submit_button_text',
 								label: 'Submit Button Text'
+							},
+							/* Commenting out Style Dropdown 
+							{
+								type: 'listbox',
+								name: 'style_selection',
+								label: 'Form Style',
+								values: style_values
 							}
+							*/
 						],
 						id: 'yks_mc_tinyMCE_modal', // and an ID to the modal, to target it easier
 						onsubmit: function( e ) {
@@ -55,6 +74,8 @@
 							var mailChimp_form_id = e.data.list_id;
 							// store the submit button text
 							var submit_button_text = e.data.submit_button_text;
+							// store the style type
+							var style_type = e.data.style_selection;
 							// check the submit button text
 							// if empty, default it to Submit
 							// if not empty, use the specified text
@@ -66,6 +87,7 @@
 								return false;
 							} else {
 								editor.insertContent( '[yks-mailchimp-list id="'+mailChimp_form_id+'" submit_text="'+submit_button_text+'"]' );
+								// editor.insertContent( '[yks-mailchimp-list id="'+mailChimp_form_id+'" submit_text="'+submit_button_text+'" style="'+style_type+'"]' );
 							}
 						}
 

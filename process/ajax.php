@@ -23,6 +23,24 @@ case 'update_options':
 		}
 	else echo '-1';
 	break;
+	
+case 'update_recptcha_options':
+	$action	= $yksemeBase->updateRecaptchaOptions($_POST);
+	if($action)
+		{
+		echo '1';
+		}
+	else echo '-1';
+	break;
+
+case 'update_debug_options':
+	$action	= $yksemeBase->updateDebugOptions($_POST);
+	if($action)
+		{
+		echo '1';
+		}
+	else echo '-1';
+	break;	
 
 case 'list_add':
 	$list	= $yksemeBase->addList($_POST['list_id'], $_POST['name']);
@@ -72,11 +90,12 @@ case 'list_import':
 
 case 'frontend_submit_form':
 	$action	= $yksemeBase->addUserToMailchimp($_POST);
-	if($action  == "done")
+	if($action == "done")
 		{
-		echo '1';
-		}	
-	else echo $action;
+			echo '1';
+		} else {
+			echo $action;
+		}
 	break;
 	
 case 'notice_hide':
@@ -86,6 +105,10 @@ case 'notice_hide':
 	
 case 'validate_api_key':
 	$validate_action = $yksemeBase->validateAPIkeySettings($_POST);
+	break;
+
+case 'get_profile_details':
+	$validate_action = $yksemeBase->getUserProfileDetails($_POST);
 	break;
 	
 case 'yks_mc_reset_plugin_settings':
@@ -107,7 +130,56 @@ case 'yks_get_subscriberInfo':
 	echo '1';
 	break;	
 
+case 'yks_get_chimp_chatter':
+	$validate_action = $yksemeBase->getMailChimpChatter($_POST);
+	break;	
+	
+case 'yks_get_growth_data':
+	$validate_action = $yksemeBase->getListGrowthHistory($_POST);
+	break;		
 		
+case 'yks_get_campaign_data':
+	$validate_action = $yksemeBase->getCapmpaignData($_POST);
+	break;	
+
+case 'yks_get_specific_campaign_data':
+	$validate_action = $yksemeBase->getSpecificCapmpaignData($_POST);
+	break;	
+	
+case 'yks_get_specific_campaign_link_data':
+	$validate_action = $yksemeBase->getCampaignLinkStats($_POST);
+	break;	
+	
+case 'yks_get_piechart':
+	$validate_action = $yksemeBase->getPieChart($_POST);
+	echo '1';
+	break;	
+	
+case 'yks_get_campaign_emailed_to':
+	$validate_action = $yksemeBase->getCampaignEmailToTable($_POST);
+	echo '1';
+	break;	
+	
+case 'yks_get_campaign_links_geo_opens':
+	$get_geo_opens = $yksemeBase->getGeoDataForCampaignOpenLinks($_POST);
+	echo '1';
+	break;		
+	
+case 'yks_get_campaign_opened_data':
+	$get_geo_opens = $yksemeBase->getCampaignOpenedData($_POST);
+	echo '1';
+	break;		
+	
+case 'yks_get_bounced_email_data':
+	$get_geo_opens = $yksemeBase->getCampaignBouncedEmailData($_POST);
+	echo '1';
+	break;
+	
+case 'yks_get_unsubscribed_email_data':
+	$get_geo_opens = $yksemeBase->getCampaignUnsubscribeData($_POST);
+	echo '1';
+	break;				
+	
 		}
 	}
 ?>

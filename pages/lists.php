@@ -1,3 +1,8 @@
+<style>
+#TB_ajaxContent {
+	width: auto !important;
+}
+</style>
 <?php
 	// if blog is greater than or equal to WordPress 3.9
 	// enqueue our new jQuery UI dialog styles
@@ -15,7 +20,7 @@
                                 {
 								var plugin_directory_url = '<?php echo plugin_dir_url( __FILE__ ); ?>';
 								 $('#yks-lists-dropdown').next().css('opacity',0);
-								 $('#yks-list-wrapper').css({ 'background' : 'url("'+plugin_directory_url+'yikes-inc-easy-mailchimp-extender/images/yks_mc_lets_get_started.png")', 'height' : '175px' , 'width' : '400px' , 'background-repeat' : 'no-repeat' , 'background-position' : 'center', 'margin-top' : '-6em' });
+								 $('#yks-list-wrapper').css({ 'background' : 'url("'+plugin_directory_url+'../images/yks_mc_lets_get_started.png")', 'height' : '175px' , 'width' : '400px' , 'background-repeat' : 'no-repeat' , 'background-position' : 'center', 'margin-top' : '-6em' });
 								}
                         }
                 function EnterListID (lid, name)
@@ -276,7 +281,7 @@
                                                         $($('#yks-list-container_'+i)).replaceWith(MAILCHIMP);
                                                         $('#yks-list-container_'+i).yksYellowFade();
 															// alert the user that it was a success
-															$("<div id='yks_mc_reset_plugin_settings'><div class='dashicons dashicons-yes yks-mc-success-icon'></div><p>Your MailChimp form \"<strong>"+form_name+"</strong>\"<?php _e(' was successfully updated', 'yikes-inc-easy-mailchimp-extender' ); ?></p></div>").dialog({
+															$("<div id='yks_mc_reset_plugin_settings'><div class='dashicons dashicons-yes yks-mc-success-icon'></div><p><?php _e( "Your MailChimp form" , "yikes-inc-easy-mailchimp-extender" ); ?><strong>"+form_name+"</strong>\"<?php _e(' was successfully updated', 'yikes-inc-easy-mailchimp-extender' ); ?></p></div>").dialog({
 															 title : "Form Successfully Updated",
 															 buttons : {
 																"Ok" : function() {
@@ -416,7 +421,7 @@
 			var user_email = jQuery(this).parents('.yks-mailchimp-subscribers-list-row').find('.subscriber-mail-link').text();
 			var list_id = jQuery(this).parents('.yks_mc_subscribers').find('.mailChimp_list_id').attr('value');
 			var confirm_delete_user = confirm("<?php _e("Are you sure you want to unsubscribe","yikes-inc-easy-mailchimp-extender"); ?> "+user_email+" <?php _e("from this list?","yikes-inc-easy-mailchimp-extender"); ?>");
-				
+			var parent_element = jQuery(this).parents('.yks-mailchimp-subscribers-list-row');
 			if (confirm_delete_user) {
 				$.ajax({
 						   type:   "POST",
@@ -430,7 +435,7 @@
 							dataType: "html", // again must pass as HTML and not JSON
 							success: function(MAILCHIMP)
 								  {	
-									jQuery("#TB_ajaxContent").find("#yikes-mailchimp-subscribers-table").find('a[href="mailto:'+user_email+'"]').parents('.yks-mailchimp-subscribers-list-row').fadeOut('fast',function() { jQuery(this).remove(); });
+									jQuery(parent_element).fadeOut('fast',function() { jQuery(this).remove(); });
 									jQuery("#TB_ajaxContent").find("#yikes-mailchimp-subscribers-table").before("<div class='yks-status' id='yks-status' style='display: block;margin-bottom:16px;'><div class='updated'><p>"+user_email+"<?php _e('was successfully unsubscribed from this list.','yikes-inc-easy-mailchimp-extender'); ?></p></div></div>");	
 								
 									setTimeout(function() {
@@ -569,8 +574,7 @@
                                 <?php _e('Your Lists','yikes-inc-easy-mailchimp-extender'); ?>
                             </th>
                         	<td>
-                        		<?php $this->getLists(); ?>           								
-                                <input type="submit" name="submit" class="button-primary" id="yks-submit-list-add" value="Create a Form For This List" >
+                        		<?php $this->getLists(); ?>
                             </td>
                         </tr>   
                     </tbody>

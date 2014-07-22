@@ -1,261 +1,343 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: Yikes Inc. Easy MailChimp Plugin\n"
-"POT-Creation-Date: 2014-04-23 13:31-0500\n"
-"PO-Revision-Date: 2014-04-23 14:50-0500\n"
-"Last-Translator: Evan <evan.m.herman@gmail.com>\n"
+"POT-Creation-Date: 2014-07-22 13:10-0500\n"
+"PO-Revision-Date: 2014-07-22 13:10-0500\n"
+"Last-Translator: Evan <Evan@yikesinc.com>\n"
 "Language-Team: Yikes Inc. <evan@yikesinc.com>\n"
-"Language: he_IL\n"
+"Language: en\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Poedit 1.6.4\n"
+"X-Generator: Poedit 1.6.6\n"
 "X-Poedit-Basepath: .\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "X-Poedit-KeywordsList: __;_e\n"
 "X-Poedit-SearchPath-0: ../.\n"
 
-#: .././classes/class.yksemeBase.php:114
-#: .././classes/class.yksemeBase.php:1287
+#: .././classes/class.yksemeBase.php:130
+#: .././classes/class.yksemeBase.php:1456
 msgid "Thank You for subscribing!"
 msgstr "תודה שנרשם!"
 
-#: .././classes/class.yksemeBase.php:115
-#: .././classes/class.yksemeBase.php:1288
+#: .././classes/class.yksemeBase.php:131
+#: .././classes/class.yksemeBase.php:1457
 msgid ""
 "Thank You for subscribing! Check your email for the confirmation message."
-msgstr "תודה שנרשם! בדוק את תיבת הדוא\"ל שלך להודעת האישור."
+msgstr "תודה שנרשם! בדוק את תיבת הדואל שלך להודעת האישור."
 
-#: .././classes/class.yksemeBase.php:116
+#: .././classes/class.yksemeBase.php:132
 msgid "Select Your Area of Interest"
 msgstr "בחר האזור שלך של ריבית"
 
-#: .././classes/class.yksemeBase.php:917
+#: .././classes/class.yksemeBase.php:824
+msgid "Create a Form For This List"
+msgstr "צור טופס לרשימת זו"
+
+#: .././classes/class.yksemeBase.php:826
+msgid ""
+"Error - No Lists Found On Your Account. Please create at least one list on "
+"your MailChimp account."
+msgstr ""
+"שגיאה - לא נמצאו רשימות על חשבונך. נא ליצור רשימה אחת לפחות על חשבון "
+"MailChimp שלך."
+
+#: .././classes/class.yksemeBase.php:900
+msgid "All Lists"
+msgstr "הרשימות שלך"
+
+#: .././classes/class.yksemeBase.php:1046
+#: .././classes/class.yksemeBase.php:1072
+msgid " subscribers"
+msgstr "הערות מנויים"
+
+#: .././classes/class.yksemeBase.php:1047
 msgid "Click on a subscriber to see further information"
 msgstr "לחץ על מנוי כדי לראות מידע נוסף"
 
-#: .././classes/class.yksemeBase.php:920
+#: .././classes/class.yksemeBase.php:1052
+#: .././classes/class.yksemeBase.php:1696
+#: .././classes/class.yksemeBase.php:1880
+#: .././classes/class.yksemeBase.php:1983
+#: .././classes/class.yksemeBase.php:2085
 msgid "E-Mail"
 msgstr "דואר אלקטרוני"
 
-#: .././classes/class.yksemeBase.php:921
+#: .././classes/class.yksemeBase.php:1053
 msgid "Date Subscribed"
 msgstr "תאריך המבוקשים"
 
-#: .././classes/class.yksemeBase.php:941
+#: .././classes/class.yksemeBase.php:1074
 msgid "Sorry You Don't Currently Have Any Subscribers In This List!"
 msgstr "מצטער שאתה לא נכון לעכשיו יש לך מנויים ברשימה זו!"
 
-#: .././classes/class.yksemeBase.php:998
+#: .././classes/class.yksemeBase.php:1131
 msgid "Back to Subscriber List"
 msgstr "חזור לרשימת מנויים"
 
-#: .././classes/class.yksemeBase.php:999
+#: .././classes/class.yksemeBase.php:1132
 msgid "Subscriber Details"
 msgstr "פרטי מנוי"
 
-#: .././classes/class.yksemeBase.php:1010
+#: .././classes/class.yksemeBase.php:1143
+#: .././templates/mailChimp-campaign-report.php:335
 msgid "Overview"
 msgstr "סקירה"
 
-#: .././classes/class.yksemeBase.php:1015
+#: .././classes/class.yksemeBase.php:1148
+#: .././classes/class.yksemeBase.php:1697
+#: .././classes/class.yksemeBase.php:1882
+#: .././classes/class.yksemeBase.php:1984
+#: .././classes/class.yksemeBase.php:2086
 msgid "First Name"
-msgstr "שם פרטים"
+msgstr "שם פרטי"
 
-#: .././classes/class.yksemeBase.php:1018
+#: .././classes/class.yksemeBase.php:1151
 msgid "Last Updated"
-msgstr "עדכון האחרון"
+msgstr "עודכן לאחרונה"
 
-#: .././classes/class.yksemeBase.php:1021
+#: .././classes/class.yksemeBase.php:1154
 msgid "Preferred Email Type"
-msgstr "סוג דוא\"ל מועדף"
+msgstr "סוג דואל מועדף"
 
-#: .././classes/class.yksemeBase.php:1028
+#: .././classes/class.yksemeBase.php:1161
+#: .././classes/class.yksemeBase.php:1698
+#: .././classes/class.yksemeBase.php:1883
+#: .././classes/class.yksemeBase.php:1985
+#: .././classes/class.yksemeBase.php:2087
 msgid "Last Name"
 msgstr "שם משפחה"
 
-#: .././classes/class.yksemeBase.php:1031
+#: .././classes/class.yksemeBase.php:1164
 msgid "Language"
 msgstr "שפה"
 
-#: .././classes/class.yksemeBase.php:1054
+#: .././classes/class.yksemeBase.php:1191
 msgid "Groups Subscribed To"
 msgstr "קבוצות המנויים על"
 
-#: .././classes/class.yksemeBase.php:1104
+#: .././classes/class.yksemeBase.php:1241
 msgid "Subscriber Notes"
 msgstr "הערות מנויים"
 
-#: .././classes/class.yksemeBase.php:1109
+#: .././classes/class.yksemeBase.php:1246
 msgid "Written by"
 msgstr "נכתב על ידי"
 
-#: .././classes/class.yksemeBase.php:1109
+#: .././classes/class.yksemeBase.php:1246
 msgid "Created on"
 msgstr "נוצר על"
 
-#: .././classes/class.yksemeBase.php:1251
-#: .././classes/class.yksemeBase.php:1253
+#: .././classes/class.yksemeBase.php:1409
+#: .././classes/class.yksemeBase.php:1411
 msgid "MailChimp Forms"
 msgstr "טפסי MailChimp"
 
-#: .././classes/class.yksemeBase.php:1253
+#: .././classes/class.yksemeBase.php:1411
 msgid "MailChimp Settings"
 msgstr "הגדרות MailChimp"
 
-#: .././classes/class.yksemeBase.php:1254
+#: .././classes/class.yksemeBase.php:1414 .././pages/myMailChimp.php:77
+msgid "My MailChimp"
+msgstr "טפסי MailChimp"
+
+#: .././classes/class.yksemeBase.php:1416
 msgid "Manage List Forms"
 msgstr "ניהול טפסי רשימה"
 
-#: .././classes/class.yksemeBase.php:1255 .././pages/about.php:5
+#: .././classes/class.yksemeBase.php:1417 .././pages/about.php:5
 msgid "About YIKES, Inc."
-msgstr "Yikes Inc. על"
+msgstr "אודות איכס, Inc"
 
-#: .././classes/class.yksemeBase.php:1430
+#: .././classes/class.yksemeBase.php:1699
+#: .././classes/class.yksemeBase.php:1884
+#: .././classes/class.yksemeBase.php:1986
+#: .././classes/class.yksemeBase.php:2088
+msgid "Member Rating"
+msgstr "דירוג משתמשים"
+
+#: .././classes/class.yksemeBase.php:1700
+msgid "Last Changed"
+msgstr "עודכן לאחרונה"
+
+#: .././classes/class.yksemeBase.php:1856
+#: .././templates/mailChimp-campaign-report.php:515
+msgid "Unique Opens"
+msgstr "נפתח ייחודי"
+
+#: .././classes/class.yksemeBase.php:1858
+#: .././templates/mailChimp-campaign-stats-template.php:369
+msgid "Total Opens"
+msgstr "סה\"כ נפתח"
+
+#: .././classes/class.yksemeBase.php:1881
+#: .././templates/mailChimp-campaign-click-geo-map.php:134
+msgid "Opens"
+msgstr "פתיחה"
+
+#: .././classes/class.yksemeBase.php:1961
+msgid "Total Bounced Emails"
+msgstr "הודעות דוא\"ל קפיץ סה\"כ"
+
+#: .././classes/class.yksemeBase.php:2063
+msgid "Total Unsubscribes"
+msgstr "תאריך המבוקשים"
+
+#: .././classes/class.yksemeBase.php:2089
+msgid "Reason"
+msgstr "סיבה"
+
+#: .././classes/class.yksemeBase.php:2438
 msgid "One or more fields are empty"
 msgstr "אחד או יותר שדות ריקים"
 
-#: .././classes/class.yksemeBase.php:1480
+#: .././classes/class.yksemeBase.php:2490
 msgid "Your List Was Successfully Saved!"
 msgstr "רשימה שלך נשמרה בהצלחה!"
 
-#: .././classes/class.yksemeBase.php:1482
+#: .././classes/class.yksemeBase.php:2493
+msgid "Your settings were not saved (or you did not change them)."
+msgstr "ההגדרות שלך לא נשמרו (או שלא לשנות אותם)."
+
+#: .././classes/class.yksemeBase.php:2495
 msgid "I'm sorry there was an error with your request."
 msgstr "אני מצטער שיש שגיאה עם בקשתך."
 
-#: .././classes/class.yksemeBase.php:1488
+#: .././classes/class.yksemeBase.php:2501
 msgid "MailChimp List name"
 msgstr "שם MailChimp רשימה"
 
-#: .././classes/class.yksemeBase.php:1494
-#: .././classes/class.yksemeBase.php:1504
+#: .././classes/class.yksemeBase.php:2507
+#: .././classes/class.yksemeBase.php:2517
 #, php-format
 msgid "%1$s"
 msgstr ""
 
-#: .././classes/class.yksemeBase.php:1512
+#: .././classes/class.yksemeBase.php:2525
 msgid "MailChimp List ID"
 msgstr "MailChimp רשימת זיהוי"
 
-#: .././classes/class.yksemeBase.php:1518
+#: .././classes/class.yksemeBase.php:2531
 msgid "Shortcode"
-msgstr "קוד קצר"
+msgstr "שורטקוד"
 
-#: .././classes/class.yksemeBase.php:1521
+#: .././classes/class.yksemeBase.php:2534
 msgid ""
 "Paste this shortcode into whatever page or post you want to add this form to"
 msgstr "להדביק קוד קצר הזה לכל דף או לפרסם אתה רוצה להוסיף בטופס זה כדי"
 
-#: .././classes/class.yksemeBase.php:1526
+#: .././classes/class.yksemeBase.php:2539
 msgid "PHP Snippet"
 msgstr "PHP קטע"
 
-#: .././classes/class.yksemeBase.php:1529
+#: .././classes/class.yksemeBase.php:2543
 msgid "Use this code to add this form to a template file"
 msgstr "השתמש בקוד זה כדי להוסיף בטופס זה כדי קובץ תבנית"
 
-#: .././classes/class.yksemeBase.php:1534
+#: .././classes/class.yksemeBase.php:2548
 msgid "Number of Subscribers"
 msgstr "מספר המנויים"
 
-#: .././classes/class.yksemeBase.php:1543
+#: .././classes/class.yksemeBase.php:2557
 msgid "Form Fields"
 msgstr "שדות טופס"
 
-#: .././classes/class.yksemeBase.php:1545
+#: .././classes/class.yksemeBase.php:2559
 msgid ""
 "Check the fields you want included in your form (Email Address is required)."
 msgstr "בדוק את השדות שברצונך לכלול בטופס שלך (נדרשת כתובת דוא\"ל)."
 
-#: .././classes/class.yksemeBase.php:1548
+#: .././classes/class.yksemeBase.php:2562
 msgid ""
 "Use the green arrows to drag-and-drop the fields and rearrange their order."
 msgstr ""
 "השתמש בחיצים הירוקים כדי לגרור ולשחרר את השדות ולארגן מחדש את הסדר שלהם."
 
-#: .././classes/class.yksemeBase.php:1554
+#: .././classes/class.yksemeBase.php:2568
 msgid "Active Fields"
 msgstr "שדות פעילים"
 
-#: .././classes/class.yksemeBase.php:1563
+#: .././classes/class.yksemeBase.php:2577
 msgid "Drag"
 msgstr "גרירה"
 
-#: .././classes/class.yksemeBase.php:1563
+#: .././classes/class.yksemeBase.php:2577
 msgid "drop"
 msgstr "ירידה"
 
-#: .././classes/class.yksemeBase.php:1568
+#: .././classes/class.yksemeBase.php:2582
 msgid "Merge field"
 msgstr "שדה מיזוג"
 
-#: .././classes/class.yksemeBase.php:1569
+#: .././classes/class.yksemeBase.php:2583
 msgid "Placeholder"
 msgstr "מציין מיקום"
 
-#: .././classes/class.yksemeBase.php:1577
+#: .././classes/class.yksemeBase.php:2591
 msgid "Redirect User On Submission"
 msgstr "להפנות את המשתמש בהגשה"
 
-#: .././classes/class.yksemeBase.php:1581
+#: .././classes/class.yksemeBase.php:2595
 msgid "choose a page to redirect the user to after they submit the form."
-msgstr ""
-"לבחור דף או להגדיר כתובת אתר מותאם אישית כדי לנתב מחדש את המשתמש לאחר ששלחו "
-"את הטופס."
+msgstr "לבחור דף כדי להפנות למשתמש לאחר ששלחו את הטופס."
 
-#: .././classes/class.yksemeBase.php:1584
+#: .././classes/class.yksemeBase.php:2598
 msgid "Select A Post/Page"
 msgstr "בחר פוסט / דף"
 
-#: .././classes/class.yksemeBase.php:1638
+#: .././classes/class.yksemeBase.php:2655
 msgid "Save Form Settings"
-msgstr "ניהול הגדרות טפסי MailChimp"
+msgstr "שמור הגדרות טופס"
 
-#: .././classes/class.yksemeBase.php:1639
+#: .././classes/class.yksemeBase.php:2656
 msgid "Delete Form"
 msgstr "מחיקת טופס"
 
-#: .././classes/class.yksemeBase.php:1640
+#: .././classes/class.yksemeBase.php:2657
 msgid "Re-Import Form Fields from MailChimp"
-msgstr "אנא לייבא כמה רשימות מMailChimp"
+msgstr "לייבא מחדש שדות טופס מMailChimp"
 
-#: .././classes/class.yksemeBase.php:2168
+#: .././classes/class.yksemeBase.php:2862
+#: .././classes/class.yksemeBase.php:2976
+msgid "reCAPTCHA API Key Error. Please double check your API Keys."
+msgstr "שגיאת מפתח API reCAPTCHA. אנא בדוק מפתחות API שלך."
+
+#: .././classes/class.yksemeBase.php:3252
 msgid "Sign Me Up For MAILCHIMP-REPLACE-THIS-TEXT's Newsletter"
 msgstr "רשום אותי לדיוור של MailChimp-REPLACE זה-TEXT"
 
-#: .././pages/about.php:27
+#: .././pages/about.php:42
 msgid "YIKES, Inc. Web Design and Development"
-msgstr "עיצוב ובניית אתרים Yikes, Inc."
+msgstr "איכס, Inc עיצוב ובניית אתרים"
 
-#: .././pages/about.php:29
+#: .././pages/about.php:44
 msgid "Smart, effective, beautifully designed web solutions"
 msgstr "פתרונות חכמים, יעילים, מעוצבים להפליא אינטרנט"
 
-#: .././pages/about.php:32
+#: .././pages/about.php:47
 msgid ""
 "YIKES is located in the Fishtown neighborhood of Philadelphia where we build "
 "custom WordPress themes and plugins every day."
 msgstr ""
-"Yikes, Inc. ממוקם בשכונת Fishtown של פילדלפיה שבו אנו בונים מותאמים אישית "
-"ערכות נושא ותוספים וורדפרס בכל יום."
+"איכס ממוקם בשכונת Fishtown של פילדלפיה שבו אנו בונים מותאמים אישית ערכות "
+"נושא ותוספים וורדפרס בכל יום."
 
-#: .././pages/about.php:36
+#: .././pages/about.php:51
 msgid ""
 "At YIKES we love WordPress! Co-Owner, Tracy Levesque has presented at "
 "WordCamps"
 msgstr ""
-"ב Yikes Inc. שאנחנו אוהבים וורדפרס! בעלים משותפים, טרייסי ווסק הציג "
-"בWordCamps"
+"באיכס שאנחנו אוהבים וורדפרס! בעלים משותפים, טרייסי ווסק הציג בWordCamps"
 
-#: .././pages/about.php:36
+#: .././pages/about.php:51
 msgid "and"
 msgstr "וגם"
 
-#: .././pages/about.php:36
+#: .././pages/about.php:51
 msgid "She also teaches WordPress classes for"
 msgstr "היא גם מלמדת שיעורי WordPress עבור"
 
-#: .././pages/about.php:40
+#: .././pages/about.php:55
 msgid ""
 "In addition to making great WordPress sites we are also committed to the "
 "sustainable business movement. We observe the triple bottom line: people, "
@@ -264,106 +346,161 @@ msgid ""
 msgstr ""
 "בנוסף לביצוע אתרים וורדפרס גדולים אנחנו גם מחויבים לתנועה העסקית בר קיימא. "
 "אנו רואים את השורה התחתונה המשולשת: אנשים, כדור הארץ, רווח ולעבוד כדי לסייע "
-"בבניית כלכלה מקומית ברת קיימא יותר מבחינה חברתית, סביבתית וכלכלית. יש לנו "
+"בבניית כלכלה מקומית יותר ברת קיימא מבחינה חברתית, סביבתית וכלכלית. יש לנו "
 "אפילו"
 
-#: .././pages/about.php:40
+#: .././pages/about.php:55
 msgid "LEED Platinum office"
 msgstr "משרד LEED פלטינום"
 
-#: .././pages/about.php:44
+#: .././pages/about.php:59
 msgid ""
 "If you're interested in hiring us for WordPress development, or just want to "
 "learn more about us, please visit"
 msgstr ""
 "אם אתה מעוניין בהעסקתנו לפיתוח וורדפרס, או רק רוצה ללמוד יותר על קשר, אנא בקר"
 
-#: .././pages/lists.php:8
-msgid "No forms have been added yet."
-msgstr "אין צורות נוספו עדיין."
-
-#: .././pages/lists.php:39
+#: .././pages/lists.php:56
 msgid "Oops.. The list ID you entered appears to be incorrect."
 msgstr "אופס .. מופיע מזהה הרשימה שהזנת שגוי."
 
-#: .././pages/lists.php:44
+#: .././pages/lists.php:70
 msgid "There was an error!"
 msgstr "הייתה שגיאה!"
 
-#: .././pages/lists.php:135
+#: .././pages/lists.php:161
 msgid "You need to select a Mailchimp list in order to create a form for it"
 msgstr "אתה צריך לבחור רשימת MailChimp כדי ליצור טופס עבורו"
 
-#: .././pages/lists.php:173
+#: .././pages/lists.php:220
 msgid "Are you sure you want to delete this form?"
-msgstr "האם אתה בטוח שברצונך למחוק את הטופס הזה"
+msgstr "האם אתה בטוח שברצונך למחוק את הטופס הזה?"
 
-#: .././pages/lists.php:206
-msgid "Are you sure you want to re-import your fields from MailChimp?"
-msgstr "האם אתה בטוח שאתה רוצה לייבא מחדש את השדות מMailChimp?"
+#: .././pages/lists.php:263
+msgid ""
+"Are you sure you want to re-import this form and its fields from MailChimp?"
+msgstr "האם אתה בטוח שאתה רוצה לייבא מחדש בטופס זה ובתחומיה ​​מMailChimp?"
 
-#: .././pages/lists.php:228
-msgid "Looks like this form is already up to date!"
-msgstr "נראה כמו טופס זה כבר מעודכן!"
+#: .././pages/lists.php:284
+msgid "Your MailChimp form"
+msgstr "טפסי MailChimp"
 
-#: .././pages/lists.php:326
+#: .././pages/lists.php:284
+msgid " was successfully updated"
+msgstr " עודכן בהצלחה"
+
+#: .././pages/lists.php:298
+msgid "It looks like this form is already up to date!"
+msgstr "זה נראה כמו טופס זה כבר מעודכן!"
+
+#: .././pages/lists.php:423
 msgid "Are you sure you want to unsubscribe"
 msgstr "האם אתה בטוח שאתה רוצה לבטל את המנוי"
 
-#: .././pages/lists.php:326
+#: .././pages/lists.php:423
 msgid "from this list?"
 msgstr "מרשימה זו?"
 
-#: .././pages/lists.php:342
+#: .././pages/lists.php:439
 msgid "was successfully unsubscribed from this list."
 msgstr "היה הוסר בהצלחה מרשימה זו."
 
-#: .././pages/lists.php:448 .././pages/options.php:196
-#: .././pages/options.php:416
+#: .././pages/lists.php:549 .././pages/myMailChimp.php:74
+#: .././pages/options.php:354 .././pages/options.php:707
 msgid "Easy Mailchimp Forms by YIKES, Inc."
-msgstr "טפסים קלים MailChimp ידי Yikes, Inc"
+msgstr "טפסים קלים MailChimp ידי איכס, Inc"
 
-#: .././pages/lists.php:454
+#: .././pages/lists.php:555
 msgid "Before you can add MailChimp forms to your site, you need to"
 msgstr "לפני שתוכל להוסיף צורות MailChimp לאתר שלך, אתה צריך"
 
-#: .././pages/lists.php:454
+#: .././pages/lists.php:555
 msgid "go to the MailChimp Settings page"
 msgstr "לעבור לדף הגדרות MailChimp"
 
-#: .././pages/lists.php:454 .././templates/yikes-mailchimp-widget.php:156
+#: .././pages/lists.php:555 .././templates/yikes-mailchimp-widget.php:156
 msgid "and add your API Key."
 msgstr "ולהוסיף מפתח API שלך."
 
-#: .././pages/lists.php:462
+#: .././pages/lists.php:563
 msgid "You must enter a valid API key to import and manage your lists."
 msgstr "עליך להזין מפתח API חוקי לייבא ולנהל את הרשימות שלך."
 
-#: .././pages/lists.php:473
+#: .././pages/lists.php:574
 msgid "Your Lists"
 msgstr "הרשימות שלך"
 
-#: .././pages/lists.php:483
+#: .././pages/lists.php:583
 msgid "Manage Forms"
 msgstr "ניהול טפסים"
 
-#: .././pages/options.php:41
+#: .././pages/myMailChimp.php:48 .././pages/options.php:326
+msgid "Need Help?"
+msgstr "צריך עזרה?"
+
+#: .././pages/myMailChimp.php:49 .././pages/options.php:327
+msgid "Get In Contact!"
+msgstr "קבל על קשר!"
+
+#: .././pages/myMailChimp.php:57 .././pages/options.php:335
+msgid "Loving the plugin?"
+msgstr "לאהוב את התוסף?"
+
+#: .././pages/myMailChimp.php:58 .././pages/options.php:336
+msgid "Leave us a nice review"
+msgstr "עזוב אותנו בביקורת נחמדה"
+
+#: .././pages/myMailChimp.php:78
+msgid ""
+"Here you will find recent activity for your MailChimp account, as well as "
+"statistics for lists and campaigns."
+msgstr ""
+"כאן תוכל למצוא את הפעילות האחרונה בחשבון MailChimp שלך, כמו גם הנתונים "
+"הסטטיסטיים עבור רשימות ומסעות פרסום."
+
+#: .././pages/myMailChimp.php:83
+msgid "Account Overview"
+msgstr "סקירה"
+
+#: .././pages/myMailChimp.php:84
+msgid "Account Activity"
+msgstr "פעילות בחשבון"
+
+#: .././pages/myMailChimp.php:85
+msgid "List Statistics"
+msgstr "סטטיסטיקה רשימה"
+
+#: .././pages/myMailChimp.php:173
+msgid "Recent Activity"
+msgstr "הפעילות אחרונות"
+
+#: .././pages/myMailChimp.php:207
+msgid "Growth History"
+msgstr "היסטורית צמיחה"
+
+#: .././pages/myMailChimp.php:208
+msgid "Campaign Stats"
+msgstr "קמפיין סטטיסטיקות"
+
+#: .././pages/options.php:54 .././pages/options.php:86
+#: .././pages/options.php:118
 msgid "The options were saved successfully!"
 msgstr "האפשרויות היו נשמרו בהצלחה!"
 
-#: .././pages/options.php:44
+#: .././pages/options.php:57 .././pages/options.php:89
+#: .././pages/options.php:121
 msgid "The options could not be saved (or you did not change them)."
 msgstr "האפשרויות לא היו אפשרות לשמור (או שלא לשנות אותם)."
 
-#: .././pages/options.php:96
+#: .././pages/options.php:176
 msgid "Valid API Key"
 msgstr "מפתח API תקף"
 
-#: .././pages/options.php:102
+#: .././pages/options.php:182
 msgid "Sorry, that is an invalid MailChimp API key."
 msgstr "סליחה, זה הוא מפתח API MailChimp לא חוקי."
 
-#: .././pages/options.php:108
+#: .././pages/options.php:189
 msgid ""
 "Sorry, that is an invalid MailChimp API key. Please check the console for "
 "further information."
@@ -371,19 +508,41 @@ msgstr ""
 "סליחה, זה הוא מפתח API MailChimp לא חוקי. אנא בדוק את הקונסולה לקבלת מידע "
 "נוספת."
 
-#: .././pages/options.php:117
+#: .././pages/options.php:199
 msgid "Error: Please enter a valid Mail Chimp API Key."
 msgstr "שגיאה: אנא הכנס דואר השימפנזה API מפתח חוקי."
 
-#: .././pages/options.php:199
+#: .././pages/options.php:217
+msgid ""
+"Are you sure you want to reset your MailChimp settings? This cannot be "
+"undone."
+msgstr "האם אתה בטוח שאתה רוצה לאפס את הגדרות MailChimp שלך? זה לא ניתן לבטל."
+
+#: .././pages/options.php:230
+msgid "MailChimp settings have successfully been reset"
+msgstr "הגדרות MailChimp לנו בהצלחה לאפס"
+
+#: .././pages/options.php:348
+msgid "Form Options"
+msgstr "אפשרויות טופס"
+
+#: .././pages/options.php:349
+msgid "ReCaptcha Options"
+msgstr "ReCAPTCHA אפשרויות"
+
+#: .././pages/options.php:350
+msgid "Debug Options"
+msgstr "אפשרויות Debug"
+
+#: .././pages/options.php:361
 msgid "Manage Mailchimp Forms Settings"
 msgstr "ניהול הגדרות טפסי MailChimp"
 
-#: .././pages/options.php:205
+#: .././pages/options.php:367
 msgid "WordPress Version Number Error"
-msgstr "גרסת Wordpress"
+msgstr "שגיאה וורדפרס מספר הגרסה"
 
-#: .././pages/options.php:206
+#: .././pages/options.php:368
 msgid ""
 "We're sorry, but it looks like your using an outdated version of WordPress. "
 "You won't be able to access the tinyMCE button to insert forms into pages "
@@ -393,33 +552,33 @@ msgstr ""
 "מסוגל לגשת לכפתור TinyMCE להכניס צורות לתוך דפים והודעות אלא אם תעדכן ל3.9 "
 "או במאוחר."
 
-#: .././pages/options.php:215
+#: .././pages/options.php:377
 msgid "LocalHost Detected :"
 msgstr "LocalHost זוהה:"
 
-#: .././pages/options.php:216
+#: .././pages/options.php:378
 msgid ""
 "It looks like your using Easy MailChimp Forms by YIKES Inc. on localhost."
-msgstr "טפסים קלים MailChimp ידי Yikes, Inc"
+msgstr "זה נראה כמו שלך באמצעות טפסים קל MailChimp ידי איכס בעמ על localhost."
 
-#: .././pages/options.php:217
+#: .././pages/options.php:379
 msgid ""
 "If you are unable to validate your API key, and receive the error message"
 msgstr "אם אתה לא מצליח לאמת את מפתח ה-API, ומתקבל הודעת השגיאה"
 
-#: .././pages/options.php:217
-msgid "\"SSL certificate problem: unable to get local issuer certificate\" "
+#: .././pages/options.php:379
+msgid "SSL certificate problem: unable to get local issuer certificate"
 msgstr "\"בעיה תעודת SSL: לא מצליח לקבל תעודת מנפיק מקומי\" "
 
-#: .././pages/options.php:217
+#: .././pages/options.php:379
 msgid "follow the tutorial located "
 msgstr "בצע את ההדרכה ממוקמת "
 
-#: .././pages/options.php:230
+#: .././pages/options.php:389
 msgid "Your Mailchimp API Key"
 msgstr "MailChimp API המפתח שלך"
 
-#: .././pages/options.php:238
+#: .././pages/options.php:406
 msgid ""
 "Please enter your MailChimp API Key above. The API Key allows your WordPress "
 "site to communicate with your MailChimp account."
@@ -427,93 +586,76 @@ msgstr ""
 "נא להזין מפתח API MailChimp שלך לעיל. API מפתח מאפשר האתר שלך WordPress כדי "
 "לתקשר עם חשבון MailChimp שלך."
 
-#: .././pages/options.php:239
+#: .././pages/options.php:407
 msgid "For more help, visit the MailChimp Support article"
 msgstr "לקבלת עזרה נוספת, בקר במאמר MailChimp התמיכה"
 
-#: .././pages/options.php:239
+#: .././pages/options.php:407
 msgid "Where can I find my API Key?"
 msgstr "איפה אני יכול למצוא את מפתח ה-API שלי?"
 
-#: .././pages/options.php:244
+#: .././pages/options.php:412
 msgid "Preferred Form Layout"
 msgstr "מועדפת טופס פריסה"
 
-#: .././pages/options.php:247
+#: .././pages/options.php:415
 msgid "table"
 msgstr "שולחן"
 
-#: .././pages/options.php:248
+#: .././pages/options.php:416
 msgid "div"
 msgstr "div"
 
-#: .././pages/options.php:256
+#: .././pages/options.php:424
 msgid "Choose whether you want your forms to use a table or div layout."
 msgstr "לבחור אם אתה רוצה את הטפסים שלך כדי להשתמש בטבלה או פריסת div."
 
-#: .././pages/options.php:261
-msgid "Advanced Error Messaging"
-msgstr "שגיאה מתקדמות מסרים"
-
-#: .././pages/options.php:264
-msgid "Disabled"
-msgstr "מנוטרל"
-
-#: .././pages/options.php:265
-msgid "Enabled"
-msgstr "מאופשר"
-
-#: .././pages/options.php:273
-msgid ""
-"Enable if you're having problems with your forms sending data to MailChimp. "
-"Enabling Advanced Error Messaging will show you the exact error codes "
-"MailChimp is returning."
-msgstr ""
-"אפשר אם אתה נתקלת בבעיות עם הטפסים שלך שליחת נתונים לMailChimp. מה שמאפשר "
-"העברת הודעות שגיאה מתקדמות יראה לכם את קודי שגיאה המדויקים MailChimp חוזר."
-
-#: .././pages/options.php:281
+#: .././pages/options.php:432
 msgid "Single Opt-In"
 msgstr "אחת Opt-In"
 
-#: .././pages/options.php:282
+#: .././pages/options.php:433
 msgid "Double Opt-In"
 msgstr "Double opt-in"
 
-#: .././pages/options.php:290
+#: .././pages/options.php:441
 msgid ""
 "A single opt-in will add the user to your list without any further "
 "interaction."
-msgstr "Opt-in יחיד יהיה להוסיף את המשתמש לרשימה שלך, ללא כל אינטראקציה נוספת."
+msgstr "Opt-in יחיד יהיה להוסיף את המשתמש לרשימה שלך ללא התערבות נוספת."
 
-#: .././pages/options.php:291
+#: .././pages/options.php:442
 msgid ""
 "A double opt-in will send an email to the user asking them to confirm their "
 "subscription."
 msgstr ""
 "Opt-in כפול יהיה לשלוח דואר אלקטרוני למשתמש ומבקש מהם לאשר את המנוי שלהם."
 
-#: .././pages/options.php:292
+#: .././pages/options.php:443
 msgid "This will also dictate the opt-in settings for people leaving comments."
 msgstr "זה גם יכתיב את הגדרות opt-in לאנשי השארת תגובות."
 
-#: .././pages/options.php:297
+#: .././pages/options.php:448
 msgid "Custom Opt-In Message"
 msgstr "הודעה מותאמת אישית Opt-in"
 
-#: .././pages/options.php:299
+#: .././pages/options.php:450
 msgid "Double Opt-In Message"
 msgstr "מסר כפול opt-in"
 
-#: .././pages/options.php:301
+#: .././pages/options.php:454
 msgid "Single Opt-In Message"
 msgstr "מסר opt-in יחיד"
 
-#: .././pages/options.php:307
+#: .././pages/options.php:464
+msgid "Note: You can include html markup in your confirmation message."
+msgstr "הערה: אתה יכול לכלול סימון HTML בהודעת האישור שלך."
+
+#: .././pages/options.php:469
 msgid "Interest Group Label"
 msgstr "לייבל קבוצת העניין"
 
-#: .././pages/options.php:316
+#: .././pages/options.php:478
 msgid ""
 "Text to display above interest groups. Leave blank to use MailChimp interest "
 "group names."
@@ -521,19 +663,19 @@ msgstr ""
 "טקסט שיוצג מעל קבוצות אינטרס. שאר ריק כדי להשתמש בשמות קבוצת אינטרס "
 "MailChimp."
 
-#: .././pages/options.php:321
+#: .././pages/options.php:483
 msgid "Display opt-in checkbox on comment forms?"
 msgstr "opt-in תיבת תצוגה בצורות תגובה?"
 
-#: .././pages/options.php:324
+#: .././pages/options.php:486
 msgid "Hide"
 msgstr "הסתר"
 
-#: .././pages/options.php:325
+#: .././pages/options.php:487
 msgid "Show"
 msgstr "הצג"
 
-#: .././pages/options.php:333
+#: .././pages/options.php:495
 msgid ""
 "This will display a checkbox just above the submit button on all comment "
 "forms. If selected, any users leaving comments will also be added to the "
@@ -542,21 +684,21 @@ msgstr ""
 "פעולה זו תציג תיבה בדיוק מעל כפתור שליחה בכל צורות התגובה. אם נבחר, משתמשים "
 "כל השארת תגובות יתווספו גם לרשימת התפוצה."
 
-#: .././pages/options.php:338
+#: .././pages/options.php:500
 msgid "Custom Comment Checkbox Text"
 msgstr "טקסט תיבת סימון להערה מותאמת אישית"
 
-#: .././pages/options.php:345
+#: .././pages/options.php:507
 msgid "Default List"
 msgstr "רשימת ברירת מחדל"
 
-#: .././pages/options.php:360
+#: .././pages/options.php:522
 msgid ""
 "This is the default list users will be subscribed to when submitting a "
 "comment."
 msgstr "זוהי רשימת משתמשי ברירת המחדל יהיו מנויים בעת הגשת תגובה."
 
-#: .././pages/options.php:361
+#: .././pages/options.php:523
 msgid ""
 "It is best to select a form where only the email , first name and/or last "
 "name are required or you may run into issues."
@@ -564,92 +706,558 @@ msgstr ""
 "עדיף לבחור צורה שבה רק בדוא\"ל, שם פרטיים ו או שם המשפחה נדרשים או שאתה יכול "
 "להיתקל בבעיות."
 
-#: .././pages/options.php:373
+#: .././pages/options.php:528
+msgid "Save Settings"
+msgstr "לשמור את הגדרות"
+
+#: .././pages/options.php:528
+msgid "Reset Plugin Settings"
+msgstr "איפוס הגדרות תוסף"
+
+#: .././pages/options.php:539
+msgid "ReCaptcha Settings"
+msgstr "הגדרות reCAPTCHA"
+
+#: .././pages/options.php:540
+msgid ""
+"reCAPTCHA is a free service to protect your website from spam and abuse. "
+"reCAPTCHA uses an advanced risk analysis engine and adaptive CAPTCHAs to "
+"keep automated software from engaging in abusive activities on your site. It "
+"does this while letting your valid users pass through with ease."
+msgstr ""
+"reCAPTCHA הוא שירות ללא תשלום כדי להגן על האתר שלך מפני דואר זבל ושימוש "
+"לרעה. reCAPTCHA משתמש במנוע ניתוח סיכונים מתקדם וCAPTCHAs אדפטיבית כדי לשמור "
+"על תוכנות אוטומטיות מלעסוק בפעילויות פוגעניות באתר שלך. הוא עושה זאת תוך מתן "
+"אפשרות למשתמשים החוקיים שלך לעבור בקלות."
+
+#: .././pages/options.php:542
+msgid "Note"
+msgstr "הערה"
+
+#: .././pages/options.php:542
+msgid ""
+"if you're displaying multiple forms on a single page, reCAPTCHA will only "
+"display on one form at a time."
+msgstr "אם אתה מציג צורות שונות בדף אחד, reCAPTCHA יציג רק טופס אחד בכל פעם."
+
+#: .././pages/options.php:549
+msgid "ReCaptcha Spam Protection"
+msgstr "ReCAPTCHA הגנה מפני דואר זבל"
+
+#: .././pages/options.php:552 .././pages/options.php:635
+msgid "Disabled"
+msgstr "מנוטרל"
+
+#: .././pages/options.php:553 .././pages/options.php:636
+msgid "Enabled"
+msgstr "מאופשר"
+
+#: .././pages/options.php:561
+msgid "ReCaptcha prevents excessive form entires from spammers and bots."
+msgstr "ReCAPTCHA מונע entires צורה מוגזמת משולחי דואר זבל ובוטים."
+
+#: .././pages/options.php:569
+msgid "ReCaptcha Public API Key"
+msgstr "ReCAPTCHA הציבורי API מפתח"
+
+#: .././pages/options.php:577
+msgid "ReCaptcha Private API Key"
+msgstr "ReCAPTCHA הפרטי API מפתח"
+
+#: .././pages/options.php:586
+msgid "to retreive a recaptcha API key, sign up for an account"
+msgstr "כדי לאחזר מפתח API reCAPTCHA, להירשם לחשבון"
+
+#: .././pages/options.php:586
+msgid "here"
+msgstr "כאן"
+
+#: .././pages/options.php:591
+msgid "ReCaptcha Style"
+msgstr "ReCAPTCHA סגנון"
+
+#: .././pages/options.php:594
+msgid "Default"
+msgstr "ברירת מחדל"
+
+#: .././pages/options.php:595
+msgid "White"
+msgstr "לבן"
+
+#: .././pages/options.php:596
+msgid "Black Glass"
+msgstr "שחור זכוכית"
+
+#: .././pages/options.php:597
+msgid "Clean"
+msgstr "נקה"
+
+#: .././pages/options.php:605
+msgid "reCAPTCHA Preview"
+msgstr "reCAPTCHA מקדימה"
+
+#: .././pages/options.php:624
+msgid "Debug Settings"
+msgstr "הגדרות Debug"
+
+#: .././pages/options.php:632
+msgid "Advanced Error Messaging"
+msgstr "שגיאה מתקדמות מסרים"
+
+#: .././pages/options.php:644
+msgid ""
+"Enable if you're having problems with your forms sending data to MailChimp. "
+"Enabling Advanced Error Messaging will show you the exact error codes "
+"MailChimp is returning."
+msgstr ""
+"אפשר אם אתה נתקלת בבעיות עם הטפסים שלך שליחת נתונים לMailChimp. מה שמאפשר "
+"העברת הודעות שגיאה מתקדמות יראה לכם את קודי שגיאה המדויקים MailChimp חוזר."
+
+#: .././pages/options.php:651
 msgid "Plugin Information"
 msgstr "מידע Plugin"
 
-#: .././pages/options.php:376
+#: .././pages/options.php:654
 msgid "If you experience any issues with our plugin, please"
 msgstr "אם אתם נתקלים בבעיות עם התוסף שלנו, אנא"
 
-#: .././pages/options.php:376
+#: .././pages/options.php:654
 msgid "submit a New Issue on our Github Issue Tracker"
 msgstr "להגיש גיליון חדש בTracker גיליון Github"
 
-#: .././pages/options.php:376
+#: .././pages/options.php:654
 msgid ""
 "Please include the information below to help us troubleshoot your problem."
 msgstr "אנא כלול את המידע שלהלן כדי לעזור לנו לפתור את הבעיה שלך."
 
-#: .././pages/options.php:384
+#: .././pages/options.php:659
 msgid "Plugin Version"
 msgstr "גרסת תוסף"
 
-#: .././pages/options.php:388
+#: .././pages/options.php:663
 msgid "Wordpress Version"
 msgstr "גרסת Wordpress"
 
-#: .././pages/options.php:392
+#: .././pages/options.php:667
 msgid "Browser Information"
 msgstr "מידע דפדפן"
 
-#: .././pages/options.php:420
+#: .././pages/options.php:676
+msgid "Server Information"
+msgstr "פרטי שרת"
+
+#: .././pages/options.php:711
 msgid "Error"
 msgstr "שגיאה"
 
-#: .././pages/options.php:421
+#: .././pages/options.php:712
 msgid ""
 "We're sorry, but cURL is disabled on your server. The MailChimp API utilizes "
-"cURL to send and retreive data."
+"cURL to send and retrieve data."
 msgstr ""
 "אנו מצטערים, אבל הסלסול הוא זמין בשרת שלך. API MailChimp מנצל cURL לשלוח "
-"ולאחזר את הנתונים."
+"ולאחזר נתונים."
 
-#: .././pages/options.php:426
+#: .././pages/options.php:717
 msgid "Help!"
 msgstr "הצילו!"
 
-#: .././pages/options.php:426
+#: .././pages/options.php:717
 msgid "What is cURL?"
 msgstr "מהו cURL?"
 
-#: .././pages/options.php:426
+#: .././pages/options.php:717
 msgid "Check phpinfo()"
 msgstr "בדוק phpinfo ()"
 
-#: .././pages/options.php:428
+#: .././pages/options.php:719
 msgid "Steps To Resolve The Issue"
 msgstr "צעדים כדי לפתור את הבעיה"
 
-#: .././pages/options.php:430
+#: .././pages/options.php:723
 msgid ""
 "You can enable cURL by turning on the cURL module within your php.ini file"
 msgstr "אתה יכול לאפשר cURL ידי הפעלת המודול cURL בתוך קובץ php.ini שלך"
 
-#: .././pages/options.php:430
+#: .././pages/options.php:723
 msgid "You should find the php.ini file located here : "
 msgstr "אתה צריך למצוא את קובץ php.ini נמצא כאן: "
 
-#: .././pages/options.php:431
+#: .././pages/options.php:724
 msgid ""
 "Once found, open up php.ini and locate the line \";extension=php_curl.dll\"."
 msgstr ""
 "מצא פעם אחת, לפתוח את php.ini ולאתר את השורה \"; סיומת = php_curl.dll\"."
 
-#: .././pages/options.php:432
+#: .././pages/options.php:725
 msgid ""
-"Remove the semi colon before the line, to un-comment it and make the module "
-"active."
+"Remove the semi colon before the line, to un-comment it and make the cURL "
+"module active."
 msgstr ""
-"הסר את המעי הגס למחצה לפני הקו, כדי לבטל את התגובה ולהפוך את המודול פעיל."
+"הסר את המעי הגס למחצה לפני הקו, כדי לבטל את התגובה ולהפוך את מודול cURL פעיל."
 
-#: .././pages/options.php:433
+#: .././pages/options.php:726
 msgid "Re-save and close the file."
 msgstr "מחדש לשמור ולסגור את התיק."
 
-#: .././pages/options.php:434
-msgid "Re-load this page."
-msgstr "טעה מחדש של עמוד זה."
+#: .././pages/options.php:727
+msgid "Restart your Apache and MySQL services and re-load this page."
+msgstr "הפעל מחדש את שירותי Apache ו MySQL שלך ולטעון מחדש את הדף זה."
+
+#: .././templates/mailChimp-account-overview.php:32
+#: .././templates/mailChimp-account-overview.php:79
+msgid "Free Forever"
+msgstr "חינם Forever"
+
+#: .././templates/mailChimp-account-overview.php:37
+#: .././templates/mailChimp-account-overview.php:79
+msgid "Pay As You Go"
+msgstr "אתה לשלם עבור"
+
+#: .././templates/mailChimp-account-overview.php:42
+msgid "Premium Chimp"
+msgstr "הפרמיה שימפנזה"
+
+#: .././templates/mailChimp-account-overview.php:70
+msgid "Account Not Yet Activated"
+msgstr "חשבון עדיין לא הופעל"
+
+#: .././templates/mailChimp-account-overview.php:70
+msgid "Account Active"
+msgstr "חשבון פעיל"
+
+#: .././templates/mailChimp-account-overview.php:73
+msgid "Company"
+msgstr "חברה"
+
+#: .././templates/mailChimp-account-overview.php:74
+msgid "Member Since"
+msgstr "חבר מאז"
+
+#: .././templates/mailChimp-account-overview.php:76
+msgid "Account Type"
+msgstr "סוג החשבון"
+
+#: .././templates/mailChimp-account-overview.php:82
+msgid "Emails Left"
+msgstr "מיילים שמאל"
+
+#: .././templates/mailChimp-account-overview.php:83
+msgid "Emails will reset on"
+msgstr "מיילים יאפס על"
+
+#: .././templates/mailChimp-account-overview.php:89
+msgid "Industry"
+msgstr "תעשייה"
+
+#: .././templates/mailChimp-campaign-click-geo-map.php:97
+msgid "Number of Campaign Opens"
+msgstr "מספר פותח קמפיין"
+
+#: .././templates/mailChimp-campaign-click-geo-map.php:121
+msgid "Campaign Activity Geo Map"
+msgstr "קמפיין פעילות גיאוגרפי מפה"
+
+#: .././templates/mailChimp-campaign-click-geo-map.php:127
+msgid "Top Opens By Country"
+msgstr "למעלה פותח על ידי מדינה"
+
+#: .././templates/mailChimp-campaign-click-geo-map.php:133
+msgid "Country"
+msgstr "ארץ"
+
+#: .././templates/mailChimp-campaign-click-report.php:59
+#: .././templates/mailChimp-campaign-click-report.php:71
+msgid "Visualize Me"
+msgstr "דמיין אותי"
+
+#: .././templates/mailChimp-campaign-click-report.php:62
+#: .././templates/mailChimp-campaign-click-report.php:74
+msgid "URL"
+msgstr "כתובת URL"
+
+#: .././templates/mailChimp-campaign-click-report.php:63
+#: .././templates/mailChimp-campaign-click-report.php:75
+msgid "Clicks"
+msgstr "קליקים"
+
+#: .././templates/mailChimp-campaign-click-report.php:64
+#: .././templates/mailChimp-campaign-click-report.php:76
+msgid "Click Percent"
+msgstr "לחץ על אחוז"
+
+#: .././templates/mailChimp-campaign-click-report.php:65
+#: .././templates/mailChimp-campaign-click-report.php:77
+#: .././templates/mailChimp-campaign-report.php:518
+msgid "Unique Clicks"
+msgstr "קליקים ייחודיים"
+
+#: .././templates/mailChimp-campaign-click-report.php:66
+#: .././templates/mailChimp-campaign-click-report.php:78
+msgid "Unique Percent"
+msgstr "אחוז ייחודי"
+
+#: .././templates/mailChimp-campaign-click-report.php:81
+msgid "No Links Clicked"
+msgstr "אין קישורים שנלחצו"
+
+#: .././templates/mailChimp-campaign-clicks-pie-chart.php:15
+msgid "Link Click Percentage - Pie Chart"
+msgstr "אחוז לחץ על קישור - תרשים עוגה"
+
+#: .././templates/mailChimp-campaign-report.php:306
+#: .././templates/mailChimp-campaign-report.php:307
+msgid "Back to Campaigns"
+msgstr "חזור לקמפיינים"
+
+#: .././templates/mailChimp-campaign-report.php:321
+msgid "Campaign Statistics Report"
+msgstr "קמפיין לסטטיסטיקה דווח"
+
+#: .././templates/mailChimp-campaign-report.php:328
+msgid "Open tracking was disabled on this campaign"
+msgstr "מעקב פתוח הושבת בקמפיין הזה"
+
+#: .././templates/mailChimp-campaign-report.php:329
+msgid ""
+"You did not enable open tracking for this campaign, so the data in this "
+"report will be incomplete."
+msgstr ""
+"אתה לא לאפשר מעקב פתוח עבור מסע פרסום זה, כך שהנתונים בדוח זה יהיו שלמים."
+
+#: .././templates/mailChimp-campaign-report.php:329
+msgid "about open tracking"
+msgstr "מעקב על פתוח"
+
+#: .././templates/mailChimp-campaign-report.php:336
+msgid "Recipients"
+msgstr "מקבלי"
+
+#: .././templates/mailChimp-campaign-report.php:347
+msgid "Subject"
+msgstr "נושא"
+
+#: .././templates/mailChimp-campaign-report.php:348
+msgid "Delivered"
+msgstr "נתתי"
+
+#: .././templates/mailChimp-campaign-report.php:353
+msgid "View Email"
+msgstr "צפו בדוא\"ל"
+
+#: .././templates/mailChimp-campaign-report.php:354
+msgid "Download Report"
+msgstr "הורד דוח"
+
+#: .././templates/mailChimp-campaign-report.php:355
+msgid "Print Report"
+msgstr "דוח הדפסה"
+
+#: .././templates/mailChimp-campaign-report.php:363
+msgid "Open Rate"
+msgstr "שיעור פתוח"
+
+#: .././templates/mailChimp-campaign-report.php:369
+#: .././templates/mailChimp-campaign-report.php:381
+msgid "Industry Avg"
+msgstr "ממוצע בתעשייה"
+
+#: .././templates/mailChimp-campaign-report.php:374
+msgid "Click Rate"
+msgstr "לחץ דרג"
+
+#: .././templates/mailChimp-campaign-report.php:389
+msgid "Opened"
+msgstr "נפתח"
+
+#: .././templates/mailChimp-campaign-report.php:394
+msgid "Clicked"
+msgstr "לחץ"
+
+#: .././templates/mailChimp-campaign-report.php:399
+msgid "Bounced"
+msgstr "קיפץ"
+
+#: .././templates/mailChimp-campaign-report.php:405
+msgid "Unsubscribed"
+msgstr "תאריך המבוקשים"
+
+#: .././templates/mailChimp-campaign-report.php:413
+msgid "Successful deliveries"
+msgstr "מוצלחים משלוחים"
+
+#: .././templates/mailChimp-campaign-report.php:414
+msgid "Total opens"
+msgstr "סה\"כ נפתח"
+
+#: .././templates/mailChimp-campaign-report.php:415
+msgid "Last opened"
+msgstr "עודכן לאחרונה"
+
+#: .././templates/mailChimp-campaign-report.php:416
+msgid "Forwarded"
+msgstr "שהועבר"
+
+#: .././templates/mailChimp-campaign-report.php:420
+msgid "Clicks per unique opens"
+msgstr "קליקים לייחודיים נפתח"
+
+#: .././templates/mailChimp-campaign-report.php:421
+msgid "Total clicks"
+msgstr "סה\"כ קליקים"
+
+#: .././templates/mailChimp-campaign-report.php:422
+msgid "Last clicked"
+msgstr "לחץ אחרון"
+
+#: .././templates/mailChimp-campaign-report.php:423
+msgid "Abuse reports"
+msgstr "דיווחים לרעה"
+
+#: .././templates/mailChimp-campaign-report.php:430
+msgid "Campaign Link Performance"
+msgstr "קישור ביצועי מסע פרסום"
+
+#: .././templates/mailChimp-campaign-report.php:488
+msgid "24 Hour Campaign Performance"
+msgstr "24 שעות ביצועי מסע פרסום"
+
+#: .././templates/mailChimp-campaign-report.php:491
+msgid "begins from the time your campaign is sent"
+msgstr "מתחיל מרגע מסע הפרסום שלך נשלח"
+
+#: .././templates/mailChimp-campaign-report.php:499
+msgid "Number of Opens/Clicks"
+msgstr "מספר המנויים"
+
+#: .././templates/mailChimp-campaign-stats-template.php:92
+msgid "Previous Campaigns"
+msgstr "קמפיינים קודמים"
+
+#: .././templates/mailChimp-campaign-stats-template.php:158
+#: .././templates/mailChimp-campaign-stats-template.php:249
+msgid "Sent"
+msgstr "נשלח"
+
+#: .././templates/mailChimp-campaign-stats-template.php:158
+msgid "on "
+msgstr "על "
+
+#: .././templates/mailChimp-campaign-stats-template.php:158
+msgid "at "
+msgstr "בשעה "
+
+#: .././templates/mailChimp-campaign-stats-template.php:161
+#: .././templates/mailChimp-campaign-stats-template.php:252
+msgid "Recurring Campaign"
+msgstr "המבצע חוזר"
+
+#: .././templates/mailChimp-campaign-stats-template.php:163
+#: .././templates/mailChimp-campaign-stats-template.php:192
+#: .././templates/mailChimp-campaign-stats-template.php:254
+#: .././templates/mailChimp-campaign-stats-template.php:275
+msgid "Not Yet Sent"
+msgstr "לא נשלח עדיין"
+
+#: .././templates/mailChimp-campaign-stats-template.php:173
+#: .././templates/mailChimp-campaign-stats-template.php:263
+msgid " Subscriber"
+msgstr "תאריך המבוקשים"
+
+#: .././templates/mailChimp-campaign-stats-template.php:173
+#: .././templates/mailChimp-campaign-stats-template.php:263
+msgid " Subscribers"
+msgstr "הערות מנויים"
+
+#: .././templates/mailChimp-campaign-stats-template.php:174
+#: .././templates/mailChimp-campaign-stats-template.php:264
+#: .././templates/mailChimp-campaign-stats-template.php:332
+msgid " Open"
+msgstr " פתח"
+
+#: .././templates/mailChimp-campaign-stats-template.php:174
+#: .././templates/mailChimp-campaign-stats-template.php:180
+#: .././templates/mailChimp-campaign-stats-template.php:264
+#: .././templates/mailChimp-campaign-stats-template.php:332
+msgid " Opens"
+msgstr " פתיחה"
+
+#: .././templates/mailChimp-campaign-stats-template.php:175
+#: .././templates/mailChimp-campaign-stats-template.php:265
+#: .././templates/mailChimp-campaign-stats-template.php:333
+msgid " Click"
+msgstr " נקישה"
+
+#: .././templates/mailChimp-campaign-stats-template.php:175
+#: .././templates/mailChimp-campaign-stats-template.php:181
+#: .././templates/mailChimp-campaign-stats-template.php:265
+#: .././templates/mailChimp-campaign-stats-template.php:333
+msgid " Clicks"
+msgstr " קליקים"
+
+#: .././templates/mailChimp-campaign-stats-template.php:179
+msgid " Campaigns Sent"
+msgstr " קמפיינים שנשלחו"
+
+#: .././templates/mailChimp-campaign-stats-template.php:302
+msgid "It looks like you haven't sent any campaigns yet."
+msgstr "זה נראה כאילו לא שלח כל קמפיינים עדיין."
+
+#: .././templates/mailChimp-campaign-stats-template.php:323
+msgid "Campaigns Sent"
+msgstr "קמפיינים שנשלחו"
+
+#: .././templates/mailChimp-campaign-stats-template.php:370
+msgid "Total Clicks"
+msgstr "סה\"כ קליקים"
+
+#: .././templates/mailChimp-list-growth-template.php:371
+msgid "Total Subscribers"
+msgstr "תאריך המבוקשים"
+
+#: .././templates/mailChimp-list-growth-template.php:376
+msgid "Imported Subscribers"
+msgstr "תאריך המבוקשים"
+
+#: .././templates/mailChimp-list-growth-template.php:381
+msgid "Opt-in Subscribers"
+msgstr "תאריך המבוקשים"
+
+#: .././templates/mailChimp-list-growth-template.php:390
+msgid "There is no growth data for"
+msgstr "אין נתוני צמיחה"
+
+#: .././templates/mailChimp-list-growth-template.php:390
+msgid " yet"
+msgstr " בכל זאת"
+
+#: .././templates/mailChimp-list-growth-template.php:397
+msgid "No growth data found yet. Please try again at a later time."
+msgstr "אין נתונים צמיחה נמצא עדיין. אנא נסה שוב במועד מאוחר יותר."
+
+#: .././templates/mailChimp-profile-template.php:10
+msgid "MailChimp Account Overview"
+msgstr "MailChimp חשבון סקירה"
+
+#: .././templates/mailChimp-profile-template.php:14
+msgid "Username"
+msgstr "שם משתמש"
+
+#: .././templates/mailChimp-profile-template.php:15
+msgid "Name"
+msgstr "שם משפחה"
+
+#: .././templates/mailChimp-profile-template.php:16
+msgid "Email"
+msgstr "מייל"
+
+#: .././templates/mailChimp-profile-template.php:17
+msgid "Account Role"
+msgstr "תפקיד חשבון"
+
+#: .././templates/mailChimpChatter-template.php:72
+msgid "No recent account activity. Check back again later."
+msgstr "אין פעילות בחשבון האחרונה. בדוק שוב מאוחר יותר."
 
 #: .././templates/shortcode_error.php:1
 msgid "There was an error calling the mailchimp list."
@@ -657,23 +1265,23 @@ msgstr "הייתה שגיאה בקריאה לרשימת MailChimp."
 
 #: .././templates/shortcode_error_data.php:1
 msgid ""
-"The list doesn't exist! Make sure you have imported the list on the \"Manage "
-"List Forms\" page."
+"The list doesn't exist! Make sure you have imported the list on the 'Manage "
+"List Forms' page."
 msgstr "הרשימה לא קיימת! ודא שייבאת הרשימה ב \"ניהול טפסי רשימת\" דף."
 
-#: .././templates/shortcode_error_exists.php:1
+#: .././templates/shortcode_error_exists.php:2
 msgid "This list was already placed on this page!"
 msgstr "רשימה זו כבר הונחה על דף זה!"
 
-#: .././templates/shortcode_error_no_API_key.php:1
+#: .././templates/shortcode_error_no_API_key.php:2
 msgid "Woops! No Valid API Key Found. Double check your settings."
 msgstr "Woops! אין מפתח API תקף נמצא. בדוק את ההגדרות שלך."
 
-#: .././templates/shortcode_form.php:11
-msgid "Oops.. Don't forget to fill-in the following fields"
-msgstr "אופס .. אל תשכח למלא את השדות הבאים"
+#: .././templates/shortcode_form.php:13
+msgid "Error - The following fields are required, and may not be left blank "
+msgstr "שגיאה - השדות הבאים נדרשים, וייתכן שלא יישארו ריק "
 
-#: .././templates/shortcode_form.php:74
+#: .././templates/shortcode_form.php:121
 msgid "required field"
 msgstr "שדה נדרש"
 
@@ -746,5 +1354,14 @@ msgstr "אופס! זה נראה כאילו שיש לך לא הוסיף מפתח 
 msgid "Settings page"
 msgstr "דף הגדרות"
 
-#~ msgid "No API Key or List Id Exist!"
-#~ msgstr "אין מפתח API או קוד זיהוי רשימה קיים!"
+#~ msgid "to retreive your recaptcha API keys, you must sign up for an account"
+#~ msgstr "כדי לאחזר מפתחות API reCAPTCHA שלך, עליך להירשם לחשבון"
+
+#~ msgid "Loaded Server Modules"
+#~ msgstr "מודולים שרת עמוסים"
+
+#~ msgid "The following modules are active at the server level, on this site"
+#~ msgstr "המודולים הבאים הם פעילים ברמת השרת, באתר זה"
+
+#~ msgid "Oops.. Don't forget to fill-in the following fields"
+#~ msgstr "אופס .. אל תשכח למלא את השדות הבאים"

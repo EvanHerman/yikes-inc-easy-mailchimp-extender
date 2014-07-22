@@ -10,7 +10,6 @@ $ymce = jQuery.noConflict();
 				{
 				jQuery('#yks_form_error_message').remove();
 				// set up our alert for empty fields,
-				// msg	= "<?php _e('Oops.. Don\'t forget to fill-in the following fields','yikes-inc-easy-mailchimp-extender'); ?>"+":\n\n"+msg;
 				msg	= "<?php _e('Error - The following fields are required, and may not be left blank ','yikes-inc-easy-mailchimp-extender'); ?>"+":\n\n"+'<ul>'+msg+'</ul>';
 				// prepend the notification to the user instead of alerting it	
 					// fade it in
@@ -25,9 +24,20 @@ $ymce = jQuery.noConflict();
 				}
 			return (err > 0 ? false : true);
 			}
-		$ymce('#yks-mailchimp-form_<?php echo $list['id']; ?>').submit(function(e){
-			var singleOptinMessage = '<?php echo preg_replace("/\r?\n/", "\\n", apply_filters('the_content' , $this->optionVal['single-optin-message'])); ?>';
-			var doubleOptinMessage = '<?php echo preg_replace("/\r?\n/", "\\n", apply_filters('the_content' , $this->optionVal['double-optin-message'])); ?>';
+		$ymce('#yks-mailchimp-form_<?php echo $list['id']; ?>').submit(function(e){	
+			// remove sharedaddy if the user has it activated
+			// it shouldn't be here :) 
+			// maybe include a checkbox and give the user
+			// an option if they'd like to display it or not?
+			<?php 
+				/* not sure this is needed anymore
+				if( class_exists( 'Jetpack' ) && Jetpack::is_module_active( 'sharedaddy' ) ) {
+					remove_filter( 'the_content', 'sharing_display', 19 ); 
+				}
+				*/
+			?>
+			var singleOptinMessage = '<?php echo str_replace( '\'' , '"' , preg_replace('/\r?\n/', '\\n', apply_filters('yks_mc_content' , $this->optionVal['single-optin-message']))); ?>';
+			var doubleOptinMessage = '<?php echo str_replace( '\'' , '"' , preg_replace('/\r?\n/', '\\n', apply_filters('yks_mc_content' , $this->optionVal['double-optin-message']))); ?>';
 			var optinValue = '<?php echo $this->optionVal['optin']; ?>';
 			e.preventDefault();
 			// Make sure the api key exists
@@ -56,13 +66,11 @@ $ymce = jQuery.noConflict();
 									$ymce('#yks-status-<?php echo $list['id']; ?>').html('<div class="yks-success"><p>'+doubleOptinMessage+'</p></div>');		
 								}
 								$ymce('#yks-mailchimpFormContainerInner_<?php echo $list['id']; ?>').slideUp('fast', function(){
-								$ymce('#yks-status-<?php echo $list['id']; ?>').slideDown('fast');
-							});
-							}
-						else
-							{
+									$ymce('#yks-status-<?php echo $list['id']; ?>').slideDown('fast');
+								});
+							} else {
 								// bundle the MailChimp returned error
-								// with our yiks mc error messages
+								// with our yks mc error messages
 								$ymce('#yks_form_error_message').fadeOut('fast', function() {
 									jQuery(this).remove();
 								});
@@ -74,7 +82,7 @@ $ymce = jQuery.noConflict();
 									next();
 								});
 							}
-						}
+						}	
 				});
 				}
 			return false;
