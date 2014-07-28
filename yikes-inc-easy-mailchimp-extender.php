@@ -4,7 +4,7 @@
 Plugin Name: Easy MailChimp Forms
 Plugin URI: http://www.yikesinc.com/services/yikes-inc-easy-mailchimp-extender/
 Description: Mailchimp integration in the form of a shortcode, php snippet or widget. Now track account status, campaign stats, view subscribers and so much more!
-Version: 5.0
+Version: 5.0.4
 Author: YIKES Inc
 Author URI: http://yikesinc.com
 License: GPL2
@@ -30,7 +30,7 @@ Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 
 /** Configuration **/
 if(!defined('YKSEME_DEBUG'))						define('YKSEME_DEBUG',		         false);
-if(!defined('YKSEME_VERSION_CURRENT'))				define('YKSEME_VERSION_CURRENT',	'5.0');
+if(!defined('YKSEME_VERSION_CURRENT'))				define('YKSEME_VERSION_CURRENT',	'5.0.4');
 if(!defined('YKSEME_REQ_PHP'))						define('YKSEME_REQ_PHP',			'5.0');
 if(!defined('YKSEME_AUTHOR'))						define('YKSEME_AUTHOR',				'YIKES Inc');
 if(!defined('YKSEME_SITE'))							define('YKSEME_SITE',				site_url().'/');
@@ -43,22 +43,21 @@ if(!defined('YKSEME_URL_WP_ADM'))					define('YKSEME_URL_WP_ADM',			YKSEME_URL_W
 if(!defined('YKSEME_OPTION'))						define('YKSEME_OPTION',				YKSEME_PREFIX.'storage');
 // Conditional check for SSL enabled site
 if(!defined('YKSEME_URL_WP_AJAX')) {
-   if ($_SERVER['SERVER_PORT'] == 80)
-       define('YKSEME_URL_WP_AJAX', admin_url('admin-ajax.php', 'http'));
-   else if ($_SERVER['SERVER_PORT'] == 443)
-      define('YKSEME_URL_WP_AJAX', admin_url('admin-ajax.php', 'https'));
-   else
-      define('YKSEME_URL_WP_AJAX', admin_url('admin-ajax.php'));
+   if ( is_ssl() ) {
+		define('YKSEME_URL_WP_AJAX', admin_url('admin-ajax.php', 'https'));
+	} else {
+		define('YKSEME_URL_WP_AJAX', admin_url('admin-ajax.php', 'http'));
+	}
 }
 if(!defined('YKSEME_URL_CURRENT'))					define('YKSEME_URL_CURRENT',		$_SERVER['REQUEST_URI']);
 
 
 /** Localization **/
 // include translated files
-function myplugin_init() {
-	   load_plugin_textdomain('yikes-inc-easy-mailchimp-extender', false, dirname(plugin_basename(__FILE__)) . '/languages'); 
+function yks_mc_text_domain_init() {
+	load_plugin_textdomain('yikes-inc-easy-mailchimp-extender', false, dirname(plugin_basename(__FILE__)) . '/languages'); 
 }
-add_action('init', 'myplugin_init');
+add_action('init', 'yks_mc_text_domain_init');
 
 /** Initial Configuration **/
 if(YKSEME_DEBUG) error_reporting(E_ALL ^ E_NOTICE);

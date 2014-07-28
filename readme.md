@@ -414,13 +414,35 @@ These functions should be used in conjunction with the `yikes_mc_get_form_data` 
 
 Changes
 ===========
-* Added reCAPTCHA support to prevent bots and spammers from submitting forms
-* Split settings page into three seperate sections
-* Removed Jetpack sharing icons from appearing in the success messages (removed sharedaddy filter)
-* Updated translation files with new strings
-* Update existing screen shots and add new screen shot
-* Update FAQ
-* Added "loaded server modules" to the debug page, to better aid in support requests
+
+= 5.0.4 =
+* Update SSL conditional in main plugin file
+
+= 5.0.3 =
+* Re-Apply missing styles to new 'My MailChimp' Section
+
+= 5.0.2 =
+* Remove extra spacing in provided short code, which caused parsing issues
+
+= 5.0.1 =
+* Remove global box-sizing CSS declaration
+
+= 5.0 =
+* Custom content filter to prevent other plugins from accidentally hooking in
+* Updated translation files with new text and translations
+* Added new screen shots
+* Updated plugin activation hooks
+* base64_encoded MailChimp API Key for privacy on multi-admin sites
+* Added an entirely new "My MailChimp" section
+* "My MailChimp" section now includes account overview details
+* Added much needed campaign statistic tracking page
+* Added ability to track Campaign Click/Opens with geo-data and interactive charts including world map
+* Added account /listgrowth section with interactive bar chart
+* Added "Chimp Chatter" feed to track account activity
+* Ability to export interactive charts to png, jpg, svg
+* Printable Campaign Reports
+* View campaign
+* Re-Branded entire Plugin
 
 ### 4.3
 * Updated radio button fields
