@@ -1274,13 +1274,21 @@ public function yks_removeSubscriber($lid, $user_email) {
  ****************************************************************************************************/
 public function addStyles()
 	{
-	// Register Styles
-	wp_register_style('ykseme-css-base', 				YKSEME_URL.'css/style.ykseme.css', 											array(), '1.0.0', 'all');
-	wp_register_style('jquery-datatables-pagination', 				YKSEME_URL.'css/jquery.dataTables.css', 											array(), '1.0.0', 'all');	
-	// Enqueue Styles
-	wp_enqueue_style('thickbox');
-	wp_enqueue_style('ykseme-css-base');	
-	wp_enqueue_style('jquery-datatables-pagination');
+	
+	$screen_base = get_current_screen()->base;
+		
+		if (  $screen_base == 'toplevel_page_yks-mailchimp-form' || $screen_base == 'mailchimp-forms_page_yks-mailchimp-my-mailchimp'
+				|| $screen_base == 'mailchimp-forms_page_yks-mailchimp-form-lists' ) {
+				// Register Styles
+				wp_register_style('ykseme-css-base', 				YKSEME_URL.'css/style.ykseme.css', 											array(), '1.0.0', 'all');
+				wp_register_style('jquery-datatables-pagination', 				YKSEME_URL.'css/jquery.dataTables.css', 											array(), '1.0.0', 'all');	
+				// Enqueue Styles
+				wp_enqueue_style('thickbox');
+				wp_enqueue_style('ykseme-css-base');	
+				wp_enqueue_style('jquery-datatables-pagination');
+		
+		}
+		
 	}
 	
 public function addStyles_frontend()
@@ -1295,22 +1303,32 @@ public function addStyles_frontend()
 	wp_enqueue_style('ykseme-animate-css');
 	}
 	
+
 public function addScripts()
 	{		
-	// Everything else
-	wp_enqueue_script('jquery-ui-core');
-	wp_enqueue_script('thickbox');
-	wp_enqueue_script('jquery-ui-sortable');
-	wp_enqueue_script('jquery-ui-tabs');
-	wp_enqueue_script('ykseme-base',				  		YKSEME_URL.'js/script.ykseme.js',											array('jquery'));
-	wp_enqueue_script('jquery-datatables-pagination',				  		YKSEME_URL.'js/jquery.dataTables.js',											array('jquery'));
-	wp_enqueue_script('jquery-highcharts-js',				  		YKSEME_URL.'js/highcharts.js',											array('jquery'));
-	wp_enqueue_script('jquery-highcharts-exporting-js',				  		YKSEME_URL.'js/exporting.js',											array('jquery'));
-	wp_enqueue_script('jquery-highcharts-3d-js',				  		YKSEME_URL.'js/highcharts-3d.js',											array('jquery'));
 		
-		wp_enqueue_script('jquery-highmaps-js',				  		YKSEME_URL.'js/map.js',											array('jquery'));
-		wp_enqueue_script('jquery-map-data-js',				  		'http://code.highcharts.com/mapdata/custom/world.js',											array('jquery'));
-		wp_enqueue_script('jquery-highmaps-data-js',				  		YKSEME_URL.'js/data.js',											array('jquery'));
+		$screen_base = get_current_screen()->base;
+		
+		if (  $screen_base == 'toplevel_page_yks-mailchimp-form' || $screen_base == 'mailchimp-forms_page_yks-mailchimp-my-mailchimp'
+				|| $screen_base == 'mailchimp-forms_page_yks-mailchimp-form-lists' ) {
+			// Everything else
+			// load our scripts in the dashboard
+			wp_enqueue_script('jquery-ui-core');
+			wp_enqueue_script('thickbox');
+			wp_enqueue_script('jquery-ui-sortable');
+			wp_enqueue_script('jquery-ui-tabs');
+			wp_enqueue_script('ykseme-base',				  		YKSEME_URL.'js/script.ykseme.js',											array('jquery'));
+			wp_enqueue_script('jquery-datatables-pagination',				  		YKSEME_URL.'js/jquery.dataTables.js',											array('jquery'));
+			wp_enqueue_script('jquery-highcharts-js',				  		YKSEME_URL.'js/highcharts.js',											array('jquery'));
+			wp_enqueue_script('jquery-highcharts-exporting-js',				  		YKSEME_URL.'js/exporting.js',											array('jquery'));
+			wp_enqueue_script('jquery-highcharts-3d-js',				  		YKSEME_URL.'js/highcharts-3d.js',											array('jquery'));
+				
+				wp_enqueue_script('jquery-highmaps-js',				  		YKSEME_URL.'js/map.js',											array('jquery'));
+				wp_enqueue_script('jquery-map-data-js',				  		'http://code.highcharts.com/mapdata/custom/world.js',											array('jquery'));
+				wp_enqueue_script('jquery-highmaps-data-js',				  		YKSEME_URL.'js/data.js',											array('jquery'));
+		} else {
+			return;
+		}
 	}
 	
 	// redirect the user to the settings page on initial activation
@@ -2533,7 +2551,7 @@ public function generateListContainers($listArr=false)
 							<tr valign="top">
 								<th scope="row"><label for="yks-mailchimp-api-key"><?php _e( 'Shortcode' , 'yikes-inc-easy-mailchimp-extender' ); ?></label></th>
 								<td>
-									[ yks-mailchimp-list id="<?php echo $list['id']; ?>" submit_text="Submit" ]
+									[yks-mailchimp-list id="<?php echo $list['id']; ?>" submit_text="Submit"]
 									<span class="description yks-margin-left"><?php _e( 'Paste this shortcode into whatever page or post you want to add this form to' , 'yikes-inc-easy-mailchimp-extender' ); ?></span>
 								</td>
 							</tr>

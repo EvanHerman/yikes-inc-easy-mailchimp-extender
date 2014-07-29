@@ -417,6 +417,8 @@ Changes
 
 = 5.0.4 =
 * Update SSL conditional in main plugin file
+* Added mcrypt module check, for API encryption
+* Conditionally loaded scripts and styles in admin ( prevent conflicts )
 
 = 5.0.3 =
 * Re-Apply missing styles to new 'My MailChimp' Section

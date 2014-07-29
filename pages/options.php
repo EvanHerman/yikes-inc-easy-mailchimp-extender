@@ -317,7 +317,6 @@ jQuery(document).ready(function() {
 	$active_tab = isset( $_GET[ 'tab' ] ) ? $_GET[ 'tab' ] : 'form_options';
 ?>
 <div class="wrap">
-
 <!-- yikes logo on all settings pages -->
 <div id="yks_mc_review_this_plugin_container">
 	<a href="https://github.com/yikesinc/yikes-inc-easy-mailchimp-extender/issues?state=open" target="_blank">
@@ -368,6 +367,17 @@ jQuery(document).ready(function() {
 			<p><?php _e( "We're sorry, but it looks like your using an outdated version of WordPress. You won't be able to access the tinyMCE button to insert forms into pages and posts unless you update to 3.9 or later.", "yikes-inc-easy-mailchimp-extender" ); ?></p>
 		</div>
 	<?php } 
+	
+		
+	if( !function_exists( 'mcrypt_module_open' ) ) {
+		?>
+			<div class="error">
+				<h3><div class="dashicons dashicons-no yks_mc_error_x"></div><?php _e( 'Encryption Module Not Installed', 'yikes-inc-easy-mailchimp-extender' ); ?></h3>
+				<p><?php _e( "We're sorry, but it looks like you don't have the php mcrpyt module installed. This module is used to encrpyt your API key for security purposes. Please install mcrypt. If you are unsure how, please contact your host provider.", "yikes-inc-easy-mailchimp-extender" ); ?></p>
+			</div
+		<?php
+	}
+
 	
 	// check if the user is on localhost
 	// if so, they need to enable SSL on localhost
