@@ -3297,15 +3297,21 @@ private function runUpdateTasks_1_3_0()
 private function runUpdateTasks_4_3()
 	{
 
-		$this->optionVal['single-optin-message']	= 'derp derp derp??';
-	
-		$this->optionVal['recaptcha-setting'] = '0';
-
-		$this->optionVal['recaptcha-api-key'] = '';
-
-		$this->optionVal['recaptcha-private-api-key'] = '';
-
-		$this->optionVal['recaptcha-style'] = 'default';
+		if ( !isset( $this->optionVal['recaptcha-setting'] ) ) {
+			$this->optionVal['recaptcha-setting'] = '0';
+		}
+		
+		if ( !isset( $this->optionVal['recaptcha-api-key'] ) ) {
+			$this->optionVal['recaptcha-api-key'] = '';
+		}
+		
+		if ( !isset( $this->optionVal['recaptcha-private-api-key'] ) ) {
+			$this->optionVal['recaptcha-private-api-key'] = '';
+		}
+		
+		if ( !isset( $this->optionVal['recaptcha-style'] ) ) {
+			$this->optionVal['recaptcha-style'] = 'default';
+		}
 
 		$this->optionVal['version']	= '5.0.4';
 	
@@ -3434,7 +3440,7 @@ private function runUpdateTasks_4_3()
 		public function ykes_mc_apply_filters() {
 			// if the optin checkbox setting is set to show
 			// we wiill display the checkbox on the front end
-			if ( $this->optionVal['yks-mailchimp-optIn-checkbox'] == 1 ) {
+			if ( $this->optionVal['optIn-checkbox'] == 1 ) {
 				add_action('comment_post', array(&$this, 'ymc_add_meta_settings'), 10, 2);
 				add_action('comment_approved_', array(&$this, 'ymc_subscription_add'), 60, 2);
 				add_action('comment_post', array(&$this, 'ymc_subscription_add'));

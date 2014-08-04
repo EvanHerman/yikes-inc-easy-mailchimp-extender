@@ -4,7 +4,7 @@ Donate link: http://yikesinc.com
 Tags: mailchimp, marketing, email, mailing lists, newsletter, signup, forms, signup form
 Requires at least: 3.0
 Tested up to: 3.9.1
-Stable tag: 5.0.4
+Stable tag: 5.0.4b
 License: GPLv2 or later
 
 Easy MailChimp Forms allows you to painlessly add MailChimp signup forms to your WordPress site and track user activity with interactive reports.
@@ -455,9 +455,10 @@ These functions should be used in conjunction with the `yikes_mc_get_form_data` 
 = 5.0.4 =
 * Update SSL conditional in main plugin file
 * Added mcrypt module check, for API encryption
-* Conditionally loaded scripts and styles in admin ( prevents conflicts with other plugins/themes )
+* Conditionally loaded scripts and styles in admin ( prevent conflicts )
 * Included NONCE security checks on form submissions ( helps prevent CSRF and other attacks )
-* added proper update task function to add missing settings to the options page ( prevents undefined variables for new settings )
+* Added proper update task function to add missing settings to the options page ( prevents undefined variables for new settings )
+* Applied missing styles to widget page
 
 = 5.0.3 =
 * Re-Apply missing styles to new 'My MailChimp' Section
@@ -605,6 +606,13 @@ These functions should be used in conjunction with the `yikes_mc_get_form_data` 
 
 == Upgrade Notice ==
 
+= 5.0.4 =
+* Update SSL conditional in main plugin file
+* Added mcrypt module check, for API encryption
+* Conditionally loaded scripts and styles in admin ( prevent conflicts )
+* Included NONCE security checks on form submissions ( helps prevent CSRF and other attacks )
+* Added proper update task function to add missing settings to the options page ( prevents undefined variables for new settings )
+
 = 4.5 =
 * Added reCAPTCHA support to prevent bots and spammers from submitting forms
 * Split settings page into three seperate sections
@@ -639,12 +647,3 @@ These functions should be used in conjunction with the `yikes_mc_get_form_data` 
 
 = 1.2.0 =
 * First Name and Last Name fields are no longer required
-
-
-
-
-// To Do 
- - Click Pie Chart visualization twice throws an error and doesn't re-draw the chart
- - Style arrow before chimp chatter messages
- - Time returned from MailChimp is wrong by 4 hours, something to do with the timezone or something
- - Need 4 icons ( Regular, Plain-text, A/B-split, RSS-driven )
