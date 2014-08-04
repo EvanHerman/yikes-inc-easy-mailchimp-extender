@@ -485,8 +485,8 @@ jQuery(document).ready(function() {
 					<th scope="row"><label for="yks-mailchimp-optIn-checkbox"><?php _e('Display opt-in checkbox on comment forms?','yikes-inc-easy-mailchimp-extender'); ?></label></th>
 					<td>
 						<select name="yks-mailchimp-optIn-checkbox" id="yks-mailchimp-optIn-checkbox" class="regular-text" onchange="changeOptinSubscribeCheckbox();" />
-							<option value="0"<?php echo ($this->optionVal['optIn-checkbox'] === '0' ? ' selected' : ''); ?>><?php _e('Hide','yikes-inc-easy-mailchimp-extender'); ?></option>
-							<option value="1"<?php echo ($this->optionVal['optIn-checkbox'] === '1' ? ' selected' : ''); ?>><?php _e('Show','yikes-inc-easy-mailchimp-extender'); ?></option>
+							<option value="0"<?php echo ($this->optionVal['yks-mailchimp-optIn-checkbox'] === '0' ? ' selected' : ''); ?>><?php _e('Hide','yikes-inc-easy-mailchimp-extender'); ?></option>
+							<option value="1"<?php echo ($this->optionVal['yks-mailchimp-optIn-checkbox'] === '1' ? ' selected' : ''); ?>><?php _e('Show','yikes-inc-easy-mailchimp-extender'); ?></option>
 						</select>
 					</td>
 				</tr>
@@ -534,9 +534,7 @@ jQuery(document).ready(function() {
 		</table>
 	</form>
 
-	<?php } else if ( $active_tab == 'recaptcha_settings' ) { ?>
-			
-			<!-- START RECAPTCHA SETTINGS PAGE -->
+	<?php } else if ( $active_tab == 'recaptcha_settings' ) { ?>			
 			
 			<h3><?php _e('ReCaptcha Settings','yikes-inc-easy-mailchimp-extender'); ?></h3>
 			<p class="yks-settings-description"><?php _e('reCAPTCHA is a free service to protect your website from spam and abuse. reCAPTCHA uses an advanced risk analysis engine and adaptive CAPTCHAs to keep automated software from engaging in abusive activities on your site. It does this while letting your valid users pass through with ease.','yikes-inc-easy-mailchimp-extender'); ?></p>
@@ -563,7 +561,6 @@ jQuery(document).ready(function() {
 						<em><?php _e('ReCaptcha prevents excessive form entires from spammers and bots.','yikes-inc-easy-mailchimp-extender'); ?></em>
 					</td>
 				</tr>
-				
 					<!-- ReCaptcha Input Fields -->
 					<!-- hidden until ReCaptcha option is enabled -->
 					<tr valign="top" class="recaptcha-settings-hidden-container" <?php if ( $this->optionVal['recaptcha-setting'] === '0' ) { ?> style="display:none;" <?php } ?>>

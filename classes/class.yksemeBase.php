@@ -74,6 +74,8 @@ public function initialize()
 	add_action('admin_print_styles',		array(&$this, 'addStyles'));
 	add_action('admin_print_scripts',		array(&$this, 'addScripts'));
 	add_action('admin_init', array( &$this, 'yks_easy_mc_plugin_activation_redirect' ) );
+	// hook into the admin footer to inject our heartbeat API code
+	add_action( 'admin_print_footer_scripts', array( &$this , 'yks_mc_heartbeat_footer_js' ) , 20 );
 	// adding our custom content action
 	// used to prevent other plugins from hooking
 	// into the_content (such as jetpack sharedadddy, sharethis etc.)
@@ -414,10 +416,10 @@ public function updateRecaptchaOptions($p)
 	if(!empty($p['form_data']))
 		{
 		parse_str($p['form_data'], $fd);
-		$this->optionVal['recaptcha-setting']	= $fd['yks-mailchimp-recaptcha-setting'];
-		$this->optionVal['recaptcha-api-key']	= $fd['yks-mailchimp-recaptcha-api-key'];
-		$this->optionVal['recaptcha-private-api-key']	= $fd['yks-mailchimp-recaptcha-private-api-key'];
-		$this->optionVal['recaptcha-style']	= $fd['yks-mailchimp-recaptcha-style'];
+		$this->optionVal['recaptcha-setting']	= isset($fd['yks-mailchimp-recaptcha-setting']) ? $fd['yks-mailchimp-recaptcha-setting'] : '0';
+		$this->optionVal['recaptcha-api-key']	= isset($fd['yks-mailchimp-recaptcha-api-key']) ? $fd['yks-mailchimp-recaptcha-api-key'] : '';
+		$this->optionVal['recaptcha-private-api-key']	= isset($fd['yks-mailchimp-recaptcha-private-api-key']) ? $fd['yks-mailchimp-recaptcha-private-api-key'] : '';
+		$this->optionVal['recaptcha-style']	= isset($fd['yks-mailchimp-recaptcha-style']) ? $fd['yks-mailchimp-recaptcha-style'] : 'default';
 		return update_option(YKSEME_OPTION, $this->optionVal);
 		}
 	return false;
@@ -1278,7 +1280,7 @@ public function addStyles()
 	$screen_base = get_current_screen()->base;
 		
 		if (  $screen_base == 'toplevel_page_yks-mailchimp-form' || $screen_base == 'mailchimp-forms_page_yks-mailchimp-my-mailchimp'
-				|| $screen_base == 'mailchimp-forms_page_yks-mailchimp-form-lists' ) {
+				|| $screen_base == 'mailchimp-forms_page_yks-mailchimp-form-lists' || $screen_base == 'widgets' ) {
 				// Register Styles
 				wp_register_style('ykseme-css-base', 				YKSEME_URL.'css/style.ykseme.css', 											array(), '1.0.0', 'all');
 				wp_register_style('jquery-datatables-pagination', 				YKSEME_URL.'css/jquery.dataTables.css', 											array(), '1.0.0', 'all');	
@@ -1315,6 +1317,11 @@ public function addScripts()
 			// load our scripts in the dashboard
 			wp_enqueue_script('jquery-ui-core');
 			wp_enqueue_script('thickbox');
+			
+			// enqueue heartbeat API for realtime
+			// updates to the MyMail Chimp section
+			wp_enqueue_script( 'heartbeat' );
+			
 			wp_enqueue_script('jquery-ui-sortable');
 			wp_enqueue_script('jquery-ui-tabs');
 			wp_enqueue_script('ykseme-base',				  		YKSEME_URL.'js/script.ykseme.js',											array('jquery'));
@@ -1478,10 +1485,11 @@ public function yks_resetPluginSettings() {
 	$this->optionVal['yks-mailchimp-optIn-checkbox']	= 'hide';
 	$this->optionVal['yks-mailchimp-optIn-default-list']	= array();
 	$this->optionVal['yks-mailchimp-optin-checkbox-text']	= 'SIGN ME UP!';
-	$this->optionVal['yks-mailchimp-recaptcha-setting']	= '0';
-	$this->optionVal['yks-mailchimp-recaptcha-api-key']	= '';
-	$this->optionVal['yks-mailchimp-recaptcha-private-api-key']	= '';
-	$this->optionVal['yks-mailchimp-recaptcha-style']	= 'default';
+	$this->optionVal['recaptcha-setting']	= '0';
+	$this->optionVal['recaptcha-api-key']	= '';
+	$this->optionVal['recaptcha-private-api-key']	= '';
+	$this->optionVal['recaptcha-style']	= 'default';
+	$this->optionVal['version'] = YKSEME_VERSION_CURRENT;
 	update_option('api_validation' , 'invalid_api_key');
 	// we need to unset the previously set up widgets
 	// and set up new erros if the API key doesn't exist 
@@ -2169,8 +2177,22 @@ public function addUserToMailchimp($p)
 	{
 	if(!empty($p['form_data']))
 		{
+		
 		parse_str($p['form_data'], $fd);
-		if(!empty($fd['yks-mailchimp-list-id']))
+		
+		// grab and store our nonce field
+		// for security purposes
+		$yks_mc_form_submission_nonce = $fd['_wpnonce'];
+				
+		// cross check our nonce
+			// passing in the action used when we created the nonce field
+			// if the nonce does not match, we need to die()
+		if ( !wp_verify_nonce( $yks_mc_form_submission_nonce , 'yks_mc_front_end_form_'.$fd['yks-mailchimp-list-id'] ) ) { 	
+			die( __( 'Failed nonce security check. Please reload the page and submit this form again.' , 'yikes-inc-easy-mailchimp-extender' ) );		
+		} 
+		
+				
+		if( !empty( $fd['yks-mailchimp-list-id'] ) )
 			{
 			
 			// if reCAPTCHA is enabled
@@ -2834,7 +2856,13 @@ public function getFrontendFormDisplay($list='', $submit_text)
 							$reCAPTCHA_image = recaptcha_get_html($reCAPTCHA_api_key);
 						
 					} 
-					$num = 1;				
+					// add our nonce field for security purposes
+					?>
+					<tr class="yks-mailchimpFormTableRow">
+						<?php wp_nonce_field( 'yks_mc_front_end_form_'.$field['id'] ); ?>
+					</tr>
+					<?php
+					$num = 1;	
 					foreach($list['fields'] as $field) : if($field['active'] == 1) : 
 					// get field placeholders
 					$form_id = explode( '-', $field['id']);
@@ -2851,17 +2879,17 @@ public function getFrontendFormDisplay($list='', $submit_text)
 							});
 						</script>
 						<?php 
-						if ($field['require'] == 1)  // if the field is required (set in MailChimp), display the red required star
-							{ 
-								$reqindicator 	= " <span class='yks-required-label'>*</span>";
-								$reqlabel		= " yks-mailchimpFormTableRowLabel-required";
-							}
-						else  // else don't
-							{
-								$reqindicator  = "";
-								$reqlabel		= "";
-							}
-							?>
+							if ($field['require'] == 1)  // if the field is required (set in MailChimp), display the red required star
+								{ 
+									$reqindicator 	= " <span class='yks-required-label'>*</span>";
+									$reqlabel		= " yks-mailchimpFormTableRowLabel-required";
+								}
+							else  // else don't
+								{
+									$reqindicator  = "";
+									$reqlabel		= "";
+								}
+						?>
 						<tr class="yks-mailchimpFormTableRow">
 							<td class="prompt yks-mailchimpFormTableRowLabel"><label class="prompt yks-mailchimpFormTableRowLabel<?php echo $reqlabel; ?>" for="<?php echo $field['id']; ?>"><?php echo $field['label']; ?><?php echo $reqindicator; ?></label>
 								<!-- run our function to generate the input fields for the form, passing in the field -->
@@ -2947,8 +2975,10 @@ public function getFrontendFormDisplay($list='', $submit_text)
 						$reCAPTCHA_api_key = $this->optionVal['recaptcha-api-key'];
 						$reCAPTCHA_image = recaptcha_get_html($reCAPTCHA_api_key);
 				}
-				$num = 1;				
+				$num = 1;			
+				
 				foreach($list['fields'] as $field) : if($field['active'] == 1) : 
+								
 				// get field placeholders
 				$form_id = explode( '-', $field['id']);
 				$field_placeholder_ = (isset($field['placeholder-'.$form_id[1].'-'.$num]) ? $field['placeholder-'.$form_id[1].'-'.$num] : '');
@@ -2964,17 +2994,17 @@ public function getFrontendFormDisplay($list='', $submit_text)
 						});
 					</script>
 					<?php 
-					if ($field['require'] == 1)  // if the field is required (set in MailChimp), display the red required star
-						{ 
-							$reqindicator 	= " <span class='yks-required-label'>*</span>";
-							$reqlabel		= " yks-mailchimpFormDivRowLabel-required";
-						}
-					else  // else don't
-						{
-							$reqindicator  = "";
-							$reqlabel		= "";
-						}
-						?>
+						if ($field['require'] == 1)  // if the field is required (set in MailChimp), display the red required star
+							{ 
+								$reqindicator 	= " <span class='yks-required-label'>*</span>";
+								$reqlabel		= " yks-mailchimpFormDivRowLabel-required";
+							}
+						else  // else don't
+							{
+								$reqindicator  = "";
+								$reqlabel		= "";
+							}
+					?>
 					<div class="yks-mailchimpFormDivRow">
 						<label class="prompt yks-mailchimpFormDivRowLabel<?php echo $reqlabel; ?>" for="<?php echo $field['id']; ?>"><?php echo $field['label']; ?><?php echo $reqindicator; ?></label>
 						<div class="yks-mailchimpFormDivRowField">
@@ -2985,7 +3015,12 @@ public function getFrontendFormDisplay($list='', $submit_text)
 					<?php 
 						$num++;
 						endif; endforeach; 
-					?>
+				?>
+				<!-- add our nonce field for security purposes -->
+				<div class="yks-mailchimpFormDivRow">
+					<?php wp_nonce_field( 'yks_mc_front_end_form_'.$form_id[1] ); ?>
+				</div>	
+						
 				<div class="yks-mailchimpFormDivRow">
 					<!-- run our function to generate the interest group fields for the form, passing in the form id -->
 					<?php $this->getInterestGroups($form_id[1]); ?>
@@ -3138,10 +3173,10 @@ private function andOrDropdown($name, $html, $sel)
  ****************************************************************************************************/
 public function runUpdateTasks()
 	{
-	$currentVersion	= (!isset($this->optionVal['version']) || empty($this->optionVal['version']) ? '1.1.0' : $this->optionVal['version']);
+	$currentVersion	= (!isset($this->optionVal['version']) || empty($this->optionVal['version']) ? '5.0.3' : $this->optionVal['version']);
 	$latestVersion	= YKSEME_VERSION_CURRENT;
 	if($currentVersion < $latestVersion)
-		{
+		{	
 		$updateFunction	= 'runUpdateTasks_'.str_replace('.', '_', $currentVersion);
 		if(!method_exists($this, $updateFunction)) return false;
 		else
@@ -3249,6 +3284,33 @@ private function runUpdateTasks_1_3_0()
 		}
 	$this->optionVal['version']	= '2.2.1';
 	return true;
+	}
+	
+/**
+ * This update needs to pull in all of the custom form
+ * data for each of the lists, unfortunately it has to replace
+ * just about all of the data with the new schema. We also
+ * add in the flavor key (for table/div usage)
+ *
+ * 4.3 => 5.0.4
+ */
+private function runUpdateTasks_4_3()
+	{
+
+		$this->optionVal['single-optin-message']	= 'derp derp derp??';
+	
+		$this->optionVal['recaptcha-setting'] = '0';
+
+		$this->optionVal['recaptcha-api-key'] = '';
+
+		$this->optionVal['recaptcha-private-api-key'] = '';
+
+		$this->optionVal['recaptcha-style'] = 'default';
+
+		$this->optionVal['version']	= '5.0.4';
+	
+		return true;
+	
 	}
 
 
@@ -3372,7 +3434,7 @@ private function runUpdateTasks_1_3_0()
 		public function ykes_mc_apply_filters() {
 			// if the optin checkbox setting is set to show
 			// we wiill display the checkbox on the front end
-			if ( $this->optionVal['optIn-checkbox'] == 1 ) {
+			if ( $this->optionVal['yks-mailchimp-optIn-checkbox'] == 1 ) {
 				add_action('comment_post', array(&$this, 'ymc_add_meta_settings'), 10, 2);
 				add_action('comment_approved_', array(&$this, 'ymc_subscription_add'), 60, 2);
 				add_action('comment_post', array(&$this, 'ymc_subscription_add'));
@@ -3604,6 +3666,36 @@ private function runUpdateTasks_1_3_0()
 						echo '<br /><em style="color:rgb(238, 93, 93);">Form data has not been sent to MailChimp</em>';
 						die(); // die to prevent data being sent over to MailChimp
 					}
+			
+			
+			// Inject our JS into the admin footer
+			function yks_mc_heartbeat_footer_js() {
+							
+				$screen_base = get_current_screen()->base;
+				 
+				// Only proceed if on the dashboard and on the My MailChimp page
+				if( 'mailchimp-forms_page_yks-mailchimp-my-mailchimp' != $screen_base ) {
+					return;
+				}
+			?>
+				<script>
+					(function($){
+				 				 
+						// Hook into the heartbeat-send
+						$(document).on('heartbeat-send', function(e, data) {
+							console.log('testing heartbeat');
+						});
+				 
+						// Listen for the custom event "heartbeat-tick" on $(document).
+						$(document).on( 'heartbeat-tick', function(e, data) {
+				 
+							console.log('heartbeat-tick heard');
+				 
+						});
+					}(jQuery));
+				</script>
+			<?php
+			}
 			
 		}
 	}

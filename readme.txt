@@ -455,7 +455,9 @@ These functions should be used in conjunction with the `yikes_mc_get_form_data` 
 = 5.0.4 =
 * Update SSL conditional in main plugin file
 * Added mcrypt module check, for API encryption
-* Conditionally loaded scripts and styles in admin ( prevent conflicts )
+* Conditionally loaded scripts and styles in admin ( prevents conflicts with other plugins/themes )
+* Included NONCE security checks on form submissions ( helps prevent CSRF and other attacks )
+* added proper update task function to add missing settings to the options page ( prevents undefined variables for new settings )
 
 = 5.0.3 =
 * Re-Apply missing styles to new 'My MailChimp' Section
