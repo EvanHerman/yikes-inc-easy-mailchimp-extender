@@ -21,7 +21,7 @@ Easy MailChimp Forms allows you to painlessly add MailChimp signup forms to your
 * Easily import MailChimp forms from an active MailChimp account
 * View/Print Interactive Account Growth Reports and Campaign Reports (Statistics Tracking)
 * reCaptcha spam prevention baked in
-* Monitor MailChimp account activity
+* Monitor MailChimp account activity 
 * Use MailChimp Interest Group/Segments
 * Add MailChimp forms sidebars/widgetized areas with widgets
 * Set forms to single or double opt-in
