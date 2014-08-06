@@ -5,6 +5,8 @@
 	// loop over the response, to display
 	// appripriate messages back to the user
 	// style as best we can, similar to MailChimp
+	
+	// to do - adjust returned time, to properly format for the timezone
 	?>
 	<div class="yks_mailChimp_Chatter">
 	<table id="yks-admin-chimp-chatter">
@@ -12,11 +14,16 @@
 					<?php
 						if ( !empty ( $resp ) ) {
 							foreach ( $resp as $chatter ) {
-								echo '<tr class="chatter-table-row">';
+								
+								$timezone_offset = get_option('gmt_offset');
+								
+								echo '<tr class="chatter-table-row chatter-content-row">';
 									// set up the date and time variables
 									$update_time_explode = explode( ' ', $chatter['update_time'] );
 										$date = $update_time_explode[0];
 										$time = $update_time_explode[1];
+										$time_explode = explode( ":" , $time );
+										$time = ( $time_explode[0] + $timezone_offset ).":".$time_explode[1];
 										
 									// get the type of action that was recorded
 									$type = explode( ':' , $chatter['type']);
@@ -62,7 +69,7 @@
 								echo '</tr>';
 								
 								// empty row for some spacing
-								echo '<tr class="chatter-table-row"><td>&nbsp;</td></tr>';
+								echo '<tr class="chatter-table-row chatter-spacer-row"><td>&nbsp;</td></tr>';
 								
 							}
 					} else {
@@ -78,4 +85,3 @@
         </tbody>
      </table>
 	</div>
-	<?php

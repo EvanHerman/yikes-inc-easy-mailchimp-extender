@@ -4,7 +4,7 @@ Donate link: http://yikesinc.com
 Tags: mailchimp, marketing, email, mailing lists, newsletter, signup, forms, signup form
 Requires at least: 3.0
 Tested up to: 3.9.1
-Stable tag: 5.0.4b
+Stable tag: 5.0.4
 License: GPLv2 or later
 
 Easy MailChimp Forms allows you to painlessly add MailChimp signup forms to your WordPress site and track user activity with interactive reports.
@@ -449,6 +449,7 @@ These functions should be used in conjunction with the `yikes_mc_get_form_data` 
 10. Optional opt-in checkbox on the comment forms, easily add commenter's to your email list
 11. Custom tinyMCE button allows you to easily add imported forms to pages and posts at the click of a button
 12. About YIKES page
+13. *New* Admin Dashboard Widget - Account Activity ( With Live Updating )
 
 == Changelog ==
 
@@ -458,7 +459,12 @@ These functions should be used in conjunction with the `yikes_mc_get_form_data` 
 * Conditionally loaded scripts and styles in admin ( prevent conflicts )
 * Included NONCE security checks on form submissions ( helps prevent CSRF and other attacks )
 * Added proper update task function to add missing settings to the options page ( prevents undefined variables for new settings )
-* Applied missing styles to widget page
+* Added missing styles to post page ( added missing icon to tinyMCE button )
+* Added missing styles to widget page
+* Adjusted Chimp Chatter activity time formatting to return correct time based on user time zone
+* New Feature : Real time updates to Account Activity ( utilizing the heartbeat API )
+* New Feature : Added account activity widget to dashboard ( with live updates using heartbeat API )
+* Added screenshot of admin dashboard account activity widget
 
 = 5.0.3 =
 * Re-Apply missing styles to new 'My MailChimp' Section
@@ -612,6 +618,12 @@ These functions should be used in conjunction with the `yikes_mc_get_form_data` 
 * Conditionally loaded scripts and styles in admin ( prevent conflicts )
 * Included NONCE security checks on form submissions ( helps prevent CSRF and other attacks )
 * Added proper update task function to add missing settings to the options page ( prevents undefined variables for new settings )
+* Added missing styles to post page ( added missing icon to tinyMCE button )
+* Added missing styles to widget page
+* Adjusted Chimp Chatter activity time formatting to return correct time based on user time zone
+* New Feature : Real time updates to Account Activity ( utilizing the heartbeat API )
+* New Feature : Added account activity widget to dashboard ( with live updates using heartbeat API )
+* Added screenshot of admin dashboard account activity widget
 
 = 4.5 =
 * Added reCAPTCHA support to prevent bots and spammers from submitting forms

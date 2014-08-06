@@ -74,12 +74,23 @@ public function initialize()
 	add_action('admin_print_styles',		array(&$this, 'addStyles'));
 	add_action('admin_print_scripts',		array(&$this, 'addScripts'));
 	add_action('admin_init', array( &$this, 'yks_easy_mc_plugin_activation_redirect' ) );
-	// hook into the admin footer to inject our heartbeat API code
-	add_action( 'admin_print_footer_scripts', array( &$this , 'yks_mc_heartbeat_footer_js' ) , 20 );
+	
+	// custom Dashboard MailChimp Account Activity Widget
+	add_action( 'wp_dashboard_setup',  array( &$this , 'yks_mc_add_chimp_chatter_dashboard_widget' ) );
+	
+	// add a filter for our heartbeat response
+	// add_filter( 'heartbeat_received',  array( &$this , 'yikes_mc_heartbeat_received' ) , 10, 2 );
+	add_filter('heartbeat_received', array( &$this , 'yks_mc_heartbeat_received' ) , 10, 2);
+	add_action("init", array( &$this , "yks_mc_heartbeat_init" ) );
+	add_filter( 'heartbeat_settings', array( &$this , 'yks_mc_tweak_heartbeat_settings') );
+	
 	// adding our custom content action
 	// used to prevent other plugins from hooking
 	// into the_content (such as jetpack sharedadddy, sharethis etc.)
 	add_action( 'init', array( &$this, 'yks_mc_content' ), 1 );
+	
+	
+	
 	// tinymce buttons
 	// only add filters and actions on wp 3.9 and above
 	if ( get_bloginfo( 'version' ) >= '3.9' ) {
@@ -134,7 +145,7 @@ public function getOptionValue()
 									'interest-group-label'	=>	__('Select Your Area of Interest', 'yikes-inc-easy-mailchimp-extender'),
 									'optIn-checkbox'	=> 'hide',
 									'optIn-default-list' => array(),
-									'optin-checkbox-text'	=> 'SIGN ME UP!',
+									'yks-mailchimp-optin-checkbox-text'	=> 'SIGN ME UP!',
 									'recaptcha-setting' => '0',
 									'recaptcha-api-key' => '',
 									'recaptcha-private-api-key' => '',
@@ -1280,7 +1291,7 @@ public function addStyles()
 	$screen_base = get_current_screen()->base;
 		
 		if (  $screen_base == 'toplevel_page_yks-mailchimp-form' || $screen_base == 'mailchimp-forms_page_yks-mailchimp-my-mailchimp'
-				|| $screen_base == 'mailchimp-forms_page_yks-mailchimp-form-lists' || $screen_base == 'widgets' ) {
+				|| $screen_base == 'mailchimp-forms_page_yks-mailchimp-form-lists' || $screen_base == 'widgets' || $screen_base == 'post'	) {
 				// Register Styles
 				wp_register_style('ykseme-css-base', 				YKSEME_URL.'css/style.ykseme.css', 											array(), '1.0.0', 'all');
 				wp_register_style('jquery-datatables-pagination', 				YKSEME_URL.'css/jquery.dataTables.css', 											array(), '1.0.0', 'all');	
@@ -1288,9 +1299,11 @@ public function addStyles()
 				wp_enqueue_style('thickbox');
 				wp_enqueue_style('ykseme-css-base');	
 				wp_enqueue_style('jquery-datatables-pagination');
-		
 		}
 		
+		// just load the animate.css class on all admin pages
+		wp_register_style('ykseme-animate-css', 				YKSEME_URL.'css/animate.css', 											array(), '1.0.0', 'all');
+		wp_enqueue_style('ykseme-animate-css');
 	}
 	
 public function addStyles_frontend()
@@ -1317,10 +1330,6 @@ public function addScripts()
 			// load our scripts in the dashboard
 			wp_enqueue_script('jquery-ui-core');
 			wp_enqueue_script('thickbox');
-			
-			// enqueue heartbeat API for realtime
-			// updates to the MyMail Chimp section
-			wp_enqueue_script( 'heartbeat' );
 			
 			wp_enqueue_script('jquery-ui-sortable');
 			wp_enqueue_script('jquery-ui-tabs');
@@ -1594,7 +1603,7 @@ public function getUserProfileDetails()
 public function getMailChimpChatter()
 	{		
 		// Create and store our variables to pass to MailChimp
-		$apiKey = $_POST['api_key']; // api key
+		$apiKey = $this->optionVal['api-key']; // api key
 		$api	= new wpyksMCAPI($apiKey);
 		// try the call, catch any errors that may be thrown
 		try {
@@ -1606,6 +1615,25 @@ public function getMailChimpChatter()
 		// always die or it will always return 1
 		wp_die();
  }
+ 
+ 
+ // Make a call to MailChimp API to validate the provided API key
+// calls the helper/chimp-chatter method, and returns Account Activity 
+public function getMailChimpChatterForWidget()
+	{		
+		// Create and store our variables to pass to MailChimp
+		$apiKey = $this->optionVal['api-key']; // api key
+		$api	= new wpyksMCAPI($apiKey);
+		// try the call, catch any errors that may be thrown
+		try {
+			$resp = $api->call('helper/chimp-chatter', array('apikey' => $apiKey));
+			include_once YKSEME_PATH.'templates/mailChimpChatter-widget-template.php'; 
+		} catch( Exception $e ) {
+			echo '<strong>'.$e->getMessage().'</strong>';
+		}
+		// always die or it will always return 1
+		wp_die();
+ } 
  
 // Make a call to MailChimp API to 
 // the lists/growth history method
@@ -3440,7 +3468,7 @@ private function runUpdateTasks_4_3()
 		public function ykes_mc_apply_filters() {
 			// if the optin checkbox setting is set to show
 			// we wiill display the checkbox on the front end
-			if ( $this->optionVal['optIn-checkbox'] == 1 ) {
+			if ( $this->optionVal['yks-mailchimp-optIn-checkbox'] == 1 ) {
 				add_action('comment_post', array(&$this, 'ymc_add_meta_settings'), 10, 2);
 				add_action('comment_approved_', array(&$this, 'ymc_subscription_add'), 60, 2);
 				add_action('comment_post', array(&$this, 'ymc_subscription_add'));
@@ -3674,34 +3702,487 @@ private function runUpdateTasks_4_3()
 					}
 			
 			
-			// Inject our JS into the admin footer
-			function yks_mc_heartbeat_footer_js() {
-							
-				$screen_base = get_current_screen()->base;
-				 
-				// Only proceed if on the dashboard and on the My MailChimp page
-				if( 'mailchimp-forms_page_yks-mailchimp-my-mailchimp' != $screen_base ) {
-					return;
-				}
+			
+			
+			/****************************************************************************************
+			*
+			*			Begin Heartbeat API Code
+			*			- Used on the Account Activity page for lilve updates
+			*
+			****************************************************************************************/
+			
+			/*
+				Client-side code. First we enqueue the Heartbeat API and our Javascript. 
+				
+				Our Javascript is then setup to always send the message 'marco' to the server.
+				If a message comes back, the Javascript logs it (polo) to console.
+			*/
+			 
+			//enqueue heartbeat.js and our Javascript
+			function yks_mc_heartbeat_init()
+			{   
+				/*
+					//Add your conditionals here so this runs on the pages you want, e.g.
+					if(is_admin())
+						return;			//don't run this in the admin
+				*/
+			 
+				//enqueue the Heartbeat API
+				wp_enqueue_script('heartbeat');
+					
+				//load our Javascript in the footer
+				add_action("admin_print_footer_scripts", array( &$this ,"yks_mc_heartbeat_admin_footer" ) );
+			}
+			
+			 
+			//our Javascript to send/process from the client side
+			function yks_mc_heartbeat_admin_footer()
+			{
+			
+			$request_uri =  "$_SERVER[REQUEST_URI]";
+			global $pagenow;
+
+			// Only proceed if on the the my mailchimp page
+			// and the chimp-chatter tab
+			if( 'admin.php?page=yks-mailchimp-my-mailchimp&tab=chimp_chatter' != basename($request_uri) && 'index.php' != $pagenow )
+				return;
+			
 			?>
-				<script>
-					(function($){
-				 				 
-						// Hook into the heartbeat-send
-						$(document).on('heartbeat-send', function(e, data) {
-							console.log('testing heartbeat');
-						});
-				 
-						// Listen for the custom event "heartbeat-tick" on $(document).
-						$(document).on( 'heartbeat-tick', function(e, data) {
-				 
-							console.log('heartbeat-tick heard');
-				 
-						});
-					}(jQuery));
-				</script>
+			<script>
+			  jQuery(document).ready(function() {	
+			  
+					//hook into heartbeat-send: client will send the message 'marco' in the 'client' var inside the data array
+					jQuery(document).on('heartbeat-send', function(e, data) {
+						<?php if(  'index.php' == $pagenow ) { ?>
+							// send some data
+							// to begin the ajax
+							data['yks_mc_chimp_chatter_heartbeat'] = 'get_chimp_chatter_widget_data';
+						<?php } else { ?>
+							// send some data
+							// to begin the ajax
+							data['yks_mc_chimp_chatter_heartbeat'] = 'get_chimp_chatter_data';
+						<?php } ?>
+					});
+					
+					//hook into heartbeat-tick: client looks for a 'server' var in the data array and logs it to console
+					jQuery(document).on('heartbeat-tick', function(e, data) {	
+					
+						// pass our API key along
+						var apiKey = '<?php echo $this->optionVal['api-key']; ?>';
+														
+						// store datacenter value, from end of api key
+						var dataCenter = apiKey.substr(apiKey.indexOf("-") + 1);
+					
+						if(data['yks_mc_chimp_chatter_data'] == 'Get MailChimp Chatter Data' ) {
+							
+							// update the chimp chatter div with new info
+							// heartbeat api
+							jQuery.ajax({
+								type: 'POST',
+								url: ajaxurl,
+								data: {
+									action: 'yks_mailchimp_form',
+									form_action: 'yks_get_chimp_chatter',
+									api_key: apiKey,
+									data_center: dataCenter
+								},
+									dataType: 'html',
+									success: function(response) {
+									
+										// store the new response, in the new response hidden div, for comparison
+										jQuery('#new_chimp_chatter_response').html(response);
+										
+										// wrap our emails in the hidden new response with
+										// <a> to match the original response
+										jQuery("#new_chimp_chatter_response").find("td:nth-child(4)").each(function() {
+												jQuery(this).filter(function(){
+												var html = jQuery(this).html();
+												// regex email pattern,
+												// to wrap our emails in a link
+												var emailPattern = /[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}/g;  
+													var matched_str = jQuery(this).html().match(emailPattern);
+													var matched_str = jQuery(this).html().match(emailPattern);
+														if(matched_str){
+															var text = jQuery(this).html();
+																jQuery.each(matched_str, function(index, value){
+																text = text.replace(value,"<a href='mailto:"+value+"'>"+value+"</a>");
+															});
+															jQuery(this).html(text);
+															return jQuery(this)
+														}        
+												});
+											});
+										
+										// checking if the response is new...
+										if ( jQuery('#new_chimp_chatter_response').html() == jQuery('#original_chimp_chatter_response').html() ) {
+										
+											console.log('the data is the same. no action taken.');
+											
+										} else {
+										
+											// remove the new stars
+											jQuery('.fadeInDown').each(function() {
+												jQuery(this).removeClass('animated').removeClass('fadeInDown').removeClass('new-chatter-item');
+											});
+										
+											// count the new chatter items ( divide by 2 , for the spacer tr )
+											var new_chatter_count = parseInt( jQuery('#new_chimp_chatter_response').find('.chatter-table-row').length / 2 );
+											// count the original chatter items ( divide by 2 , for the spacer tr )
+											var original_chatter_count = parseInt( jQuery('#original_chimp_chatter_response').find('.chatter-table-row').length / 2 );
+											
+											// calculate the number of new items
+											var number_of_new_items = parseInt( new_chatter_count - original_chatter_count );
+												
+											// test the count of items,
+											// console.log('The original count is : '+original_chatter_count);
+											// console.log('The new count is : '+new_chatter_count);
+											
+																					
+											// give feedback that new data was found
+											console.log('new mailchimp chatter data found. Re-populating....');
+											
+											// store the new response, in the original response 
+											// field for comparison when heartbeat runs again
+											jQuery('#original_chimp_chatter_response').html(response);
+																					
+											
+											// up next -- growl notifications!
+												// for real time subscribes/unsubscribes/shares notifications all over the dashboard
+											
+												
+											var i = 1;
+
+											function new_chatter_loop_and_append() {
+												
+												setInterval(function() { 
+												
+												// this code is executed every 5 seconds:
+													// animate the new items in
+														// .....badass....	
+													while (i <= number_of_new_items) {
+																											
+														var item_to_append =  jQuery('#new_chimp_chatter_response').find('.chatter-content-row:nth-child('+i+')');
+														
+															jQuery('.mailChimpChatterDiv').find('.chatter-table-row:first-child').before('<tr class="chatter-table-row chatter-spacer-row"><td>&nbsp;</td></tr>');
+															jQuery('.mailChimpChatterDiv').find('.chatter-table-row:first-child').before( item_to_append.addClass('fadeInDown animated new-chatter-item') );
+															
+															i++;
+													
+													}
+
+												}, 6000 );
+												
+											}
+											
+											// loop over our new items and append them to the current page
+											new_chatter_loop_and_append();
+			
+												
+												
+											// re-apply the link wrapping the new items
+											// so the new items match the old items
+											jQuery("#original_chimp_chatter_response table#yks-admin-chimp-chatter .chatter-table-row td:nth-child(4)").each(function() {
+												jQuery(this).filter(function(){
+												var html = jQuery(this).html();
+												// regex email pattern,
+												// to wrap our emails in a link
+												var emailPattern = /[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}/g;  
+													var matched_str = jQuery(this).html().match(emailPattern);
+													var matched_str = jQuery(this).html().match(emailPattern);
+														if(matched_str){
+															var text = jQuery(this).html();
+																jQuery.each(matched_str, function(index, value){
+																text = text.replace(value,"<a href='mailto:"+value+"'>"+value+"</a>");
+															});
+															jQuery(this).html(text);
+															return jQuery(this)
+														}        
+												});
+											});
+											
+											// give some feedback
+											console.log( "Populated the chimpchatter div with new content." );
+											
+										}
+									
+										// let user know heartbeat is running
+										console.log('heartbeat found...');
+
+									},
+									error: function(response) {
+										// do nothing here, 
+										// incase we inturrupt it with a page change
+									}
+									
+							});
+							
+						// Run this on the Dashboard, to re-populate the
+						// mailchimp activity widget!
+						} else if(data['yks_mc_chimp_chatter_data'] == 'Get MailChimp Chatter Widget Data' ) { 
+							
+							
+							// update the chimp chatter div with new info
+							// heartbeat api
+							jQuery.ajax({
+								type: 'POST',
+								url: ajaxurl,
+								data: {
+									action: 'yks_mailchimp_form',
+									form_action: 'yks_get_widget_chimp_chatter',
+									api_key: apiKey,
+									data_center: dataCenter
+								},
+									dataType: 'html',
+									success: function(response) {
+	
+										
+										// store the new response, in the new response hidden div, for comparison
+										jQuery('#new_chimp_chatter_response').html(response);
+										
+										
+										// checking if the response is new...
+										if ( jQuery('#new_chimp_chatter_response').html() == jQuery('#original_chimp_chatter_response').html() ) {
+										
+											console.log('the data is the same. no action taken.');
+											
+										} else {
+										
+											// remove the new stars
+											jQuery('.fadeInDown').each(function() {
+												jQuery(this).removeClass('animated').removeClass('fadeInDown').removeClass('new-chatter-item');
+											});
+										
+											// count the new chatter items ( divide by 2 , for the spacer tr )
+											var new_chatter_count = parseInt( jQuery('#new_chimp_chatter_response').find('.chatter-content-row').length  );
+											// count the original chatter items ( divide by 2 , for the spacer tr )
+											var original_chatter_count = parseInt( jQuery('#original_chimp_chatter_response').find('.chatter-content-row').length );
+											
+											// calculate the number of new items
+											var number_of_new_items = parseInt( new_chatter_count - original_chatter_count );
+												
+											// test the count of items,
+											// console.log('The original count is : '+original_chatter_count);
+											// console.log('The new count is : '+new_chatter_count);
+											
+																					
+											// give feedback that new data was found
+											console.log('new mailchimp chatter data found. Re-populating....');
+											
+											// store the new response, in the original response 
+											// field for comparison when heartbeat runs again
+											jQuery('#original_chimp_chatter_response').html(response);
+																					
+											
+											// up next -- growl notifications!
+												// for real time subscribes/unsubscribes/shares notifications all over the dashboard
+											
+												
+											var i = 1;
+
+											function new_chatter_loop_and_append() {
+												
+												setInterval(function() { 
+												
+												// this code is executed every 5 seconds:
+													// animate the new items in
+														// .....badass....	
+													while (i <= number_of_new_items) {
+																											
+														var item_to_append =  jQuery('#new_chimp_chatter_response').find('.chatter-content-row:nth-child('+i+')');
+														
+															jQuery('.yks_mailChimp_Chatter').find('.chatter-table-row:first-child').before( item_to_append.addClass('fadeInDown animated new-chatter-item') );
+															
+															i++;
+													
+													}
+
+												}, 6000 );
+												
+											}
+											
+											// loop over our new items and append them to the current page
+											new_chatter_loop_and_append();
+			
+												
+												
+											// re-apply the link wrapping the new items
+											// so the new items match the old items
+											jQuery("#original_chimp_chatter_response table#yks-admin-chimp-chatter .chatter-table-row td:nth-child(4)").each(function() {
+												jQuery(this).filter(function(){
+												var html = jQuery(this).html();
+												// regex email pattern,
+												// to wrap our emails in a link
+												var emailPattern = /[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}/g;  
+													var matched_str = jQuery(this).html().match(emailPattern);
+													var matched_str = jQuery(this).html().match(emailPattern);
+														if(matched_str){
+															var text = jQuery(this).html();
+																jQuery.each(matched_str, function(index, value){
+																text = text.replace(value,"<a href='mailto:"+value+"'>"+value+"</a>");
+															});
+															jQuery(this).html(text);
+															return jQuery(this)
+														}        
+												});
+											});
+											
+											// give some feedback
+											console.log( "Populated the chimpchatter div with new content." );
+											
+										}
+									
+										// let user know heartbeat is running
+										console.log('heartbeat found...');
+
+									},
+									error: function(response) {
+										// do nothing here, 
+										// incase we inturrupt it with a page change
+									}
+									
+							});
+							
+							
+						}
+						
+						
+					});
+							
+					//hook into heartbeat-error: in case of error, let's log some stuff
+					jQuery(document).on('heartbeat-error', function(e, jqXHR, textStatus, error) {
+						console.log('<< BEGIN ERROR');
+						console.log(textStatus);
+						console.log(error);			
+						console.log('END ERROR >>');			
+					});
+					
+				});		
+			</script>
 			<?php
 			}
+			
+			
+			/*
+				Our server-side code. 
+				------------------------------
+				This hooks into the heartbeat_received filter. 
+				It checks for a key 'client' in the data array. If it is set to 'get_chimp_chatter_data', 
+				a key 'server' is set to 'Get MailChimp Chatter Data' in the response array.
+			*/
+			function yks_mc_heartbeat_received($response, $data) {
+				
+				// if the client returns get chimp chatter data, popluate
+				// the response with some data
+				if( $data['yks_mc_chimp_chatter_heartbeat'] == 'get_chimp_chatter_data' ) {
+					// populate the response with something
+					$response['yks_mc_chimp_chatter_data'] = 'Get MailChimp Chatter Data';
+				} else if ( $data['yks_mc_chimp_chatter_heartbeat'] == 'get_chimp_chatter_widget_data' ) {
+					$response['yks_mc_chimp_chatter_data'] = 'Get MailChimp Chatter Widget Data';
+				}
+				
+				return $response;
+
+			}
+			
+			/** Change Default HeartBeat API Pulse Time */
+			function yks_mc_tweak_heartbeat_settings( $settings ) {
+				$settings['interval'] = 15; //Anything between 15-60
+				return $settings;
+			}
+			
+			
+			
+			
+			/*******************************************************
+			Custom Dashboard MailChimp Account Activity Widget
+			********************************************************/
+			/**
+			 * Add a widget to the dashboard.
+			 *
+			 * This function is hooked into the 'wp_dashboard_setup' action below.
+			 */
+			function yks_mc_add_chimp_chatter_dashboard_widget() {
+
+				wp_add_dashboard_widget(
+							 'yks_mc_account_activity_widget',         // Widget slug.
+							 'MailChimp Account Activity',         // Title.
+							 array( &$this , 'yks_mc_chimp_chatter_dashboard_widget_function' ) // Display function.
+					);	
+					
+			}
+			
+
+			/**
+			 * Create the function to output the contents of our Dashboard Widget.
+			 */
+			function yks_mc_chimp_chatter_dashboard_widget_function() {
+				// Trigger our ajax call, and then include our ChimpChatter template
+				// to properly populate the data
+				?>
+				<!-- 
+					apply our styles on initial page load,
+					this is for adding our icon to the widget title,
+					for a little branding action
+				-->
+				<style>
+				#yks_mc_account_activity_widget > h3 > span:before {
+					content: url('<?php echo plugins_url(); ?>/yikes-inc-easy-mailchimp-extender/images/yikes_logo_widget_icon.png');
+					width:33px;
+					float:left;
+					height:10px;
+					margin: -3px 10px 0 0px;
+				}
+				</style>
+				<script type="text/javascript">
+				jQuery(document).ready(function() {
+					// add the preloader to the widget
+					jQuery('#yks-admin-chimp-chatter').html();
+				
+					var apiKey = '<?php echo $this->optionVal['api-key']; ?>';
+					jQuery('#yks-mailchimp-api-key').val();
+					// store datacenter value, from end of api key
+					var dataCenter = apiKey.substr(apiKey.indexOf("-") + 1);
+
+					// post the data to our MailChimp Chatter function inside of lib.ajax.php
+					jQuery.ajax({
+						type: 'POST',
+						url: ajaxurl,
+						data: {
+							action: 'yks_mailchimp_form',
+							form_action: 'yks_get_widget_chimp_chatter',
+							api_key: apiKey,
+							data_center: dataCenter
+						},
+							dataType: 'html',
+							success: function(response) {
+																
+								// populate the original chimp chatter input with our original response
+								jQuery('#yks_mc_account_activity_widget').find('.inside').html(response);
+								
+								// create hidden input fields to store our returned data for comparison
+								// create our new chimp chatter response field
+								jQuery('#yks-admin-chimp-chatter').before('<div style="display:none;" id="new_chimp_chatter_response"></div>');
+								// create our original chimp chatter response
+								jQuery('#yks-admin-chimp-chatter').before('<div style="display:none;" id="original_chimp_chatter_response"></div>');
+								
+								// populate the visible chimp chatter div with the content
+								// on original page load
+								jQuery('#yks-admin-chimp-chatter').not('#new_chimp_chatter_response').html(response);
+								jQuery('#original_chimp_chatter_response').html(response);
+								
+																
+							},
+							error: function(response) {
+								jQuery('.nav-tab-wrapper').after('<p style="width:100%;text-align:center;margin:1em 0;">There was an error processing your request. Please try again. If this error persists, please open a support thread <a href="https://github.com/yikesinc/yikes-inc-easy-mailchimp-extender" title="Yikes Inc Easy MailChimp GitHub Issue Tracker" target="_blank">here</a>.</p>');
+							}
+					});
+				});
+				</script>
+				<?php
+
+				?><img style="display:block;margin:0 auto;margin-top:2em;margin-bottom:1em;" class="mailChimp_get_subscribers_preloader" src="<?php echo admin_url().'/images/wpspin_light.gif'; ?>" alt="preloader" ><?php
+			} 
+			
 			
 		}
 	}

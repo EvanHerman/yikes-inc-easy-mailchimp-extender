@@ -1075,28 +1075,8 @@ textarea#debug_loaded_apache_modules {
 		width:100%
 	}
 }
-	
-/* Chimp Chatter Triangle on Container */
-*, *:before, *:after {
-	box-sizing: border-box
-}
 
-.chimp-chatter-message:after, .chimp-chatter-message:before {
-	left:-19px;
-	top:42%;
-	border:solid transparent;
-	content:" ";
-	height:0;
-	width:0;
-	position:absolute;
-	pointer-events:none;
-	border-right-color:#fff;
-	border-width:10px
-}
 
-.chimp-chatter-message:before {
-	border-right-color: #e0e0e0;
-}
 
 @media screen and (max-width:60em) {
 	.chimp-chatter-message:after, .chimp-chatter-message:before {
@@ -1525,6 +1505,17 @@ textarea#debug_loaded_apache_modules {
 }
 
 
+/***** New Chimp Chatter Item + Star *****/
+.new-chatter-item td:first-child:before {
+	content: "\f155";
+	font-family: "dashicons";
+	left: 0;
+	font-size: 2em;
+	color: rgb(248, 226, 58);
+}
+
+
+
 /*		Print Stylesheet		*/
 /**************************/
 
@@ -1558,5 +1549,7 @@ textarea#debug_loaded_apache_modules {
 		margin:0 auto;
 	}
 
+	
+	
 	
 }

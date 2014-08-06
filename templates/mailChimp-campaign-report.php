@@ -55,6 +55,9 @@ add_thickbox();
   -webkit-box-shadow: none;
   box-shadow: none;
 }
+*, *:before, *:after {
+box-sizing: border-box;
+}
 </style>
 
 <script type="text/javascript">
@@ -145,7 +148,7 @@ jQuery( '.yks_mc_clicked_data' ).off().on( 'click' , function() {
 
 			// smooth scroll down to click chart
 			 jQuery('html, body').animate({
-				scrollTop: jQuery("#click_tracking_info").offset().top
+				scrollTop: jQuery("#yks-admin-link-data-table").offset().top - 220
 			}, 800);
 
 });

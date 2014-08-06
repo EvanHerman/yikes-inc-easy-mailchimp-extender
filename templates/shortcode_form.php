@@ -56,7 +56,7 @@ $ymce = jQuery.noConflict();
 					dataType: 'text',
 					success: function(MAILCHIMP)
 						{
-						if(MAILCHIMP == '1')
+						if( MAILCHIMP.trim() == 1 )
 							{
 								// custom message based on opt-in settings value
 								// single opt-in

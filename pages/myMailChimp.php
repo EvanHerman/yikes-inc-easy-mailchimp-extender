@@ -145,8 +145,23 @@
 					},
 						dataType: 'html',
 						success: function(response) {
-							jQuery('.mailChimpChatterDiv').html('<div>'+response+'</div>');
-							jQuery("table td:nth-child(4)").each(function() {
+						
+							// create hidden input fields to store our returned data for comparison
+							// create our new chimp chatter response field
+							jQuery('.mailChimpChatterDiv').before('<div style="display:none;" id="new_chimp_chatter_response"></div>');
+							// create our original chimp chatter response
+							jQuery('.mailChimpChatterDiv').before('<div style="display:none;" id="original_chimp_chatter_response"></div>');
+							
+							// populate the original chimp chatter input with our original response
+							jQuery('#original_chimp_chatter_response').html(response);
+							
+							// populate the visible chimp chatter div with the content
+							// on original page load
+							jQuery('.mailChimpChatterDiv').not('#original_chimp_chatter_response').not('#new_chimp_chatter_response').html(response);
+							
+							// loop over the visible user facing table and wrap
+							// each email with an <a> tag with mailto: attribute
+							jQuery("table#yks-admin-chimp-chatter td:nth-child(4)").each(function() {
 								jQuery(this).filter(function(){
 								var html = jQuery(this).html();
 								var emailPattern = /[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}/g;  
@@ -162,6 +177,7 @@
 										}        
 								});
 							});
+							
 						},
 						error: function(response) {
 							jQuery('.nav-tab-wrapper').after('<p style="width:100%;text-align:center;margin:1em 0;">There was an error processing your request. Please try again. If this error persists, please open a support thread <a href="https://github.com/yikesinc/yikes-inc-easy-mailchimp-extender" title="Yikes Inc Easy MailChimp GitHub Issue Tracker" target="_blank">here</a>.</p>');

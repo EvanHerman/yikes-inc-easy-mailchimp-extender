@@ -132,6 +132,10 @@ case 'yks_get_subscriberInfo':
 
 case 'yks_get_chimp_chatter':
 	$validate_action = $yksemeBase->getMailChimpChatter($_POST);
+	break;
+	
+case 'yks_get_widget_chimp_chatter':
+	$validate_action = $yksemeBase->getMailChimpChatterForWidget($_POST);
 	break;	
 	
 case 'yks_get_growth_data':

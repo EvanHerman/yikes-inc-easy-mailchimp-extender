@@ -421,7 +421,12 @@ Changes
 * Conditionally loaded scripts and styles in admin ( prevent conflicts )
 * Included NONCE security checks on form submissions ( helps prevent CSRF and other attacks )
 * Added proper update task function to add missing settings to the options page ( prevents undefined variables for new settings )
-* Applied missing styles to widget page
+* Added missing styles to post page ( added missing icon to tinyMCE button )
+* Added missing styles to widget page
+* Adjusted Chimp Chatter activity time formatting to return correct time based on user time zone
+* New Feature : Real time updates to Account Activity ( utilizing the heartbeat API )
+* New Feature : Added account activity widget to dashboard ( with live updates using heartbeat API )
+* Added screenshot of admin dashboard account activity widget
 
 ### 5.0.3 
 * Re-Apply missing styles to new 'My MailChimp' Section

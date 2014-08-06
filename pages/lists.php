@@ -402,7 +402,7 @@
 		});		
 		
 		// append remove button to end of subscriber on hover
-		jQuery('.yks_mc_subscribers').delegate('.yks-mailchimp-subscribers-list-row', 'mouseenter', function() {
+		jQuery('.yks_mc_subscribers').undelegate('.yks-mailchimp-subscribers-list-row', 'mouseenter' ).delegate('.yks-mailchimp-subscribers-list-row', 'mouseenter', function() {
 			var user_email_href = jQuery(this).find('.subscriber-mail-link').attr('rel');
 			jQuery(this).find('td:last-child').append('<span class="yks-remove-subscriber dashicons dashicons-no-alt"></span>');
 			jQuery(this).find('td:last-child').append('<a href="'+user_email_href+'" class="yks-email-subscriber dashicons dashicons-email-alt"></a>');

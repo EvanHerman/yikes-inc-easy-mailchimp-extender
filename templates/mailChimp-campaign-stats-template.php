@@ -155,7 +155,7 @@ jQuery(document).ready(function() {
 							<div class="yks_mc_campaign_sent_time_container">
 								<?php 
 								if ( isset ( $campaign['send_time'] ) ) {	
-									echo '<b>'.__("Sent" , "yikes-inc-easy-mailchimp-extender" ).'</b> '.__("on " , "yikes-inc-easy-mailchimp-extender" ).date( 'D, ' , strtotime($campaign_send_date)).date( 'M j, Y' , strtotime($campaign_send_date)) .__( "at " , "yikes-inc-easy-mailchimp-extender" ) . date( 'g:i a' , strtotime($campaign_send_time) );
+									echo '<b>'.__("Sent" , "yikes-inc-easy-mailchimp-extender" ).'</b> '.__("on " , "yikes-inc-easy-mailchimp-extender" ).date( 'D, ' , strtotime($campaign_send_date)).date( 'M j, Y' , strtotime($campaign_send_date)) .__( " at " , "yikes-inc-easy-mailchimp-extender" ) . date( 'g:i a' , strtotime($campaign_send_time) );
 								} else {
 									if ( $campaign['status'] == 'sending' && isset( $campaign['type_opts']['last_sent'] ) ) {
 										echo '<b>'.__( "Recurring Campaign" , "yikes-inc-easy-mailchimp-extender" ).'</b>';
@@ -378,5 +378,3 @@ jQuery(document).ready(function() {
 			
 		});
 	</script>
-	
-<?php
