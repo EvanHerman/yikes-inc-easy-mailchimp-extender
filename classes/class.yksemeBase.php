@@ -390,7 +390,7 @@ public function updateOptions($p)
 				$this->optionVal['single-optin-message']	= $fd['single-optin-message'];
 				$this->optionVal['double-optin-message']	= $fd['double-optin-message'];
 				$this->optionVal['interest-group-label']	= $fd['interest-group-label'];
-				$this->optionVal['yks-mailchimp-optIn-checkbox']	= $fd['yks-mailchimp-optIn-checkbox'];
+				$this->optionVal['optIn-checkbox']	= $fd['yks-mailchimp-optIn-checkbox'];
 				$this->optionVal['yks-mailchimp-optIn-default-list']	= isset($fd['yks-mailchimp-optIn-default-list']) ? $fd['yks-mailchimp-optIn-default-list'] : null; // if its set, else set to null <- fixes save form settings bug
 				$this->optionVal['yks-mailchimp-optin-checkbox-text']	= $fd['yks-mailchimp-optin-checkbox-text'];
 				update_option('api_validation', 'valid_api_key');
@@ -402,7 +402,7 @@ public function updateOptions($p)
 				$this->optionVal['single-optin-message']	= $fd['single-optin-message'];
 				$this->optionVal['double-optin-message']	= $fd['double-optin-message'];
 				$this->optionVal['interest-group-label']	= $fd['interest-group-label'];
-				$this->optionVal['yks-mailchimp-optIn-checkbox']	= $fd['yks-mailchimp-optIn-checkbox'];
+				$this->optionVal['optIn-checkbox']	= $fd['yks-mailchimp-optIn-checkbox'];
 				$this->optionVal['yks-mailchimp-optIn-default-list']	= isset($fd['yks-mailchimp-optIn-default-list']) ? $fd['yks-mailchimp-optIn-default-list'] : null; // if its set, else set to null <- fixes save form settings bug
 				$this->optionVal['yks-mailchimp-optin-checkbox-text']	= $fd['yks-mailchimp-optin-checkbox-text'];
 				update_option('api_validation', 'valid_api_key');
@@ -1491,7 +1491,7 @@ public function yks_resetPluginSettings() {
 	$this->optionVal['single-optin-message']	= __('Thank You for subscribing!', 'yikes-inc-easy-mailchimp-extender');
 	$this->optionVal['double-optin-message']	= __('Thank You for subscribing! Check your email for the confirmation message.', 'yikes-inc-easy-mailchimp-extender');
 	$this->optionVal['interest-group-label']	= '';
-	$this->optionVal['yks-mailchimp-optIn-checkbox']	= 'hide';
+	$this->optionVal['optIn-checkbox']	= 'hide';
 	$this->optionVal['yks-mailchimp-optIn-default-list']	= array();
 	$this->optionVal['yks-mailchimp-optin-checkbox-text']	= 'SIGN ME UP!';
 	$this->optionVal['recaptcha-setting']	= '0';
@@ -3468,7 +3468,7 @@ private function runUpdateTasks_4_3()
 		public function ykes_mc_apply_filters() {
 			// if the optin checkbox setting is set to show
 			// we wiill display the checkbox on the front end
-			if ( $this->optionVal['yks-mailchimp-optIn-checkbox'] == 1 ) {
+			if ( $this->optionVal['optIn-checkbox'] == 1 ) {
 				add_action('comment_post', array(&$this, 'ymc_add_meta_settings'), 10, 2);
 				add_action('comment_approved_', array(&$this, 'ymc_subscription_add'), 60, 2);
 				add_action('comment_post', array(&$this, 'ymc_subscription_add'));
