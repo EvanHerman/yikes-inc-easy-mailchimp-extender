@@ -1,17 +1,17 @@
 === Easy MailChimp Forms ===
 Contributors: yikesinc, hiwhatsup, liljimmi, eherman24, seriouslysean
 Donate link: http://yikesinc.com
-Tags: mailchimp, marketing, email, mailing lists, newsletter, signup, forms, signup form
+Tags: mailchimp, marketing, email, mailing lists, newsletter, sign up, forms, sign up form
 Requires at least: 3.0
-Tested up to: 3.9.1
-Stable tag: 5.0.4
+Tested up to: 3.9.2
+Stable tag: 5.0.5
 License: GPLv2 or later
 
-Easy MailChimp Forms allows you to painlessly add MailChimp signup forms to your WordPress site and track user activity with interactive reports.
+Easy MailChimp Forms allows you to painlessly add MailChimp sign up forms to your WordPress site and track user activity with interactive reports.
 
 == Description ==
 
-Easy MailChimp Forms allows you to painlessly add MailChimp signup forms to your WordPress site. You can add forms to posts, pages or sidebars with shortcodes, widgets or template tags. Simply copy and paste your MailChimp API Key into the plugin admin settings and it will pull in all your MailChimp lists. From there you can choose the lists you want to make forms for. For a single list you can check off the fields you want to include on your form and order them via an easy drag-and-drop interface. This plugin adds plenty of CSS selectors to the form code allowing you to completely customize the look of your forms. Now with the ability to track sent campaigns, you can view and print interactive reports from based on previously sent campaigns.
+Easy MailChimp Forms allows you to painlessly add MailChimp sign up forms to your WordPress site. You can add forms to posts, pages or sidebars with shortcodes, widgets or template tags. Simply copy and paste your MailChimp API Key into the plugin admin settings and it will pull in all your MailChimp lists. From there you can choose the lists you want to make forms for. For a single list you can check off the fields you want to include on your form and order them via an easy drag-and-drop interface. This plugin adds plenty of CSS selectors to the form code allowing you to completely customize the look of your forms. Now with the ability to track sent campaigns, you can view and print interactive reports from based on previously sent campaigns.
 
 **Note:** You will need a MailChimp API key to allow this plugin to communicate with your MailChimp account. For help on retrieving your API key, check out [question #4 of the FAQ](http://wordpress.org/plugins/yikes-inc-easy-mailchimp-extender/faq/). You can also read the MailChimp knowledge base article [Where can I find my API key and how can I use the API](http://kb.mailchimp.com/article/where-can-i-find-my-api-key/).
 
@@ -21,7 +21,7 @@ Easy MailChimp Forms allows you to painlessly add MailChimp signup forms to your
 * Easily import MailChimp forms from an active MailChimp account
 * View/Print Interactive Account Growth Reports and Campaign Reports (Statistics Tracking)
 * reCaptcha spam prevention baked in
-* Monitor MailChimp account activity 
+* Monitor MailChimp account activity
 * Use MailChimp Interest Group/Segments
 * Add MailChimp forms sidebars/widgetized areas with widgets
 * Set forms to single or double opt-in
@@ -57,7 +57,7 @@ Instructions on how to use the plugin can be [found in the FAQ](http://wordpress
 == Frequently Asked Questions ==
 
 = Do I need to have a MailChimp Account? =
-Yes, you can register for one for free at [MailChimp](https://mailchimp.com/signup/ "MailChimp Signup").
+Yes, you can register for one for free at [MailChimp](https://mailchimp.com/sign up/ "MailChimp Signup").
 
 = Do I need to have lists already set up in MailChimp? =
 Yes, you have to have at least 1 list set up in MailChimp. 
@@ -75,7 +75,7 @@ For more help, visit the MailChimp Support article [Where can I find my API Key?
 = How to I add my MailChimp lists? =
 After you add your API key, the plugin will fetch all of your MailChimp list information and load it into the plugin admin. Go to the plugin "Manage List Forms" page to choose the lists you want to make forms for.
 
-= How do I add the MailChimp signup forms to my site? =
+= How do I add the MailChimp sign up forms to my site? =
 You can use a shortcode to add a form to a page or post, use the MailChimp form button in the visual editor or use a widget to add it to a sidebar. Each list on the plugin "Manage List Forms" displays a shortcode at the top. Copy the shortcode and paste it into any post or page where you want a form to appear. For example, if my form had the shortcode [yks-mailchimp-list id="1234567891"] I would copy and paste that into the page or post I wanted to add that form to.
 
 = I input a valid MailChimp API key, but it returns invalid every time. I've already tried a new API key, but no dice. What's up? =
@@ -132,6 +132,9 @@ Yes! With the 4.0 version of our plugin we have added a few hooks that allow you
 
 = Do you offer integration with reCAPTCHA? I keep getting spam entries from bots and spammers. =
 Yes! Since version 4.4 of Easy MailChimp Extender, we have added [reCAPTCHA](https://www.google.com/recaptcha/intro/index.html) support. You can sign up for a reCAPTCHA API key [here](https://www.google.com/recaptcha/admin#whyrecaptcha). You will need to provide your <em>public</em> key as well as the <em>private</em> key. Don't worry, its free :)
+
+= When I input my API key and hit save, it immediately reverts to a much shorter string of text and returns invalid. What's going on? =
+You most likely have a password manager installed and active (LastPass, OnePass, TeamPassword etc.). The API key input field is set to type="password" for security reasons. Most password managers auto-fill password fields based on the URL of the current page. So, what happens when you click save is that the password manager auto fills in the field with the password that you have saved for your site, and thus returning 'invalid API key'. To resolve the issue you'll need to temporarily disable any active password manager and re-enter and save your API key. Once the key has been successfully saved, you can re-enable your password manager.
 
 == Developer Docs. ==
 
@@ -453,7 +456,21 @@ These functions should be used in conjunction with the `yikes_mc_get_form_data` 
 
 == Changelog ==
 
-= 5.0.4 =
+= 5.0.5 - August 21, 2014 =
+
+**Fixes**
+
+- added `stripslashes()` to the following settings fields :
+	- Single Opt-in Confirmation Message
+	- Double Opt-in Confirmation Message
+	- Interest Group Label
+	- Opt-in Checkbox Text
+
+**Updates**
+
+- Updated readme FAQ section
+
+= 5.0.4 - August 6, 2014 =
 * Update SSL conditional in main plugin file
 * Added mcrypt module check, for API encryption
 * Conditionally loaded scripts and styles in admin ( prevent conflicts )
@@ -510,17 +527,17 @@ These functions should be used in conjunction with the `yikes_mc_get_form_data` 
 * Added open_basedir conditional check to toggle CURLOPT_FOLLOWLOCATION based on users server settings
 * Prevents warning being thrown for users on shared hosts with an open_basedir set
 
-= 4.2.1 =
+= 4.2.1 - May 21, 2014 =
 * Removed all unnecessary Google tracking codes and functions
 
-= 4.2 =
+= 4.2 - May 21, 2014 =
 * Updated FAQ
 * Re-worked the redirect for a better user experience
 * Unified error messages into a single container on the front end
 * Converted custom opt-in messages to utilize the WYSIWYG editors ( now allowing for html and images to be used in your success messages )
 * Re-styled front end interest group containers
 
-= 4.1 =
+= 4.1 - May 20, 2014 =
 * Fixed JavaScript errors on when Address field is set to required
 * Added user feedback on successful re-import of form
 * Fixed some style issues
@@ -531,7 +548,7 @@ These functions should be used in conjunction with the `yikes_mc_get_form_data` 
 * Fixed date picker field, and images associated to it
 * Added ability to include html mark-up to confirmation fields
 
-= 4.0 =
+= 4.0 - May 14, 2014 =
 * Added Interest Group/Segment Support
 * Ability To See Number of Subscriber Per List
 * View Subscribers MailChimp Profile
@@ -543,7 +560,7 @@ These functions should be used in conjunction with the `yikes_mc_get_form_data` 
 * Added further error checking to pages
 * Custom TinyMCE shortcode button
 
-= 3.0 =
+= 3.0 - February 22, 2014 =
 * Update Mail Chimp API to v2.0
 * Added API Key Validation Check on settings page
 

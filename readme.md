@@ -117,6 +117,9 @@ Read the Codex article [Installing WordPress in Your Language](http://codex.word
 #### Do you provide any hooks, or filters for me to take advantage of?
 Yes! With the 4.0 version of our plugin we have added a few hooks that allow you to add or manipulate existing data. Check out the [Other Notes](http://wordpress.org/plugins/yikes-inc-easy-mailchimp-extender/other_notes/) tab  for more information.
 
+#### When I input my API key and hit save, it immediately reverts to a much shorter string of text and returns invalid. What's going on?
+You most likely have a password manager installed and active (LastPass, OnePass, TeamPassword etc.). The API key input field is set to type="password" for security reasons. Most password managers auto-fill password fields based on the URL of the current page. So, what happens when you click save is that the password manager auto fills in the field with the password that you have saved for your site, and thus returning 'invalid API key'. To resolve the issue you'll need to temporarily disable any active password manager and re-enter and save your API key. Once the key has been successfully saved, you can re-enable your password manager.
+
 Developer Documentation
 ===========
 <br />
@@ -414,8 +417,15 @@ These functions should be used in conjunction with the `yikes_mc_get_form_data` 
 
 Changes
 ===========
+### 5.0.5 - August 21, 2014
+* added `stripslashes()` to the following settings fields :
+	- Single Opt-in Confirmation Message
+	- Double Opt-in Confirmation Message
+	- Interest Group Label
+	- Opt-in Checkbox Text	
+* Updated Readme FAQ
 
-### 5.0.4 
+### 5.0.4 - August 6, 2014
 * Update SSL conditional in main plugin file
 * Added mcrypt module check, for API encryption
 * Conditionally loaded scripts and styles in admin ( prevent conflicts )

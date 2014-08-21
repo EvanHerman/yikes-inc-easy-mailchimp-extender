@@ -387,24 +387,24 @@ public function updateOptions($p)
 				$this->optionVal['api-key']	= $apiKey;
 				$this->optionVal['flavor']	= $fd['yks-mailchimp-flavor'];
 				$this->optionVal['optin']	= $fd['yks-mailchimp-optin'];
-				$this->optionVal['single-optin-message']	= $fd['single-optin-message'];
-				$this->optionVal['double-optin-message']	= $fd['double-optin-message'];
-				$this->optionVal['interest-group-label']	= $fd['interest-group-label'];
+				$this->optionVal['single-optin-message']	= stripslashes($fd['single-optin-message']);
+				$this->optionVal['double-optin-message']	= stripslashes($fd['double-optin-message']);
+				$this->optionVal['interest-group-label']	= stripslashes($fd['interest-group-label']);
 				$this->optionVal['optIn-checkbox']	= $fd['yks-mailchimp-optIn-checkbox'];
 				$this->optionVal['yks-mailchimp-optIn-default-list']	= isset($fd['yks-mailchimp-optIn-default-list']) ? $fd['yks-mailchimp-optIn-default-list'] : null; // if its set, else set to null <- fixes save form settings bug
-				$this->optionVal['yks-mailchimp-optin-checkbox-text']	= $fd['yks-mailchimp-optin-checkbox-text'];
+				$this->optionVal['yks-mailchimp-optin-checkbox-text']	= stripslashes($fd['yks-mailchimp-optin-checkbox-text']);
 				update_option('api_validation', 'valid_api_key');
 				return update_option(YKSEME_OPTION, $this->optionVal);
 			} else {
 				$this->optionVal['api-key']	= $apiKey;
 				$this->optionVal['flavor']	= $fd['yks-mailchimp-flavor'];
 				$this->optionVal['optin']	= $fd['yks-mailchimp-optin'];
-				$this->optionVal['single-optin-message']	= $fd['single-optin-message'];
-				$this->optionVal['double-optin-message']	= $fd['double-optin-message'];
-				$this->optionVal['interest-group-label']	= $fd['interest-group-label'];
+				$this->optionVal['single-optin-message']	= stripslashes($fd['single-optin-message']);
+				$this->optionVal['double-optin-message']	= stripslashes($fd['double-optin-message']);
+				$this->optionVal['interest-group-label']	= stripslashes($fd['interest-group-label']);
 				$this->optionVal['optIn-checkbox']	= $fd['yks-mailchimp-optIn-checkbox'];
 				$this->optionVal['yks-mailchimp-optIn-default-list']	= isset($fd['yks-mailchimp-optIn-default-list']) ? $fd['yks-mailchimp-optIn-default-list'] : null; // if its set, else set to null <- fixes save form settings bug
-				$this->optionVal['yks-mailchimp-optin-checkbox-text']	= $fd['yks-mailchimp-optin-checkbox-text'];
+				$this->optionVal['yks-mailchimp-optin-checkbox-text']	= stripslashes($fd['yks-mailchimp-optin-checkbox-text']);
 				update_option('api_validation', 'valid_api_key');
 				// if the new API key differs from the old one
 				// we need to unset the previously set up widgets
