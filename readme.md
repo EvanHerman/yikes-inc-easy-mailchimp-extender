@@ -36,7 +36,7 @@ Installation
 1. Click Plugins -> Add New -> Upload
 1. Activate the plugin
 1. Go over to [MailChimp.com](http://www.mailchimp.com) and login.
-1. On the right hand menu, click your profile picture and select 'Account Settings' and then go to 'Extras > API Keys'.
+1. In the right hand menu, click your profile picture and select 'Account Settings' and then go to 'Extras > API Keys'.
 1. Enter your API key into the text field inside 'MailChimp Forms > MailChimp Settings'
 1. Start importing forms from MailChimp and adding them to posts, pages and widgets!
 
@@ -417,6 +417,9 @@ These functions should be used in conjunction with the `yikes_mc_get_form_data` 
 
 Changes
 ===========
+### 5.0.6 - August 22, 2014
+* fix bug with nonce security check when using table 'Preferred Form Layout' setting
+
 ### 5.0.5 - August 21, 2014
 * added `stripslashes()` to the following settings fields :
 	- Single Opt-in Confirmation Message

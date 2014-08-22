@@ -4,7 +4,7 @@ Donate link: http://yikesinc.com
 Tags: mailchimp, marketing, email, mailing lists, newsletter, sign up, forms, sign up form
 Requires at least: 3.0
 Tested up to: 3.9.2
-Stable tag: 5.0.5
+Stable tag: 5.0.6
 License: GPLv2 or later
 
 Easy MailChimp Forms allows you to painlessly add MailChimp sign up forms to your WordPress site and track user activity with interactive reports.
@@ -456,6 +456,12 @@ These functions should be used in conjunction with the `yikes_mc_get_form_data` 
 
 == Changelog ==
 
+= 5.0.6 - August 22, 2014 =
+
+**Fixes**
+
+* fix bug with nonce security check when using table 'Preferred Form Layout' setting
+
 = 5.0.5 - August 21, 2014 =
 
 **Fixes**
@@ -629,7 +635,27 @@ These functions should be used in conjunction with the `yikes_mc_get_form_data` 
 
 == Upgrade Notice ==
 
-= 5.0.4 =
+= 5.0.6 - August 22, 2014 =
+
+**Fixes**
+
+* fix bug with nonce security check when using table 'Preferred Form Layout' setting
+
+= 5.0.5 - August 21, 2014 =
+
+**Fixes**
+
+- added `stripslashes()` to the following settings fields :
+	- Single Opt-in Confirmation Message
+	- Double Opt-in Confirmation Message
+	- Interest Group Label
+	- Opt-in Checkbox Text
+
+**Updates**
+
+- Updated readme FAQ section
+
+= 5.0.4 - August 6, 2014 =
 * Update SSL conditional in main plugin file
 * Added mcrypt module check, for API encryption
 * Conditionally loaded scripts and styles in admin ( prevent conflicts )

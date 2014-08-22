@@ -2211,7 +2211,9 @@ public function addUserToMailchimp($p)
 		// grab and store our nonce field
 		// for security purposes
 		$yks_mc_form_submission_nonce = $fd['_wpnonce'];
-				
+			
+		
+			
 		// cross check our nonce
 			// passing in the action used when we created the nonce field
 			// if the nonce does not match, we need to die()
@@ -2884,19 +2886,19 @@ public function getFrontendFormDisplay($list='', $submit_text)
 							$reCAPTCHA_image = recaptcha_get_html($reCAPTCHA_api_key);
 						
 					} 
-					// add our nonce field for security purposes
-					?>
-					<tr class="yks-mailchimpFormTableRow">
-						<?php wp_nonce_field( 'yks_mc_front_end_form_'.$field['id'] ); ?>
-					</tr>
-					<?php
 					$num = 1;	
 					foreach($list['fields'] as $field) : if($field['active'] == 1) : 
 					// get field placeholders
 					$form_id = explode( '-', $field['id']);
 					$field_placeholder_ = (isset($field['placeholder-'.$form_id[1].'-'.$num]) ? $field['placeholder-'.$form_id[1].'-'.$num] : '');
 					echo '<input type="hidden" class="'.$field['name'].'_placeholder_value" value="'.$field_placeholder_.'">';
+					
+					// add our nonce field for security purposes
 					?>
+					<tr class="yks-mailchimpFormTableRow">
+						<?php wp_nonce_field( 'yks_mc_front_end_form_'.$form_id[1] ); ?>
+					</tr>
+					
 						<!-- javascript to populate the correct form fields, with the specified place-holder value, on the lists page -->
 						<script>
 							jQuery(document).ready(function() {	
