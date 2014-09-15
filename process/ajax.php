@@ -78,7 +78,6 @@ case 'list_delete':
 		}
 	else echo '-1';
 	break;
-	
 case 'list_import':
 	$list	= $yksemeBase->importList($_POST['id']);
 	if($list)
@@ -87,7 +86,14 @@ case 'list_import':
 		}
 	else echo '-1';
 	break;
-
+case 'merge_variables_reImport':
+	$mv	= $yksemeBase->reImportMergeVariables($_POST['id']);
+	if($mv)
+		{
+		echo json_encode($mv);
+		}
+	else echo '-1';
+	break;
 case 'frontend_submit_form':
 	$action	= $yksemeBase->addUserToMailchimp($_POST);
 	if($action == "done")
@@ -182,6 +188,20 @@ case 'yks_get_bounced_email_data':
 case 'yks_get_unsubscribed_email_data':
 	$get_geo_opens = $yksemeBase->getCampaignUnsubscribeData($_POST);
 	echo '1';
+	break;			
+	
+case 'yks_mc_get_form_preview':
+	$get_form_preview = $yksemeBase->getFormPreview($_POST['shortcode'],$_POST['form_title'],$_POST['form_bg_color'],$_POST['form_text_color'],$_POST['form_submit_button_color'],$_POST['form_submit_button_text_color'],$_POST['form_padding'],$_POST['form_width'],$_POST['form_alignment']);
+	echo $get_form_preview;
+	break;		
+	
+case 'yks_mc_get_custom_template_preview':
+	$get_template_screenshot_preview = $yksemeBase->getTemplateScreenshot($_POST['template_name'] , $_POST['selected_form_screenshot'] , $_POST['template_path'] );
+	echo $get_template_screenshot_preview;
+	break;	
+	
+case 'copy_user_templates_to_theme':
+	$create_user_mailchimp_boilerplate = $yksemeBase->copyUserTemplatesToUserTheme();
 	break;				
 	
 		}

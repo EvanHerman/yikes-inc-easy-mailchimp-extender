@@ -1,0 +1,103 @@
+/*
+	Template: yks_mc_form_template_1 ( Bundled Template #1 )
+	Description : This is the .css file associated with the above template. This file gets loaded when using the above 
+						template to display a custom opt-in form for YIKES Inc. Easy MailChimp Extender.
+	Author : YIKES Inc.
+	Author Contact : http://www.yikesinc.com
+*/
+
+/* Container **/
+.large-optin-template {
+	background: url("./images/island_background.jpg");
+	background-size: cover;
+}
+
+
+.large-optin-template {
+	display: inline-block;
+	width: 100%;
+}
+
+
+/** Font Declerations **/
+.large-optin-template h2 {
+	font-size: 2em;
+	margin: .5em 0;
+}
+
+.large-optin-template h3 {
+	font-size: 1.5em;
+	margin: .5em 0;
+}
+
+.large-optin-template p {
+	font-size: 17px;
+	margin: auto;
+}
+
+.large-optin-template p.disclaimer {
+	font-size: 14px;
+}
+
+
+
+.large-optin-template #wrapper {
+	display: table;
+	max-width: 70%;
+	margin: 0 auto;
+	background: rgba(255, 255, 255, 0.8);
+	border-radius: 5px;
+	margin-top: 2.5em;
+	margin-bottom: 2.5em;
+	padding: 1em;
+}
+
+/* Left Container */
+.large-optin-template #large-callout-information {
+	float: left;
+	max-width: 48.5%;
+}
+
+	/* Left Container List */
+	.large-optin-template #large-callout-information ul {
+		list-style: none;
+		margin-left: 1em;
+		margin-top: 2em;
+		padding-left: 0;
+	}
+	
+	.large-optin-template #large-callout-information ul li {
+		margin-top: 1em;
+	}
+	
+	.large-optin-template #large-callout-information ul li:before {
+		font-family: "dashicons";
+		content: "\f147";
+		float:left;
+		margin-right: .5em;
+		padding-top: .15em;
+		color: green;
+	}
+
+/* Right Container */
+.large-optin-template #box {
+	float: right;
+	max-width: 48.5%;
+}
+	
+
+@media only screen and (max-width: 525px) {
+	
+	/* Left Container */
+	.large-optin-template #large-callout-information {
+		float: none;
+		max-width: 100%;
+	}
+	
+	/* Right Container */
+	.large-optin-template #box {
+		float: none;
+		max-width: 100%;
+	}
+	
+}

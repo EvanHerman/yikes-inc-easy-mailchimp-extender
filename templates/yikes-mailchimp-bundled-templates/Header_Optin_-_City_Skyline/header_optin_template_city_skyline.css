@@ -1,0 +1,105 @@
+/*
+	Template: Header Optin Variant 2 - City Skyline ( Bundled Template #4 )
+	Description : This is the .css file associated with the above template. This file gets loaded when using the above 
+						template to display a custom opt-in form for YIKES Inc. Easy MailChimp Extender.
+	Author : YIKES Inc.
+	Author Contact : http://www.yikesinc.com
+*/
+
+/* Container **/
+.large-optin-template {
+	background: url("./images/city_skyline.jpg");
+	background-size: cover;
+}
+
+
+.large-optin-template {
+	display: inline-block;
+	width: 100%;
+}
+
+
+/** Font Declerations **/
+.large-optin-template h4 {
+	font-size: 20px;
+	margin:  0;
+	color: rgba(248, 248, 248, 0.90);
+	text-align: center;
+}
+
+.large-optin-template h3 {
+	text-align:center;
+	margin: 0;
+	font-size: 30px;
+	color: #FECB00;
+}
+
+.large-optin-template p {
+	font-size: 17px;
+	margin: auto;
+	color: #8DB8C0;
+}
+
+.large-optin-template p.disclaimer {
+	font-size: 14px;
+}
+
+/** Submit Button **/
+.ykfmc-submit {
+	border:none !important;
+	display:block;
+	margin:0 auto;
+}
+
+/** Error + Confirmation Messages **/
+#yks_form_error_message {
+	color: #fefefe;
+	margin-bottom: 0;
+}
+
+.large-optin-template #wrapper {
+	display: table;
+	max-width: 30%;
+	min-width: 225px;
+	margin-left: 15%;
+	background: rgba(60, 58, 58, 0.66);
+	border-radius: 5px;
+	margin-top: 5.5em;
+	margin-bottom: 5.5em;
+	padding: 1em;
+}
+
+
+/* Right Container */
+.large-optin-template #box {
+	float: center;
+	max-width: 100%;
+}
+	
+
+
+/** When the wrapper is within the content, let's center #wrapper element **/
+.entry-content .large-optin-template #wrapper {
+		max-width: 75%;
+		display:block;
+		margin: 0 auto;
+		margin-top: 2em;
+		margin-bottom: 2.5em;
+	}
+	
+	
+	
+/** Break Point **/
+
+/* When the screen is 800px or smaller, we'll center the #wrapper element **/
+@media only screen and (max-width: 800px) {
+	
+	.large-optin-template #wrapper {
+		max-width: 75%;
+		display:block;
+		margin: 0 auto;
+		margin-top: 2em;
+		margin-bottom: 2.5em;
+	}
+	
+}	

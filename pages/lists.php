@@ -14,13 +14,16 @@
 <script type="text/javascript">
         jQuery(document).ready(function($)
                 {
+	
+				$('.yks-mc-color-picker').wpColorPicker();
+			
                 function noListsCheck()
                         {
                         if($('#yks-list-wrapper .yks-list-container').size() <= 0)
                                 {
 								var plugin_directory_url = '<?php echo plugin_dir_url( __FILE__ ); ?>';
 								 $('#yks-lists-dropdown').next().css('opacity',0);
-								 $('#yks-list-wrapper').css({ 'background' : 'url("'+plugin_directory_url+'../images/yks_mc_lets_get_started.png")', 'height' : '175px' , 'width' : '400px' , 'background-repeat' : 'no-repeat' , 'background-position' : 'center', 'margin-top' : '-6em' });
+								 $('#yks-list-wrapper').css({ 'background' : 'url("'+plugin_directory_url+'../images/yks_mc_lets_get_started.png")', 'height' : '175px' , 'width' : '400px' , 'background-repeat' : 'no-repeat' , 'background-position' : 'center', 'margin-top' : '-4em' });
 								}
                         }
                 function EnterListID (lid, name)
@@ -45,11 +48,17 @@
                                                                         {
                                                                         $('#yks-list-wrapper').html('');
                                                                         }
-                                                                $('#yks-list-wrapper').append(MAILCHIMP);
-																$('#yks-lists-dropdown').next().css('opacity',1);
-																$('#yks-list-wrapper').css({ 'background' : 'transparent', 'height' : 'auto' , 'width' : 'auto', 'margin-top' : '0' });
-                                                                scrollToElement($('#yks-list-wrapper .yks-list-container').last());
-                                                                initializeScrollableLists();
+																	$('#yks-list-wrapper').append(MAILCHIMP);
+																	var container_length = $('#yks-list-wrapper').find('.panel-collapse').length;
+																	$('#yks-list-wrapper').find('.panel-collapse').last().removeAttr('id').attr('id','coallpse_'+container_length);
+																	$('#yks-list-wrapper').find('.panel-heading').last().removeAttr('href').attr('href','#coallpse_'+container_length);
+																	$('#yks-lists-dropdown').next().css('opacity',1);
+																	$('#yks-list-wrapper').css({ 'background' : 'transparent', 'height' : 'auto' , 'width' : 'auto', 'margin-top' : '0' });
+																	scrollToElement($('#yks-list-wrapper .panel-heading').last());
+																	$('#yks-list-wrapper').find('.panel-heading').last().removeClass( 'collapsed' );
+																	$('#yks-list-wrapper').find('.panel-collapse').last().removeClass( 'collapse' ).addClass('collapse in');
+																	initializeScrollableLists();
+																	$('.yks-mc-color-picker').wpColorPicker();
                                                                 }
                                                         else
                                                                 {
@@ -61,6 +70,7 @@
 																		}
 																	  },
 																	  modal: true,
+																	  draggable: false,
 																	  resizable: false
 																	});
                                                                 }
@@ -166,16 +176,19 @@
 														}
 													},
 													modal: true,
+													draggable: false,
 													resizable: false
 												});
                                         }
                         return false; 
                 });
-				// function which re-imports our specified MailChimp list and all form fields
+				// function which saves all of our settings
                 $('.yks-mailchimp-list-update').live('click', function(e){
                         var i       = $(this).attr('rel');
                         var f       = '#yks-mailchimp-form_'+i;
 						var theButton = $(this);
+	
+						// alert($(f).serialize());
                         $.ajax({
                                 type:   'POST',
                                 url:    ajaxurl,
@@ -207,7 +220,12 @@
 													}
 												console.log(MAILCHIMP);
                                                 }
-                                        }
+                                        },
+								error: function(MAILCHIMP) 
+										{
+											alert(MAILCHIMP);
+											console.log(MAILCHIMP);
+										}
                         });
                         return false;
                 });
@@ -235,7 +253,8 @@
                                                 {
                                                 if(MAILCHIMP == '1')
                                                         {
-															$('#yks-list-container_'+i).fadeOut('fast',function() {
+															$('#yks-list-container_'+i).parents('.panel-body').prev().fadeOut('fast');
+															$('#yks-list-container_'+i).parents('.panel-body').fadeOut('fast',function() {
 																$(this).remove();
 																scrollToElement($('#yks-list-wrapper'));
 																noListsCheck();
@@ -249,6 +268,7 @@
 								}
 							  },
 							  modal: true,
+							  draggable: false,
 							 resizable: false
 							});
 							
@@ -257,20 +277,31 @@
 				// function which imports a specified list from MailChimp
                 $('.yks-mailchimp-import').live('click', function(e){
                         var i       = $(this).attr('rel');
-						var form_name = $(this).parents('tbody').find('tr:first-child').find('.yks-mailchimp-listname').text();
-						console.log(form_name);
+						var form_name = $(this).parents('.panel-body').prev().find('.yks_mc_list_title').text().trim();
+						var clicked_import_button = $(this);	
                  						
-						$("<div id='yks_mc_reset_plugin_settings'><div class='yks-mc-icon-yks-mc-warning yks-mc-delete-form-warning-icon'></div><p><?php _e("Are you sure you want to re-import this form and its fields from MailChimp?",'yikes-inc-easy-mailchimp-extender'); ?></p></div>").dialog({
-							 title : "Re-Import Form?",
+						$("<div id='yks_mc_reset_plugin_settings'><div class='yks-mc-icon-yks-mc-warning yks-mc-delete-form-warning-icon'></div><p><?php _e("Are you sure you want to re-import this forms fields from MailChimp?",'yikes-inc-easy-mailchimp-extender'); ?></p></div>").dialog({
+							 title : "Re-Import Form Fields?",
 							 buttons : {
 								"Yes" : function() {
 									 $(this).dialog("close");
+									 
+									// display a temporary 'loading' modal for user feedback
+									$('<div id="yks_mc_reimporting_fields_dialog"><img class="yks-mc-reset-plugin-settings-preloader" src="<?php echo plugin_dir_url(__FILE__).'../images/preloader.gif'; ?>" alt="preloader" /><p style="width:100%;text-align:center;"><?php _e( "Re-Importing Form Fields" , "yikes-inc-easy-mailchimp-extender" ); ?></p></div>').dialog({
+										 title : "Please Hold",
+											  modal: true,
+											  draggable: false,
+											  resizable: false
+									});  
+									 
+									 var this_success_message = clicked_import_button.parents('.panel-body').find('#yks-status');
+									 clicked_import_button.parents('.panel-body').find('#yks-status').remove();
 									 $.ajax({
                                         type:   'POST',
                                         url:    ajaxurl,
                                         data: {
                                             action:                         'yks_mailchimp_form',
-                                            form_action:                    'list_import',
+                                            form_action:                    'merge_variables_reImport',
                                             id:                              i
                                         },
                                         dataType: 'json',
@@ -278,42 +309,55 @@
                                                 {
                                                 if(MAILCHIMP != '-1')
                                                         {
-                                                        $($('#yks-list-container_'+i)).replaceWith(MAILCHIMP);
-                                                        $('#yks-list-container_'+i).yksYellowFade();
-															// alert the user that it was a success
-															$("<div id='yks_mc_reset_plugin_settings'><div class='dashicons dashicons-yes yks-mc-success-icon'></div><p><?php _e( "Your MailChimp form" , "yikes-inc-easy-mailchimp-extender" ); ?><strong>"+form_name+"</strong>\"<?php _e(' was successfully updated', 'yikes-inc-easy-mailchimp-extender' ); ?></p></div>").dialog({
+														$('#yks_mc_reimporting_fields_dialog').dialog("destroy");
+                                                        $($('#yks-mailchimp-fields-td_'+i)).replaceWith(MAILCHIMP);
+                                                        $('#yks-mailchimp-fields-td_'+i).yksYellowFade();
+														clicked_import_button.parents('.form-table').find('.yks-mailchimp-list-update').click();
+															setTimeout(function() {
+																clicked_import_button.parents('.panel-body').find('#yks-status-error').before(this_success_message);
+															}, 5000);
+															// alert the user that it was a success															
+															$('<div id="yks_mc_reset_plugin_settings"><div class="dashicons dashicons-yes yks-mc-success-icon"></div><p><?php _e( "Your MailChimp form" , "yikes-inc-easy-mailchimp-extender" ); ?><strong> "'+form_name+'" </strong><?php _e(" was successfully updated", "yikes-inc-easy-mailchimp-extender" ); ?></p></div>').dialog({
+
 															 title : "Form Successfully Updated",
 															 buttons : {
 																"Ok" : function() {
 																	$(this).dialog("close");
+																	 return false;
 																}
 															  },
 															  modal: true,
+															  draggable: false,
 															  resizable: false
-															});
-                                                        initializeScrollableLists();
+															});      
                                                         }
                                                 else
                                                         {
+														$('#yks_mc_reimporting_fields_dialog').dialog("destroy");
                                                         $("<div id='yks_mc_reset_plugin_settings'><div class='dashicons dashicons-yes yks-mc-success-icon'></div><p><?php _e("It looks like this form is already up to date!", "yikes-inc-easy-mailchimp-extender" ); ?></p></div>").dialog({
 														 title : "Form Up To Date",
 														 buttons : {
 															"Ok" : function() {
 																$(this).dialog("close");
+																 return false;
 															}
 														  },
 														  modal: true,
+														  draggable: false,
 														  resizable: false
 														});
+														return false;
                                                         }
                                                 }
-                                });
+									});
 								},
 								"Cancel" : function() {
 								  $(this).dialog("close");
+								  return false;
 								}
 							  },
 							  modal: true,
+							  draggable: false,
 							  resizable: false
 							});
 
@@ -354,7 +398,7 @@
 		// passes the list_id and list_name to the PHP function that makes the API call
 		jQuery('#yks-list-wrapper').delegate('.displayListSubscribers', 'click', function() {
 			var specifiedListID = jQuery(this).attr('rel');
-			var thisListName = jQuery(this).parents('tbody').find('.yks-mailchimp-listname').text();
+			var thisListName = jQuery(this).parents('.panel-body').prev().find('.yks_mc_list_title').text();
 						 
 			// run our ajax function and pass along our clicked link ID
 				$.ajax({
@@ -485,6 +529,28 @@
 			}
 		});
 		
+		// if the custom styles box is checked, slide down and reveal the custom styles options, else hide it
+		jQuery('#yks-list-wrapper').delegate('.yks_mailchimp_custom_styles', 'click', function() {
+			if (jQuery(this).attr("checked")) {
+				jQuery(this).parents('.form-table').find('input.yks_mailchimp_custom_template').removeAttr( 'checked' ).attr( 'disabled','disabled' );
+				jQuery(this).parents('.yks-mailchimp-custom-styles-holder').find('#custom-style-list').slideDown();
+			} else {
+				jQuery(this).parents('.yks-mailchimp-custom-styles-holder').find('#custom-style-list').slideUp();
+				jQuery(this).parents('.form-table').find('input.yks_mailchimp_custom_template').removeAttr( 'disabled','disabled' );
+			}
+		});
+		
+		// if the custom template box is checked, slide down and reveal the custom template options, else hide it
+		jQuery('#yks-list-wrapper').delegate('.yks_mailchimp_custom_template', 'click', function() {
+			if (jQuery(this).attr("checked")) {
+				jQuery(this).parents('.form-table').find('input.yks_mailchimp_custom_styles').removeAttr( 'checked' ).attr( 'disabled','disabled' );
+				jQuery(this).parents('.yks-mailchimp-custom-template-holder').find('#custom-template-list').slideDown();
+			} else {
+				jQuery(this).parents('.yks-mailchimp-custom-template-holder').find('#custom-template-list').slideUp();
+				jQuery(this).parents('.form-table').find('input.yks_mailchimp_custom_styles').removeAttr( 'disabled','disabled' );
+			}
+		});
+		
 		jQuery('.yks_mc_subscribers').delegate('.yks-view-subscriber-profile', 'click', function() {
 			// create our variables that will be passed over to MailChimp
 			var user_email = jQuery(this).attr('rel');
@@ -540,6 +606,169 @@
 		// we don't want it included in the list selection drop down
 		jQuery('#yks-list-select').find('option[value="subscriber-count"]').remove();
 		
+		
+		jQuery('.populatePreviewFormContainer').click(function() {
+		
+			if ( jQuery(this).hasClass( 'custom_template' ) ) {
+			
+				var selected_form = jQuery(this).parents( '#custom-template-list' ).find( '.template-selection-dropdown' ).val();
+				
+				var selected_form = selected_form.substring(selected_form.lastIndexOf("/"));
+								
+				var selected_form_screenshot = selected_form.replace( '/' , '' ).replace( '.php' , '.jpg');
+								
+				var selected_form_text = jQuery(this).parents( '#custom-template-list' ).find( '.template-selection-dropdown option:selected' ).text();	
+				
+				var template_path = jQuery(this).parents( '#custom-template-list' ).find( '.template-selection-dropdown' ).val();
+				
+					$.ajax({
+							   type:   "POST",
+							   url:    ajaxurl,
+							   data: {
+								   action:                 "yks_mailchimp_form", // pass data to this ajax function
+								   form_action:            "yks_mc_get_custom_template_preview", // our data will finall be passed through this function
+								   template_name : selected_form_text,
+								   selected_form_screenshot: selected_form_screenshot,
+								   template_path: template_path
+								},
+								dataType: "html", // again must pass as HTML and not JSON
+								success: function(MAILCHIMP)
+								{	
+									jQuery('#TB_window').find('#TB_ajaxContent').html(MAILCHIMP);
+								},
+								error: function(xhr) {
+									console.log('error : '+MAILCHIMP);
+								}
+						});
+			
+			} else {
+		
+					var form_shortcode = jQuery(this).parents('.form-table').find('.yks-mailchimp-shortcode').find('.shortcode-code').text();
+					var form_title = jQuery(this).parents('.panel-body').prev().find('.yks_mc_list_title').text();
+					// get our temp colors to pass to the modal
+					var form_bg_color = jQuery(this).parents('#custom-style-list').find('input[name="yks-mc-background-color"]').val();
+					var form_text_color = jQuery(this).parents('#custom-style-list').find('input[name="yks-mc-text-color"]').val();
+					var form_submit_button_color = jQuery(this).parents('#custom-style-list').find('input[name="yks-mc-submit-button-color"]').val();
+					var form_submit_button_text_color = jQuery(this).parents('#custom-style-list').find('input[name="yks-mc-submit-button-text-color"]').val();
+					var form_padding = jQuery(this).parents('#custom-style-list').find('input[name="yks-mc-form-padding"]').val();
+					var form_width = jQuery(this).parents('#custom-style-list').find('input[name="yks-mc-form-width"]').val();
+					var form_alignment = jQuery(this).parents('#custom-style-list').find('select[name="yks-mc-form-alignment"]').val();
+					
+						$.ajax({
+							   type:   "POST",
+							   url:    ajaxurl,
+							   data: {
+								   action:                 "yks_mailchimp_form", // pass data to this ajax function
+								   form_action:            "yks_mc_get_form_preview", // our data will finall be passed through this function
+								   shortcode: form_shortcode,
+								   form_title: form_title,
+								   form_bg_color : form_bg_color,
+								   form_text_color : form_text_color,
+								   form_submit_button_color : form_submit_button_color,
+								   form_submit_button_text_color : form_submit_button_text_color,
+								   form_padding : form_padding,
+								   form_width : form_width,
+								   form_alignment : form_alignment
+								},
+								dataType: "html", // again must pass as HTML and not JSON
+								success: function(MAILCHIMP)
+								{	
+									jQuery('#TB_window').find('#TB_ajaxContent').html(MAILCHIMP);
+								},
+								error: function(xhr) {
+									console.log('error : '+MAILCHIMP);
+								}
+						});
+
+			}
+			
+		});
+		
+		// import the boilerplate files for the user!
+		jQuery('.import_template_boilerplates').click(function() {
+			$("<div id='yks_mc_reset_plugin_settings'><div style='float:left;margin-left:20px;margin-right:40px;margin-top:.25em;font-size:3em;' class='dashicons dashicons-portfolio'></div><p><?php _e("Are you sure you want to import the custom template boilerplate files? This will create a directory in your theme root with the necessary files to create your own custom MailChimp signup templates.","yikes-inc-easy-mailchimp-extender"); ?></p></div>").dialog({
+					title : "Import Boilerplate Template Files?",
+					buttons : {
+						"Yes" : function() {
+						
+							$.ajax({
+								   type:   "POST",
+								   url:    ajaxurl,
+								   data: {
+									   action:                 "yks_mailchimp_form", // pass data to this ajax function
+									   form_action:            "copy_user_templates_to_theme" // our data will finall be passed through this function
+									},
+									dataType: "json", // again must pass as HTML and not JSON
+									success: function(MAILCHIMP)
+									{	
+										$("<div id='yks_mc_reset_plugin_settings'><div style='float:left;margin-left:20px;margin-right:40px;margin-top:.25em;font-size:3em;' class='dashicons dashicons-portfolio'></div><p><?php _e("Custom template boilerplate files succesfully imported. You can find them inside your theme folder, inside the 'yikes-mailchimp-user-template' directory.","yikes-inc-easy-mailchimp-extender"); ?></p><p><img style='display:block;margin:0 auto;' class='yks-mc-reset-plugin-settings-preloader' src='<?php echo plugin_dir_url(__FILE__)."../images/preloader.gif"; ?>'</p></div>").dialog({
+											modal: true,
+											draggable: false,
+											resizable: false,
+											width: 400
+										});
+										setTimeout(function() {
+											location.reload();
+										}, 2400 );
+									},
+									error: function(xhr) {
+										alert('Error Importing Boilerplate Files.');
+										console.log(xhr);
+									}
+							});
+							
+							// run our ajax to import the boilerplate files
+							$(this).dialog("close");
+						},
+						"Cancel" : function() {
+							$(this).dialog("close");
+						}
+					},
+					modal: true,
+					draggable: false,
+					resizable: false,
+					width: 400
+			});
+		});
+		
+		// clear the modal div when invisible
+		setInterval(function() {
+			if ( jQuery( '.yks_mc_preview_form_container' ).is(':visible') ) {
+				return;
+			} else {
+				jQuery( '.yks_mc_preview_form_container' ).html('<?php echo '<img src="' . admin_url() . '/images/wpspin_light.gif" alt="preloader" style="margin-left: 50%; margin-top: 25%;">'; ?>');
+				jQuery( '.yks_mc_preview_form_container' ).prev().remove();
+			}
+		} , 1200 );
+		
+		
+		jQuery('.template-selection-dropdown').change(function() {
+			var selected_dropdown = jQuery(this);
+			var label = selected_dropdown.find('option:selected').parent().attr('label');
+			if ( label == 'Custom Templates' ) {
+				selected_dropdown.parents( '#custom-template-list' ).find( '.populatePreviewFormContainer' ).attr( 'disabled' , 'disabled' ).removeClass( 'thickbox' );
+			} else {
+				selected_dropdown.parents( '#custom-template-list' ).find( '.populatePreviewFormContainer' ).removeAttr( 'disabled' ).addClass( 'thickbox' );
+			}
+		});
+		
+		jQuery( '.template-selection-dropdown' ).each( function() {
+			var label = jQuery(this).find('option:selected').parent().attr('label');
+			if ( label == 'Custom Templates' ) {
+				jQuery(this).parents( '#custom-template-list' ).find( '.populatePreviewFormContainer' ).attr( 'disabled' , 'disabled' ).removeClass( 'thickbox' );
+			}
+		});
+		
+		// clear the selected_template_preview_container modal when invisible
+		setInterval(function() {
+			if ( jQuery( '#selected_template_preview_container' ).is(':visible') ) {
+				return;
+			} else {
+				jQuery( '#selected_template_preview_container' ).html('<?php echo '<img src="' . admin_url() . '/images/wpspin_light.gif" alt="preloader" style="margin-left: 50%; margin-top: 25%;">'; ?>');
+			}
+		} , 1200 );
+		
+		
 });
 </script>
 
@@ -586,3 +815,12 @@
         	</div> 
     <?php }  //end else statement if there is an api key ?>         
 </div>
+
+<?php
+	// need to update javascript for this
+	// generates our thickbox with new fields to add
+	// ajax retreive from MailChimp
+	echo $this->generateNewMergeVariableContainer();
+	echo $this->generateFormPreviewContainer(); 
+	echo $this->generateUserTemplateHowTo(); 
+?>

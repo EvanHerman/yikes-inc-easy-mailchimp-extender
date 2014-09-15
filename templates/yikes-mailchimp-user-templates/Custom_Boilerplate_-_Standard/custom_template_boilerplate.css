@@ -1,0 +1,71 @@
+/*
+	Template: Custom Template Boilerplate
+	Description : This is the .css file associated with the above template. This file gets loaded when using the above 
+						template to display a custom opt-in form for YIKES Inc. Easy MailChimp Extender.
+	Author : YIKES Inc.
+	Author Contact : http://www.yikesinc.com
+*/
+
+/*************************************************************************************************************************/
+
+
+/** All Form Inputs (including the submit button) **/
+.custom_template_boilerplate input {
+  outline: none;
+  width: 100%;
+}
+
+/** Form Wrapper **/
+.custom_template_boilerplate #wrapper {
+  width: 100%;
+  height: 100%;
+  margin: 0 auto;
+}
+
+/** Setting the field rows to padding 0 **/
+.custom_template_boilerplate .widget_yikes_mc_widget input, .custom_template_boilerplate .widget_yikes_mc_widget .yks-mailchimpFormDivRowField {
+	padding: 0;
+}
+
+/** Box element within the #wrapper **/
+.custom_template_boilerplate #box {
+  background-color: #fff;
+  margin: 0 auto;
+  -webkit-border-radius: 4px;
+  -o-border-radius: 4px;
+  -moz-border-radius: 4px;
+  border-radius: 3px;
+}
+
+/** Form Header - Sign Up Now! **/
+.custom_template_boilerplate #top_header > h3 {
+  text-align: center;
+  font-family: sans-serif;
+  font-size: 32px;
+  font-weight: 800;
+  color: #e50000;
+  -webkit-text-stroke: 0.5px;
+  margin: 0;
+
+}
+
+/** Form Sub Header - Sign up for our mailing list.... **/
+.custom_template_boilerplate #top_header > h5 {
+  text-align: center;
+  font-family: 'Roboto', sans-serif;
+  font-size: 15px;
+  font-weight: 300;
+  color: #e50000;
+  line-height: 1.6;
+  margin: 0;
+  padding: 15px 0;
+  color: #555;
+  -webkit-text-stroke: 0.2px;
+}
+
+/** Disclaimer Notice **/
+.custom_template_boilerplate .disclaimer {
+	text-align: center;
+	font-style: italic;
+	color: rgba(51, 51, 51, 0.56);
+}

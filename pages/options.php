@@ -134,6 +134,8 @@ jQuery(document).ready(function ($) {
 	// Ajax function which is fired when the user types in a value into the API input field
 	function yikes_mc_api_key_validate() {
 		jQuery('.mailChimp_api_key_validation_message').hide();
+		jQuery('#yks-mailchimp-api-key').parents('td').find('.mailChimp_api_key_validation_message').last().hide();
+		jQuery('#submit').attr('disabled','disabled');
 		// delay the function incase the user has deleted their API key
 			setTimeout(function() {
 				
@@ -173,20 +175,20 @@ jQuery(document).ready(function ($) {
 												var new_replaced_text = replaced_text.replace("You must provide a MailChimp API key", "<select><option value='refreshThePage'>Save Settings and Refresh The Page</option></select>");
 												jQuery('#ajax_list_replace').html(new_replaced_text);
 											jQuery('.mailChimp_api_key_preloader').fadeOut('fast', function() {
-												jQuery('.mailChimp_api_key_validation_message').html('<img src="<?php echo plugins_url().'/yikes-inc-easy-mailchimp-extender/images/yikes-mc-checkmark.png'; ?>" alt=message > <?php _e('Valid API Key','yikes-inc-easy-mailchimp-extender'); ?>').css("color", "green").fadeIn();
+												jQuery('#yks-mailchimp-api-key').parents('td').find('.mailChimp_api_key_validation_message').first().html('<img src="<?php echo plugins_url().'/yikes-inc-easy-mailchimp-extender/images/yikes-mc-checkmark.png'; ?>" alt=message > <?php _e('Valid API Key','yikes-inc-easy-mailchimp-extender'); ?>').css("color", "green").fadeIn();
 												jQuery('#submit').removeAttr('disabled');
 											});
 										// if our response contains 'Invalid MailChimp API Key' - display an error	
 										} else if (response.indexOf('Invalid Mailchimp API Key') > -1) {
 											jQuery('.mailChimp_api_key_preloader').fadeOut('fast', function() {
-												jQuery('.mailChimp_api_key_validation_message').html("<img src=<?php echo plugins_url().'/yikes-inc-easy-mailchimp-extender/images/yikes-mc-error-icon.png'; ?> alt=message > <?php _e("Sorry, that is an invalid MailChimp API key.","yikes-inc-easy-mailchimp-extender"); ?>").css("color", "red").fadeIn();
+												jQuery('#yks-mailchimp-api-key').parents('td').find('.mailChimp_api_key_validation_message').first().html("<img src=<?php echo plugins_url().'/yikes-inc-easy-mailchimp-extender/images/yikes-mc-error-icon.png'; ?> alt=message > <?php _e("Sorry, that is an invalid MailChimp API key.","yikes-inc-easy-mailchimp-extender"); ?>").css("color", "red").fadeIn();
 												jQuery('#submit').attr('disabled','disabled');
 											});
 											console.log('MailChimp API Response : '+response);
 										} else {
 										// if our response contains anything else, other than whats above, just let them know its invalid
 											jQuery('.mailChimp_api_key_preloader').fadeOut('fast', function() {
-												jQuery('.mailChimp_api_key_validation_message').html("<img src=<?php echo plugins_url().'/yikes-inc-easy-mailchimp-extender/images/yikes-mc-error-icon.png'; ?> alt=message > <?php _e("Sorry, that is an invalid MailChimp API key. Please check the console for further information.","yikes-inc-easy-mailchimp-extender"); ?>").css("color", "red").fadeIn();
+												jQuery('#yks-mailchimp-api-key').parents('td').find('.mailChimp_api_key_validation_message').first().html("<img src=<?php echo plugins_url().'/yikes-inc-easy-mailchimp-extender/images/yikes-mc-error-icon.png'; ?> alt=message > <?php _e("Sorry, that is an invalid MailChimp API key. Please check the console for further information.","yikes-inc-easy-mailchimp-extender"); ?>").css("color", "red").fadeIn();
 											});	
 											console.log('MailChimp API Response : '+response);
 											jQuery('#submit').attr('disabled','disabled');
@@ -196,7 +198,7 @@ jQuery(document).ready(function ($) {
 					} else {
 						// if the length of the API input value is less than 1 (aka 0)
 						jQuery('.mailChimp_api_key_preloader').fadeOut('fast', function() {
-							jQuery('.mailChimp_api_key_validation_message').html("<img src=<?php echo plugins_url().'/yikes-inc-easy-mailchimp-extender/images/yikes-mc-error-icon.png'; ?> alt=message > <?php _e("Error: Please enter a valid Mail Chimp API Key.", "yikes-inc-easy-mailchimp-extender"); ?>").css("color", "red").fadeIn();
+							jQuery('#yks-mailchimp-api-key').parents('td').find('.mailChimp_api_key_validation_message').first().html("<img src=<?php echo plugins_url().'/yikes-inc-easy-mailchimp-extender/images/yikes-mc-error-icon.png'; ?> alt=message > <?php _e("Error: Please enter a valid Mail Chimp API Key.", "yikes-inc-easy-mailchimp-extender"); ?>").css("color", "red").fadeIn();
 						});	
 					}
 				}
@@ -209,8 +211,10 @@ jQuery(document).ready(function ($) {
 			yikes_mc_api_key_validate();
 	});
 	
-	// check the API key on page load
-	yikes_mc_api_key_validate();
+	/** Enable our Button if a valid key was previously saved **/
+	<?php if ( get_option( 'api_validation' ) == 'valid_api_key' ) { ?>
+		jQuery('#submit').removeAttr('disabled');
+	<?php } ?>
 	
 	// Reset Plugin Ajax Request
 	$('#yks-mc-reset-plugin-settings').click(function(e) {
@@ -398,7 +402,7 @@ jQuery(document).ready(function() {
 				<tr valign="top">
 					<th scope="row"><label for="yks-mailchimp-api-key"><?php _e('Your Mailchimp API Key','yikes-inc-easy-mailchimp-extender'); ?></label></th>
 					<td>
-						<input name="yks-mailchimp-api-key" type="password" id="yks-mailchimp-api-key" value="<?php echo $this->yikes_mc_encryptIt($this->optionVal['api-key']); ?>" class="regular-text" /><span class="mailChimp_api_key_validation_message"></span><img class="mailChimp_api_key_preloader" src="<?php echo admin_url().'/images/wpspin_light.gif'; ?>" alt="preloader" ><span class="mailChimp_api_key_validation"></span>
+						<input name="yks-mailchimp-api-key" type="password" id="yks-mailchimp-api-key" value="<?php echo $this->yikes_mc_encryptIt($this->optionVal['api-key']); ?>" class="regular-text" /><span class="mailChimp_api_key_validation_message"></span><img class="mailChimp_api_key_preloader" src="<?php echo admin_url().'/images/wpspin_light.gif'; ?>" alt="preloader" ><span class="mailChimp_api_key_validation"></span><?php if ( get_option( 'api_validation' ) == 'valid_api_key' ) { echo '<span class="mailChimp_api_key_validation_message" style="color: green; display: inline;"><img src="'.plugins_url().'/yikes-inc-easy-mailchimp-extender/images/yikes-mc-checkmark.png" alt="message">' . __(' Valid API Key','yikes-inc-easy-mailchimp-extender') . '</span>'; } else { echo '<span class="mailChimp_api_key_validation_message" style="display: inline; color: red;"><img src="' .plugins_url().'/yikes-inc-easy-mailchimp-extender/images/yikes-mc-error-icon.png" alt="message">' . __(' Sorry, that is an invalid MailChimp API key. Please check the console for further information','yikes-inc-easy-mailchimp-extender') . '</span>'; } ?>
 					</td>
 				</tr>
 				<!-- MailChimp API Key Description -->
@@ -478,6 +482,20 @@ jQuery(document).ready(function() {
 					<!-- Custom Interest Group Label Description -->
 					<td class="yks-settings-description">
 						<?php _e('Text to display above interest groups. Leave blank to use MailChimp interest group names.','yikes-inc-easy-mailchimp-extender'); ?>
+					</td>
+				</tr>
+				<tr valign="top">
+					<!-- jQuery UI -->
+					<th scope="row"><label for="yks-mailchimp-jquery-datepicker"><?php _e('Use JQuery UI Datepicker','yikes-inc-easy-mailchimp-extender'); ?></label></th>
+					<td>
+						<input type="checkbox" name="yks-mailchimp-jquery-datepicker" class="yks-mailchimp-interest-group-label" value="1" <?php if ( isset( $this->optionVal['yks-mailchimp-jquery-datepicker'] ) && $this->optionVal['yks-mailchimp-jquery-datepicker']	== '1' ) { echo  'checked="checked"'; } ?>/>
+					</td>
+				</tr>
+				<tr>
+					<td></td>
+					<!-- Custom Interest Group Label Description -->
+					<td class="yks-settings-description">
+						<?php _e('Enable this setting to use the jQuery UI datepicker for all date fields on the front end of your site. Disable if you have no date fields (will help prevent conflicts).','yikes-inc-easy-mailchimp-extender'); ?>
 					</td>
 				</tr>
 				<tr valign="top">

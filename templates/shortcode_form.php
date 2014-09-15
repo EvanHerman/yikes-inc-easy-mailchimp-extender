@@ -1,3 +1,14 @@
+<?php if ( !is_admin() ) { 
+
+	// custom action hooks to enqueue
+	// styles and scripts, only on
+	// pages where are forms are being display
+	// ( performance ehancement :} )
+	do_action( 'yks_mc_enqueue_styles' );
+	do_action( 'yks_mc_enqueue_scripts' );
+
+?>
+
 <script type="text/javascript">
 $ymce = jQuery.noConflict();
 	jQuery(document).ready(function($ymce){
@@ -39,10 +50,17 @@ $ymce = jQuery.noConflict();
 			var singleOptinMessage = '<?php echo str_replace( '\'' , '"' , preg_replace('/\r?\n/', '\\n', apply_filters('yks_mc_content' , $this->optionVal['single-optin-message']))); ?>';
 			var doubleOptinMessage = '<?php echo str_replace( '\'' , '"' , preg_replace('/\r?\n/', '\\n', apply_filters('yks_mc_content' , $this->optionVal['double-optin-message']))); ?>';
 			var optinValue = '<?php echo $this->optionVal['optin']; ?>';
+			
 			e.preventDefault();
 			// Make sure the api key exists
 			if(blankFieldCheck("<?php echo $list['id']; ?>"))
 				{
+				var form_data = $ymce(this).serialize();
+				// disabel all input fields while the data send...
+				$ymce('#yks-mailchimpFormContainerInner_<?php echo $list['id']; ?>').find( 'input' ).each(function() {
+					$ymce(this).attr('disabled','disabled').css('opacity','.8');
+				});
+				
 				$ymce('#ykfmc-submit_<?php echo $list['id']; ?>').attr('disabled', 'disabled');
 				$ymce('#yks-status-<?php echo $list['id']; ?>').slideUp('fast');
 				$ymce.ajax({
@@ -51,13 +69,20 @@ $ymce = jQuery.noConflict();
 					data: {
 								action:				'yks_mailchimp_form',
 								form_action:		'frontend_submit_form',
-								form_data:			$ymce(this).serialize(),
+								form_data:			form_data,
 								},
 					dataType: 'text',
 					success: function(MAILCHIMP)
 						{
 						if( MAILCHIMP.trim() == 1 )
 							{
+							
+								$ymce('#yks-mailchimpFormContainerInner_<?php echo $list['id']; ?>').children().each(function() {
+									$ymce(this).not('#wrapper').removeAttr( 'disabled' ).css( 'opacity' , '1' );
+									
+								});
+									
+																	
 								// custom message based on opt-in settings value
 								// single opt-in
 								if ( optinValue == 'false' ) {
@@ -65,9 +90,32 @@ $ymce = jQuery.noConflict();
 								} else { // double opt-in
 									$ymce('#yks-status-<?php echo $list['id']; ?>').html('<div class="yks-success"><p>'+doubleOptinMessage+'</p></div>');		
 								}
-								$ymce('#yks-mailchimpFormContainerInner_<?php echo $list['id']; ?>').slideUp('fast', function(){
-									$ymce('#yks-status-<?php echo $list['id']; ?>').slideDown('fast');
-								});
+								
+								/** Header Call Out Submission **/
+								if ( $ymce('#yks-mailchimpFormContainerInner_<?php echo $list['id']; ?>').hasClass( 'header-callout-form' ) ) {
+									
+									var container_height = $ymce('#yks-mailchimpFormContainerInner_<?php echo $list['id']; ?>').find( '#wrapper' ).css( 'height' );
+									var container_width = $ymce('#yks-mailchimpFormContainerInner_<?php echo $list['id']; ?>').find( '#wrapper' ).css( 'width' );
+									var top_margin_confirmation = ( container_height.replace( 'px' , '' , container_height ) - 25 ) / 2;
+									
+									$ymce('#yks-mailchimpFormContainerInner_<?php echo $list['id']; ?>').find( '#wrapper' ).css( 'height' , container_height ).css( 'width' , container_width );
+										$ymce('#yks-mailchimpFormContainerInner_<?php echo $list['id']; ?>').find( '#wrapper' ).children().each(function() {
+											$ymce(this).fadeOut('fast');
+										}).promise().done( function() {
+											var confirmation_message = $ymce('#yks-status-<?php echo $list['id']; ?>');
+											$ymce('#yks-mailchimpFormContainerInner_<?php echo $list['id']; ?>').find( '#wrapper' ).html( confirmation_message );
+											$ymce( confirmation_message ).removeClass('yks-status').fadeIn('fast').attr( 'style' , 'text-align:center;vertical-align:middle;margin-top:19%;');
+										});
+										
+									
+								} else {
+								
+									/* old sliding confirmations */
+									$ymce('#yks-mailchimpFormContainerInner_<?php echo $list['id']; ?>').slideUp('fast', function(){
+										$ymce('#yks-status-<?php echo $list['id']; ?>').slideDown('fast');
+									});
+								
+								}
 							} else {
 								// bundle the MailChimp returned error
 								// with our yks mc error messages
@@ -75,6 +123,12 @@ $ymce = jQuery.noConflict();
 									jQuery(this).remove();
 								});
 								$ymce('#ykfmc-submit_<?php echo $list['id']; ?>').removeAttr('disabled');
+								
+								// remove disable from all input fields while the data send...
+								$ymce('#yks-mailchimpFormContainerInner_<?php echo $list['id']; ?>').find( 'input' ).each(function() {
+									$ymce(this).removeAttr( 'disabled' ).css('opacity','1');
+								});
+								
 								$ymce('#yks-mailchimp-form_<?php echo $list['id']; ?>').prepend('<span id="yks_form_error_message">'+MAILCHIMP+'</span>').delay(1000).queue(function(next){
 									jQuery('#yks_form_error_message').fadeIn();
 									var offset_top = jQuery('#yks-mailchimpFormContainerInner_<?php echo $list['id']; ?>').offset().top;
@@ -87,19 +141,72 @@ $ymce = jQuery.noConflict();
 				}
 			return false;
 		});
-		$ymce('.yks-field-type-date').datepicker({
-			changeMonth:	true,
-			changeYear:		true,
-			yearRange:		((new Date).getFullYear()-100)+':'+((new Date).getFullYear()),
-			dateFormat: 	'yy-mm-dd'
-		});
+		<?php // enqueue jQuery datepicker only when the user has specified to do so
+		if( isset( $this->optionVal['yks-mailchimp-jquery-datepicker'] ) && $this->optionVal['yks-mailchimp-jquery-datepicker']	== '1' ) { ?>
+			$ymce('.yks-field-type-date').datepicker({
+				changeMonth:	true,
+				changeYear:		true,
+				yearRange:		((new Date).getFullYear()-100)+':'+((new Date).getFullYear()),
+				dateFormat: 	'yy-mm-dd'
+			});
 		$ymce('#ui-datepicker-div').addClass('yks-mailchimpFormDatepickerContainer');
+		<?php } ?>
 	});
 </script>
 
+<?php } else { // prevent the form from submitting inside the preview window ?>
+<script>
+jQuery(document).ready(function() {
+	jQuery('form[name="yks-mailchimp-form"]').submit(function() {
+		console.log('false');
+		return false;
+	});
+});
+</script>
+<?php } 
+	// set up and store our custom style values 
+	if ( isset( $list['custom_styles'] ) && $list['custom_styles']['active'] == '1' ) {
+		$form_id = $list['id'];
+		?>
+		<style>	
+			#ykfmc-submit_<?php echo $form_id; ?> {
+				background: <?php echo $list['custom_styles']['yks_mc_submit_button_color']; ?>;
+				color: <?php echo $list['custom_styles']['yks_mc_submit_button_text_color']; ?>;
+			}
+			.yks-mailchimpFormContainer-<?php echo $form_id; ?> {
+				background: <?php echo $list['custom_styles']['yks_mc_form_background_color']; ?>;
+				padding: <?php echo $list['custom_styles']['yks_mc_form_padding'].$list['custom_styles']['yks_mc_form_padding_measurement']; ?>;
+				color: <?php echo $list['custom_styles']['yks_mc_form_text_color']; ?>;
+				width: <?php echo $list['custom_styles']['yks_mc_form_width']; ?>;
+				<?php	
+					if ( $list['custom_styles']['yks_mc_form_alignment'] == 'left' ) {
+						?>
+							display: block;
+							float: left;
+						<?php
+					} elseif ( $list['custom_styles']['yks_mc_form_alignment'] == 'center' ) {
+						?>
+							display: block;
+							margin: 0 auto;
+							float: none;
+						<?php
+					} elseif ( $list['custom_styles']['yks_mc_form_alignment'] == 'right' ) {
+						?>
+							display: block;
+							float: right;
+						<?php
+					}
+				?>
+			}
+			.yks-mailchimpFormDivRowLabel, .yks_mc_interest_group_label {
+				color: <?php echo $list['custom_styles']['yks_mc_form_text_color']; ?>;
+			}
+		</style>
+		<?php
+	}
+?>
+<div class="yks-mailchimpFormContainer yks-mailchimpFormContainer-<?php echo $list['id']; ?>">
 
-
-<div class="yks-mailchimpFormContainer">
 	<div class="yks-status" id="yks-status-<?php echo $list['id']; ?>"></div>
 	
 	<?php 
@@ -112,22 +219,16 @@ $ymce = jQuery.noConflict();
 		$form_id = explode('-', $list['id']);
 		do_action( 'yks_mc_before_form_'.$form_id[1] );
 
-	
-	?>
-	
-	<div class="yks-mailchimpFormContainerInner" id="yks-mailchimpFormContainerInner_<?php echo $list['id']; ?>">	
-		<div class="yks-require-description">
-			<span class='yks-required-label'>*</span> = <?php _e('required field','yikes-inc-easy-mailchimp-extender'); ?>
-		</div>
-		<form method="post" name="yks-mailchimp-form" id="yks-mailchimp-form_<?php echo $list['id']; ?>" rel="<?php echo $list['id']; ?>">
-			<input type="hidden" name="yks-mailchimp-list-ct" id="yks-mailchimp-list-ct_<?php echo $list['id']; ?>" value="<?php echo $listCt; ?>" />
-			<input type="hidden" name="yks-mailchimp-list-id" id="yks-mailchimp-list-id_<?php echo $list['id']; ?>" value="<?php echo $list['list-id']; ?>" />
-			<?php echo $this->getFrontendFormDisplay($list, $submit_text); ?>
-		</form>
-	</div>
-	
-	<?php 
-	
+		
+		// load our custom MailChimp template here!
+		if ( isset( $list['custom_template'] ) && $list['custom_template']['active'] == 1 ) {
+			// Custom List form
+			include $list['custom_template']['template_file'];
+		} else {
+			// include the form template
+			include_once YKSEME_PATH.'templates/form_template.php';
+		}
+			
 		// custom action to print text after ALL forms
 		do_action("yks_mc_after_all_forms"); 
 		

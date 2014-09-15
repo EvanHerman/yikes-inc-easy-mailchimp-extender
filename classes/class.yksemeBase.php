@@ -78,17 +78,23 @@ public function initialize()
 	// custom Dashboard MailChimp Account Activity Widget
 	add_action( 'wp_dashboard_setup',  array( &$this , 'yks_mc_add_chimp_chatter_dashboard_widget' ) );
 	
-	// add a filter for our heartbeat response
-	// add_filter( 'heartbeat_received',  array( &$this , 'yikes_mc_heartbeat_received' ) , 10, 2 );
-	add_filter('heartbeat_received', array( &$this , 'yks_mc_heartbeat_received' ) , 10, 2);
-	add_action("init", array( &$this , "yks_mc_heartbeat_init" ) );
-	add_filter( 'heartbeat_settings', array( &$this , 'yks_mc_tweak_heartbeat_settings') );
-	
+	if ( is_admin() ) {
+		// add a filter for our heartbeat response
+		// only add it to the admin screen, to prevent 
+		// heartbeat from running on the front end
+		add_filter('heartbeat_received', array( &$this , 'yks_mc_heartbeat_received' ) , 10, 2);
+		add_action("init", array( &$this , "yks_mc_heartbeat_init" ) );
+		add_filter( 'heartbeat_settings', array( &$this , 'yks_mc_tweak_heartbeat_settings') );
+	}
+
 	// adding our custom content action
 	// used to prevent other plugins from hooking
 	// into the_content (such as jetpack sharedadddy, sharethis etc.)
 	add_action( 'init', array( &$this, 'yks_mc_content' ), 1 );
 	
+	// Custom Filter To Alter Submitted Data
+	// before being sent off to MailChimp
+	add_filter( 'yikes_mc_get_form_data', array( &$this , 'yikes_mc_get_form_data_filter' ) , 10 );
 	
 	
 	// tinymce buttons
@@ -110,14 +116,20 @@ public function initialize()
 	}
 	if(!is_admin())
 		{
-		add_action('wp_print_styles', array(&$this, 'addStyles_frontend'));
-		add_action('wp_print_scripts', array(&$this, 'addScripts_frontend'));
+		// add_action('wp_print_styles', array(&$this, 'addStyles_frontend'));
+		// add_action('wp_print_scripts', array(&$this, 'addScripts_frontend'));
+
+		// custom hooks to print scripts and styles only on pages
+		// where the form is being displayed (performace enhancement)
+		// hooked into shortcode_form.php
+		add_action('yks_mc_enqueue_styles', array( &$this, 'addStyles_frontend' ) );
+		add_action('yks_mc_enqueue_scripts', array( &$this, 'addScripts_frontend') ) ;
 		}
 	// Setup the administration menus
 	add_action('admin_menu', array(&$this, 'addAdministrationMenu'));
 	// Make sure the option exists
 	if(!$this->optionVal)		$this->getOptionValue();
-	// Setup outfit shortcodes
+	// Setup shortcodes
 	$this->createShortcodes();
 	// Initialize current list array
 	$this->currentLists		= array();
@@ -127,10 +139,19 @@ public function initialize()
 	// Register Our Widget
 	$this->registerMailChimpWidget($this->optionVal['lists']);
 	}
+	
+// register and add our shortcodes
 public function createShortcodes()
 	{
 	add_shortcode('yks-mailchimp-list', array(&$this, 'processShortcode'));
+	add_shortcode('yks-mailchimp-subscriber-count', array(&$this, 'displaySubscriberCount'));
 	}
+
+/** Custom Filter To Alter User Submitted Data **/
+public function yikes_mc_get_form_data_filter( $mv ) {
+	return $mv;
+}
+
 // Create and store our initial plugin options	
 public function getOptionValue()
 	{
@@ -243,9 +264,6 @@ public function getImportedFieldsArray($lid, $mv)
 								'type'		=> $field['field_type'],
 								'help'		=> $field['helptext'],
 								'default'	=> $field['default'],
-								'placeholder' => (isset($field['placeholder-'.$lid.'-'.$num]) ? $field['placeholder-'.$lid.'-'.$num] : ''),
-								'redirect_checkbox'	=>	(isset($field['yks_mailchimp_redirect_'.$lid]) ? $field['yks_mailchimp_redirect_'.$lid] : ''),
-								'selected_page'	=>	(isset($field['page_id_'.$lid]) ? $field['page_id_'.$lid] : ''),
 								'choices'	=> (isset($field['choices']) ? $field['choices'] : '')
 								);
 				$fields[$addField['id']] = $addField;
@@ -393,6 +411,8 @@ public function updateOptions($p)
 				$this->optionVal['optIn-checkbox']	= $fd['yks-mailchimp-optIn-checkbox'];
 				$this->optionVal['yks-mailchimp-optIn-default-list']	= isset($fd['yks-mailchimp-optIn-default-list']) ? $fd['yks-mailchimp-optIn-default-list'] : null; // if its set, else set to null <- fixes save form settings bug
 				$this->optionVal['yks-mailchimp-optin-checkbox-text']	= stripslashes($fd['yks-mailchimp-optin-checkbox-text']);
+				$this->optionVal['yks-mailchimp-jquery-datepicker']	= isset( $fd['yks-mailchimp-jquery-datepicker'] ) ? '1' : '';
+				// evan herman here
 				update_option('api_validation', 'valid_api_key');
 				return update_option(YKSEME_OPTION, $this->optionVal);
 			} else {
@@ -405,6 +425,7 @@ public function updateOptions($p)
 				$this->optionVal['optIn-checkbox']	= $fd['yks-mailchimp-optIn-checkbox'];
 				$this->optionVal['yks-mailchimp-optIn-default-list']	= isset($fd['yks-mailchimp-optIn-default-list']) ? $fd['yks-mailchimp-optIn-default-list'] : null; // if its set, else set to null <- fixes save form settings bug
 				$this->optionVal['yks-mailchimp-optin-checkbox-text']	= stripslashes($fd['yks-mailchimp-optin-checkbox-text']);
+				$this->optionVal['yks-mailchimp-jquery-datepicker']	= isset( $fd['yks-mailchimp-jquery-datepicker'] ) ? '1' : '';
 				update_option('api_validation', 'valid_api_key');
 				// if the new API key differs from the old one
 				// we need to unset the previously set up widgets
@@ -701,7 +722,7 @@ public function getInterestGroups($list_id)
 														echo $user_set_interest_group_label;
 															foreach ($interest_group['groups'] as $singleGrouping) {
 																$checkboxValue = $interest_group['name'];
-																echo '<label class="yks_mc_interest_group_label" for="'.$singleGrouping['name'].'"><input type="checkbox" id="'.$singleGrouping['name'].'" class="yikes_mc_interest_group_checkbox" name="'.$interest_group['form_field'].'-'.$interest_group['id'].'[]" value="'.$singleGrouping['name'].'">'.$singleGrouping['name'].'</label>';
+																echo '<label class="yks_mc_interest_group_label" for="'.$singleGrouping['name'].'"><input type="checkbox" id="'.$singleGrouping['name'].'" class="yikes_mc_interest_group_checkbox" name="'.$interest_group['form_field'].'-'.$interest_group['id'].'[]" value="'.$singleGrouping['name'].'"><span>'.$singleGrouping['name'].'</span></label>';
 															}
 														echo '</td>';
 													echo '</tr>';					
@@ -715,7 +736,7 @@ public function getInterestGroups($list_id)
 														echo $user_set_interest_group_label;
 														foreach ($interest_group['groups'] as $singleGrouping) {
 															$radioValue = $interest_group['name'];
-															echo '<label class="yks_mc_interest_group_label" for="'.$singleGrouping['name'].'"><input type="radio" id="'.$singleGrouping['name'].'" class="yikes_mc_interest_group_radio" name="'.$interest_group['form_field'].'-'.$interest_group['id'].'" value="'.$singleGrouping['name'].'">'.$singleGrouping['name'].'</label>';
+															echo '<label class="yks_mc_interest_group_label" for="'.$singleGrouping['name'].'"><input type="radio" id="'.$singleGrouping['name'].'" class="yikes_mc_interest_group_radio" name="'.$interest_group['form_field'].'-'.$interest_group['id'].'" value="'.$singleGrouping['name'].'"><span>'.$singleGrouping['name'].'</span></label>';
 														}
 													echo '</td>';	
 												echo '</tr>';	
@@ -768,7 +789,7 @@ public function getInterestGroups($list_id)
 												echo '<div class="yks_mc_interest_group_holder">';
 													foreach ($interest_group['groups'] as $singleGrouping) {
 														$checkboxValue = $interest_group['name'];
-														echo '<label class="yks_mc_interest_group_label" for="'.$singleGrouping['name'].'"><input type="checkbox" id="'.$singleGrouping['name'].'" class="yikes_mc_interest_group_checkbox" name="'.$interest_group['form_field'].'-'.$interest_group['id'].'[]" value="'.$singleGrouping['name'].'">'.$singleGrouping['name'].'</label>';
+														echo '<label class="yks_mc_interest_group_label" for="'.$singleGrouping['name'].'"><input type="checkbox" id="'.$singleGrouping['name'].'" class="yikes_mc_interest_group_checkbox" name="'.$interest_group['form_field'].'-'.$interest_group['id'].'[]" value="'.$singleGrouping['name'].'"><span></span>'.$singleGrouping['name'].'</label>';
 													}
 												echo '</div>';					
 											break;
@@ -779,7 +800,7 @@ public function getInterestGroups($list_id)
 													echo '<div class="yks_mc_interest_radio_button_holder">';
 														foreach ($interest_group['groups'] as $singleGrouping) {
 															$radioValue = $interest_group['name'];
-															echo '<label class="yks_mc_interest_group_label" for="'.$singleGrouping['name'].'"><input type="radio" id="'.$singleGrouping['name'].'" class="yikes_mc_interest_group_radio" name="'.$interest_group['form_field'].'-'.$interest_group['id'].'" value="'.$singleGrouping['name'].'">'.$singleGrouping['name'].'</label>';
+															echo '<label class="yks_mc_interest_group_label" for="'.$singleGrouping['name'].'"><input type="radio" id="'.$singleGrouping['name'].'" class="yikes_mc_interest_group_radio" name="'.$interest_group['form_field'].'-'.$interest_group['id'].'" value="'.$singleGrouping['name'].'"><span></span>'.$singleGrouping['name'].'</label>';
 														}
 													echo '</div>';	
 												echo '</div>';	
@@ -981,14 +1002,68 @@ public function updateList($p)
 					// $name	= $this->slugify($field['label'].'-'.$field['tag']);
 					$this->optionVal['lists'][$fd['yks-mailchimp-unique-id']]['fields'][$k]['placeholder-'.$fd['yks-mailchimp-unique-id'].'-'.$num] = $fd['placeholder-'.$fd['yks-mailchimp-unique-id'].'-'.$num];
 					
+					$this->optionVal['lists'][$fd['yks-mailchimp-unique-id']]['fields'][$k]['custom-field-class-'.$fd['yks-mailchimp-unique-id'].'-'.$num] = $fd['custom-field-class-'.$fd['yks-mailchimp-unique-id'].'-'.$num];
+
+					
 					$num++;
 					
-					$this->optionVal['lists'][$fd['yks-mailchimp-unique-id']]['fields'][$k]['yks_mailchimp_redirect_'.$fd['yks-mailchimp-unique-id']] = $fd['yks_mailchimp_redirect_'.$fd['yks-mailchimp-unique-id']];
+					$this->optionVal['lists'][$fd['yks-mailchimp-unique-id']]['fields'][$k]['yks_mailchimp_redirect_'.$fd['yks-mailchimp-unique-id']] = (isset($fd['yks_mailchimp_redirect_'.$fd['yks-mailchimp-unique-id']]) ? '1' : '');
 				
 					if(isset($fd['yks_mailchimp_redirect_'.$fd['yks-mailchimp-unique-id']])) {
 						$this->optionVal['lists'][$fd['yks-mailchimp-unique-id']]['fields'][$k]['page_id_'.$fd['yks-mailchimp-unique-id']] = $fd['page_id_'.$fd['yks-mailchimp-unique-id']];
 					}
+					
+					// custom style setting
+					// $this->optionVal['lists'][$fd['yks-mailchimp-unique-id']]['fields'][$k]['yks_mailchimp_custom_styles_'.$fd['yks-mailchimp-unique-id']] = (isset($fd['yks_mailchimp_custom_styles_'.$fd['yks-mailchimp-unique-id']]) ? '1' : '');
+					$this->optionVal['lists'][$fd['yks-mailchimp-unique-id']]['custom_styles']['active'] = (isset($fd['yks_mailchimp_custom_styles_'.$fd['yks-mailchimp-unique-id']]) ? '1' : '0');
+					
+					$this->optionVal['lists'][$fd['yks-mailchimp-unique-id']]['custom_template']['active'] = (isset($fd['yks_mailchimp_custom_template_'.$fd['yks-mailchimp-unique-id']]) ? '1' : '0');
 				
+				}
+				
+				// save the selected form template, if custom template was set
+				if ( $this->optionVal['lists'][$fd['yks-mailchimp-unique-id']]['custom_template']['active'] == 1 ) {
+					$this->optionVal['lists'][$fd['yks-mailchimp-unique-id']]['custom_template']['template_file'] = $fd['yks-mc-template-file-selection'];
+				}
+				
+				// save the color styles
+				if ( $this->optionVal['lists'][$fd['yks-mailchimp-unique-id']]['custom_styles']['active'] == 1 ) {
+					// save the custom styles colors here!
+					$this->optionVal['lists'][$fd['yks-mailchimp-unique-id']]['custom_styles']['yks_mc_submit_button_color'] = $fd['yks-mc-submit-button-color'];
+					$this->optionVal['lists'][$fd['yks-mailchimp-unique-id']]['custom_styles']['yks_mc_submit_button_text_color'] = $fd['yks-mc-submit-button-text-color'];
+					$this->optionVal['lists'][$fd['yks-mailchimp-unique-id']]['custom_styles']['yks_mc_form_background_color'] = $fd['yks-mc-background-color'];
+					$this->optionVal['lists'][$fd['yks-mailchimp-unique-id']]['custom_styles']['yks_mc_form_text_color'] = $fd['yks-mc-text-color'];
+					
+					// if the form width is left blank,
+					// we'll just set it to 100%
+					if ( $fd['yks-mc-form-width'] != '' ) {
+						$this->optionVal['lists'][$fd['yks-mailchimp-unique-id']]['custom_styles']['yks_mc_form_width'] = $fd['yks-mc-form-width'];
+					} else {
+						$this->optionVal['lists'][$fd['yks-mailchimp-unique-id']]['custom_styles']['yks_mc_form_width'] = '100%';
+					}
+					
+					$this->optionVal['lists'][$fd['yks-mailchimp-unique-id']]['custom_styles']['yks_mc_form_alignment'] = $fd['yks-mc-form-alignment'];		
+					
+						$padding_matches = array();
+						$matching_array = array( 'px' , 'em' , 'rem' , '%' );
+						
+						if ( preg_match( '/([0-9.]+)([^0-9]+)/', $fd['yks-mc-form-padding'], $padding_matches ) ) {
+						// $padding_explosion = preg_split( '/[a-zA-Z]/' , $fd['yks-mc-form-padding'] );
+							$this->optionVal['lists'][$fd['yks-mailchimp-unique-id']]['custom_styles']['yks_mc_form_padding'] = $padding_matches[1];
+							if ( in_array( $padding_matches[2] , $matching_array ) ) {
+								$this->optionVal['lists'][$fd['yks-mailchimp-unique-id']]['custom_styles']['yks_mc_form_padding_measurement'] = $padding_matches[2];
+							} else {
+								$this->optionVal['lists'][$fd['yks-mailchimp-unique-id']]['custom_styles']['yks_mc_form_padding_measurement'] = 'px';
+							}
+						} else {
+							if ( trim( $fd['yks-mc-form-padding'] ) != '' ) {
+								$this->optionVal['lists'][$fd['yks-mailchimp-unique-id']]['custom_styles']['yks_mc_form_padding'] = $fd['yks-mc-form-padding'];
+							} else {
+								$this->optionVal['lists'][$fd['yks-mailchimp-unique-id']]['custom_styles']['yks_mc_form_padding'] = '0';
+							}
+								$this->optionVal['lists'][$fd['yks-mailchimp-unique-id']]['custom_styles']['yks_mc_form_padding_measurement'] = 'px';
+						}
+											
 				}
 			return update_option(YKSEME_OPTION, $this->optionVal);
 			}
@@ -1023,8 +1098,6 @@ public function importList($i=false)
 			)
 		);
 		// if merge variables are returned
-		if($mv)
-			{
 			$mv	= $this->getImportedFieldsArray($lid, $mv);
 			if($mv)
 				{
@@ -1035,10 +1108,44 @@ public function importList($i=false)
 					return $this->generateListContainers(array($this->optionVal['lists'][$i]));
 					}
 				}
-			}
+			
 		}
 	return false;
 	}
+	
+// reImport a list to the lists page
+// Runs when a user adds a list from the drop down on the lists page	
+public function reImportMergeVariables($i=false)
+// evan herman here 
+	{
+	if($i == false) return false;
+	else
+		{
+		// create our variables
+		$lid	= $this->optionVal['lists'][$i]['list-id'];
+		$name	= $this->optionVal['lists'][$i]['name'];
+		$api	= new wpyksMCAPI($this->optionVal['api-key']);
+		$mv	= $api->call('lists/merge-vars', array(
+ 				'id' => array( $lid )
+			)
+		);
+		// if merge variables are returned
+			$mv	= $this->getImportedFieldsArray($lid, $mv);
+			if($mv)
+				{
+					// Save the new list
+					$this->optionVal['lists'][$i]['fields']	= $mv;
+					// update the list with the new fields
+					 if(update_option(YKSEME_OPTION, $this->optionVal))
+						{
+							return $this->generateMergeVariableContainers(array($this->optionVal['lists'][$i]));
+						}
+				}
+			
+		}
+	return false;
+	}
+
 // Make a call to the MailChimp API to retrieve all subscribers to a given list
 // Runs when the user clicks 'view' next to the subscriber count on the list page
 public function listAllSubscribers($lid, $list_name) {
@@ -1057,7 +1164,7 @@ public function listAllSubscribers($lid, $list_name) {
 		// display all subscribers in a table
 		if($subscribers_list['total'] > 0) {
 			?>
-				<h2><?php echo $list_name; echo '   <span class="subscriber-count" style="font-size:11px;">(<span class="number">'.$subscribers_list['total'].'</span> '.__(" subscribers" , "yikes-inc-easy-mailchimp-extender").'</span>'; ?></h2>
+				<h2><?php echo $list_name; echo '   <span class="subscriber-count" style="font-size:11px;">(<span class="number">'.$subscribers_list['total'].'</span> '.__(" subscribers" , "yikes-inc-easy-mailchimp-extender").')</span>'; ?></h2>
 				<p><?php _e( 'Click on a subscriber to see further information' , 'yikes-inc-easy-mailchimp-extender' ); ?></p>
 				
 				<table id="yikes-mailchimp-subscribers-table" class="yks-mailchimp-fields-list" style="width:100%;">
@@ -1083,7 +1190,7 @@ public function listAllSubscribers($lid, $list_name) {
 			<?php
 		} else { // else display an error of sorts
 			?>
-			<h2><?php echo $list_name; echo '   <span class="subscriber-count" style="font-size:11px;">(<span class="number">0</span> '.__(" subscribers" , "yikes-inc-easy-mailchimp-extender").'</span>'; ?></h2>
+			<h2><?php echo $list_name; echo '   <span class="subscriber-count" style="font-size:11px;">(<span class="number">0</span> '.__(" subscribers" , "yikes-inc-easy-mailchimp-extender").')</span>'; ?></h2>
 			<?php
 			_e( "Sorry You Don't Currently Have Any Subscribers In This List!" , "yikes-inc-easy-mailchimp-extender" );
 		}
@@ -1289,9 +1396,8 @@ public function addStyles()
 	{
 	
 	$screen_base = get_current_screen()->base;
-		
-		if (  $screen_base == 'toplevel_page_yks-mailchimp-form' || $screen_base == 'mailchimp-forms_page_yks-mailchimp-my-mailchimp'
-				|| $screen_base == 'mailchimp-forms_page_yks-mailchimp-form-lists' || $screen_base == 'widgets' || $screen_base == 'post'	) {
+		if (  $screen_base == __( 'toplevel_page_yks-mailchimp-form' , 'yikes-inc-easy-mailchimp-extender' ) || $screen_base == __( 'mailchimp-forms_page_yks-mailchimp-my-mailchimp', 'yikes-inc-easy-mailchimp-extender' )
+				|| $screen_base == __( 'mailchimp-forms_page_yks-mailchimp-form-lists', 'yikes-inc-easy-mailchimp-extender' ) || $screen_base == 'widgets' || $screen_base == 'post'	|| $screen_base == __( 'mailchimp-forms_page_yks-mailchimp-about-yikes' , 'yikes-inc-easy-mailchimp-extender' ) ) {
 				// Register Styles
 				wp_register_style('ykseme-css-base', 				YKSEME_URL.'css/style.ykseme.css', 											array(), '1.0.0', 'all');
 				wp_register_style('jquery-datatables-pagination', 				YKSEME_URL.'css/jquery.dataTables.css', 											array(), '1.0.0', 'all');	
@@ -1299,18 +1405,29 @@ public function addStyles()
 				wp_enqueue_style('thickbox');
 				wp_enqueue_style('ykseme-css-base');	
 				wp_enqueue_style('jquery-datatables-pagination');
+				// just load the animate.css class on all admin pages
+				wp_register_style('ykseme-animate-css', 				YKSEME_URL.'css/animate.css', 											array(), '1.0.0', 'all');
+				wp_enqueue_style('ykseme-animate-css');
 		}
 		
-		// just load the animate.css class on all admin pages
-		wp_register_style('ykseme-animate-css', 				YKSEME_URL.'css/animate.css', 											array(), '1.0.0', 'all');
-		wp_enqueue_style('ykseme-animate-css');
+		
+		
+		if ( $screen_base == 'admin_page_yks-mailchimp-welcome' || $screen_base == 'mailchimp-forms_page_yks-mailchimp-form-lists' ) {
+			wp_enqueue_style('bootstrap-css', '//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css' );
+			wp_enqueue_style( 'wp-color-picker' );
+		}
+		
 	}
 	
 public function addStyles_frontend()
 	{
 	// Register Styles
 	wp_register_style('ykseme-css-base', 				YKSEME_URL.'css/style.ykseme.css', 											array(), '1.0.0', 'all');
-	wp_register_style('ykseme-css-smoothness', 	'//code.jquery.com/ui/1.10.4/themes/smoothness/jquery-ui.css', 			array(), '1.0.0', 'all');
+	// enqueue our jQuery UI styles only when 
+	// the datepicker enqueue is enabled in the settings field
+	if( isset( $this->optionVal['yks-mailchimp-jquery-datepicker'] ) && $this->optionVal['yks-mailchimp-jquery-datepicker']	== '1' ) {
+		wp_register_style('ykseme-css-smoothness', 	'//code.jquery.com/ui/1.10.4/themes/smoothness/jquery-ui.css', 			array(), '1.0.0', 'all');
+	}
 	wp_register_style('ykseme-animate-css', 				YKSEME_URL.'css/animate.css', 											array(), '1.0.0', 'all');
 	// Enqueue Styles
 	wp_enqueue_style('ykseme-css-base');
@@ -1323,11 +1440,28 @@ public function addScripts()
 	{		
 		
 		$screen_base = get_current_screen()->base;
-		
-		if (  $screen_base == 'toplevel_page_yks-mailchimp-form' || $screen_base == 'mailchimp-forms_page_yks-mailchimp-my-mailchimp'
-				|| $screen_base == 'mailchimp-forms_page_yks-mailchimp-form-lists' ) {
+		if (  $screen_base == __( 'toplevel_page_yks-mailchimp-form', 'yikes-inc-easy-mailchimp-extender' ) || $screen_base == __( 'mailchimp-forms_page_yks-mailchimp-my-mailchimp' , 'yikes-inc-easy-mailchimp-extender' ) ) {
 			// Everything else
 			// load our scripts in the dashboard
+			wp_enqueue_script('jquery-ui-core');
+			wp_enqueue_script('thickbox');
+			
+			wp_enqueue_script('jquery-ui-sortable');
+			wp_enqueue_script('jquery-ui-tabs');
+			wp_enqueue_script('ykseme-base',				  		YKSEME_URL.'js/script.ykseme.js',											array('jquery'));
+			wp_enqueue_script('jquery-datatables-pagination',				  		YKSEME_URL.'js/jquery.dataTables.js',											array('jquery'));
+			wp_enqueue_script('jquery-highcharts-js',				  		YKSEME_URL.'js/highcharts.js',											array('jquery'));
+			wp_enqueue_script('jquery-highcharts-exporting-js',				  		YKSEME_URL.'js/exporting.js',											array('jquery'));
+			wp_enqueue_script('jquery-highcharts-3d-js',				  		YKSEME_URL.'js/highcharts-3d.js',											array('jquery'));
+				
+				wp_enqueue_script('jquery-highmaps-js',				  		YKSEME_URL.'js/map.js',											array('jquery'));
+				wp_enqueue_script('jquery-map-data-js',				  		'http://code.highcharts.com/mapdata/custom/world.js',											array('jquery'));
+				wp_enqueue_script('jquery-highmaps-data-js',				  		YKSEME_URL.'js/data.js',											array('jquery'));
+		} else if ( $screen_base == 'admin_page_yks-mailchimp-welcome' ) {
+			wp_enqueue_script('bootstrap-js', '//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js', array('jquery')) ;
+		} else if ( $screen_base == 'mailchimp-forms_page_yks-mailchimp-form-lists' ) {
+			wp_enqueue_script( 'wp-color-picker' );
+			wp_enqueue_script('bootstrap-js', '//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js', array('jquery')) ;
 			wp_enqueue_script('jquery-ui-core');
 			wp_enqueue_script('thickbox');
 			
@@ -1345,6 +1479,7 @@ public function addScripts()
 		} else {
 			return;
 		}
+		
 	}
 	
 	// redirect the user to the settings page on initial activation
@@ -1352,12 +1487,15 @@ public function addScripts()
 		if (get_option('yks_easy_mc_plugin_do_activation_redirect', false)) {
 			delete_option('yks_easy_mc_plugin_do_activation_redirect');
 			// redirect to settings page
-			wp_redirect(admin_url('/admin.php?page=yks-mailchimp-form'));
+			wp_redirect(admin_url('/admin.php?page=yks-mailchimp-welcome'));
 		}
 	}
 	
 public function addScripts_frontend()
 	{
+	 /* - we shouldn't be enqueueing our own version of jQuery
+	 	- it's just irresponsible! :o
+
 		global $wp_scripts;
 		
         $version ='1.9.0';
@@ -1375,9 +1513,15 @@ public function addScripts_frontend()
 				 wp_enqueue_script( 'jquery' );	
 			}
         }
+     */
 	// Everything else
-	wp_enqueue_script('jquery-ui-core');
-	wp_enqueue_script('jquery-ui-datepicker');
+	// wp_enqueue_script('jquery-ui-core');
+	
+	// enqueue jQuery datepicker only when the user has specified to do so
+		if( isset( $this->optionVal['yks-mailchimp-jquery-datepicker'] ) && $this->optionVal['yks-mailchimp-jquery-datepicker']	== '1' ) {
+			wp_enqueue_script('jquery-ui-datepicker');
+		}
+		
 	}
 
 
@@ -1388,29 +1532,60 @@ public function addScripts_frontend()
 public function processShortcode($p)
 	{
 	ob_start();
+	// check if the list is set, to prevent errors from being thrown
+	if ( isset( $this->optionVal['lists'][$p['id']] ) ) {
+	
+				if( $this->optionVal['api-key'] != '' && ( is_array( $this->optionVal['lists'][$p['id']] ) && !empty( $this->optionVal['lists'][$p['id']] ) ) ) {
+					// Setup this list
+					$list		= $this->optionVal['lists'][$p['id']];
+					$submit_text =  $p['submit_text'];
+					// Which form are we on?
+					if(!isset($this->currentLists[$p['id']]))
+						$this->currentLists[$p['id']]	= 0;
+					else
+						$this->currentLists[$p['id']]++;
+					$listCt	= $this->currentLists[$p['id']];
+					// Add the count to the list vars
+					$list['id']		= $listCt.'-'.$list['id'];
+					if(count($list['fields']))
+						{
+						foreach($list['fields'] as $fieldId => $field)
+							{
+							$list['fields'][$fieldId]['id']	= $listCt.'-'.$field['id'];
+							}
+						}
+			
+						// List form
+						include YKSEME_PATH.'templates/shortcode_form.php';
+				}	
+				
+				// if there is no api key entered, or it's an invalid api key
+			} else if ( $this->optionVal['api-key'] == '' || get_option( 'api_validation' ) == 'invalid_api_key' ) {
+				include YKSEME_PATH.'templates/shortcode_error_no_API_key.php';
+			// else if the form was removed from the lists page
+			} else {
+				include YKSEME_PATH.'templates/shortcode_error_data.php';
+			}
+	$shortcode = ob_get_contents();
+	ob_end_clean();
+	return $shortcode;
+	}
+	
+/* New Function to Display Subscriber Count for a given list */
+public function displaySubscriberCount($p)
+	{
+	ob_start();
 	if($this->optionVal['api-key'] != ''
 	&& (is_array($this->optionVal['lists'][$p['id']]) && !empty($this->optionVal['lists'][$p['id']])))
 		{
-		// Setup this list
-		$list		= $this->optionVal['lists'][$p['id']];
-		$submit_text =  $p['submit_text'];
-		// Which form are we on?
-		if(!isset($this->currentLists[$p['id']]))
-			$this->currentLists[$p['id']]	= 0;
-		else
-			$this->currentLists[$p['id']]++;
-		$listCt	= $this->currentLists[$p['id']];
-		// Add the count to the list vars
-		$list['id']		= $listCt.'-'.$list['id'];
-		if(count($list['fields']))
-			{
-			foreach($list['fields'] as $fieldId => $field)
-				{
-				$list['fields'][$fieldId]['id']		= $listCt.'-'.$field['id'];
-				}
-			}
-		// List form
-		include YKSEME_PATH.'templates/shortcode_form.php';
+			// Setup this list
+			$list		= $this->optionVal['lists'][$p['id']];
+			$mailChimp = new yksemeBase();
+			$list = $mailChimp->getListsData();
+			$list_id = key($list);
+			// echo '<h4>Join <strong>' . $list['subscriber-count']['subscriber-count-'.$list_id] . '</strong> others, and sign up for our mailing list!</h4>';
+				// return just the subscriber count so the user can easily customize it!
+				echo $list['subscriber-count']['subscriber-count-'.$list_id];
 		}
 		// if there is no api key entered, or it's an invalid api key
 	else if ( $this->optionVal['api-key'] == '' || get_option( 'api_validation' ) == 'invalid_api_key' )
@@ -1441,7 +1616,7 @@ public function processSnippet($list=false, $submit_text)
 public function addAdministrationMenu()
 	{
 	// Top Level Menu
-	add_menu_page( __('MailChimp Forms','yikes-inc-easy-mailchimp-extender'), __('MailChimp Forms','yikes-inc-easy-mailchimp-extender'), 'manage_options', 'yks-mailchimp-form', array(&$this, 'generatePageOptions'), 'dashicons-welcome-write-blog', 400);
+	add_menu_page( __('MailChimp Forms','yikes-inc-easy-mailchimp-extender'), 'MailChimp Forms', 'manage_options', 'yks-mailchimp-form', array(&$this, 'generatePageOptions'), 'dashicons-welcome-write-blog', 400);
 	// Sub Items
 	add_submenu_page('yks-mailchimp-form', __('MailChimp Forms','yikes-inc-easy-mailchimp-extender'), __('MailChimp Settings','yikes-inc-easy-mailchimp-extender'), 'manage_options', 'yks-mailchimp-form', array(&$this, 'generatePageOptions'));
 	// if the user has entered a VALID API key
@@ -1450,6 +1625,7 @@ public function addAdministrationMenu()
 	}
 	add_submenu_page('yks-mailchimp-form', __('Manage List Forms','yikes-inc-easy-mailchimp-extender'), __('Manage List Forms','yikes-inc-easy-mailchimp-extender'), 'manage_options', 'yks-mailchimp-form-lists', array(&$this, 'generatePageLists'));
 	add_submenu_page('yks-mailchimp-form', __('About YIKES, Inc.','yikes-inc-easy-mailchimp-extender'), __('About YIKES, Inc.','yikes-inc-easy-mailchimp-extender'), 'manage_options', 'yks-mailchimp-about-yikes', array(&$this, 'generatePageAboutYikes'));
+	add_submenu_page('options.php', __('Welcome','yikes-inc-easy-mailchimp-extender'), __('Welcome','yikes-inc-easy-mailchimp-extender'), 'manage_options', 'yks-mailchimp-welcome', array(&$this, 'generateWelcomePage'));
 	}
 
 
@@ -1479,6 +1655,10 @@ public function generateUserMailChimpPage()
 	{	
 	require_once YKSEME_PATH.'pages/myMailChimp.php'; // include our widget
 	}		
+public function generateWelcomePage()
+	{	
+	require_once YKSEME_PATH.'pages/welcome.php'; // include our widget
+	}		
 
 /***** FORM DATA
  ****************************************************************************************************/
@@ -1498,6 +1678,7 @@ public function yks_resetPluginSettings() {
 	$this->optionVal['recaptcha-api-key']	= '';
 	$this->optionVal['recaptcha-private-api-key']	= '';
 	$this->optionVal['recaptcha-style']	= 'default';
+	$this->optionVal['yks-mailchimp-jquery-datepicker']	= '';
 	$this->optionVal['version'] = YKSEME_VERSION_CURRENT;
 	update_option('api_validation' , 'invalid_api_key');
 	// we need to unset the previously set up widgets
@@ -1536,7 +1717,7 @@ public function validateAPIkeySettings()
 			} catch( Exception $e ) {
 				$errorMessage = str_replace('API call to helper/ping failed:', '', $e->getMessage());
 				echo $errorMessage;
-				update_option('api_validation', 'invalid_api_key');
+				// update_option('api_validation', 'invalid_api_key');
 			}
 			return $apiKey;
 			// always die or it will always return 1
@@ -1556,7 +1737,7 @@ public function validateAPIkeySettings()
 			} catch( Exception $e ) {
 				$errorMessage = str_replace('API call to helper/ping failed:', '', $e->getMessage());
 				echo $errorMessage;
-				update_option('api_validation', 'invalid_api_key');
+				// update_option('api_validation', 'invalid_api_key');
 			}
 			// always die or it will always return 1
 			return $apiKey;
@@ -2349,7 +2530,8 @@ public function addUserToMailchimp($p)
 							
 							// Add custom filter here, to capture user submitted 
 							// data before it's sent off to MailChimp
-							$form_data = apply_filters( 'yikes_mc_get_form_data', $lid, $mv ); 
+							$form_data = apply_filters( 'yikes_mc_get_form_data' , $mv ); 
+							
 							$specific_form_data = apply_filters( 'yikes_mc_get_form_data_'.$lid, $lid, $mv ); 
 							
 							
@@ -2358,7 +2540,7 @@ public function addUserToMailchimp($p)
 								$retval = $api->call('lists/subscribe', array(
 									  'id'              => $lid, // form id
 									  'email'             => array( 'email' => $email ), // user email
-									  'merge_vars'        => $mv, // merge variables (ie: fields and interest groups)
+									  'merge_vars'        => $form_data, // merge variables (ie: fields and interest groups)
 									  'double_optin'	=> $optin // double optin value (retreived from the settings page)
 								));
 								return "done";
@@ -2468,7 +2650,7 @@ public function addUserToMailchimp($p)
 					
 					// Add custom filter here, to capture user submitted 
 					// data before it's sent off to MailChimp
-					$form_data = apply_filters( 'yikes_mc_get_form_data', $lid, $mv ); 
+					$form_data = apply_filters( 'yikes_mc_get_form_data' , $mv ); 
 					$specific_form_data = apply_filters( 'yikes_mc_get_form_data_'.$lid, $lid, $mv ); 
 					
 					
@@ -2477,7 +2659,7 @@ public function addUserToMailchimp($p)
 						$retval = $api->call('lists/subscribe', array(
 							  'id'              => $lid, // form id
 							  'email'             => array( 'email' => $email ), // user email
-							  'merge_vars'        => $mv, // merge variables (ie: fields and interest groups)
+							  'merge_vars'        => $form_data, // merge variables (ie: fields and interest groups)
 							  'double_optin'	=> $optin // double optin value (retreived from the settings page)
 						));
 						return "done";
@@ -2553,205 +2735,359 @@ public function generateListContainers($listArr=false)
 		{
 		ob_start();
 		// loop over each lists and build the page
+		$i = 1;
 		foreach($listArr as $list)
 			{
 			
 			$get_list_data = $this->getListsData();
 			?>
-			<div class="yks-list-container" id="yks-list-container_<?php echo $list['id']; ?>">
-				<div class="yks-status" id="yks-status" style="display: none;">
-					<div class="yks-success" style="padding:.25em;"><p>&nbsp;<?php _e( 'Your List Was Successfully Saved!' , 'yikes-inc-easy-mailchimp-extender' ); ?></p></div>
-				</div>
-				<div class="yks-status-error" id="yks-status-error" style="display: none;">
-					<div class="yks-error" style="padding:.25em;"><p>&nbsp;<?php _e( 'Your settings were not saved (or you did not change them).' , 'yikes-inc-easy-mailchimp-extender' ); ?></p></div>
-				</div>
-				<span class="yikes-lists-error" style="display:none;"><?php _e( "I'm sorry there was an error with your request." , "yikes-inc-easy-mailchimp-extender" ); ?></span>
-				<form method="post" name="yks-mailchimp-form" id="yks-mailchimp-form_<?php echo $list['id']; ?>" rel="<?php echo $list['id']; ?>">
-					<input type="hidden" name="yks-mailchimp-unique-id" id="yks-mailchimp-unique-id_<?php echo $list['id']; ?>" value="<?php echo $list['id']; ?>" />
-					<table class="form-table  yks-admin-form">
-						<tbody>
-							<tr valign="top">
-								<th scope="row"><label for="yks-mailchimp-api-key"><?php _e('MailChimp List name','yikes-inc-easy-mailchimp-extender'); ?></label></th>
-								<td class="yks-mailchimp-listname"><?php
-								if ($list['name'])
-									{
+			<!-- title -->
+			<a data-toggle="collapse" data-parent="#accordion" href="#collapse_<?php echo $i; ?>" class="panel-heading yks-mc-list-title-toggle panel panel-default">
+							
+							<span class="yks_mc_list_title">
+							<?php
+								if ($list['name']) {
 										$thename = $list['name'];
 										//echo $thename;
 										printf( __( '%1$s', 'yikes-inc-easy-mailchimp-extender' ), $thename );
-									}
-								else
-									{
-										foreach ($thelistdata as $lkey => $lval)
-											{
-											if ($lkey == $list['id'])
-												{
+									} else {
+										foreach ($thelistdata as $lkey => $lval) {
+											if ($lkey == $list['id']) {
 												$thename = $lval;
 												//echo $thename;
 												printf( __( '%1$s', 'yikes-inc-easy-mailchimp-extender' ), $thename );
-												}
 											}
+										}
 									}
-									?></td>
-							</tr>	
-								<!-- display the specific MailChimp list ID back to the user -->							
-							<tr valign="top">
-								<th scope="row"><label for="yks-mailchimp-api-key"><?php _e( 'MailChimp List ID' , 'yikes-inc-easy-mailchimp-extender' ); ?></label></th>
-								<td><?php echo $list['list-id'];  ?>
-								</td>
-							</tr>				
-							<!-- display the shortcode with the specific list ID -->
-							<tr valign="top">
-								<th scope="row"><label for="yks-mailchimp-api-key"><?php _e( 'Shortcode' , 'yikes-inc-easy-mailchimp-extender' ); ?></label></th>
-								<td>
-									[yks-mailchimp-list id="<?php echo $list['id']; ?>" submit_text="Submit"]
-									<span class="description yks-margin-left"><?php _e( 'Paste this shortcode into whatever page or post you want to add this form to' , 'yikes-inc-easy-mailchimp-extender' ); ?></span>
-								</td>
-							</tr>
-							<!-- display the PHP snippet with the specific list ID -->
-							<tr valign="top">
-								<th scope="row"><label for="yks-mailchimp-api-key"><?php _e( 'PHP Snippet' , 'yikes-inc-easy-mailchimp-extender' ); ?></label></th>
-								<td>
-									<?php /* echo htmlentities('<?php echo yksemeProcessSnippet(\''.$list['id'].'\', \'Submit\'); ?>'); */ ?>
-									<?php echo htmlentities('<?php echo yksemeProcessSnippet( "'.$list['id'].'" , "Submit" ); ?>'); ?>
-									<span class="description yks-margin-left"><?php _e( 'Use this code to add this form to a template file' , 'yikes-inc-easy-mailchimp-extender' ); ?></span>
-								</td>
-							</tr>
-							<!-- display subscriber count here -->
-							<tr valign="top">
-								<th scope="row"><label for="yks-mailchimp-api-key"><?php _e( 'Number of Subscribers' , 'yikes-inc-easy-mailchimp-extender' ); ?></label></th>
-								<td>
-									<!-- rel contains list id that we pass along to our function to ajax retreive all subscribers -->
-									<span class="number-of-subscribers-<?php echo $list['id']; ?>"><?php echo $get_list_data['subscriber-count']['subscriber-count-'.$list['id']]; ?>&nbsp;</span><a href="#TB_inline?width=600&height=550&inlineId=yikes-mailchimp-subscribers-box" class="thickbox displayListSubscribers" rel="<?php echo $list['id']; ?>">View</a>	
-								</td>
-							</tr>
-							<!-- display the forms fields, with options to customize -->
-							<tr valign="top">
-								<td scope="row">
-									<label for="api-key"><strong><?php _e( 'Form Fields' , 'yikes-inc-easy-mailchimp-extender' ); ?></strong></label>
-									<p class="description">
-										<?php _e( 'Check the fields you want included in your form (Email Address is required).' , 'yikes-inc-easy-mailchimp-extender' ); ?>
-									</p> 
-									<p class="description">
-										<?php _e( 'Use the green arrows to drag-and-drop the fields and rearrange their order.' , 'yikes-inc-easy-mailchimp-extender' ); ?>
-										<span class="yks-mailchimp-sorthandle-img"></span>
-									</p>
-								</th>
-								<td class="yks-mailchimp-fields-td" id="yks-mailchimp-fields-td_<?php echo $list['id']; ?>">
-									<fieldset class="yks-mailchimp-fields-container" id="yks-mailchimp-fields-container_<?php echo $list['id']; ?>">
-										<legend class="screen-reader-text"><span><?php _e( 'Active Fields' , 'yikes-inc-easy-mailchimp-extender' ); ?></span></legend>
-										<div class="yks-mailchimp-fields-list" id="yks-mailchimp-fields-list_<?php echo $list['id']; ?>" rel="<?php echo $list['id']; ?>">
-											
-											<!-- create sortable rows populated with mailchimp data -->
-											<?php 
-											$num = 1;
-											foreach($list['fields'] as $field) { ?>
-											<div class="yks-mailchimp-fields-list-row">
-												<label title="<?php echo $field['name']; ?>" rel="<?php echo $field['id']; ?>">
-													<span class="yks-mailchimp-sorthandle"><?php _e( 'Drag' , 'yikes-inc-easy-mailchimp-extender' ); ?> &amp; <?php _e( 'drop' , 'yikes-inc-easy-mailchimp-extender' ); ?></span>
-													<input type="checkbox" name="<?php echo $field['name']; ?>" id="<?php echo $field['id']; ?>" value="1" <?php echo ($field['active'] == 1 ? 'checked="checked"' : ''); ?><?php echo ($field['require'] == 1 ? 'disabled="disabled"' : ''); ?> />
-													&nbsp;
-													<div class="yks-mailchimp-field-name"><?php echo $field['label']; ?></div>
-												</label>
-												<span class="yks-mailchimp-field-merge"><span class="description"><?php _e( 'Merge field' , 'yikes-inc-easy-mailchimp-extender' ); ?>:</span> &nbsp; *|<input type="text" name="<?php echo $field['name']; ?>-merge" id="<?php echo $field['id']; ?>-merge" value="<?php echo $field['merge']; ?>"<?php echo (($field['locked'] == 1 || $field['merge'] == false) ? ' disabled="disabled"' : ''); ?> />|*</span>
-												<span class="yks-mailchimp-field-placeholder"><span class="description"><?php _e( 'Placeholder' , 'yikes-inc-easy-mailchimp-extender' ); ?>:</span> &nbsp; *|<input type="text" name="placeholder-<?php echo $list['id'].'-'.$num; ?>" id="<?php echo $field['id']; ?>-placeholder" placeholder="<?php echo $field['label']; ?>" value="<?php if(isset($field['placeholder-'.$list['id'].'-'.$num])) { echo $field['placeholder-'.$list['id'].'-'.$num]; } ?>" />|*</span>											
-											</div>
-											<?php 
-											$num++;
-											} ?>
-										</div>
-										<!-- display redirect checkbox here -->
-										<tr valign="top">
-											<th scope="row"><label for="yks-mailchimp-url-redirect"><?php _e( 'Redirect User On Submission' , 'yikes-inc-easy-mailchimp-extender' ); ?></label></th>
-											<td>
-												<span class="yks-mailchimp-redirect-checkbox-holder">
-													<input type="checkbox" name="yks_mailchimp_redirect_<?php echo $list['id']; ?>" class="yks_mailchimp_redirect" id="yks-mailchimp-redirect-<?php echo $list['id']; ?>" value="1" <?php if(isset($field['yks_mailchimp_redirect_'.$list['id']])) { echo ($field['yks_mailchimp_redirect_'.$list['id']] == 1 ? 'checked="checked"' : ''); } ?> />
-													<span class="description yks-margin-left"><?php _e( 'choose a page to redirect the user to after they submit the form.' , 'yikes-inc-easy-mailchimp-extender' ); ?></span>
-														<!-- drop down of registered posts/pages -->
-														<li id="pages" class="yks_mc_pages_dropdown_<?php echo $list['id']; ?>"  <?php if(!isset($field['yks_mailchimp_redirect_'.$list['id']])) { echo 'style="list-style:none;display:none;"'; } else { echo 'style="list-style:none;"'; } ?> >
-															<h3><?php _e( 'Select A Post/Page' , 'yikes-inc-easy-mailchimp-extender' ); ?></h3>
-																	<form action="<? bloginfo('url'); ?>" method="get">
-																		 <select id="page_id" name="page_id_<?php echo $list['id']; ?>" >
-																			 <?php
-																				// set up variables for the queries
-																				 global $post;
-																				 global $page;
-																				 $args_posts = array( 'numberposts' => -1);
-																				 $args_pages = array(
-																					'sort_order' => 'ASC',
-																					'sort_column' => 'post_title',
-																					'hierarchical' => 1,
-																					'exclude' => '',
-																					'include' => '',
-																					'meta_key' => '',
-																					'meta_value' => '',
-																					'authors' => '',
-																					'child_of' => 0,
-																					'parent' => -1,
-																					'exclude_tree' => '',
-																					'number' => '',
-																					'offset' => 0,
-																					'post_type' => 'page',
-																					'post_status' => 'publish'
-																				); 
-																				$pages = get_pages($args_pages);
-																				// print_r($pages);
-																				
-																				 $posts = get_posts($args_posts);
-																				// print_r($posts);
-																				?>
-																				<optgroup label="Posts"><?php
-																				
-																				// throwing error -> must resolve
-																				 foreach( $posts as $post ) : setup_postdata($post); ?>
-																						<option <?php if(isset($field['page_id_'.$list['id']])) { selected( $field['page_id_'.$list['id']], $post->ID ); } ?> value="<?php echo $post->ID; ?>"><?php the_title(); ?></option>
-																				 <?php endforeach; ?>
-																				 
-																				 </optgroup>
-																				 <optgroup label="Pages">
-																				  <?php 
-																				  foreach( $pages as $page ) : ?>
-																						<option <?php if(isset($field['page_id_'.$list['id']])) { selected( $field['page_id_'.$list['id']], $page->ID ); } ?> value="<?php echo $page->ID; ?>"><?php echo $page->post_title; ?></option>
-																				 <?php endforeach; ?>
-																				 </optgroup>
-																		 </select>
-																	 </form>
-														</li>
-												</span>														
-											</td>
-										</tr>
-									</fieldset>
-								</td>
-							</tr>
-							<tr>
-								<td></td>
-								<td>
-									<input type="submit" name="submit" class="yks-mailchimp-list-update button-primary" value="<?php _e( 'Save Form Settings' , 'yikes-inc-easy-mailchimp-extender' ); ?>" rel="<?php echo $list['id']; ?>" />
-									<input type="button" name="delete" class="yks-mailchimp-delete button-primary" value="<?php _e( 'Delete Form' , 'yikes-inc-easy-mailchimp-extender' ); ?>" rel="<?php echo $list['id']; ?>" data-title="<?php echo $thename; ?>" />
-									<input type="button" name="import" class="yks-mailchimp-import button-primary" value="<?php _e( 'Re-Import Form Fields from MailChimp' , 'yikes-inc-easy-mailchimp-extender' ); ?>" rel="<?php echo $list['id']; ?>" />
-								</td>
-							</tr>
-						</tbody>
-					</table>
-				
-				</form>
-				
-				<!-- run loop to display content here -->
-				<!-- thickbox for our hidden content, we will display subscribed peoples here based on which link is clicked -->
-				<?php add_thickbox(); ?>
-				<div id="yikes-mailchimp-subscribers-box" style="display:none;">
-					<img class="mailChimp_get_subscribers_preloader" src="<?php echo admin_url().'/images/wpspin_light.gif'; ?>" alt="preloader" >
-						<div class="yks_mc_subscribers">
-						</div>
-				</div>
+							?>
+							</span>
+							
+						<span class="yks_mc_subscriber_count"><?php if ( $get_list_data['subscriber-count']['subscriber-count-'.$list['id']] > 1 || $get_list_data['subscriber-count']['subscriber-count-'.$list['id']] == 0 ) { echo $get_list_data['subscriber-count']['subscriber-count-'.$list['id']] . __( ' subscribers' , 'yikes-inc-easy-mailchimp-extender' ); } else { echo $get_list_data['subscriber-count']['subscriber-count-'.$list['id']] . __( ' subscriber' , 'yikes-inc-easy-mailchimp-extender' ); } ?></span>
+			
+			</a>
 
+			<div id="collapse_<?php echo $i; ?>" class="panel-collapse collapse panel-body">
+				<div class="yks-list-container" id="yks-list-container_<?php echo $list['id']; ?>">
+					<div class="yks-status" id="yks-status" style="display: none;">
+						<div class="yks-success" style="padding:.25em;"><p>&nbsp;<?php _e( 'Your List Was Successfully Saved!' , 'yikes-inc-easy-mailchimp-extender' ); ?></p></div>
+					</div>
+					<div class="yks-status-error" id="yks-status-error" style="display: none;">
+						<div class="yks-error" style="padding:.25em;"><p>&nbsp;<?php _e( 'Your settings were not saved (or you did not change them).' , 'yikes-inc-easy-mailchimp-extender' ); ?></p></div>
+					</div>
+					<span class="yikes-lists-error" style="display:none;"><?php _e( "I'm sorry there was an error with your request." , "yikes-inc-easy-mailchimp-extender" ); ?></span>
+					<form method="post" name="yks-mailchimp-form" id="yks-mailchimp-form_<?php echo $list['id']; ?>" rel="<?php echo $list['id']; ?>">
+						<input type="hidden" name="yks-mailchimp-unique-id" id="yks-mailchimp-unique-id_<?php echo $list['id']; ?>" value="<?php echo $list['id']; ?>" />
+						<table class="form-table  yks-admin-form">
+							<tbody>
+									<!-- display the specific MailChimp list ID back to the user -->							
+									<tr valign="top">
+										<th scope="row"><label for="yks-mailchimp-api-key"><?php _e( 'MailChimp List ID' , 'yikes-inc-easy-mailchimp-extender' ); ?></label></th>
+										<td><?php echo $list['list-id'];  ?>
+										</td>
+									</tr>				
+									<!-- display the shortcode with the specific list ID -->
+									<tr valign="top">
+										<th scope="row"><label for="yks-mailchimp-shortcode"><?php _e( 'Shortcode' , 'yikes-inc-easy-mailchimp-extender' ); ?></label></th>
+										<td class="yks-mailchimp-shortcode">
+											<span class="shortcode-code">[yks-mailchimp-list id="<?php echo $list['id']; ?>" submit_text="Submit"]</span>
+											<span class="description yks-margin-left"><?php _e( 'Paste this shortcode into whatever page or post you want to add this form to' , 'yikes-inc-easy-mailchimp-extender' ); ?></span>
+										</td>
+									</tr>
+									<!-- display the PHP snippet with the specific list ID -->
+									<tr valign="top">
+										<th scope="row"><label for="yks-mailchimp-api-key"><?php _e( 'PHP Snippet' , 'yikes-inc-easy-mailchimp-extender' ); ?></label></th>
+										<td>
+											<?php /* echo htmlentities('<?php echo yksemeProcessSnippet(\''.$list['id'].'\', \'Submit\'); ?>'); */ ?>
+											<?php echo htmlentities('<?php echo yksemeProcessSnippet( "'.$list['id'].'" , "Submit" ); ?>'); ?>
+											<span class="description yks-margin-left"><?php _e( 'Use this code to add this form to a template file' , 'yikes-inc-easy-mailchimp-extender' ); ?></span>
+										</td>
+									</tr>
+									<!-- display subscriber count here -->
+									<tr valign="top">
+										<th scope="row"><label for="yks-mailchimp-api-key"><?php _e( 'Number of Subscribers' , 'yikes-inc-easy-mailchimp-extender' ); ?></label></th>
+										<td>
+											<!-- rel contains list id that we pass along to our function to ajax retreive all subscribers -->
+											<span class="number-of-subscribers-<?php echo $list['id']; ?>"><?php echo $get_list_data['subscriber-count']['subscriber-count-'.$list['id']]; ?>&nbsp;</span><a href="#TB_inline?width=600&height=550&inlineId=yikes-mailchimp-subscribers-box" class="thickbox displayListSubscribers button-secondary" rel="<?php echo $list['id']; ?>">View</a>	
+										</td>
+									</tr>
+									<!-- display the forms fields, with options to customize -->
+									<tr valign="top">
+										<td scope="row">
+											<label for="api-key"><strong><?php _e( 'Form Fields' , 'yikes-inc-easy-mailchimp-extender' ); ?></strong></label>
+											<p class="description">
+												<?php _e( 'Check the fields you want included in your form (Email Address is required).' , 'yikes-inc-easy-mailchimp-extender' ); ?>
+											</p> 
+											
+											<p class="description">
+												<?php _e( 'Use the green arrows to drag-and-drop the fields and rearrange their order.' , 'yikes-inc-easy-mailchimp-extender' ); ?>
+												<span class="yks-mailchimp-sorthandle-img"></span>
+											</p>
+											<!-- add our add new form field button here! 
+											To Do --
+												- Create new forms 
+												- Add + Remove merge fields from existing forms on the fly
+												- Add+ Remove interest groups etc from existing forms on the fly
+											<p class="description">
+												<a class="button-secondary thickbox" onclick="return false;" href="#TB_inline?width=auto&height=175&inlineId=newMergeVariableContainer">Add New Field</a>
+											</p>
+											-->
+										</th>
+										<td class="yks-mailchimp-fields-td" id="yks-mailchimp-fields-td_<?php echo $list['id']; ?>">
+											<fieldset class="yks-mailchimp-fields-container" id="yks-mailchimp-fields-container_<?php echo $list['id']; ?>">
+												<legend class="screen-reader-text"><span><?php _e( 'Active Fields' , 'yikes-inc-easy-mailchimp-extender' ); ?></span></legend>
+												<div class="yks-mailchimp-fields-list" id="yks-mailchimp-fields-list_<?php echo $list['id']; ?>" rel="<?php echo $list['id']; ?>">
+													
+													<!-- create sortable rows populated with mailchimp data -->
+													<?php 
+													$num = 1;
+													foreach($list['fields'] as $field) { ?>
+													<div class="yks-mailchimp-fields-list-row">
+														<label title="<?php echo $field['name']; ?>" rel="<?php echo $field['id']; ?>">
+															<span class="yks-mailchimp-sorthandle"><?php _e( 'Drag' , 'yikes-inc-easy-mailchimp-extender' ); ?> &amp; <?php _e( 'drop' , 'yikes-inc-easy-mailchimp-extender' ); ?></span>
+															<input type="checkbox" name="<?php echo $field['name']; ?>" id="<?php echo $field['id']; ?>" value="1" <?php echo ($field['active'] == 1 ? 'checked="checked"' : ''); ?><?php echo ($field['require'] == 1 ? 'disabled="disabled"' : ''); ?> />
+															&nbsp;
+															<div class="yks-mailchimp-field-name"><?php echo $field['label']; ?></div>
+														</label>
+														<span class="yks-mailchimp-field-merge"><span class="description"><?php _e( 'Merge field' , 'yikes-inc-easy-mailchimp-extender' ); ?>:</span> &nbsp; *|<input type="text" class="merge_field_input" name="<?php echo $field['name']; ?>-merge" id="<?php echo $field['id']; ?>-merge" value="<?php echo $field['merge']; ?>"<?php echo (($field['locked'] == 1 || $field['merge'] == false) ? ' disabled="disabled"' : ''); ?> />|*</span>
+														<span class="yks-mailchimp-field-placeholder"><span class="description"><?php _e( 'Placeholder' , 'yikes-inc-easy-mailchimp-extender' ); ?>:</span> &nbsp; *|<input type="text" name="placeholder-<?php echo $list['id'].'-'.$num; ?>" id="<?php echo $field['id']; ?>-placeholder" placeholder="<?php echo $field['label']; ?>" value="<?php if(isset($field['placeholder-'.$list['id'].'-'.$num])) { echo $field['placeholder-'.$list['id'].'-'.$num]; } ?>" />|*</span>
+														<span class="yks-mailchimp-field-custom-field-class"><span class="description"><?php _e( 'Custom Class' , 'yikes-inc-easy-mailchimp-extender' ); ?>:</span> &nbsp; *|<input type="text" name="custom-field-class-<?php echo $list['id'].'-'.$num; ?>" id="<?php echo $field['id']; ?>-custom-field-class" value="<?php if(isset($field['custom-field-class-'.$list['id'].'-'.$num])) { echo $field['custom-field-class-'.$list['id'].'-'.$num]; } ?>" />|*</span>
+													</div>
+													<?php 
+													$num++;
+													} ?>
+												</div>
+											</fieldset>
+												<!-- display redirect checkbox here -->
+												<tr valign="top">
+													<th scope="row"><label for="yks-mailchimp-url-redirect"><?php _e( 'Redirect User On Submission' , 'yikes-inc-easy-mailchimp-extender' ); ?></label></th>
+													<td>
+														<span class="yks-mailchimp-redirect-checkbox-holder">
+															<input type="checkbox" name="yks_mailchimp_redirect_<?php echo $list['id']; ?>" class="yks_mailchimp_redirect" id="yks-mailchimp-redirect-<?php echo $list['id']; ?>" value="1" <?php if(isset($field['yks_mailchimp_redirect_'.$list['id']])) { echo ($field['yks_mailchimp_redirect_'.$list['id']] == 1 ? 'checked="checked"' : ''); } ?> />
+															<span class="description yks-margin-left"><?php _e( 'choose a page to redirect the user to after they submit the form.' , 'yikes-inc-easy-mailchimp-extender' ); ?></span>
+																<!-- drop down of registered posts/pages -->
+																<li id="pages" class="yks_mc_pages_dropdown_<?php echo $list['id']; ?>"  <?php if(!isset($field['yks_mailchimp_redirect_'.$list['id']]) || $field['yks_mailchimp_redirect_'.$list['id']] == '' ) { echo 'style="list-style:none;display:none;"'; } else { echo 'style="list-style:none;"'; } ?> >
+																	<h4><?php _e( 'Select A Post/Page' , 'yikes-inc-easy-mailchimp-extender' ); ?></h4>
+																			<form action="<? bloginfo('url'); ?>" method="get">
+																				 <select id="page_id" name="page_id_<?php echo $list['id']; ?>" >
+																					 <?php
+																						// set up variables for the queries
+																						 global $post;
+																						 global $page;
+																						 $args_posts = array( 'numberposts' => -1);
+																						 $args_pages = array(
+																							'sort_order' => 'ASC',
+																							'sort_column' => 'post_title',
+																							'hierarchical' => 1,
+																							'exclude' => '',
+																							'include' => '',
+																							'meta_key' => '',
+																							'meta_value' => '',
+																							'authors' => '',
+																							'child_of' => 0,
+																							'parent' => -1,
+																							'exclude_tree' => '',
+																							'number' => '',
+																							'offset' => 0,
+																							'post_type' => 'page',
+																							'post_status' => 'publish'
+																						); 
+																						$pages = get_pages($args_pages);
+																						// print_r($pages);
+																						
+																						 $posts = get_posts($args_posts);
+																						// print_r($posts);
+																						?>
+																						<optgroup label="Posts"><?php
+																						
+																						// throwing error -> must resolve
+																						 foreach( $posts as $post ) : setup_postdata($post); ?>
+																								<option <?php if(isset($field['page_id_'.$list['id']])) { selected( $field['page_id_'.$list['id']], $post->ID ); } ?> value="<?php echo $post->ID; ?>"><?php the_title(); ?></option>
+																						 <?php endforeach; ?>
+																						 
+																						 </optgroup>
+																						 <optgroup label="Pages">
+																						  <?php 
+																						  foreach( $pages as $page ) : ?>
+																								<option <?php if(isset($field['page_id_'.$list['id']])) { selected( $field['page_id_'.$list['id']], $page->ID ); } ?> value="<?php echo $page->ID; ?>"><?php echo $page->post_title; ?></option>
+																						 <?php endforeach; ?>
+																						 </optgroup>
+																				 </select>
+																			 </form>
+																</li>
+														</span>														
+													</td>
+												</tr>
+												<!-- display color picker here, to customize the form styles! -->
+												<tr valign="top">
+													<th scope="row"><label for="yks-mailchimp-url-redirect"><?php _e( 'Custom Styles' , 'yikes-inc-easy-mailchimp-extender' ); ?></label></th>
+													<td>
+														<span class="yks-mailchimp-custom-styles-holder">
+															<input type="checkbox" name="yks_mailchimp_custom_styles_<?php echo $list['id']; ?>" class="yks_mailchimp_custom_styles" id="yks-mailchimp-custom-styles-<?php echo $list['id']; ?>" value="1" <?php if ( isset( $list['custom_styles']['active'] ) && $list['custom_styles']['active'] == 1 ) { echo 'checked=checked'; } ?> <?php if ( isset( $list['custom_template']['active'] ) && $list['custom_template']['active'] == 1 ) { echo 'disabled=disabled'; } ?> />
+															<span class="description yks-margin-left"><?php _e( 'set custom styles for this form.' , 'yikes-inc-easy-mailchimp-extender' ); ?></span>
+																<!-- drop down of registered posts/pages -->
+																<li id="custom-style-list" class="yks_mc_pages_dropdown_<?php echo $list['id']; ?>"  <?php if( !isset($list['custom_styles']) || $list['custom_styles']['active'] == '0') { echo 'style="list-style:none;display:none;"'; } else { echo 'style="list-style:none;"'; } ?> >
+																	
+																	<h4><?php _e( 'Custom Form Styles' , 'yikes-inc-easy-mailchimp-extender' ); ?>&nbsp;<a href="#TB_inline?width=600&inlineId=formPreviewContainer" class="thickbox button-secondary populatePreviewFormContainer">preview form</a></h4>
+																		
+																		<table class="custom_style_table style_table_left yks-mailchimp-fields-container yks-mailchimp-fields-list">
+
+																				<tr class="yks-mailchimp-fields-list-row"> 
+																					<td><?php _e( 'Form Background Color' , 'yikes-inc-easy-mailchimp-extender' ); ?></td>
+																					<td class="custom-styles-input-td"><input type="text" value="<?php if ( isset( $list['custom_styles']['yks_mc_form_background_color'] ) ) { echo $list['custom_styles']['yks_mc_form_background_color']; } else { echo '#fff'; } ?>" class="yks-mc-color-picker" name="yks-mc-background-color" data-default-color="#fff" /></td> 
+																				</tr>
+																				<tr class="yks-mailchimp-fields-list-row"> 
+																					<td><?php _e( 'Text Color' , 'yikes-inc-easy-mailchimp-extender' ); ?></td>
+																					<td class="custom-styles-input-td"><input type="text" value="<?php if ( isset( $list['custom_styles']['yks_mc_form_text_color'] ) ) { echo $list['custom_styles']['yks_mc_form_text_color']; } else { echo '#333'; } ?>" class="yks-mc-color-picker" name="yks-mc-text-color" data-default-color="#333" /></td> 
+																				</tr>
+																				<tr class="yks-mailchimp-fields-list-row"> 
+																					<td><?php _e( 'Submit Button Color' , 'yikes-inc-easy-mailchimp-extender' ); ?></td>
+																					<td class="custom-styles-input-td"><input type="text" value="<?php if ( isset( $list['custom_styles']['yks_mc_submit_button_color'] ) ) { echo $list['custom_styles']['yks_mc_submit_button_color']; } else { echo '#3ed664'; } ?>" class="yks-mc-color-picker" name="yks-mc-submit-button-color" data-default-color="#3ed664" /></td> 
+																				</tr>
+																				<tr class="yks-mailchimp-fields-list-row"> 
+																					<td><?php _e( 'Submit Button Text Color' , 'yikes-inc-easy-mailchimp-extender' ); ?></td>
+																					<td class="custom-styles-input-td"><input type="text" value="<?php if ( isset( $list['custom_styles']['yks_mc_submit_button_text_color'] ) ) { echo $list['custom_styles']['yks_mc_submit_button_text_color']; } else { echo '#fff'; } ?>" class="yks-mc-color-picker" name="yks-mc-submit-button-text-color" data-default-color="#fff" /></td> 
+																				</tr>
+																		</table>
+																		
+																		
+																		
+																		<table class="custom_style_table style_table_right yks-mailchimp-fields-container yks-mailchimp-fields-list">
+																				<tr class="yks-mailchimp-fields-list-row"> 
+																					<td><?php _e( 'Form Padding' , 'yikes-inc-easy-mailchimp-extender' ); ?></td>
+																					<td class="custom-styles-input-td"><input type="text" value="<?php if ( isset( $list['custom_styles']['yks_mc_form_padding'] ) ) { echo $list['custom_styles']['yks_mc_form_padding'].$list['custom_styles']['yks_mc_form_padding_measurement']; } else { echo '1em'; } ?>" name="yks-mc-form-padding"  /></td> 
+																				</tr>
+																				<tr class="yks-mailchimp-fields-list-row"> 
+																					<td><?php _e( 'Form Width (% works best)' , 'yikes-inc-easy-mailchimp-extender' ); ?></td>
+																					<td class="custom-styles-input-td"><input type="text" value="<?php if ( isset( $list['custom_styles']['yks_mc_form_width'] ) ) { echo $list['custom_styles']['yks_mc_form_width']; } else { echo '100%'; } ?>" name="yks-mc-form-width"  /></td> 
+																				</tr>
+																				<tr class="yks-mailchimp-fields-list-row"> 
+																					<td><?php _e( 'Form Alignment' , 'yikes-inc-easy-mailchimp-extender' ); ?></td>
+																					<td class="custom-styles-input-td">
+																						<select name="yks-mc-form-alignment">
+																							
+																							<option value="none" <?php if ( !isset( $list['custom_styles']['yks_mc_form_alignment'] ) || $list['custom_styles']['yks_mc_form_alignment'] == 'none' ) { echo 'selected="selected"'; } ?>><?php _e( 'None' , 'yikes-inc-easy-mailchimp-extender' ); ?></option>
+																							<option value="left" <?php if ( isset( $list['custom_styles']['yks_mc_form_alignment'] ) && $list['custom_styles']['yks_mc_form_alignment'] == 'left' ) { echo 'selected="selected"'; } ?>><?php _e( 'Left' , 'yikes-inc-easy-mailchimp-extender' ); ?></option>
+																							<option value="center" <?php if ( isset( $list['custom_styles']['yks_mc_form_alignment'] ) && $list['custom_styles']['yks_mc_form_alignment'] == 'center' ) { echo 'selected="selected"'; } ?>><?php _e( 'Center' , 'yikes-inc-easy-mailchimp-extender' ); ?></option>
+																							<option value="right" <?php if ( isset( $list['custom_styles']['yks_mc_form_alignment'] ) && $list['custom_styles']['yks_mc_form_alignment'] == 'right' ) { echo 'selected="selected"'; } ?>><?php _e( 'Right' , 'yikes-inc-easy-mailchimp-extender' ); ?></option>
+																						</select>
+																					</td>
+																				</tr>
+																		</table>
+																		
+																</li>
+														</span>														
+													</td>
+												</tr>
+												<tr valign="top">
+													<th scope="row"><label for="yks-mailchimp-url-redirect"><?php _e( 'Form Template' , 'yikes-inc-easy-mailchimp-extender' ); ?></label></th>
+													<td>
+														<span class="yks-mailchimp-custom-template-holder">
+															<input type="checkbox" name="yks_mailchimp_custom_template_<?php echo $list['id']; ?>" class="yks_mailchimp_custom_template" id="yks-mailchimp-custom-template-<?php echo $list['id']; ?>" value="1" <?php if ( isset( $list['custom_template']['active'] ) && $list['custom_template']['active'] == 1 ) { echo 'checked=checked'; } ?> <?php if ( isset( $list['custom_styles']['active'] ) && $list['custom_styles']['active']== 1 ) { echo 'disabled=disabled'; } ?> />
+															<span class="description yks-margin-left"><?php _e( 'set a template for this form.' , 'yikes-inc-easy-mailchimp-extender' ); ?></span>																
+															<!-- template selection dropdown -->
+															<li id="custom-template-list" class="yks_mc_template_dropdown_<?php echo $list['id']; ?>"  <?php if( !isset($list['custom_template']) || $list['custom_template']['active'] == '0') { echo 'style="list-style:none;display:none;"'; } else { echo 'style="list-style:none;"'; } ?> >
+																<span class="template-dropdown-list">
+
+																	<h4><?php _e( 'Select a Template' , 'yikes-inc-easy-mailchimp-extender' ); ?>&nbsp;<a href="#TB_inline?width=600&inlineId=formPreviewContainer" class="thickbox button-secondary populatePreviewFormContainer custom_template">preview form</a> <?php if( !is_dir( get_stylesheet_directory() . '/yikes-mailchimp-user-templates' ) ) { ?>&nbsp;<a href="#" onclick="return false;" class="button-secondary import_template_boilerplates">import boilerplate files</a><a href="#TB_inline?width=600&height=550&inlineId=user_template_how_to" class="thickbox whats-this-help">whats this?</a><?php } ?></h4>
+																	<?php		
+																		// build our custom template dropdown
+																		$this->buildCustomTemplateDropdown($list); 
+																	?>
+																</span>												
+															</li>
+															
+														</span>														
+													</td>
+													
+	
+												</tr>
+												<!-- end custom template selection -->
+										</td>
+									</tr>
+									<tr>
+										<td></td>
+										<td>
+											<input type="submit" name="submit" class="yks-mailchimp-list-update button-primary" value="<?php _e( 'Save Form Settings' , 'yikes-inc-easy-mailchimp-extender' ); ?>" rel="<?php echo $list['id']; ?>" />
+											<input type="button" name="delete" class="yks-mailchimp-delete button-primary" value="<?php _e( 'Delete Form' , 'yikes-inc-easy-mailchimp-extender' ); ?>" rel="<?php echo $list['id']; ?>" data-title="<?php echo $thename; ?>" />
+											<input type="button" name="import" class="yks-mailchimp-import button-primary" value="<?php _e( 'Re-Import Form Fields from MailChimp' , 'yikes-inc-easy-mailchimp-extender' ); ?>" rel="<?php echo $list['id']; ?>" />
+										</td>
+									</tr>
+							</tbody>
+						</table>
+					</form>
+				</div>
 			</div>
 			<?php
+				$i++;
+			}
+			?>
+			<!-- run loop to display content here -->
+			<!-- thickbox for our hidden content, we will display subscribed peoples here based on which link is clicked -->
+			<?php add_thickbox(); ?>
+			<div id="yikes-mailchimp-subscribers-box" style="display:none;">
+				<img class="mailChimp_get_subscribers_preloader" src="<?php echo admin_url().'/images/wpspin_light.gif'; ?>" alt="preloader" >
+					<div class="yks_mc_subscribers">
+					</div>
+			</div>
+			<?php
+		}
+	$output = ob_get_contents();
+	ob_end_clean();
+	return $output;
+	}
+	
+// Generate the Merge Variable containers on the lists page
+// we use this function to re-import merge variables from mailchimp
+public function generateMergeVariableContainers($listArr=false)
+	{
+	$listArr	= ($listArr == false ? $this->optionVal['lists'] : $listArr);
+	$thelistdata = $this->getListsData(); //Get list names from API
+	// if there are any imported lists in the array	
+	if(count($listArr) > 0)
+		{
+		ob_start();
+		// loop over each lists and build the page
+		$i = 1;
+		foreach($listArr as $list)
+			{
+			
+			$get_list_data = $this->getListsData();
+			?>
+				<td class="yks-mailchimp-fields-td" id="yks-mailchimp-fields-td_<?php echo $list['id']; ?>">
+					<fieldset class="yks-mailchimp-fields-container" id="yks-mailchimp-fields-container_<?php echo $list['id']; ?>">
+						<legend class="screen-reader-text"><span><?php _e( 'Active Fields' , 'yikes-inc-easy-mailchimp-extender' ); ?></span></legend>
+							<div class="yks-mailchimp-fields-list" id="yks-mailchimp-fields-list_<?php echo $list['id']; ?>" rel="<?php echo $list['id']; ?>">
+							<!-- create sortable rows populated with mailchimp data -->
+								<?php 
+									$num = 1;
+									foreach($list['fields'] as $field) { ?>
+										<div class="yks-mailchimp-fields-list-row">
+											<label title="<?php echo $field['name']; ?>" rel="<?php echo $field['id']; ?>">
+												<span class="yks-mailchimp-sorthandle"><?php _e( 'Drag' , 'yikes-inc-easy-mailchimp-extender' ); ?> &amp; <?php _e( 'drop' , 'yikes-inc-easy-mailchimp-extender' ); ?></span>
+												<input type="checkbox" name="<?php echo $field['name']; ?>" id="<?php echo $field['id']; ?>" value="1" <?php echo ($field['active'] == 1 ? 'checked="checked"' : ''); ?><?php echo ($field['require'] == 1 ? 'disabled="disabled"' : ''); ?> />
+												&nbsp;
+												<div class="yks-mailchimp-field-name"><?php echo $field['label']; ?></div>
+											</label>
+											<span class="yks-mailchimp-field-merge"><span class="description"><?php _e( 'Merge field' , 'yikes-inc-easy-mailchimp-extender' ); ?>:</span> &nbsp; *|<input type="text" class="merge_field_input" name="<?php echo $field['name']; ?>-merge" id="<?php echo $field['id']; ?>-merge" value="<?php echo $field['merge']; ?>"<?php echo (($field['locked'] == 1 || $field['merge'] == false) ? ' disabled="disabled"' : ''); ?> />|*</span>
+											<span class="yks-mailchimp-field-placeholder"><span class="description"><?php _e( 'Placeholder' , 'yikes-inc-easy-mailchimp-extender' ); ?>:</span> &nbsp; *|<input type="text" name="placeholder-<?php echo $list['id'].'-'.$num; ?>" id="<?php echo $field['id']; ?>-placeholder" placeholder="<?php echo $field['label']; ?>" value="<?php if(isset($field['placeholder-'.$list['id'].'-'.$num])) { echo $field['placeholder-'.$list['id'].'-'.$num]; } ?>" />|*</span>
+											<span class="yks-mailchimp-field-custom-field-class"><span class="description"><?php _e( 'Custom Class' , 'yikes-inc-easy-mailchimp-extender' ); ?>:</span> &nbsp; *|<input type="text" name="custom-field-class-<?php echo $list['id'].'-'.$num; ?>" id="<?php echo $field['id']; ?>-custom-field-class" value="<?php if(isset($field['custom-field-class-'.$list['id'].'-'.$num])) { echo $field['custom-field-class-'.$list['id'].'-'.$num]; } ?>" />|*</span>
+										</div>
+										<?php 
+											$num++;
+										} ?>
+							</div>
+					</fieldset>
+				</td>
+			<?php
+				$i++;
 			}
 		}
 	$output = ob_get_contents();
 	ob_end_clean();
 	return $output;
 	}
+// end merge variable container
+
 // Generate our front end JavaScript , used to submit forms	
 public function getFrontendFormJavascript($list='')
 	{
@@ -2858,7 +3194,7 @@ public function getFrontendFormDisplay($list='', $submit_text)
 		// Display the form inside of a table
 		// if the user has selected table as their flavor on the settings page
 		// make sure this matches exactly with the div flavor below (currently does not)
-		case '0':
+		case '0':	
 			?>
 				<!-- BEGIN TABLE FLAVOR -->
 				<table class="yks-mailchimpFormTable">
@@ -2981,91 +3317,225 @@ public function getFrontendFormDisplay($list='', $submit_text)
 				// Display the form inside of a div
 				// if the user has selected div as their flavor on the settings page
 				case '1':
-			?>
-			<div class="yks-mailchimpFormDiv">
-				<?php 
-					/* if reCAPTCHA is enabled, we want to display the CAPTCHA form */
-				if ( $this->optionVal['recaptcha-setting'] == '1' && $this->optionVal['recaptcha-api-key'] != '' && $this->optionVal['recaptcha-private-api-key'] != ''  ) {
-						$reCAPTCHA_style = $this->optionVal['recaptcha-style'];
-						
-						// if on localhost , we should replace backward slash (\) with forward slashes (/) to prevent escaped characters
-						if ( $this->yks_mc_is_user_localhost() ) {
-							$reCAPTCHA_lib_path = str_replace( '\\' , '/' , YKSEME_PATH."lib/recaptchalib.php" );
-						} else {
-							$reCAPTCHA_lib_path = YKSEME_PATH."lib/recaptchalib.php.";
-						}
-						// set up the CAPTCHA theme
-						?>
-						<script>var RecaptchaOptions = {
-							theme : '<?php echo $reCAPTCHA_style; ?>'
-						 };
-						 </script>
-						 <?php
-						$this->includeRECAPTCHAlib();
-						$reCAPTCHA_api_key = $this->optionVal['recaptcha-api-key'];
-						$reCAPTCHA_image = recaptcha_get_html($reCAPTCHA_api_key);
-				}
-				$num = 1;			
-				
-				foreach($list['fields'] as $field) : if($field['active'] == 1) : 
-								
-				// get field placeholders
-				$form_id = explode( '-', $field['id']);
-				$field_placeholder_ = (isset($field['placeholder-'.$form_id[1].'-'.$num]) ? $field['placeholder-'.$form_id[1].'-'.$num] : '');
-				echo '<input type="hidden" class="'.$field['name'].'_placeholder_value" value="'.$field_placeholder_.'">';
 				?>
-					<!-- javascript to populate the correct form fields, with the specified place-holder value, on the lists page -->
-					<script>
-						jQuery(document).ready(function() {	
-							var hiddenInputClass = '<?php echo $field['name']; ?>';
-							// alert('<?php echo $num; ?>');
-							var hiddenInputClassValue = jQuery('.'+hiddenInputClass+'_placeholder_value').val();
-							jQuery('input[name="'+hiddenInputClass+'"]').attr("placeholder", hiddenInputClassValue);
-						});
-					</script>
+				<div class="yks-mailchimpFormDiv">
 					<?php 
-						if ($field['require'] == 1)  // if the field is required (set in MailChimp), display the red required star
-							{ 
-								$reqindicator 	= " <span class='yks-required-label'>*</span>";
-								$reqlabel		= " yks-mailchimpFormDivRowLabel-required";
+						/* if reCAPTCHA is enabled, we want to display the CAPTCHA form */
+					if ( $this->optionVal['recaptcha-setting'] == '1' && $this->optionVal['recaptcha-api-key'] != '' && $this->optionVal['recaptcha-private-api-key'] != ''  ) {
+							$reCAPTCHA_style = $this->optionVal['recaptcha-style'];
+							
+							// if on localhost , we should replace backward slash (\) with forward slashes (/) to prevent escaped characters
+							if ( $this->yks_mc_is_user_localhost() ) {
+								$reCAPTCHA_lib_path = str_replace( '\\' , '/' , YKSEME_PATH."lib/recaptchalib.php" );
+							} else {
+								$reCAPTCHA_lib_path = YKSEME_PATH."lib/recaptchalib.php.";
 							}
-						else  // else don't
-							{
-								$reqindicator  = "";
-								$reqlabel		= "";
-							}
+							// set up the CAPTCHA theme
+							?>
+							<script>var RecaptchaOptions = {
+								theme : '<?php echo $reCAPTCHA_style; ?>'
+							 };
+							 </script>
+							 <?php
+							$this->includeRECAPTCHAlib();
+							$reCAPTCHA_api_key = $this->optionVal['recaptcha-api-key'];
+							$reCAPTCHA_image = recaptcha_get_html($reCAPTCHA_api_key);
+					}
+					$num = 1;		
+
+					foreach($list['fields'] as $field) : if($field['active'] == 1) : 
+
+						// get field placeholders
+						$form_id = explode( '-', $field['id']);				
+						
+						$field_placeholder_ = (isset($field['placeholder-'.$form_id[1].'-'.$num]) ? $field['placeholder-'.$form_id[1].'-'.$num] : '');
+						echo '<input type="hidden" class="'.$field['name'].'_placeholder_value" value="'.$field_placeholder_.'">';
+						?>
+							<!-- javascript to populate the correct form fields, with the specified place-holder value, on the lists page -->
+							<script>
+								jQuery(document).ready(function() {	
+									var hiddenInputClass = '<?php echo $field['name']; ?>';
+									// alert('<?php echo $num; ?>');
+									var hiddenInputClassValue = jQuery('.'+hiddenInputClass+'_placeholder_value').val();
+									jQuery('input[name="'+hiddenInputClass+'"]').attr("placeholder", hiddenInputClassValue);
+								});
+							</script>
+							<?php 
+								if ($field['require'] == 1)  // if the field is required (set in MailChimp), display the red required star
+									{ 
+										$reqindicator 	= " <span class='yks-required-label'>*</span>";
+										$reqlabel		= " yks-mailchimpFormDivRowLabel-required";
+									}
+								else  // else don't
+									{
+										$reqindicator  = "";
+										$reqlabel		= "";
+									}
+							?>
+							<div class="yks-mailchimpFormDivRow">
+								<label class="prompt yks-mailchimpFormDivRowLabel<?php echo $reqlabel; ?>" for="<?php echo $field['id']; ?>"><?php echo $field['label']; ?><?php echo $reqindicator; ?></label>
+								<div class="yks-mailchimpFormDivRowField">
+									<!-- run our function to generate the input fields for the form, passing in the field -->
+									<?php echo $this->getFrontendFormDisplay_field($field,$num); ?>
+								</div>
+							</div>	
+						<?php 
+							$num++;
+							endif; endforeach; 
 					?>
+					<!-- add our nonce field for security purposes -->
 					<div class="yks-mailchimpFormDivRow">
-						<label class="prompt yks-mailchimpFormDivRowLabel<?php echo $reqlabel; ?>" for="<?php echo $field['id']; ?>"><?php echo $field['label']; ?><?php echo $reqindicator; ?></label>
-						<div class="yks-mailchimpFormDivRowField">
-							<!-- run our function to generate the input fields for the form, passing in the field -->
-							<?php echo $this->getFrontendFormDisplay_field($field); ?>
-						</div>
+						<?php wp_nonce_field( 'yks_mc_front_end_form_'.$form_id[1] ); ?>
 					</div>	
-					<?php 
-						$num++;
-						endif; endforeach; 
-				?>
-				<!-- add our nonce field for security purposes -->
-				<div class="yks-mailchimpFormDivRow">
-					<?php wp_nonce_field( 'yks_mc_front_end_form_'.$form_id[1] ); ?>
-				</div>	
-						
-				<div class="yks-mailchimpFormDivRow">
-					<!-- run our function to generate the interest group fields for the form, passing in the form id -->
-					<?php $this->getInterestGroups($form_id[1]); ?>
-					<div class="yks-mailchimpFormDivSubmit">
-						<?php 	
-						if ( $this->optionVal['recaptcha-setting'] == '1' && $this->optionVal['recaptcha-api-key'] != '' && $this->optionVal['recaptcha-private-api-key'] != '' ) { 
-							echo $reCAPTCHA_image;
-						} else if ( $this->optionVal['recaptcha-setting'] == '1' && $this->optionVal['recaptcha-api-key'] == '' || $this->optionVal['recaptcha-setting'] == '1' && $this->optionVal['recaptcha-private-api-key'] == '') { 
-							echo '<div class="yks_mc_recaptcha_api_key_error">'. __('reCAPTCHA API Key Error. Please double check your API Keys.' , 'yikes-inc-easy-mailchimp-extender') . '</div>';
-						}
-						?>
-						<p><input type="submit" class="ykfmc-submit" id="ykfmc-submit_<?php echo $list['id']; ?>" value="<?php if($submit_text != '') { echo $submit_text; } else {  echo 'Sign Up'; } ?>" /></p>
+							
+					<div class="yks-mailchimpFormDivRow">
+						<!-- run our function to generate the interest group fields for the form, passing in the form id -->
+						<?php $this->getInterestGroups($form_id[1]); ?>
+						<div class="yks-mailchimpFormDivSubmit">
+							<?php 	
+							if ( $this->optionVal['recaptcha-setting'] == '1' && $this->optionVal['recaptcha-api-key'] != '' && $this->optionVal['recaptcha-private-api-key'] != '' ) { 
+								echo $reCAPTCHA_image;
+							} else if ( $this->optionVal['recaptcha-setting'] == '1' && $this->optionVal['recaptcha-api-key'] == '' || $this->optionVal['recaptcha-setting'] == '1' && $this->optionVal['recaptcha-private-api-key'] == '') { 
+								echo '<div class="yks_mc_recaptcha_api_key_error">'. __('reCAPTCHA API Key Error. Please double check your API Keys.' , 'yikes-inc-easy-mailchimp-extender') . '</div>';
+							}
+							?>
+							<p><input type="submit" class="ykfmc-submit" id="ykfmc-submit_<?php echo $list['id']; ?>" value="<?php if($submit_text != '') { echo $submit_text; } else {  echo 'Sign Up'; } ?>" /></p>
+						</div>
 					</div>
 				</div>
-			</div>
+				<?php 
+				// Create and store our variables for the redirection
+				$form_id = explode('-', $field['id']); // get the form ID
+				$redirect_value = (isset($field['yks_mailchimp_redirect_'.$form_id[1]]) ? $field['yks_mailchimp_redirect_'.$form_id[1]] : ''); // get the redirect value from the lists page redirect checkbox
+				$redirect_page = (isset($field['page_id_'.$form_id[1]]) ? $field['page_id_'.$form_id[1]] : '') ; // get the redirect page that was set in the pages dropdown on the lists page
+				$site_url = "http://".$_SERVER['HTTP_HOST'].$_SERVER['REQUEST_URI']; // grab and store the current sites URL
+				$redirect_url = get_permalink($redirect_page); // get the permalink of the page we are going to redirect too
+				// if redirection was set up for this form, print out our javascript to complete the redirect
+				if ($redirect_value == 1) {
+				?>			
+				<script>
+						jQuery(document).ready(function() {								
+							// jquery redirect on form submission
+							var formRedirectPage = '<?php echo $redirect_url ?>';
+							var formID = '<?php echo $form_id[0].'-'.$form_id[1]; ?>';
+							jQuery('#yks-mailchimp-form_'+formID).submit(function() {
+								var interval = setInterval(function() {
+									if ( jQuery('.yks-success').is(':visible') ) {
+										window.location.replace(formRedirectPage);	
+										clearInterval(interval);
+										return;
+									}
+									//do whatever here..
+								}, 2000); 
+							});
+						});
+				</script>
+				<?php
+				}		
+			break;
+		}
+	$output = ob_get_contents();
+	ob_end_clean();
+	return $output;
+	}
+	
+	// Generate the form on the front end of the site
+// this is what the user will see, and interact with	
+public function getFrontendFormDisplay_placeholder_labels($list='', $submit_text)
+	{
+	if($list === '') return false;
+	ob_start();	
+	switch($this->optionVal['flavor'])
+		{
+		default:
+		// Display the form inside of a table
+		// if the user has selected table as their flavor on the settings page
+		// make sure this matches exactly with the div flavor below (currently does not)
+		case '0':	
+			?>
+				<!-- BEGIN TABLE FLAVOR -->
+				<table class="yks-mailchimpFormTable">
+					<?php 
+					/* if reCAPTCHA is enabled, we want to display the CAPTCHA form */
+					if ( $this->optionVal['recaptcha-setting'] == '1' && $this->optionVal['recaptcha-api-key'] != '' && $this->optionVal['recaptcha-private-api-key'] != '' ) {
+									
+							$reCAPTCHA_style = $this->optionVal['recaptcha-style'];
+							
+							// if on localhost , we should replace backward slash (\) with forward slashes (/) to prevent escaped characters
+							if ( $this->yks_mc_is_user_localhost() ) {
+								$reCAPTCHA_lib_path = str_replace( '\\' , '/' , YKSEME_PATH."lib/recaptchalib.php" );
+							} else {
+								$reCAPTCHA_lib_path = YKSEME_PATH."lib/recaptchalib.php.";
+							}
+							// set up the CAPTCHA theme
+							?>
+							<script>var RecaptchaOptions = {
+								theme : '<?php echo $reCAPTCHA_style; ?>'
+							 };
+							 </script>
+							 <?php
+							$this->includeRECAPTCHAlib();
+							$reCAPTCHA_api_key = $this->optionVal['recaptcha-api-key'];
+							$reCAPTCHA_image = recaptcha_get_html($reCAPTCHA_api_key);
+						
+					} 
+					$num = 1;	
+					foreach($list['fields'] as $field) : if($field['active'] == 1) : 
+					// get field placeholders
+					$form_id = explode( '-', $field['id']);
+					$field_placeholder_ = (isset($field['placeholder-'.$form_id[1].'-'.$num]) ? $field['placeholder-'.$form_id[1].'-'.$num] : '');
+					echo '<input type="hidden" class="'.$field['name'].'_placeholder_value" value="'.$field_placeholder_.'">';
+					
+					// add our nonce field for security purposes
+					?>
+					<tr class="yks-mailchimpFormTableRow">
+						<?php wp_nonce_field( 'yks_mc_front_end_form_'.$form_id[1] ); ?>
+					</tr>
+					
+						<!-- javascript to populate the correct form fields, with the specified place-holder value, on the lists page -->
+						<script>
+							jQuery(document).ready(function() {	
+								var hiddenInputClass = '<?php echo $field['name']; ?>';
+								// alert('<?php echo $num; ?>');
+								var hiddenInputClassValue = jQuery('.'+hiddenInputClass+'_placeholder_value').val();
+								jQuery('input[name="'+hiddenInputClass+'"]').attr("placeholder", hiddenInputClassValue);
+							});
+						</script>
+						<?php 
+							if ($field['require'] == 1)  // if the field is required (set in MailChimp), display the red required star
+								{ 
+									$reqindicator 	= " <span class='yks-required-label'>*</span>";
+									$reqlabel		= " yks-mailchimpFormTableRowLabel-required";
+								}
+							else  // else don't
+								{
+									$reqindicator  = "";
+									$reqlabel		= "";
+								}
+						?>
+						<tr class="yks-mailchimpFormTableRow">
+								<!-- run our function to generate the input fields for the form, passing in the field -->
+								<?php echo $this->getFrontendFormDisplay_field($field); ?>
+						</tr>	
+						<?php 
+							$num++;
+							endif; endforeach; 
+						?>
+					<tr class="yks-mailchimpFormTableRow">
+						<!-- run our function to generate the interest group fields for the form, passing in the form id -->
+						<?php echo $this->getInterestGroups($form_id[1]); ?>
+						<td class="yks-mailchimpFormTableSubmit">	
+							<?php 
+							if ( $this->optionVal['recaptcha-setting'] == '1' && $this->optionVal['recaptcha-api-key'] != '' && $this->optionVal['recaptcha-private-api-key'] != '' ) { 
+								echo $reCAPTCHA_image;
+							} else if ( $this->optionVal['recaptcha-setting'] == '1' && $this->optionVal['recaptcha-api-key'] == '' || $this->optionVal['recaptcha-setting'] == '1' && $this->optionVal['recaptcha-private-api-key'] == '') { 
+								echo '<div class="yks_mc_recaptcha_api_key_error">'. __('reCAPTCHA API Key Error. Please double check your API Keys.' , 'yikes-inc-easy-mailchimp-extender') . '</div>';
+							}
+							?>
+							<input type="submit" class="ykfmc-submit" id="ykfmc-submit_<?php echo $list['id']; ?>" value="<?php if($submit_text != '') { echo $submit_text; } else {  echo 'Sign Up'; } ?>" />
+						</td>
+					</tr>
+				</table>
 			<?php 
 			// Create and store our variables for the redirection
 			$form_id = explode('-', $field['id']); // get the form ID
@@ -3073,6 +3543,127 @@ public function getFrontendFormDisplay($list='', $submit_text)
 			$redirect_page = (isset($field['page_id_'.$form_id[1]]) ? $field['page_id_'.$form_id[1]] : '') ; // get the redirect page that was set in the pages dropdown on the lists page
 			$site_url = "http://".$_SERVER['HTTP_HOST'].$_SERVER['REQUEST_URI']; // grab and store the current sites URL
 			$redirect_url = get_permalink($redirect_page); // get the permalink of the page we are going to redirect too
+				// if redirection was set up for this form, print out our javascript to complete the redirect
+				if ($redirect_value == 1) { // only redirect if successful form submission <-----
+				?>				
+				<script>
+						jQuery(document).ready(function() {								
+							// jquery redirect on form submission
+							var formRedirectPage = '<?php echo $redirect_url ?>';
+							var formID = '<?php echo $form_id[0].'-'.$form_id[1]; ?>';
+							jQuery('#yks-mailchimp-form_'+formID).submit(function() {
+								var interval = setInterval(function() {
+									if ( jQuery('.yks-success').is(':visible') ) {
+										window.location.replace(formRedirectPage);	
+										clearInterval(interval);
+										return;
+									}
+									//do whatever here..
+								}, 2000); 
+							});
+						});
+				</script>
+				<?php
+				}		
+			break;
+				
+			// END TABLE FLAVOR	
+				
+				// Display the form inside of a div
+				// if the user has selected div as their flavor on the settings page
+				case '1':
+				?>
+				<div class="yks-mailchimpFormDiv">
+					<?php 
+						/* if reCAPTCHA is enabled, we want to display the CAPTCHA form */
+					if ( $this->optionVal['recaptcha-setting'] == '1' && $this->optionVal['recaptcha-api-key'] != '' && $this->optionVal['recaptcha-private-api-key'] != ''  ) {
+							$reCAPTCHA_style = $this->optionVal['recaptcha-style'];
+							
+							// if on localhost , we should replace backward slash (\) with forward slashes (/) to prevent escaped characters
+							if ( $this->yks_mc_is_user_localhost() ) {
+								$reCAPTCHA_lib_path = str_replace( '\\' , '/' , YKSEME_PATH."lib/recaptchalib.php" );
+							} else {
+								$reCAPTCHA_lib_path = YKSEME_PATH."lib/recaptchalib.php.";
+							}
+							// set up the CAPTCHA theme
+							?>
+							<script>var RecaptchaOptions = {
+								theme : '<?php echo $reCAPTCHA_style; ?>'
+							 };
+							 </script>
+							 <?php
+							$this->includeRECAPTCHAlib();
+							$reCAPTCHA_api_key = $this->optionVal['recaptcha-api-key'];
+							$reCAPTCHA_image = recaptcha_get_html($reCAPTCHA_api_key);
+					}
+					$num = 1;		
+
+					foreach($list['fields'] as $field) : if($field['active'] == 1) : 
+
+						// get field placeholders
+						$form_id = explode( '-', $field['id']);				
+						
+						$field_placeholder_ = (isset($field['placeholder-'.$form_id[1].'-'.$num]) ? $field['placeholder-'.$form_id[1].'-'.$num] : '');
+						echo '<input type="hidden" class="'.$field['name'].'_placeholder_value" value="'.$field_placeholder_.'">';
+						?>
+							<!-- javascript to populate the correct form fields, with the specified place-holder value, on the lists page -->
+							<script>
+								jQuery(document).ready(function() {	
+									var hiddenInputClass = '<?php echo $field['name']; ?>';
+									// alert('<?php echo $num; ?>');
+									var hiddenInputClassValue = jQuery('.'+hiddenInputClass+'_placeholder_value').val();
+									jQuery('input[name="'+hiddenInputClass+'"]').attr("placeholder", hiddenInputClassValue);
+								});
+							</script>
+							<?php 
+								if ($field['require'] == 1)  // if the field is required (set in MailChimp), display the red required star
+									{ 
+										$reqindicator 	= " <span class='yks-required-label'>*</span>";
+										$reqlabel		= " yks-mailchimpFormDivRowLabel-required";
+									}
+								else  // else don't
+									{
+										$reqindicator  = "";
+										$reqlabel		= "";
+									}
+							?>
+							<div class="yks-mailchimpFormDivRow">
+								<div class="yks-mailchimpFormDivRowField">
+									<!-- run our function to generate the input fields for the form, passing in the field -->
+									<?php echo $this->getFrontendFormDisplay_field($field,$num); ?>
+								</div>
+							</div>	
+						<?php 
+							$num++;
+							endif; endforeach; 
+					?>
+					<!-- add our nonce field for security purposes -->
+					<div class="yks-mailchimpFormDivRow">
+						<?php wp_nonce_field( 'yks_mc_front_end_form_'.$form_id[1] ); ?>
+					</div>	
+							
+					<div class="yks-mailchimpFormDivRow">
+						<!-- run our function to generate the interest group fields for the form, passing in the form id -->
+						<?php $this->getInterestGroups($form_id[1]); ?>
+						<div class="yks-mailchimpFormDivSubmit">
+							<?php 	
+							if ( $this->optionVal['recaptcha-setting'] == '1' && $this->optionVal['recaptcha-api-key'] != '' && $this->optionVal['recaptcha-private-api-key'] != '' ) { 
+								echo $reCAPTCHA_image;
+							} else if ( $this->optionVal['recaptcha-setting'] == '1' && $this->optionVal['recaptcha-api-key'] == '' || $this->optionVal['recaptcha-setting'] == '1' && $this->optionVal['recaptcha-private-api-key'] == '') { 
+								echo '<div class="yks_mc_recaptcha_api_key_error">'. __('reCAPTCHA API Key Error. Please double check your API Keys.' , 'yikes-inc-easy-mailchimp-extender') . '</div>';
+							}
+							?>
+							<p><input type="submit" class="ykfmc-submit" id="ykfmc-submit_<?php echo $list['id']; ?>" value="<?php if($submit_text != '') { echo $submit_text; } else {  echo 'Sign Up'; } ?>" /></p>
+						</div>
+					</div>
+				</div>
+				<?php 
+				// Create and store our variables for the redirection
+				$form_id = explode('-', $field['id']); // get the form ID
+				$redirect_value = (isset($field['yks_mailchimp_redirect_'.$form_id[1]]) ? $field['yks_mailchimp_redirect_'.$form_id[1]] : ''); // get the redirect value from the lists page redirect checkbox
+				$redirect_page = (isset($field['page_id_'.$form_id[1]]) ? $field['page_id_'.$form_id[1]] : '') ; // get the redirect page that was set in the pages dropdown on the lists page
+				$site_url = "http://".$_SERVER['HTTP_HOST'].$_SERVER['REQUEST_URI']; // grab and store the current sites URL
+				$redirect_url = get_permalink($redirect_page); // get the permalink of the page we are going to redirect too
 				// if redirection was set up for this form, print out our javascript to complete the redirect
 				if ($redirect_value == 1) {
 				?>			
@@ -3104,12 +3695,20 @@ public function getFrontendFormDisplay($list='', $submit_text)
 
 // Generate the input fields for the form on the front end of the site	
 // based on the $field['type'] that is returned from MailChimp
-private function getFrontendFormDisplay_field($field=false)
+private function getFrontendFormDisplay_field($field=false,$num)
 	{
 	if($field === false) return false;
 	$o = '';
-	$num = 1;
 	$fieldID = $field['id'];
+	$exploded_field_id = explode( '-' , $fieldID );
+	$form_id = $exploded_field_id[1];
+	
+	// check to see if the custom class has been set up...
+	if ( isset( $field['custom-field-class-'.$form_id.'-'.$num] ) ) {
+		$custom_class =  $field['custom-field-class-'.$form_id.'-'.$num];
+	} else {
+		$custom_class = '';
+	}
 	
 	switch($field['type'])
 		{
@@ -3122,11 +3721,11 @@ private function getFrontendFormDisplay_field($field=false)
 		case 'website':
 		case 'imageurl':
 		// custom placeholder value goes here
-			$o	.= '<input type="text" name="'.$field['name'].'" class="'.$field['name'].($field['require'] == 1 ? ' yks-require' : '').'" id="'.$field['id'].'" value="" />';
-			$num++;
+			$o	.= '<input type="text" name="'.$field['name'].'" class="'.$field['name'].($field['require'] == 1 ? ' yks-require' : '') . ' ' . $custom_class . '" id="'.$field['id'].'" value="" />';
+			
 			break;
 		case 'dropdown':
-			$o	.= '<select name="'.$field['name'].'" class="'.$field['name'].($field['require'] == 1 ? ' yks-require' : '').'" id="'.$field['id'].'">';
+			$o	.= '<select name="'.$field['name'].'" class="'.$field['name'].($field['require'] == 1 ? ' yks-require' : ''). ' ' . $custom_class .'" id="'.$field['id'].'">';
 				if(count($field['choices']) > 0) : foreach($field['choices'] as $ok => $ov) :
 						$o	.= '<option value="'.htmlentities($ov, ENT_QUOTES).'">'.$ov.'</option>';
 				endforeach; endif;
@@ -3134,29 +3733,32 @@ private function getFrontendFormDisplay_field($field=false)
 			break;
 		case 'address':
 			
-			$o	.= '<input type="text" name="'.$field['name'].'" class="'.$field['name'].($field['require'] == 1 ? ' yks-require' : '').'" id="'.$field['id'].'" value="" /><span class="yks-mailchimp-form-tooltip">Street Address</span>';
-			$o	.= '<input type="text" name="'.$field['name'].'-add2" class="'.$field['name'].'-add2'.($field['require'] == 1 ? ' yks-require' : '').'" id="'.$field['id'].'-add2" value="" /><span class="yks-mailchimp-form-tooltip">Apt/Suite</span>';
-			$o	.= '<input type="text" name="'.$field['name'].'-city" class="'.$field['name'].'-city'.($field['require'] == 1 ? ' yks-require' : '').'" id="'.$field['id'].'-city" value="" /><span class="yks-mailchimp-form-tooltip">City</span>';
-			$o	.= '<input type="text" name="'.$field['name'].'-state" class="'.$field['name'].'-state'.($field['require'] == 1 ? ' yks-require' : '').'" id="'.$field['id'].'-state" value="" /><span class="yks-mailchimp-form-tooltip">State</span>';
-			$o	.= '<input type="text" name="'.$field['name'].'-zip" class="'.$field['name'].'-zip'.($field['require'] == 1 ? ' yks-require' : '').'" id="'.$field['id'].'-zip" value="" /><span class="yks-mailchimp-form-tooltip">Zip</span>';
+			$o	.= '<input type="text" name="'.$field['name'].'" class="'.$field['name'].($field['require'] == 1 ? ' yks-require' : ''). ' ' . $custom_class .'" id="'.$field['id'].'" value="" /><span class="yks-mailchimp-form-tooltip">Street Address</span>';
+			$o	.= '<input type="text" name="'.$field['name'].'-add2" class="'.$field['name'].'-add2'.($field['require'] == 1 ? ' yks-require' : ''). ' ' . $custom_class .'" id="'.$field['id'].'-add2" value="" /><span class="yks-mailchimp-form-tooltip">Apt/Suite</span>';
+			$o	.= '<input type="text" name="'.$field['name'].'-city" class="'.$field['name'].'-city'.($field['require'] == 1 ? ' yks-require' : ''). ' ' . $custom_class .'" id="'.$field['id'].'-city" value="" /><span class="yks-mailchimp-form-tooltip">City</span>';
+			$o	.= '<input type="text" name="'.$field['name'].'-state" class="'.$field['name'].'-state'.($field['require'] == 1 ? ' yks-require' : ''). ' ' . $custom_class .'" id="'.$field['id'].'-state" value="" /><span class="yks-mailchimp-form-tooltip">State</span>';
+			$o	.= '<input type="text" name="'.$field['name'].'-zip" class="'.$field['name'].'-zip'.($field['require'] == 1 ? ' yks-require' : ''). ' ' . $custom_class .'" id="'.$field['id'].'-zip" value="" /><span class="yks-mailchimp-form-tooltip">Zip</span>';
 			break;
 		case 'radio':
 			if(count($field['choices']) > 0) : $ct=0; foreach($field['choices'] as $ok => $ov) :
 				$ct++;
-				$o	.= '<input type="radio" name="'.$field['name'].'" class="'.$field['name'].($field['require'] == 1 ? ' yks-require' : '').'" id="'.$field['id'].'-'.$ok.'" value="'.htmlentities($ov, ENT_QUOTES).'" />'.$ov;
+				$o	.= '<label for="'.$field['id'].'-'.$ok.'"><input type="radio" name="'.$field['name'].'" class="'.$field['name'].($field['require'] == 1 ? ' yks-require' : ''). ' ' . $custom_class .'" id="'.$field['id'].'-'.$ok.'" value="'.htmlentities($ov, ENT_QUOTES).'" />'.$ov.'</label>';
 				if($ct < count($field['choices']))
 					$o	.= '<br />';
 			endforeach; endif;
 			break;
 		case 'date':
 		case 'birthday':
-			$o	.= '<input type="text" name="'.$field['name'].'" class="'.$field['name'].' yks-field-type-date'.($field['require'] == 1 ? ' yks-require' : '').'" id="'.$field['id'].'" value="" />';
+			$o	.= '<input type="text" name="'.$field['name'].'" class="'.$field['name'].' yks-field-type-date'.($field['require'] == 1 ? ' yks-require' : ''). ' ' . $custom_class .'" id="'.$field['id'].'" value="" />';
 			break;
+		
+		
 		}
+		
 	return $o;
 	}
 
-
+	
 /***** DROPDOWNS
  ****************************************************************************************************/
  // not sure we need these any more
@@ -3213,7 +3815,7 @@ public function runUpdateTasks()
 			{
 			if(call_user_func(array(&$this, $updateFunction)))
 				{
-				update_option(YKSEME_OPTION, $this->optionVal);
+				update_option( YKSEME_OPTION, YKSEME_VERSION_CURRENT );
 				$this->runUpdateTasks();
 				}
 			}
@@ -3292,6 +3894,149 @@ private function runUpdateTasks_1_2_0()
 	return true;
 	}
 	
+	// generate a thickbox container
+	// to display our new merge variable
+	// buttons
+	function generateNewMergeVariableContainer() {
+		?>
+			<div id="newMergeVariableContainer" style="display:none;">
+				 <p>
+					 <h4 style="width:100%;text-align:center;">Select New Field</h4>
+						<p>
+							  <a href="#" onclick="return false;" class="button-secondary">Text</a>
+							  <a href="#" onclick="return false;" class="button-secondary">First Name</a>
+							  <a href="#" onclick="return false;" class="button-secondary">Last Name</a>
+							  <a href="#" onclick="return false;" class="button-secondary">Number</a>
+							  <a href="#" onclick="return false;" class="button-secondary">Date</a>
+							  <a href="#" onclick="return false;" class="button-secondary">Dropdown</a>
+							  <a href="#" onclick="return false;" class="button-secondary">Birthday</a>
+							  <a href="#" onclick="return false;" class="button-secondary">Address</a>
+							  <a href="#" onclick="return false;" class="button-secondary">Zip Code</a>
+							  <a href="#" onclick="return false;" class="button-secondary">Phone</a>
+							  <a href="#" onclick="return false;" class="button-secondary">Website</a>
+							  <a href="#" onclick="return false;" class="button-secondary">Image</a>
+						</p>
+				 </p>
+			</div>
+		<?php
+	}
+	
+	// generate a thickbox container
+	// to display a preview of the form
+	function generateFormPreviewContainer() {
+		?>
+			<div id="formPreviewContainer" style="display:none;">
+				 <?php echo '<img src="' . admin_url() . '/images/wpspin_light.gif" alt="preloader" style="margin-left: 50%; margin-top: 25%;">'; ?>
+			</div>
+		<?php
+	}
+	
+	// generate a thickbox container
+	// to display a how to in using custom template files
+	function generateUserTemplateHowTo() {
+		?>
+			<div id="user_template_how_to" style="display:none;">
+				<a href="http://www.yikesinc.com" title="YIKES, Inc." target="_blank"><img style="float:left;margin-bottom:0;width:75px;" src="<?php echo YKSEME_URL; ?>/images/yikes_logo.png" alt="YIKES, Inc." id="yksme-yikes-logo" /></a>
+				 <h4 class="user_template_how_to_title">Custom User Template Files</h4>
+				 
+				 <p style="margin-top: 2.5em;" >With the latest version of YIKES Inc. Easy MailChimp Extender you can now extend the plugin beyond what it can do out of the box. Now you can create your own MailChimp sign up template files and use them with any list , anywhere on your site. We have provided you with a few bundled templates, as well as two boilerplate template files for easy customization.</p>
+				 
+				 <p>You can create your own templates in two ways.</p>
+				 <hr />
+				 <ul>
+					<li><h4>Automatic Method :</h4><p>The easiest way is to import the template files from the plugin automatically. You can do this by clicking on the "import boilerplate files" button. This will copy over the necessary files right into your theme. From there you can start editing the template files found in your theme root inside of the newly created 'yikes-inc-easy-mailchimp-extender' directory.</p></li>
+					<a href="#" onclick="return false;" class="button-secondary import_template_boilerplates" style="width:148px;display:block;margin:0 auto;">import boilerplate files</a>
+					<hr />
+					<li><h4>Manual Method :</h4><p>If the automatic method doesn't work for you, you can manually copy over the necessary files.</p> <p>Copy the following directory :<br /> <em class="yks-mc-file-path"><?php echo plugin_dir_url( __FILE__ ) . '/yikes-inc-easy-mailchimp-extender/templates/yikes-mailchimp-user-templates'; ?></em> <br /> into your theme root, found at <br /> <em class="yks-mc-file-path"><?php echo get_stylesheet_directory_uri(); ?></em></p></li>
+					<hr />
+					<li><h5>Notes</h5></li>
+						<ul>
+							<li><p>You can also copy over any of the deafult bundled themes into the 'yikes-mailchimp-user-templates' directory to customize the look and feel of a default bundled template file.</p></li>
+							<li><p>If you are having any difficulties copying over the template files, or need help using them please open a support ticket on our <a href="https://github.com/yikesinc/yikes-inc-easy-mailchimp-extender/issues" target="_blank">github issue tracker</a>.</p></li>
+						</ul>
+			</div>
+		<?php
+	}
+	
+	
+	// generate a thickbox container
+	// to display a preview of the form
+	function getFormPreview($shortcode,$form_title,$form_bg_color,$form_text_color,$form_submit_button_color,$form_submit_button_text_color,$form_padding,$form_width,$form_alignment) {
+		?>
+		<h4 style="width:100%;text-align:center;">"<?php echo trim( $form_title ); ?>" Form Preview</h4>
+		<div class="yks_mc_preview_form_container"><?php echo do_shortcode( stripslashes( $shortcode ) ); ?></div>
+		<!-- override the styles for our preview container -->
+		<style>
+			.yks-mailchimpFormContainer {
+				background: <?php echo $form_bg_color; ?> !important;
+				padding: <?php echo $form_padding; ?> !important;
+				color: <?php echo $form_text_color; ?> !important;
+				width: <?php echo $form_width; ?> !important;
+				<?php	
+					if ( $form_alignment == 'left' ) {
+						?>
+							display: block;
+							float: left;
+						<?php
+					} elseif ( $form_alignment == 'center' ) {
+						?>
+							display: block;
+							margin: 0 auto;
+						<?php
+					} elseif ( $form_alignment == 'right' ) {
+						?>
+							display: block;
+							float: right;
+						<?php
+					}
+				?>
+			}
+			.yks-mailchimpFormDivRowLabel, .yks_mc_interest_group_label {
+				color: <?php echo $form_text_color; ?> !important;
+			}
+			.ykfmc-submit {
+				background: <?php echo $form_submit_button_color; ?> !important;
+				color: <?php echo $form_submit_button_text_color; ?> !important;
+			}
+			.yks_mc_interest_group_holder input[type=radio], .yks_mc_interest_group_holder input[type=checkbox] {
+				margin:0 5px 0 0 !important;
+			}
+			body.mailchimp-forms_page_yks-mailchimp-form-lists form[name="yks-mailchimp-form"] {
+				padding: 0 !important;
+			}
+		</style>
+		<?php
+	}
+	
+	
+	// Get the selected form template screenshot
+	function getTemplateScreenshot( $template_name , $template_screenshot , $template_path ) {
+		
+		$default_headers = array(
+			'YIKES Inc. MailChimp Template',
+			'YIKES Inc. MailChimp Template Author',
+			'YIKES Inc. MailChimp Template Description'
+		);
+		// end pre-packaged templates
+		$template_file_data = get_file_data( $template_path , $default_headers );				
+		
+		?>
+		<div id="selected_template_preview_container">
+			<span class="selected_template_preview_header">
+				<h3 class="template_name"><?php echo $template_name; ?></h3>
+				
+				<p class="template_author"><strong>Author :</strong> <em> <?php echo $template_file_data[1]; ?></em></p>
+			</span>
+			
+			<p><strong>Description :</strong> <?php echo $template_file_data[2]; ?></p>
+			
+			<hr />
+			
+			<img class="template_screenshot preview_template_screenshot" style="max-width:100%;" src="<?php echo YKSEME_URL . 'templates/yikes-mailchimp-bundled-templates/' . str_replace( ' ' , '_' , $template_name ) . '/' . $template_screenshot; ?>">
+		</div>
+		<?php
+	}
+	
 /**
  * This update needs to pull in all of the custom form
  * data for each of the lists, unfortunately it has to replace
@@ -3315,6 +4060,123 @@ private function runUpdateTasks_1_3_0()
 	$this->optionVal['version']	= '2.2.1';
 	return true;
 	}
+
+// Copy the user template file from within the plugin
+// into the users theme root
+public function copyUserTemplatesToUserTheme() {
+	$src = YKSEME_PATH . 'templates/yikes-mailchimp-user-templates';
+	$dst = get_stylesheet_directory() . '/yikes-mailchimp-user-templates';
+	
+	function recurse_copy($src,$dst) { 	
+		$dir = opendir($src); 
+		// mkdir( $dst . '/yiks-mailchimp-user-templates/' ); 
+		mkdir( $dst );
+		while(false !== ( $file = readdir($dir)) ) { 
+			if (( $file != '.' ) && ( $file != '..' )) { 
+				if ( is_dir($src . '/' . $file) ) { 
+					recurse_copy($src . '/' . $file,$dst . '/' . $file); 
+				} 
+				else { 
+					copy($src . '/' . $file,$dst . '/' . $file); 
+				} 
+			} 
+		} 
+		closedir($dir);
+	}
+	recurse_copy( $src , $dst );
+	
+	
+}
+
+
+// recursive directory scanning
+// used to retreive template files from bundled+user template directories
+function buildCustomTemplateDropdown($list) {
+
+	$bundled_template_directory = YKSEME_PATH . 'templates/yikes-mailchimp-bundled-templates/';
+    $bundled_template_scan = scandir($bundled_template_directory);
+	
+	$custom_template_directory = get_stylesheet_directory() . '/yikes-mailchimp-user-templates/';
+	
+	// only scan the directory when files DO exist
+	if( is_dir( $custom_template_directory ) ) {	
+		$custom_template_scan = scandir($custom_template_directory);
+	}
+	
+	echo '<select class="template-selection-dropdown" name="yks-mc-template-file-selection" >';
+		
+		/* Bundled Template Dropdown Loop */
+		echo '<optgroup label="Bundled Templates">';
+			foreach( $bundled_template_scan as $bundled_template ) {
+				if( $bundled_template != '.' && $bundled_template != '..' ) {	
+					if( is_dir( $bundled_template_directory . $bundled_template ) ) {
+						$template_path = $this->getTemplateFilePath($bundled_template_directory.$bundled_template);
+					}
+						// set the selected option
+						if ( $list['custom_template']['template_file'] == $template_path ) {
+								echo '<option value="' . $template_path . '" selected="selected" >' . str_replace( '_' , ' ' , $bundled_template ) . '</option>';
+							} else {
+								echo '<option value="' . $template_path . '">' . str_replace( '_' , ' ' , $bundled_template )  . '</option>';
+							}
+							
+				}
+			}
+		echo '</optgroup>';
+		
+		
+		echo '<optgroup label="Custom Templates">';
+			
+			/* Custom Template Dropdown Loop */
+			if( is_dir( get_stylesheet_directory() . '/yikes-mailchimp-user-templates' ) && count( $custom_template_scan ) >= 1 ) {
+		
+					foreach( $custom_template_scan as $custom_template ) {
+						if( $custom_template != '.' && $custom_template != '..' ) {	
+							if( is_dir( $custom_template_directory . $custom_template ) ) {
+								$custom_template_path = $this->getTemplateFilePath($custom_template_directory.$custom_template);
+							}
+								// set the selected option
+								if ( $list['custom_template']['template_file'] == $custom_template_path ) {
+									echo '<option value="' . $custom_template_path . '" selected="selected" >' . str_replace( '_' , ' ' , $custom_template ) . '</option>';
+								} else {
+									echo '<option value="' . $custom_template_path . '">' . str_replace( '_' , ' ' , $custom_template ) . '</option>';
+								}
+							
+						}
+					}
+					
+			} else {
+				echo '<option value="" disabled="disabled">None Found</option>';
+			}
+			
+		echo '</optgroup>';
+		
+    echo '</select>';
+	
+	
+	
+}
+	
+// function to return our form template path
+function getTemplateFilePath($directory) {	
+	
+	$get_files = scandir($directory);
+	$sub_files = array();
+	
+	foreach( $get_files as $file ) {
+	
+		if($file != '.' && $file != '..') {
+			$explode_file =  explode( '.' , $file );
+			$file_extension = $explode_file[1];
+			if ( $file_extension == 'php' ) {
+				$file_extension_path = $directory . '/' . $file;
+			}
+			
+		}
+	}
+	
+		return $file_extension_path;
+
+}
 	
 /**
  * This update needs to pull in all of the custom form
@@ -4088,7 +4950,7 @@ private function runUpdateTasks_4_3()
 			
 			/** Change Default HeartBeat API Pulse Time */
 			function yks_mc_tweak_heartbeat_settings( $settings ) {
-				$settings['interval'] = 15; //Anything between 15-60
+				$settings['interval'] = 45; //Anything between 15-60
 				return $settings;
 			}
 			

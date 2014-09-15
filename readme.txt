@@ -4,7 +4,7 @@ Donate link: http://yikesinc.com
 Tags: mailchimp, marketing, email, mailing lists, newsletter, sign up, forms, sign up form
 Requires at least: 3.0
 Tested up to: 3.9.2
-Stable tag: 5.0.6
+Stable tag: 5.1
 License: GPLv2 or later
 
 Easy MailChimp Forms allows you to painlessly add MailChimp sign up forms to your WordPress site and track user activity with interactive reports.
@@ -17,6 +17,8 @@ Easy MailChimp Forms allows you to painlessly add MailChimp sign up forms to you
 
 **Features**
 
+* Create your own signup form templates ( *new* )
+* Style your forms without writing a single line of code ( *new* )
 * Complete Integration of MailChimp into WordPress
 * Easily import MailChimp forms from an active MailChimp account
 * View/Print Interactive Account Growth Reports and Campaign Reports (Statistics Tracking)
@@ -135,6 +137,21 @@ Yes! Since version 4.4 of Easy MailChimp Extender, we have added [reCAPTCHA](htt
 
 = When I input my API key and hit save, it immediately reverts to a much shorter string of text and returns invalid. What's going on? =
 You most likely have a password manager installed and active (LastPass, OnePass, TeamPassword etc.). The API key input field is set to type="password" for security reasons. Most password managers auto-fill password fields based on the URL of the current page. So, what happens when you click save is that the password manager auto fills in the field with the password that you have saved for your site, and thus returning 'invalid API key'. To resolve the issue you'll need to temporarily disable any active password manager and re-enter and save your API key. Once the key has been successfully saved, you can re-enable your password manager.
+
+= How do I create my own custom MailChimp template? =
+**Step 1:** 
+First you'll want to import the boilerplate template files bundled with the plugin. These are files that were created for easy customization. You can import the boilerplate files by going to the manage list forms page and clicking 'import boilerplate templates'. 
+
+<em>Note :</em> Alternatively, you can manually import the template files by copying the 'yikes-mailchimp-user-templates' directory inside of the plugin root ( 'yikes-inc-easy-mailchimp-extender/templates/' ) over to your theme root. ( ie: /wp-content/themes/twentyfourteen/ ).
+
+**Step 2:** 
+Once imported you'll find the boilerplate files in your theme root. Each boilerplate template file comes with an associated .css file located inside of the styles directory. To get started on your first template, we recommend that you duplicate one of the existing boilerplate tempalate files and its associated .css file, and changing the name.
+
+**Step 3:** 
+Finally, change the MailChimp template, author and description headers at the top of each template file. The 'MailChimp Template' header dictates the name of your template, and what will appear in the drop down field. You'll also want to make sure that the correct .css file is properly being enqueued at the top of the template file.
+
+**Step 4:**
+Once setup, you can assign the template to your form from the 'Manage List' page. Make sure to select the checkbox 'use custom form' and then in the drop down select your newly created template.
 
 == Developer Docs. ==
 
@@ -455,6 +472,18 @@ These functions should be used in conjunction with the `yikes_mc_get_form_data` 
 13. *New* Admin Dashboard Widget - Account Activity ( With Live Updating )
 
 == Changelog ==
+
+= 5.1 - TBD, 2014=
+
+**Updates**
+
+* Re-style Manage List page
+* Added missing label to radio buttons inside the form
+* Added missing closing parentheses on subscriber count inside view subscribers page
+* Added custom color picker to easily stylize forms without coding
+* Added ability to specify a custom class names for each field of the form ( easily add custom class names to mailchimp form fields for further customization )
+* Only run API Key check when a new key is entered ( not on each page load )
+* Added new Welcome page with features+update notifications for users
 
 = 5.0.6 - August 22, 2014 =
 

@@ -36,7 +36,7 @@ Installation
 1. Click Plugins -> Add New -> Upload
 1. Activate the plugin
 1. Go over to [MailChimp.com](http://www.mailchimp.com) and login.
-1. In the right hand menu, click your profile picture and select 'Account Settings' and then go to 'Extras > API Keys'.
+1. On the right hand menu, click your profile picture and select 'Account Settings' and then go to 'Extras > API Keys'.
 1. Enter your API key into the text field inside 'MailChimp Forms > MailChimp Settings'
 1. Start importing forms from MailChimp and adding them to posts, pages and widgets!
 
@@ -78,8 +78,10 @@ For information on how to use your browser's developer console, read the WordPre
 	
 **Possible Errors And Resolutions**
 
-* Could not resolve host: xxxx.api.mailchimp.com  - the host you have provided is incorrect. The host is the string after the last dash (example: us2)
+* Could not resolve host: xxxx.api.mailchimp.com  - the host you have provided is incorrect. The host is the string after the last dash ( aka the data-center ) (example: us2)
 * Invalid Mailchimp API Key: xxxxxxxxxxxxxxxxxx-xxx - Your API key is invalid. You can confirm a valid key by logging into [MailChimp](http://mailchimp.com) and checking the active API key registered to your account.
+
+* If all else fails, there's a good possibility that it is a server related issue. As a final attempt at a fix, open up `/classes/MCAPI_2.0.class.php` and scroll down to line #298. You should see `curl_setopt( $ch, CURLOPT_SSL_VERIFYPEER, $this->ssl_verifypeer );`, and you'll want to change it to `curl_setopt( $ch, CURLOPT_SSL_VERIFYPEER, false );`. Save the file and re-try your API key.
 
 #### I don't want the form to be the 100% width. How can I adjust the width myself?
 You can adjust the width of the forms on your site by changing the width of the element with the class .yks-mailchimpFormContainer. This is the parent container for the form. Adjusting this width will control the width of the input fields inside of it.
@@ -120,6 +122,21 @@ Yes! With the 4.0 version of our plugin we have added a few hooks that allow you
 #### When I input my API key and hit save, it immediately reverts to a much shorter string of text and returns invalid. What's going on?
 You most likely have a password manager installed and active (LastPass, OnePass, TeamPassword etc.). The API key input field is set to type="password" for security reasons. Most password managers auto-fill password fields based on the URL of the current page. So, what happens when you click save is that the password manager auto fills in the field with the password that you have saved for your site, and thus returning 'invalid API key'. To resolve the issue you'll need to temporarily disable any active password manager and re-enter and save your API key. Once the key has been successfully saved, you can re-enable your password manager.
 
+= How do I create my own custom MailChimp template? =
+**Step 1:** 
+First you'll want to import the boilerplate template files bundled with the plugin. These are files that were created for easy customization. You can import the boilerplate files by going to the manage list forms page and clicking 'import boilerplate templates'. 
+
+<em>Note :</em> Alternatively, you can manually import the template files by copying the 'yikes-mailchimp-user-templates' directory inside of the plugin root ( 'yikes-inc-easy-mailchimp-extender/templates/' ) over to your theme root. ( ie: /wp-content/themes/twentyfourteen/ ).
+
+**Step 2:** 
+Once imported you'll find the boilerplate files in your theme root. Each boilerplate template file comes with an associated .css file located inside of the styles directory. To get started on your first template, we recommend that you duplicate one of the existing boilerplate tempalate files and its associated .css file, and changing the name.
+
+**Step 3:** 
+Finally, change the MailChimp template, author and description headers at the top of each template file. The 'MailChimp Template' header dictates the name of your template, and what will appear in the drop down field. You'll also want to make sure that the correct .css file is properly being enqueued at the top of the template file.
+
+**Step 4:**
+Once setup, you can assign the template to your form from the 'Manage List' page. Make sure to select the checkbox 'use custom form' and then in the drop down select your newly created template.
+
 Developer Documentation
 ===========
 <br />
@@ -137,39 +154,38 @@ _N/A_
 ##### _Example_: 
 _This example will alter text on the admin dashboard on the manage lists page._
 
-```php
-<?php
-/**
-* Change Specific Test on the 'Manage List Forms' page.
-*
-*/
-function theme_change_comment_field_names( $translated_text, $text, $domain ) {
 
-  switch ( $translated_text ) {
+	/**
+	* Change Specific Test on the 'Manage List Forms' page.
+	*
+	*/
+	function theme_change_comment_field_names( $translated_text, $text, $domain ) {
 
-    case 'Your Lists' :
+	  switch ( $translated_text ) {
 
-      $translated_text = __( 'MailChimp Lists', 'yikes-inc-easy-mailchimp-extender' );
-      break;
-				
-    case 'Save Form Settings' :
-	
-      $translated_text = __( 'Save Form', 'yikes-inc-easy-mailchimp-extender' );
-      break;
-				
-    case 'Create a Form For This List' :
+		case 'Your Lists' :
 
-      $translated_text = __( '<== Import This List', 'yikes-inc-easy-mailchimp-extender' );
-      break;
+		  $translated_text = __( 'MailChimp Lists', 'yikes-inc-easy-mailchimp-extender' );
+		  break;
+					
+		case 'Save Form Settings' :
+		
+		  $translated_text = __( 'Save Form', 'yikes-inc-easy-mailchimp-extender' );
+		  break;
+					
+		case 'Create a Form For This List' :
 
-  }
+		  $translated_text = __( '<== Import This List', 'yikes-inc-easy-mailchimp-extender' );
+		  break;
 
-    return $translated_text;
-}
-add_filter( 'gettext', 'theme_change_comment_field_names', 20, 3 );
-?>
-```
+	  }
+
+		return $translated_text;
+	}
+	add_filter( 'gettext', 'theme_change_comment_field_names', 20, 3 );
+
 <br />
+
 ## Hooks
 
  
@@ -183,19 +199,16 @@ Used to place content before a specific MailChimp form. Use the form id to speci
 _N/A_
 
 ##### _Example_: 
-_This example will print out a thank you message before a specific form._
+This example will print out a thank you message before a specific form.
 
-
-```php
-/**
-* Function to add text before the form with ID '0b071c0bd1'
-* You can get form ID's from the 'MailChimp List' page
-*/
-function custom_before_form_action() {
-	echo '<p>Thanks for checking out our mailing list. Fill out the form below to get started!</p>';
-}
-add_action( 'yks_mc_before_form_0b071c0bd1' , 'custom_before_form_action' );
-```
+	/**
+	* Function to add text before the form with ID '0b071c0bd1'
+	* You can get form ID's from the 'MailChimp List' page
+	*/
+	function custom_before_form_action() {
+		echo '<p>Thanks for checking out our mailing list. Fill out the form below to get started!</p>';
+	}
+	add_action( 'yks_mc_before_form_0b071c0bd1' , 'custom_before_form_action' );
 
 **Note**: in our add_action call we add the specific form ID to target a single form.
 
@@ -210,11 +223,12 @@ Used to place content after a specific MailChimp form. Use the form id to specif
 ##### Accepted Parameters: 
 _N/A_
 
-##### _Example_: 
-_This example will print out a disclaimer message after a specific form._
+##### Example: 
+This example will print out a disclaimer message after a specific form.
 
 
-```php
+`
+php
 /**
 * Function to add text after the form with ID '0b071c0bd1'
 * You can get form ID's from the 'MailChimp List' page
@@ -223,7 +237,7 @@ function custom_after_form_action() {
 	echo '<p><em>Your information is for internal use only, and will never be shared with or sold to anyone.</em></p>';
 }
 add_action( 'yks_mc_after_form_0b071c0bd1' , 'custom_after_form_action' );
-```
+`
 
 **Note**: in our add_action call we add the specific form ID to target a single form.
 
@@ -239,16 +253,16 @@ Used to place content before **all** MailChimp Forms.
 _N/A_	
 
 ##### _Example_:  
-```PHP
-/**
-* This example will print out a disclaimer to the user,
-* above all MailChimp forms. 
-*/
-function custom_before_all_forms_action() {
-	echo '<p><em>Your information is for internal use only, and will never be shared with or sold to anyone.</em></p>';
-}
-add_action( 'yks_mc_before_form' , 'custom_before_all_forms_action' );
-```
+
+	/**
+	* This example will print out a disclaimer to the user,
+	* above all MailChimp forms. 
+	*/
+	function custom_before_all_forms_action() {
+		echo '<p><em>Your information is for internal use only, and will never be shared with or sold to anyone.</em></p>';
+	}
+	add_action( 'yks_mc_before_form' , 'custom_before_all_forms_action' );
+
 
 <br />
 
@@ -262,16 +276,16 @@ Used to place content after **all** MailChimp Forms.
 _N/A_	
 
 ##### _Example_:  
-```PHP
-/**
-* This example will print out a disclaimer to the user,
-* below all MailChimp forms. 
-*/
-function custom_after_all_forms_action() {
-	echo '<p><em>Your information is for internal use only, and will never be shared with or sold to anyone.</em></p>';
-}
-add_action( 'yks_mc_after_form' , 'custom_after_all_forms_action' );
-```
+
+	/**
+	* This example will print out a disclaimer to the user,
+	* below all MailChimp forms. 
+	*/
+	function custom_after_all_forms_action() {
+		echo '<p><em>Your information is for internal use only, and will never be shared with or sold to anyone.</em></p>';
+	}
+	add_action( 'yks_mc_after_form' , 'custom_after_all_forms_action' );
+
 
 <br />
 
@@ -295,31 +309,47 @@ Used to catch user data, **from all forms**, before it gets sent to the mailchim
 ##### _Example_: 
 _This example will catch the user submitted data, **of all forms**, store the users firstname in a variable and then update the current logged in user firstname profile field with the value in the First Name MailChimp field._
 
-```php
-/**
-* This example will catch the user submitted data, of all forms, store the users firstname in a variable and then update
-* the current logged in user firstname profile field with the value in the First Name MailChimp field. 
-*/
-function catch_user_data( $form_ID, $merge_variables ) {
-  // if the user is logged in
-  if ( is_user_logged_in() ) {
+
+	/**
+	* This example will catch the user submitted data, of all forms, store the users firstname in a variable and then update
+	* the current logged in user firstname profile field with the value in the First Name MailChimp field. 
+	*/
+	function catch_user_data( $form_ID, $merge_variables ) {
+	  // if the user is logged in
+	  if ( is_user_logged_in() ) {
+			
+		// get the logged in user id
+		$user_id = get_current_user_id();
 		
-    // get the logged in user id
-    $user_id = get_current_user_id();
-	
-     // if the first name field is set
-     if ( isset( $merge_variables['FNAME'] ) ) { 
-			
-     // update logged in users first name with the provided name in MC form
-     wp_update_user( array( 'ID' => $user_id, 'first_name' => $merge_variables['FNAME'] ) );
-			
-     // can be used for any of the fields in the form + any fields in the user profile
-     }
-	
-  }
-}
-add_filter( 'yikes_mc_get_form_data' , 'catch_user_data', 10, 2 );
-```
+		 // if the first name field is set
+		 if ( isset( $merge_variables['FNAME'] ) ) { 
+				
+		 // update logged in users first name with the provided name in MC form
+		 wp_update_user( array( 'ID' => $user_id, 'first_name' => $merge_variables['FNAME'] ) );
+				
+		 // can be used for any of the fields in the form + any fields in the user profile
+		 }
+		
+	  }
+	}
+	add_filter( 'yikes_mc_get_form_data' , 'catch_user_data', 10, 2 );
+
+<br />
+
+##### _Example_: 
+_This example will catch the user submitted data and change the FNAME merge variable to a specified string before sending it off to MailChimp.
+
+**Note**: You can alter any of the merge variables being sent to MailChimp (email, firstname, lastname, dates etc.) - useful if you'd like to capture the page the user subscribed from for analytics
+
+	/**
+	* This example will catch the user submitted data (of all forms) and change 
+	* the users first name to 'Johnny Apple Seed'.  ( useful for hidden+required fields )
+	*/
+	function custom_subscriber_count_message( $mv ) {
+		$mv['FNAME'] = 'Johnny Apple Seed';
+		return $mv;
+	}
+	add_action( 'yikes_mc_get_form_data' , 'custom_subscriber_count_message' , 10 );
 
 <br />
 
@@ -341,32 +371,31 @@ Used to catch user data, of a specific form, before it gets sent to the mailchim
 ##### _Example_: 
 _This example will catch the user submitted data **from a specific form**, store the users firstname in a variable and then update the current logged in user firstname profile field with the value in the First Name MailChimp field._
 
-```php
-/**
-* This example will catch the user submitted data, store the users firstname in a variable and then update
-* the current logged in user firstname profile field with the value in the First Name MailChimp field. 
-* This catches data from ALL forms being submitted.
-*/
-function catch_user_data_from_specific_form( $form_ID, $merge_variables ) {
-  // if the user is logged in
-  if ( is_user_logged_in() ) {
+	/**
+	* This example will catch the user submitted data, store the users firstname in a variable and then update
+	* the current logged in user firstname profile field with the value in the First Name MailChimp field. 
+	* This catches data from ALL forms being submitted.
+	*/
+	function catch_user_data_from_specific_form( $form_ID, $merge_variables ) {
+	  // if the user is logged in
+	  if ( is_user_logged_in() ) {
+			
+		// get the logged in user id
+		$user_id = get_current_user_id();
 		
-    // get the logged in user id
-    $user_id = get_current_user_id();
-	
-     // if the first name field is set
-     if ( isset( $merge_variables['FNAME'] ) ) { 
-			
-     // update logged in users first name with the provided name in MC form
-     wp_update_user( array( 'ID' => $user_id, 'first_name' => $merge_variables['FNAME'] ) );
-			
-     // can be used for any of the fields in the form + any fields in the user profile
-     }
-	
-  }
-}
-add_filter( 'yikes_mc_get_form_data_3d13f0f784' , 'catch_user_data_from_specific_form', 10, 2 );
-```
+		 // if the first name field is set
+		 if ( isset( $merge_variables['FNAME'] ) ) { 
+				
+		 // update logged in users first name with the provided name in MC form
+		 wp_update_user( array( 'ID' => $user_id, 'first_name' => $merge_variables['FNAME'] ) );
+				
+		 // can be used for any of the fields in the form + any fields in the user profile
+		 }
+		
+	  }
+	}
+	add_filter( 'yikes_mc_get_form_data_3d13f0f784' , 'catch_user_data_from_specific_form', 10, 2 );
+
 
 ## Helper Functions
 
@@ -381,8 +410,8 @@ These functions should be used in conjunction with the `yikes_mc_get_form_data` 
 
 ##### _Example Useage_:
 *Print User Data*
-```php
-<?php
+
+
 	/**
 	* This example will return all of the submitted 
 	* user data In a nice readable format
@@ -394,12 +423,12 @@ These functions should be used in conjunction with the `yikes_mc_get_form_data` 
 		$yikes_easy_mailchimp->yks_mc_print_user_data( $form_ID, $merge_variables );
 	}
 	add_filter( 'yikes_mc_get_form_data' , 'print_user_data_from_form', 10, 2 );	
-?>
-```
+
+
 	
 *Dump User Data*
-```php
-<?php
+
+
 	/**
 	* This example will dump all of the submitted 
 	* user data, so you can see the full array of data
@@ -412,11 +441,19 @@ These functions should be used in conjunction with the `yikes_mc_get_form_data` 
 		$yikes_easy_mailchimp->yks_mc_dump_user_data( $form_ID, $merge_variables );
 	}
 	add_filter( 'yikes_mc_get_form_data' , 'dump_user_data_from_form', 10, 2 );
-?>
-```
+
 
 Changes
 ===========
+### 5.1 - TBD, 2014
+* Re-style Manage List page
+* Added missing label to radio buttons inside the form
+* Added missing closing parentheses on subscriber count inside view subscribers page
+* Added custom color picker to easily stylize forms without coding
+* Added ability to specify a custom class names for each field of the form ( easily add custom class names to mailchimp form fields for further customization )
+* Only run API Key check when a new key is entered ( not on each page load )
+* Added new Welcome page with features+update notifications for users
+
 ### 5.0.6 - August 22, 2014
 * fix bug with nonce security check when using table 'Preferred Form Layout' setting
 

@@ -131,12 +131,12 @@ class yikes_MC_widget extends WP_Widget {
 			 ?>
 				<p>
 					<label for="<?php echo $this->get_field_id( 'title' ); ?>"><?php _e( 'Title:','yikes-inc-easy-mailchimp-extender'); ?>
-						<input class="widefat" id="<?php echo $this->get_field_id( 'title' ); ?>" name="<?php echo $this->get_field_name( 'title' ); ?>" type="text" value="<?php echo esc_attr( $title ); ?>" />
+						<input placeholder="<?php _e('Enter a title for your signup form' , 'yikes-inc-easy-mailchimp-extender' ); ?>" class="widefat" id="<?php echo $this->get_field_id( 'title' ); ?>" name="<?php echo $this->get_field_name( 'title' ); ?>" type="text" value="<?php echo esc_attr( $title ); ?>" />
 					</label> 
 				</p>
 				<p>
 					<label for="<?php echo $this->get_field_id( 'form_description' ); ?>"><?php _e( 'Form Text:','yikes-inc-easy-mailchimp-extender'); ?>
-						<textarea id="<?php echo $this->get_field_id( 'form_description' ); ?>" placeholder="Enter a short message to attract subscribers!" class="yikes_widget_form_description" name="<?php echo $this->get_field_name( 'form_description' ); ?>" type="text" value="<?php echo esc_attr( $form_description ); ?>"><?php echo esc_attr( $form_description ); ?></textarea>
+						<textarea id="<?php echo $this->get_field_id( 'form_description' ); ?>" placeholder="<?php _e( 'Enter a short message to attract subscribers!' , 'yikes-inc-easy-mailchimp-extender' ); ?>" class="yikes_widget_form_description" name="<?php echo $this->get_field_name( 'form_description' ); ?>" type="text" value="<?php echo esc_attr( $form_description ); ?>"><?php echo esc_attr( $form_description ); ?></textarea>
 					</label> 
 				</p>
 				<p>
@@ -162,7 +162,7 @@ class yikes_MC_widget extends WP_Widget {
 		// Updating widget replacing old instances with new
 		public function update( $new_instance, $old_instance ) {
 			$instance = array();
-			$instance['title'] = ( ! empty( $new_instance['title'] ) ) ? strip_tags( trim($new_instance['title']) ) : 'Sign Up For Our Newsletter';
+			$instance['title'] = ( ! empty( $new_instance['title'] ) ) ? strip_tags( trim($new_instance['title']) ) : '';
 			$instance['selected_form'] = strip_tags( $new_instance['selected_form'] );
 			$instance['submit_button_text'] = ( ! empty( $new_instance['submit_button_text'] ) ) ? strip_tags( trim($new_instance['submit_button_text']) ) : 'Sign Me Up';
 			$instance['form_description'] = ( ! empty( $new_instance['form_description'] ) ) ? strip_tags( trim($new_instance['form_description']) ) : '';
