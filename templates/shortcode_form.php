@@ -226,7 +226,7 @@ jQuery(document).ready(function() {
 			include $list['custom_template']['template_file'];
 		} else {
 			// include the form template
-			include_once YKSEME_PATH.'templates/form_template.php';
+			include YKSEME_PATH.'templates/form_template.php';
 		}
 			
 		// custom action to print text after ALL forms
