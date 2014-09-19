@@ -94,15 +94,6 @@ case 'merge_variables_reImport':
 		}
 	else echo '-1';
 	break;
-case 'frontend_submit_form':
-	$action	= $yksemeBase->addUserToMailchimp($_POST);
-	if($action == "done")
-		{
-			echo '1';
-		} else {
-			echo $action;
-		}
-	break;
 	
 case 'notice_hide':
 	setcookie('yks-mailchimp-notice-hidden', '1', time()+60*60*24*30);

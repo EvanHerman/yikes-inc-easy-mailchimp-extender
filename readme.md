@@ -453,6 +453,7 @@ Changes
 * Added ability to specify a custom class names for each field of the form ( easily add custom class names to mailchimp form fields for further customization )
 * Only run API Key check when a new key is entered ( not on each page load )
 * Added new Welcome page with features+update notifications for users
+* Security vulnerability patched - props @g0blinResearch for pointing out and privately disclosing the issue
 
 ### 5.0.6 - August 22, 2014
 * fix bug with nonce security check when using table 'Preferred Form Layout' setting

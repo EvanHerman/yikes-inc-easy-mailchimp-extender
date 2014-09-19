@@ -484,17 +484,16 @@ These functions should be used in conjunction with the `yikes_mc_get_form_data` 
 * Added ability to specify a custom class names for each field of the form ( easily add custom class names to mailchimp form fields for further customization )
 * Only run API Key check when a new key is entered ( not on each page load )
 * Added new Welcome page with features+update notifications for users
+* Security vulnerability patched - props @g0blinResearch for pointing out and privately disclosing the issue
 
 = 5.0.6 - August 22, 2014 =
 
 **Fixes**
-
 * fix bug with nonce security check when using table 'Preferred Form Layout' setting
 
 = 5.0.5 - August 21, 2014 =
 
 **Fixes**
-
 - added `stripslashes()` to the following settings fields :
 	- Single Opt-in Confirmation Message
 	- Double Opt-in Confirmation Message
@@ -502,7 +501,6 @@ These functions should be used in conjunction with the `yikes_mc_get_form_data` 
 	- Opt-in Checkbox Text
 
 **Updates**
-
 - Updated readme FAQ section
 
 = 5.0.4 - August 6, 2014 =
@@ -663,6 +661,19 @@ These functions should be used in conjunction with the `yikes_mc_get_form_data` 
 * Initial Release
 
 == Upgrade Notice ==
+
+= 5.1 - TBD, 2014=
+
+**Updates**
+
+* Re-style Manage List page
+* Added missing label to radio buttons inside the form
+* Added missing closing parentheses on subscriber count inside view subscribers page
+* Added custom color picker to easily stylize forms without coding
+* Added ability to specify a custom class names for each field of the form ( easily add custom class names to mailchimp form fields for further customization )
+* Only run API Key check when a new key is entered ( not on each page load )
+* Added new Welcome page with features+update notifications for users
+* Security vulnerability patched - props @g0blinResearch for pointing out and privately disclosing the issue
 
 = 5.0.6 - August 22, 2014 =
 
