@@ -43,5 +43,5 @@
         "notify-on-install": true,
         "discard-changes": false
     },
-    "prefer-stable": true,
+    "prefer-stable": true, 
 }
