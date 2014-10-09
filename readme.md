@@ -1,5 +1,3 @@
-[ ![Codeship Status for yikesinc/yikes-inc-easy-mailchimp-extender](https://codeship.io/projects/5534e8f0-31e2-0132-59bd-6238a3d008a7/status)](https://codeship.io/projects/40207)
-
 Easy MailChimp Forms
 ===========
 Easy MailChimp Forms allows you to painlessly add MailChimp signup forms to your WordPress site. You can add forms to posts, pages or sidebars with shortcodes, widgets or template tags. Simply copy and paste your MailChimp API Key into the plugin admin settings and it will pull in all your MailChimp lists. From there you can choose the lists you want to make forms for. For a single list you can check off the fields you want to include on your form and order them via an easy drag-and-drop interface. This plugin adds plenty of CSS selectors to the form code allowing you to completely customize the look of your forms.
