@@ -1,0 +1,47 @@
+{
+    "name": "yikes-inc/yikes-inc-easy-mailchimp-extender",
+    "description": "YIKES Inc. Easy MailChimp Extender",
+    "version": "5.0.8",
+    "type": "library",
+    "keywords": ["mailchimp", "wordpress", "plugin"],
+    "homepage": "http://www.yikesinc.com",
+    "time": "2014-10-09",
+    "license": "GPL2",
+    "authors": [
+        {
+            "name": "YIKES Inc",
+            "email": "tech@yikesinc.com",
+            "homepage": "http://www.yikesinc.com",
+            "role": "Developer"
+        },
+    ],
+    "support": {
+        "email": "tech@yikesinc.org",
+        "issues": "https://github.com/yikesinc/yikes-inc-easy-mailchimp-extender/issues?q=is%3Aopen+is%3Aissue",
+        "source": "https://wordpress.org/plugins/yikes-inc-easy-mailchimp-extender/"
+    },
+    "config": {
+        "process-timeout": 300,
+        "use-include-path": false,
+        "preferred-install": "auto",
+        "github-protocols": ["git", "https", "http"],
+        "github-oauth": {"github.com": "oauthtoken"},
+        "github-domains": ["github.com"],
+        "http-basic": {"toto.org": {"username": "foo", "password": "bar"},
+        "store-auths": "prompt",
+        "autoloader-suffix": "pony",
+        "optimize-autoloader": true,
+        "prepend-autoloader": true,
+        "vendor-dir": "vendor",
+        "bin-dir": "bin",
+        "cache-dir": "$home/cache",
+        "cache-files-dir": "$cache-dir/files",
+        "cache-repo-dir": "$cache-dir/repo",
+        "cache-vcs-dir": "$cache-dir/vcs",
+        "cache-files-ttl": 15552000,
+        "cache-files-maxsize": "300MiB",
+        "notify-on-install": true,
+        "discard-changes": false
+    },
+    "prefer-stable": true,
+}
