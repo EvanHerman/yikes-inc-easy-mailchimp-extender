@@ -2,7 +2,7 @@
 /**
  * YIKES Inc. MailChimp Template: Header Optin - Sub Header Bar
  * YIKES Inc. MailChimp Template Author: YIKES Inc.
- * YIKES Inc. MailChimp Template Description: YIKES Inc Bundled Template. Large optin template with a nice singapore city skyline. Great for use in site headers or for large call out areas.
+ * YIKES Inc. MailChimp Template Description: YIKES Inc Bundled Template. Wide optin call out, best placed just below the header.
  * 																	  
  */
  

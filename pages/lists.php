@@ -615,7 +615,7 @@
 				
 				var selected_form = selected_form.substring(selected_form.lastIndexOf("/"));
 								
-				var selected_form_screenshot = selected_form.replace( '/' , '' ).replace( '.php' , '.jpg');
+				var selected_form_screenshot = selected_form.replace( '/' , '' ).replace( '.php' , '.jpg');	
 								
 				var selected_form_text = jQuery(this).parents( '#custom-template-list' ).find( '.template-selection-dropdown option:selected' ).text();	
 				

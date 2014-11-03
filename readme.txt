@@ -363,6 +363,104 @@ This example will catch the user submitted data, *of all forms*, store the users
 <br />
 
 **Filter Name:**
+`yikes_mc_user_already_subscribed`
+
+**Accepted Parameters:** 
+`$errorMessage` , `$update_user_link` and `$email`
+
+**Parameter Info:**	
+
+`$errorMessage` = the error message returned by the MailChimp API. By Default : "email@domain.com is already subscribed to the list."
+
+`$update_user_link` = the link that will re-submit the form to update the current users info. Default link text : "Update My Info"
+
+`$email` = the email address provided in the Email field
+
+**Description:**
+Used to display a custom error message back to the user, when a user attempts to subscribe to a list they already exist on.
+
+**Example:**
+The following example will alter the error returned from the MailChimp API. Useful when you would like to provide a more custom error message. The 'Update' link will re-submit the form using the 'update_existing' parameter to update the current users profile.
+
+`
+<?php
+	/**
+	* This example will return a custom error message to the user when they attempt to subscribe to 
+	* a list they already exist on. The following will show something similar "Sorry, John@johnsmith.com is already subscribed to this list. Please Update My Information."
+	*/
+	function custom_user_already_subscribed_error( $errorMessage , $update_user_link , $email ) {
+		$errorMessage = 'Sorry, ' . $email . ' is already subscribed to this list.';
+		$errorMessage .= str_replace( 'Update My Info.' , 'Please Update My Information' , $update_user_link );
+		return $errorMessage;
+	}
+	add_filter( 'yikes_mc_user_already_subscribed' , 'custom_user_already_subscribed_error' , 10 , 3 );
+?>
+`
+<br />
+
+**Filter Name:**
+`yikes_mc_subscriber_update_message`
+
+**Accepted Parameters:** 
+`$success_message`
+
+**Parameter Info:**	
+
+`$success_message` = the success message to be displayed to the user, defaults to "Thanks, your information has been successfuly updated."
+
+**Description:**
+Used to alter the success message returned when a user updates their account information for a given list
+
+**Example:**
+The following example will alter success message displayed back to the user after they have updated their account information for a given list. Defualts to : "Thanks, your information has been successfuly updated."
+
+`
+<?php
+	/**
+	* The following example will alter the success message when a user re-submits 
+	* the form data to update their information for a given form
+	*/
+	function custom_resubmit_info_message( $success_message ) {
+		$success_message = "Thanks for updating your info! You're so awesome!";
+		return $success_message;
+	}
+	add_filter( 'yikes_mc_subscriber_update_message' , 'custom_resubmit_info_message' , 10 );
+?>
+`
+<br />
+
+**Filter Name:**
+`yks_redirect_add_post_types`
+
+**Accepted Parameters:** 
+`$post_array `
+
+**Parameter Info:**	
+
+`$post_array` = an array of post type names that you would like to be included into the drop down as a redirect option on the manage list page
+
+**Description:**
+Use this filter to add any number of custom post types to the redirect dropdown
+
+**Example:**
+The following example will add any and all posts with the custom post type 'portfolio' to the redirect dropdown 
+
+`
+<?php
+	/**
+	* This example will add the custom post type 'portfolio' to the
+    * redirect dropdown on the manage list forms page	
+	*/
+	function add_portfolio_post_type_to_yikes_redirect_dropdown( $post_array ) {
+		$post_array[] = 'portfolio';
+		return $post_array;
+	}
+	add_filter( 'yks_redirect_add_post_types' , 'add_portfolio_post_type_to_yikes_redirect_dropdown' );
+?>
+`
+<br />
+
+**Filter Name:**
 `yikes_mc_get_form_data_$formID`
 
 **Accepted Parameters:**  
@@ -462,29 +560,56 @@ These functions should be used in conjunction with the `yikes_mc_get_form_data` 
 3. YIKES Easy MailChimp Account Activity Overview
 4. YIKES Easy MailChimp Campaign Overview
 5. YIKES Easy MailChimp Campaign Statistics Reports
-6. Yikes Easy MailChimp Form Listing Page
+6. Yikes Easy MailChimp Redesigned Form Listing Page
 7. View all subscribers of a given list, click to reveal individual subscriber info
 8. Custom widget to easily add forms to sidebars and widgets
 9. Form rendered on the front end of the site
 10. Optional opt-in checkbox on the comment forms, easily add commenter's to your email list
 11. Custom tinyMCE button allows you to easily add imported forms to pages and posts at the click of a button
 12. About YIKES page
-13. *New* Admin Dashboard Widget - Account Activity ( With Live Updating )
+13. Admin Dashboard Widget - Account Activity ( With Live Updating )
+13. *New* Form customizer, with simple UI including color pickers
 
 == Changelog ==
 
-= 5.1 - TBD, 2014=
+= 5.1 - November 3, 2014 =
 
 **Updates**
 
+* Release v5.1
+* Added brand new templating framework, to allow users to create custom form templates for use with any MailChimp List
 * Re-style Manage List page
 * Added missing label to radio buttons inside the form
 * Added missing closing parentheses on subscriber count inside view subscribers page
-* Added custom color picker to easily stylize forms without coding
-* Added ability to specify a custom class names for each field of the form ( easily add custom class names to mailchimp form fields for further customization )
+* Added custom color picker to easily stylize forms without writing a single line of code
+* Added ability to specify a custom class names for each field of the form ( easily add custom class names to MailChimp form fields for further customization )
 * Only run API Key check when a new key is entered ( not on each page load )
 * Added new Welcome page with features+update notifications for users
-* Security vulnerability patched - props @g0blinResearch for pointing out and privately disclosing the issue
+* Security vulnerability re-patched - props @g0blinResearch for privately disclosing the potential vulnerability
+* Added `yks_redirect_add_post_types` filter, to allow custom post types to be added to the redirect drop down (view [docs](https://wordpress.org/plugins/yikes-inc-easy-mailchimp-extender/other_notes/) for example)
+* Added `yikes_mc_user_already_subscribed` filter to allow users to alter the message displayed to the user when they are already subscribed to a given list (view [docs](https://wordpress.org/plugins/yikes-inc-easy-mailchimp-extender/other_notes/) for example)
+* Added `yikes_mc_subscriber_update_message` filter, to alter the success message when a user updates their account information for a given list (view [docs](https://wordpress.org/plugins/yikes-inc-easy-mailchimp-extender/other_notes/) for example)
+* Added a new link to allow users to update profile information if previously subscribed to a given list
+* Added 5 bundled templates, and 2 boilerplate files for users to use as a starting point for new templates
+
+= 5.0.9 - October 3rd, 2014 =
+
+**Fixes**
+
+* Added autocomplete="false" to API input field
+* Added event listener to form submission (forms can now be placed in modals/slideout menus)
+
+= 5.0.8 - September 23, 2014 =
+
+**Fixes**
+
+* Band-aid fix for the -1 response returned from ajax.php
+
+= 5.0.7 - September 19, 2014 =
+
+**Fixes**
+
+* Security Vulnerability patched - props @g0blinResearch for privately disclosing the issue
 
 = 5.0.6 - August 22, 2014 =
 
@@ -662,18 +787,28 @@ These functions should be used in conjunction with the `yikes_mc_get_form_data` 
 
 == Upgrade Notice ==
 
-= 5.1 - TBD, 2014=
+= 5.1 - November 3, 2014 =
 
-**Updates**
+We have added brand new functionality, allowing users to easily customize forms on the fly, through a familiar UI as well as a templating framework to allow users to design and implement their own custom forms. A minor security bug was patched in this release as well. We fixed an issue with the API key check running on each page load, and added a few new filters to allow users to alter text (please view the [docs](https://wordpress.org/plugins/yikes-inc-easy-mailchimp-extender/other_notes/) for example)
 
-* Re-style Manage List page
-* Added missing label to radio buttons inside the form
-* Added missing closing parentheses on subscriber count inside view subscribers page
-* Added custom color picker to easily stylize forms without coding
-* Added ability to specify a custom class names for each field of the form ( easily add custom class names to mailchimp form fields for further customization )
-* Only run API Key check when a new key is entered ( not on each page load )
-* Added new Welcome page with features+update notifications for users
-* Security vulnerability patched - props @g0blinResearch for pointing out and privately disclosing the issue
+= 5.0.9 - October 3rd, 2014 =
+
+**Fixes**
+
+* Added autocomplete="false" to API input field
+* Added event listener to form submission (forms can now be placed in modals/slideout menus)
+
+= 5.0.8 - September 23, 2014 =
+
+**Fixes**
+
+* Band-aid fix for the -1 response returned from ajax.php
+
+= 5.0.7 - September 19, 2014 =
+
+**Fixes**
+
+* Security Vulnerability patched - props @g0blinResearch for privately disclosing the issue
 
 = 5.0.6 - August 22, 2014 =
 

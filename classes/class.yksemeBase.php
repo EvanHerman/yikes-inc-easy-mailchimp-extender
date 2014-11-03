@@ -96,6 +96,9 @@ public function initialize()
 	// before being sent off to MailChimp
 	add_filter( 'yikes_mc_get_form_data', array( &$this , 'yikes_mc_get_form_data_filter' ) , 10 );
 	
+	// Custom Filter To Alter User Already Subscribed Message
+	add_filter( 'yikes_mc_user_already_subscribed', array( &$this , 'yikes_mc_user_already_subscribed_error_message_filter' ) , 10 , 3 );
+	
 	
 	// tinymce buttons
 	// only add filters and actions on wp 3.9 and above
@@ -150,6 +153,11 @@ public function createShortcodes()
 /** Custom Filter To Alter User Submitted Data **/
 public function yikes_mc_get_form_data_filter( $mv ) {
 	return $mv;
+}
+
+/** Custom Filter To Alter User Already Subscribed Error Message **/
+public function yikes_mc_user_already_subscribed_error_message_filter( $errorMessage , $update_user_link , $email ) {
+	return $errorMessage;
 }
 
 // Create and store our initial plugin options	
@@ -2382,7 +2390,7 @@ public function getCampaignUnsubscribeData()
  
 // Make a call to MailChimp API to add a new subscriber to a specified list
 // Runs when a user fills out the form on the frontend of the site 
-public function addUserToMailchimp($p)
+public function addUserToMailchimp($p,$update_existing)
 	{
 	if(!empty($p['form_data']))
 		{
@@ -2541,7 +2549,8 @@ public function addUserToMailchimp($p)
 									  'id'              => $lid, // form id
 									  'email'             => array( 'email' => $email ), // user email
 									  'merge_vars'        => $form_data, // merge variables (ie: fields and interest groups)
-									  'double_optin'	=> $optin // double optin value (retreived from the settings page)
+									  'double_optin'	=> $optin, // double optin value (retreived from the settings page)
+									  'update_existing' => $update_existing
 								));
 								return "done";
 							} catch( Exception $e ) { // catch any errors returned from MailChimp
@@ -2660,69 +2669,31 @@ public function addUserToMailchimp($p)
 							  'id'              => $lid, // form id
 							  'email'             => array( 'email' => $email ), // user email
 							  'merge_vars'        => $form_data, // merge variables (ie: fields and interest groups)
-							  'double_optin'	=> $optin // double optin value (retreived from the settings page)
+							  'double_optin'	=> $optin, // double optin value (retreived from the settings page)
+							  'send_welcome' => true,
+							  'update_existing' => $update_existing
 						));
 						return "done";
 					} catch( Exception $e ) { // catch any errors returned from MailChimp
 						$errorCode = $e->getCode();
-						if ( $errorCode = '214' ) {
-							$errorMessage = str_replace('Click here to update your profile.', '', $e->getMessage());
-							$error_catch = explode('to list', $errorMessage);
-							echo $error_catch[0].'.';
-							die();
-						} else { 
-							echo '<strong>'.$e->getMessage().'</strong>';
-							die();
-						}
+								if ( $errorCode = '214' ) {
+									$update_user_link = '<br /> <a href="#" onclick="return false;" class="button-secondary update-user-info">Update My Info.</a>';
+									$errorMessage = $e->getMessage() . $update_user_link;
+									return apply_filters( 'yikes_mc_user_already_subscribed' , $errorMessage , $update_user_link , $email );
+									die();
+								} else { 
+									echo '<strong>'.$e->getMessage().'</strong>';
+									die();
+								}
 					}
 				}
-				/*
-				// Create and store our variables for the redirection
-				$form_id = explode('-', $field['id']); // get the form ID
-				$redirect_value = (isset($field['yks_mailchimp_redirect_'.$form_id[1]]) ? $field['yks_mailchimp_redirect_'.$form_id[1]] : ''); // get the redirect value from the lists page redirect checkbox
-				$redirect_page = (isset($field['page_id_'.$form_id[1]]) ? $field['page_id_'.$form_id[1]] : '') ; // get the redirect page that was set in the pages dropdown on the lists page
-				$site_url = "http://".$_SERVER['HTTP_HOST'].$_SERVER['REQUEST_URI']; // grab and store the current sites URL
-				$redirect_url = get_permalink($redirect_page); // get the permalink of the page we are going to redirect too
-					// if redirection was set up for this form, print out our javascript to complete the redirect
-					if ($redirect_value == 1) { // only redirect if successful form submission <-----
-						wp_redirect( home_url() ); exit;
-					}
-				*/
+
 			}
+		} else {
+			return __('One or more fields are empty','yikes-inc-easy-mailchimp-extender'); // return an error if your leaving any necessary fields empty
 		}
-	return __('One or more fields are empty','yikes-inc-easy-mailchimp-extender'); // return an error if your leaving any necessary fields empty
 	}
 	
-	
-// get our merge variables associated with a sepcific list	
-// may not need any more
-// maybe remove
-/*
-private function getFieldMergeVar($fn, $lid)
-	{
-	$mk	= '_YKS_UNKNOWN';
-	switch($fn)
-		{
-		case 'yks-mailchimp-field-name-first':
-		case 'yks-mailchimp-field-name-last':
-		case 'yks-mailchimp-field-email':
-		case 'yks-mailchimp-field-address':
-			foreach($this->optionVal['lists'] as $lud => $list)
-				{
-				if($list['list-id'] == $lid)
-					{
-					foreach($this->optionVal['lists'][$lud]['fields'] as $fud => $field)
-						{
-						if($field['name'] == $fn)
-							$mk = $field['merge'];
-						}
-					}
-				}
-			break;
-		}
-	return $mk;
-	}
-*/
 	
 // Generate the lists containers on the lists page
 // This function gets any imported lists, and builds up the lists page	
@@ -2873,7 +2844,8 @@ public function generateListContainers($listArr=false)
 																						// set up variables for the queries
 																						 global $post;
 																						 global $page;
-																						 $args_posts = array( 'numberposts' => -1);
+																						 $post_types = apply_filters( 'yks_redirect_add_post_types' , array( 'post' ) , 10  );
+																						 $args_posts = array( 'post_type' => $post_types , 'numberposts' => -1);
 																						 $args_pages = array(
 																							'sort_order' => 'ASC',
 																							'sort_column' => 'post_title',
@@ -2993,7 +2965,10 @@ public function generateListContainers($listArr=false)
 																		// build our custom template dropdown
 																		$this->buildCustomTemplateDropdown($list); 
 																	?>
-																</span>												
+																</span>
+															</li>
+															<li style="list-style:none;">
+																<span class="description"><?php _e( 'note : some light css styling may be necessary to fit in with your theme.' , 'yikes-inc-easy-mailchimp-extender' ); ?></span>	
 															</li>
 															
 														</span>														
@@ -3897,6 +3872,7 @@ private function runUpdateTasks_1_2_0()
 	// generate a thickbox container
 	// to display our new merge variable
 	// buttons
+	// To Do : version 5.2
 	function generateNewMergeVariableContainer() {
 		?>
 			<div id="newMergeVariableContainer" style="display:none;">
@@ -3937,22 +3913,22 @@ private function runUpdateTasks_1_2_0()
 		?>
 			<div id="user_template_how_to" style="display:none;">
 				<a href="http://www.yikesinc.com" title="YIKES, Inc." target="_blank"><img style="float:left;margin-bottom:0;width:75px;" src="<?php echo YKSEME_URL; ?>/images/yikes_logo.png" alt="YIKES, Inc." id="yksme-yikes-logo" /></a>
-				 <h4 class="user_template_how_to_title">Custom User Template Files</h4>
+				 <h4 class="user_template_how_to_title"><?php _e( 'Custom User Template Files'  , 'yikes-inc-easy-mailchimp-extender' ); ?></h4>
 				 
-				 <p style="margin-top: 2.5em;" >With the latest version of YIKES Inc. Easy MailChimp Extender you can now extend the plugin beyond what it can do out of the box. Now you can create your own MailChimp sign up template files and use them with any list , anywhere on your site. We have provided you with a few bundled templates, as well as two boilerplate template files for easy customization.</p>
+				 <p style="margin-top: 2.5em;" ><?php _e( 'With the latest version of YIKES Inc. Easy MailChimp Extender you can now extend the plugin beyond what it can do out of the box. Now you can create your own MailChimp sign up template files and use them with any list , anywhere on your site. We have provided you with a few bundled templates, as well as two boilerplate template files for easy customization.' , 'yikes-inc-easy-mailchimp-extender' ); ?></p>
 				 
-				 <p>You can create your own templates in two ways.</p>
+				 <p><?php _e( 'You can create your own templates in two ways.' , 'yikes-inc-easy-mailchimp-extender' ); ?></p>
 				 <hr />
 				 <ul>
-					<li><h4>Automatic Method :</h4><p>The easiest way is to import the template files from the plugin automatically. You can do this by clicking on the "import boilerplate files" button. This will copy over the necessary files right into your theme. From there you can start editing the template files found in your theme root inside of the newly created 'yikes-inc-easy-mailchimp-extender' directory.</p></li>
-					<a href="#" onclick="return false;" class="button-secondary import_template_boilerplates" style="width:148px;display:block;margin:0 auto;">import boilerplate files</a>
+					<li><h4><?php _e( 'Automatic Method :'  , 'yikes-inc-easy-mailchimp-extender' ); ?></h4><p><?php _e( "The easiest way is to import the template files from the plugin automatically. You can do this by clicking on the 'import boilerplate files' button. This will copy over the necessary files right into your theme. From there you can start editing the template files found in your theme root inside of the newly created 'yikes-inc-easy-mailchimp-extender' directory." , "yikes-inc-easy-mailchimp-extender" ); ?></p></li>
+					<a href="#" onclick="return false;" class="button-secondary import_template_boilerplates" style="width:148px;display:block;margin:0 auto;"><?php _e( "import boilerplate files" , "yikes-inc-easy-mailchimp-extender" ); ?></a>
 					<hr />
-					<li><h4>Manual Method :</h4><p>If the automatic method doesn't work for you, you can manually copy over the necessary files.</p> <p>Copy the following directory :<br /> <em class="yks-mc-file-path"><?php echo plugin_dir_url( __FILE__ ) . '/yikes-inc-easy-mailchimp-extender/templates/yikes-mailchimp-user-templates'; ?></em> <br /> into your theme root, found at <br /> <em class="yks-mc-file-path"><?php echo get_stylesheet_directory_uri(); ?></em></p></li>
+					<li><h4><?php _e( 'Manual Method' , 'yikes-inc-easy-mailchimp-extender' ); ?> :</h4><p><?php _e( "If the automatic method doesn't work for you, you can manually copy over the necessary files." , 'yikes-inc-easy-mailchimp-extender' ); ?></p> <p><?php _e( "Copy the following directory" , "yikes-inc-easy-mailchimp-extender" ); ?> :<br /> <em class="yks-mc-file-path"><?php echo YKSEME_PATH . 'templates/yikes-mailchimp-user-templates'; ?></em> <br /><?php _e( " into your theme root, found at " , "yikes-inc-easy-mailchimp-extender" ); ?><br /> <em class="yks-mc-file-path"><?php echo get_stylesheet_directory_uri(); ?></em></p></li>
 					<hr />
-					<li><h5>Notes</h5></li>
+					<li><h5><?php _e( "Notes" , "yikes-inc-easy-mailchimp-extender" ); ?></h5></li>
 						<ul>
-							<li><p>You can also copy over any of the deafult bundled themes into the 'yikes-mailchimp-user-templates' directory to customize the look and feel of a default bundled template file.</p></li>
-							<li><p>If you are having any difficulties copying over the template files, or need help using them please open a support ticket on our <a href="https://github.com/yikesinc/yikes-inc-easy-mailchimp-extender/issues" target="_blank">github issue tracker</a>.</p></li>
+							<li><p><?php _e( "You can also copy over any of the default bundled themes into the 'yikes-mailchimp-user-templates' directory to customize the look and feel of a default bundled template file." , "yikes-inc-easy-mailchimp-extender" ); ?></p></li>
+							<li><p><?php _e( "If you are having any difficulties copying over the template files, or need help using them please open a support ticket on our" , "yikes-inc-easy-mailchimp-extender" ); ?> <a href="https://github.com/yikesinc/yikes-inc-easy-mailchimp-extender/issues" target="_blank"><?php _e( "github issue tracker" , "yikes-inc-easy-mailchimp-extender" ); ?></a>.</p></li>
 						</ul>
 			</div>
 		<?php
@@ -4025,10 +4001,10 @@ private function runUpdateTasks_1_2_0()
 			<span class="selected_template_preview_header">
 				<h3 class="template_name"><?php echo $template_name; ?></h3>
 				
-				<p class="template_author"><strong>Author :</strong> <em> <?php echo $template_file_data[1]; ?></em></p>
+				<p class="template_author"><strong><?php _e( "Author " , "yikes-inc-easy-mailchimp-extender" ); ?> :</strong> <em> <?php echo $template_file_data[1]; ?></em></p>
 			</span>
 			
-			<p><strong>Description :</strong> <?php echo $template_file_data[2]; ?></p>
+			<p><strong><?php _e( "Description" , "yikes-inc-easy-mailchimp-extender" ); ?> :</strong> <?php echo $template_file_data[2]; ?></p>
 			
 			<hr />
 			
@@ -4300,7 +4276,7 @@ private function runUpdateTasks_4_3()
 									'LNAME'	=>	$commenter_last_name
 								   ), 
 								  'double_optin'	=> $optin, // double optin value (retreived from the settings page)
-								  'update_existing' => true // used to avoid the error thrown when user is already subscribed
+								  'send_welcome' => true
 							));
 							return "done";
 						} catch( Exception $e ) { // catch any errors returned from MailChimp
