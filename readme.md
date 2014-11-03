@@ -370,22 +370,22 @@ _This example will catch the user submitted data and change the FNAME merge vari
 Used to display a custom error message back to the user, when a user attempts to subscribe to a list they already exist on.
 
 ##### _Example_: 
-The following example will alter the error returned from the MailChimp API. Useful when you would like to provide a more custom error message. The 'Update' link will re-submit the form using the 'update_existing' parameter to update the current users profile.
+_The following example will alter the error returned from the MailChimp API. Useful when you would like to provide a more custom error message. The 'Update' link will re-submit the form using the 'update_existing' parameter to update the current users profile.
 
-`
-<?php
-	/**
-	* This example will return a custom error message to the user when they attempt to subscribe to 
-	* a list they already exist on. The following will show something similar "Sorry, John@johnsmith.com is already subscribed to this list. Please Update My Information."
-	*/
-	function custom_user_already_subscribed_error( $errorMessage , $update_user_link , $email ) {
-		$errorMessage = 'Sorry, ' . $email . ' is already subscribed to this list.';
-		$errorMessage .= str_replace( 'Update My Info.' , 'Please Update My Information' , $update_user_link );
-		return $errorMessage;
-	}
-	add_filter( 'yikes_mc_user_already_subscribed' , 'custom_user_already_subscribed_error' , 10 , 3 );
-?>
-`
+	`
+	<?php
+		/**
+		* This example will return a custom error message to the user when they attempt to subscribe to 
+		* a list they already exist on. The following will show something similar "Sorry, John@johnsmith.com is already subscribed to this list. Please Update My Information."
+		*/
+		function custom_user_already_subscribed_error( $errorMessage , $update_user_link , $email ) {
+			$errorMessage = 'Sorry, ' . $email . ' is already subscribed to this list.';
+			$errorMessage .= str_replace( 'Update My Info.' , 'Please Update My Information' , $update_user_link );
+			return $errorMessage;
+		}
+		add_filter( 'yikes_mc_user_already_subscribed' , 'custom_user_already_subscribed_error' , 10 , 3 );
+	?>
+	`
 <br />
 
 ##### Filter Name :
@@ -403,19 +403,19 @@ Used to alter the success message returned when a user updates their account inf
 ##### _Example_: 
 The following example will alter success message displayed back to the user after they have updated their account information for a given list. Defualts to : "Thanks, your information has been successfuly updated."
 
-`
-<?php
-	/**
-	* The following example will alter the success message when a user re-submits 
-	* the form data to update their information for a given form
-	*/
-	function custom_resubmit_info_message( $success_message ) {
-		$success_message = "Thanks for updating your info! You're so awesome!";
-		return $success_message;
-	}
-	add_filter( 'yikes_mc_subscriber_update_message' , 'custom_resubmit_info_message' , 10 );
-?>
-`
+	`
+	<?php
+		/**
+		* The following example will alter the success message when a user re-submits 
+		* the form data to update their information for a given form
+		*/
+		function custom_resubmit_info_message( $success_message ) {
+			$success_message = "Thanks for updating your info! You're so awesome!";
+			return $success_message;
+		}
+		add_filter( 'yikes_mc_subscriber_update_message' , 'custom_resubmit_info_message' , 10 );
+	?>
+	`
 <br />
 
 ##### Filter Name :
@@ -433,19 +433,19 @@ Use this filter to add any number of custom post types to the redirect dropdown
 ##### _Example_:
 The following example will add any and all posts with the custom post type 'portfolio' to the redirect dropdown 
 
-`
-<?php
-	/**
-	* This example will add the custom post type 'portfolio' to the
-    * redirect dropdown on the manage list forms page	
-	*/
-	function add_portfolio_post_type_to_yikes_redirect_dropdown( $post_array ) {
-		$post_array[] = 'portfolio';
-		return $post_array;
-	}
-	add_filter( 'yks_redirect_add_post_types' , 'add_portfolio_post_type_to_yikes_redirect_dropdown' );
-?>
-`
+	`
+	<?php
+		/**
+		* This example will add the custom post type 'portfolio' to the
+		* redirect dropdown on the manage list forms page	
+		*/
+		function add_portfolio_post_type_to_yikes_redirect_dropdown( $post_array ) {
+			$post_array[] = 'portfolio';
+			return $post_array;
+		}
+		add_filter( 'yks_redirect_add_post_types' , 'add_portfolio_post_type_to_yikes_redirect_dropdown' );
+	?>
+	`
 <br />
 
 ##### Filter Name :
