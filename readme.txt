@@ -3,8 +3,8 @@ Contributors: yikesinc, hiwhatsup, liljimmi, eherman24, seriouslysean
 Donate link: http://yikesinc.com
 Tags: mailchimp, marketing, email, mailing lists, newsletter, sign up, forms, sign up form
 Requires at least: 3.0
-Tested up to: 3.9.2
-Stable tag: 5.1
+Tested up to: 4.0
+Stable tag: 5.1.0.1
 License: GPLv2 or later
 
 Easy MailChimp Forms allows you to painlessly add MailChimp sign up forms to your WordPress site and track user activity with interactive reports.
@@ -560,7 +560,7 @@ These functions should be used in conjunction with the `yikes_mc_get_form_data` 
 3. YIKES Easy MailChimp Account Activity Overview
 4. YIKES Easy MailChimp Campaign Overview
 5. YIKES Easy MailChimp Campaign Statistics Reports
-6. Yikes Easy MailChimp Redesigned Form Listing Page
+6. *New* Yikes Easy MailChimp Redesigned Form Listing Page
 7. View all subscribers of a given list, click to reveal individual subscriber info
 8. Custom widget to easily add forms to sidebars and widgets
 9. Form rendered on the front end of the site
@@ -568,9 +568,19 @@ These functions should be used in conjunction with the `yikes_mc_get_form_data` 
 11. Custom tinyMCE button allows you to easily add imported forms to pages and posts at the click of a button
 12. About YIKES page
 13. Admin Dashboard Widget - Account Activity ( With Live Updating )
-13. *New* Form customizer, with simple UI including color pickers
+14. *New* Form customizer, with simple UI including color pickers
 
 == Changelog ==
+
+= 5.1.0.1 - November 4, 2014 =
+
+**Updates**
+
+* Remove update profile info link, replaced with user already subscribed error
+
+**Fixes**
+
+* Fix missing argument in getFrontendFormDisplay_field when using the table view
 
 = 5.1 - November 3, 2014 =
 
@@ -786,6 +796,11 @@ These functions should be used in conjunction with the `yikes_mc_get_form_data` 
 * Initial Release
 
 == Upgrade Notice ==
+
+= 5.1.0.1 - November 4, 2014 =
+
+Removed the update profile info link, some users brought up security concerns.
+Fixed missing argument when using table display formatting.
 
 = 5.1 - November 3, 2014 =
 

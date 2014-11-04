@@ -97,7 +97,7 @@ public function initialize()
 	add_filter( 'yikes_mc_get_form_data', array( &$this , 'yikes_mc_get_form_data_filter' ) , 10 );
 	
 	// Custom Filter To Alter User Already Subscribed Message
-	add_filter( 'yikes_mc_user_already_subscribed', array( &$this , 'yikes_mc_user_already_subscribed_error_message_filter' ) , 10 , 3 );
+	add_filter( 'yikes_mc_user_already_subscribed', array( &$this , 'yikes_mc_user_already_subscribed_error_message_filter' ) , 10 , 2 );
 	
 	
 	// tinymce buttons
@@ -156,7 +156,7 @@ public function yikes_mc_get_form_data_filter( $mv ) {
 }
 
 /** Custom Filter To Alter User Already Subscribed Error Message **/
-public function yikes_mc_user_already_subscribed_error_message_filter( $errorMessage , $update_user_link , $email ) {
+public function yikes_mc_user_already_subscribed_error_message_filter( $errorMessage , $email ) {
 	return $errorMessage;
 }
 
@@ -2677,9 +2677,8 @@ public function addUserToMailchimp($p,$update_existing)
 					} catch( Exception $e ) { // catch any errors returned from MailChimp
 						$errorCode = $e->getCode();
 								if ( $errorCode = '214' ) {
-									$update_user_link = '<br /> <a href="#" onclick="return false;" class="button-secondary update-user-info">Update My Info.</a>';
-									$errorMessage = $e->getMessage() . $update_user_link;
-									return apply_filters( 'yikes_mc_user_already_subscribed' , $errorMessage , $update_user_link , $email );
+									$errorMessage = $e->getMessage();
+									return apply_filters( 'yikes_mc_user_already_subscribed' , $errorMessage , $email );
 									die();
 								} else { 
 									echo '<strong>'.$e->getMessage().'</strong>';
@@ -2967,7 +2966,7 @@ public function generateListContainers($listArr=false)
 																	?>
 																</span>
 															</li>
-															<li style="list-style:none;">
+															<li style="list-style:none;margin-top:1em;">
 																<span class="description"><?php _e( 'note : some light css styling may be necessary to fit in with your theme.' , 'yikes-inc-easy-mailchimp-extender' ); ?></span>	
 															</li>
 															
@@ -3234,7 +3233,7 @@ public function getFrontendFormDisplay($list='', $submit_text)
 						<tr class="yks-mailchimpFormTableRow">
 							<td class="prompt yks-mailchimpFormTableRowLabel"><label class="prompt yks-mailchimpFormTableRowLabel<?php echo $reqlabel; ?>" for="<?php echo $field['id']; ?>"><?php echo $field['label']; ?><?php echo $reqindicator; ?></label>
 								<!-- run our function to generate the input fields for the form, passing in the field -->
-								<?php echo $this->getFrontendFormDisplay_field($field); ?>
+								<?php echo $this->getFrontendFormDisplay_field($field,$num); ?>
 							</td>
 						</tr>	
 						<?php 
@@ -3490,7 +3489,7 @@ public function getFrontendFormDisplay_placeholder_labels($list='', $submit_text
 						?>
 						<tr class="yks-mailchimpFormTableRow">
 								<!-- run our function to generate the input fields for the form, passing in the field -->
-								<?php echo $this->getFrontendFormDisplay_field($field); ?>
+								<?php echo $this->getFrontendFormDisplay_field($field,$num); ?>
 						</tr>	
 						<?php 
 							$num++;

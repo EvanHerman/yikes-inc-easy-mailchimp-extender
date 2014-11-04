@@ -390,7 +390,7 @@ jQuery(document).ready(function() {
 		<div class="update-nag">
 			<span class="yks-mc-icon-notice"><h3><?php _e( 'LocalHost Detected :', 'yikes-inc-easy-mailchimp-extender' ); ?></h3></span>
 			<p><?php _e( 'It looks like your using Easy MailChimp Forms by YIKES Inc. on localhost.', 'yikes-inc-easy-mailchimp-extender' ); ?></p>
-			<p><?php _e( 'If you are unable to validate your API key, and receive the error message' , 'yikes-inc-easy-mailchimp-extender' );  ?><em><?php _e('SSL certificate problem: unable to get local issuer certificate', 'yikes-inc-easy-mailchimp-extender' ); ?></em> <?php _e('follow the tutorial located ', 'yikes-inc-easy-mailchimp-extender' ); ?><a href="http://redwebturtle.blogspot.com/2013/09/mailchimp-api-v20-ssl-error-solution.html" target="_blank">here</a></p>
+			<p><?php _e( 'If you are unable to validate your API key, and receive the error message' , 'yikes-inc-easy-mailchimp-extender' );  ?><em> <?php _e('SSL certificate problem: unable to get local issuer certificate', 'yikes-inc-easy-mailchimp-extender' ); ?></em> <?php _e('follow the tutorial located ', 'yikes-inc-easy-mailchimp-extender' ); ?><a href="http://redwebturtle.blogspot.com/2013/09/mailchimp-api-v20-ssl-error-solution.html" target="_blank">here</a></p>
 		</div>
 	<?php } ?>	
 	

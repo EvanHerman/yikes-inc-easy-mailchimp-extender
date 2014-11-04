@@ -23,7 +23,7 @@
                                 {
 								var plugin_directory_url = '<?php echo plugin_dir_url( __FILE__ ); ?>';
 								 $('#yks-lists-dropdown').next().css('opacity',0);
-								 $('#yks-list-wrapper').css({ 'background' : 'url("'+plugin_directory_url+'../images/yks_mc_lets_get_started.png")', 'height' : '175px' , 'width' : '400px' , 'background-repeat' : 'no-repeat' , 'background-position' : 'center', 'margin-top' : '-4em' });
+								 $('#yks-list-wrapper').css({ 'background' : 'url("'+plugin_directory_url+'../images/yks_mc_lets_get_started.png")', 'height' : '175px' , 'width' : '400px' , 'background-repeat' : 'no-repeat' , 'background-position' : 'center', 'margin-top' : '-2em' });
 								}
                         }
                 function EnterListID (lid, name)

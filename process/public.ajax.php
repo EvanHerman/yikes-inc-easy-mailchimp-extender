@@ -19,17 +19,6 @@ if(!empty($_POST)
 					echo $action;
 				}
 			break;
-		
-		/* Resubmit form data - update previously subscribed user */
-		case 'frontend_resubmit_form_data':
-			$action	= $yksemeBase->addUserToMailchimp($_POST,$update_existing='true');
-			if($action == "done")
-				{
-					echo '1';
-				} else {
-					echo $action;
-				}
-			break;
 			
 		}
 	}
