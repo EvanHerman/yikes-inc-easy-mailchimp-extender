@@ -540,15 +540,26 @@ These functions should be used in conjunction with the `yikes_mc_get_form_data` 
 
 Changes
 ===========
-### 5.1 - TBD, 2014
+### 5.1.0.1 - November 4, 2014
+* Remove update profile info link, replaced with user already subscribed error
+* Fix missing argument in getFrontendFormDisplay_field when using the table view
+
+### 5.1 - November 3, 2014
+* Release v5.1
+* Added brand new templating framework, to allow users to create custom form templates for use with any MailChimp List
 * Re-style Manage List page
 * Added missing label to radio buttons inside the form
 * Added missing closing parentheses on subscriber count inside view subscribers page
-* Added custom color picker to easily stylize forms without coding
-* Added ability to specify a custom class names for each field of the form ( easily add custom class names to mailchimp form fields for further customization )
+* Added custom color picker to easily stylize forms without writing a single line of code
+* Added ability to specify a custom class names for each field of the form ( easily add custom class names to MailChimp form fields for further customization )
 * Only run API Key check when a new key is entered ( not on each page load )
 * Added new Welcome page with features+update notifications for users
-* Security vulnerability patched - props @g0blinResearch for pointing out and privately disclosing the issue
+* Security vulnerability re-patched - props @g0blinResearch for privately disclosing the potential vulnerability
+* Added `yks_redirect_add_post_types` filter, to allow custom post types to be added to the redirect drop down (view [docs](https://wordpress.org/plugins/yikes-inc-easy-mailchimp-extender/other_notes/) for example)
+* Added `yikes_mc_user_already_subscribed` filter to allow users to alter the message displayed to the user when they are already subscribed to a given list (view [docs](https://wordpress.org/plugins/yikes-inc-easy-mailchimp-extender/other_notes/) for example)
+* Added `yikes_mc_subscriber_update_message` filter, to alter the success message when a user updates their account information for a given list (view [docs](https://wordpress.org/plugins/yikes-inc-easy-mailchimp-extender/other_notes/) for example)
+* Added a new link to allow users to update profile information if previously subscribed to a given list
+* Added 5 bundled templates, and 2 boilerplate files for users to use as a starting point for new templates
 
 ### 5.0.6 - August 22, 2014
 * fix bug with nonce security check when using table 'Preferred Form Layout' setting
