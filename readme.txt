@@ -4,7 +4,7 @@ Donate link: http://yikesinc.com
 Tags: mailchimp, marketing, email, mailing lists, newsletter, sign up, forms, sign up form
 Requires at least: 3.0
 Tested up to: 4.0
-Stable tag: 5.1.0.1
+Stable tag: 5.1.1
 License: GPLv2 or later
 
 Easy MailChimp Forms allows you to painlessly add MailChimp sign up forms to your WordPress site and track user activity with interactive reports.
@@ -152,6 +152,9 @@ Finally, change the MailChimp template, author and description headers at the to
 
 **Step 4:**
 Once setup, you can assign the template to your form from the 'Manage List' page. Make sure to select the checkbox 'use custom form' and then in the drop down select your newly created template.
+
+= I'm trying to set up the opt-in commenting checkbox. When users opt-in and leave a comment, an error is thrown and I can't figure out why. What could be wrong? =
+For the optin commenter checkbox, you'll want to make sure that the form you have set to assign users to only has the email field set to required.
 
 == Developer Docs. ==
 
@@ -572,6 +575,11 @@ These functions should be used in conjunction with the `yikes_mc_get_form_data` 
 
 == Changelog ==
 
+= 5.1.1 - November 5, 2014 =
+
+* Fix: repair 'Opt In' default list drop down on options page
+* Fix: repair errors being thrown when a commenter is added to a list
+
 = 5.1.0.1 - November 4, 2014 =
 
 **Updates**
@@ -796,6 +804,10 @@ These functions should be used in conjunction with the `yikes_mc_get_form_data` 
 * Initial Release
 
 == Upgrade Notice ==
+
+= 5.1.1 - November 5, 2014 =
+Fix: repair 'Opt In' default list drop down on options page
+Fix: repair errors being thrown when a commenter is added to a list
 
 = 5.1.0.1 - November 4, 2014 =
 

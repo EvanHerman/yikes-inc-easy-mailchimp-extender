@@ -540,6 +540,10 @@ These functions should be used in conjunction with the `yikes_mc_get_form_data` 
 
 Changes
 ===========
+### 5.1.1 - November 5, 2014
+* Fix: repair 'Opt In' default list drop down on options page
+* Fix: repair errors being thrown when a commenter is added to a list
+
 ### 5.1.0.1 - November 4, 2014
 * Remove update profile info link, replaced with user already subscribed error
 * Fix missing argument in getFrontendFormDisplay_field when using the table view

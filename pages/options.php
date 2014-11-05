@@ -168,12 +168,6 @@ jQuery(document).ready(function ($) {
 									success: function(response) {
 										// if our response contains 'Everything's Chimpy' - everything's good to go
 										if(response.indexOf('Everything\'s Chimpy!') > -1) {
-												var yikes_mc_ajax_response = response;
-												jQuery('#ajax_list_replace').html(yikes_mc_ajax_response);
-												var yikes_mc_ajax_html_content = jQuery('#ajax_list_replace').html();
-												var replaced_text = yikes_mc_ajax_html_content.replace("Everything's Chimpy!", "");
-												var new_replaced_text = replaced_text.replace("You must provide a MailChimp API key", "<select><option value='refreshThePage'>Save Settings and Refresh The Page</option></select>");
-												jQuery('#ajax_list_replace').html(new_replaced_text);
 											jQuery('.mailChimp_api_key_preloader').fadeOut('fast', function() {
 												jQuery('#yks-mailchimp-api-key').parents('td').find('.mailChimp_api_key_validation_message').first().html('<img src="<?php echo plugins_url().'/yikes-inc-easy-mailchimp-extender/images/yikes-mc-checkmark.png'; ?>" alt=message > <?php _e('Valid API Key','yikes-inc-easy-mailchimp-extender'); ?>').css("color", "green").fadeIn();
 												jQuery('#submit').removeAttr('disabled');
@@ -529,9 +523,9 @@ jQuery(document).ready(function() {
 						<!-- get all lists from MailChimp -->
 						<?php 
 						if ( $api_key_option == 'invalid_api_key' ) {
-							echo '<div id="ajax_list_replace"><select><option>Please Enter a Valid API Key</option></select></div>';
+							echo '<div id="ajax_list_replace"><select disabled="disabled"><option>Please Enter a Valid API Key</option></select></div>';
 						} else {
-							echo '<div id="ajax_list_replace"><img class="mailChimp_api_key_preloader" src="'.admin_url("/images/wpspin_light.gif").'" alt="preloader" ></div>'; 
+							$this->getOptionsLists();
 						}
 						?>
 					</td>
@@ -540,7 +534,8 @@ jQuery(document).ready(function() {
 					<td></td>
 					<td class="yks-settings-description"> <!-- Description of optin checkbox default list-->
 						<?php _e('This is the default list users will be subscribed to when submitting a comment.','yikes-inc-easy-mailchimp-extender'); ?><br />
-						<em><?php _e('It is best to select a form where only the email , first name and/or last name are required or you may run into issues.','yikes-inc-easy-mailchimp-extender'); ?></em>
+						<em><?php _e('Note : Its best to select a form where only the email , first name and/or last name are required or you may run into issues.','yikes-inc-easy-mailchimp-extender'); ?></em><br />
+						<em><strong><?php _e('Required Merge Variable Names : E-Mail : EMAIL , First Name : FNAME , Last Name : LNAME , Name : NAME','yikes-inc-easy-mailchimp-extender'); ?></strong></em>
 					</td>
 				</tr>
 				<tr>

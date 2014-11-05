@@ -163,6 +163,7 @@ public function yikes_mc_user_already_subscribed_error_message_filter( $errorMes
 // Create and store our initial plugin options	
 public function getOptionValue()
 	{
+	$blog_title = get_bloginfo( 'name' );
 	$defaultVals	= array(
 									'version'	=> YKSEME_VERSION_CURRENT,
 									'api-key'	=> '',
@@ -173,8 +174,8 @@ public function getOptionValue()
 									'double-optin-message' => __('Thank You for subscribing! Check your email for the confirmation message.', 'yikes-inc-easy-mailchimp-extender'),
 									'interest-group-label'	=>	__('Select Your Area of Interest', 'yikes-inc-easy-mailchimp-extender'),
 									'optIn-checkbox'	=> 'hide',
-									'optIn-default-list' => array(),
-									'yks-mailchimp-optin-checkbox-text'	=> 'SIGN ME UP!',
+									'yks-mailchimp-optIn-default-list' => 'select_list',
+									'yks-mailchimp-optin-checkbox-text'	=> 'Add me to the ' . $blog_title . ' mailing list',
 									'recaptcha-setting' => '0',
 									'recaptcha-api-key' => '',
 									'recaptcha-private-api-key' => '',
@@ -1671,6 +1672,7 @@ public function generateWelcomePage()
 /***** FORM DATA
  ****************************************************************************************************/
 public function yks_resetPluginSettings() {
+	$blog_title = get_bloginfo( 'name' );
 	// reset the plugin settings back to defaults
 	$this->optionVal['api-key']	= '';
 	$this->optionVal['flavor']	= '1';
@@ -1680,8 +1682,8 @@ public function yks_resetPluginSettings() {
 	$this->optionVal['double-optin-message']	= __('Thank You for subscribing! Check your email for the confirmation message.', 'yikes-inc-easy-mailchimp-extender');
 	$this->optionVal['interest-group-label']	= '';
 	$this->optionVal['optIn-checkbox']	= 'hide';
-	$this->optionVal['yks-mailchimp-optIn-default-list']	= array();
-	$this->optionVal['yks-mailchimp-optin-checkbox-text']	= 'SIGN ME UP!';
+	$this->optionVal['yks-mailchimp-optIn-default-list']	= 'select_list';
+	$this->optionVal['yks-mailchimp-optin-checkbox-text']	= 'Add me to the ' . $blog_title . ' mailing list';
 	$this->optionVal['recaptcha-setting']	= '0';
 	$this->optionVal['recaptcha-api-key']	= '';
 	$this->optionVal['recaptcha-private-api-key']	= '';
@@ -1741,7 +1743,6 @@ public function validateAPIkeySettings()
 			try {
 				$resp = $api->call('helper/ping', array('apikey' => $decryped_api_key));
 				echo $resp['msg'];
-				$this->getOptionsLists();
 			} catch( Exception $e ) {
 				$errorMessage = str_replace('API call to helper/ping failed:', '', $e->getMessage());
 				echo $errorMessage;
@@ -4163,27 +4164,20 @@ function getTemplateFilePath($directory) {
  */
 private function runUpdateTasks_4_3()
 	{
-
 		if ( !isset( $this->optionVal['recaptcha-setting'] ) ) {
 			$this->optionVal['recaptcha-setting'] = '0';
 		}
-		
 		if ( !isset( $this->optionVal['recaptcha-api-key'] ) ) {
 			$this->optionVal['recaptcha-api-key'] = '';
 		}
-		
 		if ( !isset( $this->optionVal['recaptcha-private-api-key'] ) ) {
 			$this->optionVal['recaptcha-private-api-key'] = '';
 		}
-		
 		if ( !isset( $this->optionVal['recaptcha-style'] ) ) {
 			$this->optionVal['recaptcha-style'] = 'default';
 		}
-
 		$this->optionVal['version']	= '5.0.4';
-	
 		return true;
-	
 	}
 
 
@@ -4203,18 +4197,21 @@ private function runUpdateTasks_4_3()
 		}
 
 		function add_after_comment_form($arg) {
-			$custom_text = trim($this->optionVal['yks-mailchimp-optin-checkbox-text']);
-			if ( $custom_text == '' ) {
-				$custom_text = __("Sign Me Up For MAILCHIMP-REPLACE-THIS-TEXT's Newsletter", "gettext");
-			} else {
-				$custom_text = $custom_text;
-			}
 			
-			$arg['comment_notes_after'] = '<label for="yikes_mailchimp_comment_subscribe">
-					<input type="checkbox" name="mailchimp_subscribe" id="yikes_mailchimp_comment_subscribe" checked="checked" /> 
-					 '.$custom_text.'
-					</label>';
-			return $arg;	
+				$custom_text = trim($this->optionVal['yks-mailchimp-optin-checkbox-text']);
+				if ( $custom_text == '' ) {
+					$custom_text = __("Sign Me Up For MAILCHIMP-REPLACE-THIS-TEXT's Newsletter", "gettext");
+				} else {
+					$custom_text = $custom_text;
+				}
+				
+				// set the default checked state here...
+				$arg['comment_notes_after'] = '<label for="yikes_mailchimp_comment_subscribe">
+						<input type="checkbox" name="mailchimp_subscribe" id="yikes_mailchimp_comment_subscribe" checked="checked" /> 
+						 '.$custom_text.'
+						</label>';
+				return $arg;	
+			
 		}
 
 		// Replacing 'MAILCHIMP-REPLACE-THIS-TEXT' text with sitename
@@ -4272,7 +4269,8 @@ private function runUpdateTasks_4_3()
 									),
 								  'merge_vars'        => array( 
 									'FNAME'	=>	$commenter_first_name,
-									'LNAME'	=>	$commenter_last_name
+									'LNAME'	=>	$commenter_last_name,
+									'NAME' => $commenter_first_name
 								   ), 
 								  'double_optin'	=> $optin, // double optin value (retreived from the settings page)
 								  'send_welcome' => true
@@ -4312,7 +4310,10 @@ private function runUpdateTasks_4_3()
 				add_action('comment_approved_', array(&$this, 'ymc_subscription_add'), 60, 2);
 				add_action('comment_post', array(&$this, 'ymc_subscription_add'));
 				add_filter('gettext', array(&$this, 'yikes_mc_replace_this_text'));
-				add_filter('comment_form_defaults', array(&$this, 'add_after_comment_form'));
+				// only display the checkbox if the user is logged in, and the default list is set
+				if( is_user_logged_in() && isset( $this->optionVal['yks-mailchimp-optIn-default-list'] ) && $this->optionVal['yks-mailchimp-optIn-default-list'] != 'select_value' ) {
+					add_filter('comment_form_defaults', array(&$this, 'add_after_comment_form'));
+				}
 			}
 		}
 
@@ -5021,7 +5022,6 @@ private function runUpdateTasks_4_3()
 
 				?><img style="display:block;margin:0 auto;margin-top:2em;margin-bottom:1em;" class="mailChimp_get_subscribers_preloader" src="<?php echo admin_url().'/images/wpspin_light.gif'; ?>" alt="preloader" ><?php
 			} 
-			
 			
 		}
 	}
