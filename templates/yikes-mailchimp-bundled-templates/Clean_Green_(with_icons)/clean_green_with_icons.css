@@ -1,0 +1,297 @@
+/*
+	Template: yks_mc_form_template_1 ( Bundled Template #1 )
+	Description : This is the .css file associated with the above template. This file gets loaded when using the above 
+						template to display a custom opt-in form for YIKES Inc. Easy MailChimp Extender.
+	Author : YIKES Inc.
+	Author Contact : http://www.yikesinc.com
+*/
+
+.optin-form-icons-example input {
+  outline: none;
+  margin-bottom: .5em !important;
+  color: #00B200 !important;
+  width: 100% !important;
+}
+
+.optin-form-icons-example #wrapper {
+  width: 100%;
+  height: 100%;
+  margin: 0 auto;
+}
+
+.optin-form-icons-example .yks-mailchimpFormDivRowField {
+	padding: 0 !important;
+}
+
+.optin-form-icons-example > #box {
+  background-color: #fff;
+  margin: 0 auto;
+  -webkit-border-radius: 4px;
+  -o-border-radius: 4px;
+  -moz-border-radius: 4px;
+  border-radius: 3px;
+  padding: 25px 20px;
+}
+
+.optin-form-icons-example #top_header {
+  width: 100%;
+  margin: 0;
+}
+
+.optin-form-icons-example #top_header > h3 {
+  text-align: center;
+  font-family: 'Lato', sans-serif;
+  font-size: 25px;
+  font-weight: 800;
+  color: #00B200;
+  -webkit-text-stroke: 0.5px;
+  margin: 0;
+
+}
+
+.optin-form-icons-example #top_header > h5 {
+  text-align: center;
+  font-family: 'Roboto', sans-serif;
+  font-size: 15px;
+  font-weight: 300;
+  line-height: 1.6;
+  margin: 0;
+  padding: 15px 0;
+  color: #555;
+  -webkit-text-stroke: 0.2px;
+}
+
+.optin-form-icons-example input[type=text], .optin-form-icons-example input[type=password], .optin-form-icons-example input[type=submit] {
+  width: 300px;
+  height: 55px;
+  position: relative;
+  margin: 0 auto;
+  display: block;
+  margin-bottom: -10px;
+  padding: 15px;
+  box-sizing: border-box;
+  -webkit-text-stroke: 0.1px;
+}
+
+.optin-form-icons-example input[type=text], .optin-form-icons-example input[type=password] {
+  font-family: 'Lato', sans-serif;
+  font-weight: 300;
+  font-size:16px; 
+  border: thin solid #ccc;
+  border-radius: 5px;
+}
+
+.optin-form-icons-example input[type=text]:focus, .optin-form-icons-example input[type=password]:focus {
+  border: thin solid #00B200;
+  -webkit-transition: all .4s ease;
+  -moz-transition: all .4s ease;
+  -o-transition: all .4s ease;
+  transition: all .4s ease;
+}
+
+.optin-form-icons-example input[type=text]:focus, .optin-form-icons-example input[type=password]:focus {
+  border-left: thin solid #00B200;
+}
+
+
+.optin-form-icons-example .ykfmc-submit {
+  color: #333 !important;
+  background: transparent !important;
+  border: 1px solid #00B200 !important;
+  box-shadow: none !important;
+  border-radius: 5px !important;
+  font-family: 'Roboto', sans-serif !important;
+  font-weight: 300 !important;
+  font-size: 16px !important;
+  transition: all .3s ease !important;
+  margin-top: 0px !important;
+  cursor: pointer !important;
+}
+
+.optin-form-icons-example .ykfmc-submit:hover {
+  background-color: #00B200 !important;
+  color: #fff !important;
+}
+
+.optin-form-icons-example #bottom {
+  width: 300px;
+  margin: 0 auto;
+  margin-top: 15px;
+}
+
+.optin-form-icons-example a {
+  text-decoration: none;
+  color: #282828;
+  font-size: 13px;
+  font-family: 'Roboto', sans-serif;
+  font-weight: 300;
+  transition: color .3s ease;
+  outline: none;
+}
+
+.optin-form-icons-example a:hover {
+  color: #1eb056;
+}
+
+.optin-form-icons-example .right_a {
+  float: right;
+}
+
+.optin-form-icons-example .disclaimer {
+	text-align: center;
+	font-style: italic;
+	color: rgba(51, 51, 51, 0.56);
+}
+
+/* Center Label Names
+	-- Useful for the Address Field where each input field is used for a different field , 
+	   and we can't assign placeholders for each 
+*/
+.optin-form-icons-example .yks-mailchimp-form-tooltip {
+	text-align: center;
+}
+
+
+
+/* Icons 
+* based on input class names
+* using *= (class name contains...)
+
+	** NOTE **
+	The class selectors below are using the merge variable set up within MailChimp
+	You can view the associated merge field value inside of the Manage List Forms page
+	Once you have the merge field name, you can then assign icons very easily
+	
+	- rinse and repeat for each field you'd like to assign an icon too
+*/
+
+	/** 
+		Email Field 
+		- Merge field will always return EMAIL
+	**/
+	.optin-form-icons-example input[class*=EMAIL] {
+		background-image: url("./images/mail.png");
+		background-repeat: no-repeat;
+		background-position: left center;
+		background-position-x: 15px;
+		background-size: 20px;
+		padding-top: 18px !important;
+		padding-left: 45px !important;
+	}
+	
+	/** 
+		First Name/Last Name Field
+		- I set up my first name field to have the FNAME merge field name
+		- I set up my last name field to have the LNAME merge field name
+	**/
+	.optin-form-icons-example input[class*=FNAME], .optin-form-icons-example input[class*=LNAME], .optin-form-icons-example input[class*=NAME] {
+		background-image: url("./images/pen.png");
+		background-repeat: no-repeat;
+		background-position: left center;
+		background-position-x: 15px;
+		background-size: 20px;
+		padding-top: 18px !important;
+		padding-left: 45px !important;
+	}
+	
+	/** 
+		Date Field 
+		- I set up my date field to have the DDATE merge field name ( DATE is reserved by MailChimp )
+	**/
+	.optin-form-icons-example input[class*=DDATE] {
+		background-image: url("./images/calendar.png");
+		background-repeat: no-repeat;
+		background-position: left center;
+		background-position-x: 15px;
+		background-size: 20px;
+		padding-top: 18px !important;
+		padding-left: 45px !important;
+	}
+	
+	/** 
+		Address Field 
+		- I set up my address field to have the ADDR merge field name
+	**/
+	.optin-form-icons-example input[class*=ADDR] {
+		background-image: url("./images/home.png");
+		background-repeat: no-repeat;
+		background-position: left center;
+		background-position-x: 15px;
+		background-size: 20px;
+		padding-top: 18px !important;
+		padding-left: 45px !important;
+	}
+	
+	
+	
+	/*** 
+		Radio/Checkbox Button Styles 
+		- Uses sprite sheet for look and feel
+	***/	
+	.optin-form-icons-example input[type="checkbox"] {
+		display:none;
+	}
+	.optin-form-icons-example input[type="checkbox"] + span {
+		display:inline-block;
+		width:18px;
+		height:18px;
+		margin:-1px 4px 0 0;
+		vertical-align:middle;
+		background:url("./images/check_radio_sheet_green.png") left top no-repeat;
+		cursor:pointer;
+	}
+	.optin-form-icons-example input[type="checkbox"]:checked + span {
+		background:url("./images/check_radio_sheet_green.png") -19px top no-repeat;
+	}
+	
+	.optin-form-icons-example input[type="radio"] {
+		display:none;
+	}
+	.optin-form-icons-example input[type="radio"] + span {
+		display:inline-block;
+		width:18px;
+		height:18px;
+		margin:-1px 4px 0 0;
+		vertical-align:middle;
+		background:url("./images/check_radio_sheet_green.png") -39px top no-repeat;
+		cursor:pointer;
+	}
+	.optin-form-icons-example input[type="radio"]:checked + span {
+		background:url("./images/check_radio_sheet_green.png") -58px top no-repeat;
+	}
+	
+	
+	/***
+		Select Dropdown Styles
+	***/
+	.optin-form-icons-example select, .optin-form-icons-example select:active {
+	  cursor: pointer;
+	  background:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='50px' height='50px'><polyline points='46.139,15.518 25.166,36.49 4.193,15.519'/></svg>");
+	  background-color: transparent;
+	  background-repeat:no-repeat;
+	  background-position: right 10px top 15px;
+	  background-size: 16px 16px;
+	  color: #00B200;
+	  padding:12px;
+	  font-family:arial,tahoma;
+	  font-size:16px;
+	  font-weight:bold;
+	  color: #00B200;
+	  text-align:center;
+	  text-shadow:0 -1px 0 rgba(0, 0, 0, 0.25);
+	  border-radius:3px;
+	  -webkit-border-radius:3px;
+	  -webkit-appearance: none;
+	  -webkit-transition:0.3s ease all;
+		   -moz-transition:0.3s ease all;
+			-ms-transition:0.3s ease all;
+			 -o-transition:0.3s ease all;
+				transition:0.3s ease all;
+		border: thin solid #00B200;
+	}
+	
+		.optin-form-icons-example select:hover {
+			cursor: pointer;
+			background-color:#00B200;
+			color: #fff;
+		}

@@ -1,0 +1,219 @@
+/*
+	Template: yks_mc_form_template_1 ( Bundled Template #1 )
+	Description : This is the .css file associated with the above template. This file gets loaded when using the above 
+						template to display a custom opt-in form for YIKES Inc. Easy MailChimp Extender.
+	Author : YIKES Inc.
+	Author Contact : http://www.yikesinc.com
+*/
+
+
+.clean-blue input {
+  outline: none;
+  width: 100% !important;;
+}
+
+.clean-blue #wrapper {
+  width: 100%;
+  height: 100%;
+  margin: 0 auto;
+}
+
+.clean-blue .widget_yikes_mc_widget input, .clean-blue .widget_yikes_mc_widget .yks-mailchimpFormDivRowField {
+	padding: 0;
+}
+
+.clean-blue > #box {
+  background-color: #fff;
+  margin: 0 auto;
+  -webkit-border-radius: 4px;
+  -o-border-radius: 4px;
+  -moz-border-radius: 4px;
+  border-radius: 3px;
+  padding: 25px 20px;
+}
+
+.clean-blue #top_header {
+  width: 100%;
+  margin: 0;
+}
+
+.clean-blue #top_header > h3 {
+  text-align: center;
+  font-family: 'Lato', sans-serif;
+  font-size: 32px;
+  font-weight: 800;
+  color: #378DE5;
+  -webkit-text-stroke: 0.5px;
+  margin: 0;
+
+}
+
+.clean-blue #top_header > h5 {
+  text-align: center;
+  font-family: 'Roboto', sans-serif;
+  font-size: 15px;
+  font-weight: 300;
+  color: #378DE5;
+  line-height: 1.6;
+  margin: 0;
+  padding: 15px 0;
+  color: #555;
+  -webkit-text-stroke: 0.2px;
+}
+
+.clean-blue input[type=text], .clean-blue input[type=password], .clean-blue input[type=submit] {
+  width: 300px;
+  height: 55px;
+  position: relative;
+  margin: 0 auto;
+  display: block;
+  margin-bottom: -10px;
+  padding: 15px;
+  box-sizing: border-box;
+  -webkit-text-stroke: 0.1px;
+  margin-bottom: .5em;
+}
+
+.clean-blue input[type=text], .clean-blue input[type=password] {
+  font-family: 'Lato', sans-serif;
+  font-weight: 300;
+  font-size:16px; 
+  border: thin solid #ccc;
+  border-radius: 5px;
+  color: #378DE5;
+}
+
+.clean-blue input[type=text]:focus, .clean-blue input[type=password]:focus {
+  border: thin solid #378DE5;
+  -webkit-transition: all .4s ease;
+  -moz-transition: all .4s ease;
+  -o-transition: all .4s ease;
+  transition: all .4s ease;
+}
+
+.clean-blue input[type=text]:focus, .clean-blue input[type=password]:focus {
+  border-left: thin solid #378DE5;
+}
+
+
+.clean-blue .ykfmc-submit {
+  color: #378DE5 !important;
+  background: #fff !important;
+  border: 1px solid #378DE5 !important;
+  box-shadow: none !important;
+  border-radius: 5px !important;
+  font-family: 'Roboto', sans-serif !important;
+  font-weight: 300 !important;
+  font-size: 16px !important;
+  transition: all .3s ease !important;
+  margin-top: 0px !important;
+  cursor: pointer !important;
+}
+
+.clean-blue .ykfmc-submit:hover {
+  background: #378DE5 !important;
+  color: #fff !important;
+}
+
+.clean-blue #bottom {
+  width: 300px;
+  margin: 0 auto;
+  margin-top: 15px;
+}
+
+.clean-blue a {
+  text-decoration: none;
+  color: #282828;
+  font-size: 13px;
+  font-family: 'Roboto', sans-serif;
+  font-weight: 300;
+  transition: color .3s ease;
+  outline: none;
+}
+
+.clean-blue a:hover {
+  color: #1eb056;
+}
+
+.clean-blue .right_a {
+  float: right;
+}
+
+.clean-blue .disclaimer {
+	text-align: center;
+	font-style: italic;
+	color: rgba(51, 51, 51, 0.56);
+}
+
+
+
+/*** 
+	Radio/Checkbox Button Styles 
+	- Uses sprite sheet for look and feel
+***/	
+	.clean-blue input[type="checkbox"] {
+		display:none;
+	}
+	.clean-blue input[type="checkbox"] + span {
+		display:inline-block;
+		width:18px;
+		height:18px;
+		margin:-1px 4px 0 0;
+		vertical-align:middle;
+		background:url("./images/check_radio_sheet_blue.png") left top no-repeat;
+		cursor:pointer;
+	}
+	.clean-blue input[type="checkbox"]:checked + span {
+		background:url("./images/check_radio_sheet_blue.png") -19px top no-repeat;
+	}
+	
+	.clean-blue input[type="radio"] {
+		display:none;
+	}
+	.clean-blue input[type="radio"] + span {
+		display:inline-block;
+		width:18px;
+		height:18px;
+		margin:-1px 4px 0 0;
+		vertical-align:middle;
+		background:url("../images/check_radio_sheet_blue.png") -39px top no-repeat;
+		cursor:pointer;
+	}
+	.clean-blue input[type="radio"]:checked + span {
+		background:url("../images/check_radio_sheet_blue.png") -58px top no-repeat;
+	}
+	
+/***
+	Select Dropdown Styles
+***/
+	.clean-blue select, .clean-blue select:active {
+	  cursor: pointer;
+	  background:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='50px' height='50px'><polyline points='46.139,15.518 25.166,36.49 4.193,15.519'/></svg>");
+	  background-color: transparent !important;
+	  background-repeat:no-repeat;
+	  background-position: right 10px top 15px;
+	  background-size: 16px 16px;
+	  color: #3498DB;
+	  padding:12px;
+	  font-family:arial,tahoma;
+	  font-size:16px;
+	  font-weight:bold;
+	  color: #378DE5;
+	  text-align:center;
+	  text-shadow:0 -1px 0 rgba(0, 0, 0, 0.25);
+	  border-radius:3px;
+	  -webkit-border-radius:3px;
+	  -webkit-appearance: none;
+	  -webkit-transition:0.3s ease all;
+		   -moz-transition:0.3s ease all;
+			-ms-transition:0.3s ease all;
+			 -o-transition:0.3s ease all;
+				transition:0.3s ease all;
+		border: thin solid #378DE5;
+	}
+	
+		.clean-blue select:hover {
+			cursor: pointer;
+			background-color:#3498DB;
+			color: #fff;
+		}

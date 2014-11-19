@@ -1,254 +1,337 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: Yikes Inc. Easy MailChimp Plugin\n"
-"POT-Creation-Date: 2014-04-23 14:42-0500\n"
-"PO-Revision-Date: 2014-04-23 14:56-0500\n"
-"Last-Translator: Evan <evan.m.herman@gmail.com>\n"
+"POT-Creation-Date: 2014-07-22 13:16-0500\n"
+"PO-Revision-Date: 2014-07-22 13:16-0500\n"
+"Last-Translator: Evan <Evan@yikesinc.com>\n"
 "Language-Team: Yikes Inc. <evan@yikesinc.com>\n"
-"Language: zh_HK\n"
+"Language: en\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Poedit 1.6.4\n"
+"X-Generator: Poedit 1.6.6\n"
 "X-Poedit-Basepath: .\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "X-Poedit-KeywordsList: __;_e\n"
 "X-Poedit-SearchPath-0: ../.\n"
 
-#: .././classes/class.yksemeBase.php:114
-#: .././classes/class.yksemeBase.php:1287
+#: .././classes/class.yksemeBase.php:130
+#: .././classes/class.yksemeBase.php:1456
 msgid "Thank You for subscribing!"
 msgstr "感謝您的訂閱！"
 
-#: .././classes/class.yksemeBase.php:115
-#: .././classes/class.yksemeBase.php:1288
+#: .././classes/class.yksemeBase.php:131
+#: .././classes/class.yksemeBase.php:1457
 msgid ""
 "Thank You for subscribing! Check your email for the confirmation message."
 msgstr "感謝您的訂閱！檢查你的電子郵件的確認消息。"
 
-#: .././classes/class.yksemeBase.php:116
+#: .././classes/class.yksemeBase.php:132
 msgid "Select Your Area of Interest"
 msgstr "請選擇您感興趣的領域"
 
-#: .././classes/class.yksemeBase.php:917
-msgid "Click on a subscriber to see further information"
-msgstr "點擊一個用戶向他們發送一封電子郵件"
+#: .././classes/class.yksemeBase.php:824
+msgid "Create a Form For This List"
+msgstr "創建窗體對於此清單"
 
-#: .././classes/class.yksemeBase.php:920
+#: .././classes/class.yksemeBase.php:826
+msgid ""
+"Error - No Lists Found On Your Account. Please create at least one list on "
+"your MailChimp account."
+msgstr "錯誤 - 沒有找到名單上的帳戶。請您MailChimp的帳戶至少創建一個列表。"
+
+#: .././classes/class.yksemeBase.php:900
+msgid "All Lists"
+msgstr "您的列表"
+
+#: .././classes/class.yksemeBase.php:1046
+#: .././classes/class.yksemeBase.php:1072
+msgid " subscribers"
+msgstr "認購債券"
+
+#: .././classes/class.yksemeBase.php:1047
+msgid "Click on a subscriber to see further information"
+msgstr "點擊用戶查看更多信息"
+
+#: .././classes/class.yksemeBase.php:1052
+#: .././classes/class.yksemeBase.php:1696
+#: .././classes/class.yksemeBase.php:1880
+#: .././classes/class.yksemeBase.php:1983
+#: .././classes/class.yksemeBase.php:2085
 msgid "E-Mail"
 msgstr "電子郵件"
 
-#: .././classes/class.yksemeBase.php:921
+#: .././classes/class.yksemeBase.php:1053
 msgid "Date Subscribed"
 msgstr "訂閱日期"
 
-#: .././classes/class.yksemeBase.php:941
+#: .././classes/class.yksemeBase.php:1074
 msgid "Sorry You Don't Currently Have Any Subscribers In This List!"
 msgstr "對不起，您目前沒有任何訂戶在此列表！"
 
-#: .././classes/class.yksemeBase.php:998
+#: .././classes/class.yksemeBase.php:1131
 msgid "Back to Subscriber List"
-msgstr "用戶數"
+msgstr "返回用戶列表"
 
-#: .././classes/class.yksemeBase.php:999
+#: .././classes/class.yksemeBase.php:1132
 msgid "Subscriber Details"
 msgstr "訂戶資料"
 
-#: .././classes/class.yksemeBase.php:1010
+#: .././classes/class.yksemeBase.php:1143
+#: .././templates/mailChimp-campaign-report.php:335
 msgid "Overview"
 msgstr "概觀"
 
-#: .././classes/class.yksemeBase.php:1015
+#: .././classes/class.yksemeBase.php:1148
+#: .././classes/class.yksemeBase.php:1697
+#: .././classes/class.yksemeBase.php:1882
+#: .././classes/class.yksemeBase.php:1984
+#: .././classes/class.yksemeBase.php:2086
 msgid "First Name"
 msgstr "名稱"
 
-#: .././classes/class.yksemeBase.php:1018
+#: .././classes/class.yksemeBase.php:1151
 msgid "Last Updated"
 msgstr "最後更新"
 
-#: .././classes/class.yksemeBase.php:1021
+#: .././classes/class.yksemeBase.php:1154
 msgid "Preferred Email Type"
-msgstr "首選表單佈局"
+msgstr "首選的電子郵件類型"
 
-#: .././classes/class.yksemeBase.php:1028
+#: .././classes/class.yksemeBase.php:1161
+#: .././classes/class.yksemeBase.php:1698
+#: .././classes/class.yksemeBase.php:1883
+#: .././classes/class.yksemeBase.php:1985
+#: .././classes/class.yksemeBase.php:2087
 msgid "Last Name"
 msgstr "姓氏"
 
-#: .././classes/class.yksemeBase.php:1031
+#: .././classes/class.yksemeBase.php:1164
 msgid "Language"
 msgstr "語言"
 
-#: .././classes/class.yksemeBase.php:1054
+#: .././classes/class.yksemeBase.php:1191
 msgid "Groups Subscribed To"
-msgstr "訂閱日期"
+msgstr "組訂閱"
 
-#: .././classes/class.yksemeBase.php:1104
+#: .././classes/class.yksemeBase.php:1241
 msgid "Subscriber Notes"
 msgstr "認購債券"
 
-#: .././classes/class.yksemeBase.php:1109
+#: .././classes/class.yksemeBase.php:1246
 msgid "Written by"
 msgstr "撰稿"
 
-#: .././classes/class.yksemeBase.php:1109
+#: .././classes/class.yksemeBase.php:1246
 msgid "Created on"
 msgstr "創建於"
 
-#: .././classes/class.yksemeBase.php:1251
-#: .././classes/class.yksemeBase.php:1253
+#: .././classes/class.yksemeBase.php:1409
+#: .././classes/class.yksemeBase.php:1411
 msgid "MailChimp Forms"
 msgstr "MailChimp表格"
 
-#: .././classes/class.yksemeBase.php:1253
+#: .././classes/class.yksemeBase.php:1411
 msgid "MailChimp Settings"
 msgstr "MailChimp設置"
 
-#: .././classes/class.yksemeBase.php:1254
+#: .././classes/class.yksemeBase.php:1414 .././pages/myMailChimp.php:77
+msgid "My MailChimp"
+msgstr "MailChimp表格"
+
+#: .././classes/class.yksemeBase.php:1416
 msgid "Manage List Forms"
 msgstr "管理列表形式"
 
-#: .././classes/class.yksemeBase.php:1255 .././pages/about.php:5
+#: .././classes/class.yksemeBase.php:1417 .././pages/about.php:5
 msgid "About YIKES, Inc."
 msgstr "關於YIKES公司"
 
-#: .././classes/class.yksemeBase.php:1430
+#: .././classes/class.yksemeBase.php:1699
+#: .././classes/class.yksemeBase.php:1884
+#: .././classes/class.yksemeBase.php:1986
+#: .././classes/class.yksemeBase.php:2088
+msgid "Member Rating"
+msgstr "會員等級"
+
+#: .././classes/class.yksemeBase.php:1700
+msgid "Last Changed"
+msgstr "最後更新"
+
+#: .././classes/class.yksemeBase.php:1856
+#: .././templates/mailChimp-campaign-report.php:515
+msgid "Unique Opens"
+msgstr "獨特的開幕"
+
+#: .././classes/class.yksemeBase.php:1858
+#: .././templates/mailChimp-campaign-stats-template.php:369
+msgid "Total Opens"
+msgstr "總開幕"
+
+#: .././classes/class.yksemeBase.php:1881
+#: .././templates/mailChimp-campaign-click-geo-map.php:134
+msgid "Opens"
+msgstr "打開"
+
+#: .././classes/class.yksemeBase.php:1961
+msgid "Total Bounced Emails"
+msgstr "總計退回的電子郵件"
+
+#: .././classes/class.yksemeBase.php:2063
+msgid "Total Unsubscribes"
+msgstr "訂閱日期"
+
+#: .././classes/class.yksemeBase.php:2089
+msgid "Reason"
+msgstr "原因"
+
+#: .././classes/class.yksemeBase.php:2438
 msgid "One or more fields are empty"
 msgstr "一個或多個字段為空"
 
-#: .././classes/class.yksemeBase.php:1480
+#: .././classes/class.yksemeBase.php:2490
 msgid "Your List Was Successfully Saved!"
 msgstr "您的列表保存成功！"
 
-#: .././classes/class.yksemeBase.php:1482
+#: .././classes/class.yksemeBase.php:2493
+msgid "Your settings were not saved (or you did not change them)."
+msgstr "您的設置未保存（或者你沒有改變它們）。"
+
+#: .././classes/class.yksemeBase.php:2495
 msgid "I'm sorry there was an error with your request."
 msgstr "對不起，有您的請求錯誤。"
 
-#: .././classes/class.yksemeBase.php:1488
+#: .././classes/class.yksemeBase.php:2501
 msgid "MailChimp List name"
 msgstr "MailChimp列表名稱"
 
-#: .././classes/class.yksemeBase.php:1494
-#: .././classes/class.yksemeBase.php:1504
+#: .././classes/class.yksemeBase.php:2507
+#: .././classes/class.yksemeBase.php:2517
 #, php-format
 msgid "%1$s"
 msgstr ""
 
-#: .././classes/class.yksemeBase.php:1512
+#: .././classes/class.yksemeBase.php:2525
 msgid "MailChimp List ID"
 msgstr "MailChimp列表ID"
 
-#: .././classes/class.yksemeBase.php:1518
+#: .././classes/class.yksemeBase.php:2531
 msgid "Shortcode"
 msgstr "簡碼"
 
-#: .././classes/class.yksemeBase.php:1521
+#: .././classes/class.yksemeBase.php:2534
 msgid ""
 "Paste this shortcode into whatever page or post you want to add this form to"
 msgstr "這個短代碼粘貼到任何網頁或發布您想要這個窗體添加到"
 
-#: .././classes/class.yksemeBase.php:1526
+#: .././classes/class.yksemeBase.php:2539
 msgid "PHP Snippet"
 msgstr "PHP代碼段"
 
-#: .././classes/class.yksemeBase.php:1529
+#: .././classes/class.yksemeBase.php:2543
 msgid "Use this code to add this form to a template file"
 msgstr "使用此代碼這種形式添加到模板文件"
 
-#: .././classes/class.yksemeBase.php:1534
+#: .././classes/class.yksemeBase.php:2548
 msgid "Number of Subscribers"
 msgstr "用戶數"
 
-#: .././classes/class.yksemeBase.php:1543
+#: .././classes/class.yksemeBase.php:2557
 msgid "Form Fields"
 msgstr "表單域"
 
-#: .././classes/class.yksemeBase.php:1545
+#: .././classes/class.yksemeBase.php:2559
 msgid ""
 "Check the fields you want included in your form (Email Address is required)."
 msgstr "檢查要包括在你的表單中的字段（需要電子郵件地址）。"
 
-#: .././classes/class.yksemeBase.php:1548
+#: .././classes/class.yksemeBase.php:2562
 msgid ""
 "Use the green arrows to drag-and-drop the fields and rearrange their order."
 msgstr "使用綠色箭頭拖動和拖放等領域，並重新安排它們的順序。"
 
-#: .././classes/class.yksemeBase.php:1554
+#: .././classes/class.yksemeBase.php:2568
 msgid "Active Fields"
 msgstr "活躍的領域"
 
-#: .././classes/class.yksemeBase.php:1563
+#: .././classes/class.yksemeBase.php:2577
 msgid "Drag"
 msgstr "拖"
 
-#: .././classes/class.yksemeBase.php:1563
+#: .././classes/class.yksemeBase.php:2577
 msgid "drop"
 msgstr "降"
 
-#: .././classes/class.yksemeBase.php:1568
+#: .././classes/class.yksemeBase.php:2582
 msgid "Merge field"
 msgstr "合併域"
 
-#: .././classes/class.yksemeBase.php:1569
+#: .././classes/class.yksemeBase.php:2583
 msgid "Placeholder"
 msgstr "佔位符"
 
-#: .././classes/class.yksemeBase.php:1577
+#: .././classes/class.yksemeBase.php:2591
 msgid "Redirect User On Submission"
 msgstr "重定向用戶在提交"
 
-#: .././classes/class.yksemeBase.php:1581
+#: .././classes/class.yksemeBase.php:2595
 msgid "choose a page to redirect the user to after they submit the form."
-msgstr "選擇一個頁面或一組自定義URL將用戶重定向到後，他們提交表單"
+msgstr "選擇一個頁面將用戶重定向到後，他們提交表單。"
 
-#: .././classes/class.yksemeBase.php:1584
+#: .././classes/class.yksemeBase.php:2598
 msgid "Select A Post/Page"
-msgstr "選擇頁面"
+msgstr "選擇A文章/頁"
 
-#: .././classes/class.yksemeBase.php:1638
+#: .././classes/class.yksemeBase.php:2655
 msgid "Save Form Settings"
-msgstr "管理Mailchimp表格設置"
+msgstr "保存表單設定"
 
-#: .././classes/class.yksemeBase.php:1639
+#: .././classes/class.yksemeBase.php:2656
 msgid "Delete Form"
 msgstr "刪除表格"
 
-#: .././classes/class.yksemeBase.php:1640
+#: .././classes/class.yksemeBase.php:2657
 msgid "Re-Import Form Fields from MailChimp"
-msgstr "請MailChimp導入某些列表"
+msgstr "從MailChimp重新導入表單字段"
 
-#: .././classes/class.yksemeBase.php:2168
+#: .././classes/class.yksemeBase.php:2862
+#: .././classes/class.yksemeBase.php:2976
+msgid "reCAPTCHA API Key Error. Please double check your API Keys."
+msgstr "驗證碼的API密鑰錯誤。請仔細檢查您的API密鑰。"
+
+#: .././classes/class.yksemeBase.php:3252
 msgid "Sign Me Up For MAILCHIMP-REPLACE-THIS-TEXT's Newsletter"
 msgstr "向我對於MAILCHIMP-REPLACE-THIS-TEXT的時事通訊"
 
-#: .././pages/about.php:27
+#: .././pages/about.php:42
 msgid "YIKES, Inc. Web Design and Development"
 msgstr "YIKES，公司網站設計與開發"
 
-#: .././pages/about.php:29
+#: .././pages/about.php:44
 msgid "Smart, effective, beautifully designed web solutions"
 msgstr "聰明的，有效的，設計精美的網站解決方案"
 
-#: .././pages/about.php:32
+#: .././pages/about.php:47
 msgid ""
 "YIKES is located in the Fishtown neighborhood of Philadelphia where we build "
 "custom WordPress themes and plugins every day."
 msgstr "YIKES位於費城的Fishtown附近，我們構建自定義每天的WordPress主題和插件。"
 
-#: .././pages/about.php:36
+#: .././pages/about.php:51
 msgid ""
 "At YIKES we love WordPress! Co-Owner, Tracy Levesque has presented at "
 "WordCamps"
 msgstr "在YIKES我們愛WordPress的！共同擁有，特雷西Levesque的已發表在WordCamps"
 
-#: .././pages/about.php:36
+#: .././pages/about.php:51
 msgid "and"
 msgstr "和"
 
-#: .././pages/about.php:36
+#: .././pages/about.php:51
 msgid "She also teaches WordPress classes for"
 msgstr "她還教WordPress的類"
 
-#: .././pages/about.php:40
+#: .././pages/about.php:55
 msgid ""
 "In addition to making great WordPress sites we are also committed to the "
 "sustainable business movement. We observe the triple bottom line: people, "
@@ -259,156 +342,233 @@ msgstr ""
 "三重底線：人，地球，利潤和工作，幫助建立一個更加社會，環境和經濟可持續發展地"
 "方經濟。我們甚至有一個"
 
-#: .././pages/about.php:40
+#: .././pages/about.php:55
 msgid "LEED Platinum office"
 msgstr "LEED白金級寫字樓"
 
-#: .././pages/about.php:44
+#: .././pages/about.php:59
 msgid ""
 "If you're interested in hiring us for WordPress development, or just want to "
 "learn more about us, please visit"
 msgstr ""
 "如果您有興趣聘請我們為WordPress的開發，或者只是想更多地了解我們，請訪問"
 
-#: .././pages/lists.php:8
-msgid "No forms have been added yet."
-msgstr "任何形式已添加呢。"
-
-#: .././pages/lists.php:39
+#: .././pages/lists.php:56
 msgid "Oops.. The list ID you entered appears to be incorrect."
 msgstr "哎呀..你輸入的列表ID似乎是不正確的。"
 
-#: .././pages/lists.php:44
+#: .././pages/lists.php:70
 msgid "There was an error!"
 msgstr "有一個錯誤！"
 
-#: .././pages/lists.php:135
+#: .././pages/lists.php:161
 msgid "You need to select a Mailchimp list in order to create a form for it"
-msgstr "你需要選擇一個Mailchimp列表，以便為它創建一個窗體"
+msgstr "你需要選擇一個Mailchimp列表，以便為它創建一個表格"
 
-#: .././pages/lists.php:173
+#: .././pages/lists.php:220
 msgid "Are you sure you want to delete this form?"
-msgstr "您確定要取消訂閱"
+msgstr "您確定要刪除這個表格？"
 
-#: .././pages/lists.php:206
-msgid "Are you sure you want to re-import your fields from MailChimp?"
-msgstr "您確定要從MailChimp重新導入您的信息？"
+#: .././pages/lists.php:263
+msgid ""
+"Are you sure you want to re-import this form and its fields from MailChimp?"
+msgstr "您確定要重新導入此表及其字段從MailChimp？"
 
-#: .././pages/lists.php:228
-msgid "Looks like this form is already up to date!"
-msgstr "貌似這種形式已經是最新的！"
+#: .././pages/lists.php:284
+msgid "Your MailChimp form"
+msgstr "MailChimp表格"
 
-#: .././pages/lists.php:326
+#: .././pages/lists.php:284
+msgid " was successfully updated"
+msgstr "已成功更新"
+
+#: .././pages/lists.php:298
+msgid "It looks like this form is already up to date!"
+msgstr "它看起來像這種形式已經是最新的！"
+
+#: .././pages/lists.php:423
 msgid "Are you sure you want to unsubscribe"
 msgstr "您確定要取消訂閱"
 
-#: .././pages/lists.php:326
+#: .././pages/lists.php:423
 msgid "from this list?"
 msgstr "從這個名單？"
 
-#: .././pages/lists.php:342
+#: .././pages/lists.php:439
 msgid "was successfully unsubscribed from this list."
 msgstr "已成功從該列表中取消訂閱。"
 
-#: .././pages/lists.php:448 .././pages/options.php:196
-#: .././pages/options.php:416
+#: .././pages/lists.php:549 .././pages/myMailChimp.php:74
+#: .././pages/options.php:354 .././pages/options.php:707
 msgid "Easy Mailchimp Forms by YIKES, Inc."
 msgstr "易Mailchimp形式由YIKES公司"
 
-#: .././pages/lists.php:454
+#: .././pages/lists.php:555
 msgid "Before you can add MailChimp forms to your site, you need to"
 msgstr "之前，你可以添加MailChimp形式到您的網站，您需要"
 
-#: .././pages/lists.php:454
+#: .././pages/lists.php:555
 msgid "go to the MailChimp Settings page"
 msgstr "進入MailChimp設置頁面"
 
-#: .././pages/lists.php:454 .././templates/yikes-mailchimp-widget.php:156
+#: .././pages/lists.php:555 .././templates/yikes-mailchimp-widget.php:156
 msgid "and add your API Key."
 msgstr "並添加你的API密鑰。"
 
-#: .././pages/lists.php:462
+#: .././pages/lists.php:563
 msgid "You must enter a valid API key to import and manage your lists."
 msgstr "您必須輸入一個有效的API密鑰導入和管理您的名單。"
 
-#: .././pages/lists.php:473
+#: .././pages/lists.php:574
 msgid "Your Lists"
 msgstr "您的列表"
 
-#: .././pages/lists.php:483
+#: .././pages/lists.php:583
 msgid "Manage Forms"
 msgstr "管理表單"
 
-#: .././pages/options.php:41
+#: .././pages/myMailChimp.php:48 .././pages/options.php:326
+msgid "Need Help?"
+msgstr "需要幫助？"
+
+#: .././pages/myMailChimp.php:49 .././pages/options.php:327
+msgid "Get In Contact!"
+msgstr "取得了聯繫！"
+
+#: .././pages/myMailChimp.php:57 .././pages/options.php:335
+msgid "Loving the plugin?"
+msgstr "愛的插件？"
+
+#: .././pages/myMailChimp.php:58 .././pages/options.php:336
+msgid "Leave us a nice review"
+msgstr "給我們一個很好的回顧"
+
+#: .././pages/myMailChimp.php:78
+msgid ""
+"Here you will find recent activity for your MailChimp account, as well as "
+"statistics for lists and campaigns."
+msgstr ""
+"在這裡，你會發現你的MailChimp帳戶最近的活動，以及統計數據列表和市場活動。"
+
+#: .././pages/myMailChimp.php:83
+msgid "Account Overview"
+msgstr "概觀"
+
+#: .././pages/myMailChimp.php:84
+msgid "Account Activity"
+msgstr "帳戶活動"
+
+#: .././pages/myMailChimp.php:85
+msgid "List Statistics"
+msgstr "統計列表"
+
+#: .././pages/myMailChimp.php:173
+msgid "Recent Activity"
+msgstr "近期活動"
+
+#: .././pages/myMailChimp.php:207
+msgid "Growth History"
+msgstr "發展歷史"
+
+#: .././pages/myMailChimp.php:208
+msgid "Campaign Stats"
+msgstr "競選統計"
+
+#: .././pages/options.php:54 .././pages/options.php:86
+#: .././pages/options.php:118
 msgid "The options were saved successfully!"
 msgstr "該方案已成功保存！"
 
-#: .././pages/options.php:44
+#: .././pages/options.php:57 .././pages/options.php:89
+#: .././pages/options.php:121
 msgid "The options could not be saved (or you did not change them)."
-msgstr "該選項無法保存（或您未改變它們）。"
+msgstr "該選項無法保存（或者你沒有改變它們）。"
 
-#: .././pages/options.php:96
+#: .././pages/options.php:176
 msgid "Valid API Key"
 msgstr "有效的API密鑰"
 
-#: .././pages/options.php:102
+#: .././pages/options.php:182
 msgid "Sorry, that is an invalid MailChimp API key."
 msgstr "對不起，這是一個無效的MailChimp API密鑰。"
 
-#: .././pages/options.php:108
+#: .././pages/options.php:189
 msgid ""
 "Sorry, that is an invalid MailChimp API key. Please check the console for "
 "further information."
-msgstr "對不起，這是一個無效的MailChimp API密鑰。"
+msgstr "對不起，這是一個無效的MailChimp API密鑰。請檢查控制台獲取更多信息。"
 
-#: .././pages/options.php:117
+#: .././pages/options.php:199
 msgid "Error: Please enter a valid Mail Chimp API Key."
 msgstr "錯誤：請輸入有效的郵件黑猩猩API密鑰。"
 
-#: .././pages/options.php:199
+#: .././pages/options.php:217
+msgid ""
+"Are you sure you want to reset your MailChimp settings? This cannot be "
+"undone."
+msgstr "您確定要重置您的MailChimp設置？這不能撤消。"
+
+#: .././pages/options.php:230
+msgid "MailChimp settings have successfully been reset"
+msgstr "MailChimp的設置已被成功重置"
+
+#: .././pages/options.php:348
+msgid "Form Options"
+msgstr "表單選項"
+
+#: .././pages/options.php:349
+msgid "ReCaptcha Options"
+msgstr "驗證碼的選項"
+
+#: .././pages/options.php:350
+msgid "Debug Options"
+msgstr "調試選項"
+
+#: .././pages/options.php:361
 msgid "Manage Mailchimp Forms Settings"
 msgstr "管理Mailchimp表格設置"
 
-#: .././pages/options.php:205
+#: .././pages/options.php:367
 msgid "WordPress Version Number Error"
-msgstr "WordPress的版本"
+msgstr "WordPress的版本號錯誤"
 
-#: .././pages/options.php:206
+#: .././pages/options.php:368
 msgid ""
 "We're sorry, but it looks like your using an outdated version of WordPress. "
 "You won't be able to access the tinyMCE button to insert forms into pages "
 "and posts unless you update to 3.9 or later."
 msgstr ""
-"我們很抱歉，但它看起來像你使用的是過時的版本的WordPress。你將無法訪問tinyMCE"
-"的按鈕來插入表格插入網頁和帖子，除非你升級到3.9或更高版本。"
+"我們很抱歉，但它看起來像你用一個過時版本的WordPress。你將無法訪問tinyMCE的按"
+"鈕來插入表格插入網頁和帖子，除非你升級到3.9或更高版本。"
 
-#: .././pages/options.php:215
+#: .././pages/options.php:377
 msgid "LocalHost Detected :"
 msgstr "本地主機檢測到："
 
-#: .././pages/options.php:216
+#: .././pages/options.php:378
 msgid ""
 "It looks like your using Easy MailChimp Forms by YIKES Inc. on localhost."
-msgstr "易Mailchimp形式由YIKES公司"
+msgstr "它看起來像你的使用Easy MailChimp形式由YIKES公司在本地主機上。"
 
-#: .././pages/options.php:217
+#: .././pages/options.php:379
 msgid ""
 "If you are unable to validate your API key, and receive the error message"
 msgstr "如果您無法驗證您的API密鑰，並收到錯誤消息"
 
-#: .././pages/options.php:217
-msgid "\"SSL certificate problem: unable to get local issuer certificate\" "
+#: .././pages/options.php:379
+#, fuzzy
+msgid "SSL certificate problem: unable to get local issuer certificate"
 msgstr "“SSL證書的問題：無法獲取本地頒發者證書”"
 
-#: .././pages/options.php:217
+#: .././pages/options.php:379
 msgid "follow the tutorial located "
 msgstr "遵循本教程"
 
-#: .././pages/options.php:230
+#: .././pages/options.php:389
 msgid "Your Mailchimp API Key"
 msgstr "您Mailchimp API密鑰"
 
-#: .././pages/options.php:238
+#: .././pages/options.php:406
 msgid ""
 "Please enter your MailChimp API Key above. The API Key allows your WordPress "
 "site to communicate with your MailChimp account."
@@ -416,110 +576,93 @@ msgstr ""
 "請輸入您的以上MailChimp API密鑰。該API密鑰可以讓你的WordPress網站與您的"
 "MailChimp帳戶溝通。"
 
-#: .././pages/options.php:239
+#: .././pages/options.php:407
 msgid "For more help, visit the MailChimp Support article"
 msgstr "如需更多幫助，請訪問MailChimp支持文章"
 
-#: .././pages/options.php:239
+#: .././pages/options.php:407
 msgid "Where can I find my API Key?"
 msgstr "我在哪裡可以找到我的API密鑰？"
 
-#: .././pages/options.php:244
+#: .././pages/options.php:412
 msgid "Preferred Form Layout"
 msgstr "首選表單佈局"
 
-#: .././pages/options.php:247
+#: .././pages/options.php:415
 msgid "table"
 msgstr "表"
 
-#: .././pages/options.php:248
+#: .././pages/options.php:416
 msgid "div"
 msgstr "格"
 
-#: .././pages/options.php:256
+#: .././pages/options.php:424
 msgid "Choose whether you want your forms to use a table or div layout."
 msgstr "選擇您是否希望您的表單使用一個Table或者div佈局。"
 
-#: .././pages/options.php:261
-msgid "Advanced Error Messaging"
-msgstr "高級錯誤訊息"
-
-#: .././pages/options.php:264
-msgid "Disabled"
-msgstr "已停用"
-
-#: .././pages/options.php:265
-msgid "Enabled"
-msgstr "啟用"
-
-#: .././pages/options.php:273
-msgid ""
-"Enable if you're having problems with your forms sending data to MailChimp. "
-"Enabling Advanced Error Messaging will show you the exact error codes "
-"MailChimp is returning."
-msgstr ""
-"啟用如果你有你的方式將數據發送到MailChimp的問題。啟用高級錯誤消息會告訴你確切"
-"的錯誤代碼MailChimp正在恢復。"
-
-#: .././pages/options.php:281
+#: .././pages/options.php:432
 msgid "Single Opt-In"
 msgstr "單選項，在"
 
-#: .././pages/options.php:282
+#: .././pages/options.php:433
 msgid "Double Opt-In"
 msgstr "雙重選擇"
 
-#: .././pages/options.php:290
+#: .././pages/options.php:441
 msgid ""
 "A single opt-in will add the user to your list without any further "
 "interaction."
-msgstr "一個單一的選擇，在將用戶添加到列表中沒有任何進一步的互動。"
+msgstr "一個單一的選擇，在將用戶添加到列表中沒有任何進一步的交互。"
 
-#: .././pages/options.php:291
+#: .././pages/options.php:442
 msgid ""
 "A double opt-in will send an email to the user asking them to confirm their "
 "subscription."
 msgstr "雙選入將發送一封電子郵件給用戶，要求他們確認他們的訂閱。"
 
-#: .././pages/options.php:292
+#: .././pages/options.php:443
 msgid "This will also dictate the opt-in settings for people leaving comments."
 msgstr "這也將決定人們留下的意見選入的設置。"
 
-#: .././pages/options.php:297
+#: .././pages/options.php:448
 msgid "Custom Opt-In Message"
 msgstr "自定義選擇接受的消息"
 
-#: .././pages/options.php:299
+#: .././pages/options.php:450
 msgid "Double Opt-In Message"
 msgstr "雙重選擇留言"
 
-#: .././pages/options.php:301
+#: .././pages/options.php:454
 msgid "Single Opt-In Message"
 msgstr "單選項，在留言"
 
-#: .././pages/options.php:307
+#: .././pages/options.php:464
+msgid "Note: You can include html markup in your confirmation message."
+msgstr "注意：您可以包含HTML標記在您的確認郵件。"
+
+#: .././pages/options.php:469
 msgid "Interest Group Label"
 msgstr "興趣小組標籤"
 
-#: .././pages/options.php:316
+#: .././pages/options.php:478
 msgid ""
 "Text to display above interest groups. Leave blank to use MailChimp interest "
 "group names."
 msgstr "要顯示的文本上面利益群體。留空以使用MailChimp利益集團的名稱。"
 
-#: .././pages/options.php:321
+#: .././pages/options.php:483
 msgid "Display opt-in checkbox on comment forms?"
 msgstr "顯示器選擇在複選框上的評論形式？"
 
-#: .././pages/options.php:324
+#: .././pages/options.php:486
 msgid "Hide"
 msgstr "隱藏"
 
-#: .././pages/options.php:325
+#: .././pages/options.php:487
 msgid "Show"
 msgstr "顯示"
 
-#: .././pages/options.php:333
+#: .././pages/options.php:495
 msgid ""
 "This will display a checkbox just above the submit button on all comment "
 "forms. If selected, any users leaving comments will also be added to the "
@@ -528,21 +671,21 @@ msgstr ""
 "這將顯示一個複選框，略高於上的所有註釋的形式提交按鈕。如果選中，留下評論的所"
 "有用戶也將被添加到郵件列表。"
 
-#: .././pages/options.php:338
+#: .././pages/options.php:500
 msgid "Custom Comment Checkbox Text"
 msgstr "自定義註釋文本複選框"
 
-#: .././pages/options.php:345
+#: .././pages/options.php:507
 msgid "Default List"
 msgstr "默認列表"
 
-#: .././pages/options.php:360
+#: .././pages/options.php:522
 msgid ""
 "This is the default list users will be subscribed to when submitting a "
 "comment."
 msgstr "這是默認的列表用戶將認購提交評論的時候。"
 
-#: .././pages/options.php:361
+#: .././pages/options.php:523
 msgid ""
 "It is best to select a form where only the email , first name and/or last "
 "name are required or you may run into issues."
@@ -550,90 +693,553 @@ msgstr ""
 "這是最好的選擇，其中只有電子郵件，名字和/或姓氏是必需的，否則您可能會遇到的問"
 "題的一種形式。"
 
-#: .././pages/options.php:373
+#: .././pages/options.php:528
+msgid "Save Settings"
+msgstr "保存設置"
+
+#: .././pages/options.php:528
+msgid "Reset Plugin Settings"
+msgstr "復位插件設置"
+
+#: .././pages/options.php:539
+msgid "ReCaptcha Settings"
+msgstr "驗證碼的設置"
+
+#: .././pages/options.php:540
+msgid ""
+"reCAPTCHA is a free service to protect your website from spam and abuse. "
+"reCAPTCHA uses an advanced risk analysis engine and adaptive CAPTCHAs to "
+"keep automated software from engaging in abusive activities on your site. It "
+"does this while letting your valid users pass through with ease."
+msgstr ""
+"驗證碼是一項免費服務，以保護你的網站免受垃圾郵件和濫用。驗證碼採用了先進的風"
+"險分析引擎和自適應CAPTCHA系統，以保持自動化的軟件從​​事濫用活動在您的網站。為"
+"此，它會同時讓你的有效用戶通過輕鬆。"
+
+#: .././pages/options.php:542
+msgid "Note"
+msgstr "注"
+
+#: .././pages/options.php:542
+msgid ""
+"if you're displaying multiple forms on a single page, reCAPTCHA will only "
+"display on one form at a time."
+msgstr "如果你顯示在一個頁面上的多個表單，驗證碼只能同時顯示在一個表格。"
+
+#: .././pages/options.php:549
+msgid "ReCaptcha Spam Protection"
+msgstr "驗證碼的垃圾郵件防護功能"
+
+#: .././pages/options.php:552 .././pages/options.php:635
+msgid "Disabled"
+msgstr "已停用"
+
+#: .././pages/options.php:553 .././pages/options.php:636
+msgid "Enabled"
+msgstr "啟用"
+
+#: .././pages/options.php:561
+msgid "ReCaptcha prevents excessive form entires from spammers and bots."
+msgstr "驗證碼防止過度的形式entires從垃圾郵件發送者和機器人。"
+
+#: .././pages/options.php:569
+msgid "ReCaptcha Public API Key"
+msgstr "驗證碼公開API密鑰"
+
+#: .././pages/options.php:577
+msgid "ReCaptcha Private API Key"
+msgstr "驗證碼私有API密鑰"
+
+#: .././pages/options.php:586
+msgid "to retreive a recaptcha API key, sign up for an account"
+msgstr "中檢索一個驗證碼的API密鑰，註冊一個帳戶"
+
+#: .././pages/options.php:586
+msgid "here"
+msgstr "這裡"
+
+#: .././pages/options.php:591
+msgid "ReCaptcha Style"
+msgstr "驗證碼風格"
+
+#: .././pages/options.php:594
+msgid "Default"
+msgstr "默認"
+
+#: .././pages/options.php:595
+msgid "White"
+msgstr "白"
+
+#: .././pages/options.php:596
+msgid "Black Glass"
+msgstr "黑色玻璃"
+
+#: .././pages/options.php:597
+msgid "Clean"
+msgstr "清潔"
+
+#: .././pages/options.php:605
+msgid "reCAPTCHA Preview"
+msgstr "驗證碼預覽"
+
+#: .././pages/options.php:624
+msgid "Debug Settings"
+msgstr "調試設置"
+
+#: .././pages/options.php:632
+msgid "Advanced Error Messaging"
+msgstr "高級錯誤訊息"
+
+#: .././pages/options.php:644
+msgid ""
+"Enable if you're having problems with your forms sending data to MailChimp. "
+"Enabling Advanced Error Messaging will show you the exact error codes "
+"MailChimp is returning."
+msgstr ""
+"啟用如果你有你的方式將數據發送到MailChimp的問題。啟用高級錯誤消息會告訴你確切"
+"的錯誤代碼MailChimp正在恢復。"
+
+#: .././pages/options.php:651
 msgid "Plugin Information"
 msgstr "插件信息"
 
-#: .././pages/options.php:376
+#: .././pages/options.php:654
 msgid "If you experience any issues with our plugin, please"
 msgstr "如果您遇到任何問題，我們的插件，請"
 
-#: .././pages/options.php:376
+#: .././pages/options.php:654
 msgid "submit a New Issue on our Github Issue Tracker"
 msgstr "提交一個新的問題在我們的Github的問題跟踪"
 
-#: .././pages/options.php:376
+#: .././pages/options.php:654
 msgid ""
 "Please include the information below to help us troubleshoot your problem."
 msgstr "請提供以下信息，以幫助我們解決您的問題。"
 
-#: .././pages/options.php:384
+#: .././pages/options.php:659
 msgid "Plugin Version"
 msgstr "插件版本"
 
-#: .././pages/options.php:388
+#: .././pages/options.php:663
 msgid "Wordpress Version"
 msgstr "WordPress的版本"
 
-#: .././pages/options.php:392
+#: .././pages/options.php:667
 msgid "Browser Information"
 msgstr "瀏覽器信息"
 
-#: .././pages/options.php:420
+#: .././pages/options.php:676
+msgid "Server Information"
+msgstr "服務器信息"
+
+#: .././pages/options.php:711
 msgid "Error"
 msgstr "錯誤"
 
-#: .././pages/options.php:421
+#: .././pages/options.php:712
 msgid ""
 "We're sorry, but cURL is disabled on your server. The MailChimp API utilizes "
-"cURL to send and retreive data."
+"cURL to send and retrieve data."
 msgstr ""
-"我們很抱歉，但捲曲禁用您的服務器上。該MailChimp的API利用捲曲發送和retreive數"
-"據。"
+"我們很抱歉，但捲曲禁用您的服務器上。該MailChimp的API利用捲曲發送和檢索數據。"
 
-#: .././pages/options.php:426
+#: .././pages/options.php:717
 msgid "Help!"
 msgstr "救命！"
 
-#: .././pages/options.php:426
+#: .././pages/options.php:717
 msgid "What is cURL?"
 msgstr "什麼是捲曲？"
 
-#: .././pages/options.php:426
+#: .././pages/options.php:717
 msgid "Check phpinfo()"
 msgstr "檢查phpinfo（）函數"
 
-#: .././pages/options.php:428
+#: .././pages/options.php:719
 msgid "Steps To Resolve The Issue"
 msgstr "步驟來解決此問題"
 
-#: .././pages/options.php:430
+#: .././pages/options.php:723
 msgid ""
 "You can enable cURL by turning on the cURL module within your php.ini file"
 msgstr "你可以通過在你的php.ini文件打開捲曲模塊上啟用捲曲"
 
-#: .././pages/options.php:430
+#: .././pages/options.php:723
 msgid "You should find the php.ini file located here : "
 msgstr "你應該找到設在這裡的php.ini文件："
 
-#: .././pages/options.php:431
+#: .././pages/options.php:724
 msgid ""
 "Once found, open up php.ini and locate the line \";extension=php_curl.dll\"."
-msgstr "一旦發現，開闢php.ini並找到行“;擴展= php_curl.dll”。"
+msgstr "一旦發現，開闢php.ini並找到行“;擴展= php_curl.dll ”。"
 
-#: .././pages/options.php:432
+#: .././pages/options.php:725
 msgid ""
-"Remove the semi colon before the line, to un-comment it and make the module "
-"active."
-msgstr "前行中刪除分號，取消註釋它，使模塊處於活動狀態。"
+"Remove the semi colon before the line, to un-comment it and make the cURL "
+"module active."
+msgstr "前行中刪除分號，取消註釋，並做出捲曲模塊活躍。"
 
-#: .././pages/options.php:433
+#: .././pages/options.php:726
 msgid "Re-save and close the file."
 msgstr "重新保存並關閉文件。"
 
-#: .././pages/options.php:434
-msgid "Re-load this page."
-msgstr "重新加載該頁面。"
+#: .././pages/options.php:727
+msgid "Restart your Apache and MySQL services and re-load this page."
+msgstr "重新啟動Apache和MySQL服務並重新加載該頁面。"
+
+#: .././templates/mailChimp-account-overview.php:32
+#: .././templates/mailChimp-account-overview.php:79
+msgid "Free Forever"
+msgstr "永遠免費"
+
+#: .././templates/mailChimp-account-overview.php:37
+#: .././templates/mailChimp-account-overview.php:79
+msgid "Pay As You Go"
+msgstr "現收現付"
+
+#: .././templates/mailChimp-account-overview.php:42
+msgid "Premium Chimp"
+msgstr "高級黑猩猩"
+
+#: .././templates/mailChimp-account-overview.php:70
+msgid "Account Not Yet Activated"
+msgstr "帳戶尚未激活"
+
+#: .././templates/mailChimp-account-overview.php:70
+msgid "Account Active"
+msgstr "賬戶活躍"
+
+#: .././templates/mailChimp-account-overview.php:73
+msgid "Company"
+msgstr "公司"
+
+#: .././templates/mailChimp-account-overview.php:74
+msgid "Member Since"
+msgstr "會員參加日期"
+
+#: .././templates/mailChimp-account-overview.php:76
+msgid "Account Type"
+msgstr "帳戶 類型"
+
+#: .././templates/mailChimp-account-overview.php:82
+msgid "Emails Left"
+msgstr "電子郵件左"
+
+#: .././templates/mailChimp-account-overview.php:83
+msgid "Emails will reset on"
+msgstr "電子郵件將會重置"
+
+#: .././templates/mailChimp-account-overview.php:89
+msgid "Industry"
+msgstr "行業"
+
+#: .././templates/mailChimp-campaign-click-geo-map.php:97
+msgid "Number of Campaign Opens"
+msgstr "活動開幕數"
+
+#: .././templates/mailChimp-campaign-click-geo-map.php:121
+msgid "Campaign Activity Geo Map"
+msgstr "競選活動地理地圖"
+
+#: .././templates/mailChimp-campaign-click-geo-map.php:127
+msgid "Top Opens By Country"
+msgstr "頂部打開按國家"
+
+#: .././templates/mailChimp-campaign-click-geo-map.php:133
+msgid "Country"
+msgstr "國家"
+
+#: .././templates/mailChimp-campaign-click-report.php:59
+#: .././templates/mailChimp-campaign-click-report.php:71
+msgid "Visualize Me"
+msgstr "想像我"
+
+#: .././templates/mailChimp-campaign-click-report.php:62
+#: .././templates/mailChimp-campaign-click-report.php:74
+msgid "URL"
+msgstr "網址"
+
+#: .././templates/mailChimp-campaign-click-report.php:63
+#: .././templates/mailChimp-campaign-click-report.php:75
+msgid "Clicks"
+msgstr "點擊"
+
+#: .././templates/mailChimp-campaign-click-report.php:64
+#: .././templates/mailChimp-campaign-click-report.php:76
+msgid "Click Percent"
+msgstr "點擊百分比"
+
+#: .././templates/mailChimp-campaign-click-report.php:65
+#: .././templates/mailChimp-campaign-click-report.php:77
+#: .././templates/mailChimp-campaign-report.php:518
+msgid "Unique Clicks"
+msgstr "獨特的點擊次數"
+
+#: .././templates/mailChimp-campaign-click-report.php:66
+#: .././templates/mailChimp-campaign-click-report.php:78
+msgid "Unique Percent"
+msgstr "獨特的百分比"
+
+#: .././templates/mailChimp-campaign-click-report.php:81
+msgid "No Links Clicked"
+msgstr "沒有友情鏈接點擊數"
+
+#: .././templates/mailChimp-campaign-clicks-pie-chart.php:15
+msgid "Link Click Percentage - Pie Chart"
+msgstr "鏈接點擊率 - 餅圖"
+
+#: .././templates/mailChimp-campaign-report.php:306
+#: .././templates/mailChimp-campaign-report.php:307
+msgid "Back to Campaigns"
+msgstr "回到競選"
+
+#: .././templates/mailChimp-campaign-report.php:321
+msgid "Campaign Statistics Report"
+msgstr "活動統計報告"
+
+#: .././templates/mailChimp-campaign-report.php:328
+msgid "Open tracking was disabled on this campaign"
+msgstr "打開跟踪被禁用這項運動"
+
+#: .././templates/mailChimp-campaign-report.php:329
+msgid ""
+"You did not enable open tracking for this campaign, so the data in this "
+"report will be incomplete."
+msgstr "您沒有啟用開放式跟踪這個活動，所以本報告中的數據將是不完整的。"
+
+#: .././templates/mailChimp-campaign-report.php:329
+msgid "about open tracking"
+msgstr "關於開放式跟踪"
+
+#: .././templates/mailChimp-campaign-report.php:336
+msgid "Recipients"
+msgstr "受助人"
+
+#: .././templates/mailChimp-campaign-report.php:347
+msgid "Subject"
+msgstr "主題"
+
+#: .././templates/mailChimp-campaign-report.php:348
+msgid "Delivered"
+msgstr "交付"
+
+#: .././templates/mailChimp-campaign-report.php:353
+msgid "View Email"
+msgstr "查看電子郵件"
+
+#: .././templates/mailChimp-campaign-report.php:354
+msgid "Download Report"
+msgstr "下載報告"
+
+#: .././templates/mailChimp-campaign-report.php:355
+msgid "Print Report"
+msgstr "打印報告"
+
+#: .././templates/mailChimp-campaign-report.php:363
+msgid "Open Rate"
+msgstr "打開率"
+
+#: .././templates/mailChimp-campaign-report.php:369
+#: .././templates/mailChimp-campaign-report.php:381
+msgid "Industry Avg"
+msgstr "行業平均"
+
+#: .././templates/mailChimp-campaign-report.php:374
+msgid "Click Rate"
+msgstr "點擊率"
+
+#: .././templates/mailChimp-campaign-report.php:389
+msgid "Opened"
+msgstr "開業"
+
+#: .././templates/mailChimp-campaign-report.php:394
+msgid "Clicked"
+msgstr "點擊"
+
+#: .././templates/mailChimp-campaign-report.php:399
+msgid "Bounced"
+msgstr "反彈"
+
+#: .././templates/mailChimp-campaign-report.php:405
+msgid "Unsubscribed"
+msgstr "訂閱日期"
+
+#: .././templates/mailChimp-campaign-report.php:413
+msgid "Successful deliveries"
+msgstr "成功交付"
+
+#: .././templates/mailChimp-campaign-report.php:414
+msgid "Total opens"
+msgstr "總開"
+
+#: .././templates/mailChimp-campaign-report.php:415
+msgid "Last opened"
+msgstr "最後更新"
+
+#: .././templates/mailChimp-campaign-report.php:416
+msgid "Forwarded"
+msgstr "轉發"
+
+#: .././templates/mailChimp-campaign-report.php:420
+msgid "Clicks per unique opens"
+msgstr "每個唯一打開的點擊"
+
+#: .././templates/mailChimp-campaign-report.php:421
+msgid "Total clicks"
+msgstr "總點擊數"
+
+#: .././templates/mailChimp-campaign-report.php:422
+msgid "Last clicked"
+msgstr "最後點擊"
+
+#: .././templates/mailChimp-campaign-report.php:423
+msgid "Abuse reports"
+msgstr "報告濫用"
+
+#: .././templates/mailChimp-campaign-report.php:430
+msgid "Campaign Link Performance"
+msgstr "活動鏈路性能"
+
+#: .././templates/mailChimp-campaign-report.php:488
+msgid "24 Hour Campaign Performance"
+msgstr "24小時廣告活動成效"
+
+#: .././templates/mailChimp-campaign-report.php:491
+msgid "begins from the time your campaign is sent"
+msgstr "開始從您的廣告系列發送時間"
+
+#: .././templates/mailChimp-campaign-report.php:499
+msgid "Number of Opens/Clicks"
+msgstr "用戶數"
+
+#: .././templates/mailChimp-campaign-stats-template.php:92
+msgid "Previous Campaigns"
+msgstr "上一頁競選"
+
+#: .././templates/mailChimp-campaign-stats-template.php:158
+#: .././templates/mailChimp-campaign-stats-template.php:249
+msgid "Sent"
+msgstr "發送"
+
+#: .././templates/mailChimp-campaign-stats-template.php:158
+msgid "on "
+msgstr "上"
+
+#: .././templates/mailChimp-campaign-stats-template.php:158
+msgid "at "
+msgstr "在"
+
+#: .././templates/mailChimp-campaign-stats-template.php:161
+#: .././templates/mailChimp-campaign-stats-template.php:252
+msgid "Recurring Campaign"
+msgstr "經常性活動"
+
+#: .././templates/mailChimp-campaign-stats-template.php:163
+#: .././templates/mailChimp-campaign-stats-template.php:192
+#: .././templates/mailChimp-campaign-stats-template.php:254
+#: .././templates/mailChimp-campaign-stats-template.php:275
+msgid "Not Yet Sent"
+msgstr "尚未發送"
+
+#: .././templates/mailChimp-campaign-stats-template.php:173
+#: .././templates/mailChimp-campaign-stats-template.php:263
+msgid " Subscriber"
+msgstr "訂閱日期"
+
+#: .././templates/mailChimp-campaign-stats-template.php:173
+#: .././templates/mailChimp-campaign-stats-template.php:263
+msgid " Subscribers"
+msgstr "認購債券"
+
+#: .././templates/mailChimp-campaign-stats-template.php:174
+#: .././templates/mailChimp-campaign-stats-template.php:264
+#: .././templates/mailChimp-campaign-stats-template.php:332
+msgid " Open"
+msgstr "開"
+
+#: .././templates/mailChimp-campaign-stats-template.php:174
+#: .././templates/mailChimp-campaign-stats-template.php:180
+#: .././templates/mailChimp-campaign-stats-template.php:264
+#: .././templates/mailChimp-campaign-stats-template.php:332
+msgid " Opens"
+msgstr "打開"
+
+#: .././templates/mailChimp-campaign-stats-template.php:175
+#: .././templates/mailChimp-campaign-stats-template.php:265
+#: .././templates/mailChimp-campaign-stats-template.php:333
+msgid " Click"
+msgstr "點擊"
+
+#: .././templates/mailChimp-campaign-stats-template.php:175
+#: .././templates/mailChimp-campaign-stats-template.php:181
+#: .././templates/mailChimp-campaign-stats-template.php:265
+#: .././templates/mailChimp-campaign-stats-template.php:333
+msgid " Clicks"
+msgstr "點擊"
+
+#: .././templates/mailChimp-campaign-stats-template.php:179
+msgid " Campaigns Sent"
+msgstr "發送宣傳活動"
+
+#: .././templates/mailChimp-campaign-stats-template.php:302
+msgid "It looks like you haven't sent any campaigns yet."
+msgstr "它看起來像你沒有發送任何宣傳活動呢。"
+
+#: .././templates/mailChimp-campaign-stats-template.php:323
+msgid "Campaigns Sent"
+msgstr "發送宣傳活動"
+
+#: .././templates/mailChimp-campaign-stats-template.php:370
+msgid "Total Clicks"
+msgstr "總點擊次數"
+
+#: .././templates/mailChimp-list-growth-template.php:371
+msgid "Total Subscribers"
+msgstr "訂閱日期"
+
+#: .././templates/mailChimp-list-growth-template.php:376
+msgid "Imported Subscribers"
+msgstr "訂閱日期"
+
+#: .././templates/mailChimp-list-growth-template.php:381
+msgid "Opt-in Subscribers"
+msgstr "訂閱日期"
+
+#: .././templates/mailChimp-list-growth-template.php:390
+msgid "There is no growth data for"
+msgstr "沒有增長數據"
+
+#: .././templates/mailChimp-list-growth-template.php:390
+msgid " yet"
+msgstr "但"
+
+#: .././templates/mailChimp-list-growth-template.php:397
+msgid "No growth data found yet. Please try again at a later time."
+msgstr "發現還沒有增長數據。請再試一次在稍後的時間。"
+
+#: .././templates/mailChimp-profile-template.php:10
+msgid "MailChimp Account Overview"
+msgstr "MailChimp賬戶概覽"
+
+#: .././templates/mailChimp-profile-template.php:14
+msgid "Username"
+msgstr "用戶名"
+
+#: .././templates/mailChimp-profile-template.php:15
+msgid "Name"
+msgstr "姓氏"
+
+#: .././templates/mailChimp-profile-template.php:16
+msgid "Email"
+msgstr "電子郵件"
+
+#: .././templates/mailChimp-profile-template.php:17
+msgid "Account Role"
+msgstr "帳戶角色"
+
+#: .././templates/mailChimpChatter-template.php:72
+msgid "No recent account activity. Check back again later."
+msgstr "沒有最近帳戶活動。檢查回來後。"
 
 #: .././templates/shortcode_error.php:1
 msgid "There was an error calling the mailchimp list."
@@ -641,23 +1247,23 @@ msgstr "有一個錯誤調用mailchimp列表。"
 
 #: .././templates/shortcode_error_data.php:1
 msgid ""
-"The list doesn't exist! Make sure you have imported the list on the \"Manage "
-"List Forms\" page."
+"The list doesn't exist! Make sure you have imported the list on the 'Manage "
+"List Forms' page."
 msgstr "該列表不存在！請確定您已經導入的列表中的“管理列表表單”頁面。"
 
-#: .././templates/shortcode_error_exists.php:1
+#: .././templates/shortcode_error_exists.php:2
 msgid "This list was already placed on this page!"
 msgstr "這個列表已經放在這個頁面上！"
 
-#: .././templates/shortcode_error_no_API_key.php:1
+#: .././templates/shortcode_error_no_API_key.php:2
 msgid "Woops! No Valid API Key Found. Double check your settings."
 msgstr "Woops！無有效的API密鑰發現。請仔細檢查您的設置。"
 
-#: .././templates/shortcode_form.php:11
-msgid "Oops.. Don't forget to fill-in the following fields"
-msgstr "哎呀......不要忘了填充在以下領域："
+#: .././templates/shortcode_form.php:13
+msgid "Error - The following fields are required, and may not be left blank "
+msgstr "錯誤 - 以下字段是必需的，且不得留空"
 
-#: .././templates/shortcode_form.php:74
+#: .././templates/shortcode_form.php:121
 msgid "required field"
 msgstr "必填字段"
 
@@ -730,5 +1336,14 @@ msgstr "糟糕！看起來你還沒有加入您的API密鑰！頭部到"
 msgid "Settings page"
 msgstr "設置頁面"
 
-#~ msgid "No API Key or List Id Exist!"
-#~ msgstr "沒有API密鑰或列表ID存在！"
+#~ msgid "to retreive your recaptcha API keys, you must sign up for an account"
+#~ msgstr "中檢索您的驗證碼的API密鑰，你必須註冊一個帳戶"
+
+#~ msgid "Loaded Server Modules"
+#~ msgstr "加載服務器模塊"
+
+#~ msgid "The following modules are active at the server level, on this site"
+#~ msgstr "下面的模塊是活躍在服務器級別，在這個網站"
+
+#~ msgid "Oops.. Don't forget to fill-in the following fields"
+#~ msgstr "哎呀......不要忘記填寫在以​​下領域"

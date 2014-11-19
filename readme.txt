@@ -1,34 +1,42 @@
 === Easy MailChimp Forms ===
 Contributors: yikesinc, hiwhatsup, liljimmi, eherman24, seriouslysean
 Donate link: http://yikesinc.com
-Tags: mailchimp, marketing, email, mailing lists, newsletter, signup, forms, signup form
+Tags: mailchimp, marketing, email, mailing lists, newsletter, sign up, forms, sign up form
 Requires at least: 3.0
-Tested up to: 3.9.1
-Stable tag: 4.3
+Tested up to: 4.0
+Stable tag: 5.2
 License: GPLv2 or later
 
-Easy MailChimp Forms allows you to painlessly add MailChimp signup forms to your WordPress site.
+Easy MailChimp Forms allows you to painlessly add MailChimp sign up forms to your WordPress site and track user activity with interactive reports.
 
 == Description ==
 
-Easy MailChimp Forms allows you to painlessly add MailChimp signup forms to your WordPress site. You can add forms to posts, pages or sidebars with shortcodes, widgets or template tags. Simply copy and paste your MailChimp API Key into the plugin admin settings and it will pull in all your MailChimp lists. From there you can choose the lists you want to make forms for. For a single list you can check off the fields you want to include on your form and order them via an easy drag-and-drop interface. This plugin adds plenty of CSS selectors to the form code allowing you to completely customize the look of your forms.
+Easy MailChimp Forms allows you to painlessly add MailChimp sign up forms to your WordPress site. You can add forms to posts, pages or sidebars with shortcodes, widgets or template tags. Simply copy and paste your MailChimp API Key into the plugin admin settings and it will pull in all your MailChimp lists. From there you can choose the lists you want to make forms for. For a single list you can check off the fields you want to include on your form and order them via an easy drag-and-drop interface. This plugin adds plenty of CSS selectors to the form code allowing you to completely customize the look of your forms. Now with the ability to track sent campaigns, you can view and print interactive reports from based on previously sent campaigns.
 
 **Note:** You will need a MailChimp API key to allow this plugin to communicate with your MailChimp account. For help on retrieving your API key, check out [question #4 of the FAQ](http://wordpress.org/plugins/yikes-inc-easy-mailchimp-extender/faq/). You can also read the MailChimp knowledge base article [Where can I find my API key and how can I use the API](http://kb.mailchimp.com/article/where-can-i-find-my-api-key/).
 
 **Features**
 
-* Easily import MailChimp forms from a MailChimp account
+* Add interest groups and new fields to forms directly from the dashboard without ever leaving your site (*new*)
+* Error log for diagnosing user issues (*new*)
+* Design your own sign up form templates
+* Style your forms without writing a single line of code
+* Full Integration of MailChimp into WordPress
+* Easily import MailChimp forms from an active MailChimp account
+* View/Print Interactive Account Growth Reports and Campaign Reports (Statistics Tracking)
+* reCaptcha spam prevention baked in
+* Monitor MailChimp account activity
 * Use MailChimp Interest Group/Segments
 * Add MailChimp forms sidebars/widgetized areas with widgets
 * Set forms to single or double opt-in
 * Customize the success message
 * Customize the submit button text
 * Redirect users to a page on submission
-* Unsubscribe users from MailChimp lists
+* Un-subscribe users from MailChimp lists
 * View subscriber MailChimp profiles
 * View individual form subscriber count
 * Display multiple forms on a single page
-* Add commenters to your MailChimp lists with a comment form opt-in check box 
+* Add commenter's to your MailChimp lists with a comment form opt-in check box 
 * Easily add forms to pages and posts with a button in the page/post editor
 * Use cURL error detection to troubleshoot MailChimp connection issues
 
@@ -45,12 +53,15 @@ Instructions on how to use the plugin can be [found in the FAQ](http://wordpress
 5. Head over to [MailChimp.com](http://www.mailchimp.com) and login.
 6. On the right hand menu, click your profile picture and select 'Account Settings' and then go to 'Extras > API Keys'.
 7. Enter your API key into the text field inside 'MailChimp Forms > MailChimp Settings'
-8. Go to the 'Manage List Forms' page, start importing forms from MailChimp and adding them to posts, pages and widgets!
+8. (Optional) Sign up for a reCAPTCHA API Key Head over to [https://www.google.com/recaptcha/admin#whyrecaptcha](https://www.google.com/recaptcha/admin#whyrecaptcha) and login.
+9. (Optional) Register for an API key. Enter your public <em>and</em> private keys into the reCAPTCHA settings page and save your settings.
+9. Go to the 'Manage List Forms' page, start importing forms from MailChimp and adding them to posts, pages and widgets!
+10. Start collecting user emails and growing your subscriber list!
 
 == Frequently Asked Questions ==
 
 = Do I need to have a MailChimp Account? =
-Yes, you can register for one for free at [MailChimp](https://mailchimp.com/signup/ "MailChimp Signup").
+Yes, you can register for one for free at [MailChimp](https://mailchimp.com/sign up/ "MailChimp Signup").
 
 = Do I need to have lists already set up in MailChimp? =
 Yes, you have to have at least 1 list set up in MailChimp. 
@@ -68,7 +79,7 @@ For more help, visit the MailChimp Support article [Where can I find my API Key?
 = How to I add my MailChimp lists? =
 After you add your API key, the plugin will fetch all of your MailChimp list information and load it into the plugin admin. Go to the plugin "Manage List Forms" page to choose the lists you want to make forms for.
 
-= How do I add the MailChimp signup forms to my site? =
+= How do I add the MailChimp sign up forms to my site? =
 You can use a shortcode to add a form to a page or post, use the MailChimp form button in the visual editor or use a widget to add it to a sidebar. Each list on the plugin "Manage List Forms" displays a shortcode at the top. Copy the shortcode and paste it into any post or page where you want a form to appear. For example, if my form had the shortcode [yks-mailchimp-list id="1234567891"] I would copy and paste that into the page or post I wanted to add that form to.
 
 = I input a valid MailChimp API key, but it returns invalid every time. I've already tried a new API key, but no dice. What's up? =
@@ -78,7 +89,7 @@ You can use a shortcode to add a form to a page or post, use the MailChimp form 
 **Step 2:** If you have entered your MailChimp API key and are still getting the error "*Error: Please enter a valid Mail Chimp API Key*," please check the developer console inside your browser for further information. 
 
 - Right-click in the API Key input field, and select 'Inpsect Element'
-- Once the developer console is open, select the Console tab to see a more specific error.
+- Once the developer console is open, select the Console tab to view a more specific error returned from the MailChimp API.
 
 For information on how to use your browser's developer console, read the WordPress Codex article, [Using Your Browser to Diagnose JavaScript Errors](http://codex.wordpress.org/Using_Your_Browser_to_Diagnose_JavaScript_Errors).
 
@@ -123,6 +134,29 @@ Read the Codex article [Installing WordPress in Your Language](http://codex.word
 = Do you provide any hooks, or filters for me to take advantage of? =
 Yes! With the 4.0 version of our plugin we have added a few hooks that allow you to add or manipulate existing data. Check out the [Other Notes](http://wordpress.org/plugins/yikes-inc-easy-mailchimp-extender/other_notes/) tab for more information.
 
+= Do you offer integration with reCAPTCHA? I keep getting spam entries from bots and spammers. =
+Yes! Since version 4.4 of Easy MailChimp Extender, we have added [reCAPTCHA](https://www.google.com/recaptcha/intro/index.html) support. You can sign up for a reCAPTCHA API key [here](https://www.google.com/recaptcha/admin#whyrecaptcha). You will need to provide your <em>public</em> key as well as the <em>private</em> key. Don't worry, its free :)
+
+= When I input my API key and hit save, it immediately reverts to a much shorter string of text and returns invalid. What's going on? =
+You most likely have a password manager installed and active (LastPass, OnePass, TeamPassword etc.). The API key input field is set to type="password" for security reasons. Most password managers auto-fill password fields based on the URL of the current page. So, what happens when you click save is that the password manager auto fills in the field with the password that you have saved for your site, and thus returning 'invalid API key'. To resolve the issue you'll need to temporarily disable any active password manager and re-enter and save your API key. Once the key has been successfully saved, you can re-enable your password manager.
+
+= How do I create my own custom MailChimp template? =
+**Step 1:** 
+First you'll want to import the boilerplate template files bundled with the plugin. These are files that were created for easy customization. You can import the boilerplate files by going to the manage list forms page and clicking 'import boilerplate templates'. 
+
+<em>Note :</em> Alternatively, you can manually import the template files by copying the 'yikes-mailchimp-user-templates' directory inside of the plugin root ( 'yikes-inc-easy-mailchimp-extender/templates/' ) over to your theme root. ( ie: /wp-content/themes/twentyfourteen/ ).
+
+**Step 2:** 
+Once imported you'll find the boilerplate files in your theme root. Each boilerplate template file comes with an associated .css file located inside of the styles directory. To get started on your first template, we recommend that you duplicate one of the existing boilerplate tempalate files and its associated .css file, and changing the name.
+
+**Step 3:** 
+Finally, change the MailChimp template, author and description headers at the top of each template file. The 'MailChimp Template' header dictates the name of your template, and what will appear in the drop down field. You'll also want to make sure that the correct .css file is properly being enqueued at the top of the template file.
+
+**Step 4:**
+Once setup, you can assign the template to your form from the 'Manage List' page. Make sure to select the checkbox 'use custom form' and then in the drop down select your newly created template.
+
+= I'm trying to set up the opt-in commenting checkbox. When users opt-in and leave a comment, an error is thrown and I can't figure out why. What could be wrong? =
+For the optin commenter checkbox, you'll want to make sure that the form you have set to assign users to only has the email field set to required.
 
 == Developer Docs. ==
 
@@ -334,14 +368,110 @@ This example will catch the user submitted data, *of all forms*, store the users
 <br />
 
 **Filter Name:**
+`yikes_mc_user_already_subscribed`
+
+**Accepted Parameters:** 
+`$errorMessage` , `$update_user_link` and `$email`
+
+**Parameter Info:**	
+
+`$errorMessage` = the error message returned by the MailChimp API. By Default : "email@domain.com is already subscribed to the list."
+
+`$update_user_link` = the link that will re-submit the form to update the current users info. Default link text : "Update My Info"
+
+`$email` = the email address provided in the Email field
+
+**Description:**
+Used to display a custom error message back to the user, when a user attempts to subscribe to a list they already exist on.
+
+**Example:**
+The following example will alter the error returned from the MailChimp API. Useful when you would like to provide a more custom error message. The 'Update' link will re-submit the form using the 'update_existing' parameter to update the current users profile.
+
+`
+<?php
+	/**
+	* This example will return a custom error message to the user when they attempt to subscribe to 
+	* a list they already exist on. The following will show something similar "Sorry, John@johnsmith.com is already subscribed to this list. Please Update My Information."
+	*/
+	function custom_user_already_subscribed_error( $errorMessage , $update_user_link , $email ) {
+		$errorMessage = 'Sorry, ' . $email . ' is already subscribed to this list.';
+		$errorMessage .= str_replace( 'Update My Info.' , 'Please Update My Information' , $update_user_link );
+		return $errorMessage;
+	}
+	add_filter( 'yikes_mc_user_already_subscribed' , 'custom_user_already_subscribed_error' , 10 , 3 );
+?>
+`
+<br />
+
+**Filter Name:**
+`yikes_mc_subscriber_update_message`
+
+**Accepted Parameters:** 
+`$success_message`
+
+**Parameter Info:**	
+
+`$success_message` = the success message to be displayed to the user, defaults to "Thanks, your information has been successfuly updated."
+
+**Description:**
+Used to alter the success message returned when a user updates their account information for a given list
+
+**Example:**
+The following example will alter success message displayed back to the user after they have updated their account information for a given list. Defualts to : "Thanks, your information has been successfuly updated."
+
+`
+<?php
+	/**
+	* The following example will alter the success message when a user re-submits 
+	* the form data to update their information for a given form
+	*/
+	function custom_resubmit_info_message( $success_message ) {
+		$success_message = "Thanks for updating your info! You're so awesome!";
+		return $success_message;
+	}
+	add_filter( 'yikes_mc_subscriber_update_message' , 'custom_resubmit_info_message' , 10 );
+?>
+`
+<br />
+
+**Filter Name:**
+`yks_redirect_add_post_types`
+
+**Accepted Parameters:** 
+`$post_array `
+
+**Parameter Info:**	
+
+`$post_array` = an array of post type names that you would like to be included into the drop down as a redirect option on the manage list page
+
+**Description:**
+Use this filter to add any number of custom post types to the redirect dropdown
+
+**Example:**
+The following example will add any and all posts with the custom post type 'portfolio' to the redirect dropdown 
+
+`
+<?php
+	/**
+	* This example will add the custom post type 'portfolio' to the
+    * redirect dropdown on the manage list forms page	
+	*/
+	function add_portfolio_post_type_to_yikes_redirect_dropdown( $post_array ) {
+		$post_array[] = 'portfolio';
+		return $post_array;
+	}
+	add_filter( 'yks_redirect_add_post_types' , 'add_portfolio_post_type_to_yikes_redirect_dropdown' );
+?>
+`
+<br />
+
+**Filter Name:**
 `yikes_mc_get_form_data_$formID`
 
 **Accepted Parameters:**  
-`$Form_ID` and `$merge_variables`
+`$merge_variables`
 
 **Parameter Info:**
-
-`$Form_ID` = the ID of the specific MailChimp Form ( can be retrieved from the 'MailChimp Forms > Manage List Forms' menu ).
 
 `$merge_variables` = a multi-dimensional array containing all user entered data being sent to the MailChimp API (The email, first name, last name etc. will be contained here).
 
@@ -358,7 +488,7 @@ This example will catch the user submitted data *from a specific form*, store th
 	* the current logged in user firstname profile field with the value in the First Name MailChimp field. 
 	* This catches data from ALL forms being submitted.
 	*/
-	function catch_user_data_from_specific_form( $form_ID, $merge_variables ) {
+	function catch_user_data_from_specific_form( $merge_variables ) {
 	  // if the user is logged in
 	  if ( is_user_logged_in() ) {
 
@@ -379,6 +509,77 @@ This example will catch the user submitted data *from a specific form*, store th
 	add_filter( 'yikes_mc_get_form_data_3d13f0f784' , 'catch_user_data_from_specific_form', 10, 2 );
 ?>
 `
+
+***Customizing Templates Using Filters***
+
+**Filter Name:**
+`yks_mc_template_header`
+
+**Description:**
+Use this filter to alter the header text in any of the bundled sign up templates.
+
+**Example:**
+The following will alter the header text in any of the bundled sign up forms. In the 'Clean Blue' template, this will change 'Sign Up Now' in the header, to 'Sign Up Below'.
+
+`
+<?php
+	/**
+	* The following example will alter the header text in any the bundled template
+	* from 'Sign Up Now' to 'Sign Up Below'
+	*/
+	function yks_easy_mailchimp_custom_template_header_text() {
+		return 'Sign Up Below';
+	}
+	add_filter( 'yks_mc_template_header' , 'yks_easy_mailchimp_custom_template_header_text' , 10 );
+?>
+`
+<br />
+
+**Filter Name:**
+`yks_mc_template_sub_text`
+
+**Description:**
+Use this filter to alter the sub text in any of the bundled sign up templates. The sub text is the text below the header, and above the form. eg: "Sign up for mailing list and receive new posts directly to your inbox."
+
+**Example:**
+The following will alter the sub text in any of the bundled sign up forms. In the 'Clean Blue' template, this will change "Sign up for mailing list and receive new posts directly to your inbox." to "Sign up for our amazing mailing list today!".
+
+`
+<?php
+	/**
+	* The following example will alter the sub text in any the bundled template
+	* from 'Sign up for mailing list and receive new posts directly to your inbox.' to 'Sign up for our amazing mailing list today!'
+	*/
+	function yks_easy_mailchimp_custom_template_subtext() {
+		return 'Sign up for our amazing mailing list today!';
+	}
+	add_filter( 'yks_mc_template_sub_text' , 'yks_easy_mailchimp_custom_template_subtext' , 10 );
+?>
+`
+<br />
+
+**Filter Name:**
+`yks_mc_template_footer_text`
+
+**Description:**
+Use this filter to alter the footer text in any of the bundled sign up templates. The footer text is the text below the form eg: "We promise never to share or sell any of your personal information."
+
+**Example:**
+The following will alter the sub text in any of the bundled sign up forms. In the 'Clean Blue' template, this will change "We promise never to share or sell any of your personal information." to "Your information will remain private at all time.".
+
+`
+<?php
+	/**
+	* The following example will alter the sub text in any the bundled template
+	* from 'Sign up for mailing list and receive new posts directly to your inbox.' to 'Sign up for our amazing mailing list today!'
+	*/
+	function yks_easy_mailchimp_custom_template_footer_text() {
+		return 'Your information will remain private at all time.';
+	}
+	add_filter( 'yks_mc_template_footer_text' , 'yks_easy_mailchimp_custom_template_footer_text' , 10 );
+?>
+`
+<br />
 
 **Helper Functions**
 
@@ -428,16 +629,157 @@ These functions should be used in conjunction with the `yikes_mc_get_form_data` 
 
 == Screenshots ==
 
-1. YIKES Easy MailChimp Settings Page
-2. Yikes Easy MailChimp form listing page
-3. View all subscribers of a given list, click to reveal individual subscriber info
-4. Custom widget to easily add forms to sidebars and widgets
-5. Form rendered on the front end of the site
-6. Optional opt-in checkbox on the comment forms, easily add commenter's to your email list
-7. Custom tinyMCE button allows you to easily add importer forms to pages and posts at the click of a button
-8. About YIKES page
+1. YIKES Easy MailChimp General Form Settings Page
+2. YIKES Easy MailChimp reCAPTCHA settings page
+3. YIKES Easy MailChimp Account Activity Overview
+4. YIKES Easy MailChimp Campaign Overview
+5. YIKES Easy MailChimp Campaign Statistics Reports
+6. *New* Yikes Easy MailChimp Redesigned Form Listing Page
+7. View all subscribers of a given list, click to reveal individual subscriber info
+8. Custom widget to easily add forms to sidebars and widgets
+9. Form rendered on the front end of the site
+10. Optional opt-in checkbox on the comment forms, easily add commenter's to your email list
+11. Custom tinyMCE button allows you to easily add imported forms to pages and posts at the click of a button
+12. About YIKES page
+13. Admin Dashboard Widget - Account Activity ( With Live Updating )
+14. *New* Form customizer, with simple UI including color pickers
 
 == Changelog ==
+
+= 5.2 - TBD =
+
+* New Feature: Added ability to add, edit or delete form fields directly from the WordPress dashboard
+* New Feature: Added ability to add, edit or delete interest groups directly from the WordPress dashboard
+* New Feature: Add "Update" link to forms when a user has previously subscribed
+* New Feature: Added 'default' option to text fields ( with custom pre-defined tags : {post_id} , {post_title} , {page_url} , {blog_name} , {user_logged_in} )
+* New Feature: Added the ability to adjust required state, visibility state, merge tag and more
+* Enhancement: Remove JavaScript dependency to populate place holder values
+* Enhancement: Introduced new filters ( check documentation for examples )
+* Bug Fix: Re-sorting fields that had a stored custom class name didn't store properly
+* Bug Fix: Wrapped bundled template text in filters
+* Bug Fix: Repaired some broken filters (get_form_data_before_send)
+* Bug Fix: Fixed labels on 'Manage List Forms' page and added field names to titles
+* Bug Fix: Fixed path to check box images on 'Clean Blue' bundled templates
+
+= 5.1.1 - November 5, 2014 =
+
+* Fix: repair 'Opt In' default list drop down on options page
+* Fix: repair errors being thrown when a commenter is added to a list
+
+= 5.1.0.1 - November 4, 2014 =
+
+**Updates**
+
+* Remove update profile info link, replaced with user already subscribed error
+
+**Fixes**
+
+* Fix missing argument in getFrontendFormDisplay_field when using the table view
+
+= 5.1 - November 3, 2014 =
+
+**Updates**
+
+* Release v5.1
+* Added brand new templating framework, to allow users to create custom form templates for use with any MailChimp List
+* Re-style Manage List page
+* Added missing label to radio buttons inside the form
+* Added missing closing parentheses on subscriber count inside view subscribers page
+* Added custom color picker to easily stylize forms without writing a single line of code
+* Added ability to specify a custom class names for each field of the form ( easily add custom class names to MailChimp form fields for further customization )
+* Only run API Key check when a new key is entered ( not on each page load )
+* Added new Welcome page with features+update notifications for users
+* Security vulnerability re-patched - props @g0blinResearch for privately disclosing the potential vulnerability
+* Added `yks_redirect_add_post_types` filter, to allow custom post types to be added to the redirect drop down (view [docs](https://wordpress.org/plugins/yikes-inc-easy-mailchimp-extender/other_notes/) for example)
+* Added `yikes_mc_user_already_subscribed` filter to allow users to alter the message displayed to the user when they are already subscribed to a given list (view [docs](https://wordpress.org/plugins/yikes-inc-easy-mailchimp-extender/other_notes/) for example)
+* Added `yikes_mc_subscriber_update_message` filter, to alter the success message when a user updates their account information for a given list (view [docs](https://wordpress.org/plugins/yikes-inc-easy-mailchimp-extender/other_notes/) for example)
+* Added a new link to allow users to update profile information if previously subscribed to a given list
+* Added 5 bundled templates, and 2 boilerplate files for users to use as a starting point for new templates
+
+= 5.0.9 - October 3rd, 2014 =
+
+**Fixes**
+
+* Added autocomplete="false" to API input field
+* Added event listener to form submission (forms can now be placed in modals/slideout menus)
+
+= 5.0.8 - September 23, 2014 =
+
+**Fixes**
+
+* Band-aid fix for the -1 response returned from ajax.php
+
+= 5.0.7 - September 19, 2014 =
+
+**Fixes**
+
+* Security Vulnerability patched - props @g0blinResearch for privately disclosing the issue
+
+= 5.0.6 - August 22, 2014 =
+
+**Fixes**
+* fix bug with nonce security check when using table 'Preferred Form Layout' setting
+
+= 5.0.5 - August 21, 2014 =
+
+**Fixes**
+- added `stripslashes()` to the following settings fields :
+	- Single Opt-in Confirmation Message
+	- Double Opt-in Confirmation Message
+	- Interest Group Label
+	- Opt-in Checkbox Text
+
+**Updates**
+- Updated readme FAQ section
+
+= 5.0.4 - August 6, 2014 =
+* Update SSL conditional in main plugin file
+* Added mcrypt module check, for API encryption
+* Conditionally loaded scripts and styles in admin ( prevent conflicts )
+* Included NONCE security checks on form submissions ( helps prevent CSRF and other attacks )
+* Added proper update task function to add missing settings to the options page ( prevents undefined variables for new settings )
+* Added missing styles to post page ( added missing icon to tinyMCE button )
+* Added missing styles to widget page
+* Adjusted Chimp Chatter activity time formatting to return correct time based on user time zone
+* New Feature : Real time updates to Account Activity ( utilizing the heartbeat API )
+* New Feature : Added account activity widget to dashboard ( with live updates using heartbeat API )
+* Added screenshot of admin dashboard account activity widget
+
+= 5.0.3 =
+* Re-Apply missing styles to new 'My MailChimp' Section
+
+= 5.0.2 =
+* Remove extra spacing in provided short code, which caused parsing issues
+
+= 5.0.1 =
+* Remove global box-sizing CSS declaration
+
+= 5.0 =
+* Custom content filter to prevent other plugins from accidentally hooking in
+* Updated translation files with new text and translations
+* Added new screen shots
+* Updated plugin activation hooks
+* base64_encoded MailChimp API Key for privacy on multi-admin sites
+* Added an entirely new "My MailChimp" section
+* "My MailChimp" section now includes account overview details
+* Added much needed campaign statistic tracking page
+* Added ability to track Campaign Click/Opens with geo-data and interactive charts including world map
+* Added account /listgrowth section with interactive bar chart
+* Added "Chimp Chatter" feed to track account activity
+* Ability to export interactive charts to png, jpg, svg
+* Printable Campaign Reports
+* View campaign
+* Re-Branded entire Plugin
+
+
+= 4.4 =
+* Added reCAPTCHA support to prevent bots and spammers from submitting forms
+* Split settings page into three seperate sections
+* Removed Jetpack sharing icons from appearing in the success messages (removed sharedaddy filter)
+* Updated translation files with new strings
+* Update existing screen shots and add new screen shot
+* Update FAQ
+* Added "loaded server modules" to the debug page, to better aid in support requests
 
 = 4.3 =
 * Updated radio button fields
@@ -447,17 +789,17 @@ These functions should be used in conjunction with the `yikes_mc_get_form_data` 
 * Added open_basedir conditional check to toggle CURLOPT_FOLLOWLOCATION based on users server settings
 * Prevents warning being thrown for users on shared hosts with an open_basedir set
 
-= 4.2.1 =
+= 4.2.1 - May 21, 2014 =
 * Removed all unnecessary Google tracking codes and functions
 
-= 4.2 =
+= 4.2 - May 21, 2014 =
 * Updated FAQ
 * Re-worked the redirect for a better user experience
 * Unified error messages into a single container on the front end
 * Converted custom opt-in messages to utilize the WYSIWYG editors ( now allowing for html and images to be used in your success messages )
 * Re-styled front end interest group containers
 
-= 4.1 =
+= 4.1 - May 20, 2014 =
 * Fixed JavaScript errors on when Address field is set to required
 * Added user feedback on successful re-import of form
 * Fixed some style issues
@@ -468,7 +810,7 @@ These functions should be used in conjunction with the `yikes_mc_get_form_data` 
 * Fixed date picker field, and images associated to it
 * Added ability to include html mark-up to confirmation fields
 
-= 4.0 =
+= 4.0 - May 14, 2014 =
 * Added Interest Group/Segment Support
 * Ability To See Number of Subscriber Per List
 * View Subscribers MailChimp Profile
@@ -480,7 +822,7 @@ These functions should be used in conjunction with the `yikes_mc_get_form_data` 
 * Added further error checking to pages
 * Custom TinyMCE shortcode button
 
-= 3.0 =
+= 3.0 - February 22, 2014 =
 * Update Mail Chimp API to v2.0
 * Added API Key Validation Check on settings page
 
@@ -548,6 +890,81 @@ These functions should be used in conjunction with the `yikes_mc_get_form_data` 
 * Initial Release
 
 == Upgrade Notice ==
+
+= 5.1.1 - November 5, 2014 =
+Fix: repair 'Opt In' default list drop down on options page
+Fix: repair errors being thrown when a commenter is added to a list
+
+= 5.1.0.1 - November 4, 2014 =
+
+Removed the update profile info link, some users brought up security concerns.
+Fixed missing argument when using table display formatting.
+
+= 5.1 - November 3, 2014 =
+
+We have added brand new functionality, allowing users to easily customize forms on the fly, through a familiar UI as well as a templating framework to allow users to design and implement their own custom forms. A minor security bug was patched in this release as well. We fixed an issue with the API key check running on each page load, and added a few new filters to allow users to alter text (please view the [docs](https://wordpress.org/plugins/yikes-inc-easy-mailchimp-extender/other_notes/) for example)
+
+= 5.0.9 - October 3rd, 2014 =
+
+**Fixes**
+
+* Added autocomplete="false" to API input field
+* Added event listener to form submission (forms can now be placed in modals/slideout menus)
+
+= 5.0.8 - September 23, 2014 =
+
+**Fixes**
+
+* Band-aid fix for the -1 response returned from ajax.php
+
+= 5.0.7 - September 19, 2014 =
+
+**Fixes**
+
+* Security Vulnerability patched - props @g0blinResearch for privately disclosing the issue
+
+= 5.0.6 - August 22, 2014 =
+
+**Fixes**
+
+* fix bug with nonce security check when using table 'Preferred Form Layout' setting
+
+= 5.0.5 - August 21, 2014 =
+
+**Fixes**
+
+- added `stripslashes()` to the following settings fields :
+	- Single Opt-in Confirmation Message
+	- Double Opt-in Confirmation Message
+	- Interest Group Label
+	- Opt-in Checkbox Text
+
+**Updates**
+
+- Updated readme FAQ section
+
+= 5.0.4 - August 6, 2014 =
+* Update SSL conditional in main plugin file
+* Added mcrypt module check, for API encryption
+* Conditionally loaded scripts and styles in admin ( prevent conflicts )
+* Included NONCE security checks on form submissions ( helps prevent CSRF and other attacks )
+* Added proper update task function to add missing settings to the options page ( prevents undefined variables for new settings )
+* Added missing styles to post page ( added missing icon to tinyMCE button )
+* Added missing styles to widget page
+* Adjusted Chimp Chatter activity time formatting to return correct time based on user time zone
+* New Feature : Real time updates to Account Activity ( utilizing the heartbeat API )
+* New Feature : Added account activity widget to dashboard ( with live updates using heartbeat API )
+* Added screenshot of admin dashboard account activity widget
+
+= 4.5 =
+* Added reCAPTCHA support to prevent bots and spammers from submitting forms
+* Split settings page into three seperate sections
+* Removed Jetpack sharing icons from appearing in the success messages (removed sharedaddy filter)
+* Updated translation files with new strings
+* Update existing screen shots and add new screen shot
+* Update FAQ
+* Added "loaded server modules" to the debug page, to better aid in support requests
+
 = 3.0 =
 * Update Mail Chimp API to v2.0
 * Added API Key Validation Check

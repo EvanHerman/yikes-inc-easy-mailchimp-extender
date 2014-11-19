@@ -1,242 +1,328 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: Yikes Inc. Easy MailChimp Plugin\n"
-"POT-Creation-Date: 2014-04-23 14:35-0500\n"
-"PO-Revision-Date: 2014-04-23 14:53-0500\n"
-"Last-Translator: Evan <evan.m.herman@gmail.com>\n"
+"POT-Creation-Date: 2014-07-22 13:14-0500\n"
+"PO-Revision-Date: 2014-07-22 13:14-0500\n"
+"Last-Translator: Evan <Evan@yikesinc.com>\n"
 "Language-Team: Yikes Inc. <evan@yikesinc.com>\n"
-"Language: ru_RU\n"
+"Language: en\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Poedit 1.6.4\n"
+"X-Generator: Poedit 1.6.6\n"
 "X-Poedit-Basepath: .\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "X-Poedit-KeywordsList: __;_e\n"
 "X-Poedit-SearchPath-0: ../.\n"
 
-#: .././classes/class.yksemeBase.php:114
-#: .././classes/class.yksemeBase.php:1287
+#: .././classes/class.yksemeBase.php:130
+#: .././classes/class.yksemeBase.php:1456
 msgid "Thank You for subscribing!"
 msgstr "Спасибо за подписку!"
 
-#: .././classes/class.yksemeBase.php:115
-#: .././classes/class.yksemeBase.php:1288
+#: .././classes/class.yksemeBase.php:131
+#: .././classes/class.yksemeBase.php:1457
 msgid ""
 "Thank You for subscribing! Check your email for the confirmation message."
 msgstr ""
 "Спасибо за подписку! Проверьте свою электронную почту для подтверждения."
 
-#: .././classes/class.yksemeBase.php:116
+#: .././classes/class.yksemeBase.php:132
 msgid "Select Your Area of Interest"
 msgstr "Выберите интересующую Вас область"
 
-#: .././classes/class.yksemeBase.php:917
+#: .././classes/class.yksemeBase.php:824
+msgid "Create a Form For This List"
+msgstr "Создание формы для этого списка"
+
+#: .././classes/class.yksemeBase.php:826
+msgid ""
+"Error - No Lists Found On Your Account. Please create at least one list on "
+"your MailChimp account."
+msgstr ""
+"Ошибка - не списки найдены на вашем счету. Пожалуйста, создать хотя бы один "
+"список на вашем счету MailChimp."
+
+#: .././classes/class.yksemeBase.php:900
+msgid "All Lists"
+msgstr "Ваши списки"
+
+#: .././classes/class.yksemeBase.php:1046
+#: .././classes/class.yksemeBase.php:1072
+msgid " subscribers"
+msgstr "Информация для подписчиков"
+
+#: .././classes/class.yksemeBase.php:1047
 msgid "Click on a subscriber to see further information"
 msgstr "Нажмите на абонента, чтобы увидеть дополнительную информацию"
 
-#: .././classes/class.yksemeBase.php:920
+#: .././classes/class.yksemeBase.php:1052
+#: .././classes/class.yksemeBase.php:1696
+#: .././classes/class.yksemeBase.php:1880
+#: .././classes/class.yksemeBase.php:1983
+#: .././classes/class.yksemeBase.php:2085
 msgid "E-Mail"
-msgstr "E-Mail"
+msgstr "Эл. почта"
 
-#: .././classes/class.yksemeBase.php:921
+#: .././classes/class.yksemeBase.php:1053
 msgid "Date Subscribed"
 msgstr "Дата Подписки"
 
-#: .././classes/class.yksemeBase.php:941
+#: .././classes/class.yksemeBase.php:1074
 msgid "Sorry You Don't Currently Have Any Subscribers In This List!"
 msgstr "К сожалению Вы не В настоящее время, абоненты в этом списке!"
 
-#: .././classes/class.yksemeBase.php:998
+#: .././classes/class.yksemeBase.php:1131
 msgid "Back to Subscriber List"
 msgstr "Назад к списку подписчика"
 
-#: .././classes/class.yksemeBase.php:999
+#: .././classes/class.yksemeBase.php:1132
 msgid "Subscriber Details"
 msgstr "Абонентские Подробнее"
 
-#: .././classes/class.yksemeBase.php:1010
+#: .././classes/class.yksemeBase.php:1143
+#: .././templates/mailChimp-campaign-report.php:335
 msgid "Overview"
-msgstr "обзор"
+msgstr "Обзор"
 
-#: .././classes/class.yksemeBase.php:1015
+#: .././classes/class.yksemeBase.php:1148
+#: .././classes/class.yksemeBase.php:1697
+#: .././classes/class.yksemeBase.php:1882
+#: .././classes/class.yksemeBase.php:1984
+#: .././classes/class.yksemeBase.php:2086
 msgid "First Name"
 msgstr "Имя"
 
-#: .././classes/class.yksemeBase.php:1018
+#: .././classes/class.yksemeBase.php:1151
 msgid "Last Updated"
-msgstr "Обновлено"
+msgstr "Последнее обновление"
 
-#: .././classes/class.yksemeBase.php:1021
+#: .././classes/class.yksemeBase.php:1154
 msgid "Preferred Email Type"
 msgstr "Привилегированные E-mail Тип"
 
-#: .././classes/class.yksemeBase.php:1028
+#: .././classes/class.yksemeBase.php:1161
+#: .././classes/class.yksemeBase.php:1698
+#: .././classes/class.yksemeBase.php:1883
+#: .././classes/class.yksemeBase.php:1985
+#: .././classes/class.yksemeBase.php:2087
 msgid "Last Name"
 msgstr "Фамилия"
 
-#: .././classes/class.yksemeBase.php:1031
+#: .././classes/class.yksemeBase.php:1164
 msgid "Language"
-msgstr "язык"
+msgstr "Язык"
 
-#: .././classes/class.yksemeBase.php:1054
+#: .././classes/class.yksemeBase.php:1191
 msgid "Groups Subscribed To"
 msgstr "Группы подписалось на"
 
-#: .././classes/class.yksemeBase.php:1104
+#: .././classes/class.yksemeBase.php:1241
 msgid "Subscriber Notes"
 msgstr "Информация для подписчиков"
 
-#: .././classes/class.yksemeBase.php:1109
+#: .././classes/class.yksemeBase.php:1246
 msgid "Written by"
-msgstr "Автор"
+msgstr "Автор:"
 
-#: .././classes/class.yksemeBase.php:1109
+#: .././classes/class.yksemeBase.php:1246
 msgid "Created on"
 msgstr "Создан"
 
-#: .././classes/class.yksemeBase.php:1251
-#: .././classes/class.yksemeBase.php:1253
+#: .././classes/class.yksemeBase.php:1409
+#: .././classes/class.yksemeBase.php:1411
 msgid "MailChimp Forms"
 msgstr "MailChimp Формы"
 
-#: .././classes/class.yksemeBase.php:1253
+#: .././classes/class.yksemeBase.php:1411
 msgid "MailChimp Settings"
 msgstr "Настройки MailChimp"
 
-#: .././classes/class.yksemeBase.php:1254
+#: .././classes/class.yksemeBase.php:1414 .././pages/myMailChimp.php:77
+msgid "My MailChimp"
+msgstr "MailChimp Формы"
+
+#: .././classes/class.yksemeBase.php:1416
 msgid "Manage List Forms"
 msgstr "Управление список Формы"
 
-#: .././classes/class.yksemeBase.php:1255 .././pages/about.php:5
+#: .././classes/class.yksemeBase.php:1417 .././pages/about.php:5
 msgid "About YIKES, Inc."
 msgstr "О Yikes, Inc"
 
-#: .././classes/class.yksemeBase.php:1430
+#: .././classes/class.yksemeBase.php:1699
+#: .././classes/class.yksemeBase.php:1884
+#: .././classes/class.yksemeBase.php:1986
+#: .././classes/class.yksemeBase.php:2088
+msgid "Member Rating"
+msgstr "Посетители Рейтинг"
+
+#: .././classes/class.yksemeBase.php:1700
+msgid "Last Changed"
+msgstr "Последнее обновление"
+
+#: .././classes/class.yksemeBase.php:1856
+#: .././templates/mailChimp-campaign-report.php:515
+msgid "Unique Opens"
+msgstr "Уникальные открывает"
+
+#: .././classes/class.yksemeBase.php:1858
+#: .././templates/mailChimp-campaign-stats-template.php:369
+msgid "Total Opens"
+msgstr "Всего открывает"
+
+#: .././classes/class.yksemeBase.php:1881
+#: .././templates/mailChimp-campaign-click-geo-map.php:134
+msgid "Opens"
+msgstr "Открывает"
+
+#: .././classes/class.yksemeBase.php:1961
+msgid "Total Bounced Emails"
+msgstr "Всего письма с"
+
+#: .././classes/class.yksemeBase.php:2063
+msgid "Total Unsubscribes"
+msgstr "Дата Подписки"
+
+#: .././classes/class.yksemeBase.php:2089
+msgid "Reason"
+msgstr "Возвращаемое значение"
+
+#: .././classes/class.yksemeBase.php:2438
 msgid "One or more fields are empty"
 msgstr "Одно или несколько полей являются пустыми"
 
-#: .././classes/class.yksemeBase.php:1480
+#: .././classes/class.yksemeBase.php:2490
 msgid "Your List Was Successfully Saved!"
 msgstr "Ваш список успешно сохранен!"
 
-#: .././classes/class.yksemeBase.php:1482
+#: .././classes/class.yksemeBase.php:2493
+msgid "Your settings were not saved (or you did not change them)."
+msgstr "Настройки не были сохранены (или вы не меняли их)."
+
+#: .././classes/class.yksemeBase.php:2495
 msgid "I'm sorry there was an error with your request."
 msgstr "Мне очень жаль произошла ошибка с вашим запросом."
 
-#: .././classes/class.yksemeBase.php:1488
+#: .././classes/class.yksemeBase.php:2501
 msgid "MailChimp List name"
 msgstr "Имя MailChimp Список"
 
-#: .././classes/class.yksemeBase.php:1494
-#: .././classes/class.yksemeBase.php:1504
+#: .././classes/class.yksemeBase.php:2507
+#: .././classes/class.yksemeBase.php:2517
 #, php-format
 msgid "%1$s"
 msgstr "'%1$s'"
 
-#: .././classes/class.yksemeBase.php:1512
+#: .././classes/class.yksemeBase.php:2525
 msgid "MailChimp List ID"
 msgstr "MailChimp Список ID"
 
-#: .././classes/class.yksemeBase.php:1518
+#: .././classes/class.yksemeBase.php:2531
 msgid "Shortcode"
-msgstr "Короткий"
+msgstr "Шорткод"
 
-#: .././classes/class.yksemeBase.php:1521
+#: .././classes/class.yksemeBase.php:2534
 msgid ""
 "Paste this shortcode into whatever page or post you want to add this form to"
 msgstr ""
 "Вставьте этот короткий код в любой странице или разместить вы хотите "
 "добавить эту форму, чтобы"
 
-#: .././classes/class.yksemeBase.php:1526
+#: .././classes/class.yksemeBase.php:2539
 msgid "PHP Snippet"
 msgstr "PHP Фрагмент"
 
-#: .././classes/class.yksemeBase.php:1529
+#: .././classes/class.yksemeBase.php:2543
 msgid "Use this code to add this form to a template file"
 msgstr "Используйте этот код, чтобы добавить эту форму, чтобы файл шаблона"
 
-#: .././classes/class.yksemeBase.php:1534
+#: .././classes/class.yksemeBase.php:2548
 msgid "Number of Subscribers"
 msgstr "Количество абонентов"
 
-#: .././classes/class.yksemeBase.php:1543
+#: .././classes/class.yksemeBase.php:2557
 msgid "Form Fields"
 msgstr "Поля формы"
 
-#: .././classes/class.yksemeBase.php:1545
+#: .././classes/class.yksemeBase.php:2559
 msgid ""
 "Check the fields you want included in your form (Email Address is required)."
 msgstr ""
 "Проверьте поля, которые вы хотите включить в вашей форме (E-mail адрес "
 "необходим)."
 
-#: .././classes/class.yksemeBase.php:1548
+#: .././classes/class.yksemeBase.php:2562
 msgid ""
 "Use the green arrows to drag-and-drop the fields and rearrange their order."
 msgstr ""
 "С помощью зеленых стрелок перетащить и падение поля и изменять их порядок."
 
-#: .././classes/class.yksemeBase.php:1554
+#: .././classes/class.yksemeBase.php:2568
 msgid "Active Fields"
 msgstr "Активные Поля"
 
-#: .././classes/class.yksemeBase.php:1563
+#: .././classes/class.yksemeBase.php:2577
 msgid "Drag"
 msgstr "Тащить"
 
-#: .././classes/class.yksemeBase.php:1563
+#: .././classes/class.yksemeBase.php:2577
 msgid "drop"
-msgstr "падение"
+msgstr "drop"
 
-#: .././classes/class.yksemeBase.php:1568
+#: .././classes/class.yksemeBase.php:2582
 msgid "Merge field"
 msgstr "Поле слияния"
 
-#: .././classes/class.yksemeBase.php:1569
+#: .././classes/class.yksemeBase.php:2583
 msgid "Placeholder"
 msgstr "Заполнитель"
 
-#: .././classes/class.yksemeBase.php:1577
+#: .././classes/class.yksemeBase.php:2591
 msgid "Redirect User On Submission"
 msgstr "Перенаправление пользователя на представления"
 
-#: .././classes/class.yksemeBase.php:1581
+#: .././classes/class.yksemeBase.php:2595
 msgid "choose a page to redirect the user to after they submit the form."
 msgstr ""
-"выбрать страницу или установить пользовательский URL для перенаправления "
-"пользователя на после того как они узнайте."
+"выбрать страницу для перенаправления пользователя на после того как они "
+"узнайте."
 
-#: .././classes/class.yksemeBase.php:1584
+#: .././classes/class.yksemeBase.php:2598
 msgid "Select A Post/Page"
 msgstr "Выберите должность / Page"
 
-#: .././classes/class.yksemeBase.php:1638
+#: .././classes/class.yksemeBase.php:2655
 msgid "Save Form Settings"
-msgstr "Управление MailChimp Forms Настройки"
+msgstr "Сохранить настройки Form"
 
-#: .././classes/class.yksemeBase.php:1639
+#: .././classes/class.yksemeBase.php:2656
 msgid "Delete Form"
 msgstr "Удалить форму"
 
-#: .././classes/class.yksemeBase.php:1640
+#: .././classes/class.yksemeBase.php:2657
 msgid "Re-Import Form Fields from MailChimp"
-msgstr "Пожалуйста, импортировать некоторые списки от MailChimp"
+msgstr "Реимпорт полей формы с MailChimp"
 
-#: .././classes/class.yksemeBase.php:2168
+#: .././classes/class.yksemeBase.php:2862
+#: .././classes/class.yksemeBase.php:2976
+msgid "reCAPTCHA API Key Error. Please double check your API Keys."
+msgstr ""
+"рекапчи ключ API Ошибка. Пожалуйста, внимательно проверяйте ключей API."
+
+#: .././classes/class.yksemeBase.php:3252
 msgid "Sign Me Up For MAILCHIMP-REPLACE-THIS-TEXT's Newsletter"
 msgstr "Подпишите меня на бюллетень MailChimp-заменить-за-Text в"
 
-#: .././pages/about.php:27
+#: .././pages/about.php:42
 msgid "YIKES, Inc. Web Design and Development"
 msgstr "YIKES, Inc Дизайн и разработка сайтов"
 
-#: .././pages/about.php:29
+#: .././pages/about.php:44
 msgid "Smart, effective, beautifully designed web solutions"
 msgstr "Умные, эффективные, красиво оформленный веб-решения"
 
-#: .././pages/about.php:32
+#: .././pages/about.php:47
 msgid ""
 "YIKES is located in the Fishtown neighborhood of Philadelphia where we build "
 "custom WordPress themes and plugins every day."
@@ -244,7 +330,7 @@ msgstr ""
 "YIKES расположен в Fishtown окрестности Филадельфии, где мы строим "
 "пользовательские WordPress тем и плагинов каждый день."
 
-#: .././pages/about.php:36
+#: .././pages/about.php:51
 msgid ""
 "At YIKES we love WordPress! Co-Owner, Tracy Levesque has presented at "
 "WordCamps"
@@ -252,15 +338,15 @@ msgstr ""
 "В YIKES мы любим WordPress! Совладелец, Трейси Левеск представила на "
 "WordCamps"
 
-#: .././pages/about.php:36
+#: .././pages/about.php:51
 msgid "and"
 msgstr "и"
 
-#: .././pages/about.php:36
+#: .././pages/about.php:51
 msgid "She also teaches WordPress classes for"
 msgstr "Она также преподает классы WordPress для"
 
-#: .././pages/about.php:40
+#: .././pages/about.php:55
 msgid ""
 "In addition to making great WordPress sites we are also committed to the "
 "sustainable business movement. We observe the triple bottom line: people, "
@@ -272,11 +358,11 @@ msgstr ""
 "прибыль и работать, чтобы помочь построить более социально, экологически и "
 "финансово устойчивой местной экономики. У нас даже есть"
 
-#: .././pages/about.php:40
+#: .././pages/about.php:55
 msgid "LEED Platinum office"
 msgstr "Платина LEED офис"
 
-#: .././pages/about.php:44
+#: .././pages/about.php:59
 msgid ""
 "If you're interested in hiring us for WordPress development, or just want to "
 "learn more about us, please visit"
@@ -284,96 +370,151 @@ msgstr ""
 "Если вы заинтересованы в найме с нами для развития WordPress, или просто "
 "хотите узнать больше о нас, пожалуйста, посетите"
 
-#: .././pages/lists.php:8
-msgid "No forms have been added yet."
-msgstr "Нет формы были добавлены еще."
-
-#: .././pages/lists.php:39
+#: .././pages/lists.php:56
 msgid "Oops.. The list ID you entered appears to be incorrect."
 msgstr "К сожалению .. Список ID вы вошли, кажется, неправильно."
 
-#: .././pages/lists.php:44
+#: .././pages/lists.php:70
 msgid "There was an error!"
 msgstr "Был ошибка!"
 
-#: .././pages/lists.php:135
+#: .././pages/lists.php:161
 msgid "You need to select a Mailchimp list in order to create a form for it"
 msgstr ""
 "Вам необходимо выбрать список Mailchimp для того, чтобы создать форму для "
 "него"
 
-#: .././pages/lists.php:173
+#: .././pages/lists.php:220
 msgid "Are you sure you want to delete this form?"
 msgstr "Вы уверены, что хотите удалить эту форму?"
 
-#: .././pages/lists.php:206
-msgid "Are you sure you want to re-import your fields from MailChimp?"
-msgstr "Вы уверены, что хотите повторно импортировать поля из MailChimp?"
+#: .././pages/lists.php:263
+msgid ""
+"Are you sure you want to re-import this form and its fields from MailChimp?"
+msgstr "Вы уверены, что хотите реимпорта эту форму и его поля от MailChimp?"
 
-#: .././pages/lists.php:228
-msgid "Looks like this form is already up to date!"
-msgstr "Похоже, эта форма уже в курсе событий!"
+#: .././pages/lists.php:284
+msgid "Your MailChimp form"
+msgstr "MailChimp Формы"
 
-#: .././pages/lists.php:326
+#: .././pages/lists.php:284
+msgid " was successfully updated"
+msgstr " был успешно обновлен"
+
+#: .././pages/lists.php:298
+msgid "It looks like this form is already up to date!"
+msgstr "Похоже, эта форма уже в курсе!"
+
+#: .././pages/lists.php:423
 msgid "Are you sure you want to unsubscribe"
 msgstr "Вы уверены, что хотите отказаться от подписки"
 
-#: .././pages/lists.php:326
+#: .././pages/lists.php:423
 msgid "from this list?"
 msgstr "из этого списка?"
 
-#: .././pages/lists.php:342
+#: .././pages/lists.php:439
 msgid "was successfully unsubscribed from this list."
 msgstr "успешно отписались из этого списка."
 
-#: .././pages/lists.php:448 .././pages/options.php:196
-#: .././pages/options.php:416
+#: .././pages/lists.php:549 .././pages/myMailChimp.php:74
+#: .././pages/options.php:354 .././pages/options.php:707
 msgid "Easy Mailchimp Forms by YIKES, Inc."
 msgstr "Легко MailChimp Формы по Yikes, Inc"
 
-#: .././pages/lists.php:454
+#: .././pages/lists.php:555
 msgid "Before you can add MailChimp forms to your site, you need to"
 msgstr "Перед добавлением MailChimp формы на ваш сайт, вам нужно"
 
-#: .././pages/lists.php:454
+#: .././pages/lists.php:555
 msgid "go to the MailChimp Settings page"
 msgstr "перейдите на страницу Настройки MailChimp"
 
-#: .././pages/lists.php:454 .././templates/yikes-mailchimp-widget.php:156
+#: .././pages/lists.php:555 .././templates/yikes-mailchimp-widget.php:156
 msgid "and add your API Key."
 msgstr "и добавить свой API Key."
 
-#: .././pages/lists.php:462
+#: .././pages/lists.php:563
 msgid "You must enter a valid API key to import and manage your lists."
 msgstr ""
 "Вы должны ввести действительный ключ API для импорта и управлять своими "
 "списками."
 
-#: .././pages/lists.php:473
+#: .././pages/lists.php:574
 msgid "Your Lists"
 msgstr "Ваши списки"
 
-#: .././pages/lists.php:483
+#: .././pages/lists.php:583
 msgid "Manage Forms"
 msgstr "Управление формами"
 
-#: .././pages/options.php:41
+#: .././pages/myMailChimp.php:48 .././pages/options.php:326
+msgid "Need Help?"
+msgstr "Нужна помощь?"
+
+#: .././pages/myMailChimp.php:49 .././pages/options.php:327
+msgid "Get In Contact!"
+msgstr "Войти в контакт!"
+
+#: .././pages/myMailChimp.php:57 .././pages/options.php:335
+msgid "Loving the plugin?"
+msgstr "Любить плагин?"
+
+#: .././pages/myMailChimp.php:58 .././pages/options.php:336
+msgid "Leave us a nice review"
+msgstr "Оставьте нам хороший отзыв"
+
+#: .././pages/myMailChimp.php:78
+msgid ""
+"Here you will find recent activity for your MailChimp account, as well as "
+"statistics for lists and campaigns."
+msgstr ""
+"Здесь вы найдете последние действия для вашей учетной записи MailChimp, а "
+"также статистические данные по спискам и кампаний."
+
+#: .././pages/myMailChimp.php:83
+msgid "Account Overview"
+msgstr "Обзор"
+
+#: .././pages/myMailChimp.php:84
+msgid "Account Activity"
+msgstr "Счет активност"
+
+#: .././pages/myMailChimp.php:85
+msgid "List Statistics"
+msgstr "Список статистика"
+
+#: .././pages/myMailChimp.php:173
+msgid "Recent Activity"
+msgstr "Недавняя активность"
+
+#: .././pages/myMailChimp.php:207
+msgid "Growth History"
+msgstr "История роста"
+
+#: .././pages/myMailChimp.php:208
+msgid "Campaign Stats"
+msgstr "Кампания Статистика"
+
+#: .././pages/options.php:54 .././pages/options.php:86
+#: .././pages/options.php:118
 msgid "The options were saved successfully!"
 msgstr "Варианты были успешно сохранены!"
 
-#: .././pages/options.php:44
+#: .././pages/options.php:57 .././pages/options.php:89
+#: .././pages/options.php:121
 msgid "The options could not be saved (or you did not change them)."
 msgstr "Варианты не может быть сохранен (или вы не меняли их)."
 
-#: .././pages/options.php:96
+#: .././pages/options.php:176
 msgid "Valid API Key"
 msgstr "Действительно ключ API"
 
-#: .././pages/options.php:102
+#: .././pages/options.php:182
 msgid "Sorry, that is an invalid MailChimp API key."
 msgstr "К сожалению, это является недопустимым ключ MailChimp API."
 
-#: .././pages/options.php:108
+#: .././pages/options.php:189
 msgid ""
 "Sorry, that is an invalid MailChimp API key. Please check the console for "
 "further information."
@@ -381,19 +522,43 @@ msgstr ""
 "К сожалению, это является недопустимым ключ MailChimp API. Пожалуйста, "
 "проверьте консоль для получения дополнительной информации."
 
-#: .././pages/options.php:117
+#: .././pages/options.php:199
 msgid "Error: Please enter a valid Mail Chimp API Key."
 msgstr "Ошибка: Пожалуйста, введите действующий Почта шимпанзе API Key."
 
-#: .././pages/options.php:199
+#: .././pages/options.php:217
+msgid ""
+"Are you sure you want to reset your MailChimp settings? This cannot be "
+"undone."
+msgstr ""
+"Вы уверены, что хотите сбросить настройки MailChimp? Это не может быть "
+"отменено."
+
+#: .././pages/options.php:230
+msgid "MailChimp settings have successfully been reset"
+msgstr "Настройки MailChimp были успешно сбросить"
+
+#: .././pages/options.php:348
+msgid "Form Options"
+msgstr "Параметры формы"
+
+#: .././pages/options.php:349
+msgid "ReCaptcha Options"
+msgstr "ReCaptcha Опции"
+
+#: .././pages/options.php:350
+msgid "Debug Options"
+msgstr "Отладка Опции"
+
+#: .././pages/options.php:361
 msgid "Manage Mailchimp Forms Settings"
 msgstr "Управление MailChimp Forms Настройки"
 
-#: .././pages/options.php:205
+#: .././pages/options.php:367
 msgid "WordPress Version Number Error"
-msgstr "Wordpress версия"
+msgstr "WordPress Номер версии Ошибка"
 
-#: .././pages/options.php:206
+#: .././pages/options.php:368
 msgid ""
 "We're sorry, but it looks like your using an outdated version of WordPress. "
 "You won't be able to access the tinyMCE button to insert forms into pages "
@@ -401,38 +566,39 @@ msgid ""
 msgstr ""
 "К сожалению, но, похоже, вы используете устаревшую версию WordPress. Вы не "
 "сможете получить доступ к кнопке TinyMCE вставить формы в-страниц и "
-"сообщений, если вы не обновите до 3,9 или позже."
+"сообщений, если вы не обновите до 3,9 или более поздней версии."
 
-#: .././pages/options.php:215
+#: .././pages/options.php:377
 msgid "LocalHost Detected :"
 msgstr "LocalHost Обнаружено:"
 
-#: .././pages/options.php:216
+#: .././pages/options.php:378
 msgid ""
 "It looks like your using Easy MailChimp Forms by YIKES Inc. on localhost."
-msgstr "Легко MailChimp Формы по Yikes, Inc"
+msgstr "Похоже, вы используете Easy MailChimp Виды на YIKES Инк на локальной."
 
-#: .././pages/options.php:217
+#: .././pages/options.php:379
 msgid ""
 "If you are unable to validate your API key, and receive the error message"
 msgstr ""
 "Если вы не в состоянии подтвердить свой ключ API, и появляется сообщение об "
 "ошибке"
 
-#: .././pages/options.php:217
-msgid "\"SSL certificate problem: unable to get local issuer certificate\" "
+#: .././pages/options.php:379
+#, fuzzy
+msgid "SSL certificate problem: unable to get local issuer certificate"
 msgstr ""
 "\"Проблема SSL сертификата: не удалось получить местную сертификата эмитент\""
 
-#: .././pages/options.php:217
+#: .././pages/options.php:379
 msgid "follow the tutorial located "
 msgstr "следуйте учебник, расположенную "
 
-#: .././pages/options.php:230
+#: .././pages/options.php:389
 msgid "Your Mailchimp API Key"
 msgstr "Ваш Mailchimp ключ API"
 
-#: .././pages/options.php:238
+#: .././pages/options.php:406
 msgid ""
 "Please enter your MailChimp API Key above. The API Key allows your WordPress "
 "site to communicate with your MailChimp account."
@@ -440,69 +606,47 @@ msgstr ""
 "Пожалуйста, введите Ваш MailChimp API Key выше. Ключ API позволяет вашему "
 "WordPress сайт для общения с вашей учетной записью MailChimp."
 
-#: .././pages/options.php:239
+#: .././pages/options.php:407
 msgid "For more help, visit the MailChimp Support article"
 msgstr ""
 "Чтобы получить дополнительную информацию, посетите статью MailChimp поддержки"
 
-#: .././pages/options.php:239
+#: .././pages/options.php:407
 msgid "Where can I find my API Key?"
 msgstr "Где я могу найти свой ключ API?"
 
-#: .././pages/options.php:244
+#: .././pages/options.php:412
 msgid "Preferred Form Layout"
 msgstr "Предпочтительная форма Макет"
 
-#: .././pages/options.php:247
+#: .././pages/options.php:415
 msgid "table"
-msgstr "стол"
+msgstr "table"
 
-#: .././pages/options.php:248
+#: .././pages/options.php:416
 msgid "div"
 msgstr "дел"
 
-#: .././pages/options.php:256
+#: .././pages/options.php:424
 msgid "Choose whether you want your forms to use a table or div layout."
 msgstr "Выберите, хотите ли вы ваши формы использовать таблицу или макет DIV."
 
-#: .././pages/options.php:261
-msgid "Advanced Error Messaging"
-msgstr "Расширенный Ошибка сообщений"
-
-#: .././pages/options.php:264
-msgid "Disabled"
-msgstr "Инвалид"
-
-#: .././pages/options.php:265
-msgid "Enabled"
-msgstr "Включено"
-
-#: .././pages/options.php:273
-msgid ""
-"Enable if you're having problems with your forms sending data to MailChimp. "
-"Enabling Advanced Error Messaging will show you the exact error codes "
-"MailChimp is returning."
-msgstr ""
-"Включить, если у вас возникли проблемы с вашим формы отправки данных "
-"MailChimp. Включение Расширенный сообщений об ошибках покажет вам точные "
-"коды ошибок MailChimp возвращается."
-
-#: .././pages/options.php:281
+#: .././pages/options.php:432
 msgid "Single Opt-In"
 msgstr "Одноместный Opt-In"
 
-#: .././pages/options.php:282
+#: .././pages/options.php:433
 msgid "Double Opt-In"
 msgstr "Двухместный Opt-In"
 
-#: .././pages/options.php:290
+#: .././pages/options.php:441
 msgid ""
 "A single opt-in will add the user to your list without any further "
 "interaction."
 msgstr ""
 "Один выбор в добавит пользователя в список без дальнейшего взаимодействия."
 
-#: .././pages/options.php:291
+#: .././pages/options.php:442
 msgid ""
 "A double opt-in will send an email to the user asking them to confirm their "
 "subscription."
@@ -510,28 +654,33 @@ msgstr ""
 "Двойной отказ в будет отправить по электронной почте пользователю с просьбой "
 "подтвердить свою подписку."
 
-#: .././pages/options.php:292
+#: .././pages/options.php:443
 msgid "This will also dictate the opt-in settings for people leaving comments."
 msgstr ""
 "Это также диктовать параметры выбора в для людей, оставляя комментарии."
 
-#: .././pages/options.php:297
+#: .././pages/options.php:448
 msgid "Custom Opt-In Message"
 msgstr "Пользовательские Opt-In Сообщение"
 
-#: .././pages/options.php:299
+#: .././pages/options.php:450
 msgid "Double Opt-In Message"
 msgstr "Двухместный Opt-In Сообщение"
 
-#: .././pages/options.php:301
+#: .././pages/options.php:454
 msgid "Single Opt-In Message"
 msgstr "Одноместный Opt-In Сообщение"
 
-#: .././pages/options.php:307
+#: .././pages/options.php:464
+msgid "Note: You can include html markup in your confirmation message."
+msgstr ""
+"Примечание: Вы можете включить HTML разметку в своем сообщении подтверждения."
+
+#: .././pages/options.php:469
 msgid "Interest Group Label"
 msgstr "Группа по интересам Этикетка"
 
-#: .././pages/options.php:316
+#: .././pages/options.php:478
 msgid ""
 "Text to display above interest groups. Leave blank to use MailChimp interest "
 "group names."
@@ -539,19 +688,19 @@ msgstr ""
 "Текст для отображения выше групп интересов. Оставьте пустым, чтобы "
 "использовать имена групп процентные MailChimp."
 
-#: .././pages/options.php:321
+#: .././pages/options.php:483
 msgid "Display opt-in checkbox on comment forms?"
 msgstr "Показать флажок подтверждения на комментарий форм?"
 
-#: .././pages/options.php:324
+#: .././pages/options.php:486
 msgid "Hide"
 msgstr "Скрыть"
 
-#: .././pages/options.php:325
+#: .././pages/options.php:487
 msgid "Show"
 msgstr "Показать"
 
-#: .././pages/options.php:333
+#: .././pages/options.php:495
 msgid ""
 "This will display a checkbox just above the submit button on all comment "
 "forms. If selected, any users leaving comments will also be added to the "
@@ -561,15 +710,15 @@ msgstr ""
 "Если выбран, любые пользователи, оставляя комментарии также будут добавлены "
 "в список рассылки."
 
-#: .././pages/options.php:338
+#: .././pages/options.php:500
 msgid "Custom Comment Checkbox Text"
 msgstr "Пользовательские Комментарий Флажок Текст"
 
-#: .././pages/options.php:345
+#: .././pages/options.php:507
 msgid "Default List"
 msgstr "По умолчанию Список"
 
-#: .././pages/options.php:360
+#: .././pages/options.php:522
 msgid ""
 "This is the default list users will be subscribed to when submitting a "
 "comment."
@@ -577,7 +726,7 @@ msgstr ""
 "Это пользователи в список по умолчанию будут подписаны к при подаче "
 "комментарий."
 
-#: .././pages/options.php:361
+#: .././pages/options.php:523
 msgid ""
 "It is best to select a form where only the email , first name and/or last "
 "name are required or you may run into issues."
@@ -585,95 +734,572 @@ msgstr ""
 "Лучше всего, чтобы выбрать форму, где только электронная почта, имя и / или "
 "фамилию требуются или вы можете столкнуться с проблемами."
 
-#: .././pages/options.php:373
+#: .././pages/options.php:528
+msgid "Save Settings"
+msgstr "Сохранить настройки"
+
+#: .././pages/options.php:528
+msgid "Reset Plugin Settings"
+msgstr "Сброс настроек Плагин"
+
+#: .././pages/options.php:539
+msgid "ReCaptcha Settings"
+msgstr "Настройки ReCaptcha"
+
+#: .././pages/options.php:540
+msgid ""
+"reCAPTCHA is a free service to protect your website from spam and abuse. "
+"reCAPTCHA uses an advanced risk analysis engine and adaptive CAPTCHAs to "
+"keep automated software from engaging in abusive activities on your site. It "
+"does this while letting your valid users pass through with ease."
+msgstr ""
+"рекапчи представляет собой бесплатный сервис, чтобы защитить ваш сайт от "
+"спама и злоупотреблений. рекапчи использует продвинутый анализ рисков "
+"двигатель и адаптивные CAPTCHAs держать автоматизированное программное "
+"обеспечение от участия в мошеннической деятельности на вашем сайте. Он "
+"делает это, позволяя ваши действительные пользователи проходят через с "
+"легкостью."
+
+#: .././pages/options.php:542
+msgid "Note"
+msgstr "Заметье"
+
+#: .././pages/options.php:542
+msgid ""
+"if you're displaying multiple forms on a single page, reCAPTCHA will only "
+"display on one form at a time."
+msgstr ""
+"если вы показываете несколько форм на одной странице, рекапчи будут "
+"отображаться только на одном виде за один раз."
+
+#: .././pages/options.php:549
+msgid "ReCaptcha Spam Protection"
+msgstr "ReCaptcha Защита от спама"
+
+#: .././pages/options.php:552 .././pages/options.php:635
+msgid "Disabled"
+msgstr "Отключено"
+
+#: .././pages/options.php:553 .././pages/options.php:636
+msgid "Enabled"
+msgstr "Включено"
+
+#: .././pages/options.php:561
+msgid "ReCaptcha prevents excessive form entires from spammers and bots."
+msgstr "ReCaptcha предотвращает чрезмерное заходы формы от спамеров и ботов."
+
+#: .././pages/options.php:569
+msgid "ReCaptcha Public API Key"
+msgstr "ReCaptcha Общественный ключ API"
+
+#: .././pages/options.php:577
+msgid "ReCaptcha Private API Key"
+msgstr "ReCaptcha Частный ключ API"
+
+#: .././pages/options.php:586
+msgid "to retreive a recaptcha API key, sign up for an account"
+msgstr "чтобы извлечь ключ ReCaptcha API, подпишитесь на счет"
+
+#: .././pages/options.php:586
+msgid "here"
+msgstr "здесь"
+
+#: .././pages/options.php:591
+msgid "ReCaptcha Style"
+msgstr "ReCaptcha Стиль"
+
+#: .././pages/options.php:594
+msgid "Default"
+msgstr "По умолчанию"
+
+#: .././pages/options.php:595
+msgid "White"
+msgstr ""
+"White and Russell (1997) внесли некоторые предложения, основанные на их "
+"качественном исследовании в отношении использования изоморфизма в браке и "
+"супервизии в семейной терапии."
+
+#: .././pages/options.php:596
+msgid "Black Glass"
+msgstr "Черное стекло"
+
+#: .././pages/options.php:597
+msgid "Clean"
+msgstr "Очистить"
+
+#: .././pages/options.php:605
+msgid "reCAPTCHA Preview"
+msgstr "рекапчи Предварительный"
+
+#: .././pages/options.php:624
+msgid "Debug Settings"
+msgstr "Параметры отладки"
+
+#: .././pages/options.php:632
+msgid "Advanced Error Messaging"
+msgstr "Расширенный Ошибка сообщений"
+
+#: .././pages/options.php:644
+msgid ""
+"Enable if you're having problems with your forms sending data to MailChimp. "
+"Enabling Advanced Error Messaging will show you the exact error codes "
+"MailChimp is returning."
+msgstr ""
+"Включить, если у вас возникли проблемы с вашим формы отправки данных "
+"MailChimp. Включение Расширенный сообщений об ошибках покажет вам точные "
+"коды ошибок MailChimp возвращается."
+
+#: .././pages/options.php:651
 msgid "Plugin Information"
 msgstr "Плагин Информация"
 
-#: .././pages/options.php:376
+#: .././pages/options.php:654
 msgid "If you experience any issues with our plugin, please"
 msgstr "Если у вас возникли проблемы с нашим плагином, пожалуйста"
 
-#: .././pages/options.php:376
+#: .././pages/options.php:654
 msgid "submit a New Issue on our Github Issue Tracker"
 msgstr "представить новый выпуск на нашем Tracker Github выпуска"
 
-#: .././pages/options.php:376
+#: .././pages/options.php:654
 msgid ""
 "Please include the information below to help us troubleshoot your problem."
 msgstr ""
 "Пожалуйста, включите информацию ниже, чтобы помочь нам устранить неполадки."
 
-#: .././pages/options.php:384
+#: .././pages/options.php:659
 msgid "Plugin Version"
 msgstr "Плагин Версия"
 
-#: .././pages/options.php:388
+#: .././pages/options.php:663
 msgid "Wordpress Version"
 msgstr "Wordpress версия"
 
-#: .././pages/options.php:392
+#: .././pages/options.php:667
 msgid "Browser Information"
-msgstr "Браузер Информация"
+msgstr "Информация от браузера"
 
-#: .././pages/options.php:420
+#: .././pages/options.php:676
+msgid "Server Information"
+msgstr "Информационный сервер"
+
+#: .././pages/options.php:711
 msgid "Error"
 msgstr "Ошибка"
 
-#: .././pages/options.php:421
+#: .././pages/options.php:712
 msgid ""
 "We're sorry, but cURL is disabled on your server. The MailChimp API utilizes "
-"cURL to send and retreive data."
+"cURL to send and retrieve data."
 msgstr ""
 "К сожалению, но Curl отключена на вашем сервере. MailChimp API использует "
-"Curl отправлять и извлечь данные."
+"Curl для отправки и получения данных."
 
-#: .././pages/options.php:426
+#: .././pages/options.php:717
 msgid "Help!"
 msgstr "На помощь!"
 
-#: .././pages/options.php:426
+#: .././pages/options.php:717
 msgid "What is cURL?"
 msgstr "Что такое Curl?"
 
-#: .././pages/options.php:426
+#: .././pages/options.php:717
 msgid "Check phpinfo()"
 msgstr "Проверьте phpinfo ()"
 
-#: .././pages/options.php:428
+#: .././pages/options.php:719
 msgid "Steps To Resolve The Issue"
 msgstr "Шаги для решения этого вопроса"
 
-#: .././pages/options.php:430
+#: .././pages/options.php:723
 msgid ""
 "You can enable cURL by turning on the cURL module within your php.ini file"
 msgstr "Вы можете включить Curl, включив Curl модуля в файле php.ini"
 
-#: .././pages/options.php:430
+#: .././pages/options.php:723
 msgid "You should find the php.ini file located here : "
 msgstr "Вы должны найти файл php.ini находится здесь: "
 
-#: .././pages/options.php:431
+#: .././pages/options.php:724
 msgid ""
 "Once found, open up php.ini and locate the line \";extension=php_curl.dll\"."
 msgstr ""
-"Как только найден, откройте php.ini и найдите строки \"; расширение = "
+"Как только найден, откройте php.ini и найдите строки \" расширение = "
 "php_curl.dll\"."
 
-#: .././pages/options.php:432
+#: .././pages/options.php:725
 msgid ""
-"Remove the semi colon before the line, to un-comment it and make the module "
-"active."
+"Remove the semi colon before the line, to un-comment it and make the cURL "
+"module active."
 msgstr ""
 "Снимите с запятой перед строкой, чтобы ООН-прокомментировать его и сделать "
-"модуль активен."
+"модуль Curl активным."
 
-#: .././pages/options.php:433
+#: .././pages/options.php:726
 msgid "Re-save and close the file."
 msgstr "Re-сохранить и закрыть файл."
 
-#: .././pages/options.php:434
-msgid "Re-load this page."
-msgstr "Re-загрузить эту страницу."
+#: .././pages/options.php:727
+msgid "Restart your Apache and MySQL services and re-load this page."
+msgstr "Перезагрузите Apache и MySQL услуг и повторно загрузить эту страницу."
+
+#: .././templates/mailChimp-account-overview.php:32
+#: .././templates/mailChimp-account-overview.php:79
+msgid "Free Forever"
+msgstr "Бесплатно навсегда"
+
+#: .././templates/mailChimp-account-overview.php:37
+#: .././templates/mailChimp-account-overview.php:79
+msgid "Pay As You Go"
+msgstr "Pay As You Go"
+
+#: .././templates/mailChimp-account-overview.php:42
+msgid "Premium Chimp"
+msgstr "Премиум шимпанзе"
+
+#: .././templates/mailChimp-account-overview.php:70
+msgid "Account Not Yet Activated"
+msgstr "Счет Еще не активированного"
+
+#: .././templates/mailChimp-account-overview.php:70
+msgid "Account Active"
+msgstr "Счет активность"
+
+#: .././templates/mailChimp-account-overview.php:73
+msgid "Company"
+msgstr "Организация"
+
+#: .././templates/mailChimp-account-overview.php:74
+msgid "Member Since"
+msgstr "Регистрация"
+
+#: .././templates/mailChimp-account-overview.php:76
+msgid "Account Type"
+msgstr "Тип счета"
+
+#: .././templates/mailChimp-account-overview.php:82
+msgid "Emails Left"
+msgstr "Письма Левые"
+
+#: .././templates/mailChimp-account-overview.php:83
+msgid "Emails will reset on"
+msgstr "Письма будут сброшены на"
+
+#: .././templates/mailChimp-account-overview.php:89
+msgid "Industry"
+msgstr "Промышленность"
+
+#: .././templates/mailChimp-campaign-click-geo-map.php:97
+msgid "Number of Campaign Opens"
+msgstr "Количество кампании открылась"
+
+#: .././templates/mailChimp-campaign-click-geo-map.php:121
+msgid "Campaign Activity Geo Map"
+msgstr "Активность кампании на географическую карту"
+
+#: .././templates/mailChimp-campaign-click-geo-map.php:127
+msgid "Top Opens By Country"
+msgstr "Топ Открывает По Стране"
+
+#: .././templates/mailChimp-campaign-click-geo-map.php:133
+msgid "Country"
+msgstr "Страна"
+
+#: .././templates/mailChimp-campaign-click-report.php:59
+#: .././templates/mailChimp-campaign-click-report.php:71
+msgid "Visualize Me"
+msgstr "Представьте Me"
+
+#: .././templates/mailChimp-campaign-click-report.php:62
+#: .././templates/mailChimp-campaign-click-report.php:74
+msgid "URL"
+msgstr "URL Русский"
+
+#: .././templates/mailChimp-campaign-click-report.php:63
+#: .././templates/mailChimp-campaign-click-report.php:75
+msgid "Clicks"
+msgstr "Клики"
+
+#: .././templates/mailChimp-campaign-click-report.php:64
+#: .././templates/mailChimp-campaign-click-report.php:76
+msgid "Click Percent"
+msgstr "Нажмите Процент"
+
+#: .././templates/mailChimp-campaign-click-report.php:65
+#: .././templates/mailChimp-campaign-click-report.php:77
+#: .././templates/mailChimp-campaign-report.php:518
+msgid "Unique Clicks"
+msgstr "Уникальные клики"
+
+#: .././templates/mailChimp-campaign-click-report.php:66
+#: .././templates/mailChimp-campaign-click-report.php:78
+msgid "Unique Percent"
+msgstr "Уникальный Процент"
+
+#: .././templates/mailChimp-campaign-click-report.php:81
+msgid "No Links Clicked"
+msgstr "Нет Ссылка вызовов"
+
+#: .././templates/mailChimp-campaign-clicks-pie-chart.php:15
+msgid "Link Click Percentage - Pie Chart"
+msgstr "Ссылка Нажмите процентах - Круговая диаграмма"
+
+#: .././templates/mailChimp-campaign-report.php:306
+#: .././templates/mailChimp-campaign-report.php:307
+msgid "Back to Campaigns"
+msgstr "Вернуться к кампании"
+
+#: .././templates/mailChimp-campaign-report.php:321
+msgid "Campaign Statistics Report"
+msgstr "Кампания статистический отчет"
+
+#: .././templates/mailChimp-campaign-report.php:328
+msgid "Open tracking was disabled on this campaign"
+msgstr "Открыть слежения была отключена на этом кампании"
+
+#: .././templates/mailChimp-campaign-report.php:329
+msgid ""
+"You did not enable open tracking for this campaign, so the data in this "
+"report will be incomplete."
+msgstr ""
+"Вы не обеспечить открытый отслеживание для этой кампании, так что данные в "
+"этом докладе будет неполным."
+
+#: .././templates/mailChimp-campaign-report.php:329
+msgid "about open tracking"
+msgstr "об открытых отслеживания"
+
+#: .././templates/mailChimp-campaign-report.php:336
+msgid "Recipients"
+msgstr "Получатели"
+
+#: .././templates/mailChimp-campaign-report.php:347
+msgid "Subject"
+msgstr "Тема"
+
+#: .././templates/mailChimp-campaign-report.php:348
+msgid "Delivered"
+msgstr "Доставлено"
+
+#: .././templates/mailChimp-campaign-report.php:353
+msgid "View Email"
+msgstr "Посмотреть E-mail"
+
+#: .././templates/mailChimp-campaign-report.php:354
+msgid "Download Report"
+msgstr "Скачать Сообщить"
+
+#: .././templates/mailChimp-campaign-report.php:355
+msgid "Print Report"
+msgstr "Печать отчета"
+
+#: .././templates/mailChimp-campaign-report.php:363
+msgid "Open Rate"
+msgstr "Открытая ставка"
+
+#: .././templates/mailChimp-campaign-report.php:369
+#: .././templates/mailChimp-campaign-report.php:381
+msgid "Industry Avg"
+msgstr "Промышленность Средняя"
+
+#: .././templates/mailChimp-campaign-report.php:374
+msgid "Click Rate"
+msgstr "Нажмите Оценить"
+
+#: .././templates/mailChimp-campaign-report.php:389
+msgid "Opened"
+msgstr "Открытый"
+
+#: .././templates/mailChimp-campaign-report.php:394
+msgid "Clicked"
+msgstr "Нажал"
+
+#: .././templates/mailChimp-campaign-report.php:399
+msgid "Bounced"
+msgstr "Возвращенные"
+
+#: .././templates/mailChimp-campaign-report.php:405
+msgid "Unsubscribed"
+msgstr "Дата Подписки"
+
+#: .././templates/mailChimp-campaign-report.php:413
+msgid "Successful deliveries"
+msgstr "Успешные доставки"
+
+#: .././templates/mailChimp-campaign-report.php:414
+msgid "Total opens"
+msgstr "Всего открывает"
+
+#: .././templates/mailChimp-campaign-report.php:415
+msgid "Last opened"
+msgstr "Последнее обновление"
+
+#: .././templates/mailChimp-campaign-report.php:416
+msgid "Forwarded"
+msgstr "Forwarded"
+
+#: .././templates/mailChimp-campaign-report.php:420
+msgid "Clicks per unique opens"
+msgstr "Кликов в уникальный открывает"
+
+#: .././templates/mailChimp-campaign-report.php:421
+msgid "Total clicks"
+msgstr "Всего кликов"
+
+#: .././templates/mailChimp-campaign-report.php:422
+msgid "Last clicked"
+msgstr "Последний нажал"
+
+#: .././templates/mailChimp-campaign-report.php:423
+msgid "Abuse reports"
+msgstr "Отчеты Пожаловаться"
+
+#: .././templates/mailChimp-campaign-report.php:430
+msgid "Campaign Link Performance"
+msgstr "Кампания Ссылка Производительность"
+
+#: .././templates/mailChimp-campaign-report.php:488
+msgid "24 Hour Campaign Performance"
+msgstr "24 час Эффективность кампании"
+
+#: .././templates/mailChimp-campaign-report.php:491
+msgid "begins from the time your campaign is sent"
+msgstr "начинается с момента ваша кампания отправляется"
+
+#: .././templates/mailChimp-campaign-report.php:499
+msgid "Number of Opens/Clicks"
+msgstr "Количество абонентов"
+
+#: .././templates/mailChimp-campaign-stats-template.php:92
+msgid "Previous Campaigns"
+msgstr "Предыдущие кампании"
+
+#: .././templates/mailChimp-campaign-stats-template.php:158
+#: .././templates/mailChimp-campaign-stats-template.php:249
+msgid "Sent"
+msgstr "Отправлено"
+
+#: .././templates/mailChimp-campaign-stats-template.php:158
+msgid "on "
+msgstr "вкл "
+
+#: .././templates/mailChimp-campaign-stats-template.php:158
+msgid "at "
+msgstr "в "
+
+#: .././templates/mailChimp-campaign-stats-template.php:161
+#: .././templates/mailChimp-campaign-stats-template.php:252
+msgid "Recurring Campaign"
+msgstr "Периодическое кампании"
+
+#: .././templates/mailChimp-campaign-stats-template.php:163
+#: .././templates/mailChimp-campaign-stats-template.php:192
+#: .././templates/mailChimp-campaign-stats-template.php:254
+#: .././templates/mailChimp-campaign-stats-template.php:275
+msgid "Not Yet Sent"
+msgstr "Еще не Отправленные"
+
+#: .././templates/mailChimp-campaign-stats-template.php:173
+#: .././templates/mailChimp-campaign-stats-template.php:263
+msgid " Subscriber"
+msgstr "Дата Подписки"
+
+#: .././templates/mailChimp-campaign-stats-template.php:173
+#: .././templates/mailChimp-campaign-stats-template.php:263
+msgid " Subscribers"
+msgstr "Информация для подписчиков"
+
+#: .././templates/mailChimp-campaign-stats-template.php:174
+#: .././templates/mailChimp-campaign-stats-template.php:264
+#: .././templates/mailChimp-campaign-stats-template.php:332
+msgid " Open"
+msgstr " Открыть"
+
+#: .././templates/mailChimp-campaign-stats-template.php:174
+#: .././templates/mailChimp-campaign-stats-template.php:180
+#: .././templates/mailChimp-campaign-stats-template.php:264
+#: .././templates/mailChimp-campaign-stats-template.php:332
+msgid " Opens"
+msgstr " Открывает"
+
+#: .././templates/mailChimp-campaign-stats-template.php:175
+#: .././templates/mailChimp-campaign-stats-template.php:265
+#: .././templates/mailChimp-campaign-stats-template.php:333
+msgid " Click"
+msgstr " [Короткое касание]"
+
+#: .././templates/mailChimp-campaign-stats-template.php:175
+#: .././templates/mailChimp-campaign-stats-template.php:181
+#: .././templates/mailChimp-campaign-stats-template.php:265
+#: .././templates/mailChimp-campaign-stats-template.php:333
+msgid " Clicks"
+msgstr " Клики"
+
+#: .././templates/mailChimp-campaign-stats-template.php:179
+msgid " Campaigns Sent"
+msgstr " Кампании Отправленные"
+
+#: .././templates/mailChimp-campaign-stats-template.php:302
+msgid "It looks like you haven't sent any campaigns yet."
+msgstr "Похоже, что вы не посылал никаких кампаний еще."
+
+#: .././templates/mailChimp-campaign-stats-template.php:323
+msgid "Campaigns Sent"
+msgstr "Кампании Отправленные"
+
+#: .././templates/mailChimp-campaign-stats-template.php:370
+msgid "Total Clicks"
+msgstr "Всего щелчков"
+
+#: .././templates/mailChimp-list-growth-template.php:371
+msgid "Total Subscribers"
+msgstr "Дата Подписки"
+
+#: .././templates/mailChimp-list-growth-template.php:376
+msgid "Imported Subscribers"
+msgstr "Дата Подписки"
+
+#: .././templates/mailChimp-list-growth-template.php:381
+msgid "Opt-in Subscribers"
+msgstr "Дата Подписки"
+
+#: .././templates/mailChimp-list-growth-template.php:390
+msgid "There is no growth data for"
+msgstr "Там нет никаких данных роста"
+
+#: .././templates/mailChimp-list-growth-template.php:390
+msgid " yet"
+msgstr " однако"
+
+#: .././templates/mailChimp-list-growth-template.php:397
+msgid "No growth data found yet. Please try again at a later time."
+msgstr ""
+"Нет данных роста не найдены. Пожалуйста, попробуйте еще раз в более позднее "
+"время."
+
+#: .././templates/mailChimp-profile-template.php:10
+msgid "MailChimp Account Overview"
+msgstr "MailChimp Счет Обзор"
+
+#: .././templates/mailChimp-profile-template.php:14
+msgid "Username"
+msgstr "Имя Пользователя"
+
+#: .././templates/mailChimp-profile-template.php:15
+msgid "Name"
+msgstr "Фамилия"
+
+#: .././templates/mailChimp-profile-template.php:16
+msgid "Email"
+msgstr "E-mail"
+
+#: .././templates/mailChimp-profile-template.php:17
+msgid "Account Role"
+msgstr "Счет Роль"
+
+#: .././templates/mailChimpChatter-template.php:72
+msgid "No recent account activity. Check back again later."
+msgstr "Нет последних аккаунтом. Проверьте снова позже."
 
 #: .././templates/shortcode_error.php:1
 msgid "There was an error calling the mailchimp list."
@@ -681,28 +1307,29 @@ msgstr "Был ошибка при вызове список MailChimp."
 
 #: .././templates/shortcode_error_data.php:1
 msgid ""
-"The list doesn't exist! Make sure you have imported the list on the \"Manage "
-"List Forms\" page."
+"The list doesn't exist! Make sure you have imported the list on the 'Manage "
+"List Forms' page."
 msgstr ""
 "Список не существует! Убедитесь, что вы импортировали список на \"Управление "
 "список Формы\" страницу."
 
-#: .././templates/shortcode_error_exists.php:1
+#: .././templates/shortcode_error_exists.php:2
 msgid "This list was already placed on this page!"
 msgstr "Этот список был уже были помещены на эту страницу!"
 
-#: .././templates/shortcode_error_no_API_key.php:1
+#: .././templates/shortcode_error_no_API_key.php:2
 msgid "Woops! No Valid API Key Found. Double check your settings."
 msgstr ""
 "Woops! Нет Действительно ключ API найдено. Тщательно проверьте настройки."
 
-#: .././templates/shortcode_form.php:11
-msgid "Oops.. Don't forget to fill-in the following fields"
-msgstr "К сожалению .. Не забудьте заполнить следующие поля"
+#: .././templates/shortcode_form.php:13
+msgid "Error - The following fields are required, and may not be left blank "
+msgstr ""
+"Ошибка - Следующие поля являются обязательными, и не может быть пустым "
 
-#: .././templates/shortcode_form.php:74
+#: .././templates/shortcode_form.php:121
 msgid "required field"
-msgstr "Обязательное для заполнения поле"
+msgstr "обязательное поле"
 
 #: .././templates/yikes-mailchimp-widget.php:15
 #: .././templates/yikes-mailchimp-widget.php:18
@@ -744,7 +1371,7 @@ msgid ""
 "'Appearance > Widgets' and select a form to display."
 msgstr ""
 "Oops! Похоже, что вы забыли, чтобы выбрать форму для отображения здесь. К "
-"'Внешний вид> Виджеты \"и выберите форму для отображения."
+"\"Внешний вид > Виджеты\" и выберите форму для отображения."
 
 #: .././templates/yikes-mailchimp-widget.php:117
 msgid "Sign Up For Our Newsletter"
@@ -756,7 +1383,7 @@ msgstr "Войти Me Up"
 
 #: .././templates/yikes-mailchimp-widget.php:133
 msgid "Title:"
-msgstr "Заголовок:"
+msgstr "Заголовок"
 
 #: .././templates/yikes-mailchimp-widget.php:138
 msgid "Form Text:"
@@ -764,7 +1391,7 @@ msgstr "Форма текст:"
 
 #: .././templates/yikes-mailchimp-widget.php:146
 msgid "Submit Button Text:"
-msgstr "Текст кнопки Submit"
+msgstr "Представьте, что текст кнопки:"
 
 #: .././templates/yikes-mailchimp-widget.php:156
 msgid "Oops! It looks like you haven't added your API key! Head over to the"
@@ -774,5 +1401,14 @@ msgstr "Oops! Похоже, что вы еще не добавили свой к
 msgid "Settings page"
 msgstr "На странице Параметры"
 
-#~ msgid "No API Key or List Id Exist!"
-#~ msgstr "Нет ключ API или Список Id не существует!"
+#~ msgid "to retreive your recaptcha API keys, you must sign up for an account"
+#~ msgstr "чтобы извлечь ключи ReCaptcha API, вы должны подписаться на счет"
+
+#~ msgid "Loaded Server Modules"
+#~ msgstr "Загруженные модули сервера"
+
+#~ msgid "The following modules are active at the server level, on this site"
+#~ msgstr "Следующие модули активны на уровне сервера, на этом сайте"
+
+#~ msgid "Oops.. Don't forget to fill-in the following fields"
+#~ msgstr "К сожалению .. Не забудьте заполнить следующие поля"
