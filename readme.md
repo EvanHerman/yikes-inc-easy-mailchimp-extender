@@ -8,7 +8,8 @@ Instructions on how to use the plugin can be [found on the FAQ](http://wordpress
 
 Features
 ===========
-
+1. Add interest groups and new fields to forms directly from the dashboard without ever leaving your site (*new*)
+1. Error log for diagnosing user issues (*new*)
 1. Complete Integration of MailChimp into WordPress
 1. Easily import MailChimp forms from an active MailChimp account
 1. View/Print Interactive Account Growth Reports and Campaign Reports (Statistics Tracking)
