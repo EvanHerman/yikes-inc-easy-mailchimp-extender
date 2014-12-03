@@ -540,6 +540,9 @@ These functions should be used in conjunction with the `yikes_mc_get_form_data` 
 
 Changes
 ===========
+### 5.1.2 - December 3rd, 2014
+* Fix: remove type="password" from API key field - causing a lot of issues for users
+
 ### 5.1.1 - November 5, 2014
 * Fix: repair 'Opt In' default list drop down on options page
 * Fix: repair errors being thrown when a commenter is added to a list
