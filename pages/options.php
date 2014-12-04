@@ -319,10 +319,6 @@ function changereCAPTCHAdropdown() {
 		jQuery('.recaptcha-settings-hidden-container').fadeOut('fast');
 	}
 }
-function recaptchaPreviewChange() {
-	var recaptcha_selected_item = jQuery('#yks-mailchimp-recaptcha-style').val();
-	jQuery('#reCAPTCHApreviewImage').attr( 'src' , '<?php echo plugins_url()."/yikes-inc-easy-mailchimp-extender/images/reCAPTCHA/reCAPTCHA_Sample_"; ?>'+recaptcha_selected_item+'.png' );	
-}
 jQuery(document).ready(function() {
 	changeOptinSubscribeCheckbox();
 });

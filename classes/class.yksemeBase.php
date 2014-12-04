@@ -96,7 +96,6 @@ if(!class_exists("yksemeBase")) {
 						'recaptcha-setting' => '0',
 						'recaptcha-api-key' => '',
 						'recaptcha-private-api-key' => '',
-						'recaptcha-style' => 'default',
 						'ssl_verify_peer' => 'true',
 						'lists'		=> array()
 					);
@@ -340,7 +339,6 @@ if(!class_exists("yksemeBase")) {
 							$this->optionVal['recaptcha-setting'] = isset($fd['yks-mailchimp-recaptcha-setting']) ? $fd['yks-mailchimp-recaptcha-setting'] : '0';
 							$this->optionVal['recaptcha-api-key'] = isset($fd['yks-mailchimp-recaptcha-api-key']) ? $fd['yks-mailchimp-recaptcha-api-key'] : '';
 							$this->optionVal['recaptcha-private-api-key'] = isset($fd['yks-mailchimp-recaptcha-private-api-key']) ? $fd['yks-mailchimp-recaptcha-private-api-key'] : '';
-							$this->optionVal['recaptcha-style'] = isset($fd['yks-mailchimp-recaptcha-style']) ? $fd['yks-mailchimp-recaptcha-style'] : 'default';
 							return update_option( YKSEME_OPTION , $this->optionVal );
 						}
 					return false;
@@ -1325,7 +1323,6 @@ if(!class_exists("yksemeBase")) {
 					$this->optionVal['recaptcha-api-key']	= '';
 					$this->optionVal['recaptcha-private-api-key']	= '';
 					$this->optionVal['interest-group-label']	= '';
-					$this->optionVal['recaptcha-style']	= 'default';
 					$this->optionVal['yks-mailchimp-jquery-datepicker']	= '';
 					$this->optionVal['version'] = YKSEME_VERSION_CURRENT;
 					$this->optionVal['ssl_verify_peer'] = 'true';
@@ -2840,9 +2837,6 @@ if(!class_exists("yksemeBase")) {
 					}
 					if ( !isset( $this->optionVal['recaptcha-private-api-key'] ) ) {
 						$this->optionVal['recaptcha-private-api-key'] = '';
-					}
-					if ( !isset( $this->optionVal['recaptcha-style'] ) ) {
-						$this->optionVal['recaptcha-style'] = 'default';
 					}
 					$this->optionVal['version']	= '5.0.4';
 					return true;
