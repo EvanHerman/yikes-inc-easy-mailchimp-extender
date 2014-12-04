@@ -73,7 +73,6 @@ $yksemeBase = new yksemeBase();
 
 /* 
 	Conditionally Include the MailChimp Class File 
-	
 */
 if ( $yksemeBase->optionVal['ssl_verify_peer'] == 'true' ) {
 	require_once YKSEME_PATH.'classes/MCAPI_2.0.class.php';

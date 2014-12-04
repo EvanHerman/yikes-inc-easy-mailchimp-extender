@@ -19,12 +19,12 @@ Easy MailChimp Forms allows you to painlessly add MailChimp sign up forms to you
 
 * Add interest groups and new fields to forms directly from the dashboard without ever leaving your site (*new*)
 * Error log for diagnosing user issues (*new*)
+* All new No-Captcha Re-Captcha in place (*new*)
 * Design your own sign up form templates
 * Style your forms without writing a single line of code
 * Full Integration of MailChimp into WordPress
 * Easily import MailChimp forms from an active MailChimp account
 * View/Print Interactive Account Growth Reports and Campaign Reports (Statistics Tracking)
-* reCaptcha spam prevention baked in
 * Monitor MailChimp account activity
 * Use MailChimp Interest Group/Segments
 * Add MailChimp forms sidebars/widgetized areas with widgets
@@ -156,7 +156,20 @@ Finally, change the MailChimp template, author and description headers at the to
 Once setup, you can assign the template to your form from the 'Manage List' page. Make sure to select the checkbox 'use custom form' and then in the drop down select your newly created template.
 
 = I'm trying to set up the opt-in commenting checkbox. When users opt-in and leave a comment, an error is thrown and I can't figure out why. What could be wrong? =
-For the optin commenter checkbox, you'll want to make sure that the form you have set to assign users to only has the email field set to required.
+For the optin comment check box, you'll want to make sure that the form you have set to assign users to only has the email field set to required.
+
+= I'd like to define my own default value tags. For example, I want to populate a field with the current page URL dynamically. Is this possible? =
+Yes! In the release of YIKES Inc. Easy MailChimp Extender version 5.2 we enabled all sorts of new features. One of these features is the ability to pre-populate text fields with a string of text, or with one fo the provided default value tags.
+The default value tags available to you out of the box are :
+* {post_title} - populates the field with the current <strong>page or post title</strong> that the user was on when they subscribed to the form.
+* {post_id} - populates the field with the current <strong>page or post ID</strong> that the user was on when they subscribed to the form.
+* {page_url} - populates the field with the current <strong>page URL</strong> that the user was on when they subscribed to the form.
+* {blog_name} - populates the field with the current <strong>blog name</strong>. Very useful for multi-site installations, when tracking which blog the user has signed up from is crucial to your marketing efforts.
+* {user_logged_in} - populates the field with with a dynamic value based on weather the user is logged in or not. When the user is logged in when signing up, the field populates with "User Logged In". If the user is not logged in, "Guest".
+
+Simply click the link below the default value input field to add that tag as the default value. Easy as that!
+
+We've also provided a way for you to define your own default value tags, and return any data you choose. This is done through the use of two separate filters ( `yikes_mailchimp_default_value_tag` and `yikes_mailchimp_process_default_value_tag` ). Check out the developer documentation for how to use the filters. The examples provided are extremely helpful.
 
 == Developer Docs. ==
 
@@ -466,6 +479,101 @@ The following example will add any and all posts with the custom post type 'port
 <br />
 
 **Filter Name:**
+`yikes_mailchimp_default_value_tag`
+
+**Accepted Parameters:** 
+`$custom_tag_array `
+
+**Parameter Info:**	
+
+`$custom_tag_array` = an array of custom default tags. eg: array( '{custom_default_tag_1}' , '{custom_default_tag_2}' );
+
+**Description:**
+
+***Note: if you're trying to set up custom default value tags, you'll want to use this filter as we'll as the one directly below it (yikes_mailchimp_process_default_value_tag). This filter adds your custom tag to the array, the `yikes_mailchimp_process_default_value_tag` filter processes the tag and replaces it with specific data.***
+
+Using this filter you can add new default value tags to the accepted tags. Any tags that you setup with this filter will appear in the list of selectable tabs to populate the default value field. The default value tags available to use out of the box are :
+* {post_title} - populates the field with the current <strong>page or post title</strong> that the user was on when they subscribed to the form.
+* {post_id} - populates the field with the current <strong>page or post ID</strong> that the user was on when they subscribed to the form.
+* {page_url} - populates the field with the current <strong>page URL</strong> that the user was on when they subscribed to the form.
+* {blog_name} - populates the field with the current <strong>blog name</strong>. Very useful for multi-site installations, when tracking which blog the user has signed up from is crucial to your marketing efforts.
+* {user_logged_in} - populates the field with with a dynamic value based on weather the user is logged in or not. When the user is logged in when signing up, the field populates with "User Logged In". If the user is not logged in, "Guest".
+
+**Example:**
+The following example will add two new default value tags to the accepted default value tags array list, `{new_custom_tag}` and `{new_custom_tag_2}`.
+
+`
+<?php
+	/**
+	* This example will add two new user defined tags to the list of accepted default value tags array list
+	* - note, this will only add your tags to the the list. use the next function to parse the tag and return some value
+	**/
+	function custom_yikes_mailchimp_default_value_tag( $custom_tag_array ) {
+		$custom_tag_array = array( '{new_custom_tag}' , '{new_custom_tag_2}' );
+		return $custom_tag_array;
+	}
+	add_filter( 'yikes_mailchimp_default_value_tag' , 'custom_yikes_mailchimp_default_value_tag' , 10 );
+?>
+`
+<br />
+
+**Filter Name:**
+`yikes_mailchimp_process_default_value_tag`
+
+**Accepted Parameters:** 
+`$field `
+
+**Parameter Info:**	
+
+`$field` = the `$field` variable is a serialized array of data for the specific field. The array includes things such as the name, default value etc.
+
+**Description:**
+
+***Note: if you're trying to set up custom default value tags, you'll want to use this filter as we'll as the one directly above it (`yikes_mailchimp_default_value_tag`). This filter is used to parse your code and return a value to the field. Use this in conjunction with `yikes_mailchimp_default_value_tag`.
+
+You'll use this filter to parse the custom default value tag you set up in the filter directly above this one (`yikes_mailchimp_default_value_tag`). Here you can perform all sorts of complex queries and functions to pull specific user data, page data, site data or anything else you can image.
+
+**Example:**
+The following example will add two new default value tags to the accepted default value tags array list, `{new_custom_tag}` and `{new_custom_tag_2}`.
+
+`
+<?php
+	/**
+	* You can use the following function to process the custom default value tag into some useful data
+	* ( note : you must pass in your new default custom tags using the provided yikes_mailchimp_default_value_tag filter (see example above ) )
+	* ---------------------------------------------------------------------------------------------------------
+	* Example #1 : Converts {new_custom_tag} into the users display name
+	* Example #2 : Converts {new_custom_tag_2} into the referral page ( used to track how users landed on this page )
+	**/
+	function process_custom_yikes_mailchimp_default_value_tag( $field ) {
+		switch ( $field['default'] ) {
+			// convert {new_custom_tag} into usable data
+			case '{new_custom_tag}': 
+				global $current_user;
+				// get current user info.
+				get_currentuserinfo();
+				// set this custom default tag to the users display name
+				$default_value = $current_user->display_name;
+				break;
+				
+			// convert {new_custom_tag} into usable data
+			case '{new_custom_tag_2}': 
+				$default_value = $_SERVER["HTTP_REFERER"];
+				break;
+				
+			default:
+				$default_value = $field['default'];
+				break;
+		}
+		// return the default field value
+		return $default_value;
+	}
+	add_filter( 'yikes_mailchimp_process_default_value_tag' , 'process_custom_yikes_mailchimp_default_value_tag'  , 10 );
+?>
+`
+<br />
+
+**Filter Name:**
 `yikes_mc_get_form_data_$formID`
 
 **Accepted Parameters:**  
@@ -565,7 +673,7 @@ The following will alter the sub text in any of the bundled sign up forms. In th
 Use this filter to alter the footer text in any of the bundled sign up templates. The footer text is the text below the form eg: "We promise never to share or sell any of your personal information."
 
 **Example:**
-The following will alter the sub text in any of the bundled sign up forms. In the 'Clean Blue' template, this will change "We promise never to share or sell any of your personal information." to "Your information will remain private at all time.".
+The following will alter the sub text in any of the bundled sign up forms. In the 'Clean Blue' template, this will change "We promise never to share or sell any of your personal information." to "Your information will remain private at all times.".
 
 `
 <?php
@@ -583,7 +691,7 @@ The following will alter the sub text in any of the bundled sign up forms. In th
 
 **Helper Functions**
 
-** Description**
+**Description:**
 These functions are defined inside of the Easy MailChimp plugin and they exist to help test and view the user data that is being submitted by the user through the MailChimp form. These functions will prevent the default form functionality, so no user data will be sent to MailChimp while testing.
 
 These functions should be used in conjunction with the `yikes_mc_get_form_data` or the `yikes_mc_get_form_data_$formID` filters. Whatever data the user has provided will be returned for viewing.
@@ -651,15 +759,26 @@ These functions should be used in conjunction with the `yikes_mc_get_form_data` 
 * New Feature: Added ability to add, edit or delete form fields directly from the WordPress dashboard
 * New Feature: Added ability to add, edit or delete interest groups directly from the WordPress dashboard
 * New Feature: Add "Update" link to forms when a user has previously subscribed
-* New Feature: Added 'default' option to text fields ( with custom pre-defined tags : {post_id} , {post_title} , {page_url} , {blog_name} , {user_logged_in} )
+* New Feature: Added 'default' option to text fields ( with custom pre-defined tags : {post_id} , {post_title} , {page_url} , {blog_name} , {user_logged_in} with the ability to define your own! )
 * New Feature: Added the ability to adjust required state, visibility state, merge tag and more
+* New Feature: Added the ability to toggle between ssl_verifypeer true/false
 * Enhancement: Remove JavaScript dependency to populate place holder values
-* Enhancement: Introduced new filters ( check documentation for examples )
+* Enhancement: Replaced Captcha with the all new No-Captcha-Re-Captcha API from Google
+* Enhancement: Introduced all new filters ( check documentation for examples )
+* Enhancement: Added new classes to labels and input fields on the front end forms ( new classes yks-mc-label-field-label , yks-mc-form-row-field-label , yks-mc-input-field-row-field-label , yks-mc-input-field-label )
 * Bug Fix: Re-sorting fields that had a stored custom class name didn't store properly
 * Bug Fix: Wrapped bundled template text in filters
 * Bug Fix: Repaired some broken filters (get_form_data_before_send)
 * Bug Fix: Fixed labels on 'Manage List Forms' page and added field names to titles
 * Bug Fix: Fixed path to check box images on 'Clean Blue' bundled templates
+* Bug Fix: Fixed empty API key from outputting any string (confused some users)
+* Other: Split main class file into multiple included files (help organize the main class file (sub-files located in /lib/inc/)
+* Other: Began to build up a [Wiki](https://github.com/yikesinc/yikes-inc-easy-mailchimp-extender/wiki) on Github , for plug in installation/usage instructions 
+* Other: Altered single/double opt-in strings inside shortcode_form.php
+
+= 5.1.2 - December 3rd, 2014 =
+
+* Fix: remove type="password" from the API key input field
 
 = 5.1.1 - November 5, 2014 =
 

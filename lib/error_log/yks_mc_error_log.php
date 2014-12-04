@@ -1,4 +1,10 @@
 <tr>
+							<td>You must specify a apikey value</td>
+							<td>Dec. 4th, 2014 - 7:05:45pm</td>
+						</tr><tr>
+						<td>Invalid MailChimp API Key: 1</td>
+						<td>Nov. 24th, 2014 - 10:48:13am</td>
+					</tr><tr>
 						<td>A Merge Field with the tag "SFKAF" already exists for this list.</td>
 						<td>Nov. 19th, 2014 - 3:26:01pm</td>
 					</tr><tr>
@@ -25,10 +31,4 @@
 					</tr><tr>
 						<td>You must specify a id value</td>
 						<td>Nov. 19th, 2014 - 1:46:09pm</td>
-					</tr><tr>
-						<td>API call to helper/ping failed: Couldn't resolve host 'us3'</td>
-						<td>Nov. 17th, 2014 - 1:53:49pm</td>
-					</tr><tr>
-						<td>API call to helper/ping failed: Couldn't resolve host 'us3'</td>
-						<td>Nov. 17th, 2014 - 1:42:11pm</td>
 					</tr>

@@ -212,7 +212,6 @@ To Do - 11.8 :
                         var f       = '#yks-mailchimp-form_'+i;
 						var theButton = $(this);
 	
-						// alert($(f).serialize());
                         $.ajax({
                                 type:   'POST',
                                 url:    ajaxurl,
@@ -224,8 +223,6 @@ To Do - 11.8 :
                                 dataType: 'json',
                                 success: function(MAILCHIMP)
                                         {
-										// console.log(MAILCHIMP);	
-										// alert($(f).serialize());
                                         if(MAILCHIMP == '-1')
                                                 {
 													if ( theButton.parents('.yks-list-container').find('.yks-status-error').is(':visible') ) {
@@ -853,7 +850,7 @@ To Do - 11.8 :
 	*/
 	// pass our mailchimp list id into the hidden input
 	// and populate the merge var name with a random string
-	jQuery( '.add-new-field-thickbox-open' ).click(function() {
+	jQuery( 'body' ).on( 'click' , '.add-new-field-thickbox-open' , function() {
 		var mailchimp_list_id = jQuery(this).attr('alt');
 		setTimeout(function() {
 			jQuery( '#TB_ajaxContent' ).find( '#mc-list-id' ).val( mailchimp_list_id );
@@ -879,7 +876,7 @@ To Do - 11.8 :
 	
 	// pass our mailchimp list id into the hidden input
 	// and populate the merge var name with a random string
-	jQuery( '.add-new-group-thickbox-open' ).click(function() {
+	jQuery( 'body' ).on( 'click' , '.add-new-group-thickbox-open' , function() {
 		var mailchimp_list_id = jQuery(this).attr('alt');
 		setTimeout(function() {
 			jQuery( '#TB_ajaxContent' ).find( '#mc-list-id' ).val( mailchimp_list_id );
@@ -911,16 +908,6 @@ To Do - 11.8 :
 		jQuery( '#merge-variable-settings' ).find( 'input[name="add-field-public"]' ).each(function() {
 				jQuery( this ).attr( 'disabled' , 'disabled' );
 			 });
-		
-		
-		/*
-		if ( required_setting == true ) {
-			 jQuery( '#merge-variable-settings' ).find( '.add-field-public-yes' ).prop( 'checked' , true );
-			 jQuery( '#merge-variable-settings' ).find( 'input[name="add-field-public"]' ).each(function() {
-				jQuery( this ).attr( 'disabled' );
-			});
-		}
-		*/
 		
 		jQuery( '.add-new-field' ).removeClass( 'create-this-field' );
 		jQuery(this).addClass( 'create-this-field' );
@@ -1747,6 +1734,24 @@ To Do - 11.8 :
 					setTimeout(function() {
 						jQuery( '#updateInterestGroupContianer' ).find( '.successfuly-update-interest-group' ).fadeOut();
 					}, 2000 );	
+					// ajax re-import this lists interest group data, to update title on the manage list forms page
+					$.ajax({
+						type:   'POST',
+						url:    ajaxurl,
+						data: {
+							action: 'yks_mailchimp_form',
+							form_action: 'get_interest_group_data',
+							mailchimp_list_id: mailchimp_list_id
+						},
+						dataType: 'html',
+						success: function( response ) {
+							// re-populate interest grouping table
+							jQuery( '#yks-mailchimp-interest-groups-container_'+mailchimp_list_id ).html(response);
+						},
+						error: function( error ) {
+							console.log( 'Error re-importing interest group data' );
+						}	
+					});
 				},
 				error: function( error ) {
 					console.log( error );
@@ -2022,6 +2027,7 @@ To Do - 11.8 :
 	**/
 	jQuery( 'body' ).on( 'change' , '#yks-mc-interest-group-toggle-type' , function() {
 		var grouping_id = jQuery( '#update-interest-group-settings' ).find( '#grouping-id' ).val();
+		var mailchimp_list_id = jQuery( '#update-interest-group-settings' ).find( '#mc-list-id' ).val();
 		var new_type = jQuery( this ).val();
 		jQuery( this ).before( '<img src="<?php echo admin_url('images/wpspin_light.gif'); ?>" alt="yks-mc-update-preloader" class="yks-mc-update-preloader" style="margin-right:10px;">' );
 		
@@ -2043,6 +2049,24 @@ To Do - 11.8 :
 						jQuery( this ).remove();
 					});
 				}, 2000 );
+				// ajax re-import this lists interest group data, to update title on the manage list forms page
+					$.ajax({
+						type:   'POST',
+						url:    ajaxurl,
+						data: {
+							action: 'yks_mailchimp_form',
+							form_action: 'get_interest_group_data',
+							mailchimp_list_id: mailchimp_list_id
+						},
+						dataType: 'html',
+						success: function( response ) {
+							// re-populate interest grouping table
+							jQuery( '#yks-mailchimp-interest-groups-container_'+mailchimp_list_id ).html(response);
+						},
+						error: function( error ) {
+							console.log( 'Error re-importing interest group data' );
+						}	
+					});
 			},
 			error : function(error_response) {
 				console.log(error_response);

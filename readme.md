@@ -8,12 +8,13 @@ Instructions on how to use the plugin can be [found on the FAQ](http://wordpress
 
 Features
 ===========
+
 1. Add interest groups and new fields to forms directly from the dashboard without ever leaving your site (*new*)
 1. Error log for diagnosing user issues (*new*)
+1. All new No-Captcha Re-Captcha in place (*new*)
 1. Complete Integration of MailChimp into WordPress
 1. Easily import MailChimp forms from an active MailChimp account
 1. View/Print Interactive Account Growth Reports and Campaign Reports (Statistics Tracking)
-1. reCaptcha spam prevention baked in
 1. Monitor MailChimp account activity
 1. Use MailChimp Interest Group/Segments
 1. Add MailChimp forms sidebars/widgetized areas with widgets
@@ -137,6 +138,37 @@ Finally, change the MailChimp template, author and description headers at the to
 
 **Step 4:**
 Once setup, you can assign the template to your form from the 'Manage List' page. Make sure to select the checkbox 'use custom form' and then in the drop down select your newly created template.
+
+= How do I create my own custom MailChimp template? =
+**Step 1:** 
+First you'll want to import the boilerplate template files bundled with the plugin. These are files that were created for easy customization. You can import the boilerplate files by going to the manage list forms page and clicking 'import boilerplate templates'. 
+
+<em>Note :</em> Alternatively, you can manually import the template files by copying the 'yikes-mailchimp-user-templates' directory inside of the plugin root ( 'yikes-inc-easy-mailchimp-extender/templates/' ) over to your theme root. ( ie: /wp-content/themes/twentyfourteen/ ).
+
+**Step 2:** 
+Once imported you'll find the boilerplate files in your theme root. Each boilerplate template file comes with an associated .css file located inside of the styles directory. To get started on your first template, we recommend that you duplicate one of the existing boilerplate tempalate files and its associated .css file, and changing the name.
+
+**Step 3:** 
+Finally, change the MailChimp template, author and description headers at the top of each template file. The 'MailChimp Template' header dictates the name of your template, and what will appear in the drop down field. You'll also want to make sure that the correct .css file is properly being enqueued at the top of the template file.
+
+**Step 4:**
+Once setup, you can assign the template to your form from the 'Manage List' page. Make sure to select the checkbox 'use custom form' and then in the drop down select your newly created template.
+
+= I'm trying to set up the opt-in commenting checkbox. When users opt-in and leave a comment, an error is thrown and I can't figure out why. What could be wrong? =
+For the optin comment check box, you'll want to make sure that the form you have set to assign users to only has the email field set to required.
+
+= I'd like to define my own default value tags. For example, I want to populate a field with the current page URL dynamically. Is this possible? =
+Yes! In the release of YIKES Inc. Easy MailChimp Extender version 5.2 we enabled all sorts of new features. One of these features is the ability to pre-populate text fields with a string of text, or with one fo the provided default value tags.
+The default value tags available to you out of the box are :
+* {post_title} - populates the field with the current <strong>page or post title</strong> that the user was on when they subscribed to the form.
+* {post_id} - populates the field with the current <strong>page or post ID</strong> that the user was on when they subscribed to the form.
+* {page_url} - populates the field with the current <strong>page URL</strong> that the user was on when they subscribed to the form.
+* {blog_name} - populates the field with the current <strong>blog name</strong>. Very useful for multi-site installations, when tracking which blog the user has signed up from is crucial to your marketing efforts.
+* {user_logged_in} - populates the field with with a dynamic value based on weather the user is logged in or not. When the user is logged in when signing up, the field populates with "User Logged In". If the user is not logged in, "Guest".
+
+Simply click the link below the default value input field to add that tag as the default value. Easy as that!
+
+We've also provided a way for you to define your own default value tags, and return any data you choose. This is done through the use of two separate filters ( `yikes_mailchimp_default_value_tag` and `yikes_mailchimp_process_default_value_tag` ). Check out the developer documentation for how to use the filters. The examples provided are extremely helpful.
 
 Developer Documentation
 ===========
@@ -541,19 +573,29 @@ These functions should be used in conjunction with the `yikes_mc_get_form_data` 
 
 Changes
 ===========
-### 5.2 - TBD 
+### 5.2 (beta 2) - December 4th, 2014 
 * New Feature: Added ability to add, edit or delete form fields directly from the WordPress dashboard
 * New Feature: Added ability to add, edit or delete interest groups directly from the WordPress dashboard
 * New Feature: Add "Update" link to forms when a user has previously subscribed
-* New Feature: Added 'default' option to text fields ( with custom pre-defined tags : {post_id} , {post_title} , {page_url} , {blog_name} , {user_logged_in} )
+* New Feature: Added 'default' option to text fields ( with custom pre-defined tags : {post_id} , {post_title} , {page_url} , {blog_name} , {user_logged_in} with the ability to define your own! )
 * New Feature: Added the ability to adjust required state, visibility state, merge tag and more
+* New Feature: Added the ability to toggle between ssl_verifypeer true/false
+* Enhancement: Remove JavaScript dependency to populate place holder values
+* Enhancement: Replaced Captcha with the all new No-Captcha-Re-Captcha API from Google
+* Enhancement: Introduced all new filters ( check documentation for examples )
+* Enhancement: Added new classes to labels and input fields on the front end forms ( new classes yks-mc-label-field-label , yks-mc-form-row-field-label , yks-mc-input-field-row-field-label , yks-mc-input-field-label )
 * Bug Fix: Re-sorting fields that had a stored custom class name didn't store properly
 * Bug Fix: Wrapped bundled template text in filters
 * Bug Fix: Repaired some broken filters (get_form_data_before_send)
 * Bug Fix: Fixed labels on 'Manage List Forms' page and added field names to titles
 * Bug Fix: Fixed path to check box images on 'Clean Blue' bundled templates
-* Enhancement: Remove JavaScript dependency to populate place holder values
-* Enhancement: Introduced new filters ( check documentation for examples )
+* Bug Fix: Fixed empty API key from outputting any string (confused some users)
+* Other: Split main class file into multiple included files (help organize the main class file (sub-files located in /lib/inc/)
+* Other: Began to build up a [Wiki](https://github.com/yikesinc/yikes-inc-easy-mailchimp-extender/wiki) on Github , for plug in installation/usage instructions 
+* Other: Altered single/double opt-in strings inside shortcode_form.php
+
+### 5.1.2 - November 5, 2014
+* Fix: Removed type="password" from API key field to prevent password manager auto fill issue
 
 ### 5.1.1 - November 5, 2014
 * Fix: repair 'Opt In' default list drop down on options page

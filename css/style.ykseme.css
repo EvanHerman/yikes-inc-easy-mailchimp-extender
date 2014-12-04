@@ -29,6 +29,10 @@
 	color:#DD3D36;
 }
 
+.ui-widget-overlay:nth-child(2) {
+	background: transparent !important;
+}
+
 /* TinyMCE Button Class */
 /* Icon Fonts */
 .mce-i-yks-mc-icon-yikes-button-image:before {
@@ -39,7 +43,7 @@
 .toplevel_page_yks-mailchimp-form .update-nag {
 	padding-top:0;
 	margin-top:0;
-	width:95%;
+	width: 95%;
 	margin-right:0;
 }
 
@@ -315,7 +319,6 @@ body.mailchimp-forms_page_yks-mailchimp-form-lists #ykseme-icon {
 
 .wrap #yks_mc_review_this_plugin_container {
 	padding:.5em;
-	border:1px dashed lightgrey;
 	float:right;
 }
 
@@ -650,7 +653,7 @@ body.mailchimp-forms_page_yks-mailchimp-about-yikes #ykseme-page-header {
 
 .yks-require-description {
 	font-size: 0.9em;
-    padding: 1em 0;
+    padding: 1em 0 0 0;
 }
 
 .yks-mailchimpFormDivRowLabel-required {}
@@ -1949,4 +1952,13 @@ a.create-this-field {
 
 body.mailchimp-forms_page_yks-mailchimp-form-lists .ui-dialog {
 	z-index: 9999999 !important;
+}
+
+
+.g-recaptcha {
+	margin-bottom: 1em;
+}
+
+.recaptcha-checkbox-checkmark:hover {
+	cursor: pointer !important;
 }

@@ -402,7 +402,7 @@ jQuery(document).ready(function() {
 		<div class="update-nag">
 			<span class="yks-mc-icon-notice"><h3><?php _e( 'LocalHost Detected :', 'yikes-inc-easy-mailchimp-extender' ); ?></h3></span>
 			<p><?php _e( 'It looks like your using Easy MailChimp Forms by YIKES Inc. on localhost.', 'yikes-inc-easy-mailchimp-extender' ); ?></p>
-			<p><?php _e( 'If you are unable to validate your API key, and receive the error message' , 'yikes-inc-easy-mailchimp-extender' );  ?><em> <?php _e('SSL certificate problem: unable to get local issuer certificate', 'yikes-inc-easy-mailchimp-extender' ); ?></em> <?php _e('follow the tutorial located ', 'yikes-inc-easy-mailchimp-extender' ); ?><a href="http://redwebturtle.blogspot.com/2013/09/mailchimp-api-v20-ssl-error-solution.html" target="_blank">here</a></p>
+			<p><?php _e( 'If you are unable to validate your API key, and/or receive the error message' , 'yikes-inc-easy-mailchimp-extender' );  ?><em> <?php _e('"SSL certificate problem: unable to get local issuer certificate"', 'yikes-inc-easy-mailchimp-extender' ); ?></em> <?php _e('head over to the', 'yikes-inc-easy-mailchimp-extender' ); ?> <a href="<?php echo admin_url('admin.php?page=yks-mailchimp-form&tab=debug_options' ); ?>" ><?php _e('Debug Options', 'yikes-inc-easy-mailchimp-extender' ); ?></a> <?php _e('tab and set the SSL Verify Peer option to "False" and try again.', 'yikes-inc-easy-mailchimp-extender' ); ?></p>
 		</div>
 	<?php } ?>	
 	
@@ -414,7 +414,7 @@ jQuery(document).ready(function() {
 				<tr valign="top">
 					<th scope="row"><label for="yks-mailchimp-api-key"><?php _e('Your Mailchimp API Key','yikes-inc-easy-mailchimp-extender'); ?></label></th>
 					<td>
-						<input name="yks-mailchimp-api-key" type="password" id="yks-mailchimp-api-key" value="<?php echo $this->yikes_mc_encryptIt($this->optionVal['api-key']); ?>" class="regular-text" /><span class="mailChimp_api_key_validation_message"></span><img class="mailChimp_api_key_preloader" src="<?php echo admin_url().'/images/wpspin_light.gif'; ?>" alt="preloader" ><span class="mailChimp_api_key_validation"></span><?php if ( get_option( 'api_validation' ) == 'valid_api_key' ) { echo '<span class="mailChimp_api_key_validation_message" style="color: green; display: inline;"><img src="'.plugins_url().'/yikes-inc-easy-mailchimp-extender/images/yikes-mc-checkmark.png" alt="message">' . __(' Valid API Key','yikes-inc-easy-mailchimp-extender') . '</span>'; } else { echo '<span class="mailChimp_api_key_validation_message" style="display: inline; color: red;"><img src="' .plugins_url().'/yikes-inc-easy-mailchimp-extender/images/yikes-mc-error-icon.png" alt="message">' . __(' Sorry, that is an invalid MailChimp API key. Please check the console for further information','yikes-inc-easy-mailchimp-extender') . '</span>'; } ?>
+						<input name="yks-mailchimp-api-key" id="yks-mailchimp-api-key" value="<?php echo isset( $this->optionVal['api-key'] ) && $this->optionVal['api-key'] != '' ? $this->yikes_mc_encryptIt($this->optionVal['api-key']) : ''; ?>" class="regular-text" /><span class="mailChimp_api_key_validation_message"></span><img class="mailChimp_api_key_preloader" src="<?php echo admin_url().'/images/wpspin_light.gif'; ?>" alt="preloader" ><span class="mailChimp_api_key_validation"></span><?php if ( get_option( 'api_validation' ) == 'valid_api_key' ) { echo '<span class="mailChimp_api_key_validation_message" style="color: green; display: inline;"><img src="'.plugins_url().'/yikes-inc-easy-mailchimp-extender/images/yikes-mc-checkmark.png" alt="message">' . __(' Valid API Key','yikes-inc-easy-mailchimp-extender') . '</span>'; } else { echo '<span class="mailChimp_api_key_validation_message" style="display: inline; color: red;"><img src="' .plugins_url().'/yikes-inc-easy-mailchimp-extender/images/yikes-mc-error-icon.png" alt="message">' . __(' Sorry, that is an invalid MailChimp API key. Please check the console for further information','yikes-inc-easy-mailchimp-extender') . '</span>'; } ?>
 					</td>
 				</tr>
 				<!-- MailChimp API Key Description -->
@@ -623,26 +623,6 @@ jQuery(document).ready(function() {
 							<em><?php _e('to retreive a recaptcha API key, sign up for an account','yikes-inc-easy-mailchimp-extender'); ?> <a href="https://www.google.com/recaptcha/admin" target="_blank" title="ReCaptcha API Key"><?php _e('here','yikes-inc-easy-mailchimp-extender'); ?></a></em>
 						</td>
 					</tr>
-					<tr valign="top" class="recaptcha-settings-hidden-container" <?php if ( $this->optionVal['recaptcha-setting'] === '0' ) { ?> style="display:none;" <?php } ?>>
-						<!-- reCAPTCHA styles -->
-						<th scope="row"><label for="yks-mailchimp-recaptcha-style'"><?php _e('ReCaptcha Style','yikes-inc-easy-mailchimp-extender'); ?></label></th>
-						<td>
-							<select name="yks-mailchimp-recaptcha-style" id="yks-mailchimp-recaptcha-style" class="regular-text" onchange="recaptchaPreviewChange();" />
-								<option value="default"<?php echo ($this->optionVal['recaptcha-style'] === 'default' ? ' selected' : ''); ?>><?php _e('Default','yikes-inc-easy-mailchimp-extender'); ?></option>
-								<option value="white"<?php echo ($this->optionVal['recaptcha-style'] === 'white' ? ' selected' : ''); ?>><?php _e('White','yikes-inc-easy-mailchimp-extender'); ?></option>
-								<option value="blackglass"<?php echo ($this->optionVal['recaptcha-style'] === 'blackglass' ? ' selected' : ''); ?>><?php _e('Black Glass','yikes-inc-easy-mailchimp-extender'); ?></option>
-								<option value="clean"<?php echo ($this->optionVal['recaptcha-style'] === 'clean' ? ' selected' : ''); ?>><?php _e('Clean','yikes-inc-easy-mailchimp-extender'); ?></option>
-							</select>		
-						</td>
-					</tr>					
-				<tr class="recaptcha-settings-hidden-container" <?php if ( $this->optionVal['recaptcha-setting'] === '0' ) { ?> style="display:none;" <?php } ?>>
-					<td></td>
-					<!-- Advanced Debug Description -->
-					<td class="yks-settings-description reCAPTCHA_preview_div">
-						<strong><em><?php _e('reCAPTCHA Preview','yikes-inc-easy-mailchimp-extender'); ?></em></strong> <br />
-						<img src="<?php echo plugins_url().'/yikes-inc-easy-mailchimp-extender/images/reCAPTCHA/reCAPTCHA_Sample_'.$this->optionVal['recaptcha-style'].'.png'; ?>" id="reCAPTCHApreviewImage" alt="reCAPTCHA Preview" width=350 title="reCAPTCHA Preview" />
-					</td>
-				</tr>
 					<tr>
 						<td></td>
 						<td><input type="submit" name="submit" id="submit" class="button-primary" value="<?php _e( 'Save Settings' , 'yikes-inc-easy-mailchimp-extender' ); ?>" ></td>
@@ -794,8 +774,6 @@ jQuery(document).ready(function() {
 	
 	<?php } ?>
 	
-</div>
-
 <?php
 
 // if cURL is not enabled on the site

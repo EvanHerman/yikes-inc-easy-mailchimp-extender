@@ -1,12 +1,10 @@
 <?php if ( !is_admin() ) { 
-
-	// custom action hooks to enqueue
-	// styles and scripts, only on
-	// pages where are forms are being display
-	// ( performance ehancement :} )
-	do_action( 'yks_mc_enqueue_styles' );
-	do_action( 'yks_mc_enqueue_scripts' );
-
+		// custom action hooks to enqueue
+		// styles and scripts, only on
+		// pages where are forms are being display
+		// ( performance enhancement :} )
+		do_action( 'yks_mc_enqueue_styles' );
+		do_action( 'yks_mc_enqueue_scripts' );
 ?>
 
 <script type="text/javascript">
@@ -43,8 +41,8 @@ $ymce = jQuery.noConflict();
 		*/
 		$ymce( 'body' ).on( 'submit' , '#yks-mailchimp-form_<?php echo $list['id']; ?>' , function(e) {	
 	
-			var singleOptinMessage = '<?php echo str_replace( '\'' , '"' , preg_replace('/\r?\n/', '\\n', apply_filters('yks_mc_content' , $this->optionVal['single-optin-message']))); ?>';
-			var doubleOptinMessage = '<?php echo str_replace( '\'' , '"' , preg_replace('/\r?\n/', '\\n', apply_filters('yks_mc_content' , $this->optionVal['double-optin-message']))); ?>';
+			var singleOptinMessage = '<?php echo str_replace( array('\'',"\r","\n") , array('"',"\\r","\\n"), apply_filters('yks_mc_content' , $this->optionVal['single-optin-message'])); ?>';
+			var doubleOptinMessage = '<?php echo str_replace( array('\'',"\r","\n") , array('"',"\\r","\\n"), apply_filters('yks_mc_content' , $this->optionVal['double-optin-message'])); ?>';
 			var optinValue = '<?php echo $this->optionVal['optin']; ?>';
 			
 			e.preventDefault();
@@ -56,6 +54,7 @@ $ymce = jQuery.noConflict();
 				$ymce('#yks-mailchimpFormContainerInner_<?php echo $list['id']; ?>').find( 'input[type="submit"]' ).after( '<img src="<?php echo admin_url( 'images/wpspin_light.gif' ); ?>" alt="yks-mc-submit-preloader" class="yks-mc-submit-preloader" style="margin-left:1em;box-shadow:none;">' );
 				
 				var form_data = $ymce(this).serialize();
+				
 				// disable all input fields while the data send...
 				$ymce('#yks-mailchimpFormContainerInner_<?php echo $list['id']; ?>').find( 'input' ).each(function() {
 					$ymce(this).attr('disabled','disabled').css('opacity','.8');
@@ -200,6 +199,33 @@ $ymce = jQuery.noConflict();
 									
 																	
 								}
+							},
+							// append our error up above, much like the others!
+							error: function(error) {
+								jQuery( '#yks_form_error_message' ).remove();
+								jQuery( '.yks-mc-submit-preloader' ).remove();
+								jQuery( '.ykfmc-submit' ).removeAttr( 'disabled' );
+								jQuery('#yks_form_error_message').fadeIn();
+								jQuery('#yks-mailchimp-form_<?php echo $list['id']; ?>').prepend('<span id="yks_form_error_message">'+error.responseText+'</span>').delay(1000).queue(function(next){
+									// remove the preloader
+									jQuery( '.yks-mc-submit-preloader' ).remove();
+											
+									// remove disable from all input fields while the data send...
+									$ymce('#yks-mailchimpFormContainerInner_<?php echo $list['id']; ?>').find( 'input' ).each(function() {
+										$ymce(this).removeAttr( 'disabled' ).css('opacity','1');
+									});
+									
+									// re-enable all select fields while the data send...
+									$ymce('#yks-mailchimpFormContainerInner_<?php echo $list['id']; ?>').find( 'select' ).each(function() {
+										$ymce(this).removeAttr('disabled').css('opacity','1');
+									});
+												
+									jQuery('#yks_form_error_message').fadeIn();
+									var offset_top = jQuery('#yks-mailchimpFormContainerInner_<?php echo $list['id']; ?>').offset().top;
+									jQuery("html, body").animate({ scrollTop: offset_top - 50 }, 500 );
+									next();
+								});
+								console.log( error );
 							}	
 					});
 				}

@@ -54,7 +54,7 @@
 				<input type="hidden" name="yks-mailchimp-list-id" id="yks-mailchimp-list-id_<?php echo $list['id']; ?>" value="<?php echo $list['list-id']; ?>" />
 					<?php 
 						/* Generate The Form Fields **/
-						echo $this->getFrontendFormDisplay_placeholder_labels($list, $submit_text); 
+						echo $this->getFrontendFormDisplay($list, $submit_text); 
 					?>
 					
 					<p class="disclaimer"><em><?php _e( "We promise never to share or sell any of your personal information with anyone." , "yikes-inc-easy-mailchimp-extender" ); ?></em></p>
