@@ -368,14 +368,20 @@ body.mailchimp-forms_page_yks-mailchimp-about-yikes #ykseme-page-header {
 	width: 100%;
 	clear: both;
 }
+
+.wp-admin .yks-error p { 
+	margin: .5em 0;
+}
 		
 	.yks-status .yks-success {
+		width: 98%;
+		margin: 0 auto;
 		padding: 5px 15px;
 		padding-left: 0;
 		background-color: transparent;
 		min-height:25px;
 		line-height: 1.2;
-		margin-top:1em;
+		margin-top:2em;
 		color: #333;
 	}
 	
@@ -384,12 +390,14 @@ body.mailchimp-forms_page_yks-mailchimp-about-yikes #ykseme-page-header {
 	}
 	
 	.yks-status-error .yks-error {
+		width: 98%;
+		margin: 0 auto;
 		background-color: #fff;
 		padding: 1px 12px;
 		padding-left: 0;
 		min-height:25px;
 		line-height: 3.2;
-		margin-top:1em;
+		margin-top:2em;
 	}
 			.yks-status .yks-error p, .yks-status .yks-success p {
 				margin: .4em 0;
@@ -426,8 +434,77 @@ body.mailchimp-forms_page_yks-mailchimp-about-yikes #ykseme-page-header {
 			padding: 5px;
 		}
 		
-/* Plugin settings page*/
+		
+		/* Admin Success/Erorr Notifications */
+		body.wp-admin .yks-status {
+			display: none;
+			width: 100%;
+			clear: both;
+		}
+	
+	body.wp-admin .yks-status .yks-success {
+		border-left: 4px solid #7ad03a;
+		padding: 5px 15px;
+		background-color:#fff;
+		-webkit-box-shadow: 0 1px 1px 0 rgba(0,0,0,.1);
+		box-shadow: 0 1px 1px 0 rgba(0,0,0,.1);
+		min-height:25px;
+		line-height: 1.2;
+		margin-top:1em;
+		color: #333;
+	}
+	
+	body.wp-admin .yks-status .yks-success a {
+		color: auto !important;
+	}
+	
+	body.wp-admin .yks-status-error .yks-error {
+		border-left: 4px solid #dd3d36;
+		background-color: #fff;
+		padding: 1px 12px;
+		-webkit-box-shadow: 0 1px 1px 0 rgba(0,0,0,.1);
+		box-shadow: 0 1px 1px 0 rgba(0,0,0,.1);
+		min-height:25px;
+		line-height: 3.2;
+		margin-top:1em;
+	}
+			body.wp-admin .yks-status .yks-error p, .yks-status .yks-success p {
+				margin: .4em 0;
+			}
 
+	body.wp-admin .yks-status .yks-notice {
+		color: #000;
+		width: 80%;
+		height: auto;
+		border: 2px solid #0033AA;
+		background: #CCDDFF;
+		clear: both;
+		margin: 15px auto 15px auto;
+		padding: 5px;
+		position: relative;
+		text-align: left;
+	}
+		body.wp-admin .yks-status .yks-notice a.yks-notice-close, body.wp-admin .yks-status .yks-notice a.yks-notice-close:active,
+		body.wp-admin .yks-status .yks-notice a.yks-notice-close:link, body.wp-admin .yks-status .yks-notice a.yks-notice-close:visited {
+			background: #0033AA;
+			color: #FFF;
+			position: absolute;
+			padding: 0 5px !important;
+			margin: 0 !important;
+			top: 0;
+			right: 0;
+			font-size: 10px;
+			text-decoration: none;
+		}
+			body.wp-admin .yks-status .yks-notice a.yks-notice-close:hover {
+				text-decoration: underline;
+			}
+		body.wp-admin .yks-status .yks-notice p {
+			padding: 5px;
+		}
+		
+		
+/* Plugin settings page*/
 .yks-admin-form {
 	margin-bottom: 3em;
 }
