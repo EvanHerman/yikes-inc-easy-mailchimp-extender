@@ -35,9 +35,9 @@ if(!defined('YKSEME_REQ_PHP'))						define('YKSEME_REQ_PHP',			'5.0');
 if(!defined('YKSEME_AUTHOR'))						define('YKSEME_AUTHOR',				'YIKES Inc');
 if(!defined('YKSEME_SITE'))							define('YKSEME_SITE',				site_url().'/');
 if(!defined('YKSEME_PREFIX'))						define('YKSEME_PREFIX',				'ykseme_');
-if(!defined('YKSEME_PATH'))							define('YKSEME_PATH',				ABSPATH.'wp-content/plugins/yikes-inc-easy-mailchimp-extender/');
-if(!defined('YKSEME_URL'))							define('YKSEME_URL',				plugins_url('yikes-inc-easy-mailchimp-extender/'));
-if(!defined('YKSEME_URL_WP'))						define('YKSEME_URL_WP',				get_bloginfo('url'));
+if(!defined('YKSEME_PATH'))							define('YKSEME_PATH',				plugin_dir_path(__FILE__) );
+if(!defined('YKSEME_URL'))							define('YKSEME_URL',				plugins_url('yikes-inc-easy-mailchimp-extender/')) ;
+if(!defined('YKSEME_URL_WP'))						define('YKSEME_URL_WP',				get_bloginfo('url') );
 if(!defined('YKSEME_URL_WP_ADM'))					define('YKSEME_URL_WP_ADM',			YKSEME_URL_WP.'/wp-admin/');
 /** Database Tables **/
 if(!defined('YKSEME_OPTION'))						define('YKSEME_OPTION',				YKSEME_PREFIX.'storage');
@@ -71,14 +71,6 @@ require_once YKSEME_PATH.'lib/lib.func.php';
 /** Initialize the plugin's base class **/
 $yksemeBase = new yksemeBase();
 
-/* 
-	Conditionally Include the MailChimp Class File 
-*/
-if ( $yksemeBase->optionVal['ssl_verify_peer'] == 'true' ) {
-	require_once YKSEME_PATH.'classes/MCAPI_2.0.class.php';
-} else {
-	require_once YKSEME_PATH.'classes/MCAPI_2.0.class.verify_false.php';
-}
 
 /** Activation Hooks **/
 register_activation_hook(__FILE__,		array(&$yksemeBase, 'activate'));

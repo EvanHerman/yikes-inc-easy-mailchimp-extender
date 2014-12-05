@@ -3,7 +3,7 @@ Contributors: yikesinc, hiwhatsup, liljimmi, eherman24, seriouslysean
 Donate link: http://yikesinc.com
 Tags: mailchimp, marketing, email, mailing lists, newsletter, sign up, forms, sign up form
 Requires at least: 3.0
-Tested up to: 4.0
+Tested up to: 4.0.1
 Stable tag: 5.2
 License: GPLv2 or later
 
@@ -765,6 +765,8 @@ These functions should be used in conjunction with the `yikes_mc_get_form_data` 
 * Enhancement: Remove JavaScript dependency to populate place holder values
 * Enhancement: Replaced Captcha with the all new No-Captcha-Re-Captcha API from Google
 * Enhancement: Introduced all new filters ( check documentation for examples )
+* Enhancement: Un-checking 'visibility' now hides the input field (instead of not generating it at all)
+* Enhancement: Re-defined YKSEME_PATH for users who have the plugins folder outside of wp-content
 * Enhancement: Added new classes to labels and input fields on the front end forms ( new classes yks-mc-label-field-label , yks-mc-form-row-field-label , yks-mc-input-field-row-field-label , yks-mc-input-field-label )
 * Bug Fix: Re-sorting fields that had a stored custom class name didn't store properly
 * Bug Fix: Wrapped bundled template text in filters

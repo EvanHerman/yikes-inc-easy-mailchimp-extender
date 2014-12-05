@@ -60,6 +60,16 @@ if(!class_exists("yksemeBase")) {
 			public function initialize() {
 					// include our initialization file
 					include YKSEME_PATH . 'lib/inc/yks-mc-init.php';
+					
+					/* 
+						Conditionally Include the MailChimp Class File 
+					*/
+					if ( $this->optionVal['ssl_verify_peer'] == 'true' ) {
+						require_once YKSEME_PATH.'classes/MCAPI_2.0.class.php';
+					} else {
+						require_once YKSEME_PATH.'classes/MCAPI_2.0.class.verify_false.php';
+					}
+					
 				}
 		
 			// register and add our shortcodes
@@ -494,6 +504,19 @@ if(!class_exists("yksemeBase")) {
 													echo '</td>';
 												echo '</tr>';			
 												break;
+												
+											// hidden dropdown interest groups
+											case 'hidden':	
+												echo '<div class="yks_mc_interest_group_holder" style="display:none;">';	
+													echo '<select id="yks_mc_interest_dropdown"  name="'.$interest_group['form_field'].'-'.$interest_group['id'].'" class="yks_mc_interest_group_select">';
+														foreach ($interest_group['groups'] as $singleGrouping) {
+															$dropDownValue = $interest_group['name'];
+															echo '<option value="'.$singleGrouping['name'].'" name="'.$dropDownValue.'">'.$singleGrouping['name'].'</option>';
+														}
+													echo '</select>';	
+												echo '</div>';			
+												break; //break dropdown interest group type
+												
 										}
 										
 										$num++;
@@ -506,22 +529,24 @@ if(!class_exists("yksemeBase")) {
 									// loop over each interest group returned
 									foreach($interest_groups as $interest_group) {
 									
+										// get form type
+										$list_form_type = $interest_group['form_field'];
+										$interestGroupID = $interest_group['id'];
+										if ( $list_form_type == 'hidden' ) { $hidden = 'style="display:none;"'; } else { $hidden = ''; }
+										
 										// if the interest group label is set to '' on the settings page
 										if ( $this->optionVal['interest-group-label'] == '' ) {
-											echo '<b class="yks_mc_interest_group_text">'.$interest_group['name'].'</b>'; // display the interest group name from MailChimp
+											echo '<b class="yks_mc_interest_group_text" ' . $hidden . '>'.$interest_group['name'].'</b>'; // display the interest group name from MailChimp
 										} else { 
-											echo '<b class="yks_mc_interest_group_text">'.$this->optionVal['interest-group-label'].'</b>'; // else display the custom name set in the settings page
+											echo '<b class="yks_mc_interest_group_text" ' . $hidden . '>'.$this->optionVal['interest-group-label'].'</b>'; // else display the custom name set in the settings page
 										} ?> <!-- pass interest group data in a hidden form field , required to pass the data back to the correct interest-group -->
 										
 										<input type='hidden' name='interest-group-data' value='<?php echo $this->optionVal["interest-groups"]; ?>' />
 										
 										<?php
-										// get form type
-										$list_form_type = $interest_group['form_field'];
-										$interestGroupID = $interest_group['id'];
-										
+																			
 										switch($list_form_type) {
-																
+											
 											// checkbox interest groups
 											case 'checkboxes':	
 												echo '<div class="yks_mc_interest_group_holder">';
@@ -555,6 +580,19 @@ if(!class_exists("yksemeBase")) {
 													echo '</select>';	
 												echo '</div>';			
 												break; //break dropdown interest group type
+												
+											// hidden dropdown interest groups
+											case 'hidden':	
+												echo '<div class="yks_mc_interest_group_holder" style="display:none;">';	
+													echo '<select id="yks_mc_interest_dropdown"  name="'.$interest_group['form_field'].'-'.$interest_group['id'].'" class="yks_mc_interest_group_select">';
+														foreach ($interest_group['groups'] as $singleGrouping) {
+															$dropDownValue = $interest_group['name'];
+															echo '<option value="'.$singleGrouping['name'].'" name="'.$dropDownValue.'">'.$singleGrouping['name'].'</option>';
+														}
+													echo '</select>';	
+												echo '</div>';			
+												break; //break dropdown interest group type
+												
 										}
 										$num++;
 									}

@@ -68,13 +68,22 @@
 											<span style="float:left; margin-left:.5em;"><input type="radio" name="update-field-field-required" value="false" style="float:left;" class="update-field-field-required-no">No</span>
 										</td>
 									</tr>
-									<!-- Field Required Description -->
+									
+									<!-- Custom Class Setting -->
+									<tr valign="top">
+										<th scope="row"><label for="update-field-field-required"><?php _e('Custom Class','yikes-inc-easy-mailchimp-extender'); ?></label></th>
+										<td>
+											<input type="text" id="update-field-custom-class" name="update-field-custom-class" style="width:100%;" value="">
+										</td>						
+									</tr>
+									<!-- Custom Class Description -->
 									<tr>
 										<td></td>
 										<td class="yks-settings-description">
-											<?php _e('select weather this field should be required or not','yikes-inc-easy-mailchimp-extender'); ?><br />
+											<?php _e('assign a custom class to this field','yikes-inc-easy-mailchimp-extender'); ?><br />
 										</td>
 									</tr>
+									
 									<!-- New Field Date Format -->
 										<tr valign="top" class="yks-mc-add-field-dateformat">
 											<th scope="row"><label for="add-field-public"><?php _e('Date Format','yikes-inc-easy-mailchimp-extender'); ?></label></th>

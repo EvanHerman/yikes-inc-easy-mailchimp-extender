@@ -131,7 +131,7 @@ To Do - 11.8 :
 										$('#yks-mailchimp-fields-list_'+i+' .yks-mailchimp-fields-list-row').each(function() {
 											var thisIndex = ($(this).index() + 1);
 											$(this).find('.yks-mailchimp-field-placeholder').find('input').attr('name', 'placeholder-'+i+'-'+thisIndex);
-											$(this).find('.yks-mailchimp-field-custom-field-class').find('input').attr('name', 'placeholder-'+i+'-'+thisIndex);
+											$(this).find('.yks-mailchimp-field-custom-field-class').find('input').attr('name', 'custom-field-class-'+i+'-'+thisIndex);
 										});
 									
 										
@@ -1233,7 +1233,8 @@ To Do - 11.8 :
 		var list_data = $.parseJSON( jQuery( '#merge-field-data' ).val() );		
 		var mailchimp_list_id = jQuery(this).parents('form').find('.yks-mailchimp-import').attr('rel');
 		var merge_tag = jQuery(this).parents( '.yks-mailchimp-fields-list-row' ).attr( 'alt' ).toLowerCase();
-		
+		var custom_class = jQuery( this ).parents( '.yks-mailchimp-fields-list-row' ).find( '.yks-mc-field-custom-class' ).text();
+
 		// hide any previously established error messages
 		jQuery( '.yks-mc-update-error' ).remove();
 		
@@ -1242,18 +1243,15 @@ To Do - 11.8 :
 		var merge_name = list_data[mailchimp_list_id].fields[mailchimp_list_id+'-'+merge_tag].label;
 		var merge_required = list_data[mailchimp_list_id].fields[mailchimp_list_id+'-'+merge_tag].require;
 		var field_type = list_data[mailchimp_list_id].fields[mailchimp_list_id+'-'+merge_tag].type;
-				
-		console.log("TYPE : " + list_data[mailchimp_list_id].fields[mailchimp_list_id+'-'+merge_tag].type );
-		console.log(list_data);
-		
-			var dialogDiv = $('#updateMergeVariableContainer');
-			dialogDiv.attr("Title", "Update "+merge_name+" Field");
+						
+			var dialogDiv = jQuery('#updateMergeVariableContainer');
 			dialogDiv.dialog({
 				width: "50%",
 				option: [ 'maxHeight' , 600 ],
 				modal : true,
 				draggable : false,
 				resizable : false,
+				title: "Update "+merge_name+" Field"
 			});
 			
 		// populate the form with the retreived data...
@@ -1262,6 +1260,7 @@ To Do - 11.8 :
 		jQuery( '#updateMergeVariableContainer' ).find( '#mc-list-id' ).val( mailchimp_list_id );
 		jQuery( '#updateMergeVariableContainer' ).find( '#old-merge-tag' ).val( merge_tag.toUpperCase() );
 		jQuery( '#updateMergeVariableContainer' ).find( '#field-type-text' ).text( field_type.charAt(0).toUpperCase() + field_type.substring(1) );
+		jQuery( '#updateMergeVariableContainer' ).find( '#update-field-custom-class' ).val( custom_class );
 		
 		if ( merge_required == true ) { // field merge var
 			jQuery( '.ui-dialog' ).find( '.update-field-field-required-yes' ).prop( 'checked' , 'checked' );
@@ -1338,6 +1337,8 @@ To Do - 11.8 :
 		// append a preloader to the modal, for some feedback
 		jQuery( '#yks-mailchimp-update-existing-field-form' ).find( 'input[type="submit"]').after( '<img src="<?php echo admin_url('/images/wpspin_light.gif'); ?>" alt="yks-mc-preloader" class="yks-mc-preloader" style="margin-left: .5em;">' );
 
+		var custom_class_value = jQuery( '#yks-mailchimp-update-existing-field-form' ).find( '#update-field-custom-class' ).val();
+				
 		/* ajax update our existing field! */
 		jQuery.ajax({
 			type:   "POST",
@@ -1577,13 +1578,13 @@ To Do - 11.8 :
 		}, 250);
 				
 		var dialogDiv = jQuery('#updateInterestGroupContianer');
-			dialogDiv.attr("Title", "Update "+group_name+" Group");
 			dialogDiv.dialog({
 				width: "50%",
 				option: [ 'maxHeight' , 600 ],
 				modal : true,
 				draggable : false,
 				resizable : false,
+				title: "Update "+group_name+" Group"
 			});
 			
 			

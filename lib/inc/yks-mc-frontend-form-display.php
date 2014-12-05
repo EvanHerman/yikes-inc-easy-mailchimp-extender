@@ -19,10 +19,7 @@ based on the setting in the dashboard, table vs div
 						<table class="yks-mailchimpFormTable">
 							<?php 
 							/* if reCAPTCHA is enabled, we want to display the CAPTCHA form */
-							if ( $this->optionVal['recaptcha-setting'] == '1' && $this->optionVal['recaptcha-api-key'] != '' && $this->optionVal['recaptcha-private-api-key'] != '' ) {
-											
-									$reCAPTCHA_style = $this->optionVal['recaptcha-style'];
-									
+							if ( $this->optionVal['recaptcha-setting'] == '1' && $this->optionVal['recaptcha-api-key'] != '' && $this->optionVal['recaptcha-private-api-key'] != '' ) {									
 									// if on localhost , we should replace backward slash (\) with forward slashes (/) to prevent escaped characters
 									if ( $this->yks_mc_is_user_localhost() ) {
 										$reCAPTCHA_lib_path = str_replace( '\\' , '/' , YKSEME_PATH."lib/recaptchalib.php" );
@@ -34,7 +31,7 @@ based on the setting in the dashboard, table vs div
 							
 							$num = 1;	
 							
-							foreach($list['fields'] as $field) : if($field['active'] == 1) : 
+							foreach($list['fields'] as $field) : 
 							// get field placeholders
 							$form_id = explode( '-', $field['id']);
 							
@@ -54,7 +51,7 @@ based on the setting in the dashboard, table vs div
 									}
 								?>
 								
-								<tr class="yks-mailchimpFormTableRow yks-mc-tr-<?php echo sanitize_title( $field['label'] ); ?>">
+								<tr class="yks-mailchimpFormTableRow yks-mc-tr-<?php echo sanitize_title( $field['label'] ); ?>" <?php if($field['active'] == 0) { echo 'style="display:none;"'; } ?>>
 									<td class="prompt yks-mailchimpFormTableRowLabel">
 										<label class="prompt yks-mailchimpFormTableRowLabel<?php echo $reqlabel; ?> yks-mc-label-<?php echo sanitize_title( $field['label'] ); ?>" for="<?php echo $field['id']; ?>"><?php echo $field['label']; ?><?php echo $reqindicator; ?></label>
 										<!-- run our function to generate the input fields for the form, passing in the field -->
@@ -63,11 +60,11 @@ based on the setting in the dashboard, table vs div
 								</tr>	
 								<?php 
 									$num++;
-									endif; endforeach; 
+									endforeach; 
 								?>
 							<tr class="yks-mailchimpFormTableRow">
 								<!-- run our function to generate the interest group fields for the form, passing in the form id -->
-								<?php echo $this->getInterestGroups($form_id[1]); ?>
+								<?php echo $this->getInterestGroups( $form_id[1] ); ?>
 								<td class="yks-mailchimpFormTableSubmit">	
 									<?php 
 									if ( $this->optionVal['recaptcha-setting'] == '1' && $this->optionVal['recaptcha-api-key'] != '' && $this->optionVal['recaptcha-private-api-key'] != '' ) { 
@@ -123,8 +120,6 @@ based on the setting in the dashboard, table vs div
 							<?php 
 								/* if reCAPTCHA is enabled, we want to display the CAPTCHA form */
 							if ( $this->optionVal['recaptcha-setting'] == '1' && $this->optionVal['recaptcha-api-key'] != '' && $this->optionVal['recaptcha-private-api-key'] != ''  ) {
-									$reCAPTCHA_style = $this->optionVal['recaptcha-style'];
-
 									// if on localhost , we should replace backward slash (\) with forward slashes (/) to prevent escaped characters
 									if ( $this->yks_mc_is_user_localhost() ) {
 										$reCAPTCHA_lib_path = str_replace( '\\' , '/' , YKSEME_PATH."lib/recaptchalib.php" );
@@ -133,10 +128,10 @@ based on the setting in the dashboard, table vs div
 									}
 									
 							}
-							
+
 							$num = 1;		
 
-							foreach($list['fields'] as $field) : if($field['active'] == 1) : 
+							foreach($list['fields'] as $field) :
 
 								// get field placeholders
 								$form_id = explode( '-', $field['id']);				
@@ -149,7 +144,7 @@ based on the setting in the dashboard, table vs div
 									$reqlabel		= "";
 								}
 								?>
-								<div class="yks-mailchimpFormDivRow yks-mc-form-row-<?php echo sanitize_title( $field['label'] ); ?>">
+								<div class="yks-mailchimpFormDivRow yks-mc-form-row-<?php echo sanitize_title( $field['label'] ); ?>" <?php if($field['active'] == 0) { echo 'style="display:none;"'; } ?>>
 									<label class="prompt yks-mailchimpFormDivRowLabel<?php echo $reqlabel; ?> yks-mc-label-<?php echo sanitize_title( $field['label'] ); ?>" for="<?php echo $field['id']; ?>"><?php echo $field['label']; ?><?php echo $reqindicator; ?></label>
 									<div class="yks-mailchimpFormDivRowField yks-mc-input-field-row-<?php echo sanitize_title( $field['label'] ); ?>">
 										<!-- run our function to generate the input fields for the form, passing in the field -->
@@ -158,7 +153,7 @@ based on the setting in the dashboard, table vs div
 								</div>	
 								<?php 
 									$num++;
-									endif; endforeach; 
+									endforeach; 
 							?>
 							<!-- add our nonce field for security purposes -->
 							<div class="yks-mailchimpFormDivRow">
