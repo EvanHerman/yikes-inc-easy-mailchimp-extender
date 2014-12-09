@@ -70,6 +70,16 @@ if(!class_exists("yksemeBase")) {
 						require_once YKSEME_PATH.'classes/MCAPI_2.0.class.verify_false.php';
 					}
 					
+					/*
+					* add our new ssl_verify_peer debug option, if it doesn't already exist
+					* @since v5.2
+					*/
+					if ( !isset( $this->optionVal['ssl_verify_peer'] ) ) {
+						$options = get_option( YKSEME_OPTION );
+						$options['ssl_verify_peer'] = 'true';
+						update_option( YKSEME_OPTION , $options );
+					}
+					
 				}
 		
 			// register and add our shortcodes
