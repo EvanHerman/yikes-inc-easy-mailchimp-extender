@@ -721,6 +721,11 @@ body.mailchimp-forms_page_yks-mailchimp-about-yikes #ykseme-page-header {
 	padding: 15px 0 15px 0;
 	width: 100%;
 }
+
+.yks-mailchimp-fields-td .yks-mailchimp-fields-container .yks-mailchimp-fields-list-row {
+	height: auto;
+	padding: 3px 0;
+}
 	
 .yks-mailchimp-fields-container label {
 	clear: both;
@@ -1990,6 +1995,10 @@ a.create-this-field {
 .yks-mc-update-interest-group-header {
 	display: inline-block !important;
 	width: 100%;
+}
+
+a.button-secondary.add-new-field {
+	margin: .35em 0;
 }
 
 /* Update Interest Group Type */

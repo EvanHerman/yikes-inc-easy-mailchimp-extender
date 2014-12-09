@@ -93,7 +93,7 @@ Included into class.yksemeBase.php around line 2541
 														<span class="yks-mailchimp-sorthandle-img"></span>
 													</p>
 													<p class="description">
-														<a alt="<?php echo $list['id']; ?>" class="button-secondary thickbox add-new-field-thickbox-open" onclick="return false;" href="#TB_inline?width=auto&height=175&inlineId=newMergeVariableContainer">Add New Field</a>
+														<a alt="<?php echo $list['id']; ?>" class="button-secondary thickbox add-new-field-thickbox-open" onclick="return false;" href="#TB_inline?width=auto&height=200&inlineId=newMergeVariableContainer">Add New Field</a>
 													</p>
 													
 												</th>
@@ -122,9 +122,9 @@ Included into class.yksemeBase.php around line 2541
 																	<label>
 																		<div class="yks-mailchimp-field-name"><?php echo $field['label']; ?></div>
 																	</label>
-																	<!-- <span class="yks-mailchimp-field-merge"><span class="description"><?php _e( 'Merge field' , 'yikes-inc-easy-mailchimp-extender' ); ?>:</span> &nbsp; *|<input type="text" class="merge_field_input" name="<?php echo $field['name']; ?>-merge" id="<?php echo $field['id']; ?>-merge" value="<?php echo $field['merge']; ?>"<?php echo (($field['locked'] == 1 || $field['merge'] == false) ? ' disabled="disabled"' : ''); ?> />|*</span>-->
-																	<span class="yks-mailchimp-field-placeholder"><span class="description"><?php _e( 'Placeholder' , 'yikes-inc-easy-mailchimp-extender' ); ?>:</span> &nbsp; *|<input type="text" name="placeholder-<?php echo $list['id'].'-'.$num; ?>" id="<?php echo $field['id']; ?>-placeholder" placeholder="<?php echo $field['label']; ?>" value="<?php if(isset($field['placeholder-'.$list['id'].'-'.$num])) { echo $field['placeholder-'.$list['id'].'-'.$num]; } ?>" />|*</span>
-																	<span class="yks-mailchimp-field-custom-field-class"><span class="description"><?php _e( 'Custom Class' , 'yikes-inc-easy-mailchimp-extender' ); ?>:</span> &nbsp; *|<input type="text" name="custom-field-class-<?php echo $list['id'].'-'.$num; ?>" id="<?php echo $field['id']; ?>-custom-field-class" value="<?php if(isset($field['custom-field-class-'.$list['id'].'-'.$num])) { echo $field['custom-field-class-'.$list['id'].'-'.$num]; } ?>" />|*</span>
+																	<!-- <span class="yks-mailchimp-field-merge"><span class="description"><?php _e( 'Merge field' , 'yikes-inc-easy-mailchimp-extender' ); ?>:</span> &nbsp; <input type="text" class="merge_field_input" name="<?php echo $field['name']; ?>-merge" id="<?php echo $field['id']; ?>-merge" value="<?php echo $field['merge']; ?>"<?php echo (($field['locked'] == 1 || $field['merge'] == false) ? ' disabled="disabled"' : ''); ?> /></span>-->
+																	<span class="yks-mailchimp-field-placeholder"><span class="description"><?php _e( 'Placeholder' , 'yikes-inc-easy-mailchimp-extender' ); ?>:</span> &nbsp; <input type="text" name="placeholder-<?php echo $list['id'].'-'.$num; ?>" id="<?php echo $field['id']; ?>-placeholder" placeholder="<?php echo $field['label']; ?>" value="<?php if(isset($field['placeholder-'.$list['id'].'-'.$num])) { echo $field['placeholder-'.$list['id'].'-'.$num]; } ?>" /></span>
+																	<span class="yks-mailchimp-field-custom-field-class"><span class="description"><?php _e( 'Custom Class' , 'yikes-inc-easy-mailchimp-extender' ); ?>:</span> &nbsp; <input type="text" name="custom-field-class-<?php echo $list['id'].'-'.$num; ?>" id="<?php echo $field['id']; ?>-custom-field-class" value="<?php if(isset($field['custom-field-class-'.$list['id'].'-'.$num])) { echo $field['custom-field-class-'.$list['id'].'-'.$num]; } ?>" /></span>
 																</div>
 																<?php 
 																$num++;
