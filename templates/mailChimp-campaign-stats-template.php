@@ -3,63 +3,6 @@
 		Translation for Clicks , Click , Opens, and Opens need to be re-done 
 	*
 -->
-<style>
-/* #Green Flat Button
-==================================================*/
-.green-flat-button {
-  position: relative;
-  vertical-align: top;
-  width: 70%;
-  height: 45px;
-  padding: 0;
-  font-size: 16px;
-  color: white;
-  text-align: center;
-  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.25);
-  background: #27ae60;
-  border: 0;
-  border-bottom: 2px solid #219d55;
-  cursor: pointer;
-  -webkit-box-shadow: inset 0 -2px #219d55;
-  box-shadow: inset 0 -2px #219d55;
-  min-width: 125px;
-  max-width: 125px;
-}
-.green-flat-button:active {
-  top: 1px;
-  outline: none;
-  -webkit-box-shadow: none;
-  box-shadow: none;
-}
-/* #Orange Flat Button
-==================================================*/
-.orange-flat-button {
-  position: relative;
-  vertical-align: top;
-  width: 70%;
-  height: 45px;
-  padding: 0;
-  font-size: 16px;
-  color: white;
-  text-align: center;
-  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.25);
-  background: #f39c12;
-  border: 0;
-  border-bottom: 2px solid #e8930c;
-  cursor: pointer;
-  -webkit-box-shadow: inset 0 -2px #e8930c;
-  box-shadow: inset 0 -2px #e8930c;
-  min-width: 125px;
-  max-width: 125px;
-}
-.orange-flat-button:active {
-  top: 1px;
-  outline: none;
-  -webkit-box-shadow: none;
-  box-shadow: none;
-}
-</style>
-
 <script type="text/javascript">
 // switch out opens, views etc on hover
 jQuery(document).ready(function() {
@@ -109,8 +52,7 @@ jQuery(document).ready(function() {
 		$child_campaign_array = array();
 	
 		foreach ( $campaign_data as $campaign ) {
-			// Create our variables for the loop
-				// create our sent time variables
+
 				$campaign_type = $campaign['type'];
 				
 				$campaign_type_image = '<img src="' . plugins_url().'/yikes-inc-easy-mailchimp-extender/images/stats-icons/'.$campaign_type.'_icon.png' . '" alt="'.$campaign_type.'" class="'.$campaign_type.' image" />';
@@ -127,8 +69,15 @@ jQuery(document).ready(function() {
 						$campaign_unique_opens = $campaign['summary']['unique_opens'];
 						$campaign_clicks = $campaign['summary']['users_who_clicked'];
 						$campaign_web_id = $campaign['web_id'];
-						$campaign_open_percentage = round((float)($campaign_unique_opens/$total_emails_sent) * 100 ) . '%';
-						$user_click_percentage = round((float)($campaign_clicks/$total_emails_sent) * 100 ) . '%';
+						// prevent division by 0 errors thrown when
+						// $total_emails_sent is equal to 0
+						if ( $total_emails_sent == 0 ) {
+							$campaign_open_percentage = '0%';
+							$user_click_percentage = '0%';
+						} else {
+							$campaign_open_percentage = round((float)($campaign_unique_opens/$total_emails_sent) * 100 ) . '%';
+							$user_click_percentage = round((float)($campaign_clicks/$total_emails_sent) * 100 ) . '%';
+						}
 				} else {
 					$campaign_send_time = '';
 					$campaign_send_date = '<strong>Not Sent</strong>';
@@ -142,7 +91,7 @@ jQuery(document).ready(function() {
 			if ( $campaign['is_child'] != 1 ) {
 				?>
 					<tr class="single_report_row <?php if ( $campaign_type == 'rss' ) { ?>rss_single_report_row <?php } ?>">
-						<td <?php if ( !isset ( $campaign['send_time'] ) && !isset( $campaign['type_opts']['last_sent'] ) ) {	?> style="opacity:.25;" <?php } ?>>
+						<td <?php if ( !isset ( $campaign['send_time'] ) && !isset( $campaign['type_opts']['last_sent'] ) || $campaign['status'] == 'paused' ) {	?> style="opacity:.25;" <?php } ?>>
 							<?php echo $campaign_type_image; ?>
 						</td>
 						<!-- column 1 -->
@@ -159,6 +108,8 @@ jQuery(document).ready(function() {
 								} else {
 									if ( $campaign['status'] == 'sending' && isset( $campaign['type_opts']['last_sent'] ) ) {
 										echo '<b>'.__( "Recurring Campaign" , "yikes-inc-easy-mailchimp-extender" ).'</b>';
+									} else if ( $campaign['status'] == 'paused' ) {
+										echo '<b>'.__( "Paused" , "yikes-inc-easy-mailchimp-extender" ).'</b>';
 									} else {
 										echo '<b>'.__( "Not Yet Sent" , "yikes-inc-easy-mailchimp-extender" ).'</b>';
 									}								
@@ -214,10 +165,7 @@ jQuery(document).ready(function() {
 									
 					foreach ($child_campaign_array as $child_campaign ) {
 					
-						if ( $child_campaign['parent_id'] == $campaign['id'] ) {
-						// javascript loop to get how many campaigns were sent
-						// for a given group of campaign												
-							
+						if ( $child_campaign['parent_id'] == $campaign['id'] ) {										
 							$send_time_explosion = explode( " " , $child_campaign['send_time'] );
 							$campaign_send_time = $send_time_explosion[1];
 							
@@ -229,8 +177,15 @@ jQuery(document).ready(function() {
 							$campaign_unique_opens = $child_campaign['summary']['unique_opens'];
 							$campaign_clicks = $child_campaign['summary']['users_who_clicked'];
 							$campaign_web_id = $child_campaign['web_id'];
-							$campaign_open_percentage = round((float)($campaign_unique_opens/$total_emails_sent) * 100 ) . '%';
-							$user_click_percentage = round((float)($campaign_clicks/$total_emails_sent) * 100 ) . '%';
+							// prevent division by 0 errors thrown when
+							// $total_emails_sent is equal to 0
+							if ( $total_emails_sent == 0 ) {
+								$campaign_open_percentage = '0%';
+								$user_click_percentage = '0%';
+							} else {
+								$campaign_open_percentage = round((float)($campaign_unique_opens/$total_emails_sent) * 100 ) . '%';
+								$user_click_percentage = round((float)($campaign_clicks/$total_emails_sent) * 100 ) . '%';
+							}
 							?>
 								<tr class="single_report_row <?php if ( $child_campaign['is_child'] == 1 ) { echo $child_campaign['parent_id'].'_child_report_row yks_mc_child_report'; } ?>">
 									<td style="text-align:center;">

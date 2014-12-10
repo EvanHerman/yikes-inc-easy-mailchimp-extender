@@ -17,6 +17,7 @@ input#yks-mailchimp-api-key {
 </style>
 <script type="text/javascript">
 jQuery(document).ready(function ($) {
+
 	// check for blank fields
 	// runs when we add or remove a list from the lists pages
     function blankFieldCheck() {
@@ -101,7 +102,7 @@ jQuery(document).ready(function ($) {
 	
 	// ajax save the WordPress Plugin Debug Options Page
 	// Debug Options Page
-    $('#yks-mailchimp-form-debug-options').submit(function (e) {	   
+    $('#yks-mailchimp-form-debug-options').submit(function (e) {	
         // Make sure the api key exists
             $('#yks-status').slideUp('fast');
 				$.ajax({
@@ -182,7 +183,7 @@ jQuery(document).ready(function ($) {
 										} else {
 										// if our response contains anything else, other than whats above, just let them know its invalid
 											jQuery('.mailChimp_api_key_preloader').fadeOut('fast', function() {
-												jQuery('#yks-mailchimp-api-key').parents('td').find('.mailChimp_api_key_validation_message').first().html("<img src=<?php echo plugins_url().'/yikes-inc-easy-mailchimp-extender/images/yikes-mc-error-icon.png'; ?> alt=message > <?php _e("Sorry, that is an invalid MailChimp API key. Please check the console for further information.","yikes-inc-easy-mailchimp-extender"); ?>").css("color", "red").fadeIn();
+												jQuery('#yks-mailchimp-api-key').parents('td').find('.mailChimp_api_key_validation_message').first().html("<img src=<?php echo plugins_url().'/yikes-inc-easy-mailchimp-extender/images/yikes-mc-error-icon.png'; ?> alt=message > <?php _e("Sorry, that is an invalid MailChimp API key. Please check the error log on the debug options tab for further information.","yikes-inc-easy-mailchimp-extender"); ?>").css("color", "red").fadeIn();
 											});	
 											console.log('MailChimp API Response : '+response);
 											jQuery('#submit').attr('disabled','disabled');
@@ -246,7 +247,46 @@ jQuery(document).ready(function ($) {
 		});
 		e.preventDefault();
 	});
+	
+	
+	/* 
+	* Clear our Error Log 
+	*
+	* since v5.2
+	*/
+	jQuery( 'body' ).on( 'click' , '.clear-yks-mc-error-log' , function() {
 		
+		jQuery( '#yks-mc-error-log-table' ).fadeTo( 'fast' , .5 );
+		
+		jQuery.ajax({
+			type: 'POST',
+			url: ajaxurl,
+			data: {
+				action: 'yks_mailchimp_form',
+				form_action: 'clear_yks_mc_error_log'
+			}, 
+			success: function (response) {
+				setTimeout(function() {	
+					jQuery( '#yks-mc-error-log-table' ).fadeOut( 'fast' , function() {
+						jQuery( '.clear-yks-mc-error-log' ).attr( 'disabled' , 'disabled' );
+						setTimeout(function() {
+							jQuery( '.yks-mc-error-log-table-row' ).html( '<em style="display:none;">no errors logged</em>' );
+							setTimeout(function() {
+								jQuery( '.yks-mc-error-log-table-row' ).find( 'em' ).fadeIn('fast');
+							}, 300);
+						}, 250 );
+					});
+				}, 1000 );
+				console.log( response );
+			},
+			error : function(error_response) {
+				alert( 'There was an error with your request. Unable to clear the erorr log!' );
+				console.log(error_response.responseText);
+				jQuery( '#yks-mc-error-log-table' ).fadeTo( 'fast' , 1 );
+			}
+		});
+	});
+			
 });
 
 // function which runs when we change the OptIn value (from single to double, or double to single)
@@ -278,10 +318,6 @@ function changereCAPTCHAdropdown() {
 	} else {
 		jQuery('.recaptcha-settings-hidden-container').fadeOut('fast');
 	}
-}
-function recaptchaPreviewChange() {
-	var recaptcha_selected_item = jQuery('#yks-mailchimp-recaptcha-style').val();
-	jQuery('#reCAPTCHApreviewImage').attr( 'src' , '<?php echo plugins_url()."/yikes-inc-easy-mailchimp-extender/images/reCAPTCHA/reCAPTCHA_Sample_"; ?>'+recaptcha_selected_item+'.png' );	
 }
 jQuery(document).ready(function() {
 	changeOptinSubscribeCheckbox();
@@ -316,29 +352,7 @@ jQuery(document).ready(function() {
 ?>
 <div class="wrap">
 <!-- yikes logo on all settings pages -->
-<div id="yks_mc_review_this_plugin_container">
-	<a href="https://github.com/yikesinc/yikes-inc-easy-mailchimp-extender/issues?state=open" target="_blank">
-		<span class="yks_mc_need_support">
-			<strong>
-				<?php _e( 'Need Help?', 'yikes-inc-easy-mailchimp-extender' ); ?> <br />
-				<?php _e( 'Get In Contact!', 'yikes-inc-easy-mailchimp-extender' ); ?> <br />
-				<div class="dashicons dashicons-plus-alt"></div>
-			</strong>
-		</span>
-	</a>
-	<a href="http://wordpress.org/support/view/plugin-reviews/yikes-inc-easy-mailchimp-extender" target="_blank">
-		<span class="yks_mc_leave_us_a_review">
-			<strong>
-				<?php _e( 'Loving the plugin?', 'yikes-inc-easy-mailchimp-extender' ); ?> <br />
-				<?php _e( 'Leave us a nice review', 'yikes-inc-easy-mailchimp-extender' ); ?> <br />
-				<div class="dashicons dashicons-star-filled"></div><div class="dashicons dashicons-star-filled"></div><div class="dashicons dashicons-star-filled"></div><div class="dashicons dashicons-star-filled"></div><div class="dashicons dashicons-star-filled"></div>
-			</strong>
-		</span>
-	</a>
-	<a href="http://www.yikesinc.com" target="_blank" class="yks_header_logo">
-		<img src="<?php echo plugins_url().'/yikes-inc-easy-mailchimp-extender/images/yikes_logo.png'; ?>" alt="YIKES Inc. Logo" width=85 title="YIKES Inc. Logo" />
-	</a>
-</div>
+<?php echo $this->help_review_container(); ?>
 
 <!-- tabs -->
 <h2 class="nav-tab-wrapper">
@@ -384,7 +398,7 @@ jQuery(document).ready(function() {
 		<div class="update-nag">
 			<span class="yks-mc-icon-notice"><h3><?php _e( 'LocalHost Detected :', 'yikes-inc-easy-mailchimp-extender' ); ?></h3></span>
 			<p><?php _e( 'It looks like your using Easy MailChimp Forms by YIKES Inc. on localhost.', 'yikes-inc-easy-mailchimp-extender' ); ?></p>
-			<p><?php _e( 'If you are unable to validate your API key, and receive the error message' , 'yikes-inc-easy-mailchimp-extender' );  ?><em> <?php _e('SSL certificate problem: unable to get local issuer certificate', 'yikes-inc-easy-mailchimp-extender' ); ?></em> <?php _e('follow the tutorial located ', 'yikes-inc-easy-mailchimp-extender' ); ?><a href="http://redwebturtle.blogspot.com/2013/09/mailchimp-api-v20-ssl-error-solution.html" target="_blank">here</a></p>
+			<p><?php _e( 'If you are unable to validate your API key, and/or receive the error message' , 'yikes-inc-easy-mailchimp-extender' );  ?><em> <?php _e('"SSL certificate problem: unable to get local issuer certificate"', 'yikes-inc-easy-mailchimp-extender' ); ?></em> <?php _e('head over to the', 'yikes-inc-easy-mailchimp-extender' ); ?> <a href="<?php echo admin_url('admin.php?page=yks-mailchimp-form&tab=debug_options' ); ?>" ><?php _e('Debug Options', 'yikes-inc-easy-mailchimp-extender' ); ?></a> <?php _e('tab and set the SSL Verify Peer option to "False" and try again.', 'yikes-inc-easy-mailchimp-extender' ); ?></p>
 		</div>
 	<?php } ?>	
 	
@@ -394,17 +408,20 @@ jQuery(document).ready(function() {
 	
 				<!-- MailChimp API Key Field -->
 				<tr valign="top">
-					<th scope="row"><label for="yks-mailchimp-api-key"><?php _e('Your Mailchimp API Key','yikes-inc-easy-mailchimp-extender'); ?></label></th>
+					<th scope="row">
+						<label for="yks-mailchimp-api-key"><?php _e('Your Mailchimp API Key','yikes-inc-easy-mailchimp-extender'); ?></label>
+					</th>
 					<td>
-						<input name="yks-mailchimp-api-key" id="yks-mailchimp-api-key" value="<?php echo $this->yikes_mc_encryptIt($this->optionVal['api-key']); ?>" class="regular-text" /><span class="mailChimp_api_key_validation_message"></span><img class="mailChimp_api_key_preloader" src="<?php echo admin_url().'/images/wpspin_light.gif'; ?>" alt="preloader" ><span class="mailChimp_api_key_validation"></span><?php if ( get_option( 'api_validation' ) == 'valid_api_key' ) { echo '<span class="mailChimp_api_key_validation_message" style="color: green; display: inline;"><img src="'.plugins_url().'/yikes-inc-easy-mailchimp-extender/images/yikes-mc-checkmark.png" alt="message">' . __(' Valid API Key','yikes-inc-easy-mailchimp-extender') . '</span>'; } else { echo '<span class="mailChimp_api_key_validation_message" style="display: inline; color: red;"><img src="' .plugins_url().'/yikes-inc-easy-mailchimp-extender/images/yikes-mc-error-icon.png" alt="message">' . __(' Sorry, that is an invalid MailChimp API key. Please check the console for further information','yikes-inc-easy-mailchimp-extender') . '</span>'; } ?>
+						<input name="yks-mailchimp-api-key" id="yks-mailchimp-api-key" value="<?php echo isset( $this->optionVal['api-key'] ) && $this->optionVal['api-key'] != '' ? $this->yikes_mc_encryptIt($this->optionVal['api-key']) : ''; ?>" class="regular-text" /><span class="mailChimp_api_key_validation_message"></span><img class="mailChimp_api_key_preloader" src="<?php echo admin_url().'/images/wpspin_light.gif'; ?>" alt="preloader" ><span class="mailChimp_api_key_validation"></span><?php if ( get_option( 'api_validation' ) == 'valid_api_key' ) { echo '<span class="mailChimp_api_key_validation_message" style="color: green; display: inline;"><img src="'.plugins_url().'/yikes-inc-easy-mailchimp-extender/images/yikes-mc-checkmark.png" alt="message">' . __(' Valid API Key','yikes-inc-easy-mailchimp-extender') . '</span>'; } else { echo '<span class="mailChimp_api_key_validation_message" style="display: inline; color: red;"><img src="' .plugins_url().'/yikes-inc-easy-mailchimp-extender/images/yikes-mc-error-icon.png" alt="message">' . __(' Sorry, that is an invalid MailChimp API key. Please check the error log on the debug options tab for further information.','yikes-inc-easy-mailchimp-extender') . '</span>'; } ?>
 					</td>
 				</tr>
 				<!-- MailChimp API Key Description -->
 				<tr>
 					<td></td>
-					<td class="yks-settings-description">
+					<td class="yks-settings-description" style="display:block;padding-bottom:5px !important;">
 						<?php _e('Please enter your MailChimp API Key above. The API Key allows your WordPress site to communicate with your MailChimp account.','yikes-inc-easy-mailchimp-extender'); ?><br />
-						<?php _e('For more help, visit the MailChimp Support article','yikes-inc-easy-mailchimp-extender'); ?> <a href="http://kb.mailchimp.com/article/where-can-i-find-my-api-key" target="_blank"><?php _e('Where can I find my API Key?','yikes-inc-easy-mailchimp-extender'); ?></a>
+						<?php _e('For help, visit the MailChimp Support article :','yikes-inc-easy-mailchimp-extender'); ?> <a href="http://kb.mailchimp.com/article/where-can-i-find-my-api-key" target="_blank"><?php _e('Where can I find my API Key?','yikes-inc-easy-mailchimp-extender'); ?></a><br />
+						<strong style="display:block;margin-top:2em;"><?php _e( 'Issues? check the error log at the bottom of the ' , 'yikes-inc-easy-mailchimp-extender' ); ?><a href="?page=yks-mailchimp-form&amp;tab=debug_options#yks-mc-error-log-table-jump-point"><?php _e( 'debug options' , 'yikes-inc-easy-mailchimp-extender' ); ?></a> <?php _e( 'tab for more info.' , 'yikes-inc-easy-mailchimp-extender' ); ?></strong>
 					</td>
 				</tr>
 				<!-- Preferred Form Layout (table or div) -->
@@ -462,20 +479,6 @@ jQuery(document).ready(function() {
 					<!-- Advanced Debug Description -->
 					<td class="yks-settings-description">
 						<em><?php _e('Note: You can include html markup in your confirmation message.','yikes-inc-easy-mailchimp-extender'); ?></em>
-					</td>
-				</tr>
-				<tr valign="top">
-					<!-- Custom Interest Group Label -->
-					<th scope="row"><label for="yks-mailchimp-optIn"><?php _e('Interest Group Label','yikes-inc-easy-mailchimp-extender'); ?></label></th>
-					<td>
-						<input type="text" name="interest-group-label" placeholder="Select an Interest" class="yks-mailchimp-interest-group-label" value="<?php echo $this->optionVal['interest-group-label']; ?>" />
-					</td>
-				</tr>
-				<tr>
-					<td></td>
-					<!-- Custom Interest Group Label Description -->
-					<td class="yks-settings-description">
-						<?php _e('Text to display above interest groups. Leave blank to use MailChimp interest group names.','yikes-inc-easy-mailchimp-extender'); ?>
 					</td>
 				</tr>
 				<tr valign="top">
@@ -550,8 +553,9 @@ jQuery(document).ready(function() {
 	<?php } else if ( $active_tab == 'recaptcha_settings' ) { ?>			
 			
 			<h3><?php _e('ReCaptcha Settings','yikes-inc-easy-mailchimp-extender'); ?></h3>
-			<p class="yks-settings-description"><?php _e('reCAPTCHA is a free service to protect your website from spam and abuse. reCAPTCHA uses an advanced risk analysis engine and adaptive CAPTCHAs to keep automated software from engaging in abusive activities on your site. It does this while letting your valid users pass through with ease.','yikes-inc-easy-mailchimp-extender'); ?></p>
-			
+			<p style="padding-bottom:0 !important;" class="yks-settings-description"><?php _e('reCAPTCHA is a free service to protect your website from spam and abuse. reCAPTCHA uses an advanced risk analysis engine and adaptive CAPTCHAs to keep automated software from engaging in abusive activities on your site. It does this while letting your valid users pass through with ease.','yikes-inc-easy-mailchimp-extender'); ?></p>
+			<strong style="padding-left:5px;"><?php _e('ReCaptcha Demo' , 'yikes-inc-easy-mailchimp-extender' ); ?></strong><br />
+			<img class="reCaptcha-demo-gif" src="<?php echo YKSEME_URL . 'images/reCAPTCHA/recaptcha-demo.gif'; ?>" alt="reCAPTCHA Demo">
 			<p><strong style="color: rgb(241, 5, 5);"><?php _e('Note' ,'yikes-inc-easy-mailchimp-extender'); ?> : </strong><?php _e("if you're displaying multiple forms on a single page, reCAPTCHA will only display on one form at a time." ,"yikes-inc-easy-mailchimp-extender"); ?></p>
 			<form method="post" name="yks-mailchimp-form" id="yks-mailchimp-form-recaptcha-options">
 				<table class="form-table yks-admin-form">
@@ -598,26 +602,6 @@ jQuery(document).ready(function() {
 							<em><?php _e('to retreive a recaptcha API key, sign up for an account','yikes-inc-easy-mailchimp-extender'); ?> <a href="https://www.google.com/recaptcha/admin" target="_blank" title="ReCaptcha API Key"><?php _e('here','yikes-inc-easy-mailchimp-extender'); ?></a></em>
 						</td>
 					</tr>
-					<tr valign="top" class="recaptcha-settings-hidden-container" <?php if ( $this->optionVal['recaptcha-setting'] === '0' ) { ?> style="display:none;" <?php } ?>>
-						<!-- reCAPTCHA styles -->
-						<th scope="row"><label for="yks-mailchimp-recaptcha-style'"><?php _e('ReCaptcha Style','yikes-inc-easy-mailchimp-extender'); ?></label></th>
-						<td>
-							<select name="yks-mailchimp-recaptcha-style" id="yks-mailchimp-recaptcha-style" class="regular-text" onchange="recaptchaPreviewChange();" />
-								<option value="default"<?php echo ($this->optionVal['recaptcha-style'] === 'default' ? ' selected' : ''); ?>><?php _e('Default','yikes-inc-easy-mailchimp-extender'); ?></option>
-								<option value="white"<?php echo ($this->optionVal['recaptcha-style'] === 'white' ? ' selected' : ''); ?>><?php _e('White','yikes-inc-easy-mailchimp-extender'); ?></option>
-								<option value="blackglass"<?php echo ($this->optionVal['recaptcha-style'] === 'blackglass' ? ' selected' : ''); ?>><?php _e('Black Glass','yikes-inc-easy-mailchimp-extender'); ?></option>
-								<option value="clean"<?php echo ($this->optionVal['recaptcha-style'] === 'clean' ? ' selected' : ''); ?>><?php _e('Clean','yikes-inc-easy-mailchimp-extender'); ?></option>
-							</select>		
-						</td>
-					</tr>					
-				<tr class="recaptcha-settings-hidden-container" <?php if ( $this->optionVal['recaptcha-setting'] === '0' ) { ?> style="display:none;" <?php } ?>>
-					<td></td>
-					<!-- Advanced Debug Description -->
-					<td class="yks-settings-description reCAPTCHA_preview_div">
-						<strong><em><?php _e('reCAPTCHA Preview','yikes-inc-easy-mailchimp-extender'); ?></em></strong> <br />
-						<img src="<?php echo plugins_url().'/yikes-inc-easy-mailchimp-extender/images/reCAPTCHA/reCAPTCHA_Sample_'.$this->optionVal['recaptcha-style'].'.png'; ?>" id="reCAPTCHApreviewImage" alt="reCAPTCHA Preview" width=350 title="reCAPTCHA Preview" />
-					</td>
-				</tr>
 					<tr>
 						<td></td>
 						<td><input type="submit" name="submit" id="submit" class="button-primary" value="<?php _e( 'Save Settings' , 'yikes-inc-easy-mailchimp-extender' ); ?>" ></td>
@@ -641,11 +625,11 @@ jQuery(document).ready(function() {
 				
 				<!-- Advanced Debug -->
 				<tr valign="top">
-					<th scope="row"><label for="yks-mailchimp-debug"><?php _e('Advanced Error Messaging','yikes-inc-easy-mailchimp-extender'); ?></label></th>
+					<th scope="row"><label for="yks-mailchimp-debug"><?php _e('Advanced Error Logging','yikes-inc-easy-mailchimp-extender'); ?></label></th>
 					<td>
 						<select name="yks-mailchimp-debug" id="yks-mailchimp-debug" class="regular-text" />
-							<option value="0"<?php echo ($this->optionVal['debug'] === '0' ? ' selected' : ''); ?>><?php _e('Disabled','yikes-inc-easy-mailchimp-extender'); ?></option>
-							<option value="1"<?php echo ($this->optionVal['debug'] === '1' ? ' selected' : ''); ?>><?php _e('Enabled','yikes-inc-easy-mailchimp-extender'); ?></option>
+							<option value="0" <?php echo ($this->optionVal['debug'] === '0' ? ' selected' : ''); ?>><?php _e('Disabled','yikes-inc-easy-mailchimp-extender'); ?></option>
+							<option value="1" <?php echo ($this->optionVal['debug'] === '1' ? ' selected' : ''); ?>><?php _e('Enabled','yikes-inc-easy-mailchimp-extender'); ?></option>
 						</select>
 					</td>
 				</tr>
@@ -653,9 +637,28 @@ jQuery(document).ready(function() {
 					<td></td>
 					<!-- Advanced Debug Description -->
 					<td class="yks-settings-description">
-						<?php _e( "Enable if you're having problems with your forms sending data to MailChimp. Enabling Advanced Error Messaging will show you the exact error codes MailChimp is returning." , "yikes-inc-easy-mailchimp-extender" ); ?>
+						<?php _e( "Enable if you're having problems with any aspect of the MailChimp API." , "yikes-inc-easy-mailchimp-extender" ); ?><br /><?php _e( "Enabling Advanced Error Logging will log exact error codes returned by MailChimp to the error log below." , "yikes-inc-easy-mailchimp-extender" ); ?>
 					</td>
 				</tr>
+				<!-- Toggle Verify Peer -->
+				<tr valign="top">
+					<th scope="row"><label for="yks-mailchimp-debug"><?php _e('SSL Verify Peer','yikes-inc-easy-mailchimp-extender'); ?></label></th>
+					<td>
+						<select name="yks-mailchimp-ssl-verify-peer" id="yks-mailchimp-ssl-verify-peer" class="regular-text" />
+							<option value="true" <?php echo ($this->optionVal['ssl_verify_peer'] === 'true' ? ' selected' : ''); ?>><?php _e('True','yikes-inc-easy-mailchimp-extender'); ?></option>
+							<option value="false" <?php echo ($this->optionVal['ssl_verify_peer'] === 'false' ? ' selected' : ''); ?>><?php _e('False','yikes-inc-easy-mailchimp-extender'); ?></option>
+						</select>
+					</td>
+				</tr>
+				<tr>
+					<td></td>
+					<!-- Toggle Verify Peer Description -->
+					<td class="yks-settings-description">
+						<?php _e( "If you receive the following response from MailChimp API : 'SSL certificate problem, verify that the CA cert is OK' " , "yikes-inc-easy-mailchimp-extender" ); ?><br />
+						<?php _e( "set this setting to false. Changing this setting after things have been set up may break the plugin." , "yikes-inc-easy-mailchimp-extender" ); ?>
+					</td>
+				</tr>
+				
 
 				<table class="form-table yks-admin-form">
 					<tbody>
@@ -694,6 +697,53 @@ jQuery(document).ready(function() {
 							<td></td>
 							<td><input type="submit" name="submit" id="submit" class="button-primary" value="<?php _e( 'Save Settings' , 'yikes-inc-easy-mailchimp-extender' ); ?>"></td>
 						</tr>
+						
+						<!-- check contents of our error log -->
+						<?php $error_file_contents = $this->yks_mc_generate_error_log_table(); ?>
+						<tr valign="top">
+						
+							<th scope="row"><h3 style="display:block;width:100%;margin-bottom:1em;"><?php _e('Error Log','yikes-inc-easy-mailchimp-extender'); ?></h3><a href="#" onclick="return false;" class="button-secondary clear-yks-mc-error-log" <?php if ( !$error_file_contents ) { ?> disabled="disabled" <?php } ?>><?php _e( 'clear log' , 'yikes-inc-easy-mailchimp-extender' ); ?></a></th>
+							<td class="yks-mc-error-log-table-row" id="yks-mc-error-log-table-jump-point" >
+								
+								<?php 
+									if ( $error_file_contents ) {
+										wp_enqueue_style( 'yks-mc-error-log-table-styles' , YKSEME_URL . 'css/yks-mc-error-log-table-styles.css' , array() , 'all' );
+										wp_enqueue_style( 'yks-mc-error-log-table-styles' );
+								?>
+										<!-- error log table -->
+											<table cellspacing='0' id='yks-mc-error-log-table'> <!-- cellspacing='0' is important, must stay -->
+												<!-- Table Header -->
+												<thead>
+													<tr>
+														<th><?php _e( "Error Message" , "yikes-inc-easy-mailchimp-extender" ); ?></th>
+														<th><?php _e( "Date/Time" , "yikes-inc-easy-mailchimp-extender" ); ?></th>
+													</tr>
+												</thead>
+												<!-- Table Header -->
+
+												<!-- Table Body -->
+												<tbody>
+													<?php 
+														// dump the contents of the error log
+														print_r( $error_file_contents );
+													?>
+												</tbody>
+												<!-- Table Body -->
+												
+											</table>
+										<?php
+									} else {
+										if ( function_exists( 'file_put_contents' ) && function_exists('file_get_contents' ) ) {
+											echo '<em>' . __( 'no errors logged' , 'yikes-inc-easy-mailchimp-extender' ) . '</em>';
+										} else {
+											echo '<em>' . __( 'file_get_contents or file_get_contents is disabled and unable to write to the error log. Enable these functions to activate the error log.' , 'yikes-inc-easy-mailchimp-extender' ) . '</em>';
+										}
+									}	
+								?>
+							</td>
+						</tr>
+						<!-- end the erorr log -->
+						
 					</tbody>
 				</table>
 				
@@ -703,8 +753,6 @@ jQuery(document).ready(function() {
 	
 	<?php } ?>
 	
-</div>
-
 <?php
 
 // if cURL is not enabled on the site

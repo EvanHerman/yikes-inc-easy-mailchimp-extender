@@ -29,6 +29,10 @@
 	color:#DD3D36;
 }
 
+.ui-widget-overlay:nth-child(2) {
+	background: transparent !important;
+}
+
 /* TinyMCE Button Class */
 /* Icon Fonts */
 .mce-i-yks-mc-icon-yikes-button-image:before {
@@ -39,7 +43,7 @@
 .toplevel_page_yks-mailchimp-form .update-nag {
 	padding-top:0;
 	margin-top:0;
-	width:95%;
+	width: 95%;
 	margin-right:0;
 }
 
@@ -261,10 +265,14 @@
 	margin: 5px 0;
 }
 
+.yks-mailchimpFormDivRowField select {
+	display: block;
+	width: 100%;
+}
+
 .widget_yikes_mc_widget input, .widget_yikes_mc_widget .yks-mailchimpFormDivRowField {
 	width: 100%;
     display:block;
-    padding: 10px;
     -moz-box-sizing: border-box;
     -webkit-box-sizing: border-box;
     box-sizing: border-box;
@@ -272,10 +280,11 @@
 	.yks-mailchimpFormDivRowField input {
 		width: 100%;
 		display:block;
-		padding: 10px;
 		-moz-box-sizing: border-box;
 		-webkit-box-sizing: border-box;
 		box-sizing: border-box;
+		height: 30px;
+		padding-left: 10px;
 	}
 	/* Make radio buttons and checkboxes not 100% as it throws off layouts */
 	.yks-mailchimpFormDivRowField input[type="radio"], .yks-mailchimpFormDivRowField input[type="checbox"] {
@@ -299,6 +308,10 @@
 	background-size: contain;
 }
 
+body.mailchimp-forms_page_yks-mailchimp-form-lists #ykseme-icon {
+	margin-right: .5em;
+}
+
 .wrap #ykseme-page-header {
 	padding-top:0;
 	margin:1em 0 1.5em 0;
@@ -306,7 +319,6 @@
 
 .wrap #yks_mc_review_this_plugin_container {
 	padding:.5em;
-	border:1px dashed lightgrey;
 	float:right;
 }
 
@@ -348,32 +360,28 @@ body.mailchimp-forms_page_yks-mailchimp-about-yikes #ykseme-page-header {
 	margin-top:1em;
 }
 
-
+#yks-lists-dropdown {
+	margin-bottom: 2em;
+}
 .yks-status	{
 	display: none;
 	width: 100%;
 	clear: both;
 }
-	
+
+.wp-admin .yks-error p { 
+	margin: .5em 0;
+}
+		
 	.yks-status .yks-success {
-		/*
-		color: #000;
-		width: 80%;
-		height: auto;
-		border: 2px solid #00AA00;
-		background: #C1FFC1;
-		clear: both;
-		margin: 15px auto 15px auto;
-		text-align: center;
-		*/
-		border-left: 4px solid #7ad03a;
+		width: 98%;
+		margin: 0 auto;
 		padding: 5px 15px;
-		background-color:#fff;
-		-webkit-box-shadow: 0 1px 1px 0 rgba(0,0,0,.1);
-		box-shadow: 0 1px 1px 0 rgba(0,0,0,.1);
+		padding-left: 0;
+		background-color: transparent;
 		min-height:25px;
 		line-height: 1.2;
-		margin-top:1em;
+		margin-top:2em;
 		color: #333;
 	}
 	
@@ -382,24 +390,14 @@ body.mailchimp-forms_page_yks-mailchimp-about-yikes #ykseme-page-header {
 	}
 	
 	.yks-status-error .yks-error {
-		/*
-		color: #000;
-		width: 80%;
-		height: auto;
-		border: 2px solid #AA0000;
-		background: #FFC1C1;
-		clear: both;
-		margin: 15px auto 15px auto;
-		text-align: center;
-		*/
-		border-left: 4px solid #dd3d36;
+		width: 98%;
+		margin: 0 auto;
 		background-color: #fff;
 		padding: 1px 12px;
-		-webkit-box-shadow: 0 1px 1px 0 rgba(0,0,0,.1);
-		box-shadow: 0 1px 1px 0 rgba(0,0,0,.1);
+		padding-left: 0;
 		min-height:25px;
 		line-height: 3.2;
-		margin-top:1em;
+		margin-top:2em;
 	}
 			.yks-status .yks-error p, .yks-status .yks-success p {
 				margin: .4em 0;
@@ -436,8 +434,77 @@ body.mailchimp-forms_page_yks-mailchimp-about-yikes #ykseme-page-header {
 			padding: 5px;
 		}
 		
-/* Plugin settings page*/
+		
+		/* Admin Success/Erorr Notifications */
+		body.wp-admin .yks-status {
+			display: none;
+			width: 100%;
+			clear: both;
+		}
+	
+	body.wp-admin .yks-status .yks-success {
+		border-left: 4px solid #7ad03a;
+		padding: 5px 15px;
+		background-color:#fff;
+		-webkit-box-shadow: 0 1px 1px 0 rgba(0,0,0,.1);
+		box-shadow: 0 1px 1px 0 rgba(0,0,0,.1);
+		min-height:25px;
+		line-height: 1.2;
+		margin-top:1em;
+		color: #333;
+	}
+	
+	body.wp-admin .yks-status .yks-success a {
+		color: auto !important;
+	}
+	
+	body.wp-admin .yks-status-error .yks-error {
+		border-left: 4px solid #dd3d36;
+		background-color: #fff;
+		padding: 1px 12px;
+		-webkit-box-shadow: 0 1px 1px 0 rgba(0,0,0,.1);
+		box-shadow: 0 1px 1px 0 rgba(0,0,0,.1);
+		min-height:25px;
+		line-height: 3.2;
+		margin-top:1em;
+	}
+			body.wp-admin .yks-status .yks-error p, .yks-status .yks-success p {
+				margin: .4em 0;
+			}
 
+	body.wp-admin .yks-status .yks-notice {
+		color: #000;
+		width: 80%;
+		height: auto;
+		border: 2px solid #0033AA;
+		background: #CCDDFF;
+		clear: both;
+		margin: 15px auto 15px auto;
+		padding: 5px;
+		position: relative;
+		text-align: left;
+	}
+		body.wp-admin .yks-status .yks-notice a.yks-notice-close, body.wp-admin .yks-status .yks-notice a.yks-notice-close:active,
+		body.wp-admin .yks-status .yks-notice a.yks-notice-close:link, body.wp-admin .yks-status .yks-notice a.yks-notice-close:visited {
+			background: #0033AA;
+			color: #FFF;
+			position: absolute;
+			padding: 0 5px !important;
+			margin: 0 !important;
+			top: 0;
+			right: 0;
+			font-size: 10px;
+			text-decoration: none;
+		}
+			body.wp-admin .yks-status .yks-notice a.yks-notice-close:hover {
+				text-decoration: underline;
+			}
+		body.wp-admin .yks-status .yks-notice p {
+			padding: 5px;
+		}
+		
+		
+/* Plugin settings page*/
 .yks-admin-form {
 	margin-bottom: 3em;
 }
@@ -525,20 +592,20 @@ body.mailchimp-forms_page_yks-mailchimp-about-yikes #ykseme-page-header {
 		width: 100px;
 	}
 
-.yks-mailchimp-fields-list 	{
+.yks-mailchimp-fields-list, .yks-mailchimp-interest-groups-container 	{
 	background-color: #F9F9F9;
 	border: 1px solid #EEE;
 }
-.yks-mailchimp-fields-list .yks-mailchimp-fields-list-row:nth-child(even) {
+.yks-mailchimp-fields-list .yks-mailchimp-fields-list-row:nth-child(even), .yks-mailchimp-interest-groups-container .yks-mailchimp-fields-list-row:nth-child(even) {
 	background-color: #EEE;
 }
-.yks-mailchimp-fields-list .yks-mailchimp-fields-list-row:nth-child(odd) {
+.yks-mailchimp-fields-list .yks-mailchimp-fields-list-row:nth-child(odd) , .yks-mailchimp-interest-groups-container .yks-mailchimp-fields-list-row:nth-child(odd) {
 }
-	.yks-mailchimp-fields-list .yks-mailchimp-fields-list-row {
+	.yks-mailchimp-fields-list .yks-mailchimp-fields-list-row, .yks-mailchimp-interest-groups-container .yks-mailchimp-fields-list-row {
 		height: 40px;
 		padding-top: 3px;
 	}
-		.yks-mailchimp-fields-list .yks-mailchimp-fields-list-row label {
+		.yks-mailchimp-fields-list .yks-mailchimp-fields-list-row label, .yks-mailchimp-interest-groups-container .yks-mailchimp-fields-list-row label {
 			display: inline-block;
 		}
 
@@ -652,7 +719,12 @@ body.mailchimp-forms_page_yks-mailchimp-about-yikes #ykseme-page-header {
 .yks-mailchimp-fields-td {
 	display: block;
 	padding: 15px 0 15px 0;
-	min-width:880px;
+	width: 100%;
+}
+
+.yks-mailchimp-fields-td .yks-mailchimp-fields-container .yks-mailchimp-fields-list-row {
+	height: auto;
+	padding: 3px 0;
 }
 	
 .yks-mailchimp-fields-container label {
@@ -663,7 +735,7 @@ body.mailchimp-forms_page_yks-mailchimp-about-yikes #ykseme-page-header {
 
 .yks-require-description {
 	font-size: 0.9em;
-    padding: 1em 0;
+    padding: 1em 0 0 0;
 }
 
 .yks-mailchimpFormDivRowLabel-required {}
@@ -703,7 +775,7 @@ body.mailchimp-forms_page_yks-mailchimp-about-yikes #ykseme-page-header {
 }
 
 .yks-mailchimp-form-tooltip {
-	color: #CCC !important;
+	color: #333 !important;
 	font-size: 12px;
 	display:block;
 	margin: 0 0 15px 0;
@@ -936,9 +1008,9 @@ label[for="single-optin-message"], label[for="double-optin-message"] {
  
  #yks_form_error_message {
 	padding:.75em;
+	padding-left: 0;
 	font-size:12px;
 	float:left;
-	margin-bottom:1em;
 	display:none;
 	width:100%;
  }
@@ -953,6 +1025,29 @@ label[for="single-optin-message"], label[for="double-optin-message"] {
 			width: 33%; 
 			float:left;
 		 }
+		 
+	.preloader-confirmation-box > .success {
+		color: rgba(87, 182, 66, 0.65);
+	}
+	
+	.preloader-confirmation-box > .error {
+		color: rgba(224, 47, 47, 0.65);
+	}
+	
+	.preloader-confirmation-box > .error:before {
+		display: block;
+		float: left;
+	}
+	
+	.preloader-confirmation-box > .success:before {
+		font-family: "dashicons";
+		content: "\f147";
+	}
+	
+	.preloader-confirmation-box > .error:before {
+		font-family: "dashicons";
+		content: "\f335";
+	}
 		 
 /* reCAPTCHA Responsiveness */
 #recaptcha_area {
@@ -1121,6 +1216,62 @@ textarea#debug_loaded_apache_modules {
 	min-height: 100px;
 }
 **/
+
+/** Buttons, Campaigns Sent List **/
+/* #Green Flat Button
+==================================================*/
+.green-flat-button {
+  position: relative;
+  vertical-align: top;
+  width: 70%;
+  height: 45px;
+  padding: 0;
+  font-size: 16px;
+  color: white;
+  text-align: center;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.25);
+  background: #27ae60;
+  border: 0;
+  border-bottom: 2px solid #219d55;
+  cursor: pointer;
+  -webkit-box-shadow: inset 0 -2px #219d55;
+  box-shadow: inset 0 -2px #219d55;
+  min-width: 125px;
+  max-width: 125px;
+}
+.green-flat-button:active {
+  top: 1px;
+  outline: none;
+  -webkit-box-shadow: none;
+  box-shadow: none;
+}
+/* #Orange Flat Button
+==================================================*/
+.orange-flat-button {
+  position: relative;
+  vertical-align: top;
+  width: 70%;
+  height: 45px;
+  padding: 0;
+  font-size: 16px;
+  color: white;
+  text-align: center;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.25);
+  background: #f39c12;
+  border: 0;
+  border-bottom: 2px solid #e8930c;
+  cursor: pointer;
+  -webkit-box-shadow: inset 0 -2px #e8930c;
+  box-shadow: inset 0 -2px #e8930c;
+  min-width: 125px;
+  max-width: 125px;
+}
+.orange-flat-button:active {
+  top: 1px;
+  outline: none;
+  -webkit-box-shadow: none;
+  box-shadow: none;
+}
 
 .mailChimpStatisticsDiv .no_data_found, #yks-admin-chimp-chatter .no_data_found {
 	padding-top:6em;
@@ -1641,15 +1792,15 @@ body.mailchimp-forms_page_yks-mailchimp-form-lists .yks-list-container h4 {
 	width: 50%;
 }
 
-	.custom_style_table .yks-mailchimp-fields-list-row td {
+	.custom_style_table .yks-mailchimp-fields-list-row td, .custom_style_table .yks-mailchimp-interest-groups-container td {
 		width: 50%;
 		text-align:center;
 	}
-		.custom_style_table .yks-mailchimp-fields-list-row td:first-child {
+		.custom_style_table .yks-mailchimp-fields-list-row td:first-child, .custom_style_table .yks-mailchimp-interest-groups-container td:first-child {
 			text-align: left;
 		}
 
-	.custom_style_table .yks-mailchimp-fields-list .yks-mailchimp-fields-list-row {
+	.custom_style_table .yks-mailchimp-fields-list .yks-mailchimp-fields-list-row, .custom_style_table .yks-mailchimp-interest-groups-container .yks-mailchimp-fields-list-row {
 		display: inline-block;
 	}
 	
@@ -1729,7 +1880,182 @@ input[name="yks-mc-form-padding"], input[name="yks-mc-form-width"], select[name=
 	
 }
 
-
-.yks_mc_interest_group_label:hover {
+.radio-dropdown-option.first {
+	margin-left: 25px;
+}
+.remove-radio-dropdown-option {
+	line-height: 1.1;
+	float:left;
+	margin-right:.25em;
+}	
+.yks_mc_interest_group_label:hover, .remove-radio-dropdown-option:hover, .yks-mc-delete-merge-var > .dashicons-no-alt {
 	cursor: pointer;
+}
+
+/* Add New Field Inputs */
+/* New Manage List Styles */
+.yks-mc-add-field-dateformat {
+	display: none;
+}
+input.radio-dropdown-option {
+	width: 65%;
+	display: block;
+	margin: .75em 0;
+}
+input.radio-dropdown-option:before {
+	font-family: "dashicons";
+	content: '\f460';
+}
+.yks-mc-add-field-radio-dropdown {
+	display: none;
+}
+#merge-variable-settings {
+	display: none;
+}
+a.create-this-field {
+	color: red !important;
+}
+.dashicons-no-alt {
+	color: rgba(51, 51, 51, 0.5);
+	padding: 2px;
+	-webkit-transition: all 0.25s ease-out;  
+	-moz-transition: all 0.25s ease-out;  
+	-ms-transition: all 0.25s ease-out;  
+	-o-transition: all 0.25s ease-out;  
+	transition: all 0.25s ease-out;
+}
+.dashicons-no-alt:hover {
+	color: rgb(255, 137, 137);
+}
+.dashicons-edit {
+	color: rgba(51, 51, 51, 0.5);
+	padding: 2px;
+	-webkit-transition: all 0.25s ease-out;  
+	-moz-transition: all 0.25s ease-out;  
+	-ms-transition: all 0.25s ease-out;  
+	-o-transition: all 0.25s ease-out;  
+	transition: all 0.25s ease-out;
+}
+.dashicons-edit:hover {
+	color: rgba(111, 195, 75, 0.49);
+}
+#yks_mc_review_this_plugin_container {
+	position: absolute;
+	right: 0;
+	margin-right: 1.5em;
+}
+
+/* Interest Group Styles */
+.yks-mc-interest-group-edit:hover, .yks-mc-interest-group-delete:hover, .yks-mc-interest-group-option-edit:hover, .yks-mc-interest-group-option-delete:hover, .yks-mc-interest-group-title-edit:hover {
+	cursor: pointer;
+}
+
+
+.yks-mc-interest-group-edit {
+	display: block;
+	float: left;
+	margin: .25em;
+}
+.yks-mc-interest-group-delete {
+	display: block;
+	float: left;
+	margin: .25em;
+	margin-right: 0;
+}
+.yks-mc-interest-group-name {
+	display: block;
+	float: left;
+	margin: .5em;
+	font-style: italic;
+	font-weight: 600;
+}
+.yks-mc-interest-group-type {
+	margin-top: .5em;
+	margin-right: 2em;
+	float:right;
+}	
+
+.yks-mc-merge-var-change > .dashicons {
+	line-height: .85;
+}
+
+.yks-mailchimp-interest-groups-container .yks-mc-interest-group-edit > .dashicons {
+	line-height: .9;
+}
+
+/* No interest groups found */
+.yks-mc-empty-interest-group-table { 
+	background-color: transparent !important;
+	border: none !important; 
+}
+
+.yks-mc-preloader-update-interest-groups {
+	position:absolute;
+	margin-left: 45%;
+	margin-top: 10%;
+}
+
+
+/* Update Interest Group */
+.yks-mc-update-interest-group-header {
+	display: inline-block !important;
+	width: 100%;
+}
+
+a.button-secondary.add-new-field {
+	margin: .35em 0;
+}
+
+/* Update Interest Group Type */
+#yks-mc-interest-group-toggle-type:disabled:hover , #yks-mc-interest-group-toggle-type:hover {
+	cursor: pointer;
+}
+
+.yks-mc-update-interest-group-header > h3 {
+	float: left;
+	margin-bottom: 0;
+}
+
+.yks-mc-update-interest-group-header #yks-mc-interest-group-type {
+	float: right;
+}
+
+#option-ul {
+	margin-bottom: 3em;
+}
+
+#option-ul li.option-ul-title {
+	display: block;
+	margin: 2em 0;
+}
+
+.option-ul-title > h4:empty {
+	height: 19px;
+}
+
+#yks-mc-interest-group-title {
+	float: left;
+}
+
+#option-ul li.option-ul-title:hover, #yks-mc-interest-group-title:hover, .yks-mc-update-interest-group-header:hover {
+	cursor: pointer;
+}
+
+body.mailchimp-forms_page_yks-mailchimp-form-lists .ui-dialog {
+	z-index: 9999999 !important;
+}
+
+
+.g-recaptcha {
+	margin-bottom: 1em;
+}
+
+.recaptcha-checkbox-checkmark:hover {
+	cursor: pointer !important;
+}
+
+.reCaptcha-demo-gif {
+	min-width: 300px;
+	max-width: 800px; 
+	width: 20%;
 }

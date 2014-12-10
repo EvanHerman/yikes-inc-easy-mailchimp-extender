@@ -160,11 +160,11 @@
 		height:18px;
 		margin:-1px 4px 0 0;
 		vertical-align:middle;
-		background:url("../images/check_radio_sheet_blue.png") left top no-repeat;
+		background:url("./images/check_radio_sheet_blue.png") left top no-repeat;
 		cursor:pointer;
 	}
 	.clean-blue input[type="checkbox"]:checked + span {
-		background:url("../images/check_radio_sheet_blue.png") -19px top no-repeat;
+		background:url("./images/check_radio_sheet_blue.png") -19px top no-repeat;
 	}
 	
 	.clean-blue input[type="radio"] {

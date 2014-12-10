@@ -20,6 +20,10 @@ if(!empty($_POST)
 				}
 			break;
 			
+		case 'send_update_email':
+			$send_update_profile_email = $yksemeBase->sendUpdateProfileEmail( $_POST['user_email'] , $_POST['list_id'] );
+			break;	
+			
 		}
 	}
 ?>

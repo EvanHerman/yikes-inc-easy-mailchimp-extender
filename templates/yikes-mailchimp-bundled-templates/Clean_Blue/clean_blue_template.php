@@ -16,8 +16,8 @@
     	<div id="box">
 		
         	<div id="top_header">
-          		<h3>Sign Up Now!</h3>
-          		<h5>Sign up for our super awesome mailing list.</h5>
+          		<h3><?php apply_filters( 'yks_mc_template_header' , _e( 'Sign Up Now' , 'yikes-inc-easy-mailchimp-extender' ) ); ?></h3>
+          		<h5><?php apply_filters( 'yks_mc_template_sub_text' , _e( 'Sign up for mailing list and receive new posts directly to your inbox.' , 'yikes-inc-easy-mailchimp-extender' ) ); ?></h5>
         	</div>
 
 			<form method="post" name="yks-mailchimp-form" id="yks-mailchimp-form_<?php echo $list['id']; ?>" class="yiks-mailchimp-custom-form" rel="<?php echo $list['id']; ?>">
@@ -25,10 +25,10 @@
 				<input type="hidden" name="yks-mailchimp-list-id" id="yks-mailchimp-list-id_<?php echo $list['id']; ?>" value="<?php echo $list['list-id']; ?>" />
 					<?php 
 						/* Generate The Form Fields **/
-						echo $this->getFrontendFormDisplay_placeholder_labels($list, $submit_text); 
+						echo $this->getFrontendFormDisplay($list, $submit_text); 
 					?>
 					
-					<p class="disclaimer">We promise never to share or sell any of your personal information.</p>
+					<p class="disclaimer"><?php apply_filters( 'yks_mc_template_footer_text' , _e( 'We promise never to share or sell any of your personal information.' , 'yikes-inc-easy-mailchimp-extender' ) ); ?></p>
 					
 			</form>
 	

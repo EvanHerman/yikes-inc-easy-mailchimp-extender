@@ -32,13 +32,13 @@
 		
 		<div id="box">
 		
-			<span class="callout-text"><h4>Newsletter Signup</h4></span>
+			<span class="callout-text"><h4><?php apply_filters( 'yks_mc_template_header' , _e( "Newsletter Signup" , "yikes-inc-easy-mailchimp-extender" ) ); ?></h4></span>
 		
     		<form method="post" name="yks-mailchimp-form" id="yks-mailchimp-form_<?php echo $list['id']; ?>" class="yiks-mailchimp-custom-form" rel="<?php echo $list['id']; ?>">
 				<input type="hidden" name="yks-mailchimp-list-id" id="yks-mailchimp-list-id_<?php echo $list['id']; ?>" value="<?php echo $list['list-id']; ?>" />
 					<?php 
 						/* Generate The Form Fields **/
-						echo $this->getFrontendFormDisplay_placeholder_labels($list, $submit_text); 
+						echo $this->getFrontendFormDisplay($list, $submit_text); 
 					?>
 										
 			</form>

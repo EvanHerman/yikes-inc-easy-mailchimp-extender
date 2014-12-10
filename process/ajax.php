@@ -193,7 +193,67 @@ case 'yks_mc_get_custom_template_preview':
 	
 case 'copy_user_templates_to_theme':
 	$create_user_mailchimp_boilerplate = $yksemeBase->copyUserTemplatesToUserTheme();
-	break;				
+	break;		
+	
+case 'add_new_field_to_list':
+	$create_user_mailchimp_boilerplate = $yksemeBase->addNewFieldToList( $_POST );
+	break;		
+	
+case 'delete_new_list_field':
+	$delete_field_from_list = $yksemeBase->deleteFieldFromList( $_POST['mailchimp_list_id'] , $_POST['merge_tag'] );
+	break;	
+	
+case 'update_list_field':
+	$update_list_field = $yksemeBase->updateListField( $_POST );
+	break;		
+
+case 'get_list_data':
+	$get_list_data = $yksemeBase->getListDataRightMeow();
+	break;
+	
+case 'generate_random_merge_var_name':
+	$random_merge_var_name = $yksemeBase->randomMergeVarString();
+	break;
+	
+case 'delete_interest_group_from_list':
+	$random_merge_var_name = $yksemeBase->deleteInterestGroupFromList( $_POST['mailchimp_list_id'] , $_POST['interest_group_id'] );
+	break;
+	
+case 'add_new_interest_group':
+	$random_merge_var_name = $yksemeBase->createNewInterestGroup( $_POST );
+	break;
+	
+case 'update_interest_group':
+	$random_merge_var_name = $yksemeBase->updateInterestGroup( $_POST['mailchimp_list_id'] , $_POST['grouping_id'] , $_POST['previous_value'] , $_POST['new_value'] );
+	break;
+	
+case 'update_interest_grouping_title':
+	$random_merge_var_name = $yksemeBase->updateInterestGroupingTitle( $_POST['mailchimp_list_id'] , $_POST['grouping_id'] , $_POST['value'] );
+	break;
+	
+case 'add_interest_group_option':
+	$add_interest_group_option = $yksemeBase->addInterestGroupOption( $_POST['mailchimp_list_id'] , $_POST['group_name'] , $_POST['grouping_id'] );
+	break;
+	
+case 'delete_interest_group_option':
+	$random_merge_var_name = $yksemeBase->deleteInterestGroupOption( $_POST['mailchimp_list_id'] , $_POST['group_name'] , $_POST['grouping_id'] );
+	break;
+	
+case 'get_interest_group_data':
+	$list_interest_groups = $yksemeBase->getListInterestGroups( $_POST['mailchimp_list_id'] );
+	break;
+
+case 'get_specific_interest_group_data':
+	$list_interest_groups = $yksemeBase->getSpecificInterestGroupData( $_POST['mailchimp_list_id'] , $_POST['mc_interest_group_id'] );
+	break;
+	
+case 'clear_yks_mc_error_log':
+	$clear_error_log = $yksemeBase->clearYksMCErrorLog();
+	break;
+	
+case 'change_yikes_mc_interest_group_type':
+	$change_interest_group_type = $yksemeBase->changeListInterestGroupType( $_POST['grouping_id'] , $_POST['value'] );
+	break;
 	
 		}
 	}

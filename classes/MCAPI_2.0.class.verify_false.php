@@ -105,7 +105,7 @@ if(!class_exists("wpyksMCAPI"))
 		 * CURLOPT_SSL_VERIFYPEER setting
 		 * @var  bool
 		 */
-		public $ssl_verifypeer = true;
+		public $ssl_verifypeer = false;
 		/**
 		 * CURLOPT_SSL_VERIFYHOST setting
 		 * @var  bool

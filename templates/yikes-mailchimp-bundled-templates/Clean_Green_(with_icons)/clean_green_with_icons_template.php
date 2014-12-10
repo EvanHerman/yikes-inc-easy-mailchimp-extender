@@ -16,8 +16,8 @@
     	<div id="box">
 		
         	<div id="top_header">
-          		<h3><?php _e( "Join Our Mailing List!" , "yikes-inc-easy-mailchimp-extender" ); ?></h3>
-          		<h5><?php _e( "Sign up for our mailing list below!" , "yikes-inc-easy-mailchimp-extender" ); ?></h5>
+          		<h3><?php apply_filters( 'yks_mc_template_header' , _e( "Join Our Mailing List!" , "yikes-inc-easy-mailchimp-extender" ) ); ?></h3>
+          		<h5><?php apply_filters( 'yks_mc_template_sub_text' , _e( "Sign up for our mailing list below!" , "yikes-inc-easy-mailchimp-extender" ) ); ?></h5>
         	</div>
 
 			<form method="post" name="yks-mailchimp-form" id="yks-mailchimp-form_<?php echo $list['id']; ?>" class="yiks-mailchimp-custom-form" rel="<?php echo $list['id']; ?>">
@@ -25,7 +25,7 @@
 				<input type="hidden" name="yks-mailchimp-list-id" id="yks-mailchimp-list-id_<?php echo $list['id']; ?>" value="<?php echo $list['list-id']; ?>" />
 					<?php 
 						/* Generate The Form Fields **/
-						echo $this->getFrontendFormDisplay_placeholder_labels($list, $submit_text); 
+						echo $this->getFrontendFormDisplay($list, $submit_text); 
 					?>
 										
 			</form>
