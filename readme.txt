@@ -754,7 +754,7 @@ These functions should be used in conjunction with the `yikes_mc_get_form_data` 
 
 == Changelog ==
 
-= 5.2 - TBD =
+= 5.2 - December 9th, 2014 =
 
 * New Feature: Added ability to add, edit or delete form fields directly from the WordPress dashboard
 * New Feature: Added ability to add, edit or delete interest groups directly from the WordPress dashboard
@@ -762,8 +762,9 @@ These functions should be used in conjunction with the `yikes_mc_get_form_data` 
 * New Feature: Added 'default' option to text fields ( with custom pre-defined tags : {post_id} , {post_title} , {page_url} , {blog_name} , {user_logged_in} with the ability to define your own! )
 * New Feature: Added the ability to adjust required state, visibility state, merge tag and more
 * New Feature: Added the ability to toggle between ssl_verifypeer true/false
+* New Feature: Added an error log to help users diagnose errors happening within the plugin (and updated advanced debugging) - found on the debug options of the settings page
 * Enhancement: Remove JavaScript dependency to populate place holder values
-* Enhancement: Replaced Captcha with the all new No-Captcha-Re-Captcha API from Google
+* Enhancement: Replaced Captcha with the all new No-Captcha reCaptcha API from Google
 * Enhancement: Introduced all new filters ( check documentation for examples )
 * Enhancement: Un-checking 'visibility' now hides the input field (instead of not generating it at all)
 * Enhancement: Re-defined YKSEME_PATH for users who have the plugins folder outside of wp-content
@@ -776,7 +777,8 @@ These functions should be used in conjunction with the `yikes_mc_get_form_data` 
 * Bug Fix: Fixed empty API key from outputting any string (confused some users)
 * Other: Split main class file into multiple included files (help organize the main class file (sub-files located in /lib/inc/)
 * Other: Began to build up a [Wiki](https://github.com/yikesinc/yikes-inc-easy-mailchimp-extender/wiki) on Github , for plug in installation/usage instructions 
-* Other: Altered single/double opt-in strings inside shortcode_form.php
+* Other: Altered single/double opt-in strings inside shortcode_form.php ([reference thread](https://wordpress.org/support/topic/code-mangling-on-script-use-in-messageserror-handling))
+* Other: Removed 'Interest Group Label' option, as users can now update the name from within the plugin
 
 = 5.1.2 - December 3rd, 2014 =
 
@@ -1011,6 +1013,32 @@ These functions should be used in conjunction with the `yikes_mc_get_form_data` 
 * Initial Release
 
 == Upgrade Notice ==
+
+= 5.2 - December 9th, 2014 =
+
+* New Feature: Added ability to add, edit or delete form fields directly from the WordPress dashboard
+* New Feature: Added ability to add, edit or delete interest groups directly from the WordPress dashboard
+* New Feature: Add "Update" link to forms when a user has previously subscribed
+* New Feature: Added 'default' option to text fields ( with custom pre-defined tags : {post_id} , {post_title} , {page_url} , {blog_name} , {user_logged_in} with the ability to define your own! )
+* New Feature: Added the ability to adjust required state, visibility state, merge tag and more
+* New Feature: Added the ability to toggle between ssl_verifypeer true/false
+* New Feature: Added an error log to help users diagnose errors happening within the plugin (and updated advanced debugging) - found on the debug options of the settings page
+* Enhancement: Remove JavaScript dependency to populate place holder values
+* Enhancement: Replaced Captcha with the all new No-Captcha reCaptcha API from Google
+* Enhancement: Introduced all new filters ( check documentation for examples )
+* Enhancement: Un-checking 'visibility' now hides the input field (instead of not generating it at all)
+* Enhancement: Re-defined YKSEME_PATH for users who have the plugins folder outside of wp-content
+* Enhancement: Added new classes to labels and input fields on the front end forms ( new classes yks-mc-label-field-label , yks-mc-form-row-field-label , yks-mc-input-field-row-field-label , yks-mc-input-field-label )
+* Bug Fix: Re-sorting fields that had a stored custom class name didn't store properly
+* Bug Fix: Wrapped bundled template text in filters
+* Bug Fix: Repaired some broken filters (get_form_data_before_send)
+* Bug Fix: Fixed labels on 'Manage List Forms' page and added field names to titles
+* Bug Fix: Fixed path to check box images on 'Clean Blue' bundled templates
+* Bug Fix: Fixed empty API key from outputting any string (confused some users)
+* Other: Split main class file into multiple included files (help organize the main class file (sub-files located in /lib/inc/)
+* Other: Began to build up a [Wiki](https://github.com/yikesinc/yikes-inc-easy-mailchimp-extender/wiki) on Github , for plug in installation/usage instructions 
+* Other: Altered single/double opt-in strings inside shortcode_form.php ([reference thread](https://wordpress.org/support/topic/code-mangling-on-script-use-in-messageserror-handling))
+* Other: Removed 'Interest Group Label' option, as users can now update the name from within the plugin
 
 = 5.1.1 - November 5, 2014 =
 Fix: repair 'Opt In' default list drop down on options page

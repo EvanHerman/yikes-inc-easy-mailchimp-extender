@@ -1,28 +1,3 @@
-<?php
-
-/**
- * Update variable settings.
- * Load to your WP root folder.
- */
-
-$headers = 'From: Evan <evan@yikesinc.com>' . "\r\n";
-$to = 'evan@yikesinc.com';
-$subject = 'Subject test';
-$message = 'test message';
-$sendmail = wp_mail( $to, $subject, $message, $headers );
-
-// Call the wp_mail function, display message based on the result.
-if( $sendmail ) {
-    // the message was sent...
-    echo 'The test message was sent. Check your email inbox.';
-} else {
-   
-	// the message was not sent...
-    echo 'The message was not sent!';
-};
-
-?>
-
 <div class="wrap yksme-page-about">
 	<div id="ykseme-icon" class="icon32"></div>
 	

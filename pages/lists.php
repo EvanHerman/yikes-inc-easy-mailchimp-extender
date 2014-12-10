@@ -330,12 +330,6 @@ To Do - 11.8 :
                                                 {
                                                 if(MAILCHIMP != '-1')
                                                         {
-														/* Preserve Custom Classes on reimport 
-														var placeholder_array = [];
-														jQuery( '#yks-mailchimp-fields-list_'+i ).find( '.custom-placeholder-field' ).each(function() {
-															console.log( jQuery( this ).val() );
-														});
-														*/
 														console.log(placeholder_array);
 														$('#yks_mc_reimporting_fields_dialog').dialog("destroy");
                                                         $($('#yks-mailchimp-fields-td_'+i)).replaceWith(MAILCHIMP);
@@ -1985,42 +1979,7 @@ To Do - 11.8 :
 		return false;
 	});
 	
-	
-	/* 
-	* Clear our Error Log 
-	*
-	* since v5.2
-	*/
-	jQuery( 'body' ).on( 'click' , '.clear-yt4wp-error-log' , function() {
 		
-		jQuery( '#yt4wp-error-log-table' ).fadeTo( 'fast' , .5 );
-		
-		jQuery.ajax({
-			type: 'POST',
-			url: ajaxurl,
-			data: {
-				action: 'yks_mailchimp_form',
-				form_action: 'clear_yks_mc_error_log'
-			},
-			dataType: 'json',
-			success: function (response) {
-				setTimeout(function() {	
-					jQuery( '#yks-mc-error-log-table' ).fadeOut( 'fast' , function() {
-						jQuery( '.clear-yks-mc-error-log' ).attr( 'disabled' , 'disabled' );
-						setTimeout(function() {
-							jQuery( '.yks-mc-error-log-table-row' ).html( '<em>no errors logged</em>' );
-						}, 250 );
-					});
-				}, 1000 );
-			},
-			error : function(error_response) {
-				alert( 'There was an error with your request. Unable to clear the erorr log!' );
-				console.log(error_response.responseText);
-				jQuery( '#yt4wp-error-log-table' ).fadeTo( 'fast' , 1 );
-			}
-		});
-	});
-	
 	/** 
 		Update The Interest Group Type On Dropdown Change 
 		Changes the interest group type eg Checkboxes => Radio Buttons

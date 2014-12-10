@@ -1,15 +1,3 @@
-<script>
-	jQuery(document).ready(function() {
-		jQuery(window).resize(function() {
-			var slider_width = jQuery('#slider-wrapper').css('width');
-			var slider_height = slider_width.replace( 'px' , '' ) * .25;
-			jQuery('#slider-wrapper').css('height',slider_height);
-			jQuery('.inner-wrapper').css('height',slider_height);
-			console.log('The Slider Height is Currently : '+slider_height);
-			console.log('The Slider Width is Currently : '+slider_width);
-		});
-	});
-</script>
 <style>
 .yksme-page-welcome p {
 	font-size: 18px;
@@ -123,114 +111,6 @@ body.admin_page_yks-mailchimp-welcome {
 	}
 	
 }
-
-
-
-
-
-#slider-wrapper{
-			width: 100%;
-			height: 306px;
-			margin: .5em auto;
-			position: relative;
-			margin-bottom: 0px;
-			background: rgba(0,0,0,0.5);
-			overflow: hidden;
-		}
-		
-				#s1{
-					padding: 6px;
-					background: #FFFFFF;
-					position: absolute;
-					left: 50%;
-					bottom: 25px;
-					margin-left: -36px;
-					border-radius: 20px;
-					opacity: 0.3;
-					cursor: pointer;
-					z-index: 999;
-				}
-				
-				#s2{
-					padding: 6px;
-					background: #FFFFFF;
-					position: absolute;
-					left: 50%;
-					bottom: 25px;
-					margin-left: -12px;
-					border-radius: 20px;
-					opacity: 0.3;
-					cursor: pointer;
-					z-index: 999;
-				}
-				
-				#s3{
-					padding: 6px;
-					background: #FFFFFF;
-					position: absolute;
-					left: 50%;
-					bottom: 25px;
-					margin-left: 12px;
-					border-radius: 20px;
-					opacity: 0.3;
-					cursor: pointer;
-					z-index: 999;
-				}
-				
-				#s4{
-					padding: 6px;
-					background: #FFFFFF;
-					position: absolute;
-					left: 50%;
-					bottom: 25px;
-					margin-left: 36px;
-					border-radius: 20px;
-					opacity: 0.3;
-					cursor: pointer;
-					z-index: 999;
-				}
-				
-				#s1:hover, #s2:hover, #s3:hover, #s4:hover{ opacity: 1;}
-				
-			.inner-wrapper{
-				width: 100%;
-				height: 306px;
-				position: absolute;
-				top: 0;
-				left: 0;
-				margin-bottom: 0px;
-				overflow: hidden;
-			}
-				.control{ display: none;}
-				
-				#Slide1:checked ~ .overflow-wrapper{ margin-left: 0%; }
-				#Slide2:checked ~ .overflow-wrapper{ margin-left: -100%; }
-				#Slide3:checked ~ .overflow-wrapper{ margin-left: -200%; }
-				#Slide4:checked ~ .overflow-wrapper{ margin-left: -300%; }
-				
-				#Slide1:checked + #s1 { opacity: 1; }
-				#Slide2:checked + #s2 { opacity: 1; }
-				#Slide3:checked + #s3 { opacity: 1; }
-				#Slide4:checked + #s4 { opacity: 1; }
-				
-			.overflow-wrapper{
-				width: 400%;
-				height: 100%;
-				position: absolute;
-				top: 0;
-				left: 0;
-				overflow-y: hidden;
-				z-index: 1;
-				-webkit-transition: all 0.3s ease-in-out;
-				-moz-transition: all 0.3s ease-in-out;
-				-o-transition: all 0.3s ease-in-out;
-				transition: all 0.3s ease-in-out;
-			}
-			
-				.slide img{
-					width: 25%;
-					float: left;
-				}
 </style>
 
 <!-- used for the media query -->
@@ -352,25 +232,6 @@ body.admin_page_yks-mailchimp-welcome {
 			</div>
 		
 		</div>
-		
-		<hr />
-		
-		<h2>Sample Bundled Header Opt-In Forms</h2>		
-		<div id="slider-wrapper">
-		<div class="inner-wrapper">
-			<input checked type="radio" name="slide" class="control" id="Slide1"/>
-				<label for="Slide1" id="s1"></label>
-			<input type="radio" name="slide" class="control" id="Slide2"/>
-				<label for="Slide2" id="s2"></label>
-			<input type="radio" name="slide" class="control" id="Slide3"/>
-				<label for="Slide3" id="s3"></label>
-			<div class="overflow-wrapper">
-				<a class="slide" href=""><img class="slide_image" src="<?php echo YKSEME_URL; ?>images/welcome_page/slide_images/header_optin_template_city_skyline.jpg" alt="Header Optin Template - City Skyline" title="Header Optin Template - City Skyline" onclick="return false;" ></a>
-				<a class="slide" href=""><img class="slide_image" src="<?php echo YKSEME_URL; ?>images/welcome_page/slide_images/header_optin_template_vacation.jpg" alt="Header Optin Template - Vacation" title="Header Optin Template - Vacation" onclick="return false;" ></a>
-				<a class="slide" href=""><img class="slide_image" src="<?php echo YKSEME_URL; ?>images/welcome_page/slide_images/header_optin_template_sub-head-bar.jpg" alt="Header Optin Template - Vacation" title="Header Optin Template - Vacation" onclick="return false;" ></a>
-			</div>
-		</div>
-	</div>
 		
 	</div>
 	

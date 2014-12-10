@@ -43,6 +43,7 @@ if(!class_exists("yksemeBase")) {
 					} else { // else create it
 						add_option('api_validation' , 'invalid_api_key');
 					}
+										
 				}
 				
 			public function deactivate() {
@@ -69,7 +70,6 @@ if(!class_exists("yksemeBase")) {
 					} else {
 						require_once YKSEME_PATH.'classes/MCAPI_2.0.class.verify_false.php';
 					}
-					
 					/*
 					* add our new ssl_verify_peer debug option, if it doesn't already exist
 					* @since v5.2
@@ -109,7 +109,6 @@ if(!class_exists("yksemeBase")) {
 						'optin' => 'true',
 						'single-optin-message' => __('Thank You for subscribing!', 'yikes-inc-easy-mailchimp-extender'),
 						'double-optin-message' => __('Thank You for subscribing! Check your email for the confirmation message.', 'yikes-inc-easy-mailchimp-extender'),
-						'interest-group-label'	=>	__('', 'yikes-inc-easy-mailchimp-extender'), // blank by default to use MC interest group labels @since 5.2
 						'optIn-checkbox'	=> 'hide',
 						'yks-mailchimp-optIn-default-list' => 'select_list',
 						'yks-mailchimp-optin-checkbox-text'	=> 'Add me to the ' . $blog_title . ' mailing list',
@@ -320,7 +319,6 @@ if(!class_exists("yksemeBase")) {
 								$this->optionVal['optin'] = $fd['yks-mailchimp-optin'];
 								$this->optionVal['single-optin-message'] = stripslashes($fd['single-optin-message']);
 								$this->optionVal['double-optin-message'] = stripslashes($fd['double-optin-message']);
-								$this->optionVal['interest-group-label']	= stripslashes($fd['interest-group-label']);
 								$this->optionVal['optIn-checkbox'] = $fd['yks-mailchimp-optIn-checkbox'];
 								$this->optionVal['yks-mailchimp-optIn-default-list'] = isset($fd['yks-mailchimp-optIn-default-list']) ? $fd['yks-mailchimp-optIn-default-list'] : null; // if its set, else set to null <- fixes save form settings bug
 								$this->optionVal['yks-mailchimp-optin-checkbox-text'] = stripslashes($fd['yks-mailchimp-optin-checkbox-text']);
@@ -333,7 +331,6 @@ if(!class_exists("yksemeBase")) {
 								$this->optionVal['optin'] = $fd['yks-mailchimp-optin'];
 								$this->optionVal['single-optin-message'] = stripslashes($fd['single-optin-message']);
 								$this->optionVal['double-optin-message']	= stripslashes($fd['double-optin-message']);
-								$this->optionVal['interest-group-label']	= stripslashes($fd['interest-group-label']);
 								$this->optionVal['optIn-checkbox'] = $fd['yks-mailchimp-optIn-checkbox'];
 								$this->optionVal['yks-mailchimp-optIn-default-list'] = isset($fd['yks-mailchimp-optIn-default-list']) ? $fd['yks-mailchimp-optIn-default-list'] : null; // if its set, else set to null <- fixes save form settings bug
 								$this->optionVal['yks-mailchimp-optin-checkbox-text'] = stripslashes($fd['yks-mailchimp-optin-checkbox-text']);
@@ -456,12 +453,6 @@ if(!class_exists("yksemeBase")) {
 									// loop over each interest group returned
 									foreach($interest_groups as $interest_group) {
 										
-										// if the interest group label is set to '' on the settings page
-										if ( $this->optionVal['interest-group-label'] == '' ) {
-											$user_set_interest_group_label = '<label class="prompt yks_table_label yks-mailchimpFormTableRowLabel yks-mailchimpFormTableRowLabel-required font-secondary label-text">'.$interest_group['name'].'</label>'; // display the interest group name from MailChimp
-										} else { 
-											$user_set_interest_group_label =  '<label class="prompt yks_table_label yks-mailchimpFormTableRowLabel yks-mailchimpFormTableRowLabel-required font-secondary label-text">'.$this->optionVal['interest-group-label'].'</label>'; // else display the custom name set in the settings page
-										}
 										?> <!-- pass interest group data in a hidden form field , required to pass the data back to the correct interest-group -->
 										<input type='hidden' name='interest-group-data' value='<?php echo $this->optionVal["interest-groups"]; ?>' /> <?php
 										
@@ -476,7 +467,7 @@ if(!class_exists("yksemeBase")) {
 												echo '<tr class="yks_mc_table_interest_group_holder yks_mc_table_checkbox_holder">';
 													echo '<td class="yks_mc_table_td">';
 													// display the label
-													echo $user_set_interest_group_label;
+													echo '<label class="prompt yks_table_label yks-mailchimpFormTableRowLabel yks-mailchimpFormTableRowLabel-required font-secondary label-text">'.$interest_group['name'].'</label>'; // display the interest group name from MailChimp
 													foreach ($interest_group['groups'] as $singleGrouping) {
 														$checkboxValue = $interest_group['name'];
 														echo '<label class="yks_mc_interest_group_label" for="'.$singleGrouping['name'].'"><input type="checkbox" id="'.$singleGrouping['name'].'" class="yikes_mc_interest_group_checkbox" name="'.$interest_group['form_field'].'-'.$interest_group['id'].'[]" value="'.$singleGrouping['name'].'"><span>'.$singleGrouping['name'].'</span></label>';
@@ -544,12 +535,8 @@ if(!class_exists("yksemeBase")) {
 										$interestGroupID = $interest_group['id'];
 										if ( $list_form_type == 'hidden' ) { $hidden = 'style="display:none;"'; } else { $hidden = ''; }
 										
-										// if the interest group label is set to '' on the settings page
-										if ( $this->optionVal['interest-group-label'] == '' ) {
-											echo '<b class="yks_mc_interest_group_text" ' . $hidden . '>'.$interest_group['name'].'</b>'; // display the interest group name from MailChimp
-										} else { 
-											echo '<b class="yks_mc_interest_group_text" ' . $hidden . '>'.$this->optionVal['interest-group-label'].'</b>'; // else display the custom name set in the settings page
-										} ?> <!-- pass interest group data in a hidden form field , required to pass the data back to the correct interest-group -->
+										echo '<b class="yks_mc_interest_group_text" ' . $hidden . '>'.$interest_group['name'].'</b>';
+										?>
 										
 										<input type='hidden' name='interest-group-data' value='<?php echo $this->optionVal["interest-groups"]; ?>' />
 										
@@ -1363,14 +1350,12 @@ if(!class_exists("yksemeBase")) {
 					$this->optionVal['optin']	= 'true';
 					$this->optionVal['single-optin-message']	= __('Thank You for subscribing!', 'yikes-inc-easy-mailchimp-extender');
 					$this->optionVal['double-optin-message']	= __('Thank You for subscribing! Check your email for the confirmation message.', 'yikes-inc-easy-mailchimp-extender');
-					$this->optionVal['interest-group-label']	= '';
 					$this->optionVal['optIn-checkbox']	= 'hide';
 					$this->optionVal['yks-mailchimp-optIn-default-list']	= 'select_list';
 					$this->optionVal['yks-mailchimp-optin-checkbox-text']	= 'Add me to the ' . $blog_title . ' mailing list';
 					$this->optionVal['recaptcha-setting']	= '0';
 					$this->optionVal['recaptcha-api-key']	= '';
 					$this->optionVal['recaptcha-private-api-key']	= '';
-					$this->optionVal['interest-group-label']	= '';
 					$this->optionVal['yks-mailchimp-jquery-datepicker']	= '';
 					$this->optionVal['version'] = YKSEME_VERSION_CURRENT;
 					$this->optionVal['ssl_verify_peer'] = 'true';
@@ -3876,7 +3861,8 @@ if(!class_exists("yksemeBase")) {
 			*
 			*  @since 5.2
 			*/	
-			public function clearYksMCErrorLog() {					
+			public function clearYksMCErrorLog() {	
+					echo 'running'; 
 					try {
 						$clear_contents = file_put_contents( YKSEME_PATH . 'lib/error_log/yks_mc_error_log.php' , '' );
 					} catch ( Exception $e ) {

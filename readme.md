@@ -573,13 +573,14 @@ These functions should be used in conjunction with the `yikes_mc_get_form_data` 
 
 Changes
 ===========
-### 5.2 (beta 2) - December 4th, 2014 
+### 5.2 - December 9th, 2014 
 * New Feature: Added ability to add, edit or delete form fields directly from the WordPress dashboard
 * New Feature: Added ability to add, edit or delete interest groups directly from the WordPress dashboard
 * New Feature: Add "Update" link to forms when a user has previously subscribed
 * New Feature: Added 'default' option to text fields ( with custom pre-defined tags : {post_id} , {post_title} , {page_url} , {blog_name} , {user_logged_in} with the ability to define your own! )
 * New Feature: Added the ability to adjust required state, visibility state, merge tag and more
 * New Feature: Added the ability to toggle between ssl_verifypeer true/false
+* New Feature: Added an error log to help users diagnose errors happening within the plugin (and updated advanced debugging)
 * Enhancement: Remove JavaScript dependency to populate place holder values
 * Enhancement: Replaced Captcha with the all new No-Captcha-Re-Captcha API from Google
 * Enhancement: Introduced all new filters ( check documentation for examples )

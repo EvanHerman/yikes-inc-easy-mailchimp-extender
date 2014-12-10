@@ -2048,3 +2048,9 @@ body.mailchimp-forms_page_yks-mailchimp-form-lists .ui-dialog {
 .recaptcha-checkbox-checkmark:hover {
 	cursor: pointer !important;
 }
+
+.reCaptcha-demo-gif {
+	min-width: 300px;
+	max-width: 800px; 
+	width: 20%;
+}
