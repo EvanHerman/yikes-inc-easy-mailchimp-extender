@@ -230,7 +230,7 @@ body.admin_page_yks-mailchimp-welcome {
 			
 			<div class="col-md-6">
 			
-				<h4></h4>
+				<h4>&nbsp;</h4>
 				<ul class="minor-imporvements-notice" style="list-style:circle;">
 					<li><p><strong>Enhancement:</strong> Remove JavaScript dependency to populate place holder values</p></li>
 					<li><p><strong>Enhancement:</strong> Replaced Captcha with the all new No-Captcha-Re-Captcha API from Google</p></li>
