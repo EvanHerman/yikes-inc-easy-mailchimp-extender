@@ -2328,7 +2328,7 @@ if(!class_exists("yksemeBase")) {
 											$errorCode = $e->getCode();
 											if ( $errorCode = '214' ) {
 												$errorMessage = $e->getMessage();
-												return apply_filters( 'yikes_mc_user_already_subscribed' , $errorMessage , $email );
+												return json_encode( array( 'errorCode' => $errorCode , 'errorResponse' => apply_filters( 'yikes_mc_user_already_subscribed' , $errorMessage , $email ) ) );
 												die();
 											} else { 
 												echo '<strong>'.$e->getMessage().'</strong>';

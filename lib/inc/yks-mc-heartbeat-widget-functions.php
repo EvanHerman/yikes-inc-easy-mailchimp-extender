@@ -56,4 +56,4 @@
 						});
 					});
 					</script>
-					<img style="display:block;margin:0 auto;margin-top:2em;margin-bottom:1em;" class="mailChimp_get_subscribers_preloader" src="<?php echo admin_url().'/images/wpspin_light.gif'; ?>" alt="preloader" ><?php
+					<img style="display:block;margin:0 auto;margin-top:2em;margin-bottom:1em;" class="mailChimp_get_subscribers_preloader" src="<?php echo admin_url().'/images/wpspin_light.gif'; ?>" alt="preloader" >

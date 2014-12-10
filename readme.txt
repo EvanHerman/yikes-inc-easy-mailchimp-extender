@@ -758,7 +758,7 @@ These functions should be used in conjunction with the `yikes_mc_get_form_data` 
 
 * New Feature: Added ability to add, edit or delete form fields directly from the WordPress dashboard
 * New Feature: Added ability to add, edit or delete interest groups directly from the WordPress dashboard
-* New Feature: Add "Update" link to forms when a user has previously subscribed
+* New Feature: Added "Update" link to forms when a user has previously subscribed
 * New Feature: Added 'default' option to text fields ( with custom pre-defined tags : {post_id} , {post_title} , {page_url} , {blog_name} , {user_logged_in} with the ability to define your own! )
 * New Feature: Added the ability to adjust required state, visibility state, merge tag and more
 * New Feature: Added the ability to toggle between ssl_verifypeer true/false

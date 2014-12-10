@@ -325,4 +325,3 @@ Included into class.yksemeBase.php around line 2541
 							<div class="yks_mc_subscribers">
 							</div>
 					</div>
-					<?php
