@@ -187,7 +187,7 @@ _N/A_
 ##### _Example_: 
 _This example will alter text on the admin dashboard on the manage lists page._
 
-
+```<php>
 	/**
 	* Change Specific Test on the 'Manage List Forms' page.
 	*
@@ -216,7 +216,7 @@ _This example will alter text on the admin dashboard on the manage lists page._
 		return $translated_text;
 	}
 	add_filter( 'gettext', 'theme_change_comment_field_names', 20, 3 );
-
+```
 <br />
 
 ## Hooks
@@ -234,6 +234,7 @@ _N/A_
 ##### _Example_: 
 This example will print out a thank you message before a specific form.
 
+```<php>
 	/**
 	* Function to add text before the form with ID '0b071c0bd1'
 	* You can get form ID's from the 'MailChimp List' page
@@ -242,6 +243,7 @@ This example will print out a thank you message before a specific form.
 		echo '<p>Thanks for checking out our mailing list. Fill out the form below to get started!</p>';
 	}
 	add_action( 'yks_mc_before_form_0b071c0bd1' , 'custom_before_form_action' );
+```
 
 **Note**: in our add_action call we add the specific form ID to target a single form.
 
@@ -260,8 +262,7 @@ _N/A_
 This example will print out a disclaimer message after a specific form.
 
 
-`
-php
+```<php>
 /**
 * Function to add text after the form with ID '0b071c0bd1'
 * You can get form ID's from the 'MailChimp List' page
@@ -270,7 +271,7 @@ function custom_after_form_action() {
 	echo '<p><em>Your information is for internal use only, and will never be shared with or sold to anyone.</em></p>';
 }
 add_action( 'yks_mc_after_form_0b071c0bd1' , 'custom_after_form_action' );
-`
+```
 
 **Note**: in our add_action call we add the specific form ID to target a single form.
 
@@ -287,6 +288,7 @@ _N/A_
 
 ##### _Example_:  
 
+```<php>
 	/**
 	* This example will print out a disclaimer to the user,
 	* above all MailChimp forms. 
@@ -295,7 +297,7 @@ _N/A_
 		echo '<p><em>Your information is for internal use only, and will never be shared with or sold to anyone.</em></p>';
 	}
 	add_action( 'yks_mc_before_form' , 'custom_before_all_forms_action' );
-
+```
 
 <br />
 
@@ -310,6 +312,7 @@ _N/A_
 
 ##### _Example_:  
 
+```<php>
 	/**
 	* This example will print out a disclaimer to the user,
 	* below all MailChimp forms. 
@@ -318,7 +321,7 @@ _N/A_
 		echo '<p><em>Your information is for internal use only, and will never be shared with or sold to anyone.</em></p>';
 	}
 	add_action( 'yks_mc_after_form' , 'custom_after_all_forms_action' );
-
+```
 
 <br />
 
@@ -342,7 +345,7 @@ Used to catch user data, **from all forms**, before it gets sent to the mailchim
 ##### _Example_: 
 _This example will catch the user submitted data, **of all forms**, store the users firstname in a variable and then update the current logged in user firstname profile field with the value in the First Name MailChimp field._
 
-
+```<php>
 	/**
 	* This example will catch the user submitted data, of all forms, store the users firstname in a variable and then update
 	* the current logged in user firstname profile field with the value in the First Name MailChimp field. 
@@ -366,6 +369,7 @@ _This example will catch the user submitted data, **of all forms**, store the us
 	  }
 	}
 	add_filter( 'yikes_mc_get_form_data' , 'catch_user_data', 10, 2 );
+```
 
 <br />
 
@@ -374,6 +378,7 @@ _This example will catch the user submitted data and change the FNAME merge vari
 
 **Note**: You can alter any of the merge variables being sent to MailChimp (email, firstname, lastname, dates etc.) - useful if you'd like to capture the page the user subscribed from for analytics
 
+```<php>
 	/**
 	* This example will catch the user submitted data (of all forms) and change 
 	* the users first name to 'Johnny Apple Seed'.  ( useful for hidden+required fields )
@@ -383,6 +388,7 @@ _This example will catch the user submitted data and change the FNAME merge vari
 		return $mv;
 	}
 	add_action( 'yikes_mc_get_form_data' , 'custom_subscriber_count_message' , 10 );
+```
 
 <br />
 
@@ -405,7 +411,7 @@ Used to display a custom error message back to the user, when a user attempts to
 ##### _Example_: 
 _The following example will alter the error returned from the MailChimp API. Useful when you would like to provide a more custom error message. The 'Update' link will re-submit the form using the 'update_existing' parameter to update the current users profile.
 
-	`
+```<php>
 	<?php
 		/**
 		* This example will return a custom error message to the user when they attempt to subscribe to 
@@ -418,7 +424,8 @@ _The following example will alter the error returned from the MailChimp API. Use
 		}
 		add_filter( 'yikes_mc_user_already_subscribed' , 'custom_user_already_subscribed_error' , 10 , 3 );
 	?>
-	`
+```
+
 <br />
 
 ##### Filter Name :
@@ -436,7 +443,7 @@ Used to alter the success message returned when a user updates their account inf
 ##### _Example_: 
 The following example will alter success message displayed back to the user after they have updated their account information for a given list. Defualts to : "Thanks, your information has been successfuly updated."
 
-	`
+```<php>
 	<?php
 		/**
 		* The following example will alter the success message when a user re-submits 
@@ -448,7 +455,8 @@ The following example will alter success message displayed back to the user afte
 		}
 		add_filter( 'yikes_mc_subscriber_update_message' , 'custom_resubmit_info_message' , 10 );
 	?>
-	`
+```
+
 <br />
 
 ##### Filter Name :
@@ -466,7 +474,7 @@ Use this filter to add any number of custom post types to the redirect dropdown
 ##### _Example_:
 The following example will add any and all posts with the custom post type 'portfolio' to the redirect dropdown 
 
-	`
+```<php>
 	<?php
 		/**
 		* This example will add the custom post type 'portfolio' to the
@@ -478,7 +486,8 @@ The following example will add any and all posts with the custom post type 'port
 		}
 		add_filter( 'yks_redirect_add_post_types' , 'add_portfolio_post_type_to_yikes_redirect_dropdown' );
 	?>
-	`
+```
+
 <br />
 
 ##### Filter Name :
@@ -499,6 +508,7 @@ Used to catch user data, of a specific form, before it gets sent to the mailchim
 ##### _Example_: 
 _This example will catch the user submitted data **from a specific form**, store the users firstname in a variable and then update the current logged in user firstname profile field with the value in the First Name MailChimp field._
 
+```<php>
 	/**
 	* This example will catch the user submitted data, store the users firstname in a variable and then update
 	* the current logged in user firstname profile field with the value in the First Name MailChimp field. 
@@ -523,7 +533,7 @@ _This example will catch the user submitted data **from a specific form**, store
 	  }
 	}
 	add_filter( 'yikes_mc_get_form_data_3d13f0f784' , 'catch_user_data_from_specific_form', 10, 2 );
-
+```
 
 ## Helper Functions
 
@@ -539,7 +549,7 @@ These functions should be used in conjunction with the `yikes_mc_get_form_data` 
 ##### _Example Useage_:
 *Print User Data*
 
-
+```<php>
 	/**
 	* This example will return all of the submitted 
 	* user data In a nice readable format
@@ -551,12 +561,12 @@ These functions should be used in conjunction with the `yikes_mc_get_form_data` 
 		$yikes_easy_mailchimp->yks_mc_print_user_data( $form_ID, $merge_variables );
 	}
 	add_filter( 'yikes_mc_get_form_data' , 'print_user_data_from_form', 10, 2 );	
-
+```
 
 	
 *Dump User Data*
 
-
+```<php>
 	/**
 	* This example will dump all of the submitted 
 	* user data, so you can see the full array of data
@@ -569,11 +579,11 @@ These functions should be used in conjunction with the `yikes_mc_get_form_data` 
 		$yikes_easy_mailchimp->yks_mc_dump_user_data( $form_ID, $merge_variables );
 	}
 	add_filter( 'yikes_mc_get_form_data' , 'dump_user_data_from_form', 10, 2 );
-
+```
 
 Changes
 ===========
-### 5.2 - December 9th, 2014 
+### 5.2 - December 10th, 2014 
 * New Feature: Added ability to add, edit or delete form fields directly from the WordPress dashboard
 * New Feature: Added ability to add, edit or delete interest groups directly from the WordPress dashboard
 * New Feature: Add "Update" link to forms when a user has previously subscribed

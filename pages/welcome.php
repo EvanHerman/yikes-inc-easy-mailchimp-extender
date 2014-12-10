@@ -167,39 +167,39 @@ body.admin_page_yks-mailchimp-welcome {
 		<div class="row">
 		  
 		  <div class="col-md-4">
-			<h2>Style Customization</h2>
-			<p>Style imported forms on the fly, to fit the look and feel of your site. All without writing code!</p>
-			<p><img class="new_feature_image" src="<?php echo YKSEME_URL; ?>images/welcome_page/Form_Customizer.jpg" alt="New Form Customizer" title="New Form Customizer" ></p>
+			<h2>Form Builder</h2>
+			<p>Build up or edit your forms fields and interest groups directly from the dashboard. </p>
+			<p style="min-height:272px;"><img class="new_feature_image" src="<?php echo YKSEME_URL; ?>images/welcome_page/Form-Builder-Screenshot.png" alt="New Form Builder" title="New Form Builder" ></p>
 		  </div>
 		  
 		 <div class="col-md-4">
-			<h2>Templating Framework</h2>
-			<p>All new templating framework that allows you to use a bundled template, or easily create your own!</p>
-			<p><img class="new_feature_image" src="<?php echo YKSEME_URL; ?>images/welcome_page/Custom_Templates.jpg" alt="New Form Customizer" title="New Form Customizer" ></p>
+			<h2>New reCaptcha API</h2>
+			<p>Brand new no captcha reCaptcha API provided by Google. Built stronger to stop more spammers!</p>
+			<p style="min-height:272px;"><img class="new_feature_image" src="<?php echo YKSEME_URL; ?>images/reCAPTCHA/recaptcha-demo.gif" alt="New reCAPTCHA API" title="New reCAPTCHA API" ></p>
 		  </div>
 		  
 		  <div class="col-md-4">
-			<h2>Custom Classes</h2>
-			<p>We've now added the ability to attach custom class names to specific form inputs for greater style control.</p>
-			<p><img class="new_feature_image" src="<?php echo YKSEME_URL; ?>images/welcome_page/Custom_Class_Names.jpg" alt="New Form Customizer" title="New Form Customizer" ></p>
+			<h2>Pre-Populate Text Fields</h2>
+			<p>Pre populate input fields with custom text, or pre-defined tags (or define our own tags!)</p>
+			<p style="min-height:272px;"><img class="new_feature_image" src="<?php echo YKSEME_URL; ?>images/welcome_page/default-value.png" alt="Default Value" title="Default Value" ></p>
 		  </div>
 		  
 		  <div class="col-md-4">
-			<h2>New Manage List Page Styles</h2>
-			<p>All new styles for the manage list page, allowing you to collapse forms that you don't immediatly need.</p>
-			<p><img class="new_feature_image" src="<?php echo YKSEME_URL; ?>images/welcome_page/Manage_List_styles.jpg" alt="New Form Customizer" title="New Form Customizer" ></p>
+			<h2>New Error Log</h2>
+			<p>Help diagnose issues using the new error logging system!</p>
+			<p style="min-height:272px;"><img class="new_feature_image" src="<?php echo YKSEME_URL; ?>images/welcome_page/error-log.png" alt="Error Log" title="Error Log" ></p>
 		  </div>
 
 		  <div class="col-md-4">
 			<h2>Browse Subscribers</h2>
 			<p>View subscribers that have previously signed up, and remove them on the fly!</p>
-			<p><img class="new_feature_image" src="<?php echo YKSEME_URL; ?>images/welcome_page/browse_subscribers.jpg" alt="New Form Customizer" title="New Form Customizer" ></p>
+			<p style="min-height:272px;"><img class="new_feature_image" src="<?php echo YKSEME_URL; ?>images/welcome_page/browse_subscribers.jpg" alt="New Form Customizer" title="New Form Customizer" ></p>
 		  </div>
 		  
 		  <div class="col-md-4">
 			<h2>Track Campaign+Signup Statistics</h2>
 			<p>View all types of statistics related to your signup forms and sent campaigns.</p>
-			<p><img class="new_feature_image" src="<?php echo YKSEME_URL; ?>images/welcome_page/track_stats.jpg" alt="New Form Customizer" title="New Form Customizer" ></p>
+			<p style="min-height:272px;"><img class="new_feature_image" src="<?php echo YKSEME_URL; ?>images/welcome_page/track_stats.jpg" alt="New Form Customizer" title="New Form Customizer" ></p>
 		  </div>
 		  	
 		</div>
@@ -209,24 +209,39 @@ body.admin_page_yks-mailchimp-welcome {
 		<div class="row">
 		
 			<div class="col-md-6">
-			
-				<h4>Other Minor Improvements</h4>
+						
+				<h4>What's New?</h4>
 				<ul class="minor-imporvements-notice" style="list-style:circle;">
-					<li><p>Added missing label to radio buttons inside forms</p></li>
-					<li><p>Added missing closing parentheses on subscriber count inside view subscribers page</p></li>
-					<li><p>Only run API Key check when a new key is entered (not each page load)</p></li>
-					<li><p>Repaired scripts+styles not properly loading when running a site not in English</p></li>
+					<li><p><strong>New Feature:</strong> Added ability to add, edit or delete form fields directly from the WordPress dashboard</p></li>
+					<li><p><strong>New Feature:</strong> Added ability to add, edit or delete interest groups directly from the WordPress dashboard</p></li>
+					<li><p><strong>New Feature:</strong> Add "Update" link to forms when a user has previously subscribed</p></li>
+					<li><p><strong>New Feature:</strong> Added 'default' option to text fields ( with custom pre-defined tags : {post_id} , {post_title} , {page_url} , {blog_name} , {user_logged_in} with the ability to define your own! )</p></li>
+					<li><p><strong>New Feature:</strong> Added the ability to adjust required state, visibility state, merge tag and more</p></li>
+					<li><p><strong>New Feature:</strong> Added the ability to toggle between ssl_verifypeer true/false</p></li>
+					<li><p><strong>New Feature:</strong> Added an error log to help users diagnose errors happening within the plugin (and updated advanced debugging)</p></li>
+					<li><p><strong>Bug Fix:</strong> Re-sorting fields that had a stored custom class name didn't store properly</p></li>
+					<li><p><strong>Bug Fix:</strong> Wrapped bundled template text in filters</p></li>
+					<li><p><strong>Bug Fix:</strong> Repaired some broken filters (get_form_data_before_send)</p></li>
+					<li><p><strong>Bug Fix:</strong> Fixed labels on 'Manage List Forms' page and added field names to titles</p></li>
+					<li><p><strong>Bug Fix:</strong> Fixed path to check box images on 'Clean Blue' bundled templates</p></li>
 				</ul>
 			
 			</div>
 			
 			<div class="col-md-6">
 			
-				<h4>Performance Echancements</h4>
+				<h4></h4>
 				<ul class="minor-imporvements-notice" style="list-style:circle;">
-					<li><p>Removed enqueue of Google CDN jQuery</p></li>
-					<li><p>Enqueue scripts+styles on front end, only when a form is displayed</p></li>
-					<li><p>Performed various performance checks</p></li>
+					<li><p><strong>Enhancement:</strong> Remove JavaScript dependency to populate place holder values</p></li>
+					<li><p><strong>Enhancement:</strong> Replaced Captcha with the all new No-Captcha-Re-Captcha API from Google</p></li>
+					<li><p><strong>Enhancement:</strong> Introduced all new filters ( check documentation for examples )</p></li>
+					<li><p><strong>Enhancement:</strong> Un-checking 'visibility' now hides the input field (instead of not generating it at all)</p></li>
+					<li><p><strong>Enhancement:</strong> Re-defined YKSEME_PATH for users who have the plugins folder outside of wp-content</p></li>
+					<li><p><strong>Enhancement:</strong> Added new classes to labels and input fields on the front end forms ( new classes yks-mc-label-field-label , yks-mc-form-row-field-label , yks-mc-input-field-row-field-label , yks-mc-input-field-label )</p></li>
+					<li><p><strong>Bug Fix:</strong> Fixed empty API key from outputting any string (confused some users)</p></li>
+					<li><p><strong>Other:</strong> Split main class file into multiple included files (help organize the main class file (sub-files located in /lib/inc/)</p></li>
+					<li><p><strong>Other:</strong> Began to build up a Wiki on Github , for plug in installation/usage instructions</p></li>
+					<li><p><strong>Other:</strong> Altered single/double opt-in strings inside shortcode_form.php</p></li>
 				</ul>
 			
 			</div>

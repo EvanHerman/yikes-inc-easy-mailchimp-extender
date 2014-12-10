@@ -341,9 +341,9 @@ N/A
 
 **Parameter Info:**	
 
-`$Form_ID` = the ID of the specific MailChimp Form ( can be retrieved from the 'MailChimp Forms > Manage List Forms' menu ).
+`$Form_ID = the ID of the specific MailChimp Form ( can be retrieved from the 'MailChimp Forms > Manage List Forms' menu ).`
 
-`$merge_variables` = a multi-dimensional array containing all user entered data being sent to the MailChimp API (The email, first name, last name etc. will be contained here).
+`$merge_variables = a multi-dimensional array containing all user entered data being sent to the MailChimp API (The email, first name, last name etc. will be contained here).`
 
 **Description:**
 Used to catch user data, *from all forms*, before it gets sent to the mailchimp API. Useful when you want to manipulate data before being sent to the MailChimp API or if you'd like to use the entered data locally.
@@ -388,9 +388,9 @@ This example will catch the user submitted data, *of all forms*, store the users
 
 **Parameter Info:**	
 
-`$errorMessage` = the error message returned by the MailChimp API. By Default : "email@domain.com is already subscribed to the list."
+`$errorMessage = the error message returned by the MailChimp API. By Default : "email@domain.com is already subscribed to the list."`
 
-`$update_user_link` = the link that will re-submit the form to update the current users info. Default link text : "Update My Info"
+`$update_user_link = the link that will re-submit the form to update the current users info. Default link text : "Update My Info"`
 
 `$email` = the email address provided in the Email field
 
@@ -424,7 +424,7 @@ The following example will alter the error returned from the MailChimp API. Usef
 
 **Parameter Info:**	
 
-`$success_message` = the success message to be displayed to the user, defaults to "Thanks, your information has been successfuly updated."
+`$success_message = the success message to be displayed to the user, defaults to "Thanks, your information has been successfuly updated."`
 
 **Description:**
 Used to alter the success message returned when a user updates their account information for a given list
@@ -455,7 +455,7 @@ The following example will alter success message displayed back to the user afte
 
 **Parameter Info:**	
 
-`$post_array` = an array of post type names that you would like to be included into the drop down as a redirect option on the manage list page
+`$post_array = an array of post type names that you would like to be included into the drop down as a redirect option on the manage list page`
 
 **Description:**
 Use this filter to add any number of custom post types to the redirect dropdown
@@ -486,7 +486,7 @@ The following example will add any and all posts with the custom post type 'port
 
 **Parameter Info:**	
 
-`$custom_tag_array` = an array of custom default tags. eg: array( '{custom_default_tag_1}' , '{custom_default_tag_2}' );
+`$custom_tag_array = an array of custom default tags. eg: array( '{custom_default_tag_1}' , '{custom_default_tag_2}' );`
 
 **Description:**
 
@@ -525,7 +525,7 @@ The following example will add two new default value tags to the accepted defaul
 
 **Parameter Info:**	
 
-`$field` = the `$field` variable is a serialized array of data for the specific field. The array includes things such as the name, default value etc.
+`$field = the $field variable is a serialized array of data for the specific field. The array includes things such as the name, default value etc.`
 
 **Description:**
 
@@ -581,7 +581,7 @@ The following example will add two new default value tags to the accepted defaul
 
 **Parameter Info:**
 
-`$merge_variables` = a multi-dimensional array containing all user entered data being sent to the MailChimp API (The email, first name, last name etc. will be contained here).
+`$merge_variables = a multi-dimensional array containing all user entered data being sent to the MailChimp API (The email, first name, last name etc. will be contained here).`
 
 **Description:**
 Used to catch user data, of a specific form, before it gets sent to the mailchimp API. Useful when you want to manipulate data before being sent to the MailChimp API or if you'd like to use the entered data locally.
@@ -754,7 +754,7 @@ These functions should be used in conjunction with the `yikes_mc_get_form_data` 
 
 == Changelog ==
 
-= 5.2 - December 9th, 2014 =
+= 5.2 - December 10th, 2014 =
 
 * New Feature: Added ability to add, edit or delete form fields directly from the WordPress dashboard
 * New Feature: Added ability to add, edit or delete interest groups directly from the WordPress dashboard
@@ -1014,7 +1014,7 @@ These functions should be used in conjunction with the `yikes_mc_get_form_data` 
 
 == Upgrade Notice ==
 
-= 5.2 - December 9th, 2014 =
+= 5.2 - December 10th, 2014 =
 
 * New Feature: Added ability to add, edit or delete form fields directly from the WordPress dashboard
 * New Feature: Added ability to add, edit or delete interest groups directly from the WordPress dashboard
