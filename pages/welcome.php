@@ -169,37 +169,37 @@ body.admin_page_yks-mailchimp-welcome {
 		  <div class="col-md-4">
 			<h2>Form Builder</h2>
 			<p>Build up or edit your forms fields and interest groups directly from the dashboard. </p>
-			<p style="min-height:272px;"><img class="new_feature_image" src="<?php echo YKSEME_URL; ?>images/welcome_page/Form-Builder-Screenshot.png" alt="New Form Builder" title="New Form Builder" ></p>
+			<p style="min-height:360px;"><img class="new_feature_image" src="<?php echo YKSEME_URL; ?>images/welcome_page/Form-Builder-Screenshot.png" alt="New Form Builder" title="New Form Builder" ></p>
 		  </div>
 		  
 		 <div class="col-md-4">
 			<h2>New reCaptcha API</h2>
 			<p>Brand new no captcha reCaptcha API provided by Google. Built stronger to stop more spammers!</p>
-			<p style="min-height:272px;"><img class="new_feature_image" src="<?php echo YKSEME_URL; ?>images/reCAPTCHA/recaptcha-demo.gif" alt="New reCAPTCHA API" title="New reCAPTCHA API" ></p>
+			<p style="min-height:360px;"><img class="new_feature_image" src="<?php echo YKSEME_URL; ?>images/reCAPTCHA/recaptcha-demo.gif" alt="New reCAPTCHA API" title="New reCAPTCHA API" ></p>
 		  </div>
 		  
 		  <div class="col-md-4">
 			<h2>Pre-Populate Text Fields</h2>
 			<p>Pre populate input fields with custom text, or pre-defined tags (or define our own tags!)</p>
-			<p style="min-height:272px;"><img class="new_feature_image" src="<?php echo YKSEME_URL; ?>images/welcome_page/default-value.png" alt="Default Value" title="Default Value" ></p>
+			<p style="min-height:360px;"><img class="new_feature_image" src="<?php echo YKSEME_URL; ?>images/welcome_page/default-value.png" alt="Default Value" title="Default Value" ></p>
 		  </div>
 		  
 		  <div class="col-md-4">
 			<h2>New Error Log</h2>
 			<p>Help diagnose issues using the new error logging system!</p>
-			<p style="min-height:272px;"><img class="new_feature_image" src="<?php echo YKSEME_URL; ?>images/welcome_page/error-log.png" alt="Error Log" title="Error Log" ></p>
+			<p style="min-height:360px;"><img class="new_feature_image" src="<?php echo YKSEME_URL; ?>images/welcome_page/error-log.png" alt="Error Log" title="Error Log" ></p>
 		  </div>
 
 		  <div class="col-md-4">
 			<h2>Browse Subscribers</h2>
 			<p>View subscribers that have previously signed up, and remove them on the fly!</p>
-			<p style="min-height:272px;"><img class="new_feature_image" src="<?php echo YKSEME_URL; ?>images/welcome_page/browse_subscribers.jpg" alt="New Form Customizer" title="New Form Customizer" ></p>
+			<p style="min-height:360px;"><img class="new_feature_image" src="<?php echo YKSEME_URL; ?>images/welcome_page/browse_subscribers.jpg" alt="New Form Customizer" title="New Form Customizer" ></p>
 		  </div>
 		  
 		  <div class="col-md-4">
 			<h2>Track Campaign+Signup Statistics</h2>
 			<p>View all types of statistics related to your signup forms and sent campaigns.</p>
-			<p style="min-height:272px;"><img class="new_feature_image" src="<?php echo YKSEME_URL; ?>images/welcome_page/track_stats.jpg" alt="New Form Customizer" title="New Form Customizer" ></p>
+			<p style="min-height:360px;"><img class="new_feature_image" src="<?php echo YKSEME_URL; ?>images/welcome_page/track_stats.jpg" alt="New Form Customizer" title="New Form Customizer" ></p>
 		  </div>
 		  	
 		</div>
