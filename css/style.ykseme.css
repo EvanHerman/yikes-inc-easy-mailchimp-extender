@@ -283,7 +283,6 @@
 		-moz-box-sizing: border-box;
 		-webkit-box-sizing: border-box;
 		box-sizing: border-box;
-		height: 30px;
 		padding-left: 10px;
 	}
 	/* Make radio buttons and checkboxes not 100% as it throws off layouts */
@@ -765,8 +764,8 @@ body.mailchimp-forms_page_yks-mailchimp-about-yikes #ykseme-page-header {
 	vertical-align: top !important;
 }
 .yks-mailchimpFormDivRowLabel {
-	display: inline-block;
-	width: 50%;
+	display: block;
+	margin: .5em 0;
 }
 .yks-mailchimpFormDivSubmit {
 	display: inline-block;
@@ -815,7 +814,7 @@ body.mailchimp-forms_page_yks-mailchimp-about-yikes #ykseme-page-header {
 /******		Interest Group Stypes 		******/
 .yks_mc_interest_group_text {
 	display:block;
-	margin-top:1em;
+	margin: .5em 0;
 }
 
 .yks_mc_interest_group_holder {
@@ -850,6 +849,7 @@ td.yks_mc_table_dropdown_interest_group_holder, td.yks-mailchimpFormTableSubmit 
 .yikes_mc_interest_group_checkbox, .yks_mc_interest_group_label { 
 	display:inline-block;
 	margin: 0 5px;
+	line-height: .7;
 }
 
 .widget .yks_mc_table_td:last-child {
@@ -1712,7 +1712,7 @@ body.mailchimp-forms_page_yks-mailchimp-form-lists .panel-default {
 	background-color: #f5f5f5;
 	border-color: #ddd;
 	position: relative;
-	z-index: 9998;
+	z-index: 999;
 	display: inline-block;
 }
 

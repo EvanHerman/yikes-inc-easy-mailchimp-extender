@@ -80,6 +80,16 @@ if(!class_exists("yksemeBase")) {
 						update_option( YKSEME_OPTION , $options );
 					}
 					
+					/*
+					* add our new hide 'required text' option, if it doesn't already exist
+					* @since v5.3
+					*/
+					if ( !isset( $this->optionVal['yks-mailchimp-required-text'] ) ) {
+						$options = get_option( YKSEME_OPTION );
+						$options['yks-mailchimp-required-text'] = '0';
+						update_option( YKSEME_OPTION , $options );
+					}
+					
 				}
 		
 			// register and add our shortcodes
@@ -113,6 +123,7 @@ if(!class_exists("yksemeBase")) {
 						'yks-mailchimp-optIn-default-list' => 'select_list',
 						'yks-mailchimp-optin-checkbox-text'	=> 'Add me to the ' . $blog_title . ' mailing list',
 						'recaptcha-setting' => '0',
+						'yks-mailchimp-required-text' => '0',
 						'recaptcha-api-key' => '',
 						'recaptcha-private-api-key' => '',
 						'ssl_verify_peer' => 'true',
@@ -323,6 +334,7 @@ if(!class_exists("yksemeBase")) {
 								$this->optionVal['yks-mailchimp-optIn-default-list'] = isset($fd['yks-mailchimp-optIn-default-list']) ? $fd['yks-mailchimp-optIn-default-list'] : null; // if its set, else set to null <- fixes save form settings bug
 								$this->optionVal['yks-mailchimp-optin-checkbox-text'] = stripslashes($fd['yks-mailchimp-optin-checkbox-text']);
 								$this->optionVal['yks-mailchimp-jquery-datepicker'] = isset( $fd['yks-mailchimp-jquery-datepicker'] ) ? '1' : '';
+								$this->optionVal['yks-mailchimp-required-text'] = $fd['yks-mailchimp-required-text'];
 								update_option('api_validation', 'valid_api_key');
 								return update_option( YKSEME_OPTION , $this->optionVal );
 							} else {
@@ -335,6 +347,7 @@ if(!class_exists("yksemeBase")) {
 								$this->optionVal['yks-mailchimp-optIn-default-list'] = isset($fd['yks-mailchimp-optIn-default-list']) ? $fd['yks-mailchimp-optIn-default-list'] : null; // if its set, else set to null <- fixes save form settings bug
 								$this->optionVal['yks-mailchimp-optin-checkbox-text'] = stripslashes($fd['yks-mailchimp-optin-checkbox-text']);
 								$this->optionVal['yks-mailchimp-jquery-datepicker'] = isset( $fd['yks-mailchimp-jquery-datepicker'] ) ? '1' : '';
+								$this->optionVal['yks-mailchimp-required-text'] = $fd['yks-mailchimp-required-text'];
 								update_option('api_validation', 'valid_api_key');
 								// if the new API key differs from the old one
 								// we need to unset the previously set up widgets				
@@ -1357,6 +1370,7 @@ if(!class_exists("yksemeBase")) {
 					$this->optionVal['recaptcha-api-key']	= '';
 					$this->optionVal['recaptcha-private-api-key']	= '';
 					$this->optionVal['yks-mailchimp-jquery-datepicker']	= '';
+					$this->optionVal['yks-mailchimp-required-text']	= '';
 					$this->optionVal['version'] = YKSEME_VERSION_CURRENT;
 					$this->optionVal['ssl_verify_peer'] = 'true';
 					update_option('api_validation' , 'invalid_api_key');
@@ -2744,6 +2758,7 @@ if(!class_exists("yksemeBase")) {
 									endforeach; endif;
 								$o	.= '</select>';
 								break;
+								
 							case 'address':
 								$o	.= '<input type="text" placeholder="'.$placeholder.'" name="'.$field['name'].'" class="'.$field['name'].($field['require'] == 1 ? ' yks-require' : ''). ' ' . $custom_class . $class_title .'" id="'.$field['id'].'" value="" /><span class="yks-mailchimp-form-tooltip">Street Address</span>';
 								$o	.= '<input type="text" name="'.$field['name'].'-add2" class="'.$field['name'].'-add2'.($field['require'] == 1 ? ' yks-require' : ''). ' ' . $custom_class . $class_title .'" id="'.$field['id'].'-add2" value="" /><span class="yks-mailchimp-form-tooltip">Apt/Suite</span>';
@@ -2751,14 +2766,17 @@ if(!class_exists("yksemeBase")) {
 								$o	.= '<input type="text" name="'.$field['name'].'-state" class="'.$field['name'].'-state'.($field['require'] == 1 ? ' yks-require' : ''). ' ' . $custom_class . $class_title .'" id="'.$field['id'].'-state" value="" /><span class="yks-mailchimp-form-tooltip">State</span>';
 								$o	.= '<input type="text" name="'.$field['name'].'-zip" class="'.$field['name'].'-zip'.($field['require'] == 1 ? ' yks-require' : ''). ' ' . $custom_class . $class_title .'" id="'.$field['id'].'-zip" value="" /><span class="yks-mailchimp-form-tooltip">Zip</span>';
 								break;
+								
 							case 'radio':
 								if(count($field['choices']) > 0) : $ct=0; foreach($field['choices'] as $ok => $ov) :
 									$ct++;
-									$o	.= '<label for="'.$field['id'].'-'.$ok.'"><input type="radio" name="'.$field['name'].'" class="'.$field['name'].($field['require'] == 1 ? ' yks-require' : ''). ' ' . $custom_class . $class_title .'" id="'.$field['id'].'-'.$ok.'" value="'.htmlentities($ov, ENT_QUOTES).'" />'.$ov.'</label>';
-									if($ct < count($field['choices']))
-										$o	.= '<br />';
+									$o	.= '<label class="yks_mc_interest_group_label" for="'.$field['id'].'-'.$ok.'">
+													<input type="radio" name="'.$field['name'].'" class="'.$field['name'].($field['require'] == 1 ? ' yks-require' : ''). ' ' . $custom_class . $class_title .' yikes_mc_interest_group_checkbox" id="'.$field['id'].'-'.$ok.'" value="'.htmlentities($ov, ENT_QUOTES).'" />
+													<span>'.$ov.'</span>
+												</label>';;
 								endforeach; endif;
 								break;
+								
 							case 'date':
 							case 'birthday':
 								$o	.= '<input placeholder="'.$placeholder.'" type="text" name="'.$field['name'].'" class="'.$field['name'].' yks-field-type-date'.($field['require'] == 1 ? ' yks-require' : ''). ' ' . $custom_class . $class_title .'" id="'.$field['id'].'" value="" />';

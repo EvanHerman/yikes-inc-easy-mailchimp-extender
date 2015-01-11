@@ -462,7 +462,7 @@ jQuery(document).ready(function() {
 				</tr>
 				<tr valign="top">
 					<!-- Custom Opt-In Message -->
-					<th scope="row"><label for="yks-mailchimp-custom-optIn-message"><?php _e('Custom Opt-In Message','yikes-inc-easy-mailchimp-extender'); ?></label></th>
+					<th scope="row"><label for="yks-mailchimp-custom-optIn-message"><?php _e('Success Message','yikes-inc-easy-mailchimp-extender'); ?></label></th>
 					<td>
 						<label for="double-optin-message" <?php if ($this->optionVal['optin'] == 'false') { echo 'style="display:none;"'; } ?>><b><?php _e('Double Opt-In Message','yikes-inc-easy-mailchimp-extender'); ?></b>
 							<?php wp_editor( $this->optionVal['double-optin-message'] , 'double_optin_message', $double_optin_message_parameters); ?>
@@ -478,7 +478,7 @@ jQuery(document).ready(function() {
 					<td></td>
 					<!-- Advanced Debug Description -->
 					<td class="yks-settings-description">
-						<em><?php _e('Note: You can include html markup in your confirmation message.','yikes-inc-easy-mailchimp-extender'); ?></em>
+						<em><?php _e('Note: This is the message that gets displayed back to the user upon successful submission of this form.','yikes-inc-easy-mailchimp-extender'); ?></em>
 					</td>
 				</tr>
 				<tr valign="top">
@@ -493,6 +493,23 @@ jQuery(document).ready(function() {
 					<!-- Custom Interest Group Label Description -->
 					<td class="yks-settings-description">
 						<?php _e('Enable this setting to use the jQuery UI datepicker for all date fields on the front end of your site. Disable if you have no date fields (will help prevent conflicts).','yikes-inc-easy-mailchimp-extender'); ?>
+					</td>
+				</tr>
+				<tr valign="top">
+					<!-- *= required field visibility -->
+					<th scope="row"><label for="yks-mailchimp-required-text"><?php _e('Required Field Text','yikes-inc-easy-mailchimp-extender'); ?></label></th>
+					<td>
+						<select name="yks-mailchimp-required-text" id="yks-mailchimp-required-text" class="regular-text" />
+							<option value="0"<?php echo ($this->optionVal['yks-mailchimp-required-text'] === '0' ? ' selected' : ''); ?>><?php _e('Hide','yikes-inc-easy-mailchimp-extender'); ?></option>
+							<option value="1"<?php echo ($this->optionVal['yks-mailchimp-required-text'] === '1' ? ' selected' : ''); ?>><?php _e('Show','yikes-inc-easy-mailchimp-extender'); ?></option>
+						</select>
+					</td>
+				</tr>
+				<tr>
+					<td></td>
+					<!-- *= required field visibility Description -->
+					<td class="yks-settings-description">
+						<?php _e('Hide the "required field" text at the top of the opt-in forms. example:','yikes-inc-easy-mailchimp-extender'); ?> <em>* = <?php _e('required field','yikes-inc-easy-mailchimp-extender'); ?></em>
 					</td>
 				</tr>
 				<tr valign="top">

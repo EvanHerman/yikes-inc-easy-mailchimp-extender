@@ -1,10 +1,26 @@
-<?php if ( !is_admin() ) { 
+<?php 
+if ( !is_admin() ) { 
+
 		// custom action hooks to enqueue
 		// styles and scripts, only on
 		// pages where are forms are being display
 		// ( performance enhancement :} )
 		do_action( 'yks_mc_enqueue_styles' );
 		do_action( 'yks_mc_enqueue_scripts' );
+		
+	// append vs prepend the error message 
+	// check if the user has defined a constant
+	if ( !defined( 'display_yikes_mc_form_messages' ) ) {
+		$display = 'prepend';
+		} else {
+			if( display_yikes_mc_form_messages == 'before' ) {
+				$display = 'prepend';
+			} else if ( display_yikes_mc_form_messages == 'after' ) {
+				$display = 'append';
+			} else {
+				$display = display_yikes_mc_form_messages;
+			}											
+		}		
 ?>
 
 <script type="text/javascript">
@@ -24,7 +40,7 @@ $ymce = jQuery.noConflict();
 					// prepend the notification to the user instead of alerting it	
 						// fade it in
 						// and slide the user back up the the message so they don't miss it.
-						jQuery('#yks-mailchimp-form_'+formID).prepend('<span id="yks_form_error_message">'+	msg+'</span>').delay(550).queue(function(next){
+						jQuery('#yks-mailchimp-form_'+formID).<?php echo $display; ?>('<span id="yks_form_error_message">'+	msg+'</span>').delay(550).queue(function(next){
 									jQuery('#yks_form_error_message').fadeIn();
 									var offset_top = jQuery('#yks-mailchimpFormContainerInner_'+formID).offset().top;
 									jQuery("html, body").animate({ scrollTop: offset_top - 50 }, 500 );
@@ -152,10 +168,10 @@ $ymce = jQuery.noConflict();
 									});
 									
 									$ymce('#ykfmc-submit_<?php echo $list['id']; ?>').removeAttr('disabled');
+																		
+									if( MAILCHIMP.errorResponse.toLowerCase().indexOf( "is already subscribed to the list." ) >= 0 ) {
 									
-									if ( MAILCHIMP.errorCode == '214' ) {
-									
-										$ymce('#yks-mailchimp-form_<?php echo $list['id']; ?>').prepend('<span id="yks_form_error_message">'+MAILCHIMP.errorResponse+' <a href="#" class="update-email-profile-link" alt="'+extractEmails(MAILCHIMP.errorResponse)+'">Click Here</a> to send an email to update your profile.</span>').delay(1000).queue(function(next){
+										$ymce('#yks-mailchimp-form_<?php echo $list['id']; ?>').<?php echo $display; ?>('<span id="yks_form_error_message">'+MAILCHIMP.errorResponse+' <a href="#" class="update-email-profile-link" alt="'+extractEmails(MAILCHIMP.errorResponse)+'">Click Here</a> to send an email to update your profile.</span>').delay(1000).queue(function(next){
 											// remove the preloader
 											jQuery( '.yks-mc-submit-preloader' ).remove();
 											
@@ -176,7 +192,7 @@ $ymce = jQuery.noConflict();
 											
 									} else {
 									
-										$ymce('#yks-mailchimp-form_<?php echo $list['id']; ?>').prepend('<span id="yks_form_error_message">'+MAILCHIMP.errorResponse+'</span>').delay(1000).queue(function(next){
+										$ymce('#yks-mailchimp-form_<?php echo $list['id']; ?>').<?php echo $display; ?>('<span id="yks_form_error_message">'+MAILCHIMP.errorResponse+'</span>').delay(1000).queue(function(next){
 											// remove the preloader
 											jQuery( '.yks-mc-submit-preloader' ).remove();
 											
@@ -206,7 +222,7 @@ $ymce = jQuery.noConflict();
 								jQuery( '.yks-mc-submit-preloader' ).remove();
 								jQuery( '.ykfmc-submit' ).removeAttr( 'disabled' );
 								jQuery('#yks_form_error_message').fadeIn();
-								jQuery('#yks-mailchimp-form_<?php echo $list['id']; ?>').prepend('<span id="yks_form_error_message">'+error.responseText+'</span>').delay(1000).queue(function(next){
+								jQuery('#yks-mailchimp-form_<?php echo $list['id']; ?>').<?php echo $display; ?>('<span id="yks_form_error_message">'+error.responseText+'</span>').delay(1000).queue(function(next){
 									// remove the preloader
 									jQuery( '.yks-mc-submit-preloader' ).remove();
 											
@@ -335,7 +351,9 @@ jQuery(document).ready(function() {
 ?>
 <div class="yks-mailchimpFormContainer yks-mailchimpFormContainer-<?php echo $list['id']; ?>">
 
-	<div class="yks-status" id="yks-status-<?php echo $list['id']; ?>"></div>
+	<?php if ( !defined( 'display_yikes_mc_form_messages' ) ) { ?>
+		<div class="yks-status" id="yks-status-<?php echo $list['id']; ?>"></div>
+	<?php } ?>
 	
 	<?php 
 	
@@ -365,6 +383,8 @@ jQuery(document).ready(function() {
 		// using the form ID set above
 		do_action( 'yks_mc_after_form_'.$form_id[1] );
 		
-	?>
-	
+		if ( defined( 'display_yikes_mc_form_messages' ) && display_yikes_mc_form_messages == 'after' || display_yikes_mc_form_messages == 'append' ) { ?>
+			<div class="yks-status" id="yks-status-<?php echo $list['id']; ?>" style="margin-top:0;"></div>
+		<?php } ?>
+			
 </div>

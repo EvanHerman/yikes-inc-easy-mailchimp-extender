@@ -583,6 +583,11 @@ These functions should be used in conjunction with the `yikes_mc_get_form_data` 
 
 Changes
 ===========
+### 5.3 - January 11th, 2015
+* Enhancement: Added ability to move the success + error messages above or below the form based on a defined constant ( `display_yikes_mc_form_messages` [options: before/after] )
+* Enhancement: Added new settings and the ability to show/hide * = required field , from the top of the forms, via the settings page
+* Enhancement: Fixed incorrect error 'click here to update your profile' shown on front end on all errors
+
 ### 5.2 - December 10th, 2014 
 * New Feature: Added ability to add, edit or delete form fields directly from the WordPress dashboard
 * New Feature: Added ability to add, edit or delete interest groups directly from the WordPress dashboard
