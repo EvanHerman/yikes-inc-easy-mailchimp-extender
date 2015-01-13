@@ -1309,16 +1309,16 @@ if(!class_exists("yksemeBase")) {
 			 ****************************************************************************************************/
 			public function addAdministrationMenu() {
 					// Top Level Menu
-					add_menu_page( __('MailChimp Forms','yikes-inc-easy-mailchimp-extender'), 'MailChimp Forms', 'manage_options', 'yks-mailchimp-form', array(&$this, 'generatePageOptions'), 'dashicons-welcome-write-blog', 400);
+					add_menu_page( __('MailChimp Forms','yikes-inc-easy-mailchimp-extender'), 'MailChimp Forms', apply_filters( 'yks_mailchimp_user_role' , 'manage_options' ), 'yks-mailchimp-form', array(&$this, 'generatePageOptions'), 'dashicons-welcome-write-blog', 400);
 					// Sub Items
-					add_submenu_page('yks-mailchimp-form', __('MailChimp Forms','yikes-inc-easy-mailchimp-extender'), __('MailChimp Settings','yikes-inc-easy-mailchimp-extender'), 'manage_options', 'yks-mailchimp-form', array(&$this, 'generatePageOptions'));
+					add_submenu_page('yks-mailchimp-form', __('MailChimp Forms','yikes-inc-easy-mailchimp-extender'), __('MailChimp Settings','yikes-inc-easy-mailchimp-extender'), apply_filters( 'yks_mailchimp_user_role' , 'manage_options' ), 'yks-mailchimp-form', array(&$this, 'generatePageOptions'));
 					// if the user has entered a VALID API key
 					if ( get_option('api_validation') == 'valid_api_key') {
-						add_submenu_page('yks-mailchimp-form', __('My MailChimp','yikes-inc-easy-mailchimp-extender'), __('My MailChimp','yikes-inc-easy-mailchimp-extender'), 'manage_options', 'yks-mailchimp-my-mailchimp', array(&$this, 'generateUserMailChimpPage'));
+						add_submenu_page('yks-mailchimp-form', __('My MailChimp','yikes-inc-easy-mailchimp-extender'), __('My MailChimp','yikes-inc-easy-mailchimp-extender'), apply_filters( 'yks_mailchimp_user_role' , 'manage_options' ), 'yks-mailchimp-my-mailchimp', array(&$this, 'generateUserMailChimpPage'));
 					}
-					add_submenu_page('yks-mailchimp-form', __('Manage List Forms','yikes-inc-easy-mailchimp-extender'), __('Manage List Forms','yikes-inc-easy-mailchimp-extender'), 'manage_options', 'yks-mailchimp-form-lists', array(&$this, 'generatePageLists'));
-					add_submenu_page('yks-mailchimp-form', __('About YIKES, Inc.','yikes-inc-easy-mailchimp-extender'), __('About YIKES, Inc.','yikes-inc-easy-mailchimp-extender'), 'manage_options', 'yks-mailchimp-about-yikes', array(&$this, 'generatePageAboutYikes'));
-					add_submenu_page('options.php', __('Welcome','yikes-inc-easy-mailchimp-extender'), __('Welcome','yikes-inc-easy-mailchimp-extender'), 'manage_options', 'yks-mailchimp-welcome', array(&$this, 'generateWelcomePage'));
+					add_submenu_page('yks-mailchimp-form', __('Manage List Forms','yikes-inc-easy-mailchimp-extender'), __('Manage List Forms','yikes-inc-easy-mailchimp-extender'), apply_filters( 'yks_mailchimp_user_role' , 'manage_options' ), 'yks-mailchimp-form-lists', array(&$this, 'generatePageLists'));
+					add_submenu_page('yks-mailchimp-form', __('About YIKES, Inc.','yikes-inc-easy-mailchimp-extender'), __('About YIKES, Inc.','yikes-inc-easy-mailchimp-extender'), apply_filters( 'yks_mailchimp_user_role' , 'manage_options' ), 'yks-mailchimp-about-yikes', array(&$this, 'generatePageAboutYikes'));
+					add_submenu_page('options.php', __('Welcome','yikes-inc-easy-mailchimp-extender'), __('Welcome','yikes-inc-easy-mailchimp-extender'), apply_filters( 'yks_mailchimp_user_role' , 'manage_options' ), 'yks-mailchimp-welcome', array(&$this, 'generateWelcomePage'));
 				} // end addAdministrationMenu();
 
 

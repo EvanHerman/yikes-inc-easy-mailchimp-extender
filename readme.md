@@ -327,6 +327,38 @@ _N/A_
 
 ## Filters
 
+##### Filter Name:
+`yks_mailchimp_user_role`
+
+##### Accepted Parameters: 
+`$capability`
+
+#####Parameter Info:
+
+`$capability = the lowest capability allowed to access the administration pages. defaults to 'manage_options' (admins).`
+
+##### Description:
+The following example will allow editors to access the YIKES MailChimp administration pages on the dashboard.
+
+##### Example:
+The following example will allow editors to access the YIKES MailChimp administration pages on the dashboard.
+`
+<?php
+	/**
+	* This example will allow editors to access the YIKES MailChimp administration pages
+	* If you would like authors or another user role to be able to access the admin  pages, you
+	* must set this to the lowest capability allowed. ( check : http://codex.wordpress.org/Roles_and_Capabilities for role capabilities )
+	* <em>note: for authors, you would use the 'publish_posts' capability.</em>
+	*/
+	function yikes_mailchimp_allow_editors( $capability ) {
+		$capability = 'edit_others_pages';
+		return $capability;
+	}
+	add_filter( 'yks_mailchimp_user_role' , 'yikes_mailchimp_allow_editors' );
+?>
+`
+<br />
+
 ##### Filter Name :
 `yikes_mc_get_form_data`
 
@@ -583,6 +615,9 @@ These functions should be used in conjunction with the `yikes_mc_get_form_data` 
 
 Changes
 ===========
+### 5.3.1 - January 13th, 2015
+* Enhancement: Added new filter to allow users to change which role has access to the MailChimp administration pages ( `yks-mailchimp-user-role` ) ( check readme for example )
+
 ### 5.3 - January 11th, 2015
 * Enhancement: Added ability to move the success + error messages above or below the form based on a defined constant ( `display_yikes_mc_form_messages` [options: before/after] )
 * Enhancement: Added new settings and the ability to show/hide * = required field , from the top of the forms, via the settings page
