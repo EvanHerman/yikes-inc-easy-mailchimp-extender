@@ -4,7 +4,7 @@ Donate link: http://yikesinc.com
 Tags: mailchimp, marketing, email, mailing lists, newsletter, sign up, forms, sign up form
 Requires at least: 3.0
 Tested up to: 4.1
-Stable tag: 5.3.1
+Stable tag: 5.3.2
 License: GPLv2 or later
 
 Easy MailChimp Forms allows you to painlessly add MailChimp sign up forms to your WordPress site and track user activity with interactive reports.
@@ -795,11 +795,15 @@ These functions should be used in conjunction with the `yikes_mc_get_form_data` 
 
 == Changelog ==
 
-= 5.3.1 - January 13th, 2014 =
+= 5.3.2 - February 17th, 2015 =
+
+* Fixed: Patched the error displayed below the opt-in forms when `display_yikes_mc_form_messages` is not defined.
+
+= 5.3.1 - January 13th, 2015 =
 
 * Enhancement: Added new filter to allow users to change which role has access to the MailChimp administration pages ( `yks-mailchimp-user-role` ) ( check readme for example )
 
-= 5.3 - January 11th, 2014 =
+= 5.3 - January 11th, 2015 =
 
 * Enhancement: Added ability to move the success + error messages above or below the form based on a defined constant ( `display_yikes_mc_form_messages` [options: before/after] )
 * Enhancement: Added new settings and the ability to show/hide * = required field , from the top of the forms, via the settings page
@@ -1064,6 +1068,9 @@ These functions should be used in conjunction with the `yikes_mc_get_form_data` 
 * Initial Release
 
 == Upgrade Notice ==
+
+= 5.3.2 - February 17th, 2015 =
+* Fixed: Patched the error displayed below the opt-in forms when `display_yikes_mc_form_messages` is not defined.
 
 = 5.3.1 - January 13th, 2014 =
 * Enhancement: Added new filter to allow users to change which role has access to the MailChimp administration pages ( `yks-mailchimp-user-role` ) ( check readme for example )

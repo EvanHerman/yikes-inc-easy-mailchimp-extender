@@ -383,8 +383,10 @@ jQuery(document).ready(function() {
 		// using the form ID set above
 		do_action( 'yks_mc_after_form_'.$form_id[1] );
 		
-		if ( defined( 'display_yikes_mc_form_messages' ) && display_yikes_mc_form_messages == 'after' || display_yikes_mc_form_messages == 'append' ) { ?>
+		if ( defined( 'display_yikes_mc_form_messages' ) ) { 
+			if ( display_yikes_mc_form_messages == 'after' || display_yikes_mc_form_messages == 'append' ) { ?>
 			<div class="yks-status" id="yks-status-<?php echo $list['id']; ?>" style="margin-top:0;"></div>
-		<?php } ?>
+		<?php }
+		} ?>
 			
 </div>
