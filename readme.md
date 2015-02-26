@@ -328,6 +328,45 @@ _N/A_
 ## Filters
 
 ##### Filter Name:
+`yikes_mc_field_label`
+
+##### Accepted Parameters:
+`$label`
+
+##### Parameter Info:
+
+`$label = the text of the field label you would like to alter.`
+
+##### Description:
+The following example will change the default 'Email Address' label to 'Email!'
+
+##### Example:
+This example will alter the 'Email Address' field label, and return 'Email!'
+`
+<?php
+	/**
+	* This example will alter the 'Email Address' field label, and return a 
+	* new custom label name ('Email!')
+	* anything else falls under 'default' and returns the un-altered label
+	*/
+	function alter_mailchimp_field_labels( $label ) {
+
+		switch ( $label ) {
+			default :
+				echo $label;
+			break;
+			
+			case 'Email Address': // text of the existing label
+				echo 'Email!'; // new email label text
+			break;
+		}
+	}
+	add_filter( 'yikes_mc_field_label' , 'alter_mailchimp_field_labels' );
+?>
+`
+<br />
+
+##### Filter Name:
 `yks_mailchimp_user_role`
 
 ##### Accepted Parameters: 
@@ -615,6 +654,12 @@ These functions should be used in conjunction with the `yikes_mc_get_form_data` 
 
 Changes
 ===========
+### 5.3.3 - February 26th, 2015
+* Enhancement: Added a new filter to alter field labels. Very helpful when you want to alter the default 'Email Address' field label to something else. (`yikes_mc_field_label`) (see 'filters' section in 'Other Notes')
+
+### 5.3.2 - February 17th, 2015
+* Fixed: Patched the error displayed below the opt-in forms when `display_yikes_mc_form_messages` is not defined.
+
 ### 5.3.1 - January 13th, 2015
 * Enhancement: Added new filter to allow users to change which role has access to the MailChimp administration pages ( `yks-mailchimp-user-role` ) ( check readme for example )
 
