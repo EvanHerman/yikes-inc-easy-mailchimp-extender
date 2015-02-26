@@ -4,7 +4,11 @@
 Plugin Name: Easy MailChimp Forms
 Plugin URI: http://www.yikesinc.com/services/yikes-inc-easy-mailchimp-extender/
 Description: Mailchimp integration in the form of a shortcode, php snippet or widget. Now track account status, campaign stats, view subscribers and so much more!
+<<<<<<< HEAD
 Version: 5.3.3
+=======
+Version: 5.3.2
+>>>>>>> 4e2fc7085314ff80cfe79c246fffab462c6b8904
 Author: YIKES Inc
 Author URI: http://yikesinc.com
 License: GPL2
@@ -30,7 +34,11 @@ Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 
 /** Configuration **/
 if(!defined('YKSEME_DEBUG'))						define('YKSEME_DEBUG',		         false);
+<<<<<<< HEAD
 if(!defined('YKSEME_VERSION_CURRENT'))				define('YKSEME_VERSION_CURRENT',	'5.3.3');
+=======
+if(!defined('YKSEME_VERSION_CURRENT'))				define('YKSEME_VERSION_CURRENT',	'5.3.2');
+>>>>>>> 4e2fc7085314ff80cfe79c246fffab462c6b8904
 if(!defined('YKSEME_REQ_PHP'))						define('YKSEME_REQ_PHP',			'5.0');
 if(!defined('YKSEME_AUTHOR'))						define('YKSEME_AUTHOR',				'YIKES Inc');
 if(!defined('YKSEME_SITE'))							define('YKSEME_SITE',				site_url().'/');

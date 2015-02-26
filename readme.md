@@ -1,4 +1,4 @@
-Easy MailChimp Forms
+Easy MailChimp Forms 
 ===========
 Easy MailChimp Forms allows you to painlessly add MailChimp signup forms to your WordPress site. You can add forms to posts, pages or sidebars with shortcodes, widgets or template tags. Simply copy and paste your MailChimp API Key into the plugin admin settings and it will pull in all your MailChimp lists. From there you can choose the lists you want to make forms for. For a single list you can check off the fields you want to include on your form and order them via an easy drag-and-drop interface. This plugin adds plenty of CSS selectors to the form code allowing you to completely customize the look of your forms.
 
@@ -654,8 +654,11 @@ These functions should be used in conjunction with the `yikes_mc_get_form_data` 
 
 Changes
 ===========
+<<<<<<< HEAD
 ### 5.3.3 - February 26th, 2015
 * Enhancement: Added a new filter to alter field labels. Very helpful when you want to alter the default 'Email Address' field label to something else. (`yikes_mc_field_label`) (see 'filters' section in 'Other Notes')
+=======
+>>>>>>> 4e2fc7085314ff80cfe79c246fffab462c6b8904
 
 ### 5.3.2 - February 17th, 2015
 * Fixed: Patched the error displayed below the opt-in forms when `display_yikes_mc_form_messages` is not defined.
