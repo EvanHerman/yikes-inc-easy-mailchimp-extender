@@ -654,6 +654,14 @@ These functions should be used in conjunction with the `yikes_mc_get_form_data` 
 
 Changes
 ===========
+### 5.4 - March 2nd, 2015
+* Enhancement: Re-bundled unaltered MailChimp API wrapper class file, and added appropriate class check to prevent conflicts with other MailChimp plugins (Gravity Forms etc.)
+* Enhancement: Removed the WYSIWYG editor from the options page. This caused issues for some users who were unable to validate the MailChimp API key.
+* Enhancement: Added a new setting to toggle the sending of the welcome email. Users can now disable the email all together, on a list by list basis. (checked = disabled)
+* Enhancement: Prevented users from being able to update the 'EMAIL' merge variable. Added a notification with instruction on what filter to use.
+* Enhancement: Replced all instances of the old class name (wpyksMCAPI) with the appropriate MailChimp class (Mailchimp)
+* Enhancement: Stripped slashes and properly escaped interest group labels
+
 ### 5.3.3 - February 26th, 2015
 * Enhancement: Added a new filter to alter field labels. Very helpful when you want to alter the default 'Email Address' field label to something else. (`yikes_mc_field_label`) (see 'filters' section in 'Other Notes')
 
