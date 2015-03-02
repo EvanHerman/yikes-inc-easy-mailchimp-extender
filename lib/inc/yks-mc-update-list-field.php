@@ -11,7 +11,7 @@
 	$field_type = $p['field_type'];
 	$field_default_value = $formData['add-field-default-value'];
 	
-	$api	= new wpyksMCAPI($this->optionVal['api-key']);
+	$api	= new Mailchimp($this->optionVal['api-key']);
 	
 	if ( $field_type == 'dropdown' || $field_type == 'radio' ) {
 		try {

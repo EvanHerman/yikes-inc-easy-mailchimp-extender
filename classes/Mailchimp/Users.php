@@ -1,7 +1,7 @@
 <?php
 
 class Mailchimp_Users {
-    public function __construct(wpyksMCAPI $master) {
+    public function __construct(Mailchimp $master) {
         $this->master = $master;
     }
 
@@ -74,6 +74,8 @@ class Mailchimp_Users {
      *     - email string the email tied to the account used for passwords resets and the ilk
      *     - role string the role assigned to the account
      *     - avatar string if available, the url for the login's avatar
+     *     - global_user_id int the globally unique user id for the user account connected to
+     *     - dc_unique_id string the datacenter unique id for the user account connected to, like helper/account-details
      */
     public function logins() {
         $_params = array();
@@ -89,6 +91,9 @@ class Mailchimp_Users {
      *     - email string the email tied to the account used for passwords resets and the ilk
      *     - role string the role assigned to the account
      *     - avatar string if available, the url for the login's avatar
+     *     - global_user_id int the globally unique user id for the user account connected to
+     *     - dc_unique_id string the datacenter unique id for the user account connected to, like helper/account-details
+     *     - account_name string The name of the account to which the API key belongs
      */
     public function profile() {
         $_params = array();

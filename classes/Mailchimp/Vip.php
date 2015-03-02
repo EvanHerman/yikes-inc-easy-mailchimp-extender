@@ -1,7 +1,7 @@
 <?php
 
 class Mailchimp_Vip {
-    public function __construct(wpyksMCAPI $master) {
+    public function __construct(Mailchimp $master) {
         $this->master = $master;
     }
 

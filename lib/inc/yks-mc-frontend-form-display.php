@@ -53,7 +53,7 @@ based on the setting in the dashboard, table vs div
 								
 								<tr class="yks-mailchimpFormTableRow yks-mc-tr-<?php echo sanitize_title( $field['label'] ); ?>" <?php if($field['active'] == 0) { echo 'style="display:none;"'; } ?>>
 									<td class="prompt yks-mailchimpFormTableRowLabel">
-										<label class="prompt yks-mailchimpFormTableRowLabel<?php echo $reqlabel; ?> yks-mc-label-<?php echo sanitize_title( $field['label'] ); ?>" for="<?php echo $field['id']; ?>"><?php echo apply_filters( 'yikes_mc_field_label' , $field['label'] ); ?><?php echo $reqindicator; ?></label>
+										<label class="prompt yks-mailchimpFormTableRowLabel<?php echo $reqlabel; ?> yks-mc-label-<?php echo sanitize_title( $field['label'] ); ?>" for="<?php echo $field['id']; ?>"><?php echo apply_filters( 'yikes_mc_field_label' , stripslashes( $field['label'] ) ); ?><?php echo $reqindicator; ?></label>
 										<!-- run our function to generate the input fields for the form, passing in the field -->
 										<?php echo $this->getFrontendFormDisplay_field($field,$num); ?>
 									</td>
@@ -145,7 +145,7 @@ based on the setting in the dashboard, table vs div
 								}
 								?>
 								<div class="yks-mailchimpFormDivRow yks-mc-form-row-<?php echo sanitize_title( $field['label'] ); ?>" <?php if($field['active'] == 0) { echo 'style="display:none;"'; } ?>>
-									<label class="prompt yks-mailchimpFormDivRowLabel<?php echo $reqlabel; ?> yks-mc-label-<?php echo sanitize_title( $field['label'] ); ?>" for="<?php echo $field['id']; ?>"><?php echo apply_filters( 'yikes_mc_field_label' , $field['label'] ); ?><?php echo $reqindicator; ?></label>
+									<label class="prompt yks-mailchimpFormDivRowLabel<?php echo $reqlabel; ?> yks-mc-label-<?php echo sanitize_title( $field['label'] ); ?>" for="<?php echo $field['id']; ?>"><?php echo apply_filters( 'yikes_mc_field_label' , stripslashes( $field['label'] ) ); ?><?php echo $reqindicator; ?></label>
 									<div class="yks-mailchimpFormDivRowField yks-mc-input-field-row-<?php echo sanitize_title( $field['label'] ); ?>">
 										<!-- run our function to generate the input fields for the form, passing in the field -->
 										<?php echo $this->getFrontendFormDisplay_field($field,$num); ?>
