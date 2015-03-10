@@ -654,6 +654,13 @@ These functions should be used in conjunction with the `yikes_mc_get_form_data` 
 
 Changes
 ===========
+
+### 5.4.2 - March 10th, 2015 
+* Fixed: custom class names on input fields merged together with other class names making them un-usable.
+
+### 5.4.1 - March 3rd, 2015
+* Fixed: tinyMCE error thrown when saving settings page, ultimately preventing the ability to store the API key.
+
 ### 5.4 - March 2nd, 2015
 * Enhancement: Re-bundled unaltered MailChimp API wrapper class file, and added appropriate class check to prevent conflicts with other MailChimp plugins (Gravity Forms etc.)
 * Enhancement: Removed the WYSIWYG editor from the options page. This caused issues for some users who were unable to validate the MailChimp API key.

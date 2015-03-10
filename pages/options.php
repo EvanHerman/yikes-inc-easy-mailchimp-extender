@@ -39,7 +39,6 @@ jQuery(document).ready(function ($) {
     $('#yks-mailchimp-form').submit(function (e) {	        
         // Make sure the api key exists
        if (blankFieldCheck()) {
-		tinyMCE.triggerSave();
             $('#yks-status').slideUp('fast');
 				$.ajax({
 					type: 'POST',

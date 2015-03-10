@@ -2720,7 +2720,7 @@ if(!class_exists("yksemeBase")) {
 							case 'website':
 							case 'imageurl':
 							// custom placeholder value goes here
-								$o	.= '<input type="text" name="'.$field['name'].'" placeholder="'.$placeholder.'" class="'.$field['name'].($field['require'] == 1 ? ' yks-require' : '') . ' ' . $custom_class . $class_title .'" id="'.$field['id'].'" value="" />';
+								$o	.= '<input type="text" name="'.$field['name'].'" placeholder="'.$placeholder.'" class="'.$field['name'].($field['require'] == 1 ? ' yks-require' : '') . ' ' . $custom_class . ' ' . $class_title .'" id="'.$field['id'].'" value="" />';
 								break;
 								
 							case 'text':				
@@ -2771,11 +2771,11 @@ if(!class_exists("yksemeBase")) {
 										}
 									
 								}	
-								$o	.= '<input type="text" placeholder="'.$placeholder.'" name="'.$field['name'].'" class="'.$field['name'].($field['require'] == 1 ? ' yks-require' : '') . ' ' . $custom_class . $class_title .'" id="'.$field['id'].'" value="'.$field['default'].'" />';
+								$o	.= '<input type="text" placeholder="'.$placeholder.'" name="'.$field['name'].'" class="'.$field['name'].($field['require'] == 1 ? ' yks-require' : '') . ' ' . $custom_class . ' ' . $class_title .'" id="'.$field['id'].'" value="'.$field['default'].'" />';
 								break;
 								
 							case 'dropdown':
-								$o	.= '<select name="'.$field['name'].'" class="'.$field['name'].($field['require'] == 1 ? ' yks-require' : ''). ' ' . $custom_class . $class_title .'" id="'.$field['id'].'">';
+								$o	.= '<select name="'.$field['name'].'" class="'.$field['name'].($field['require'] == 1 ? ' yks-require' : ''). ' ' . $custom_class . ' ' . $class_title .'" id="'.$field['id'].'">';
 									if(count($field['choices']) > 0) : foreach($field['choices'] as $ok => $ov) :
 											$o	.= '<option value="'.htmlentities($ov, ENT_QUOTES).'">'.$ov.'</option>';
 									endforeach; endif;
@@ -2783,18 +2783,18 @@ if(!class_exists("yksemeBase")) {
 								break;
 								
 							case 'address':
-								$o	.= '<input type="text" placeholder="'.$placeholder.'" name="'.$field['name'].'" class="'.$field['name'].($field['require'] == 1 ? ' yks-require' : ''). ' ' . $custom_class . $class_title .'" id="'.$field['id'].'" value="" /><span class="yks-mailchimp-form-tooltip">Street Address</span>';
-								$o	.= '<input type="text" name="'.$field['name'].'-add2" class="'.$field['name'].'-add2'.($field['require'] == 1 ? ' yks-require' : ''). ' ' . $custom_class . $class_title .'" id="'.$field['id'].'-add2" value="" /><span class="yks-mailchimp-form-tooltip">Apt/Suite</span>';
-								$o	.= '<input type="text" name="'.$field['name'].'-city" class="'.$field['name'].'-city'.($field['require'] == 1 ? ' yks-require' : ''). ' ' . $custom_class . $class_title .'" id="'.$field['id'].'-city" value="" /><span class="yks-mailchimp-form-tooltip">City</span>';
-								$o	.= '<input type="text" name="'.$field['name'].'-state" class="'.$field['name'].'-state'.($field['require'] == 1 ? ' yks-require' : ''). ' ' . $custom_class . $class_title .'" id="'.$field['id'].'-state" value="" /><span class="yks-mailchimp-form-tooltip">State</span>';
-								$o	.= '<input type="text" name="'.$field['name'].'-zip" class="'.$field['name'].'-zip'.($field['require'] == 1 ? ' yks-require' : ''). ' ' . $custom_class . $class_title .'" id="'.$field['id'].'-zip" value="" /><span class="yks-mailchimp-form-tooltip">Zip</span>';
+								$o	.= '<input type="text" placeholder="'.$placeholder.'" name="'.$field['name'].'" class="'.$field['name'].($field['require'] == 1 ? ' yks-require' : ''). ' ' . $custom_class . ' ' . $class_title .'" id="'.$field['id'].'" value="" /><span class="yks-mailchimp-form-tooltip">Street Address</span>';
+								$o	.= '<input type="text" name="'.$field['name'].'-add2" class="'.$field['name'].'-add2'.($field['require'] == 1 ? ' yks-require' : ''). ' ' . $custom_class . ' ' . $class_title .'" id="'.$field['id'].'-add2" value="" /><span class="yks-mailchimp-form-tooltip">Apt/Suite</span>';
+								$o	.= '<input type="text" name="'.$field['name'].'-city" class="'.$field['name'].'-city'.($field['require'] == 1 ? ' yks-require' : ''). ' ' . $custom_class . ' ' . $class_title .'" id="'.$field['id'].'-city" value="" /><span class="yks-mailchimp-form-tooltip">City</span>';
+								$o	.= '<input type="text" name="'.$field['name'].'-state" class="'.$field['name'].'-state'.($field['require'] == 1 ? ' yks-require' : ''). ' ' . $custom_class . ' ' . $class_title .'" id="'.$field['id'].'-state" value="" /><span class="yks-mailchimp-form-tooltip">State</span>';
+								$o	.= '<input type="text" name="'.$field['name'].'-zip" class="'.$field['name'].'-zip'.($field['require'] == 1 ? ' yks-require' : ''). ' ' . $custom_class . ' ' . $class_title .'" id="'.$field['id'].'-zip" value="" /><span class="yks-mailchimp-form-tooltip">Zip</span>';
 								break;
 								
 							case 'radio':
 								if(count($field['choices']) > 0) : $ct=0; foreach($field['choices'] as $ok => $ov) :
 									$ct++;
 									$o	.= '<label class="yks_mc_interest_group_label" for="'.$field['id'].'-'.$ok.'">
-													<input type="radio" name="'.$field['name'].'" class="'.$field['name'].($field['require'] == 1 ? ' yks-require' : ''). ' ' . $custom_class . $class_title .' yikes_mc_interest_group_checkbox" id="'.$field['id'].'-'.$ok.'" value="'.htmlentities($ov, ENT_QUOTES).'" />
+													<input type="radio" name="'.$field['name'].'" class="'.$field['name'].($field['require'] == 1 ? ' yks-require' : ''). ' ' . $custom_class . ' ' . $class_title .' yikes_mc_interest_group_checkbox" id="'.$field['id'].'-'.$ok.'" value="'.htmlentities($ov, ENT_QUOTES).'" />
 													<span>'.$ov.'</span>
 												</label>';;
 								endforeach; endif;
@@ -2802,7 +2802,7 @@ if(!class_exists("yksemeBase")) {
 								
 							case 'date':
 							case 'birthday':
-								$o	.= '<input placeholder="'.$placeholder.'" type="text" name="'.$field['name'].'" class="'.$field['name'].' yks-field-type-date'.($field['require'] == 1 ? ' yks-require' : ''). ' ' . $custom_class . $class_title .'" id="'.$field['id'].'" value="" />';
+								$o	.= '<input placeholder="'.$placeholder.'" type="text" name="'.$field['name'].'" class="'.$field['name'].' yks-field-type-date'.($field['require'] == 1 ? ' yks-require' : ''). ' ' . $custom_class . ' ' . $class_title .'" id="'.$field['id'].'" value="" />';
 								break;
 						
 						}
