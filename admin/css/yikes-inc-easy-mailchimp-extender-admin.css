@@ -1,0 +1,460 @@
+/**
+ * All of the CSS for your admin-specific functionality should be
+ * included in this file.
+ */
+ 
+ 
+ /************************/
+ /*	   Global Styles	  */
+ /***********************/
+ .dashicons.yikes-love {
+	color: pink;
+ }
+ 
+ .yikes-easy-mc-postbox h3 {
+    background: #52BAD5;
+	font-weight: 800;
+	color: #ffffff;
+ }
+	.yikes-easy-mc-postbox h3.bg-transparent {
+		color: #333;
+		font-weight: 400;
+		background: transparent;
+	}
+	
+ .error-message-container label {
+	display: block; 
+	margin: 1em 0;
+ }
+ 
+ .yikes-mc-settings-expansion-section {
+	display: none;
+ }
+	.expansion-section-title.settings-sidebar, .form-builder-section-title {
+		text-decoration: none;
+		display: block;
+		border: 1px solid rgba(177, 177, 177, 0.71);
+		color: #333333;
+		padding: 5px;
+		margin: .5em 0;
+	}
+	.expansion-section-title.settings-sidebar .dashicons, .form-builder-section-title .dashicons {
+		content: "\f132";
+		font-family: "dashicons";
+		font-size: 15px;
+		line-height: 1.5;
+	}
+
+ /******************************/
+ /** Settings/Options Page  **/
+ /****************************/
+	/* About Text Spacing */
+	.yikes-easy-mc-about-text { 
+		margin-top: 0; 
+	}
+	
+	/* Input Field Styles */
+	#yks-mailchimp-double-optin-message,
+	#yks-mailchimp-single-optin-message,
+	.settings-page-input {
+		width: 50%;
+	}
+	
+	#yks-mailchimp-double-optin-message,
+	#yks-mailchimp-single-optin-message {
+		min-height: 75px;
+		max-height: 200px;
+		resize: vertical;
+	}
+	
+	#settings-nav li a {
+		color: #333333;
+		text-decoration: none !important;
+		 transition: color .15s ease-out;
+		-moz-transition: color .15s ease-out;
+		-webkit-transition: color .15s ease-out;
+		-o-transition: color .15s ease-out;
+	}
+		#settings-nav li a:hover {
+			color: #52BAD5 !important;
+		}
+	
+	/* Selected Options Page Arrow */
+	.option-menu-selected-arrow {
+		width: 0; 
+		height: 0; 
+		border-top: 10px solid transparent;
+		border-bottom: 10px solid transparent; 
+		border-right:10px solid blue; 
+		border-right:10px solid #fff;
+		position:absolute;
+		left:-.6em;
+	}
+	
+	.option-menu-selected-arrow+a {
+		color: #52BAD5 !important;
+	}
+
+/******************************/
+/*		Lists Page			 */
+/*****************************/
+.list-rating-star {
+	color: #E6B800;
+}
+
+/*********************************/
+/*		Accont Details Page	*/
+/********************************/
+/* Chimp Chatter */
+#chimp-chatter {
+	text-align: center;
+}
+	#chimp-chatter .chimp-chatter-container {
+		margin: 2em 0;
+		background: #F8F8F8;
+		border-radius: 10px;
+		padding: 10px;
+	}
+/* Inactive + Active Markers */
+.circle-account-inactive {
+	display: inline-block;
+	vertical-align: middle;
+	margin-top: -3px;
+	margin-right: 5px;
+	height: 15px;
+	width: 15px;
+	border-radius: 50%;
+	background: rgba(250, 138, 138, 0.79);
+}
+.chatter-type {
+    font-weight: 600;
+    font-family: "open sans";
+    font-size: 14px;
+    margin: 5px;
+}
+.chatter-message {	
+   margin: 15px !important;
+}
+.circle-account-active {
+	display: inline-block;
+	vertical-align: middle;
+	margin-top: -3px;
+	margin-right: 5px;
+	height: 15px;
+	width: 15px;
+	border-radius: 50%;
+	background: rgba(128, 214, 128, 0.77);
+}
+
+#account-details .mailchimp-avatar {
+	width: 120px;
+	border-radius: 10%;
+}
+
+/* Chatter Container Colors */
+.chimp-chatter-positive {
+	border-top: 2px solid rgb(157, 223, 157);
+}
+.chimp-chatter-negative {
+	border-top: 2px solid #FBA2A2;
+}
+.chimp-chatter-neutral {
+	border-top: 2px solid rgb(177, 177, 177);
+}
+
+
+/*****************************/
+/*	  Manage Lists Page */
+/****************************/
+#yikes_easy_mc_toolbar {
+	margin-top: -.75em;
+}
+#yikes_easy_mc_toolbar_links {
+	display: inline-block;
+	width: 100%;
+	margin: 0;
+	padding: 10px 0;
+}
+	#yikes_easy_mc_toolbar_links li {
+		float: left;
+		margin: 0 .5em;
+	}
+	#yikes_easy_mc_toolbar_links li a {
+		text-decoration: none;
+	}
+	#yikes_easy_mc_toolbar_links li a.selected_hidden_setting {
+		color: #333333;
+		border-bottom: 1px solid rgba(206, 206, 206, 1);
+		margin-bottom: 3px;
+	}
+	#yikes_easy_mc_toolbar_links li .selected_setting_triangle {
+		width: 0; 
+		height: 0; 
+		border-left: 13px solid transparent;
+		border-right: 13px solid transparent;
+		border-top: 13px solid rgba(206, 206, 206, 1);
+		margin: 0 auto;
+	}
+		/* Toolbar Icons */
+		#yikes_easy_mc_toolbar_links li a.form-builder:before {
+			content: "\f116";
+			font-family: "dashicons";
+		}
+		#yikes_easy_mc_toolbar_links li a.form-customizer:before {
+			content: "\f100";
+			font-family: "dashicons";
+		}
+		#yikes_easy_mc_toolbar_links li a.error-messages:before {
+			content: "\f117";
+			font-family: "dashicons";
+		}
+	
+/*****************************/
+/* Manage Forms Page */
+/***************************/
+
+/* Container holding the form ID */
+.form-id-container {
+	padding: 1px 8px;
+	border-radius: 5px;
+	background: rgb(73, 169, 236);
+	font-weight: bold;
+	color: #ffffff;
+}
+
+.manage-form-admin-notice {
+	margin-top: 1.75em !important;
+}
+
+a.yikes-delete-mailchimp-form {
+	color: rgb(217, 96, 96) !important;
+}
+
+.yikes-mc-shortcode-input {
+	text-align: center;
+}
+
+.hidden-class {
+	display: none !important;
+}
+
+
+/* Available Form Field List */
+#available-fields li {
+	text-decoration: none;
+	display: block;
+	border: 1px solid rgba(177, 177, 177, 0.71);
+	color: #333333;
+	padding: 5px;
+	margin: .5em 0;
+}
+	#available-fields li.not-available {
+		opacity: .6 !important;
+	}
+	
+	#available-fields li.field-to-add-to-form {
+		background: rgba(46, 162, 204, 0.25);
+	}
+
+/***********************/
+/* Edit Form Page  */
+/**********************/
+
+#edit-yikes-mc-form label h3 {
+	margin-left:0;
+	padding-left: 0;
+}
+
+	/* Post Stuff Heading */
+	body.admin_page_yikes-mailchimp-edit-form #poststuff h2 {
+		padding: 8px 12px;
+		margin-top: 0;
+	}
+	
+/* Style List - color pickers etc. */
+#style-list ul li {
+	display: block;
+	width: 100%;
+	margin: 1em 0;
+}
+	.wp-picker-container,
+	.form-style-adjustment {
+		display: block !important;
+		width: 100%;
+		margin: .5em 0;
+	}
+	
+/*******************************/
+/* About Yikes Inc Page   */
+/*****************************/	
+#team-member-container {
+	display: inline-block;
+	width: auto;
+	margin: 0 auto;
+	width: 100%;
+}
+
+	.yikes-news-article {
+		margin: 12px 0;
+	}
+		.yikes-news-article a {
+			text-decoration: none !important;
+		}
+	
+	#about-yikes .team-member img {
+		border-radius: 50%;
+		display:block;
+		margin:0 auto;
+	}
+
+	.about-yikes-inc-text {
+		-ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=0)";
+		/* IE 5-7 */
+		filter: alpha(opacity=0);
+		/* Netscape */
+		-moz-opacity: 0;
+		/* Safari 1.x */
+		-khtml-opacity: 0;
+		/* Good browsers */
+		opacity: 0;
+	}
+	#about-yikes .team-member {
+		-ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=0)";
+		/* IE 5-7 */
+		filter: alpha(opacity=0);
+		/* Netscape */
+		-moz-opacity: 0;
+		/* Safari 1.x */
+		-khtml-opacity: 0;
+		/* Good browsers */
+		opacity: 0;
+		float: left;
+		display:block;
+		width: 31%;
+		margin: 1em 5px 1em 5px;
+	}
+	
+	#about-yikes .team-row:first-child {
+		margin-top: 2em;
+	}
+	
+	#about-yikes .team-row {
+		width: 100%;
+		float: left;
+	}
+
+	#about-yikes .team-member p {
+		padding-left: 10px;
+	}
+	
+	#certifications ul {
+		display: inline-block;
+		width: 100%;
+		text-align: center;
+	}
+		#certifications ul li {
+			float: left;
+		}
+			#certifications ul li img {
+				max-width: 100%;
+				display:block;
+				margin: 0 auto;
+			}
+			
+	/***************************/
+	/* API Connection Styles */
+	/**************************/
+	#connection-container {
+		float: right;
+		color: #ffffff;
+		padding: .25em .75em .25em .25em;
+		margin-top: -3px;
+	}
+		
+		#connection-container.api-connected {
+			background: rgb(68, 186, 68);
+		}
+		
+		#connection-container.api-not-connected {
+			background: rgb(181, 181, 181);
+		}
+		
+		/* Adjust Lineheight of Conencted vs Not-connected Icons */
+		.yikes-mc-api-connected,
+		.yikes-mc-api-not-connected {
+			line-height: 1.1;
+		}
+		/* End Icon line height adjustment */
+	
+	/***********************/
+	/*  Settings Sidebar   */
+	/**********************/
+		/* Leave Us A Review */
+		#review-wp-svg-icons {
+			text-align: center;
+		}
+			#review-wp-svg-icons .dashicons-star-filled {
+				color: #E6B800;
+			}
+		.meta-box-sortables hr {
+			margin: 1.75em 0 0 0;
+		}
+		
+	/*************************/
+	/*	  Admin Notices   */
+	/************************/
+	.yikes-easy-mc-updated {
+		display: block;
+		border-left: 4px solid #4EAEF0;
+		margin:0 20px 2px 0px;
+		margin-top: 1em;
+		margin-bottom: 1em;
+		padding: 2px 10px;
+		background: #fff;
+		background-size: 120px;
+		background-position: right bottom;
+		background-repeat: no-repeat;
+		background-position-y: 29px;
+	}
+	
+	/*************************************/
+	/* Sir Trevor CSS Adjustments  */
+	/************************************/
+	.st-block-controls a {
+		transition: color .25s ease-out;
+		-moz-transition: color .25s ease-out;
+		-webkit-transition: color .25s ease-out;
+		-o-transition: color .25s ease-out;
+	}
+	.st-block-ui-btn, 
+	.st-block-control-ui-btn {
+		font-size: 1em !important;
+	}
+		
+		/* Overrride Columns Icon */
+		/* Figure out a better way to assign the font family */
+		.st-block-controls .st-block-control[data-type="Columns"] > span {
+			font-family: 'ST-Columns-Icons' !important;
+		}
+	
+	
+/** Break Points **/
+
+/* About Page */
+@media screen and (max-width: 495px) {
+
+	#team-member-container .team-member {
+		width: 100%;
+	}
+	
+}
+
+/* Options Page */
+@media screen and (max-width: 850px) {
+	
+	/* Hide Selected Option Arrow when it drops below the main content box */
+	.option-menu-selected-arrow {
+		display: none !important;
+	}
+	
+}

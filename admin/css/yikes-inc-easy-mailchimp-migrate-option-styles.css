@@ -1,0 +1,66 @@
+	
+	/*
+	*	Yikes Inc. Easy MailChimp Extender - Migrate Old Options Styles
+	*	Compiled by Yikes Inc. - http://www.yikesinc.com
+	*/		
+	.migrate-options-notice {
+		display: none;
+	}
+	
+	#options-updated li:before {
+		background: #FCFCFC;
+		border-radius: 50%;
+		margin-right: 5px;
+		color: rgba(74, 209, 74, 0.69);
+		font-family: "Dashicons";
+		content: "\f147";
+	}
+	
+	#options-updated li:last-child:before {
+		content: "";
+		font-family: "";
+		margin-left: 15px;
+		margin-top: 2em !important; 
+	}
+	
+	#options-updated li {
+		margin: 1em 0;
+	}
+	
+	.upgrading-ellipse-one {
+		opacity: 0;
+		-webkit-animation: dot 1.3s infinite;
+		-webkit-animation-delay: 0.0s;
+		animation: dot 1.3s infinite;
+		animation-delay: 0.0s;
+	}
+
+	.upgrading-ellipse-two {
+		opacity: 0;
+		-webkit-animation: dot 1.3s infinite;
+		-webkit-animation-delay: 0.2s;
+		animation: dot 1.3s infinite;
+		animation-delay: 0.2s;
+	}
+
+	.upgrading-ellipse-three {
+		opacity: 0;
+		-webkit-animation: dot 1.3s infinite;
+		-webkit-animation-delay: 0.3s;
+		 animation: dot 1.3s infinite;
+		 animation-delay: 0.3s;
+	}
+	
+	
+	/* Animations */
+	@-webkit-keyframes dot {
+		  0% { opacity: 0; }
+		 50% { opacity: 0; }
+		100% { opacity: 1; }
+	}
+
+	@keyframes dot {
+		  0% { opacity: 0; }
+		 50% { opacity: 0; }
+		100% { opacity: 1; }
+	}
