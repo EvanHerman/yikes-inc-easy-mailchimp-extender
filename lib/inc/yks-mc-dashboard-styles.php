@@ -12,7 +12,7 @@ if (  $screen_base == __( 'toplevel_page_yks-mailchimp-form' , 'yikes-inc-easy-m
 	|| $screen_base == __( 'mailchimp-forms_page_yks-mailchimp-form-lists', 'yikes-inc-easy-mailchimp-extender' ) || $screen_base == 'widgets' || $screen_base == 'post'	|| $screen_base == __( 'mailchimp-forms_page_yks-mailchimp-about-yikes' , 'yikes-inc-easy-mailchimp-extender' ) ) {
 	
 	// Register Styles
-	wp_register_style( 'ykseme-css-base' , YKSEME_URL . 'css/style.ykseme.css' , array() , '1.0.0' , 'all' );
+	wp_register_style( 'ykseme-css-base' , YKSEME_URL . 'css/style.ykseme.min.css' , array() , '1.0.0' , 'all' );
 	wp_register_style( 'jquery-datatables-pagination' , YKSEME_URL . 'css/jquery.dataTables.css' , array() , '1.0.0' , 'all' );	
 	
 	// Enqueue Styles

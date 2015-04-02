@@ -131,7 +131,7 @@ To Do - 11.8 :
 										$('#yks-mailchimp-fields-list_'+i+' .yks-mailchimp-fields-list-row').each(function() {
 											var thisIndex = ($(this).index() + 1);
 											$(this).find('.yks-mailchimp-field-placeholder').find('input').attr('name', 'placeholder-'+i+'-'+thisIndex);
-											$(this).find('.yks-mailchimp-field-custom-field-class').find('input').attr('name', 'custom-field-class-'+i+'-'+thisIndex);
+											$(this).find('.yks-mailchimp-field-custom-field-class').find('input').attr('name', 'placeholder-'+i+'-'+thisIndex);
 										});
 									
 										
@@ -223,6 +223,8 @@ To Do - 11.8 :
                                 dataType: 'json',
                                 success: function(MAILCHIMP)
                                         {
+										// console.log(MAILCHIMP);	
+										// alert($(f).serialize());
                                         if(MAILCHIMP == '-1')
                                                 {
 													if ( theButton.parents('.yks-list-container').find('.yks-status-error').is(':visible') ) {
@@ -239,7 +241,7 @@ To Do - 11.8 :
 													} else {
 														theButton.parents('.yks-list-container').find('.yks-status').stop().slideDown().delay(3000).fadeOut();
 													}
-												console.log(MAILCHIMP);
+													// console.log(MAILCHIMP);
                                                 }
                                         },
 								error: function(MAILCHIMP) 
@@ -330,7 +332,6 @@ To Do - 11.8 :
                                                 {
                                                 if(MAILCHIMP != '-1')
                                                         {
-														console.log(placeholder_array);
 														$('#yks_mc_reimporting_fields_dialog').dialog("destroy");
                                                         $($('#yks-mailchimp-fields-td_'+i)).replaceWith(MAILCHIMP);
                                                         $('#yks-mailchimp-fields-td_'+i).yksYellowFade();
@@ -354,29 +355,7 @@ To Do - 11.8 :
 															});      
                                                         }
                                                 else
-                                                        {
-															// update stored list data
-															$.ajax({
-																type:   'POST',
-																url:    ajaxurl,
-																data: {
-																	action: 'yks_mailchimp_form',
-																	form_action: 'get_list_data',
-																},
-																dataType: 'html',
-																success: function(new_list_data) {
-																	jQuery( '#yks-mailchimp-add-new-field-form' ).fadeTo( 'fast' , 1 );
-																	jQuery( '.yks-mc-preloader' ).remove();
-																	jQuery( '#yks-mailchimp-update-existing-field-form' ).find( 'input[type="submit"]' ).removeAttr( 'disabled' );
-																	jQuery( '.yks-mc-update-error' ).remove();
-																	// replace with the new field
-																	$($('#yks-mailchimp-fields-td_'+mailchimp_list_id)).replaceWith(MAILCHIMP); 
-																	jQuery( '#merge-field-data' ).val( new_list_data );
-																	// update the list data at the top of the form
-																	console.log(new_list_data);				              
-																}
-															});
-															
+                                                        {															
 															$('#yks_mc_reimporting_fields_dialog').dialog("destroy");
 															$("<div id='yks_mc_reset_plugin_settings'><div class='dashicons dashicons-yes yks-mc-success-icon'></div><p><?php _e("It looks like this form is already up to date!", "yikes-inc-easy-mailchimp-extender" ); ?></p></div>").dialog({
 															 title : "Form Up To Date",
@@ -844,7 +823,7 @@ To Do - 11.8 :
 	*/
 	// pass our mailchimp list id into the hidden input
 	// and populate the merge var name with a random string
-	jQuery( 'body' ).on( 'click' , '.add-new-field-thickbox-open' , function() {
+	jQuery( '.add-new-field-thickbox-open' ).click(function() {
 		var mailchimp_list_id = jQuery(this).attr('alt');
 		setTimeout(function() {
 			jQuery( '#TB_ajaxContent' ).find( '#mc-list-id' ).val( mailchimp_list_id );
@@ -870,7 +849,7 @@ To Do - 11.8 :
 	
 	// pass our mailchimp list id into the hidden input
 	// and populate the merge var name with a random string
-	jQuery( 'body' ).on( 'click' , '.add-new-group-thickbox-open' , function() {
+	jQuery( '.add-new-group-thickbox-open' ).click(function() {
 		var mailchimp_list_id = jQuery(this).attr('alt');
 		setTimeout(function() {
 			jQuery( '#TB_ajaxContent' ).find( '#mc-list-id' ).val( mailchimp_list_id );
@@ -902,6 +881,16 @@ To Do - 11.8 :
 		jQuery( '#merge-variable-settings' ).find( 'input[name="add-field-public"]' ).each(function() {
 				jQuery( this ).attr( 'disabled' , 'disabled' );
 			 });
+		
+		
+		/*
+		if ( required_setting == true ) {
+			 jQuery( '#merge-variable-settings' ).find( '.add-field-public-yes' ).prop( 'checked' , true );
+			 jQuery( '#merge-variable-settings' ).find( 'input[name="add-field-public"]' ).each(function() {
+				jQuery( this ).attr( 'disabled' );
+			});
+		}
+		*/
 		
 		jQuery( '.add-new-field' ).removeClass( 'create-this-field' );
 		jQuery(this).addClass( 'create-this-field' );
@@ -1227,8 +1216,7 @@ To Do - 11.8 :
 		var list_data = $.parseJSON( jQuery( '#merge-field-data' ).val() );		
 		var mailchimp_list_id = jQuery(this).parents('form').find('.yks-mailchimp-import').attr('rel');
 		var merge_tag = jQuery(this).parents( '.yks-mailchimp-fields-list-row' ).attr( 'alt' ).toLowerCase();
-		var custom_class = jQuery( this ).parents( '.yks-mailchimp-fields-list-row' ).find( '.yks-mc-field-custom-class' ).text();
-
+		
 		// hide any previously established error messages
 		jQuery( '.yks-mc-update-error' ).remove();
 		
@@ -1237,15 +1225,39 @@ To Do - 11.8 :
 		var merge_name = list_data[mailchimp_list_id].fields[mailchimp_list_id+'-'+merge_tag].label;
 		var merge_required = list_data[mailchimp_list_id].fields[mailchimp_list_id+'-'+merge_tag].require;
 		var field_type = list_data[mailchimp_list_id].fields[mailchimp_list_id+'-'+merge_tag].type;
-						
-			var dialogDiv = jQuery('#updateMergeVariableContainer');
+		
+		// if the field type is 'email',
+		// we should disable the "Field Name" field , as this can't be altered.
+		// this needs to be changed via the 'yikes_mc_field_label' filter (see readme.txt or yks-mc-frontend-form-display.php ~line 148)
+		if( field_type == 'email' ) {
+			
+			jQuery( '#updateMergeVariableContainer' ).find( 'label[for="add-field-field-name"]' ).parents( '.form-table' ).before( "<span class='yks-mc-update-error email-mv-error' style='display:block;width:100%;color:rgb(249, 141, 141);margin:.5em 0;'>You cannot update the EMAIL merge variable. If you'd like to change the field name/label, please use the yikes_mc_field_label filter. ( see readme.txt for example )</span>" );
+			
+			jQuery( '#updateMergeVariableContainer' ).find( '#add-field-field-name' ).attr( 'disabled' , 'disabled' );
+			jQuery( '#updateMergeVariableContainer' ).find( '#add-field-field-merge-tag' ).attr( 'disabled' , 'disabled' );
+			jQuery( '#updateMergeVariableContainer' ).find( '.update-field-field-required-yes' ).attr( 'disabled' , 'disabled' );
+			jQuery( '#updateMergeVariableContainer' ).find( '.update-field-field-required-no' ).attr( 'disabled' , 'disabled' );
+			jQuery( '#updateMergeVariableContainer' ).find( 'input[type="submit"]' ).attr( 'disabled' , 'disabled' );
+		} else {
+			jQuery( '#updateMergeVariableContainer' ).find( '.email-mv-error' ).remove();
+			jQuery( '#updateMergeVariableContainer' ).find( '#add-field-field-name' ).removeAttr( 'disabled' );
+			jQuery( '#updateMergeVariableContainer' ).find( '#add-field-field-merge-tag' ).removeAttr( 'disabled' );
+			jQuery( '#updateMergeVariableContainer' ).find( '.update-field-field-required-yes' ).removeAttr( 'disabled' );
+			jQuery( '#updateMergeVariableContainer' ).find( '.update-field-field-required-no' ).removeAttr( 'disabled' );
+			jQuery( '#updateMergeVariableContainer' ).find( 'input[type="submit"]' ).removeAttr( 'disabled' );
+		}
+				
+		console.log("TYPE : " + list_data[mailchimp_list_id].fields[mailchimp_list_id+'-'+merge_tag].type );
+		console.log(list_data);
+		
+			var dialogDiv = $('#updateMergeVariableContainer');
+			dialogDiv.attr("Title", "Update "+merge_name+" Field");
 			dialogDiv.dialog({
 				width: "50%",
 				option: [ 'maxHeight' , 600 ],
 				modal : true,
 				draggable : false,
 				resizable : false,
-				title: "Update "+merge_name+" Field"
 			});
 			
 		// populate the form with the retreived data...
@@ -1254,7 +1266,6 @@ To Do - 11.8 :
 		jQuery( '#updateMergeVariableContainer' ).find( '#mc-list-id' ).val( mailchimp_list_id );
 		jQuery( '#updateMergeVariableContainer' ).find( '#old-merge-tag' ).val( merge_tag.toUpperCase() );
 		jQuery( '#updateMergeVariableContainer' ).find( '#field-type-text' ).text( field_type.charAt(0).toUpperCase() + field_type.substring(1) );
-		jQuery( '#updateMergeVariableContainer' ).find( '#update-field-custom-class' ).val( custom_class );
 		
 		if ( merge_required == true ) { // field merge var
 			jQuery( '.ui-dialog' ).find( '.update-field-field-required-yes' ).prop( 'checked' , 'checked' );
@@ -1331,8 +1342,6 @@ To Do - 11.8 :
 		// append a preloader to the modal, for some feedback
 		jQuery( '#yks-mailchimp-update-existing-field-form' ).find( 'input[type="submit"]').after( '<img src="<?php echo admin_url('/images/wpspin_light.gif'); ?>" alt="yks-mc-preloader" class="yks-mc-preloader" style="margin-left: .5em;">' );
 
-		var custom_class_value = jQuery( '#yks-mailchimp-update-existing-field-form' ).find( '#update-field-custom-class' ).val();
-				
 		/* ajax update our existing field! */
 		jQuery.ajax({
 			type:   "POST",
@@ -1572,13 +1581,13 @@ To Do - 11.8 :
 		}, 250);
 				
 		var dialogDiv = jQuery('#updateInterestGroupContianer');
+			dialogDiv.attr("Title", "Update "+group_name+" Group");
 			dialogDiv.dialog({
 				width: "50%",
 				option: [ 'maxHeight' , 600 ],
 				modal : true,
 				draggable : false,
 				resizable : false,
-				title: "Update "+group_name+" Group"
 			});
 			
 			
@@ -1979,7 +1988,42 @@ To Do - 11.8 :
 		return false;
 	});
 	
+	
+	/* 
+	* Clear our Error Log 
+	*
+	* since v5.2
+	*/
+	jQuery( 'body' ).on( 'click' , '.clear-yt4wp-error-log' , function() {
 		
+		jQuery( '#yt4wp-error-log-table' ).fadeTo( 'fast' , .5 );
+		
+		jQuery.ajax({
+			type: 'POST',
+			url: ajaxurl,
+			data: {
+				action: 'yks_mailchimp_form',
+				form_action: 'clear_yks_mc_error_log'
+			},
+			dataType: 'json',
+			success: function (response) {
+				setTimeout(function() {	
+					jQuery( '#yks-mc-error-log-table' ).fadeOut( 'fast' , function() {
+						jQuery( '.clear-yks-mc-error-log' ).attr( 'disabled' , 'disabled' );
+						setTimeout(function() {
+							jQuery( '.yks-mc-error-log-table-row' ).html( '<em>no errors logged</em>' );
+						}, 250 );
+					});
+				}, 1000 );
+			},
+			error : function(error_response) {
+				alert( 'There was an error with your request. Unable to clear the erorr log!' );
+				console.log(error_response.responseText);
+				jQuery( '#yt4wp-error-log-table' ).fadeTo( 'fast' , 1 );
+			}
+		});
+	});
+	
 	/** 
 		Update The Interest Group Type On Dropdown Change 
 		Changes the interest group type eg Checkboxes => Radio Buttons

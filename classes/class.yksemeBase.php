@@ -65,11 +65,14 @@ if(!class_exists("yksemeBase")) {
 					/* 
 						Conditionally Include the MailChimp Class File 
 					*/
-					if ( $this->optionVal['ssl_verify_peer'] == 'true' ) {
-						require_once YKSEME_PATH.'classes/MCAPI_2.0.class.php';
-					} else {
-						require_once YKSEME_PATH.'classes/MCAPI_2.0.class.verify_false.php';
+					if( !class_exists("Mailchimp") ) {
+						if ( $this->optionVal['ssl_verify_peer'] == 'true' ) {
+							require_once YKSEME_PATH.'classes/MCAPI_2.0.class.php';
+						} else {
+							require_once YKSEME_PATH.'classes/MCAPI_2.0.class.verify_false.php';
+						}
 					}
+					
 					/*
 					* add our new ssl_verify_peer debug option, if it doesn't already exist
 					* @since v5.2
@@ -77,6 +80,16 @@ if(!class_exists("yksemeBase")) {
 					if ( !isset( $this->optionVal['ssl_verify_peer'] ) ) {
 						$options = get_option( YKSEME_OPTION );
 						$options['ssl_verify_peer'] = 'true';
+						update_option( YKSEME_OPTION , $options );
+					}
+					
+					/*
+					* add our new hide 'required text' option, if it doesn't already exist
+					* @since v5.3
+					*/
+					if ( !isset( $this->optionVal['yks-mailchimp-required-text'] ) ) {
+						$options = get_option( YKSEME_OPTION );
+						$options['yks-mailchimp-required-text'] = '0';
 						update_option( YKSEME_OPTION , $options );
 					}
 					
@@ -113,6 +126,7 @@ if(!class_exists("yksemeBase")) {
 						'yks-mailchimp-optIn-default-list' => 'select_list',
 						'yks-mailchimp-optin-checkbox-text'	=> 'Add me to the ' . $blog_title . ' mailing list',
 						'recaptcha-setting' => '0',
+						'yks-mailchimp-required-text' => '0',
 						'recaptcha-api-key' => '',
 						'recaptcha-private-api-key' => '',
 						'ssl_verify_peer' => 'true',
@@ -323,6 +337,7 @@ if(!class_exists("yksemeBase")) {
 								$this->optionVal['yks-mailchimp-optIn-default-list'] = isset($fd['yks-mailchimp-optIn-default-list']) ? $fd['yks-mailchimp-optIn-default-list'] : null; // if its set, else set to null <- fixes save form settings bug
 								$this->optionVal['yks-mailchimp-optin-checkbox-text'] = stripslashes($fd['yks-mailchimp-optin-checkbox-text']);
 								$this->optionVal['yks-mailchimp-jquery-datepicker'] = isset( $fd['yks-mailchimp-jquery-datepicker'] ) ? '1' : '';
+								$this->optionVal['yks-mailchimp-required-text'] = $fd['yks-mailchimp-required-text'];
 								update_option('api_validation', 'valid_api_key');
 								return update_option( YKSEME_OPTION , $this->optionVal );
 							} else {
@@ -335,6 +350,7 @@ if(!class_exists("yksemeBase")) {
 								$this->optionVal['yks-mailchimp-optIn-default-list'] = isset($fd['yks-mailchimp-optIn-default-list']) ? $fd['yks-mailchimp-optIn-default-list'] : null; // if its set, else set to null <- fixes save form settings bug
 								$this->optionVal['yks-mailchimp-optin-checkbox-text'] = stripslashes($fd['yks-mailchimp-optin-checkbox-text']);
 								$this->optionVal['yks-mailchimp-jquery-datepicker'] = isset( $fd['yks-mailchimp-jquery-datepicker'] ) ? '1' : '';
+								$this->optionVal['yks-mailchimp-required-text'] = $fd['yks-mailchimp-required-text'];
 								update_option('api_validation', 'valid_api_key');
 								// if the new API key differs from the old one
 								// we need to unset the previously set up widgets				
@@ -394,7 +410,7 @@ if(!class_exists("yksemeBase")) {
 				
 					if( $lid == '' || isset( $this->optionVal['lists'][$lid] ) ) return false;
 					
-					$api	= new wpyksMCAPI($this->optionVal['api-key']);
+					$api	= new Mailchimp($this->optionVal['api-key']);
 					
 					$mv = $api->call('lists/merge-vars', array(
 								'id' => array($lid)
@@ -428,7 +444,7 @@ if(!class_exists("yksemeBase")) {
 			// Send request to MailChimp API to retreive interest groups associated to a specific list
 			public function getInterestGroups( $list_id ) {
 					// store our API key
-					$api = new wpyksMCAPI($this->optionVal['api-key']);
+					$api = new Mailchimp($this->optionVal['api-key']);
 					
 					// setup switch for div/table
 					$yikes_mc_flavor = $this->optionVal['flavor'];
@@ -467,7 +483,7 @@ if(!class_exists("yksemeBase")) {
 												echo '<tr class="yks_mc_table_interest_group_holder yks_mc_table_checkbox_holder">';
 													echo '<td class="yks_mc_table_td">';
 													// display the label
-													echo '<label class="prompt yks_table_label yks-mailchimpFormTableRowLabel yks-mailchimpFormTableRowLabel-required font-secondary label-text">'.$interest_group['name'].'</label>'; // display the interest group name from MailChimp
+													echo '<label class="prompt yks_table_label yks-mailchimpFormTableRowLabel yks-mailchimpFormTableRowLabel-required font-secondary label-text">'.stripslashes( $interest_group['name'] ).'</label>'; // display the interest group name from MailChimp
 													foreach ($interest_group['groups'] as $singleGrouping) {
 														$checkboxValue = $interest_group['name'];
 														echo '<label class="yks_mc_interest_group_label" for="'.$singleGrouping['name'].'"><input type="checkbox" id="'.$singleGrouping['name'].'" class="yikes_mc_interest_group_checkbox" name="'.$interest_group['form_field'].'-'.$interest_group['id'].'[]" value="'.$singleGrouping['name'].'"><span>'.$singleGrouping['name'].'</span></label>';
@@ -481,10 +497,10 @@ if(!class_exists("yksemeBase")) {
 												echo '<tr class="yks_mc_table_interest_group_holder yks_mc_table_radio_holder">';
 													echo '<td class="yks_mc_interest_radio_button_holder yks_mc_table_td">';
 														// display the label
-														echo $user_set_interest_group_label;
+														echo stripslashes($user_set_interest_group_label);
 														foreach ($interest_group['groups'] as $singleGrouping) {
 															$radioValue = $interest_group['name'];
-															echo '<label class="yks_mc_interest_group_label" for="'.$singleGrouping['name'].'"><input type="radio" id="'.$singleGrouping['name'].'" class="yikes_mc_interest_group_radio" name="'.$interest_group['form_field'].'-'.$interest_group['id'].'" value="'.$singleGrouping['name'].'"><span>'.$singleGrouping['name'].'</span></label>';
+															echo '<label class="yks_mc_interest_group_label" for="'.$singleGrouping['name'].'"><input type="radio" id="'.$singleGrouping['name'].'" class="yikes_mc_interest_group_radio" name="'.$interest_group['form_field'].'-'.$interest_group['id'].'" value="'.$singleGrouping['name'].'"><span>'.stripslashes($singleGrouping['name']).'</span></label>';
 														}
 													echo '</td>';	
 												echo '</tr>';	
@@ -495,7 +511,7 @@ if(!class_exists("yksemeBase")) {
 												echo '<tr class="yks_mc_table_interest_group_holder yks_mc_table_dropdown_holder">';	
 													echo '<td class="yks_mc_table_dropdown_interest_group_holder yks_mc_table_td">';
 														// display the label
-														echo $user_set_interest_group_label;
+														echo stripslashes($user_set_interest_group_label);
 														echo '<select id="yks_mc_interest_dropdown"  name="'.$interest_group['form_field'].'-'.$interest_group['id'].'" class="yks_mc_interest_group_select">';
 															foreach ($interest_group['groups'] as $singleGrouping) {
 																$dropDownValue = $interest_group['name'];
@@ -549,7 +565,7 @@ if(!class_exists("yksemeBase")) {
 												echo '<div class="yks_mc_interest_group_holder">';
 													foreach ($interest_group['groups'] as $singleGrouping) {
 														$checkboxValue = $interest_group['name'];
-														echo '<label class="yks_mc_interest_group_label" for="'.$singleGrouping['name'].'"><input type="checkbox" id="'.$singleGrouping['name'].'" class="yikes_mc_interest_group_checkbox" name="'.$interest_group['form_field'].'-'.$interest_group['id'].'[]" value="'.$singleGrouping['name'].'"><span></span>'.$singleGrouping['name'].'</label>';
+														echo '<label class="yks_mc_interest_group_label" for="'.$singleGrouping['name'].'"><input type="checkbox" id="'.$singleGrouping['name'].'" class="yikes_mc_interest_group_checkbox" name="'.$interest_group['form_field'].'-'.$interest_group['id'].'[]" value="'.$singleGrouping['name'].'"><span></span>'.stripslashes($singleGrouping['name']).'</label>';
 													}
 												echo '</div>';					
 												break; // break checkbox interest group type
@@ -558,9 +574,10 @@ if(!class_exists("yksemeBase")) {
 											case 'radio':
 												echo '<div class="yks_mc_interest_group_holder">';
 													echo '<div class="yks_mc_interest_radio_button_holder">';
+														echo stripslashes($user_set_interest_group_label);
 														foreach ($interest_group['groups'] as $singleGrouping) {
 															$radioValue = $interest_group['name'];
-															echo '<label class="yks_mc_interest_group_label" for="'.$singleGrouping['name'].'"><input type="radio" id="'.$singleGrouping['name'].'" class="yikes_mc_interest_group_radio" name="'.$interest_group['form_field'].'-'.$interest_group['id'].'" value="'.$singleGrouping['name'].'"><span></span>'.$singleGrouping['name'].'</label>';
+															echo '<label class="yks_mc_interest_group_label" for="'.$singleGrouping['name'].'"><input type="radio" id="'.$singleGrouping['name'].'" class="yikes_mc_interest_group_radio" name="'.$interest_group['form_field'].'-'.$interest_group['id'].'" value="'.$singleGrouping['name'].'"><span></span>'.stripslashes($singleGrouping['name']).'</label>';
 														}
 													echo '</div>';	
 												echo '</div>';	
@@ -581,6 +598,8 @@ if(!class_exists("yksemeBase")) {
 											// hidden dropdown interest groups
 											case 'hidden':	
 												echo '<div class="yks_mc_interest_group_holder" style="display:none;">';	
+													// display the label
+													echo stripslashes($user_set_interest_group_label);
 													echo '<select id="yks_mc_interest_dropdown"  name="'.$interest_group['form_field'].'-'.$interest_group['id'].'" class="yks_mc_interest_group_select">';
 														foreach ($interest_group['groups'] as $singleGrouping) {
 															$dropDownValue = $interest_group['name'];
@@ -609,7 +628,7 @@ if(!class_exists("yksemeBase")) {
 				
 			// Send a call to the MailChimp API to retreive all lists on the account		
 			public function getLists() {
-					$api	= new wpyksMCAPI($this->optionVal['api-key']);
+					$api	= new Mailchimp($this->optionVal['api-key']);
 					$lists	= $this->getListsData();
 					$listArr	= (!isset($listArr) ? $this->optionVal['lists'] : $listArr);
 					$theusedlist = array();
@@ -643,7 +662,7 @@ if(!class_exists("yksemeBase")) {
 			// Get lists for the settings page
 			// Used for default subscription list		
 			public function getOptionsLists() {
-					$api = new wpyksMCAPI($this->optionVal['api-key']);
+					$api = new Mailchimp($this->optionVal['api-key']);
 					$lists = $this->getListsData();
 					$listArr = (!isset($listArr) ? $this->optionVal['lists'] : $listArr);
 					if( $lists ) {
@@ -659,7 +678,7 @@ if(!class_exists("yksemeBase")) {
 		
 			// Send a call to MailChimp API to get the data associated with a specific list (in this instance: the fields, and the subscriber count)	
 			public function getListsData() {
-					$api	= new wpyksMCAPI($this->optionVal['api-key']);
+					$api	= new Mailchimp($this->optionVal['api-key']);
 					$lists	= $api->call('lists/list', array( 'limit' => 100 ));
 					if( $lists ) {
 						foreach ( $lists['data'] as $list ) {
@@ -678,7 +697,7 @@ if(!class_exists("yksemeBase")) {
 			 @since v5.2
 			*/
 			public function getInterstGroupInfo( $list_id ) {
-					$api = new wpyksMCAPI($this->optionVal['api-key']);
+					$api = new Mailchimp($this->optionVal['api-key']);
 					try {
 						$interest_groups = $api->call('lists/interest-groupings', array( 'id' => $list_id ));
 						return $interest_groups;
@@ -752,7 +771,7 @@ if(!class_exists("yksemeBase")) {
 				
 			// Send a call to MailChimp API to get the data associated with a specific list (in this instance: the fields, and the subscriber count)	
 			public function getListsForStats() {
-					$api	= new wpyksMCAPI($this->optionVal['api-key']);
+					$api	= new Mailchimp($this->optionVal['api-key']);
 					$lists	= $this->getListsData();
 					$listArr	= (!isset($listArr) ? $this->optionVal['lists'] : $listArr);
 					$theusedlist = array();
@@ -825,7 +844,11 @@ if(!class_exists("yksemeBase")) {
 								$this->optionVal['lists'][$fd['yks-mailchimp-unique-id']]['fields'][$k]['custom-field-class-'.$fd['yks-mailchimp-unique-id'].'-'.$num] = $fd['custom-field-class-'.$fd['yks-mailchimp-unique-id'].'-'.$num];
 								$num++;
 									
+								// redirect checkbox
 								$this->optionVal['lists'][$fd['yks-mailchimp-unique-id']]['fields'][$k]['yks_mailchimp_redirect_'.$fd['yks-mailchimp-unique-id']] = (isset($fd['yks_mailchimp_redirect_'.$fd['yks-mailchimp-unique-id']]) ? '1' : '');
+								
+								// send welcome checkbox
+								$this->optionVal['lists'][$fd['yks-mailchimp-unique-id']]['fields'][$k]['yks_mailchimp_send_welcome_'.$fd['yks-mailchimp-unique-id']] = (isset($fd['yks_mailchimp_send_welcome_'.$fd['yks-mailchimp-unique-id']]) ? '1' : '');
 								
 								if(isset($fd['yks_mailchimp_redirect_'.$fd['yks-mailchimp-unique-id']])) {
 									$this->optionVal['lists'][$fd['yks-mailchimp-unique-id']]['fields'][$k]['page_id_'.$fd['yks-mailchimp-unique-id']] = $fd['page_id_'.$fd['yks-mailchimp-unique-id']];
@@ -908,7 +931,7 @@ if(!class_exists("yksemeBase")) {
 						// create our variables
 						$lid	= $this->optionVal['lists'][$i]['list-id'];
 						$name	= $this->optionVal['lists'][$i]['name'];
-						$api	= new wpyksMCAPI($this->optionVal['api-key']);
+						$api	= new Mailchimp($this->optionVal['api-key']);
 						$mv	= $api->call('lists/merge-vars', array(
 								'id' => array( $lid )
 							)
@@ -935,7 +958,7 @@ if(!class_exists("yksemeBase")) {
 						// create our variables
 						$lid	= $this->optionVal['lists'][$i]['list-id'];
 						$name	= $this->optionVal['lists'][$i]['name'];
-						$api	= new wpyksMCAPI($this->optionVal['api-key']);
+						$api	= new Mailchimp($this->optionVal['api-key']);
 						$mv	= $api->call('lists/merge-vars', array(
 								'id' => array( $lid )
 							)
@@ -957,7 +980,7 @@ if(!class_exists("yksemeBase")) {
 			// Make a call to the MailChimp API to retrieve all subscribers to a given list
 			// Runs when the user clicks 'view' next to the subscriber count on the list page
 			public function listAllSubscribers( $lid, $list_name ) {
-					$api	= new wpyksMCAPI($this->optionVal['api-key']);
+					$api	= new Mailchimp($this->optionVal['api-key']);
 					$subscribers_list	= $api->call('lists/members', 
 						array(
 							'id'	=>	$lid,
@@ -1005,7 +1028,7 @@ if(!class_exists("yksemeBase")) {
 			// Make a call to the MailChimp API to retrieve information about a specific user
 			// Runs when the user clicks a subscribers email address
 			public function getSubscriberInfo($lid, $email) {
-					$api = new wpyksMCAPI($this->optionVal['api-key']);
+					$api = new Mailchimp($this->optionVal['api-key']);
 					$subscriber_info = $api->call('lists/member-info', 
 						array(
 							'id' => $lid,
@@ -1171,7 +1194,7 @@ if(!class_exists("yksemeBase")) {
 			// Make a call to the MailChimp API to remove a specified user from a given list
 			// Runs when the user clicks the 'X' next to a subscriber when viewing all subscribers on the lists page
 			public function yks_removeSubscriber($lid, $user_email) {
-					$api	= new wpyksMCAPI($this->optionVal['api-key']);
+					$api	= new Mailchimp($this->optionVal['api-key']);
 					$subscribers_list	= $api->call('lists/unsubscribe', array(
 						'id'	=>	$lid,
 						'email'	=>	array(	
@@ -1296,16 +1319,16 @@ if(!class_exists("yksemeBase")) {
 			 ****************************************************************************************************/
 			public function addAdministrationMenu() {
 					// Top Level Menu
-					add_menu_page( __('MailChimp Forms','yikes-inc-easy-mailchimp-extender'), 'MailChimp Forms', 'manage_options', 'yks-mailchimp-form', array(&$this, 'generatePageOptions'), 'dashicons-welcome-write-blog', 400);
+					add_menu_page( __('MailChimp Forms','yikes-inc-easy-mailchimp-extender'), 'MailChimp Forms', apply_filters( 'yks_mailchimp_user_role' , 'manage_options' ), 'yks-mailchimp-form', array(&$this, 'generatePageOptions'), 'dashicons-welcome-write-blog', 400);
 					// Sub Items
-					add_submenu_page('yks-mailchimp-form', __('MailChimp Forms','yikes-inc-easy-mailchimp-extender'), __('MailChimp Settings','yikes-inc-easy-mailchimp-extender'), 'manage_options', 'yks-mailchimp-form', array(&$this, 'generatePageOptions'));
+					add_submenu_page('yks-mailchimp-form', __('MailChimp Forms','yikes-inc-easy-mailchimp-extender'), __('MailChimp Settings','yikes-inc-easy-mailchimp-extender'), apply_filters( 'yks_mailchimp_user_role' , 'manage_options' ), 'yks-mailchimp-form', array(&$this, 'generatePageOptions'));
 					// if the user has entered a VALID API key
 					if ( get_option('api_validation') == 'valid_api_key') {
-						add_submenu_page('yks-mailchimp-form', __('My MailChimp','yikes-inc-easy-mailchimp-extender'), __('My MailChimp','yikes-inc-easy-mailchimp-extender'), 'manage_options', 'yks-mailchimp-my-mailchimp', array(&$this, 'generateUserMailChimpPage'));
+						add_submenu_page('yks-mailchimp-form', __('My MailChimp','yikes-inc-easy-mailchimp-extender'), __('My MailChimp','yikes-inc-easy-mailchimp-extender'), apply_filters( 'yks_mailchimp_user_role' , 'manage_options' ), 'yks-mailchimp-my-mailchimp', array(&$this, 'generateUserMailChimpPage'));
 					}
-					add_submenu_page('yks-mailchimp-form', __('Manage List Forms','yikes-inc-easy-mailchimp-extender'), __('Manage List Forms','yikes-inc-easy-mailchimp-extender'), 'manage_options', 'yks-mailchimp-form-lists', array(&$this, 'generatePageLists'));
-					add_submenu_page('yks-mailchimp-form', __('About YIKES, Inc.','yikes-inc-easy-mailchimp-extender'), __('About YIKES, Inc.','yikes-inc-easy-mailchimp-extender'), 'manage_options', 'yks-mailchimp-about-yikes', array(&$this, 'generatePageAboutYikes'));
-					add_submenu_page('options.php', __('Welcome','yikes-inc-easy-mailchimp-extender'), __('Welcome','yikes-inc-easy-mailchimp-extender'), 'manage_options', 'yks-mailchimp-welcome', array(&$this, 'generateWelcomePage'));
+					add_submenu_page('yks-mailchimp-form', __('Manage List Forms','yikes-inc-easy-mailchimp-extender'), __('Manage List Forms','yikes-inc-easy-mailchimp-extender'), apply_filters( 'yks_mailchimp_user_role' , 'manage_options' ), 'yks-mailchimp-form-lists', array(&$this, 'generatePageLists'));
+					add_submenu_page('yks-mailchimp-form', __('About YIKES, Inc.','yikes-inc-easy-mailchimp-extender'), __('About YIKES, Inc.','yikes-inc-easy-mailchimp-extender'), apply_filters( 'yks_mailchimp_user_role' , 'manage_options' ), 'yks-mailchimp-about-yikes', array(&$this, 'generatePageAboutYikes'));
+					add_submenu_page('options.php', __('Welcome','yikes-inc-easy-mailchimp-extender'), __('Welcome','yikes-inc-easy-mailchimp-extender'), apply_filters( 'yks_mailchimp_user_role' , 'manage_options' ), 'yks-mailchimp-welcome', array(&$this, 'generateWelcomePage'));
 				} // end addAdministrationMenu();
 
 
@@ -1357,6 +1380,7 @@ if(!class_exists("yksemeBase")) {
 					$this->optionVal['recaptcha-api-key']	= '';
 					$this->optionVal['recaptcha-private-api-key']	= '';
 					$this->optionVal['yks-mailchimp-jquery-datepicker']	= '';
+					$this->optionVal['yks-mailchimp-required-text']	= '';
 					$this->optionVal['version'] = YKSEME_VERSION_CURRENT;
 					$this->optionVal['ssl_verify_peer'] = 'true';
 					update_option('api_validation' , 'invalid_api_key');
@@ -1382,7 +1406,7 @@ if(!class_exists("yksemeBase")) {
 						$apiKey = $this->yikes_mc_decryptIt($_POST['api_key']); // api key
 						$apiKey_explosion = explode( "-" , $apiKey);
 						$dataCenter = $apiKey_explosion[0]; // data center (ie: us3)	
-						$api	= new wpyksMCAPI($apiKey);
+						$api	= new Mailchimp($apiKey);
 						// try the call, catch any errors that may be thrown
 						try {
 							$resp = $api->call('helper/ping', array('apikey' => $apiKey));
@@ -1403,7 +1427,7 @@ if(!class_exists("yksemeBase")) {
 						$decryped_api_key = $this->yikes_mc_decryptIt($apiKey); // api key
 						$apiKey_explosion = explode( "-" , $decryped_api_key);
 						$dataCenter = $apiKey_explosion[0]; // data center (ie: us3)	
-						$api	= new wpyksMCAPI($decryped_api_key);
+						$api	= new Mailchimp($decryped_api_key);
 						// try the call, catch any errors that may be thrown
 						try {
 							$resp = $api->call('helper/ping', array('apikey' => $decryped_api_key));
@@ -1424,7 +1448,7 @@ if(!class_exists("yksemeBase")) {
 			public function getUserProfileDetails() {		
 					// Create and store our variables to pass to MailChimp
 					$apiKey = $_POST['api_key']; // api key
-					$api	= new wpyksMCAPI($apiKey);
+					$api	= new Mailchimp($apiKey);
 					// try the call, catch any errors that may be thrown
 					try {
 						$profile_response = $api->call('users/profile', array('apikey' => $apiKey));
@@ -1461,7 +1485,7 @@ if(!class_exists("yksemeBase")) {
 				@since v5.2
 			*/
 			public function sendUpdateProfileEmail( $user_email , $list_id ) {
-				$api = new wpyksMCAPI($this->optionVal['api-key']);
+				$api = new Mailchimp($this->optionVal['api-key']);
 				$explode_key = explode( '-' , $this->optionVal['api-key'] );
 				$data_center = $explode_key[1];
 				$full_site_url = get_bloginfo('url');
@@ -1525,7 +1549,7 @@ if(!class_exists("yksemeBase")) {
 			public function getMailChimpChatter() {		
 					// Create and store our variables to pass to MailChimp
 					$apiKey = $this->optionVal['api-key']; // api key
-					$api	= new wpyksMCAPI($apiKey);
+					$api	= new Mailchimp($apiKey);
 					// try the call, catch any errors that may be thrown
 					try {
 						$resp = $api->call('helper/chimp-chatter', array('apikey' => $apiKey));
@@ -1549,7 +1573,7 @@ if(!class_exists("yksemeBase")) {
 			public function getMailChimpChatterForWidget() {		
 					// Create and store our variables to pass to MailChimp
 					$apiKey = $this->optionVal['api-key']; // api key
-					$api	= new wpyksMCAPI($apiKey);
+					$api	= new Mailchimp($apiKey);
 					// try the call, catch any errors that may be thrown
 					try {
 						$resp = $api->call('helper/chimp-chatter', array('apikey' => $apiKey));
@@ -1573,7 +1597,7 @@ if(!class_exists("yksemeBase")) {
 					// Create and store our variables to pass to MailChimp
 					$apiKey = $_POST['api_key']; // api key
 					if ( isset($_POST['list_id']) ) { $listID = $_POST['list_id']; } else { $listID = NULL; }
-					$api	= new wpyksMCAPI($apiKey);
+					$api	= new Mailchimp($apiKey);
 					// try the call, catch any errors that may be thrown
 					try {
 						$resp = $api->call('lists/growth-history', array( 'apikey' => $apiKey , 'id' => $listID ));
@@ -1602,7 +1626,7 @@ if(!class_exists("yksemeBase")) {
 			public function getCapmpaignData() {		
 					// Create and store our variables to pass to MailChimp
 					$apiKey = $_POST['api_key']; // api key
-					$api	= new wpyksMCAPI($apiKey);
+					$api	= new Mailchimp($apiKey);
 					// try the call, catch any errors that may be thrown
 					try {
 						$resp = $api->call('campaigns/list', array( 'apikey' => $apiKey , 'limit' => 1000 ));
@@ -1640,7 +1664,7 @@ if(!class_exists("yksemeBase")) {
 			public function getSpecificCapmpaignData() {		
 					// Create and store our variables to pass to MailChimp
 					$apiKey = $_POST['api_key']; // api key
-					$api	= new wpyksMCAPI($apiKey);
+					$api	= new Mailchimp($apiKey);
 					$campaign_id = $_POST['campaign_id'];
 					$campaign_title = $_POST['campaign_title'];
 					$campaign_email_subject = $_POST['campaign_subject'];
@@ -1670,7 +1694,7 @@ if(!class_exists("yksemeBase")) {
 			public function getCampaignEmailToTable() {		
 					// Create and store our variables to pass to MailChimp
 					$apiKey = $_POST['api_key']; // api key
-					$api	= new wpyksMCAPI($apiKey);
+					$api	= new Mailchimp($apiKey);
 					$campaign_id = $_POST['campaign_id'];
 					// try the call, catch any errors that may be thrown
 					try {
@@ -1770,7 +1794,7 @@ if(!class_exists("yksemeBase")) {
 			public function getGeoDataForCampaignOpenLinks() {		
 					// Create and store our variables to pass to MailChimp
 					$apiKey = $_POST['api_key']; // api key
-					$api	= new wpyksMCAPI($apiKey);
+					$api	= new Mailchimp($apiKey);
 					$campaign_id = $_POST['campaign_id'];
 					// try the call, catch any errors that may be thrown
 					try {
@@ -1825,7 +1849,7 @@ if(!class_exists("yksemeBase")) {
 			public function getCampaignLinkStats() {		
 					// Create and store our variables to pass to MailChimp
 					$apiKey = $_POST['api_key']; // api key
-					$api	= new wpyksMCAPI($apiKey);
+					$api	= new Mailchimp($apiKey);
 					$campaign_id = $_POST['campaign_id'];
 					// try the call, catch any errors that may be thrown
 					try {
@@ -1851,7 +1875,7 @@ if(!class_exists("yksemeBase")) {
 			public function getCampaignOpenedData() {		
 					// Create and store our variables to pass to MailChimp
 					$apiKey = $_POST['api_key']; // api key
-					$api	= new wpyksMCAPI($apiKey);
+					$api	= new Mailchimp($apiKey);
 					$campaign_id = $_POST['campaign_id'];
 					// try the call, catch any errors that may be thrown
 					try {
@@ -1963,7 +1987,7 @@ if(!class_exists("yksemeBase")) {
 			public function getCampaignBouncedEmailData() {		
 					// Create and store our variables to pass to MailChimp
 					$apiKey = $_POST['api_key']; // api key
-					$api	= new wpyksMCAPI($apiKey);
+					$api	= new Mailchimp($apiKey);
 					$campaign_id = $_POST['campaign_id'];
 					// try the call, catch any errors that may be thrown
 					try {
@@ -2069,7 +2093,7 @@ if(!class_exists("yksemeBase")) {
 			public function getCampaignUnsubscribeData() {		
 					// Create and store our variables to pass to MailChimp
 					$apiKey = $_POST['api_key']; // api key
-					$api	= new wpyksMCAPI($apiKey);
+					$api	= new Mailchimp($apiKey);
 					$campaign_id = $_POST['campaign_id'];
 					// try the call, catch any errors that may be thrown
 					try {
@@ -2224,7 +2248,7 @@ if(!class_exists("yksemeBase")) {
 									// Create and store the variables needed to add a new subscriber
 									$email	= false;
 									$lid			= $fd['yks-mailchimp-list-id'];
-									$api		= new wpyksMCAPI($this->optionVal['api-key']);
+									$api		= new Mailchimp($this->optionVal['api-key']);
 									$mv 		= array();
 									$optin	= $this->optionVal['optin'];
 
@@ -2313,6 +2337,12 @@ if(!class_exists("yksemeBase")) {
 										
 										$form_data = apply_filters( 'yikes_mc_get_form_data_'.$lid, $mv ); 
 										
+										// setup our welcome email variable
+										if( isset( $this->optionVal['lists'][$lid]['fields'][$lid.'-email']['yks_mailchimp_send_welcome_'.$lid] ) && $this->optionVal['lists'][$lid]['fields'][$lid.'-email']['yks_mailchimp_send_welcome_'.$lid] == '1' ) {
+											$welcome = false;
+										} else {
+											$welcome = true;
+										}
 										
 										// try adding subscriber, catch any error thrown
 										try {
@@ -2321,6 +2351,7 @@ if(!class_exists("yksemeBase")) {
 												  'email'             => array( 'email' => $email ), // user email
 												  'merge_vars'        => $form_data, // merge variables (ie: fields and interest groups)
 												  'double_optin'	=> $optin, // double optin value (retreived from the settings page)
+												  'send_welcome' => $welcome,
 												  'update_existing' => $update_existing
 											));
 											return "done";
@@ -2344,7 +2375,7 @@ if(!class_exists("yksemeBase")) {
 							// Create and store the variables needed to add a new subscriber
 							$email	= false;
 							$lid			= $fd['yks-mailchimp-list-id'];
-							$api		= new wpyksMCAPI($this->optionVal['api-key']);
+							$api		= new Mailchimp($this->optionVal['api-key']);
 							$mv 		= array();
 							$optin	= $this->optionVal['optin'];
 
@@ -2432,6 +2463,12 @@ if(!class_exists("yksemeBase")) {
 								$form_data = apply_filters( 'yikes_mc_get_form_data' , $mv ); 
 								$specific_form_data = apply_filters( 'yikes_mc_get_form_data_'.$lid, $lid, $mv ); 
 								
+								// setup our welcome email variable
+								if( isset( $this->optionVal['lists'][$lid]['fields'][$lid.'-email']['yks_mailchimp_send_welcome_'.$lid] ) && $this->optionVal['lists'][$lid]['fields'][$lid.'-email']['yks_mailchimp_send_welcome_'.$lid] == '1' ) {
+									$welcome = false;
+								} else {
+									$welcome = true;
+								}
 								
 								// try adding subscriber, catch any error thrown
 								try {
@@ -2440,20 +2477,20 @@ if(!class_exists("yksemeBase")) {
 										  'email'             => array( 'email' => $email ), // user email
 										  'merge_vars'        => $form_data, // merge variables (ie: fields and interest groups)
 										  'double_optin'	=> $optin, // double optin value (retreived from the settings page)
-										  'send_welcome' => true,
+										  'send_welcome' => $welcome,
 										  'update_existing' => $update_existing
 									));
 									return "done";
 								} catch( Exception $e ) { // catch any errors returned from MailChimp
 									$errorCode = $e->getCode();
-											if ( $errorCode = '214' ) {
-												$errorMessage = $e->getMessage();
-												return json_encode( array( 'errorCode' => $errorCode , 'errorResponse' => apply_filters( 'yikes_mc_user_already_subscribed' , $errorMessage , $email ) ) );
-												die();
-											} else { 
-												echo '<strong>'.$e->getMessage().'</strong>';
-												die();
-											}
+										if ( $errorCode = '214' ) {
+											$errorMessage = $e->getMessage();
+											return json_encode( array( 'errorCode' => $errorCode , 'errorResponse' => apply_filters( 'yikes_mc_user_already_subscribed' , $errorMessage , $email ) ) );
+											die();
+										} else { 
+											echo '<strong>'.$e->getMessage().'</strong>';
+											die();
+										}
 								}
 							}
 
@@ -2683,7 +2720,7 @@ if(!class_exists("yksemeBase")) {
 							case 'website':
 							case 'imageurl':
 							// custom placeholder value goes here
-								$o	.= '<input type="text" name="'.$field['name'].'" placeholder="'.$placeholder.'" class="'.$field['name'].($field['require'] == 1 ? ' yks-require' : '') . ' ' . $custom_class . $class_title .'" id="'.$field['id'].'" value="" />';
+								$o	.= '<input type="text" name="'.$field['name'].'" placeholder="'.$placeholder.'" class="'.$field['name'].($field['require'] == 1 ? ' yks-require' : '') . ' ' . $custom_class . ' ' . $class_title .'" id="'.$field['id'].'" value="" />';
 								break;
 								
 							case 'text':				
@@ -2734,34 +2771,38 @@ if(!class_exists("yksemeBase")) {
 										}
 									
 								}	
-								$o	.= '<input type="text" placeholder="'.$placeholder.'" name="'.$field['name'].'" class="'.$field['name'].($field['require'] == 1 ? ' yks-require' : '') . ' ' . $custom_class . $class_title .'" id="'.$field['id'].'" value="'.$field['default'].'" />';
+								$o	.= '<input type="text" placeholder="'.$placeholder.'" name="'.$field['name'].'" class="'.$field['name'].($field['require'] == 1 ? ' yks-require' : '') . ' ' . $custom_class . ' ' . $class_title .'" id="'.$field['id'].'" value="'.$field['default'].'" />';
 								break;
 								
 							case 'dropdown':
-								$o	.= '<select name="'.$field['name'].'" class="'.$field['name'].($field['require'] == 1 ? ' yks-require' : ''). ' ' . $custom_class . $class_title .'" id="'.$field['id'].'">';
+								$o	.= '<select name="'.$field['name'].'" class="'.$field['name'].($field['require'] == 1 ? ' yks-require' : ''). ' ' . $custom_class . ' ' . $class_title .'" id="'.$field['id'].'">';
 									if(count($field['choices']) > 0) : foreach($field['choices'] as $ok => $ov) :
 											$o	.= '<option value="'.htmlentities($ov, ENT_QUOTES).'">'.$ov.'</option>';
 									endforeach; endif;
 								$o	.= '</select>';
 								break;
+								
 							case 'address':
-								$o	.= '<input type="text" placeholder="'.$placeholder.'" name="'.$field['name'].'" class="'.$field['name'].($field['require'] == 1 ? ' yks-require' : ''). ' ' . $custom_class . $class_title .'" id="'.$field['id'].'" value="" /><span class="yks-mailchimp-form-tooltip">Street Address</span>';
-								$o	.= '<input type="text" name="'.$field['name'].'-add2" class="'.$field['name'].'-add2'.($field['require'] == 1 ? ' yks-require' : ''). ' ' . $custom_class . $class_title .'" id="'.$field['id'].'-add2" value="" /><span class="yks-mailchimp-form-tooltip">Apt/Suite</span>';
-								$o	.= '<input type="text" name="'.$field['name'].'-city" class="'.$field['name'].'-city'.($field['require'] == 1 ? ' yks-require' : ''). ' ' . $custom_class . $class_title .'" id="'.$field['id'].'-city" value="" /><span class="yks-mailchimp-form-tooltip">City</span>';
-								$o	.= '<input type="text" name="'.$field['name'].'-state" class="'.$field['name'].'-state'.($field['require'] == 1 ? ' yks-require' : ''). ' ' . $custom_class . $class_title .'" id="'.$field['id'].'-state" value="" /><span class="yks-mailchimp-form-tooltip">State</span>';
-								$o	.= '<input type="text" name="'.$field['name'].'-zip" class="'.$field['name'].'-zip'.($field['require'] == 1 ? ' yks-require' : ''). ' ' . $custom_class . $class_title .'" id="'.$field['id'].'-zip" value="" /><span class="yks-mailchimp-form-tooltip">Zip</span>';
+								$o	.= '<input type="text" placeholder="'.$placeholder.'" name="'.$field['name'].'" class="'.$field['name'].($field['require'] == 1 ? ' yks-require' : ''). ' ' . $custom_class . ' ' . $class_title .'" id="'.$field['id'].'" value="" /><span class="yks-mailchimp-form-tooltip">Street Address</span>';
+								$o	.= '<input type="text" name="'.$field['name'].'-add2" class="'.$field['name'].'-add2'.($field['require'] == 1 ? ' yks-require' : ''). ' ' . $custom_class . ' ' . $class_title .'" id="'.$field['id'].'-add2" value="" /><span class="yks-mailchimp-form-tooltip">Apt/Suite</span>';
+								$o	.= '<input type="text" name="'.$field['name'].'-city" class="'.$field['name'].'-city'.($field['require'] == 1 ? ' yks-require' : ''). ' ' . $custom_class . ' ' . $class_title .'" id="'.$field['id'].'-city" value="" /><span class="yks-mailchimp-form-tooltip">City</span>';
+								$o	.= '<input type="text" name="'.$field['name'].'-state" class="'.$field['name'].'-state'.($field['require'] == 1 ? ' yks-require' : ''). ' ' . $custom_class . ' ' . $class_title .'" id="'.$field['id'].'-state" value="" /><span class="yks-mailchimp-form-tooltip">State</span>';
+								$o	.= '<input type="text" name="'.$field['name'].'-zip" class="'.$field['name'].'-zip'.($field['require'] == 1 ? ' yks-require' : ''). ' ' . $custom_class . ' ' . $class_title .'" id="'.$field['id'].'-zip" value="" /><span class="yks-mailchimp-form-tooltip">Zip</span>';
 								break;
+								
 							case 'radio':
 								if(count($field['choices']) > 0) : $ct=0; foreach($field['choices'] as $ok => $ov) :
 									$ct++;
-									$o	.= '<label for="'.$field['id'].'-'.$ok.'"><input type="radio" name="'.$field['name'].'" class="'.$field['name'].($field['require'] == 1 ? ' yks-require' : ''). ' ' . $custom_class . $class_title .'" id="'.$field['id'].'-'.$ok.'" value="'.htmlentities($ov, ENT_QUOTES).'" />'.$ov.'</label>';
-									if($ct < count($field['choices']))
-										$o	.= '<br />';
+									$o	.= '<label class="yks_mc_interest_group_label" for="'.$field['id'].'-'.$ok.'">
+													<input type="radio" name="'.$field['name'].'" class="'.$field['name'].($field['require'] == 1 ? ' yks-require' : ''). ' ' . $custom_class . ' ' . $class_title .' yikes_mc_interest_group_checkbox" id="'.$field['id'].'-'.$ok.'" value="'.htmlentities($ov, ENT_QUOTES).'" />
+													<span>'.$ov.'</span>
+												</label>';;
 								endforeach; endif;
 								break;
+								
 							case 'date':
 							case 'birthday':
-								$o	.= '<input placeholder="'.$placeholder.'" type="text" name="'.$field['name'].'" class="'.$field['name'].' yks-field-type-date'.($field['require'] == 1 ? ' yks-require' : ''). ' ' . $custom_class . $class_title .'" id="'.$field['id'].'" value="" />';
+								$o	.= '<input placeholder="'.$placeholder.'" type="text" name="'.$field['name'].'" class="'.$field['name'].' yks-field-type-date'.($field['require'] == 1 ? ' yks-require' : ''). ' ' . $custom_class . ' ' . $class_title .'" id="'.$field['id'].'" value="" />';
 								break;
 						
 						}
@@ -3075,7 +3116,7 @@ if(!class_exists("yksemeBase")) {
 			Delete an interest group from a given list 
 			*/
 			public function deleteInterestGroupFromList($mc_list_id,$interest_group_id) {
-					$api	= new wpyksMCAPI($this->optionVal['api-key']);
+					$api	= new Mailchimp($this->optionVal['api-key']);
 					try {
 						$retval = $api->call('lists/interest-grouping-del', array(
 							'id' => $mc_list_id,
@@ -3101,7 +3142,7 @@ if(!class_exists("yksemeBase")) {
 			*/
 			public function createNewInterestGroup($p) {
 				
-					$api	= new wpyksMCAPI($this->optionVal['api-key']);
+					$api	= new Mailchimp($this->optionVal['api-key']);
 					parse_str( $p['form_data'], $formData );
 					$list_id	= $formData['mc-list-id'];
 					$grouping_name = $formData['add-interest-group-name'];
@@ -3135,7 +3176,7 @@ if(!class_exists("yksemeBase")) {
 			*/
 			public function updateInterestGroup( $mailchimp_list_id , $grouping_id , $previous_value , $new_value ) {
 				
-					$api	= new wpyksMCAPI($this->optionVal['api-key']);
+					$api	= new Mailchimp($this->optionVal['api-key']);
 					
 					try {
 						$retval = $api->call('lists/interest-group-update', array(
@@ -3168,7 +3209,7 @@ if(!class_exists("yksemeBase")) {
 			*/
 			public function updateInterestGroupingTitle( $mailchimp_list_id , $grouping_id , $value ) {
 				
-					$api	= new wpyksMCAPI($this->optionVal['api-key']);
+					$api	= new Mailchimp($this->optionVal['api-key']);
 					
 					try {
 						$retval = $api->call('lists/interest-grouping-update', array(
@@ -3197,7 +3238,7 @@ if(!class_exists("yksemeBase")) {
 			*/
 			public function addInterestGroupOption( $mailchimp_list_id , $group_name , $grouping_id ) {
 				
-					$api	= new wpyksMCAPI($this->optionVal['api-key']);
+					$api	= new Mailchimp($this->optionVal['api-key']);
 					
 					try {
 						$retval = $api->call('lists/interest-group-add', array(
@@ -3226,7 +3267,7 @@ if(!class_exists("yksemeBase")) {
 			*/
 			public function deleteInterestGroupOption( $mailchimp_list_id , $group_name , $grouping_id ) {
 				
-					$api	= new wpyksMCAPI($this->optionVal['api-key']);
+					$api	= new Mailchimp($this->optionVal['api-key']);
 					
 					try {
 						$retval = $api->call('lists/interest-group-del', array(
@@ -3261,7 +3302,7 @@ if(!class_exists("yksemeBase")) {
 			MailChimp API Request to Add new field to a list 
 			*/
 			public function deleteFieldFromList( $mailchimp_list_id , $merge_tag ) {
-					$api	= new wpyksMCAPI($this->optionVal['api-key']);
+					$api	= new Mailchimp($this->optionVal['api-key']);
 					try {
 						$retval = $api->call('lists/merge-var-del', array(
 							'id'              => $mailchimp_list_id, // list id to delete merge tag from
@@ -3285,7 +3326,7 @@ if(!class_exists("yksemeBase")) {
 			Change the interest group type
 			*/
 			public function changeListInterestGroupType( $grouping_id , $value ) {
-					$api	= new wpyksMCAPI($this->optionVal['api-key']);
+					$api	= new Mailchimp($this->optionVal['api-key']);
 					try {
 						$retval = $api->call('lists/interest-grouping-update', array(
 							'grouping_id' => $grouping_id, // list id to delete merge tag from
@@ -3453,12 +3494,19 @@ if(!class_exists("yksemeBase")) {
 								
 								// store our API key
 								// on the settings page, if they have chosen to display the checkbox
-								$api = new wpyksMCAPI($this->optionVal['api-key']);
+								$api = new Mailchimp($this->optionVal['api-key']);
 								
 								$apikey   = $yikes_api_key;
 								$listid   = $this->optionVal['yks-mailchimp-optIn-default-list']; // Need to set up a default list to subscribe all users to
 								$endpoint   = 'https://api.mailchimp.com';
 								$optin	= $this->optionVal['optin'];
+								
+								// setup our welcome email variable
+								if( isset( $this->optionVal['lists'][$listid]['fields'][$listid.'-email']['yks_mailchimp_send_welcome_'.$listid] ) && $this->optionVal['lists'][$listid]['fields'][$listid.'-email']['yks_mailchimp_send_welcome_'.$listid] == '1' ) {
+									$welcome = false;
+								} else {
+									$welcome = true; 
+								}
 								
 								// try adding subscriber, catch any error thrown
 								try {
@@ -3473,7 +3521,7 @@ if(!class_exists("yksemeBase")) {
 											'NAME' => $commenter_first_name
 										   ), 
 										  'double_optin'	=> $optin, // double optin value (retreived from the settings page)
-										  'send_welcome' => true
+										  'send_welcome' => $welcome
 									));
 									return "done";
 								} catch( Exception $e ) { // catch any errors returned from MailChimp

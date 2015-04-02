@@ -1,7 +1,7 @@
 <?php
 
 class Mailchimp_Campaigns {
-    public function __construct(wpyksMCAPI $master) {
+    public function __construct(Mailchimp $master) {
         $this->master = $master;
     }
 
@@ -10,7 +10,7 @@ class Mailchimp_Campaigns {
      * @param string $cid
      * @param associative_array $options
      *     - view string optional one of "archive" (default), "preview" (like our popup-preview) or "raw"
-     *     - email associative_array optional if provided, view is "archive" or "preview", the campaign's list still exists, and the requested record is subscribed to the list. the returned content will be populated with member data populated. a struct with one of the following keys - failing to provide anything will produce an error relating to the email address. Providing multiples and will use the first we see in this same order.
+     *     - email associative_array optional if provided, view is "archive" or "preview", the campaign's list still exists, and the requested record is subscribed to the list. the returned content will be populated with member data populated. a struct with one of the following keys - failing to provide anything will produce an error relating to the email address. If multiple keys are provided, the first one from the following list that we find will be used, the rest will be ignored.
      *         - email string an email address
      *         - euid string the unique id for an email address (not list related) - the email "id" returned from listMemberInfo, Webhooks, Campaigns, etc.
      *         - leid string the list email id (previously called web_id) for a list-member-info type call. this doesn't change when the email address changes
@@ -45,7 +45,7 @@ class Mailchimp_Campaigns {
      *     - analytics associative_array optional - one or more of these keys set to the tag to use - that can be any custom text (up to 50 bytes)
      *         - google string for Google Analytics  tracking
      *         - clicktale string for ClickTale  tracking
-     *         - gooal string for Goo.al tracking
+     *         - gooal string for Goal tracking (the extra 'o' in the param name is not a typo)
      *     - auto_footer boolean optional Whether or not we should auto-generate the footer for your content. Mostly useful for content from URLs or Imports
      *     - inline_css boolean optional Whether or not css should be automatically inlined when this campaign is sent, defaults to false.
      *     - generate_text boolean optional Whether of not to auto-generate your Text content from the HTML content. Note that this will be ignored if the Text part of the content passed is not empty, defaults to false.
@@ -186,9 +186,10 @@ class Mailchimp_Campaigns {
      *         - auto_footer boolean Whether or not the auto_footer was manually turned on
      *         - timewarp boolean Whether or not the campaign used Timewarp
      *         - timewarp_schedule string The time, in GMT, that the Timewarp campaign is being sent. For A/B Split campaigns, this is blank and is instead in their schedule_a and schedule_b in the type_opts array
-     *         - parent_id string the unique id of the parent campaign (currently only valid for rss children)
+     *         - parent_id string the unique id of the parent campaign (currently only valid for rss children). Will be blank for non-rss child campaigns or parent campaign has been deleted.
+     *         - is_child boolean true if this is an RSS child campaign. Will return true even if the parent campaign has been deleted.
      *         - tests_sent string tests sent
-     *         - tests_remain string test sends remaining
+     *         - tests_remain int test sends remaining
      *         - tracking associative_array the various tracking options used
      *             - html_clicks boolean whether or not tracking for html clicks was enabled.
      *             - text_clicks boolean whether or not tracking for text clicks was enabled.
@@ -196,9 +197,9 @@ class Mailchimp_Campaigns {
      *         - segment_text string a string marked-up with HTML explaining the segment used for the campaign in plain English
      *         - segment_opts array the segment used for the campaign - can be passed to campaigns/segment-test or campaigns/create()
      *         - saved_segment associative_array if a saved segment was used (match+conditions returned above):
-     *             - id associative_array the saved segment id
-     *             - type associative_array the saved segment type
-     *             - name associative_array the saved segment name
+     *             - id int the saved segment id
+     *             - type string the saved segment type
+     *             - name string the saved segment name
      *         - type_opts associative_array the type-specific options for the campaign - can be passed to campaigns/create()
      *         - comments_total int total number of comments left on this campaign
      *         - comments_unread int total number of unread comments for this campaign based on the login the apikey belongs to
@@ -207,7 +208,7 @@ class Mailchimp_Campaigns {
      *         - filter string the filter that caused the failure
      *         - value string the filter value that caused the failure
      *         - code int the error code
-     *         - error int the error message
+     *         - error string the error message
      */
     public function getList($filters=array(), $start=0, $limit=25, $sort_field='create_time', $sort_dir='DESC') {
         $_params = array("filters" => $filters, "start" => $start, "limit" => $limit, "sort_field" => $sort_field, "sort_dir" => $sort_dir);
@@ -289,7 +290,7 @@ class Mailchimp_Campaigns {
     }
 
     /**
-     * Allows one to test their segmentation rules before creating a campaign using them
+     * Allows one to test their segmentation rules before creating a campaign using them.
      * @param string $list_id
      * @param associative_array $options
      *     - saved_segment_id string a saved segment id from lists/segments() - this will take precendence, otherwise the match+conditions are required.

@@ -1,7 +1,7 @@
 <?php
 
 class Mailchimp_Lists {
-    public function __construct(wpyksMCAPI $master) {
+    public function __construct(Mailchimp $master) {
         $this->master = $master;
     }
 
@@ -88,7 +88,6 @@ though you should cap them at 5k - 10k records, depending on your experience. Th
      * @return array Array of structs containing results and any errors that occurred
      *     - success_count int Number of email addresses that were successfully removed
      *     - error_count int Number of email addresses that failed during addition/updating
-     *     - of array structs contain error details including:
      *     - errors array array of error structs including:
      *         - email string whatever was passed in the batch record's email parameter
      *             - email string the email address added
@@ -516,7 +515,17 @@ unless you're fixing data since you should probably be using default_values and/
      * @param string $id
      * @param string $type
      * @return associative_array with 2 keys:
-     *     - static.id int the id of the segment
+     *     - static array of structs with data for each segment
+     *         - id int the id of the segment
+     *         - name string the name for the segment
+     *         - created_date string the date+time the segment was created
+     *         - last_update string the date+time the segment was last updated (add or del)
+     *         - last_reset string the date+time the segment was last reset (ie had all members cleared from it)
+     *     - saved array of structs with data for each segment
+     *         - id int the id of the segment
+     *         - name string the name for the segment
+     *         - segment_opts string same match+conditions struct typically used
+     *         - segment_text string a textual description of the segment match/conditions
      *     - created_date string the date+time the segment was created
      *     - last_update string the date+time the segment was last updated (add or del)
      */
@@ -563,9 +572,6 @@ used.
 For the time being, the crazy segmenting condition documentation will continue to live over there.
      * @param string $list_id
      * @param associative_array $options
-     *     - saved_segment_id string a saved segment id from lists/segments() - this will take precendence, otherwise the match+conditions are required.
-     *     - match string controls whether to use AND or OR when applying your options - expects "<strong>any</strong>" (for OR) or "<strong>all</strong>" (for AND)
-     *     - conditions array of up to 5 structs for different criteria to apply while segmenting. Each criteria row must contain 3 keys - "<strong>field</strong>", "<strong>op</strong>", and "<strong>value</strong>" - and possibly a fourth, "<strong>extra</strong>", based on these definitions:
      * @return associative_array with a single entry:
      *     - total int The total number of subscribers matching your segmentation options
      */
@@ -581,7 +587,7 @@ For the time being, the crazy segmenting condition documentation will continue t
      * @param associative_array $opts
      *     - name string a unique name per list for the segment - 100 byte maximum length, anything longer will throw an error
      *     - segment_opts associative_array for "saved" only, the standard segment match+conditions, just like campaigns/segment-test
-     *         - match associative_array "any" or "all"
+     *         - match string "any" or "all"
      *         - conditions array structs for each condition, just like campaigns/segment-test
      * @return associative_array with a single entry:
      *     - complete bool whether the call worked. reallistically this will always be true as errors will be thrown otherwise.
@@ -682,6 +688,9 @@ in order to be removed - this <strong>will not</strong> unsubscribe them from th
     /**
      * Retrieve all of the Static Segments for a list.
      * @param string $id
+     * @param boolean $get_counts
+     * @param int $start
+     * @param int $limit
      * @return array an of structs with data for each static segment
      *     - id int the id of the segment
      *     - name string the name for the segment
@@ -690,8 +699,8 @@ in order to be removed - this <strong>will not</strong> unsubscribe them from th
      *     - last_update string the date+time the segment was last updated (add or del)
      *     - last_reset string the date+time the segment was last reset (ie had all members cleared from it)
      */
-    public function staticSegments($id) {
-        $_params = array("id" => $id);
+    public function staticSegments($id, $get_counts=true, $start=0, $limit=null) {
+        $_params = array("id" => $id, "get_counts" => $get_counts, "start" => $start, "limit" => $limit);
         return $this->master->call('lists/static-segments', $_params);
     }
 
@@ -703,7 +712,7 @@ in order to be removed - this <strong>will not</strong> unsubscribe them from th
      *     - euid string the unique id for an email address (not list related) - the email "id" returned from listMemberInfo, Webhooks, Campaigns, etc.
      *     - leid string the list email id (previously called web_id) for a list-member-info type call. this doesn't change when the email address changes
      * @param associative_array $merge_vars
-     *     - new-email string set this to change the email address. This is only respected on calls using update_existing or when passed to listUpdateMember().
+     *     - new-email string set this to change the email address. This is only respected on calls using update_existing or when passed to lists/update.
      *     - groupings array of Interest Grouping structs. Each should contain:
      *         - id int Grouping "id" from lists/interest-groupings (either this or name must be present) - this id takes precedence and can't change (unlike the name)
      *         - name string Grouping "name" from lists/interest-groupings (either this or id must be present)
@@ -883,7 +892,7 @@ consider using lists/batch-subscribe() with the update_existing and possible rep
      *     - errors array structs of any errors found while loading lists - usually just from providing invalid list ids
      *         - param string the data that caused the failure
      *         - code int the error code
-     *         - error int the error message
+     *         - error string the error message
      */
     public function getList($filters=array(), $start=0, $limit=25, $sort_field='created', $sort_dir='DESC') {
         $_params = array("filters" => $filters, "start" => $start, "limit" => $limit, "sort_field" => $sort_field, "sort_dir" => $sort_dir);

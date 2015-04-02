@@ -2,7 +2,7 @@
 
 	/* Main Template for generating a new field to attach to a list */
 	
-	$api	= new wpyksMCAPI($this->optionVal['api-key']);
+	$api	= new Mailchimp($this->optionVal['api-key']);
 	parse_str( $p['form_data'], $formData );
 	$list_id	= $formData['mc-list-id'];
 	$field_name = $formData['add-field-field-name'];

@@ -144,11 +144,24 @@ Included into class.yksemeBase.php around line 2541
 																		<fieldset class="yks-mailchimp-interest-groups-container" id="yks-mailchimp-interest-groups-container_<?php echo $list['id']; ?>">
 																		<?php $this->getListInterestGroups( $list['id'] ); ?>
 																		</fieldset>
-																		
 																	</td>						
 															</tr>
 														
 													</fieldset>
+														<!-- send welcome message (on a per list basis) -->
+														<tr valign="top">
+															<th scope="row"><label for="yks-mailchimp-send-welcome"><?php _e( 'Disable Welcome Email?' , 'yikes-inc-easy-mailchimp-extender' ); ?></label></th>
+															<td>
+																<span class="yks-mailchimp-send-welcome-checkbox-holder">
+																	<input type="checkbox" name="yks_mailchimp_send_welcome_<?php echo $list['id']; ?>" class="yks_mailchimp_send_welcome" id="yks-mailchimp-send-welcome-<?php echo $list['id']; ?>" value="1" <?php if(isset($field['yks_mailchimp_send_welcome_'.$list['id']])) { echo ($field['yks_mailchimp_send_welcome_'.$list['id']] == 1 ? 'checked="checked"' : ''); } ?> />
+																	<?php if( isset( $field['yks_mailchimp_send_welcome_'.$list['id']] ) && $field['yks_mailchimp_send_welcome_'.$list['id']] == '1' ) { ?>
+																		<span class="description yks-margin-left"><?php _e( 'the welcome email will ' , 'yikes-inc-easy-mailchimp-extender' ); ?><strong><?php _e( 'not' , 'yikes-inc-easy-mailchimp-extender' ); ?></strong><?php _e( ' be sent for this mailing list' , 'yikes-inc-easy-mailchimp-extender' ); ?></span>
+																	<?php } else { ?>
+																		<span class="description yks-margin-left"><?php _e( 'the welcome email will be sent for this list.' , 'yikes-inc-easy-mailchimp-extender' ); ?></span>
+																	<?php } ?>
+																</span>
+															</td>
+														</tr>
 														<!-- display redirect checkbox here -->
 														<tr valign="top">
 															<th scope="row"><label for="yks-mailchimp-url-redirect"><?php _e( 'Redirect User On Submission' , 'yikes-inc-easy-mailchimp-extender' ); ?></label></th>

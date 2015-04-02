@@ -3,8 +3,8 @@ Contributors: yikesinc, hiwhatsup, liljimmi, eherman24, seriouslysean
 Donate link: http://yikesinc.com
 Tags: mailchimp, marketing, email, mailing lists, newsletter, sign up, forms, sign up form
 Requires at least: 3.0
-Tested up to: 4.1
-Stable tag: 5.2
+Tested up to: 4.1.1
+Stable tag: 5.4.3
 License: GPLv2 or later
 
 Easy MailChimp Forms allows you to painlessly add MailChimp sign up forms to your WordPress site and track user activity with interactive reports.
@@ -17,7 +17,7 @@ Easy MailChimp Forms allows you to painlessly add MailChimp sign up forms to you
 
 **Features**
 
-* Add interest groups and new fields to forms directly from the dashboard without ever leaving your site (*new*)
+* Add interest groups and new fields to forms directly from the dashboard without leaving your site (*new*)
 * Error log for diagnosing user issues (*new*)
 * All new No-Captcha Re-Captcha in place (*new*)
 * Design your own sign up form templates
@@ -61,7 +61,7 @@ Instructions on how to use the plugin can be [found in the FAQ](http://wordpress
 == Frequently Asked Questions ==
 
 = Do I need to have a MailChimp Account? =
-Yes, you can register for one for free at [MailChimp](https://mailchimp.com/sign up/ "MailChimp Signup").
+Yes, you can register for one for free at [MailChimp](https://login.mailchimp.com/signup? "MailChimp").
 
 = Do I need to have lists already set up in MailChimp? =
 Yes, you have to have at least 1 list set up in MailChimp. 
@@ -170,6 +170,15 @@ The default value tags available to you out of the box are :
 Simply click the link below the default value input field to add that tag as the default value. Easy as that!
 
 We've also provided a way for you to define your own default value tags, and return any data you choose. This is done through the use of two separate filters ( `yikes_mailchimp_default_value_tag` and `yikes_mailchimp_process_default_value_tag` ). Check out the developer documentation for how to use the filters. The examples provided are extremely helpful.
+
+= Can I move the success/error message to below the form instead of displaying them above? =
+Yes! In version 5.3, we've allowed users to declare a constant which dictate where the error and success messages will appear in relation to the forms.
+
+By default , the error and success messages appear above the form. If you'd like them to appear below the form, simply add the following definition to your active themes function.php file.
+
+`
+define( "display_yikes_mc_form_messages", "after" ); 
+`
 
 == Developer Docs. ==
 
@@ -332,6 +341,78 @@ N/A
 <br />
 
 **Filters**
+
+**Filter Name:**
+`yikes_mc_field_label`
+
+**Accepted Parameters:** 
+`$label`
+
+**Parameter Info:**	
+
+`$label = the text of the field label you would like to alter.`
+
+**Description:**
+The following example will change the default 'Email Address' label to 'Email!'
+
+**Example:**
+This example will alter the 'Email Address' field label, and return 'Email!'
+
+`
+<?php
+	/**
+	* This example will alter the 'Email Address' field label, and return a 
+	* new custom label name ('Email!')
+	* anything else falls under 'default' and returns the un-altered label
+	*/
+	function alter_mailchimp_field_labels( $label ) {
+
+		switch ( $label ) {
+			default :
+				echo $label;
+			break;
+			
+			case 'Email Address': // text of the existing label
+				echo 'Email!'; // new email label text
+			break;
+		}
+	}
+	add_filter( 'yikes_mc_field_label' , 'alter_mailchimp_field_labels' );
+?>
+`
+<br />
+
+**Filter Name:**
+`yks_mailchimp_user_role`
+
+**Accepted Parameters:** 
+`$capability`
+
+**Parameter Info:**	
+
+`$capability = the lowest capability allowed to access the administration pages. defaults to 'manage_options' (admins).`
+
+**Description:**
+The following example will allow editors to access the YIKES MailChimp administration pages on the dashboard.
+
+**Example:**
+The following example will allow editors to access the YIKES MailChimp administration pages on the dashboard.
+`
+<?php
+	/**
+	* This example will allow editors to access the YIKES MailChimp administration pages
+	* If you would like authors or another user role to be able to access the admin  pages, you
+	* must set this to the lowest capability allowed. ( check : http://codex.wordpress.org/Roles_and_Capabilities for role capabilities )
+	* <em>note: for authors, you would use the 'publish_posts' capability.</em>
+	*/
+	function yikes_mailchimp_allow_editors( $capability ) {
+		$capability = 'edit_others_pages';
+		return $capability;
+	}
+	add_filter( 'yks_mailchimp_user_role' , 'yikes_mailchimp_allow_editors' );
+?>
+`
+<br />
 
 **Filter Name:**
 `yikes_mc_get_form_data`
@@ -754,6 +835,47 @@ These functions should be used in conjunction with the `yikes_mc_get_form_data` 
 
 == Changelog ==
 
+= 5.4.3 - March 17th, 2015 =
+
+* Fixed: Re-import form fields function not properly refreshing the page
+* Fixed: Updating a MailChimp list field no longer throws an empty error
+
+= 5.4.2 - March 10th, 2015 =
+
+* Fixed: custom class names on input fields merged together with other class names making them un-usable.
+
+= 5.4.1 - March 3rd, 2015 =
+
+* Fixed: tinyMCE error thrown when saving settings page, ultimately preventing the ability to store the API key.
+
+= 5.4 - March 2nd, 2015 =
+
+* Enhancement: Re-bundled unaltered MailChimp API wrapper class file, and added appropriate class check to prevent conflicts with other MailChimp plugins (Gravity Forms etc.)
+* Enhancement: Removed the WYSIWYG editor from the options page. This caused issues for some users who were unable to validate the MailChimp API key.
+* Enhancement: Added a new setting to toggle the sending of the welcome email. Users can now disable the email all together, on a list by list basis. (checked = disabled)
+* Enhancement: Prevented users from being able to update the 'EMAIL' merge variable. Added a notification with instruction on what filter to use.
+* Enhancement: Replced all instances of the old class name (wpyksMCAPI) with the appropriate MailChimp class (Mailchimp)
+* Enhancement: Stripped slashes and properly escaped interest group labels
+
+
+= 5.3.3 - February 26th, 2015 =
+
+* Enhancement: Added a new filter to alter field labels. Very helpful when you want to alter the default 'Email Address' field label to something else. (`yikes_mc_field_label`) (see 'filters' section in 'Other Notes')
+
+= 5.3.2 - February 17th, 2015 =
+
+* Fixed: Patched the error displayed below the opt-in forms when `display_yikes_mc_form_messages` is not defined.
+
+= 5.3.1 - January 13th, 2015 =
+
+* Enhancement: Added new filter to allow users to change which role has access to the MailChimp administration pages ( `yks-mailchimp-user-role` ) ( check readme for example )
+
+= 5.3 - January 11th, 2015 =
+
+* Enhancement: Added ability to move the success + error messages above or below the form based on a defined constant ( `display_yikes_mc_form_messages` [options: before/after] )
+* Enhancement: Added new settings and the ability to show/hide * = required field , from the top of the forms, via the settings page
+* Enhancement: Fixed incorrect error 'click here to update your profile' shown on front end on all errors
+
 = 5.2 - December 10th, 2014 =
 
 * New Feature: Added ability to add, edit or delete form fields directly from the WordPress dashboard
@@ -1014,8 +1136,40 @@ These functions should be used in conjunction with the `yikes_mc_get_form_data` 
 
 == Upgrade Notice ==
 
-= 5.2 - December 10th, 2014 =
+= 5.4.3 - March 17th, 2015 =
+* Fixed: Re-import form fields function not properly refreshing the page
+* Fixed: Updating a MailChimp list field no longer throws an empty error
 
+= 5.4.2 - March 10th, 2015 =
+* Fixed: custom class names on input fields merged together with other class names making them un-usable.
+
+= 5.4.1 - March 3rd, 2015 =
+* Fixed: tinyMCE error thrown when saving settings page, ultimately preventing the ability to store the API key.
+
+= 5.4 - March 2nd, 2015 =
+* Enhancement: Re-bundled unaltered MailChimp API wrapper class file, and added appropriate class check to prevent conflicts with other MailChimp plugins (Gravity Forms etc.)
+* Enhancement: Removed the WYSIWYG editor from the options page. This caused issues for some users who were unable to validate the MailChimp API key.
+* Enhancement: Added a new setting to toggle the sending of the welcome email. Users can now disable the email all together, on a list by list basis. (checked = disabled)
+* Enhancement: Prevented users from being able to update the 'EMAIL' merge variable. Added a notification with instruction on what filter to use.
+* Enhancement: Replced all instances of the old class name (wpyksMCAPI) with the appropriate MailChimp class (Mailchimp)
+* Enhancement: Stripped slashes and properly escaped interest group labels
+
+
+= 5.3.3 - February 26th, 2015 =
+* Enhancement: Added a new filter to alter field labels. Very helpful when you want to alter the default 'Email Address' field label to something else. (`yikes_mc_field_label`) (see 'filters' section in 'Other Notes')
+
+= 5.3.2 - February 17th, 2015 =
+* Fixed: Patched the error displayed below the opt-in forms when `display_yikes_mc_form_messages` is not defined.
+
+= 5.3.1 - January 13th, 2014 =
+* Enhancement: Added new filter to allow users to change which role has access to the MailChimp administration pages ( `yks-mailchimp-user-role` ) ( check readme for example )
+
+= 5.3 - January 11th, 2014 =
+* Enhancement: Added ability to move the success + error messages above or below the form based on a defined constant ( `display_yikes_mc_form_messages` [options: before/after] )
+* Enhancement: Added new settings and the ability to show/hide * = required field , from the top of the forms, via the settings page
+* Enhancement: Fixed incorrect error 'click here to update your profile' shown on front end on all errors
+
+= 5.2 - December 10th, 2014 =
 * New Feature: Added ability to add, edit or delete form fields directly from the WordPress dashboard
 * New Feature: Added ability to add, edit or delete interest groups directly from the WordPress dashboard
 * New Feature: Add "Update" link to forms when a user has previously subscribed

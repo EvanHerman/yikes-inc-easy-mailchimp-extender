@@ -438,4 +438,34 @@ class Mailchimp_Max_Size_Reached extends Mailchimp_Error {}
  */
 class Mailchimp_MC_SearchException extends Mailchimp_Error {}
 
+/**
+ * None
+ */
+class Mailchimp_Goal_SaveFailed extends Mailchimp_Error {}
+
+/**
+ * None
+ */
+class Mailchimp_Conversation_DoesNotExist extends Mailchimp_Error {}
+
+/**
+ * None
+ */
+class Mailchimp_Conversation_ReplySaveFailed extends Mailchimp_Error {}
+
+/**
+ * None
+ */
+class Mailchimp_File_Not_Found_Exception extends Mailchimp_Error {}
+
+/**
+ * None
+ */
+class Mailchimp_Folder_Not_Found_Exception extends Mailchimp_Error {}
+
+/**
+ * None
+ */
+class Mailchimp_Folder_Exists_Exception extends Mailchimp_Error {}
+
 

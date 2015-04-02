@@ -1,7 +1,7 @@
 <?php
 
 	// Register Styles for the frontend of all sites
-	wp_register_style( 'ykseme-css-base' , YKSEME_URL . 'css/style.ykseme.css' , array() , '1.0.0' , 'all' );
+	wp_register_style( 'ykseme-css-base' , YKSEME_URL . 'css/style.ykseme.min.css' , array() , '1.0.0' , 'all' );
 	// enqueue our jQuery UI styles only when 
 	// the datepicker enqueue is enabled in the settings field
 	if( isset( $this->optionVal['yks-mailchimp-jquery-datepicker'] ) && $this->optionVal['yks-mailchimp-jquery-datepicker']	== '1' ) {
