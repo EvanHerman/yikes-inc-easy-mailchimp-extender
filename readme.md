@@ -1,4 +1,4 @@
-Yikes Inc. Easy MailChimp Extender ( *Alpha* )
+Yikes Inc. Easy MailChimp (*Alpha*)
 =====================
 
 <strong>Note: Not yet ready for a production environment.</strong>
@@ -12,7 +12,7 @@ Readme.txt and documentation to follow.
 <br />
 
 #### Plugin Preview Screenshots
-[Cloudup Gallery](https://cldup.com/2aCNnPx1fg.png)
+[Cloudup Gallery](https://cloudup.com/cDJtreQDIcJ)
 
 #### Questions?
 Have any questions? Feel free to open up an issue in the issue tracker and we'll get back to you as soon as possible.
