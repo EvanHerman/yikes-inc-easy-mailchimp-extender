@@ -653,7 +653,7 @@ jQuery(document).ready(function() {
 					<!-- Toggle Verify Peer Description -->
 					<td class="yks-settings-description">
 						<?php _e( "If you receive the following response from MailChimp API : 'SSL certificate problem, verify that the CA cert is OK' " , "yikes-inc-easy-mailchimp-extender" ); ?><br />
-						<?php _e( "set this setting to false. Changing this setting after things have been set up may break the plugin." , "yikes-inc-easy-mailchimp-extender" ); ?>
+						<?php _e( "set this setting to false." , "yikes-inc-easy-mailchimp-extender" ); ?>
 					</td>
 				</tr>
 				

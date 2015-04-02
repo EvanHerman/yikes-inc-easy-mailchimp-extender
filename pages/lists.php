@@ -332,13 +332,6 @@ To Do - 11.8 :
                                                 {
                                                 if(MAILCHIMP != '-1')
                                                         {
-														/* Preserve Custom Classes on reimport 
-														var placeholder_array = [];
-														jQuery( '#yks-mailchimp-fields-list_'+i ).find( '.custom-placeholder-field' ).each(function() {
-															console.log( jQuery( this ).val() );
-														});
-														*/
-														console.log(placeholder_array);
 														$('#yks_mc_reimporting_fields_dialog').dialog("destroy");
                                                         $($('#yks-mailchimp-fields-td_'+i)).replaceWith(MAILCHIMP);
                                                         $('#yks-mailchimp-fields-td_'+i).yksYellowFade();
@@ -362,29 +355,7 @@ To Do - 11.8 :
 															});      
                                                         }
                                                 else
-                                                        {
-															// update stored list data
-															$.ajax({
-																type:   'POST',
-																url:    ajaxurl,
-																data: {
-																	action: 'yks_mailchimp_form',
-																	form_action: 'get_list_data',
-																},
-																dataType: 'html',
-																success: function(new_list_data) {
-																	jQuery( '#yks-mailchimp-add-new-field-form' ).fadeTo( 'fast' , 1 );
-																	jQuery( '.yks-mc-preloader' ).remove();
-																	jQuery( '#yks-mailchimp-update-existing-field-form' ).find( 'input[type="submit"]' ).removeAttr( 'disabled' );
-																	jQuery( '.yks-mc-update-error' ).remove();
-																	// replace with the new field
-																	$($('#yks-mailchimp-fields-td_'+mailchimp_list_id)).replaceWith(MAILCHIMP); 
-																	jQuery( '#merge-field-data' ).val( new_list_data );
-																	// update the list data at the top of the form
-																	console.log(new_list_data);				              
-																}
-															});
-															
+                                                        {															
 															$('#yks_mc_reimporting_fields_dialog').dialog("destroy");
 															$("<div id='yks_mc_reset_plugin_settings'><div class='dashicons dashicons-yes yks-mc-success-icon'></div><p><?php _e("It looks like this form is already up to date!", "yikes-inc-easy-mailchimp-extender" ); ?></p></div>").dialog({
 															 title : "Form Up To Date",
