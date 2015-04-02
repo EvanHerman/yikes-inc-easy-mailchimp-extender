@@ -404,10 +404,10 @@
 							
 									<div class="inside">
 											<p style="margin-top:0;margin-bottom:1.5em;">
-												<label for="shortcode"><?php _e( 'Switch Forms' , $this->text_domain ); ?><br />
+												<label for="shortcode"><?php _e( 'Edit Another Form' , $this->text_domain ); ?><br />
 													<select class="widefat" name="form_switcher" id="form_switcher" onchange="YIKES_Easy_MC_SwitchForm(jQuery(this).val());">
-														<?php foreach( $all_forms as $form ) { ?>
-															<option <?php selected( $form_id , $form['id'] ); ?>value="<?php echo $form['id']; ?>"><?php echo $form['form_name']; ?></option>
+														<?php foreach( $all_forms as $single_form ) { ?>
+															<option <?php selected( $form_id , $single_form['id'] ); ?>value="<?php echo $single_form['id']; ?>"><?php echo $single_form['form_name']; ?></option>
 														<?php } ?>
 													</select>											
 												</label>
@@ -430,7 +430,7 @@
 													<?php
 														foreach( $list_data['data'] as $mailing_list ) {
 															?>
-																<option <?php selected( $form['list_id'] , $mailing_list['id'] ); ?>value="<?php echo $mailing_list['id']; ?>"><?php echo stripslashes( $mailing_list['name'] ) . ' (' . $mailing_list['stats']['member_count'] . ') '; ?></option>
+																<option <?php selected( $form['list_id'] , $mailing_list['id'] ); ?> value="<?php echo $mailing_list['id']; ?>"><?php echo stripslashes( $mailing_list['name'] ) . ' (' . $mailing_list['stats']['member_count'] . ') '; ?></option>
 															<?php
 														}
 													?>

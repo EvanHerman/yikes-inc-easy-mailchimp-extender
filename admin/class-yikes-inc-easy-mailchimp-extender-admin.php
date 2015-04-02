@@ -673,13 +673,13 @@ class Yikes_Inc_Easy_Mailchimp_Extender_Admin {
 				<h3><span><?php _e( 'Additional Settings' , $this->text_domain ); ?></span></h3>
 				<div class="inside">
 					<ul id="settings-nav">
-						<li><?php if( $_REQUEST['section'] == 'general-settings' || !isset( $_REQUEST['section'] ) ) { ?><div class="option-menu-selected-arrow"></div><?php } ?><a href="<?php echo add_query_arg( array( 'section' => 'general-settings' ) ); ?>"><?php _e( 'General Settings' , $this->text_domain ); ?></a></li>
-						<li><?php if( $_REQUEST['section'] == 'form-settings' ) { ?><div class="option-menu-selected-arrow"></div><?php } ?><a href="<?php echo add_query_arg( array( 'section' => 'form-settings' ) ); ?>"><?php _e( 'Form Settings', $this->text_domain ); ?></a></li>
-						<li><?php if( $_REQUEST['section'] == 'checkbox-settings' ) { ?><div class="option-menu-selected-arrow"></div><?php } ?><a href="#"><?php _e( 'Checkbox Settings' , $this->text_domain ); ?></a></li>
-						<li><?php if( $_REQUEST['section'] == 'recaptcha-settings' ) { ?><div class="option-menu-selected-arrow"></div><?php } ?><a href="#"><?php _e( 'ReCaptcha Settings' , $this->text_domain ); ?></a></li>
-						<li><?php if( $_REQUEST['section'] == 'popup-settings' ) { ?><div class="option-menu-selected-arrow"></div><?php } ?><a href="#"><?php _e( 'Pop Up Settings' , $this->text_domain ); ?></a></li>
-						<li><?php if( $_REQUEST['section'] ==  'checkbox-settings' ) { ?><div class="option-menu-selected-arrow"></div><?php } ?><a href="#"><?php _e( 'Debug Settings' , $this->text_domain ); ?></a></li>
-						<li><?php if( $_REQUEST['section'] == 'api-cache-settings' ) { ?><div class="option-menu-selected-arrow"></div><?php } ?><a href="<?php echo add_query_arg( array( 'section' => 'api-cache-settings' ) ); ?>"><?php _e( 'API Cache Settings' , $this->text_domain ); ?></a></li>
+						<li><?php if( isset( $_REQUEST['section'] ) && $_REQUEST['section'] == 'general-settings' || !isset( $_REQUEST['section'] ) ) { ?><div class="option-menu-selected-arrow"></div><?php } ?><a href="<?php echo add_query_arg( array( 'section' => 'general-settings' ) ); ?>"><?php _e( 'General Settings' , $this->text_domain ); ?></a></li>
+						<li><?php if( isset( $_REQUEST['section'] ) && $_REQUEST['section'] == 'form-settings' ) { ?><div class="option-menu-selected-arrow"></div><?php } ?><a href="<?php echo add_query_arg( array( 'section' => 'form-settings' ) ); ?>"><?php _e( 'Form Settings', $this->text_domain ); ?></a></li>
+						<li><?php if( isset( $_REQUEST['section'] ) && $_REQUEST['section'] == 'checkbox-settings' ) { ?><div class="option-menu-selected-arrow"></div><?php } ?><a href="#"><?php _e( 'Checkbox Settings' , $this->text_domain ); ?></a></li>
+						<li><?php if( isset( $_REQUEST['section'] ) && $_REQUEST['section'] == 'recaptcha-settings' ) { ?><div class="option-menu-selected-arrow"></div><?php } ?><a href="#"><?php _e( 'ReCaptcha Settings' , $this->text_domain ); ?></a></li>
+						<li><?php if( isset( $_REQUEST['section'] ) && $_REQUEST['section'] == 'popup-settings' ) { ?><div class="option-menu-selected-arrow"></div><?php } ?><a href="#"><?php _e( 'Pop Up Settings' , $this->text_domain ); ?></a></li>
+						<li><?php if( isset( $_REQUEST['section'] ) && $_REQUEST['section'] ==  'checkbox-settings' ) { ?><div class="option-menu-selected-arrow"></div><?php } ?><a href="#"><?php _e( 'Debug Settings' , $this->text_domain ); ?></a></li>
+						<li><?php if( isset( $_REQUEST['section'] ) && $_REQUEST['section'] == 'api-cache-settings' ) { ?><div class="option-menu-selected-arrow"></div><?php } ?><a href="<?php echo add_query_arg( array( 'section' => 'api-cache-settings' ) ); ?>"><?php _e( 'API Cache Settings' , $this->text_domain ); ?></a></li>
 					</ul>
 				</div> <!-- .inside -->
 			<?php
@@ -1275,10 +1275,10 @@ class Yikes_Inc_Easy_Mailchimp_Extender_Admin {
 			// setup our error settings serialized array
 			$error_settings = json_encode(
 				array(
-					'success' => !empty( trim( $_POST['yikes-easy-mc-success-message'] ) ) ? trim( $_POST['yikes-easy-mc-success-message'] ) : '',
-					'general-error' => !empty( trim( $_POST['yikes-easy-mc-general-error-message'] ) ) ? trim( $_POST['yikes-easy-mc-general-error-message'] ) : '',
-					'invalid-email' => !empty( trim( $_POST['yikes-easy-mc-invalid-email-message'] ) ) ? trim( $_POST['yikes-easy-mc-invalid-email-message'] ) : '',
-					'email-already-subscribed' => !empty( trim( $_POST['yikes-easy-mc-user-subscribed-message'] ) ) ? trim( $_POST['yikes-easy-mc-user-subscribed-message'] ) : '',
+					'success' => trim( $_POST['yikes-easy-mc-success-message'] ) ? trim( $_POST['yikes-easy-mc-success-message'] ) : '',
+					'general-error' => trim( $_POST['yikes-easy-mc-general-error-message'] ) ? trim( $_POST['yikes-easy-mc-general-error-message'] ) : '',
+					'invalid-email' => trim( $_POST['yikes-easy-mc-invalid-email-message'] ) ? trim( $_POST['yikes-easy-mc-invalid-email-message'] ) : '',
+					'email-already-subscribed' => trim( $_POST['yikes-easy-mc-user-subscribed-message'] ) ? trim( $_POST['yikes-easy-mc-user-subscribed-message'] ) : '',
 				)
 			);
 			

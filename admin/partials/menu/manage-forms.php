@@ -132,7 +132,7 @@
 															$impressions = number_format( $form['impressions'] );
 															$submissions = number_format( $form['submissions'] );
 															if( $impressions != 0 ) {
-																$conversion_rate = '%' . round( ( number_format( $form['impressions'] ) / number_format( $form['submissions'] ) ) , 2 );
+																$conversion_rate = '%' . ( round( $form['submissions'] / $form['impressions'] , 2 ) * 100 );
 																if( $conversion_rate >= '%15' ) {
 																	$conversion_color = '#00cc00'; // green (unicorn!)
 																} else if( $conversion_rate < '%15' && $conversion_rate >= '%10' ) { 
@@ -144,6 +144,7 @@
 																}
 															} else {
 																$conversion_rate = '%0';
+																$conversion_color = '#333333';
 															}
 															echo '<span title="' . __( 'Impressions' , $this->text_domain ) . '">' . $impressions . '</span> | <span title="' . __( 'Submissions' , $this->text_domain ) . '">' . $submissions . '</span> | ' . '<span style="color:' . $conversion_color . ';" title="' . __( 'Conversion Rate' , $this->text_domain ) . '">' . $conversion_rate . '</span>'; 
 														?>

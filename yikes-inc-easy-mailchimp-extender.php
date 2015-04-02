@@ -9,14 +9,14 @@
  * that starts the plugin.
  *
  * @link              http://www.yikesinc.com/
- * @since             1.0.0
+ * @since             6.0
  * @package           Yikes_Inc_Easy_Mailchimp_Extender
  *
  * @wordpress-plugin
  * Plugin Name:       Easy MailChimp Forms by Yikes Inc.
  * Plugin URI:        http://www.yikesinc.com/services/yikes-inc-easy-mailchimp-extender/
  * Description:       This is a short description of what the plugin does. It's displayed in the WordPress admin area.
- * Version:           1.0.0
+ * Version:           6.0
  * Author:            YIKES Inc.
  * Author URI:        http://www.yikesinc.com/
  * License:           GPL-2.0+

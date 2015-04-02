@@ -1,8 +1,18 @@
-Yikes Inc. Easy MailChimp Extender
+Yikes Inc. Easy MailChimp Extender ( *Alpha* )
 =====================
 
-Complete re-write - currently in an alpha stage
+<strong>Note: Not yet ready for a production environment.</strong>
 
-Framework is in place, functionality is currently being built out. The staging repo will be all versions of the new re-write for beta testing purposes before we roll everything out to the WordPress repository.
+This is a complete re-write of the original [Yikes Inc Easy MailChimp Extender](https://wordpress.org/plugins/yikes-inc-easy-mailchimp-extender/) plugin.
 
-Readme.txt to follow.
+The overall framework is in place, but the functionality is currently being built out. The staging repo will be the home to all versions of the re-write, for beta testing purposes, before we roll it out to the WordPress repository.
+
+Readme.txt and documentation to follow.
+
+<br />
+
+#### Plugin Preview Screenshots
+[Cloudup Gallery](https://cldup.com/2aCNnPx1fg.png)
+
+#### Questions?
+Have any questions? Feel free to open up an issue in the issue tracker and we'll get back to you as soon as possible.
