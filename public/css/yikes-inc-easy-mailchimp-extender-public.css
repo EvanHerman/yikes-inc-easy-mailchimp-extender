@@ -2,3 +2,104 @@
  * All of the CSS for your public-facing functionality should be
  * included in this file.
  */
+ 
+ .yikes-easy-mc-form {
+	display: block;
+	width: 100%;
+ }
+ 
+ /* Submit Button */
+ .yikes-easy-mc-form .yikes-easy-mc-submit-button {
+	display: block;
+	width: 100%;
+	margin-bottom: 1em;
+ }
+  
+  /* Defualt Form Styles - 100% Input Fields */
+ .yikes-easy-mc-form label {
+	display: inline-block;
+	margin-bottom: 1em;
+	width: 100%;
+ }
+ .yikes-easy-mc-form select {
+	display: inline-block;
+	width: 100%;
+ }
+ 
+ /** Radio Form Buttons **/
+ .checkbox-parent-label {
+	width: 100%;
+	display: block;
+ }
+ .yikes-easy-mc-form .yikes-easy-mc-checkbox-label {
+	display: inline-block;
+ }
+ 
+ /******************************************/
+ /*    Front End Pre-defined Classes  */
+ /******************************************/
+ 
+	/* 
+		To Do
+		- Inline List
+		- list height
+		- scroll text for blocks of html text (disclaimer etc.)
+		http://www.gravityhelp.com/css-ready-classes-for-gravity-forms/
+		
+	/*****************************************/
+	/*   	  		2-Column Radio           */
+	/****************************************/
+	.yikes-easy-mc-form label.option-2-col > label {
+		display: inline-block;
+		float: left;
+		width: 50%;
+	}
+	
+	/*****************************************/
+	/*   	  		3-Column Radio           */
+	/****************************************/
+	.yikes-easy-mc-form label.option-3-col > label {
+		display: inline-block;
+		float: left;
+		width: 33%;
+	}
+	
+	/*****************************************/
+	/*   	  		4-Column Radio           */
+	/****************************************/
+	.yikes-easy-mc-form label.option-3-col > label {
+		display: inline-block;
+		float: left;
+		width: 25%;
+	}
+	
+	/*****************************************/
+	/*   	  		2-Column Form            */
+	/****************************************/
+	 .yikes-easy-mc-form label.field-left-half {
+		width: 48%;
+		float: left;
+		margin-right: 2%;
+	 }
+	 
+	 .yikes-easy-mc-form label.field-right-half {
+		width: 48%;
+		float: right;
+		margin-left: 2%;
+	 }
+	 
+	 /*****************************************/
+	/*   	  		3-Column Form            */
+	/****************************************/
+	
+	.yikes-easy-mc-form label.field-left-third {
+		width: 32%;
+		float: left;
+		margin-right: 1.33333%;
+	 }
+	 
+	 .yikes-easy-mc-form label.field-right-third {
+		width: 32%;
+		float: right;
+		margin-left: 1.33333%;
+	 }

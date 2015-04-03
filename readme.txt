@@ -1,5 +1,5 @@
 === Plugin Name ===
-Contributors: yikesinc, eherman24
+Contributors: yikesinc, eherman24, liljimmi, hiwhatsup
 Donate link: http://www.yikesinc.com/
 Tags: comments, spam
 Requires at least: 4.0

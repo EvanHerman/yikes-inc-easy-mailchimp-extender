@@ -106,7 +106,6 @@
 							</div>
 							<!-- .meta-box-sortables .ui-sortable -->
 							
-							
 							<!-- TOOLBAR -->
 								<div id="yikes_easy_mc_toolbar">
 								
@@ -129,8 +128,7 @@
 							<div class="meta-box-sortables ui-sortable" id="hidden-option-data-container">
 
 								<div class="postbox yikes-easy-mc-postbox">
-									
-									
+												
 									<div class="inside">
 									
 										<!-- Form Builder Label -->										
@@ -522,6 +520,11 @@
 								</div>
 								<!-- .postbox -->
 
+								<?php 
+									// display info about Yikes
+									echo $this->generate_show_some_love_container(); 
+								?>
+								
 							</div>
 							<!-- .meta-box-sortables -->
 

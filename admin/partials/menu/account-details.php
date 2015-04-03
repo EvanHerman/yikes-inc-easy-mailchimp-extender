@@ -117,8 +117,9 @@
 									}
 									$x++;
 								}
-								?><a href="#" onclick="jQuery(this).parents().find('#hidden-chatter').slideToggle();jQuery(this).fadeOut();return false;" class="button-primary"><?php _e( 'View All Activity' , $this->text_domain ); ?></a><?php	
-							?>
+								?>
+								
+								<a href="#" onclick="jQuery(this).parents().find('#hidden-chatter').slideToggle();jQuery(this).fadeOut();return false;" class="button-primary"><?php _e( 'View All Activity' , $this->text_domain ); ?></a>
 							
 						</div>
 						<!-- .inside -->

@@ -30,6 +30,11 @@
  .yikes-mc-settings-expansion-section {
 	display: none;
  }
+
+	.expansion-section-title {
+		background: #ffffff;
+	}
+
 	.expansion-section-title.settings-sidebar, .form-builder-section-title {
 		text-decoration: none;
 		display: block;
@@ -436,7 +441,7 @@ a.yikes-delete-mailchimp-form {
 		.st-block-controls .st-block-control[data-type="Columns"] > span {
 			font-family: 'ST-Columns-Icons' !important;
 		}
-	
+
 	
 /** Break Points **/
 

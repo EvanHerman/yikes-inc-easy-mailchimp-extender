@@ -1,1 +1,0 @@
-<h3><?php echo $block['text']; ?></h3>
