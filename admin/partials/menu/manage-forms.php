@@ -43,7 +43,7 @@
 	<h2>Easy MailChimp by Yikes Inc. | <?php _e( 'Manage Forms' , $this->text_domain ) ?></h2>				
 		
 	<!-- Settings Page Description -->
-	<p class="yikes-easy-mc-about-text about-text"><?php _e( 'Import and manage your MailChimp forms on the following page. Select a form to make edits to it.' , $this->text_domain ); ?></p>
+	<p class="yikes-easy-mc-about-text about-text"><?php _e( 'Create and manage your MailChimp opt-in forms on the following page. Select a form to make edits to it.' , $this->text_domain ); ?></p>
 		
 	
 	<?php

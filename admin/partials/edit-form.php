@@ -29,6 +29,16 @@
 				// set our transient
 				set_transient( 'yikes-easy-mailchimp-list-data', $list_data, 1 * HOUR_IN_SECONDS );
 			}
+			
+			// get the list data
+			try {
+				$api_key = get_option( 'yikes-mc-api-key' , '' );
+				$MailChimp = new MailChimp( $api_key );
+				// retreive our list data
+				$available_merge_variables = $MailChimp->call( 'lists/merge-vars' , array( 'apikey' => $api_key , 'id' => array( $form['list_id'] ) ) );
+			} catch ( Exception $e ) {
+				$merge_variable_error = __( 'Error' , $this->text_domain ) . ' : ' . $e->getMessage();
+			}
 		} else {
 			wp_die( __( 'Oh No!' , $this->text_domain ) , __( 'Error' , $this->text_domain ) );
 		}
@@ -145,7 +155,7 @@
 																<p  style="padding-left:12px;margin.75em 0;" class="description"><small><?php _e( 'Select a form field from the right to add to this form. Once added to the form, you can click it to reveal advanced options for the field, or drag it to re-arrange the position in the form.' , $this->text_domain );?></small></p>
 																<div id="form-builder-container" class="inside">
 																	<!-- #poststuff -->
-																	<?php echo $this->generate_form_editor( json_decode( $form['fields'] , true ) , $form['list_id'] ); ?>
+																	<?php echo $this->generate_form_editor( json_decode( $form['fields'] , true ) , $form['list_id'] , $available_merge_variables ); ?>
 																</div>
 																<!-- .inside -->
 															</div>
@@ -162,17 +172,13 @@
 																<h3 style="padding-left:12px;"><span><?php _e( "Merge Variables &amp; Interest Groups" , $this->text_domain ); ?></span></h3>
 																<div class="inside">
 																	<?php
-																		try {
-																			$api_key = get_option( 'yikes-mc-api-key' , '' );
-																			$MailChimp = new MailChimp( $api_key );
-																			// retreive our list data
-																			$available_merge_variables = $MailChimp->call( 'lists/merge-vars' , array( 'apikey' => $api_key , 'id' => array( $form['list_id'] ) ) );
+																		if( ! isset( $merge_variable_error ) ) {
 																			// build a list of available merge variables,
 																			// but exclude the ones already assigned to the form
 																			echo '<p class="description">' . __( "Select a field below to add to the form builder to construct your form." , $this->text_domain ) . '</p>';
 																			$this->build_available_merge_vars( json_decode( $form['fields'] , true ) , $available_merge_variables );
-																		} catch ( Exception $e ) {
-																			return __( 'Error' , $this->text_domain ) . ' : ' . $e->getMessage();
+																		} else {
+																			echo $merge_variable_error;
 																		}
 																	?>
 																	
@@ -187,9 +193,6 @@
 													<!-- #postbox-container-1 .postbox-container -->
 												</div>
 												<!-- #post-body .metabox-holder .columns-2 -->
-
-												<br class="clear">
-												<a href="#" onclick="alert('To Do');return false;" title="<?php _e( 'Reimport Form Data' , $this->text_domain ); ?>" class="button-secondary" style="float:left;"><?php _e( 'Reimport Form Data' , $this->text_domain ); ?></a>
 												<br class="clear">
 											</div>
 											

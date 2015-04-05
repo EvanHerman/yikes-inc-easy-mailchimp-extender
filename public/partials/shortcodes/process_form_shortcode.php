@@ -150,7 +150,9 @@ function process_mailchimp_shortcode( $atts ) {
 					// build up our array
 					$field_array['id'] = 'id="' . $field['merge'] . '" ';
 					$field_array['name'] = 'name="' . $field['merge'] . '" ';
-					$field_array['placeholder'] = 'placeholder="' . stripslashes( $field['placeholder'] ) . '" ';
+						
+					$field_array['placeholder'] = isset( $field['placeholder'] ) ? 'placeholder="' . stripslashes( $field['placeholder'] ) . '" ' : '';
+					
 					$field_array['classes'] = 'class="yikes-easy-mc-'.$field['type'] . ' ' .  trim( implode( ' ' , $custom_classes ) ) . '" ';
 					
 					// email must always be required and visible
@@ -168,11 +170,18 @@ function process_mailchimp_shortcode( $atts ) {
 					switch ( $field['type'] ) {
 						
 						default:
+						case 'email':
 						case 'text':
+						case 'number':
+						case 'url':
+						case 'email':
+						case 'birthday':
+						case 'zip':
+						case 'phone':
 							$default_value = $field['default'];
 							?>
 							<label for="<?php echo $field['merge']; ?>" <?php echo implode( ' ' , $label_array ); ?>><span class="<?php echo $field['merge'] . '-label'; ?>"><?php echo stripslashes( $field['label'] ); ?></span>
-								<input <?php echo implode( ' ' , $field_array ); ?> type="text" value="<?php if( !empty( $_POST ) && $form_submitted != 1 ) { echo $_POST[$field['merge']]; } ?>">
+								<input <?php echo implode( ' ' , $field_array ); if( $field['type'] != 'email' && $field['type'] != 'number' ) { ?> type="text" <?php } else if( $field['type'] == 'email' ) { ?> type="email" <?php } else { ?> type="number" <?php } ?> value="<?php if( !empty( $_POST ) && $form_submitted != 1 ) { echo $_POST[$field['merge']]; } ?>">
 							</label>
 							<?php
 							break;

@@ -253,7 +253,7 @@ class Yikes_Inc_Easy_Mailchimp_Extender_Admin {
 					__( 'Pop Ups' , $this->text_domain ), 
 					apply_filters( 'yks_mailchimp_user_role' , 'manage_options' ), 
 					'yikes-inc-easy-mailchimp-popups', 
-					array( &$this, 'generateManageFormsPage' )
+					array( &$this, 'generatePopUpSettingsPage' )
 				);
 				
 			/* Yikes Inc. Easy MailChimp Settings */
@@ -337,6 +337,15 @@ class Yikes_Inc_Easy_Mailchimp_Extender_Admin {
 	*/
 	function generateManageFormsPage() {
 		require_once YIKES_MC_PATH . 'admin/partials/menu/manage-forms.php'; // include our manage forms page
+	}
+	
+	/**
+	* Generate Yikes Inc. Easy MailChimp Manage Pop Ups Page
+	* 
+	* @since    1.0.0
+	*/
+	function generatePopUpSettingsPage() {
+		require_once YIKES_MC_PATH . 'admin/partials/menu/manage-popups.php'; // include our manage forms page
 	}
 	
 	/**
@@ -880,27 +889,51 @@ class Yikes_Inc_Easy_Mailchimp_Extender_Admin {
 		*	-
 		* @parameters - $list_id - pass in the list ID to retreive merge variables from
 		*/
-		public function generate_form_editor( $form_fields , $list_id ) {
+		public function generate_form_editor( $form_fields , $list_id , $merge_variables ) {
+		
 			// if no list id, die!
 			if( !$list_id ) {
 				die( __( "We've encountered an error. No list ID was sent." , $this->text_domain ) );
-			}
+			}		
+			
 			if( !empty( $form_fields ) ) {
-				// test form fields data
-				// print_r( $form_fields );
+			
+				// find any fields that are assigned to this form, that don't exist in MailChimp
+				// or else were going to run into issues when we submit the form
+
+				$available_merge_variables = array();
+				$assigned_fields= array();
+				
+				foreach( $merge_variables['data'][0]['merge_vars'] as $merge_tag ) {
+					$available_merge_variables[] = $merge_tag['tag'];
+				}
+				
+				foreach( $form_fields as $field => $value ) {
+					$assigned_fields[] = $field;
+				}
+				
+				$excluded_fields = array_diff( $assigned_fields , $available_merge_variables );
+				
 				$i = 1;
 				foreach( $form_fields as $field ) {
 					// print_r( $field );
 					?>
-					<section class="draggable" id="<?php echo $field['label']; ?>">
+					<section class="draggable" id="<?php echo $field['merge']; ?>">
 						<!-- top -->
 						<a href="#" class="expansion-section-title settings-sidebar">
 							<span class="dashicons dashicons-plus"></span><?php echo $field['label']; ?>
+							<?php if( in_array( $field['merge'] , $excluded_fields ) ) { ?>
+								<img src="<?php echo YIKES_MC_URL . 'includes/images/warning.svg'; ?>" style="position:absolute;margin-left:5px;width:18px;" title="<?php _e( 'Field no longer exists.' , $this->text_domain ); ?>" alt="<?php _e( 'Field no longer exists.' , $this->text_domain ); ?>">
+							<?php } ?>
 							<span style="float:right;"><small><?php echo __( 'type' , $this->text_domain ) . ' : ' . $field['type']; ?></small></span>
 						</a>
 						<!-- expansion section -->
 						<div class="yikes-mc-settings-expansion-section">
-										
+							
+							<?php if( in_array( $field['merge'] , $excluded_fields ) ) { ?>
+								<p class="yikes-mc-warning-message"><?php _e( "This field no longer exists in this list. Delete this field from the form to prevent issues on the front end." , $this->text_domain ); ?></p>
+							<?php } ?>
+							
 							<!-- store the label -->
 							<input type="hidden" name="field[<?php echo $field['merge'] ?>][label]" value="<?php echo $field['label']; ?>" />
 							<input type="hidden" name="field[<?php echo $field['merge'] ?>][type]" value="<?php echo $field['type']; ?>" />
@@ -915,6 +948,17 @@ class Yikes_Inc_Easy_Mailchimp_Extender_Admin {
 							<p style="margin-top:0;margin:0;"><!-- necessary to prevent skipping on slideToggle(); -->
 								
 								<table class="form-table" style="margin-top:0;">
+									<!-- Default Value -->
+									<?php switch( $field['type'] ) { 
+										
+										case 'text':
+										case 'email':
+										case 'url':
+										case 'number';
+										case 'birthday':
+										case 'zip':
+										case 'phone':
+									?>
 									<!-- Placeholder -->
 									<tr valign="top">
 										<td scope="row">
@@ -927,10 +971,16 @@ class Yikes_Inc_Easy_Mailchimp_Extender_Admin {
 											<p class="description"><small><?php _e( "Assign a placeholder value to this field.", $this->text_domain );?></small></p>
 										</td>
 									</tr>
+									<?php
+										break;
+									}
+									?>
 									<!-- Default Value -->
 									<?php switch( $field['type'] ) { 
 										default:
 										case 'text':
+										case 'number':
+										case 'url':
 									?>
 										<tr valign="top">
 											<td scope="row">
@@ -939,7 +989,7 @@ class Yikes_Inc_Easy_Mailchimp_Extender_Admin {
 												</label>
 											</td>
 											<td>
-												<input type="text" class="widefat" name="field[<?php echo $field['merge'] ?>][default]" value="<?php echo isset( $field['default'] ) ? $field['default'] : '' ; ?>" />
+												<input <?php if( $field['type'] != 'number' ) { ?> type="text" <?php } else { ?> type="number" <?php } ?> class="widefat" name="field[<?php echo $field['merge'] ?>][default]" <?php if( $field['type'] != 'url' ) { ?> value="<?php echo isset( $field['default'] ) ? $field['default'] : ''; ?>" <?php } else { ?> value="<?php echo isset( $field['default'] ) ? esc_url( $field['default'] ) : ''; ?>" <?php } ?> />
 												<p class="description"><small><?php _e( "Assign a default value to populate this field with on initial page load.", $this->text_domain );?></small></p>
 											</td>
 										</tr>
@@ -955,7 +1005,8 @@ class Yikes_Inc_Easy_Mailchimp_Extender_Admin {
 													</label>
 												</td>
 												<td>
-													<?php foreach( json_decode( stripslashes( $field['choices'] ) , true ) as $choice => $value ) { ?>
+													<?php if( !isset( $field['default_choice'] ) ) { $field['default_choice'] =  json_decode( stripslashes( $field['choices'] ) , true )[0]; }
+													foreach( json_decode( stripslashes( $field['choices'] ) , true ) as $choice => $value ) { ?>
 														<input type="radio" name="field[<?php echo $field['merge'] ?>][default_choice]" value="<?php echo $value; ?>" <?php checked( $field['default_choice'] , $value ); ?>><?php echo $value; ?>
 													<?php } ?>
 													<p class="description"><small><?php _e( "Select the option that should be selected by default.", $this->text_domain );?></small></p>
@@ -1034,7 +1085,7 @@ class Yikes_Inc_Easy_Mailchimp_Extender_Admin {
 										</td>
 										<td>
 											<span style="font-size:small;float:right;">
-												<a href="#"><?php _e( "Close" , $this->text_domain ); ?></a> |
+												<a href="#" class="close-form-expansion"><?php _e( "Close" , $this->text_domain ); ?></a> |
 												<a href="#" class="remove-field" alt="<?php echo $field['merge']; ?>"><?php _e( "Remove Field" , $this->text_domain ); ?></a>
 											</span>
 										</td>

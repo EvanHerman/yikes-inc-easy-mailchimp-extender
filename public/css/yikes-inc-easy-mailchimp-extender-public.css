@@ -21,7 +21,13 @@
 	margin-bottom: 1em;
 	width: 100%;
  }
- .yikes-easy-mc-form select {
+ .yikes-easy-mc-form select,
+ .yikes-easy-mc-form input[type="number"],
+ .yikes-easy-mc-form input[type="text"], 
+ .yikes-easy-mc-form input[type="email"], 
+ .yikes-easy-mc-form input[type="url"], 
+ .yikes-easy-mc-form input[type="password"], 
+ .yikes-easy-mc-form textarea {
 	display: inline-block;
 	width: 100%;
  }

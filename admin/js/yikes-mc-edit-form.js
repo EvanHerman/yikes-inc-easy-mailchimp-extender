@@ -20,11 +20,16 @@
 		*/
 		$( 'body' ).on( 'click' , '.remove-field' , function() {
 			var merge_tag = jQuery( this ).attr( 'alt' );
-			jQuery( this ).parents( '.draggable' ).fadeOut( 'fast' , function() {
-				// re-enable the field, to be added to the form
-				jQuery( '#available-fields' ).find( 'li[alt="'+merge_tag+'"]' ).removeClass( 'not-available' );
-				// remove the element from the DOM
-				jQuery( this ).remove();
+			var clicked = jQuery( this );
+			$( this ).parents( '.yikes-mc-settings-expansion-section' ).prev().find( '.dashicons' ).toggleClass( 'dashicons-minus' );
+			$( this ).parents( '.yikes-mc-settings-expansion-section' ).slideToggle( 450 , function() {
+				clicked.parents( '.draggable' ).find( '.expansion-section-title' ).css( 'background' , 'rgb(255, 134, 134)' );
+				clicked.parents( '.draggable' ).fadeOut( 'slow' , function() {
+					// re-enable the field, to be added to the form
+					jQuery( '#available-fields' ).find( 'li[alt="'+merge_tag+'"]' ).removeClass( 'not-available' );
+					// remove the element from the DOM
+					jQuery( this ).remove();
+				});
 			});
 			return false;
 		});
@@ -112,6 +117,12 @@
 			var container = $( this ).attr( 'alt' );
 			$( '.hidden-setting-label' ).hide();
 			$( '#'+container ).show();
+		});
+		
+		/* Close the form when clickcing 'close' */
+		$( 'body' ).on( 'click' , '.close-form-expansion' , function() {
+			$( this ).parents( '.yikes-mc-settings-expansion-section' ).slideToggle().prev().find( '.dashicons' ).toggleClass( 'dashicons-minus' );
+			return false;
 		});
 		
 	});
