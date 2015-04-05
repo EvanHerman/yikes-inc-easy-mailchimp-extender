@@ -51,7 +51,18 @@ class Yikes_Inc_Easy_Mailchimp_Extender_Public {
 
 		$this->yikes_inc_easy_mailchimp_extender = $yikes_inc_easy_mailchimp_extender;
 		$this->version = $version;
-
+	
+		// Include our Shortcode & Processing function (public folder)
+		include_once( YIKES_MC_PATH . 'public/partials/shortcodes/process_form_shortcode.php' );
+		
+		/****************************************/
+		/** Redirect User on Submission **/
+		/************************************
+		if ( !empty( $_POST ) && $_POST[ 'yikes_easy_mc_new_subscriber' ] == 'yikes_easy_mc_form_submit' ) {
+			add_action( 'init' , array( $this , 'yikes_easy_redirect_successful_submission' ) , 10 , 1 );
+		}
+		***/
+		
 	}
 
 	/**
@@ -98,6 +109,6 @@ class Yikes_Inc_Easy_Mailchimp_Extender_Public {
 
 		wp_enqueue_script( $this->yikes_inc_easy_mailchimp_extender, plugin_dir_url( __FILE__ ) . 'js/yikes-inc-easy-mailchimp-extender-public.js', array( 'jquery' ), $this->version, false );
 
-	}
+	}		
 
 }

@@ -73,8 +73,6 @@ class Yikes_Inc_Easy_Mailchimp_Extender_Admin {
 		add_action( 'admin_init', array( $this , 'yikes_easy_mc_settings_init' ) );
 		// Include our MailChimp API Wrapper
 		include_once( YIKES_MC_PATH . 'includes/MailChimp/MailChimp.php' );
-		// Include our Shortcode & Processing function
-		include_once( YIKES_MC_PATH . 'admin/partials/shortcodes/process_form_shortcode.php' );
 		// Include our ajax processing class
 		include_once( YIKES_MC_PATH . 'admin/partials/ajax/class.ajax.php' );
 		/***********************/
@@ -958,7 +956,7 @@ class Yikes_Inc_Easy_Mailchimp_Extender_Admin {
 												</td>
 												<td>
 													<?php foreach( json_decode( stripslashes( $field['choices'] ) , true ) as $choice => $value ) { ?>
-														<input type="radio" name="field[<?php echo $field['merge'] ?>][default_choice]" value="<?php echo $choice; ?>" <?php checked( $field['default_choice'] , $choice ); ?>><?php echo $value; ?>
+														<input type="radio" name="field[<?php echo $field['merge'] ?>][default_choice]" value="<?php echo $value; ?>" <?php checked( $field['default_choice'] , $value ); ?>><?php echo $value; ?>
 													<?php } ?>
 													<p class="description"><small><?php _e( "Select the option that should be selected by default.", $this->text_domain );?></small></p>
 												</td>

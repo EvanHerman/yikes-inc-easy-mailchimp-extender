@@ -118,7 +118,7 @@
 											<a class="hidden_setting form-customizer" onclick="return false;" title="<?php __( 'Customize Form Appearance' , $this->text_domain ); ?>" href="#" alt="form-customizer-label"> <?php _e( 'Form Customizer' , $this->text_domain ); ?></a>
 										</li>
 										<li class="hidden_setting_list">
-											<a class="hidden_setting error-messages" onclick="return false;" title="<?php _e( 'Customize Form Error Messages' , $this->text_domain ); ?>" href="#" alt="form-error-messages"> <?php _e( 'Error Messages' , $this->text_domain ); ?></a>
+											<a class="hidden_setting error-messages" onclick="return false;" title="<?php _e( 'Customize Form Messages' , $this->text_domain ); ?>" href="#" alt="form-error-messages"> <?php _e( 'Custom Messages' , $this->text_domain ); ?></a>
 										</li>					
 									</ul>
 									
@@ -175,9 +175,11 @@
 																			return __( 'Error' , $this->text_domain ) . ' : ' . $e->getMessage();
 																		}
 																	?>
+																	
 																</div>
 																<!-- .inside -->
 															</div>
+															
 															<!-- .postbox -->
 														</div>
 														<!-- .meta-box-sortables -->
@@ -186,6 +188,8 @@
 												</div>
 												<!-- #post-body .metabox-holder .columns-2 -->
 
+												<br class="clear">
+												<a href="#" onclick="alert('To Do');return false;" title="<?php _e( 'Reimport Form Data' , $this->text_domain ); ?>" class="button-secondary" style="float:left;"><?php _e( 'Reimport Form Data' , $this->text_domain ); ?></a>
 												<br class="clear">
 											</div>
 											
@@ -234,7 +238,7 @@
 																	</label>
 																																		
 																	<ul id="style-list" <?php if( $custom_styles['active'] == 0 ) { echo 'style="display:none;"'; } ?>>
-																		<hr style="margin:1.25em 0;" />
+																		<hr style="margin:1.25em 0;margin-top:0;" />
 																		<li>
 																			<label for="color-test"><?php _e( 'Form Background' , $this->text_domain ); ?>
 																				<input type="text" name="form-background-color" value="<?php echo $custom_styles['background_color']; ?>" class="color-picker" />
@@ -311,7 +315,7 @@
 													<div id="post-body-content">
 														<div class="meta-box-sortables ui-sortable">
 															<div class="postbox yikes-easy-mc-postbox">
-																<h3 style="padding-left:12px;"><span><?php _e( "Custom Error Messages" , $this->text_domain ); ?></span></h3>
+																<h3 style="padding-left:12px;"><span><?php _e( "Custom Messages" , $this->text_domain ); ?></span></h3>
 																
 																<div class="inside error-message-container">
 																	<?php 
@@ -324,7 +328,7 @@
 																		);
 																		$global_error_messages = get_option( 'yikes-easy-mc-global-error-messages' , $error_message_array ); 
 																	?>
-																	<p class="description"><?php echo __( "Enter your custom error messages for this form below. Leave the field blank to use the global error message , set on the" , $this->text_domain ) . ' <a href="' . admin_url( 'admin.php?page=yikes-inc-easy-mailchimp-settings&section=form-settings' ) . '" title="' . __( 'Error Settings' , $this->text_domain ) . '">' . __( "error settings page" , $this->text_domain ) . '</a>.'; ?></p>
+																	<p class="description"><?php echo __( "Enter your custom messages for this form below. Leave the field blank to use the global error message , set on the" , $this->text_domain ) . ' <a href="' . admin_url( 'admin.php?page=yikes-inc-easy-mailchimp-settings&section=form-settings' ) . '" title="' . __( 'Error Settings' , $this->text_domain ) . '">' . __( "error settings page" , $this->text_domain ) . '</a>.'; ?></p>
 																	
 																	<!-- Success Message -->
 																	<label for="yikes-easy-mc-success-message"><strong><?php _e( 'Success Message' , $this->text_domain ); ?></strong>
@@ -445,8 +449,8 @@
 											<!-- Single or Double Optin -->
 											<p style="margin-top:0;"><!-- necessary to prevent skipping on slideToggle(); --><label for="single-double-optin"><strong><?php _e( 'Single or Double Opt-in' , $this->text_domain ); ?></strong>
 												<span style="display:block;margin:.5em 0;">
-													<input type="radio" name="single-double-optin" value="1" <?php checked( $optin_settings['optin'] , '1' ); ?>><?php _e( 'Single' , $this->text_domain ); ?>
-													&nbsp;<input type="radio" name="single-double-optin" value="0" <?php checked( $optin_settings['optin'] , '0' ); ?>><?php _e( 'Double' , $this->text_domain ); ?>
+													<input type="radio" name="single-double-optin" value="1" <?php checked( $optin_settings['optin'] , '0' ); ?>><?php _e( 'Single' , $this->text_domain ); ?>
+													&nbsp;<input type="radio" name="single-double-optin" value="0" <?php checked( $optin_settings['optin'] , '1' ); ?>><?php _e( 'Double' , $this->text_domain ); ?>
 												</span>
 												<p class="description"><?php _e( "Double opt-in requires users to confirm their email address before being added to a list (recommended)" , $this->text_domain ); ?></p>
 											</label></p>

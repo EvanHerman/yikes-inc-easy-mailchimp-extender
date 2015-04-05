@@ -48,6 +48,7 @@ Have any questions? Feel free to open up an issue in the issue tracker and we'll
 ###### Filters
 - yikes-easy-mc-form-title - alter the output of the form title
 - yikes-easy-mc-form-description - alter the output of the form description
+- yikes-easy-mc-redirect-timer - (ms : 1 second = 1000ms) alter the amount of time the user sees the success message before being redirected ( defaults to 1500ms );
 
 ###### Hooks
 - yikes-easy-mc-before-form-FORM_ID - output content before a specific form
