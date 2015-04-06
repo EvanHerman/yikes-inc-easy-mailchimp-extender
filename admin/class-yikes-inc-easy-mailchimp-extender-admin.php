@@ -354,7 +354,7 @@ class Yikes_Inc_Easy_Mailchimp_Extender_Admin {
 	* @since    1.0.0
 	*/
 	function generateManageListsPage() {
-		require_once YIKES_MC_PATH . 'admin/partials/menu/lists.php'; // include our lists page
+		require_once YIKES_MC_PATH . 'admin/partials/menu/manage-lists.php'; // include our lists page
 	}
 	
 	/**

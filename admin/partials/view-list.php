@@ -3,8 +3,18 @@
 		$list_id = $_REQUEST['list-id'];
 		// run our API call, to get list data..
 		$MailChimp	= new Mailchimp( get_option( 'yikes-mc-api-key' , '' ) );
+		$api_key = get_option( 'yikes-mc-api-key' , '' );
 		// get this lists data
-		$list_data = $MailChimp->call( 'lists/list' , array( 'apikey' => get_option( 'yikes-mc-api-key' , '' ), 'filters' => array( 'list_id' => $list_id ) ) );
+		$list_data = $MailChimp->call( 'lists/list' , array( 'apikey' => $api_key, 'filters' => array( 'list_id' => $list_id ) ) );
+		$merge_variables = $MailChimp->call( 'lists/merge-vars' , array( 'apikey' => $api_key , 'id' => array( $list_id ) ) );
+		try {
+			$interest_groupings = $MailChimp->call( 'lists/interest-groupings' , array( 'apikey' => $api_key , 'id' => $list_id , 'counts' => true ) );
+		} catch( Exception $error ) {
+			$no_interest_groupings = $error->getMessage();
+		}
+		$merge_variables = $merge_variables['data'][0]['merge_vars'];
+		
+		
 		// reset our data so we can easily use it
 		$list_data = $list_data['data'][0];
 		// get all subscribed members
@@ -52,7 +62,7 @@
 										<tr>
 											<th id="cb" class="manage-column column-cb check-column" scope="col"><input type="checkbox" /></th>
 											<th id="columnname" class="manage-column column-columnname" scope="col"><?php _e( 'User Email' , $this->text_domain ); ?></th>
-											<th id="columnname" class="manage-column column-columnname num" scope="col"><?php _e( 'User Client' , $this->text_domain ); ?></th>
+											<th id="columnname" class="manage-column column-columnname num" scope="col"><?php _e( 'Email Client' , $this->text_domain ); ?></th>
 										</tr>
 									</thead>
 									<!-- end header -->
@@ -62,14 +72,14 @@
 										<tr>
 											<th class="manage-column column-cb check-column" scope="col"><input type="checkbox" /></th>
 											<th class="manage-column column-columnname" scope="col"><?php _e( 'User Email' , $this->text_domain ); ?></th>
-											<th class="manage-column column-columnname num" scope="col"><?php _e( 'User Client' , $this->text_domain ); ?></th>
+											<th class="manage-column column-columnname num" scope="col"><?php _e( 'Email Client' , $this->text_domain ); ?></th>
 										</tr>
 									</tfoot>
 									<!-- end footer -->
 									
 									<!-- TABLE BODY -->
 									<tbody>
-										<?php if( count( $subscribers_list['total'] ) > 0 ) { 
+										<?php if( $subscribers_list['total'] > 0 ) {
 												$i = 1;
 												foreach( $subscribers_list['data'] as $subscriber ) { 
 													// setup the email client name and icon
@@ -99,7 +109,7 @@
 												}
 											} else { ?>
 											<tr class="no-items">
-												<td class="colspanchange" colspan="3" style="padding:25px 0 25px 25px;"><em><?php _e( 'No MailChimp lists found. Head over to' , $this->text_domain ); ?></em></td>
+												<td class="colspanchange" colspan="3" style="padding:25px 0 25px 25px;"><em><?php _e( 'No one is currently subscribed to this list.' , $this->text_domain ); ?></em></td>
 											</tr>
 										<?php } ?>
 									</tbody>
@@ -157,6 +167,10 @@
 									<td><?php echo implode( ' ' , $star_array ); ?></td>
 								</tr>
 								<tr valign="top">
+									<td scope="row"><label for="tablecell"><strong><?php  _e( 'Average Subscribers' , $this->text_domain ); ?></strong></label></td>
+									<td><?php echo $list_data['stats']['avg_sub_rate']; ?><small> / <?php  _e( 'month' , $this->text_domain ); ?></small></td>
+								</tr>
+								<tr valign="top">
 									<td scope="row"><label for="tablecell"><strong><?php  _e( 'Subscriber Count' , $this->text_domain ); ?></strong></label></td>
 									<td><?php echo intval( $list_data['stats']['member_count'] ); ?></td>
 								</tr>
@@ -193,15 +207,42 @@
 						<div class="postbox yikes-easy-mc-postbox">
 																		
 							<h3><?php _e( 'Merge Variable Overview' , $this->text_domain ); ?></h3>
-							
-							<a style="margin:10px;" href="#" onclick="return false;" class="button-primary"><?php _e( 'Edit Fields' , $this->text_domain ); ?></a>
+							<?php
+								if( count( $merge_variables ) >= 1 ) {
+									?><ul style="padding-left:15px;font-size:14px;"><?php
+										echo '<li style="text-decoration:underline;margin-bottom:.75em;padding-left:7px;">' . intval( count( $merge_variables ) ) . ' ' . __( "merge variables" , $this->text_domain ) . '</li>';
+									foreach( $merge_variables as $merge_variable ) {
+										echo '<li><span class="dashicons dashicons-arrow-right" style="line-height:.7;font-size:19px;"></span>' . $merge_variable['name'] . '</li>';
+									}
+									?></ul><?php
+								}
+							?>
+							<a style="margin: 0 0 10px 15px;" href="#" onclick="return false;" class="button-primary"><?php _e( 'Edit Merge Variables' , $this->text_domain ); ?></a>
 							
 						</div>
 						
 						<!-- Interest Group Field Info -->
 						<div class="postbox yikes-easy-mc-postbox">
-																		
+							
+							
 							<h3><?php _e( 'Interest Groups Overview' , $this->text_domain ); ?></h3>
+							<?php
+								if( isset( $interest_groupings ) && count( $interest_groupings ) >= 1 ) {
+									?><ul style="padding-left:15px;font-size:14px;"><?php
+										echo '<li style="text-decoration:underline;margin-bottom:.75em;padding-left:7px;">' . intval( count( $interest_groupings ) ) . ' ' . __( "merge variables" , $this->text_domain ) . '</li>';
+									foreach( $interest_groupings as $interest_group ) {
+										echo '<li><span class="dashicons dashicons-arrow-right" style="line-height:.7;font-size:19px;"></span>' . $interest_group['name'] . '<span style="padding-left:5px;"></span><small title="' . $interest_group['groups'][0]['subscribers'] . ' ' . __( "subscribers assigned to this group" , $this->text_domain ) . '">(' . $interest_group['groups'][0]['subscribers'] . ')</small></li>';
+									}
+									?></ul><?php
+								} else {
+									?>
+									<ul style="padding-left:15px;font-size:14px;">
+										<li><?php echo $no_interest_groupings; ?></li>
+									</ul>
+									<?php
+								}
+							?>
+							<a style="margin: 0 0 10px 15px;" href="#" onclick="return false;" class="button-primary"><?php _e( 'Edit Interest Groupings' , $this->text_domain ); ?></a>
 							
 						</div>
 						
