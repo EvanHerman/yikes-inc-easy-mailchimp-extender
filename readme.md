@@ -1,4 +1,4 @@
-Yikes Inc. Easy MailChimp (*Alpha*)
+Yikes Inc. Easy MailChimp Free (*Alpha*)
 =====================
 
 <strong>Note: Not yet ready for a production environment.</strong>
