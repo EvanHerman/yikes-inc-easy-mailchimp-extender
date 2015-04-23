@@ -3,6 +3,8 @@ Yikes Inc. Easy MailChimp Free (*Beta - v1*)
 
 <strong>Note: Not yet ready for a production environment.</strong>
 
+<strong>Current settings migration works, but no forms will be transferred. You'll need to re-create your forms.</strong>
+
 This is a complete re-write of the original [Yikes Inc Easy MailChimp Extender](https://wordpress.org/plugins/yikes-inc-easy-mailchimp-extender/) plugin.
 
 The overall framework is in place, but the functionality is currently being built out. The staging repo will be the home to all versions of the re-write, for beta testing purposes, before we roll it out to the WordPress repository.

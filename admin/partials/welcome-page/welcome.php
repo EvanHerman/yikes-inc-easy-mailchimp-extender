@@ -10,7 +10,7 @@
 	 * @return void
 	 */
 	function yikes_easy_mc_welcome_tabs() {
-		$section = isset( $_GET['section'] ) ? $_GET['section'] : 'welcome';
+		$section = isset( $_GET['section'] ) ? $_GET['section'] : 'whats-new';
 		?>
 		<h2 class="nav-tab-wrapper">
 			<a class="nav-tab <?php echo $section == 'whats-new' ? 'nav-tab-active' : ''; ?>" href="<?php echo esc_url( admin_url( add_query_arg( array( 'page' => 'yikes-mailchimp-welcome' , 'section' => 'whats-new' ), 'admin.php' ) ) ); ?>">
