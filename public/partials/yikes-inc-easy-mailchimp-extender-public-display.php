@@ -1,16 +1,1 @@
-<?php
-
-/**
- * Provide a public-facing view for the plugin
- *
- * This file is used to markup the public-facing aspects of the plugin.
- *
- * @link       http://www.yikesinc.com/
- * @since      1.0.0
- *
- * @package    Yikes_Inc_Easy_Mailchimp_Extender
- * @subpackage Yikes_Inc_Easy_Mailchimp_Extender/public/partials
- */
-?>
-
-<!-- This file should primarily consist of HTML with a little bit of PHP. -->
+<?php/** * Provide a public-facing view for the plugin * * This file is used to markup the public-facing aspects of the plugin. * * @link       http://www.yikesinc.com/ * @since      1.0.0 * * @package    Yikes_Inc_Easy_Mailchimp_Extender * @subpackage Yikes_Inc_Easy_Mailchimp_Extender/public/partials */?><!-- This file should primarily consist of HTML with a little bit of PHP. -->
