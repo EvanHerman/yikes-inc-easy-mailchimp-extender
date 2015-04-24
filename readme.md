@@ -1,9 +1,7 @@
-Yikes Inc. Easy MailChimp Free (*Beta - v1*)
+Yikes Inc. Easy MailChimp Free (*Beta - v1.1*)
 =====================
 
-<strong>Note: Not yet ready for a production environment.</strong>
-
-<strong>Current settings migration works, but no forms will be transferred. You'll need to re-create your forms.</strong>
+<strong>Current settings migration works, but no forms will be migrated over. You'll need to re-create your opt-in forms.</strong>
 
 This is a complete re-write of the original [Yikes Inc Easy MailChimp Extender](https://wordpress.org/plugins/yikes-inc-easy-mailchimp-extender/) plugin.
 
@@ -48,19 +46,19 @@ Have any questions? Feel free to open up an issue in the issue tracker and we'll
 ##### Filters + Hooks
 
 ###### Filters
-- yikes-easy-mc-form-title - alter the output of the form title
-- yikes-easy-mc-form-description - alter the output of the form description
+- yikes-mailchimp-form-title-FORM_ID - alter the output of the form title of the specified form
+- yikes-mailchimp-form-description-FORM_ID - alter the output of the form description of the specified form
 - yikes-easy-mc-redirect-timer - (ms : 1 second = 1000ms) alter the amount of time the user sees the success message before being redirected ( defaults to 1500ms );
 - yikes-mailchimp-before-submission - catch the merge variables of all forms before they get sent over to MailChimp
-- yikes-mailchimp-before-submission-formID - catch the merge variables of the specified form before they get sent over to MailChimp
+- yikes-mailchimp-before-submission-FORM_ID - catch the merge variables of the specified form before they get sent over to MailChimp
 - yikes-mailchimp-after-submission - catch the merge variables of all forms after they get sent over to MailChimp
-- yikes-mailchimp-after-submission-formID - catch the merge variables of the specified form after they get sent over to MailChimp
+- yikes-mailchimp-after-submission-FORM_ID - catch the merge variables of the specified form after they get sent over to MailChimp
 
 ###### Hooks
 - yikes-inc-easy-mc-post-submission - do something with the user email + form data on form submission
 - yikes-inc-easy-mc-post-submission-FORM_ID - do something with the user email + form data on form submission (specific form)
-- yikes-easy-mc-before-form-FORM_ID - output content before a specific form
 - yikes-easy-mc-before-form - output content before all forms
+- yikes-easy-mc-before-form-FORM_ID - output content before a specific form
 
 ###### Hooks for Extensions
 - yikes-inc-mailchimp-pro-menu - hook to add additional menu items inside of the parent plugin menu
