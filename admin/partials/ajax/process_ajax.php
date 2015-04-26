@@ -23,13 +23,13 @@
 		<!-- Single or Double Optin -->
 		<p style="margin-top:0;margin:0;"><!-- necessary to prevent skipping on slideToggle(); -->
 			<!-- store the label -->
-			<input type="hidden" name="field[<?php echo $merge_field_data['tag'] ?>][label]" value="<?php echo $form_data_array['field_name']; ?>" />
-			<input type="hidden" name="field[<?php echo $merge_field_data['tag'] ?>][type]" value="<?php echo $form_data_array['field_type']; ?>" />
-			<input type="hidden" name="field[<?php echo $merge_field_data['tag'] ?>][merge]" value="<?php echo $merge_field_data['tag']; ?>" />
-			<input type="hidden" class="field-<?php echo $merge_field_data['tag']; ?>-position position-input" name="field[<?php echo $merge_field_data['tag'] ?>][position]" value="" />
+			<input type="hidden" name="field[<?php echo $merge_field_data['tag']; ?>][label]" value="<?php echo $form_data_array['field_name']; ?>" />
+			<input type="hidden" name="field[<?php echo $merge_field_data['tag']; ?>][type]" value="<?php echo $form_data_array['field_type']; ?>" />
+			<input type="hidden" name="field[<?php echo $merge_field_data['tag']; ?>][merge]" value="<?php echo $merge_field_data['tag']; ?>" />
+			<input type="hidden" class="field-<?php echo $merge_field_data['tag']; ?>-position position-input" name="field[<?php echo $merge_field_data['tag']; ?>][position]" value="" />
 			
 			<?php if ( $form_data_array['field_type'] == 'radio' || $form_data_array['field_type'] == 'dropdown' ) { ?>
-				<input type="hidden" name="field[<?php echo $merge_field_data['tag'] ?>][choices]" value='<?php echo stripslashes( json_encode( $merge_field_data['choices'] ) ); ?>' />
+				<input type="hidden" name="field[<?php echo $merge_field_data['tag']; ?>][choices]" value='<?php echo stripslashes( json_encode( $merge_field_data['choices'] ) ); ?>' />
 			<?php } ?>
 				
 			<table class="form-table" style="margin-top:0;">
@@ -41,7 +41,7 @@
 						</label>
 					</td>
 					<td>
-					<input type="text" class="widefat" name="field[<?php echo $merge_field_data['tag'] ?>][placeholder]" value="<?php echo isset( $merge_field_data['placeholder'] ) ? $merge_field_data['placeholder'] : '' ; ?>" />
+					<input type="text" class="widefat" name="field[<?php echo $merge_field_data['tag']; ?>][placeholder]" value="<?php echo isset( $merge_field_data['placeholder'] ) ? $merge_field_data['placeholder'] : '' ; ?>" />
 						<p class="description"><small><?php _e( "Assign a placeholder value to this field.", $this->text_domain );?></small></p>
 					</td>
 				</tr>
@@ -58,7 +58,7 @@
 									</label>
 								</td>
 							<td>
-								<input type="text" class="widefat" name="field[<?php echo $merge_field_data['tag'] ?>][default]" value="<?php echo isset( $merge_field_data['default'] ) ? $merge_field_data['default'] : '' ; ?>" />
+								<input type="text" class="widefat" name="field[<?php echo $merge_field_data['tag']; ?>][default]" value="<?php echo isset( $merge_field_data['default'] ) ? $merge_field_data['default'] : '' ; ?>" />
 								<p class="description"><small><?php _e( "Assign a default value to populate this field with on initial page load.", $this->text_domain );?></small></p>
 							</td>
 							</tr>
@@ -77,7 +77,7 @@
 									<?php foreach( $merge_field_data['choices'] as $choice => $value ) { 
 											$pre_selected = !empty( $merge_field_data['default_choice'] ) ? $merge_field_data['default_choice'] : '0';
 									?>
-										<input type="radio" name="field[<?php echo $merge_field_data['tag'] ?>][default_choice]" value="<?php echo $choice; ?>" <?php checked( $pre_selected , $choice ); ?>><?php echo $value; ?>
+										<input type="radio" name="field[<?php echo $merge_field_data['tag']; ?>][default_choice]" value="<?php echo $choice; ?>" <?php checked( $pre_selected , $choice ); ?>><?php echo $value; ?>
 									<?php } ?>
 									<p class="description"><small><?php _e( "Select the option that should be selected by default.", $this->text_domain );?></small></p>
 								</td>
@@ -95,7 +95,7 @@
 									</label>
 								</td>
 								<td>
-									<select type="default" name="field[<?php echo $merge_field_data['tag'] ?>][default_choice]">
+									<select type="default" name="field[<?php echo $merge_field_data['tag']; ?>][default_choice]">
 										<?php foreach( $merge_field_data['choices'] as $choice => $value ) { 
 												$pre_selected = !empty( $merge_field_data['default_choice'] ) ? $merge_field_data['default_choice'] : '0';
 										?>
@@ -120,7 +120,7 @@
 						</label>
 					</td>
 					<td>
-						<input type="text" class="widefat" name="field[<?php echo $merge_field_data['tag'] ?>][additional-classes]" value="<?php echo isset( $form_data_array['classes'] ) ? $form_data_array['classes'] : '' ; ?>" />
+						<input type="text" class="widefat" name="field[<?php echo $merge_field_data['tag']; ?>][additional-classes]" value="<?php echo isset( $form_data_array['classes'] ) ? $form_data_array['classes'] : '' ; ?>" />
 						<p class="description"><small><?php _e( "Assign additional classes to this field.", $this->text_domain );?></small></p>
 					</td>
 					</tr>
@@ -132,7 +132,7 @@
 							</label>
 						</td>
 						<td>
-							<input type="checkbox" class="widefat" value="1" name="field[<?php echo $merge_field_data['tag'] ?>][require]" <?php checked( $merge_field_data['req'] , 1 ); ?> <?php if( $merge_field_data['tag'] == 'EMAIL' ) {  ?> disabled="disabled" checked="checked" title="<?php echo __( 'Email is a required field.' , $this->text_domain ); } ?>">
+							<input type="checkbox" class="widefat" value="1" name="field[<?php echo $merge_field_data['tag']; ?>][require]" <?php checked( $merge_field_data['req'] , 1 ); ?> <?php if( $merge_field_data['tag'] == 'EMAIL' ) {  ?> disabled="disabled" checked="checked" title="<?php echo __( 'Email is a required field.' , $this->text_domain ); } ?>">
 							<p class="description"><small><?php _e( "Require this field to be filled in before the form can be submitted.", $this->text_domain );?></small></p>
 						</td>
 					</tr>
@@ -144,7 +144,7 @@
 							</label>
 						</td>
 						<td>
-							<input type="checkbox" class="widefat" value="1" name="field[<?php echo $merge_field_data['tag'] ?>][hide]" <?php if( empty( $merge_field_data['show'] ) ) { echo 'checked="checked"'; } ?> <?php if( $merge_field_data['tag'] == 'EMAIL' ) {  ?> disabled="disabled" title="<?php echo __( 'Cannot toggle email field visibility.' , $this->text_domain ); } ?>">
+							<input type="checkbox" class="widefat" value="1" name="field[<?php echo $merge_field_data['tag']; ?>][hide]" <?php if( empty( $merge_field_data['show'] ) ) { echo 'checked="checked"'; } ?> <?php if( $merge_field_data['tag'] == 'EMAIL' ) {  ?> disabled="disabled" title="<?php echo __( 'Cannot toggle email field visibility.' , $this->text_domain ); } ?>">
 							<p class="description"><small><?php _e( "Hide this field from being displayed on the front end.", $this->text_domain );?></small></p>
 						</td>
 					</tr>
