@@ -11,6 +11,9 @@ Readme.txt and documentation to follow.
 
 <br />
 
+#### Currently Requires PHP v5.4 or higher
+We are working on making things backwards compatable from PHP v5.2 and up.
+
 #### Plugin Preview Screenshots
 [Cloudup Gallery](https://cloudup.com/cDJtreQDIcJ)
 
