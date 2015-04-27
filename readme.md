@@ -62,6 +62,7 @@ Have any questions? Feel free to open up an issue in the issue tracker and we'll
 - yikes-inc-easy-mc-post-submission-FORM_ID - do something with the user email + form data on form submission (specific form)
 - yikes-easy-mc-before-form-FORM_ID - output content before a specific form
 - yikes-easy-mc-before-form - output content before all forms
+
 <strong>Widgets</strong>
 - yikes-mailchimp-widget-before-form - insert custom content after the widget title and before the MailChimp form (effects ALL widget forms)
 - yikes-mailchimp-widget-before-form-form_id - insert custom content after the widget title and before the MailChimp form (effects only the form whos ID you've specified in the hook)
