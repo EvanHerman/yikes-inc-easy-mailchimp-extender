@@ -11,12 +11,12 @@ Readme.txt and documentation to follow.
 
 <br />
 
-#### Currently Requires PHP v5.4 or higher
-We are working on making things backwards compatable from PHP v5.2 and up.
+#### Minimum Requirements
+- WordPress 3.8+ 
+- PHP v5.3+
 
 #### Plugin Preview Screenshots
 [Cloudup Gallery](https://cloudup.com/cDJtreQDIcJ)
-
 
 #### Questions?
 Have any questions? Feel free to open up an issue in the issue tracker and we'll get back to you as soon as possible.
