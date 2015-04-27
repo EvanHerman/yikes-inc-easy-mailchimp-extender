@@ -29,21 +29,21 @@
 		
 		<?php settings_fields( 'yikes_inc_easy_mc_recaptcha_settings_page' ); ?>
 		
-			<label for="yikes-mailchimp-recaptcha-status" style="display:block;margin-bottom:1em;"><strong><?php _e( 'Enable reCAPTCHA Protection' , $this->text_domain ); ?></strong>
-				<input type="checkbox" name="yikes-mailchimp-recaptcha-status" value="1" style="display:block;margin-top:.5em;" <?php checked( get_option( 'yikes-mailchimp-recaptcha-status' , '' ) , '1' ); ?>>
+			<label for="yikes-mc-recaptcha-setting" style="display:block;margin-bottom:1em;"><strong><?php _e( 'Enable reCAPTCHA Protection' , $this->text_domain ); ?></strong>
+				<input type="checkbox" name="yikes-mc-recaptcha-setting" value="1" style="display:block;margin-top:.5em;" <?php checked( get_option( 'yikes-mc-recaptcha-setting' , '' ) , '1' ); ?>>
 			</label>
 			
-			<label for="yikes-mailchimp-recaptcha-site-key" style="display:block;margin-bottom:1em;"><strong><?php _e( 'reCAPTCHA Site Key' , $this->text_domain ); ?></strong>
-				<input type="text" class="widefat" name="yikes-mailchimp-recaptcha-site-key" id="" value="<?php echo esc_attr( get_option( 'yikes-mailchimp-recaptcha-site-key' , '' ) ); ?>" style="display:block;margin-top:.5em;">
+			<label for="yikes-mc-recaptcha-api-key" style="display:block;margin-bottom:1em;"><strong><?php _e( 'reCAPTCHA Site Key' , $this->text_domain ); ?></strong>
+				<input type="text" class="widefat" name="yikes-mc-recaptcha-api-key" id="" value="<?php echo esc_attr( get_option( 'yikes-mc-recaptcha-api-key' , '' ) ); ?>" style="display:block;margin-top:.5em;">
 			</label>
 			
-			<label for="yikes-mailchimp-recaptcha-secret-key"><strong><?php _e( 'reCAPTCHA Secret Key' , $this->text_domain ); ?></strong>
-				<input type="text" class="widefat" name="yikes-mailchimp-recaptcha-secret-key" id="" value="<?php echo esc_attr( get_option( 'yikes-mailchimp-recaptcha-secret-key' , '' ) ); ?>" style="display:block;margin-top:.5em;">
+			<label for="yikes-mc-recaptcha-private-api-key"><strong><?php _e( 'reCAPTCHA Secret Key' , $this->text_domain ); ?></strong>
+				<input type="text" class="widefat" name="yikes-mc-recaptcha-private-api-key" id="" value="<?php echo esc_attr( get_option( 'yikes-mc-recaptcha-private-api-key' , '' ) ); ?>" style="display:block;margin-top:.5em;">
 			</label>
 			
 			<a href="#" onclick="jQuery(this).next().slideToggle();" style="display:block;margin-top:.5em;"><?php _e( 'View reCAPTCHA Preview' , $this->text_domain ); ?></a>
 				<span style="display: block; width: 100%; display:none; margin:1em 0;">
-					<img src="https://developers.google.com/recaptcha/images/newCaptchaAnchor.gif" alt="<?php _e( 'reCAPTCHA Preview' , $this->text_domain ); ?>" style="width:345px;">
+					<img src="https://developers.google.com/recaptcha/images/newCaptchaAnchor.gif" alt="<?php _e( 'reCAPTCHA Preview' , $this->text_domain ); ?>" style="width:275px;">
 				</span>
 			
 			

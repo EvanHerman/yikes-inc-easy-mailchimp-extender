@@ -1,3 +1,8 @@
+<?php
+	// set our text domain
+	$text_domain = 'yikes-inc-easy-mailchimp-extender';
+?>
+
 <?php if( get_option( 'yikes-mc-api-validation' , 'invalid_api_key' ) == 'valid_api_key' ) { ?>
 	<div class="about-description">
 		<?php echo __( "Before you can create any opt-in forms, you'll first need to enter your MailChimp API key into the" , $text_domain ) . ' <a href="' . admin_url( 'admin.php?page=yikes-inc-easy-mailchimp-settings&section=general-settings' ) . '" title="' . __( 'Yikes Easy MailChimp Settings' , $text_domain ) . '">' . __( 'settings page' , $text_domain ) . '</a>'; ?>
