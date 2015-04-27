@@ -75,15 +75,21 @@
 					#credit-container .team-member img {
 						border-radius: 50%;
 					}
+				.about-wrap div.error, 
+				.about-wrap div.updated {
+					display: block !important;
+					margin-left: 115px !important;
+				}
 			</style>
 		<?php
 	}
 	
 	// print our custom CSS
 	custom_welcome_page_css();
+	do_action( 'yikes_easy_mc_php_warning' );
 	?>
 	<div class="wrap about-wrap">
-
+	
 		<div id="yikes-mailchimp-logo"></div>
 		
 		<h2 class="welcome-title" style="margin-left:115px;">
