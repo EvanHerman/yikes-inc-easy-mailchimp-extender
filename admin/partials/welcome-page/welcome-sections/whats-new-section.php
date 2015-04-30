@@ -1,3 +1,7 @@
+<?php
+	// set our text domain
+	$text_domain = 'yikes-inc-easy-mailchimp-extender';
+?>
 <div class="wrap about-wrap">
 
 	<div class="feature-section">

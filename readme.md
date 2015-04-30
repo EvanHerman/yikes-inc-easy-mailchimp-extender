@@ -11,9 +11,12 @@ Readme.txt and documentation to follow.
 
 <br />
 
+#### Minimum Requirements
+- WordPress 3.8+ 
+- PHP v5.3+
+
 #### Plugin Preview Screenshots
 [Cloudup Gallery](https://cloudup.com/cDJtreQDIcJ)
-
 
 #### Questions?
 Have any questions? Feel free to open up an issue in the issue tracker and we'll get back to you as soon as possible.
@@ -57,8 +60,14 @@ Have any questions? Feel free to open up an issue in the issue tracker and we'll
 ###### Hooks
 - yikes-inc-easy-mc-post-submission - do something with the user email + form data on form submission
 - yikes-inc-easy-mc-post-submission-FORM_ID - do something with the user email + form data on form submission (specific form)
-- yikes-easy-mc-before-form - output content before all forms
 - yikes-easy-mc-before-form-FORM_ID - output content before a specific form
+- yikes-easy-mc-before-form - output content before all forms
+
+<strong>Widgets</strong>
+- yikes-mailchimp-widget-before-form - insert custom content after the widget title and before the MailChimp form (effects ALL widget forms)
+- yikes-mailchimp-widget-before-form-form_id - insert custom content after the widget title and before the MailChimp form (effects only the form whos ID you've specified in the hook)
+- yikes-mailchimp-widget-after-form - insert custom content after the MailChimp form (effects ALL widget forms)
+- yikes-mailchimp-widget-after-form-form_id - insert custom content after the MailChimp form (effects only the form whos ID you've specified in the hook)
 
 ###### Hooks for Extensions
 - yikes-inc-mailchimp-pro-menu - hook to add additional menu items inside of the parent plugin menu
