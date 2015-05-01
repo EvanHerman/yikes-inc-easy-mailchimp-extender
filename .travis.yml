@@ -1,0 +1,12 @@
+language: php
+matrix:
+  include:
+  - php: 5.4
+  - php: 5.5
+    env: PHPLINT=1
+  - php: hhvm
+install:
+- composer install --dev
+script:
+- composer run-script test
+- if [[ "$PHPLINT" == "1" ]]; then composer run-script check-codestyle; fi
