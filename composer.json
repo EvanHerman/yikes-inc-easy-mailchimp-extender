@@ -3,8 +3,8 @@
     "description": "Powerful MailChimp plugin for WordPress created by Yikes Inc.",
     "keywords": ["mailchimp", "plugin", "WordPress", "mailing", "list"],
     "homepage": "http://packagist.org/",
-    "type": "library",
-    "license": "GPL v2",
+    "type": "wordpress-plugin",
+    "license": "GPL-2.0+",
     "authors": [
         {
             "name": "Yikes Inc.",
@@ -25,11 +25,5 @@
     },
     "require": {
         "php": ">=5.3",
-    },
-    "scripts": {
-  
-    },
-    "extra": {
-       
     }
 }
