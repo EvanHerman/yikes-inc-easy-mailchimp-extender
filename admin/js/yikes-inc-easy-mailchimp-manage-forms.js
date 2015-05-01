@@ -1,7 +1,7 @@
-(function( $ ) {
-	'use strict';
-	 
-	 // ajax to get list details..
-	 
-
-})( jQuery );
+(function( $ ) {
+	'use strict';
+	 
+	 // ajax to get list details..
+	 
+
+})( jQuery );
