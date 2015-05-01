@@ -1,8 +1,8 @@
 Yikes Inc. Easy MailChimp Free (*Beta - v1.1*)
 =====================
 
-![License](https://poser.pugx.org/yikesinc/yikes-inc-easy-mailchimp-extender/license)](https://packagist.org/packages/yikesinc/yikes-inc-easy-mailchimp-extender)
-![Latest Stable Version](https://poser.pugx.org/yikesinc/yikes-inc-easy-mailchimp-extender/v/stable.svg)](https://packagist.org/packages/yikesinc/yikes-inc-easy-mailchimp-extender)
+[![License](https://poser.pugx.org/yikesinc/yikes-inc-easy-mailchimp-extender/license)](https://packagist.org/packages/yikesinc/yikes-inc-easy-mailchimp-extender)
+[![Latest Stable Version](https://poser.pugx.org/yikesinc/yikes-inc-easy-mailchimp-extender/v/stable.svg)](https://packagist.org/packages/yikesinc/yikes-inc-easy-mailchimp-extender)
 ![WordPress plugin](https://img.shields.io/wordpress/plugin/v/yikes-inc-easy-mailchimp-extender.svg)
 ![WordPress](https://img.shields.io/wordpress/v/yikes-inc-easy-mailchimp-extender.svg)
 ![Rating](https://img.shields.io/wordpress/plugin/r/yikes-inc-easy-mailchimp-extender.svg)
