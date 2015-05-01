@@ -1,11 +1,11 @@
 Yikes Inc. Easy MailChimp Free (*Beta - v1.1*)
 =====================
 
-[![Latest Stable Version](https://poser.pugx.org/phpunit/phpunit/version)](https://packagist.org/packages/yikesinc/yikes-inc-easy-mailchimp-extender)
-[![License](https://poser.pugx.org/phpunit/phpunit/license)](https://packagist.org/packages/yikesinc/yikes-inc-easy-mailchimp-extender)
-[!][Tested](https://img.shields.io/wordpress/v/yikes-inc-easy-mailchimp-extender.svg)
-![Version](https://img.shields.io/wordpress/plugin/dt/yikes-inc-easy-mailchimp-extender.svg)
-![Rating](https://img.shields.io/wordpress/plugin/r/yikes-inc-easy-mailchimp-extender.svg)
+[![License](https://poser.pugx.org/yikesinc/yikes-inc-easy-mailchimp-extender/license)](https://packagist.org/packages/yikesinc/yikes-inc-easy-mailchimp-extender)
+[![Latest Stable Version](https://poser.pugx.org/yikesinc/yikes-inc-easy-mailchimp-extender/v/stable.svg)](https://packagist.org/packages/yikesinc/yikes-inc-easy-mailchimp-extender)
+[![WordPress plugin](https://img.shields.io/wordpress/plugin/v/yikes-inc-easy-mailchimp-extender.svg)
+[![WordPress](https://img.shields.io/wordpress/v/yikes-inc-easy-mailchimp-extender.svg)
+[![Rating](https://img.shields.io/wordpress/plugin/r/yikes-inc-easy-mailchimp-extender.svg)
 
 <strong>Current settings migration works, but no forms will be migrated over. You'll need to re-create your opt-in forms.</strong>
 
