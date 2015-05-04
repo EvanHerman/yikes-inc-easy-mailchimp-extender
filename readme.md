@@ -1,4 +1,4 @@
-Yikes Inc. Easy MailChimp Free (*Beta - v1.1*)
+Yikes Inc. Easy MailChimp Free (*Beta Release Candidate 1.0*)
 =====================
 
 [![WordPress](https://img.shields.io/wordpress/plugin/dt/yikes-inc-easy-mailchimp-extender.svg)]()
@@ -7,13 +7,13 @@ Yikes Inc. Easy MailChimp Free (*Beta - v1.1*)
 ![WordPress plugin](https://img.shields.io/wordpress/plugin/v/yikes-inc-easy-mailchimp-extender.svg)
 ![WordPress](https://img.shields.io/wordpress/v/yikes-inc-easy-mailchimp-extender.svg)
 
-<strong>Beta ready</strong>
+<strong>Beta - Release Candidate 1.0</strong>
 
 This is a complete re-write of the original [Yikes Inc Easy MailChimp Extender](https://wordpress.org/plugins/yikes-inc-easy-mailchimp-extender/) plugin.
 
-The overall framework is in place, but the functionality is currently being built out. The staging repo will be the home to all versions of the re-write, for beta testing purposes, before we roll it out to the WordPress repository.
+This is the first release candidate for the final release of [Yikes Inc Easy MailChimp Extender](https://wordpress.org/plugins/yikes-inc-easy-mailchimp-extender/). We will be rolling things out to the repository when as we get close to finalizing the documentation.
 
-Readme.txt and documentation to follow.
+Feel free to use this plugin now. When the final version rolls out, you'll have a smooth transition.
 
 <br />
 
