@@ -57,23 +57,20 @@ Have any questions? Feel free to open up an issue in the issue tracker and we'll
 ###### Filters
 - yikes-mailchimp-form-title-FORM_ID - alter the output of the form title of the specified form
 - yikes-mailchimp-form-description-FORM_ID - alter the output of the form description of the specified form
-- yikes-easy-mc-redirect-timer - (ms : 1 second = 1000ms) alter the amount of time the user sees the success message before being redirected ( defaults to 1500ms );
+- yikes-mailchimp-redirect-timer - (ms : 1 second = 1000ms) alter the amount of time the user sees the success message before being redirected ( defaults to 1500ms );
 - yikes-mailchimp-before-submission - catch the merge variables of all forms before they get sent over to MailChimp
 - yikes-mailchimp-before-submission-FORM_ID - catch the merge variables of the specified form before they get sent over to MailChimp
 - yikes-mailchimp-after-submission - catch the merge variables of all forms after they get sent over to MailChimp
 - yikes-mailchimp-after-submission-FORM_ID - catch the merge variables of the specified form after they get sent over to MailChimp
+- yikes-mailchimp-user-role-access - Alter who can access this plugin page by capability (default 'manage_options' - admins)
 
 ###### Hooks
-- yikes-inc-easy-mc-post-submission - do something with the user email + form data on form submission
-- yikes-inc-easy-mc-post-submission-FORM_ID - do something with the user email + form data on form submission (specific form)
-- yikes-easy-mc-before-form-FORM_ID - output content before a specific form
-- yikes-easy-mc-before-form - output content before all forms
-
-<strong>Widgets</strong>
-- yikes-mailchimp-widget-before-form - insert custom content after the widget title and before the MailChimp form (effects ALL widget forms)
-- yikes-mailchimp-widget-before-form-form_id - insert custom content after the widget title and before the MailChimp form (effects only the form whos ID you've specified in the hook)
-- yikes-mailchimp-widget-after-form - insert custom content after the MailChimp form (effects ALL widget forms)
-- yikes-mailchimp-widget-after-form-form_id - insert custom content after the MailChimp form (effects only the form whos ID you've specified in the hook)
+- yikes-mailchimp-form-submission - do something with the user email + form data on form submission
+- yikes-mailchimp-form-submission-FORM_ID - do something with the user email + form data on form submission (specific form)
+- yikes-mailchimp-before-form - output content before all forms
+- yikes-mailchimp-before-form-FORM_ID - output content before a specific form
+- yikes-mailchimp-after-form - output content after all forms
+- yikes-mailchimp-after-FORM_ID - output content after a specific form
 
 ###### Hooks for Extensions
-- yikes-inc-mailchimp-pro-menu - hook to add additional menu items inside of the parent plugin menu
+- yikes-mailchimp-menu - hook to add additional menu items inside of the "Easy MailChimp" menu item
