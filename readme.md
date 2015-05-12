@@ -71,6 +71,8 @@ Have any questions? Feel free to open up an issue in the issue tracker and we'll
 - yikes-mailchimp-before-form-FORM_ID - output content before a specific form
 - yikes-mailchimp-after-form - output content after all forms
 - yikes-mailchimp-after-FORM_ID - output content after a specific form
+- yikes-mailchimp-before-checkbox - output custom content before the opt-in checkbox for all integrations
+- yikes-mailchimp-after-checkbox - output custom content after the opt-in checkbox for all integrations
 
 ###### Hooks for Extensions
 - yikes-mailchimp-menu - hook to add additional menu items inside of the "Easy MailChimp" menu item
