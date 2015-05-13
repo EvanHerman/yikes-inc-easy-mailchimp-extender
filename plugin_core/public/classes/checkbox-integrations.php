@@ -7,9 +7,60 @@
 	
 		// declare our integration type
 		protected $type = 'integration';
+		private $text_domain = 'yikes-inc-easy-mailchimp-extender';
 		
 		public function __construct() {	
 			
+		}
+			
+		/*
+		*	Check if a user is already subscribed to
+		*	a given list, if so don't show the checkbox integration
+		*/
+		public function is_user_already_subscribed( $integration_type ) {
+			// first check if the user is logged in
+			if( is_user_logged_in() ) {
+				$checkbox_options = get_option( 'optin-checkbox-init' , '' );
+				$current_user = wp_get_current_user();
+				$email = $current_user->user_email;
+				try {
+					$MailChimp = new MailChimp( get_option( 'yikes-mc-api-key' , '' ) );
+					// subscribe the user
+					$already_subscribed = $MailChimp->call('/lists/member-info', array( 
+						'api_key' => get_option( 'yikes-mc-api-key' , '' ),
+						'id' => $checkbox_options[$integration_type]['associated-list'],
+						'emails' => array( array( 'email' => sanitize_email( $email ) ) ),
+					) );
+					return $already_subscribed['success_count'];
+				} catch ( Exception $error ) {
+					return $error->getMessage();
+				}
+			} else {
+				// if the user isn't logged in
+				// we'll always display it
+				return '0';
+			}
+		}			
+		
+		/*
+		*	Check if a new user registration email already subscribed
+		*	a given list, if so don't show the checkbox integration
+		*/
+		public function is_new_registration_already_subscribed( $email , $integration_type ) {
+			// first check if the user is logged in
+			$checkbox_options = get_option( 'optin-checkbox-init' , '' );
+			try {
+				$MailChimp = new MailChimp( get_option( 'yikes-mc-api-key' , '' ) );
+				// subscribe the user
+				$already_subscribed = $MailChimp->call('/lists/member-info', array( 
+					'api_key' => get_option( 'yikes-mc-api-key' , '' ),
+					'id' => $checkbox_options[$integration_type]['associated-list'],
+					'emails' => array( array( 'email' => sanitize_email( $email ) ) ),
+				) );
+				return $already_subscribed['success_count'];
+			} catch ( Exception $error ) {
+				return $error->getMessage();
+			}
 		}
 			
 		/**
@@ -17,18 +68,20 @@
 		* @return string
 		*/
 		public function yikes_get_checkbox() {
+			// enqueue our checkbox styles whenever the checkbox is displayed
+			wp_enqueue_style( 'yikes-easy-mailchimp-checkbox-integration-styles', plugin_dir_url( __FILE__ ) . '../css/yikes-inc-easy-mailchimp-checkbox-integration.min.css' );
 			// store our options
 			$checkbox_options = get_option( 'optin-checkbox-init' , '' );
-			if( isset( $checkbox_options['comment_form']['associated-list'] ) && $checkbox_options['comment_form']['associated-list'] != '-' ) {
-				$checked = ( $checkbox_options['comment_form']['precheck'] == 'true' ) ? 'checked' : '';
+			if( isset( $checkbox_options[$this->type]['associated-list'] ) && $checkbox_options[$this->type]['associated-list'] != '-' ) {
+				$checked = ( $checkbox_options[$this->type]['precheck'] == 'true' ) ? 'checked' : '';
 				// before checkbox HTML (comment, ...)
 				$before = '<!-- Easy MailChimp Forms by Yikes Inc - https://www.yikesinc.com/ -->';
 				$before .= apply_filters( 'yikes-mailchimp-before-checkbox-html', '' );
 				// checkbox
-				$content = '<p id="yikes-easy-mailchimp-comment-checkbox" class="yikes-easy-mailchimp-comment-checkbox">';
+				$content = '<p id="yikes-easy-mailchimp-' . $this->type . '-checkbox" class="yikes-easy-mailchimp-' . $this->type . '-checkbox">';
 					$content .= '<label>';
 						$content .= '<input type="checkbox" name="yikes_mailchimp_checkbox_' . $this->type . '" value="1" '. $checked . ' /> ';
-						$content .= $checkbox_options['comment_form']['label'];
+						$content .= $checkbox_options[$this->type]['label'];
 					$content .= '</label>';
 				$content .= '</p>';
 				// after checkbox HTML (..., honeypot, closing comment)
@@ -47,30 +100,36 @@
 		public function subscribe_user_integration( $email , $type , $merge_vars ) {			
 			// get checkbox data
 			$checkbox_options = get_option( 'optin-checkbox-init' , '' );
+			if( $type != 'registration_form' ) {
+				$update = '1';
+			} else {
+				$update = '0';
+			}
 			// set ip address
 			if( ! isset( $merge_vars['OPTIN_IP'] ) && isset( $_SERVER['REMOTE_ADDR'] ) ) {
 				$merge_vars['OPTIN_IP'] = sanitize_text_field( $_SERVER['REMOTE_ADDR'] );
 			}
 			// initialize MailChimp API
 			try {
-					$MailChimp = new MailChimp( get_option( 'yikes-mc-api-key' , '' ) );
-					// subscribe the user
-					$subscribe_response = $MailChimp->call('/lists/subscribe', array( 
+				$MailChimp = new MailChimp( get_option( 'yikes-mc-api-key' , '' ) );
+				// subscribe the user
+				$subscribe_response = $MailChimp->call('/lists/subscribe', array( 
 					'api_key' => get_option( 'yikes-mc-api-key' , '' ),
 					'id' => $checkbox_options['comment_form']['associated-list'],
 					'email' => array( 'email' => sanitize_email( $email) ),
 					'merge_vars' => $merge_vars,
 					'double_optin' => 0,
-					'update_existing' => 1,
+					'update_existing' => $update,
 					'send_welcome' => 1
 				) );
 			} catch( Exception $e ) { 
-				return $e->getMessage();
+				$e->getMessage();
 			}
 		}
 		
 		/**
 		* Build merge varaibles array
+		*	@since 6.0.0
 		*/	
 		public function user_merge_vars( WP_User $user ) {
 			// start with user_login as name, since that's always known
@@ -102,10 +161,39 @@
 		/*
 		*	Confirm the checkbox was checked
 		*	before continuing
+		*	@since 6.0.0
 		*/
 		public function was_checkbox_checked( $type ) {
 			// was sign-up checkbox checked - return the value
 			return ( isset( $_POST[ 'yikes_mailchimp_checkbox_'.$type ] ) && $_POST[ 'yikes_mailchimp_checkbox_'.$type ] == 1 );
+		}
+		
+		
+		/**
+		*	Alter the registraton complete message	
+		*	if the registration form checkbox integration is toggled on
+		* 	@since 6.0.0
+		**/
+		public function yikes_reg_complete_msg( $errors, $redirect_to ) {
+			if( isset( $errors->errors['registered'] ) ) {
+				$email_error = get_option( 'yikes_register_subscription_error' , '' );
+				if( isset( $email_error ) && $email_error != '' ) {	
+					// Use the magic __get method to retrieve the errors array:
+					$tmp = $errors->errors; 
+					$old = 'Registration complete. Please check your e-mail.';
+					foreach( $tmp['registered'] as $index => $msg ) {
+						if( $msg === $old ) {
+							$tmp['registered'][$index] = $old . ' <p class="message"><strong>' . __( 'Note' , $this->text_domain ) . '</strong>: ' . $email_error . '</p>';        
+						}
+					}
+					// Use the magic __set method to override the errors property:
+					$errors->errors = $tmp;
+					// Cleanup:
+					unset( $tmp );
+					delete_option( 'yikes_register_subscription_error' );
+				}
+		   }
+		   return $errors;
 		}
 		
 	}

@@ -10,6 +10,8 @@ class Yikes_Easy_MC_Registration_Checkbox_Class extends Yikes_Easy_MC_Checkbox_I
 		parent::__construct();
 		add_action( 'register_form', array( $this, 'output_checkbox' ), 20 );
 		add_action( 'user_register', array( $this, 'subscribe_from_registration' ), 90, 1 );
+		// alter the error message, if there was an error with the users email address
+		add_filter( 'wp_login_errors', array( $this , 'yikes_reg_complete_msg' ), 10,  2 );
 	}
 	
 	/**
@@ -41,10 +43,12 @@ class Yikes_Easy_MC_Registration_Checkbox_Class extends Yikes_Easy_MC_Checkbox_I
 		}
 		// build our merge vars
 		$merge_variables = $this->user_merge_vars( $user );
-		try{
+		// only subscribe the user if they aren't already on the list
+		if( $this->is_new_registration_already_subscribed( $user->user_email , 'registration_form' ) != '1' ) {
 			$this->subscribe_user_integration( sanitize_email( $user->user_email ) , $this->type , $merge_variables );
-		} catch( Exception $e ) {
-			return $e->getMessage();
+		} else {
+			// add a temporary option to pass our email address and let the user know they are already subscribed
+			add_option( 'yikes_register_subscription_error' , __( "You have not been subscribed to our mailing list." , $this->text_domain ) . ' ' . $user->user_email . ' ' . __( "is already subscribed to this list." , $this->text_domain ) );
 		}
 	}
 	

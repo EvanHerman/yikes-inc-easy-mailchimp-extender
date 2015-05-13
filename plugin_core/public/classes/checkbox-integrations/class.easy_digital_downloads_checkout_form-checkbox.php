@@ -8,14 +8,14 @@
 		/**
 		 * @var string
 		 */
-		protected $type = 'edd_checkout';
+		protected $type = 'easy_digital_downloads_checkout_form';
 		
 		/**
 		 * Constructor
 		 */
 		public function __construct() {
 			add_action( 'edd_purchase_form_user_info', array( $this, 'output_checkbox' ) );
-			add_action( 'edd_payment_meta', array( $this, 'save_checkbox_value' ) );
+			add_filter( 'edd_payment_meta', array( $this, 'save_checkbox_value' ) );
 			add_action( 'edd_complete_purchase', array( $this, 'subscribe_from_edd_purchase'), 50 );
 		}
 		
@@ -24,9 +24,13 @@
 		* Outputs a checkbox
 		*/
 		public function output_checkbox() {
-			echo do_action( 'yikes-mailchimp-before-checkbox' , $this->type );
-				echo $this->yikes_get_checkbox();
-			echo do_action( 'yikes-mailchimp-after-checkbox' , $this->type );
+			// render our field if the user isn't current subscribed
+			if( $this->is_user_already_subscribed( $this->type ) != '1' ) {
+				echo do_action( 'yikes-mailchimp-before-checkbox' , $this->type );
+					// print_r( edd_get_payment_meta( '61' ) );
+					echo $this->yikes_get_checkbox();
+				echo do_action( 'yikes-mailchimp-after-checkbox' , $this->type );
+			}
 		}	
 		
 		
@@ -35,14 +39,12 @@
 		 *
 		 * @return array
 		 */
-		public function save_checkbox_value( $meta ) {
+		public function save_checkbox_value( $payment_meta ) {
 			// don't save anything if the checkbox was not checked
-			if( ! $this->was_checkbox_checked( $this->type ) ) {
-				return $meta;
-			}
-			$meta['_yikes_easy_mc_optin'] = 1;
-			return $meta;
+			$payment_meta['_yikes_easy_mc_optin'] = 0;
+			return $payment_meta;
 		}
+		
 		/**
 		 * @param int $payment_id The ID of the payment
 		 *
@@ -66,12 +68,8 @@
 			if( isset( $user_info['last_name'] ) ) {
 				$merge_vars['LNAME'] = $user_info['last_name'];
 			}
-			return $this->subscribe( $email, $merge_vars, $this->type, $payment_id );
-			try {
-				$this->subscribe_user_integration( sanitize_email( $email ) , $this->type , $merge_vars );
-			} catch( Exception $e ) {
-				return $e->getMessage();
-			}
+			// subscribe the user
+			$this->subscribe_user_integration( sanitize_email( $email ) , $this->type , $merge_vars );
 		}
 	
 	}
