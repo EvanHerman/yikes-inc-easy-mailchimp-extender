@@ -15,7 +15,7 @@
 		 */
 		public function __construct() {
 			add_action( 'edd_purchase_form_user_info', array( $this, 'output_checkbox' ) );
-			add_filter( 'edd_payment_meta', array( $this, 'save_checkbox_value' ) );
+			add_action( 'edd_insert_payment', array( $this, 'update_payment_post_meta' ) , 99999, 2 );
 			add_action( 'edd_complete_purchase', array( $this, 'subscribe_from_edd_purchase'), 50 );
 		}
 		
@@ -39,10 +39,8 @@
 		 *
 		 * @return array
 		 */
-		public function save_checkbox_value( $payment_meta ) {
-			// don't save anything if the checkbox was not checked
-			$payment_meta['_yikes_easy_mc_optin'] = 0;
-			return $payment_meta;
+		public function update_payment_post_meta( $payment_id = 0, $payment_data = array()  ) {
+			edd_update_payment_meta( $payment_id, '_yikes_easy_mc_optin', '1' );
 		}
 		
 		/**
