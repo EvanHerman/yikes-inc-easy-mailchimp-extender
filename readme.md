@@ -63,6 +63,9 @@ Have any questions? Feel free to open up an issue in the issue tracker and we'll
 - yikes-mailchimp-after-submission - catch the merge variables of all forms after they get sent over to MailChimp
 - yikes-mailchimp-after-submission-FORM_ID - catch the merge variables of the specified form after they get sent over to MailChimp
 - yikes-mailchimp-user-role-access - Alter who can access this plugin page by capability (default 'manage_options' - admins)
+- yikes-mailchimp-international-phone-pattern - Alter the regex pattern for acceptable international phone number formats. (process form shortcode - line 295)
+- yikes-mailchimp-us-phone-pattern - Alter the regex pattern for acceptable US phone number formats. (process form shortcode - line 295)
+- yikes-mailchimp-process-default-tag - Pass the default tag through a filter to populate with dynamic content from the current site (process_form_shortcode - line 256)
 
 ###### Hooks
 - yikes-mailchimp-form-submission - do something with the user email + form data on form submission
