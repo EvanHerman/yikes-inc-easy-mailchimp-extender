@@ -25,9 +25,12 @@
 		* Outputs a checkbox
 		*/
 		public function output_checkbox() {
-			echo do_action( 'yikes-mailchimp-before-checkbox' , $this->type );
-				echo $this->yikes_get_checkbox();
-			echo do_action( 'yikes-mailchimp-after-checkbox' , $this->type );
+				if( $this->is_user_already_subscribed( $this->type ) == '1' ) {
+					return;
+				}
+				echo do_action( 'yikes-mailchimp-before-checkbox' , $this->type );
+					echo $this->yikes_get_checkbox();
+				echo do_action( 'yikes-mailchimp-after-checkbox' , $this->type );
 		}
 		
 		/**
@@ -37,37 +40,8 @@
 		 * @return boolean
 		 */
 		public function subscribe_from_bbpress( $anonymous_data, $user_id, $trigger ) {
-
-			if ( $this->checkbox_was_checked( $this->type ) === false ) {
-				return false;
-			}
-
-			if ( $anonymous_data ) {
-
-				$email = $anonymous_data['bbp_anonymous_email'];
-				$merge_vars = array(
-					'NAME' => $anonymous_data['bbp_anonymous_name'],
-				);
-
-			} elseif ( $user_id ) {
-
-				$user = get_userdata( $user_id );
-				if( ! $user ) {
-					return false;
-				}
-
-				$email = $user->user_email;
-				$merge_vars = $this->user_merge_vars( $user );
-
-			} else {
-				return false;
-			}
-			// subscribe
-			try {
-				$this->subscribe_user_integration( sanitize_email( $email ) , $this->type , $merge_vars , $trigger );
-			} catch( Exception $e ) {
-				return $e->getMessage();
-			}
+			$user_data = get_userdata( $user_id );
+			return $this->subscribe_user_integration( $user_data->user_email, $this->type , array() );
 		}
 
 		public function subscribe_from_bbpress_new_topic( $topic_id, $forum_id, $anonymous_data, $topic_author_id ) {

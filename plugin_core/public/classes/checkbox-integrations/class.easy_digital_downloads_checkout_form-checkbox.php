@@ -15,7 +15,7 @@
 		 */
 		public function __construct() {
 			add_action( 'edd_purchase_form_user_info', array( $this, 'output_checkbox' ) );
-			add_action( 'edd_insert_payment', array( $this, 'update_payment_post_meta' ) , 99999, 2 );
+			add_action( 'edd_insert_payment', array( $this, 'update_payment_post_meta' ) , 99999 );
 			add_action( 'edd_complete_purchase', array( $this, 'subscribe_from_edd_purchase'), 50 );
 		}
 		
@@ -25,12 +25,9 @@
 		*/
 		public function output_checkbox() {
 			// render our field if the user isn't current subscribed
-			if( $this->is_user_already_subscribed( $this->type ) != '1' ) {
-				echo do_action( 'yikes-mailchimp-before-checkbox' , $this->type );
-					// print_r( edd_get_payment_meta( '61' ) );
-					echo $this->yikes_get_checkbox();
-				echo do_action( 'yikes-mailchimp-after-checkbox' , $this->type );
-			}
+			echo do_action( 'yikes-mailchimp-before-checkbox' , $this->type );
+				echo $this->yikes_get_checkbox();
+			echo do_action( 'yikes-mailchimp-after-checkbox' , $this->type );
 		}	
 		
 		
@@ -39,8 +36,8 @@
 		 *
 		 * @return array
 		 */
-		public function update_payment_post_meta( $payment_id = 0, $payment_data = array()  ) {
-			edd_update_payment_meta( $payment_id, '_yikes_easy_mc_optin', '1' );
+		public function update_payment_post_meta( $payment_id = 0, $payment_data = array() ) {
+			update_post_meta( '1637', '_yikes_easy_mc_optin', '1' );
 		}
 		
 		/**

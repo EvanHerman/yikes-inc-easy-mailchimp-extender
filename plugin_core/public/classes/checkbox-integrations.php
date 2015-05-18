@@ -12,7 +12,7 @@
 		public function __construct() {	
 			
 		}
-			
+					
 		/*
 		*	Check if a user is already subscribed to
 		*	a given list, if so don't show the checkbox integration
@@ -67,11 +67,44 @@
 		* @param mixed $args Array or string
 		* @return string
 		*/
-		public function yikes_get_checkbox() {
+		public function yikes_get_checkbox( $args=array() ) {
+			
+			// if the user is already subscribed to the given list,
+			// theres no need to display the checkbox to re-subscribe. abort!
+			if( $this->is_user_already_subscribed( $this->type ) == '1' ) {
+				return false;
+			}
+			
 			// enqueue our checkbox styles whenever the checkbox is displayed
 			wp_enqueue_style( 'yikes-easy-mailchimp-checkbox-integration-styles', plugin_dir_url( __FILE__ ) . '../css/yikes-inc-easy-mailchimp-checkbox-integration.min.css' );
 			// store our options
 			$checkbox_options = get_option( 'optin-checkbox-init' , '' );
+			
+			if( isset( $checkbox_options[$this->type]['associated-list'] ) && $checkbox_options[$this->type]['associated-list'] == '-' ) {
+				$error_response = '<p><em><input title="' . __( 'No valid list selected' , $this->text_domain ) . '" type="checkbox" name="yikes_mailchimp_checkbox_' . $this->type . '" value="1" disabled /> ' . __( 'Please select a valid list to assign users too.' , $this->text_domain ) . '</em></p>';
+				/* If the current user is logged in, and an admin...lets display our 'Edit Form' link */
+				if( is_user_logged_in() ) {
+					if( current_user_can( apply_filters( 'yikes-mailchimp-user-role-access' , 'manage_options' ) ) ) {
+						$error_response .= '<span class="edit-link yikes-easy-mailchimp-edit-form-link">';
+							$error_response .= '<a class="post-edit-link" href="' . admin_url( 'admin.php?page=yikes-inc-easy-mailchimp-settings&section=checkbox-settings' ) . '" title="' . __( 'Edit Integration Settings' , $this->text_domain ) . '">' . __( 'Edit Checkbox Integration Settings' , $this->text_domain ) . '</a>';
+						$error_response .= '</span>';
+					}
+				}
+				return $error_response;
+			}	
+			
+			// set up the checkbox label
+			$label = $checkbox_options[$this->type]['label'];
+			
+			// CF7 checkbox -
+			// setup a different label if specified
+			if( is_array( $args ) && isset( $args['options'] ) ) {
+				// check if one was set
+				if( isset( $args['raw_values'][0] ) ) {
+					$label = $args['raw_values'][0];
+				}
+			}
+			
 			if( isset( $checkbox_options[$this->type]['associated-list'] ) && $checkbox_options[$this->type]['associated-list'] != '-' ) {
 				$checked = ( $checkbox_options[$this->type]['precheck'] == 'true' ) ? 'checked' : '';
 				// before checkbox HTML (comment, ...)
@@ -81,7 +114,7 @@
 				$content = '<p id="yikes-easy-mailchimp-' . $this->type . '-checkbox" class="yikes-easy-mailchimp-' . $this->type . '-checkbox">';
 					$content .= '<label>';
 						$content .= '<input type="checkbox" name="yikes_mailchimp_checkbox_' . $this->type . '" value="1" '. $checked . ' /> ';
-						$content .= $checkbox_options[$this->type]['label'];
+						$content .= $label;
 					$content .= '</label>';
 				$content .= '</p>';
 				// after checkbox HTML (..., honeypot, closing comment)
@@ -97,7 +130,7 @@
 		 *
 		 *	@since 6.0.0
 		**/
-		public function subscribe_user_integration( $email , $type , $merge_vars ) {			
+		public function subscribe_user_integration( $email , $type , $merge_vars ) {
 			// get checkbox data
 			$checkbox_options = get_option( 'optin-checkbox-init' , '' );
 			if( $type != 'registration_form' ) {
@@ -115,7 +148,7 @@
 				// subscribe the user
 				$subscribe_response = $MailChimp->call('/lists/subscribe', array( 
 					'api_key' => get_option( 'yikes-mc-api-key' , '' ),
-					'id' => $checkbox_options['comment_form']['associated-list'],
+					'id' => $checkbox_options[$type]['associated-list'],
 					'email' => array( 'email' => sanitize_email( $email) ),
 					'merge_vars' => $merge_vars,
 					'double_optin' => 0,
@@ -123,7 +156,10 @@
 					'send_welcome' => 1
 				) );
 			} catch( Exception $e ) { 
-				$e->getMessage();
+				// log to our error log
+				require_once YIKES_MC_PATH . 'includes/error_log/class-yikes-inc-easy-mailchimp-error-logging.php';
+				$error_logging = new Yikes_Inc_Easy_Mailchimp_Error_Logging();
+				$error_logging->yikes_easy_mailchimp_write_to_error_log( $e->getMessage() , __( "User subscribe via" , $this->text_domain ) . ' ' . $type , __( "MailChimp Opt-in Form" , $this->text_domain ) );
 			}
 		}
 		
@@ -196,5 +232,89 @@
 		   return $errors;
 		}
 		
+		/**
+		*	Attempt to subscribe a user
+		*	from the current $_POST data (cf7 integration)
+		*	@since 6.0.0
+		**/
+		public function attempt_subscription() {
+			// start running..
+			$email = null;
+			$merge_vars = array(
+				'GROUPINGS' => array()
+			);
+			
+			foreach( $_POST as $key => $value ) {
+				if( $key[0] === '_' || $key === 'yikes_mailchimp_checkbox_contact_form_7' ) {
+					continue;
+				} elseif( strtolower( substr( $key, 0, 7 ) ) === 'yikes_' ) {
+					// find extra fields which should be sent to MailChimp
+					$key = strtoupper( substr( $key, 6 ) );
+					$value = ( is_scalar( $value ) ) ? sanitize_text_field( $value ) : $value;
+					switch( $key ) {
+						case 'EMAIL':
+							$email = $value;
+						break;
+						case 'GROUPINGS':
+							$groupings = (array) $value;
+							foreach( $groupings as $grouping_id_or_name => $groups ) {
+								$grouping = array();
+								// group ID or group name given?
+								if(is_numeric( $grouping_id_or_name ) ) {
+									$grouping['id'] = absint( $grouping_id_or_name );
+								} else {
+									$grouping['name'] = sanitize_text_field( stripslashes( $grouping_id_or_name ) );
+								}
+								// comma separated list should become an array
+								if( ! is_array( $groups ) ) {
+									$groups = explode( ',', sanitize_text_field( $groups ) );
+								}
+								$grouping['groups'] = array_map( 'stripslashes', $groups );
+								// add grouping to array
+								$merge_vars['GROUPINGS'][] = $grouping;
+							} // end foreach $groupings
+						break;
+						default:
+							if( is_array( $value ) ) {
+								$value = sanitize_text_field( implode( ',', $value ) );
+							}
+							$merge_vars[$key] = $value;
+						break;
+					}
+				} elseif( ! $email && is_string( $value ) && is_email( $value ) ) {
+					// if no email is found yet, check if current field value is an email
+					$email = $value;
+				} elseif( ! $email && is_array( $value ) && isset( $value[0] ) && is_string( $value[0] ) && is_email( $value[0] ) ) {
+					// if no email is found yet, check if current value is an array and if first array value is an email
+					$email = $value[0];
+				} else {
+					$simple_key = str_replace( array( '-', '_' ), '', strtolower( $key ) );
+					if( ! $email && in_array( $simple_key, array( 'email', 'emailaddress' ) ) ) {
+						$email = $value;
+					} elseif( ! isset( $merge_vars['NAME'] ) && in_array( $simple_key, array( 'name', 'yourname', 'username', 'fullname' ) ) ) {
+						// find name field
+						$merge_vars['NAME'] = $value;
+					} elseif( ! isset( $merge_vars['FNAME'] ) && in_array( $simple_key, array( 'firstname', 'fname', 'givenname', 'forename' ) ) ) {
+						// find first name field
+						$merge_vars['FNAME'] = $value;
+					} elseif( ! isset( $merge_vars['LNAME'] ) && in_array( $simple_key, array( 'lastname', 'lname', 'surname', 'familyname' ) ) ) {
+						// find last name field
+						$merge_vars['LNAME'] = $value;
+					}
+				}
+			}
+			// unset groupings if not used
+			if( empty( $merge_vars['GROUPINGS'] ) ) {
+				unset( $merge_vars['GROUPINGS'] );
+			}
+			// if email has not been found by the smart field guessing, return false.. Sorry
+			if ( ! $email ) {
+				return false;
+			}
+			return $this->subscribe_user_integration( $email, $this->type, $merge_vars );
+		}
+		
 	}
+	
+	new Yikes_Easy_MC_Checkbox_Integration_Class;
 ?>
