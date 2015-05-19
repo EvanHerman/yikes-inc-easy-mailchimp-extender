@@ -1,8 +1,12 @@
 <?php
 	/*
 	* Takes care of all the sign-up checkboxes
-	*
+	*	- Main class file that is used to extend all other extensions
 	*/
+	
+	// Prevent direct access to the file
+	defined('ABSPATH') or die( __( "Whoops, you shouldn't be accessing this file directly. Abort!" , 'yikes-inc-easy-mailchimp-extender' ) );
+	
 	class Yikes_Easy_MC_Checkbox_Integration_Class {
 	
 		// declare our integration type

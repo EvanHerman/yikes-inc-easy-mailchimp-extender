@@ -1,6 +1,15 @@
 <?php
 
+/*
+*	Main class file for the integration with core WordPress Registration form
+* 	Takes care of opt-in checkboxes to integrate with Registration forms on your site
+*	
+*	since @6.0.0
+*/
 
+// Prevent direct access to the file
+defined('ABSPATH') or die( __( "Whoops, you shouldn't be accessing this file directly. Abort!" , 'yikes-inc-easy-mailchimp-extender' ) );
+	
 class Yikes_Easy_MC_Registration_Checkbox_Class extends Yikes_Easy_MC_Checkbox_Integration_Class {
 
 	// declare our integration type

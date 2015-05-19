@@ -1,10 +1,14 @@
 <?php 
 
-/* 
-*	Woo Commerce Checkbox Integration
-*	@since 6.0.0
-*
+/*
+*	Main class file for the integration with core WooCommerce
+* 	Takes care of the opt-in checkbox to integrate with WooCommerce on the checkout page
+*	
+*	since @6.0.0
 */
+
+// Prevent direct access to the file
+defined('ABSPATH') or die( __( "Whoops, you shouldn't be accessing this file directly. Abort!" , 'yikes-inc-easy-mailchimp-extender' ) );
 
 class Yikes_Easy_MC_WooCommerce_Checkbox_Class extends Yikes_Easy_MC_Checkbox_Integration_Class {
 

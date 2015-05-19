@@ -1,10 +1,13 @@
 <?php 
-	
 	/* 
-	*	Main Class file to handle Buddy Press Integrations
-	*	used to add new users signing up via buddy press 
+	*	Main Class file to handle BuddyPress Integrations
+	*	used to add new users signing up via Buddy Press 
 	*	@since 6.0.0
 	*/
+	
+	// Prevent direct access to the file
+	defined('ABSPATH') or die( __( "Whoops, you shouldn't be accessing this file directly. Abort!" , 'yikes-inc-easy-mailchimp-extender' ) );
+	
 	class Yikes_Easy_MC_BuddyPress_Checkbox_Class extends Yikes_Easy_MC_Checkbox_Integration_Class {
 		
 		protected $type = 'buddypress_form';
@@ -22,7 +25,7 @@
 				return;
 			}
 			?>
-				<div class="register-section" id="yikes-mailchimp-checkbox-section">
+				<div class="register-section" id="yikes-mailchimp-checkbox-section">  
 					<?php
 						echo do_action( 'yikes-mailchimp-before-checkbox' , $this->type );
 							echo $comment_field . $this->yikes_get_checkbox();

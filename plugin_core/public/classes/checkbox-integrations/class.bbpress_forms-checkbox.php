@@ -1,8 +1,13 @@
 <?php
-	/*
-	*	Takes care of all the comment checkboxes
-	*	below the standard WordPress commenting
+	/* 
+	*	Main Class file to handle bbPress Integrations
+	*	used to add new users signing up via bbPress
+	*	@since 6.0.0
 	*/
+	
+	// Prevent direct access to the file
+	defined('ABSPATH') or die( __( "Whoops, you shouldn't be accessing this file directly. Abort!" , 'yikes-inc-easy-mailchimp-extender' ) );
+	
 	class Yikes_Easy_MC_bbPress_Checkbox_Class extends Yikes_Easy_MC_Checkbox_Integration_Class {
 	
 		/**
