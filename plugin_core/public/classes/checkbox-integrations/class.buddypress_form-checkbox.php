@@ -53,7 +53,7 @@
 			// gather emailadress and name from user who BuddyPress registered
 			$email = $user->user_email;
 			$merge_vars = $this->user_merge_vars( $user );
-			return $this->subscribe( $email, $merge_vars, 'buddypress_registration', $user_id );
+			return $this->subscribe_user_integration( $email, $this->type, $merge_vars );
 		}
 		/* End BuddyPress functions */
 	
