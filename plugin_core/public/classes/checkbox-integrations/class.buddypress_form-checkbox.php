@@ -21,9 +21,15 @@
 			if( $this->is_user_already_subscribed( $this->type ) == '1' ) {
 				return;
 			}
-			echo do_action( 'yikes-mailchimp-before-checkbox' , $this->type );
-				echo $comment_field . $this->yikes_get_checkbox();
-			echo do_action( 'yikes-mailchimp-after-checkbox' , $this->type );
+			?>
+				<div class="register-section" id="yikes-mailchimp-checkbox-section">
+					<?php
+						echo do_action( 'yikes-mailchimp-before-checkbox' , $this->type );
+							echo $comment_field . $this->yikes_get_checkbox();
+						echo do_action( 'yikes-mailchimp-after-checkbox' , $this->type );
+					?>
+				</div>
+			<?php
 		}
 		
 		
