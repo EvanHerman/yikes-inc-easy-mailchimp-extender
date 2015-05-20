@@ -3,8 +3,6 @@
 	*	Main page to list our current add-ons
 	*	@since 6.0.0
 	*/
-	
-	wp_enqueue_style( 'yikes-addons-css' , YIKES_MC_URL . 'admin/css/yikes-inc-easy-mailchimp-extender-addons.css' );
 ?>
 <div class="wrap">
 	
