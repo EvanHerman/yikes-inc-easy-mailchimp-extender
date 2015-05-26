@@ -30,6 +30,9 @@
 		* Outputs a checkbox
 		*/
 		public function output_checkbox() {
+			if( $this->is_user_already_subscribed( $this->type ) == '1' ) {
+				return;
+			}
 			// render our field if the user isn't current subscribed
 			echo do_action( 'yikes-mailchimp-before-checkbox' , $this->type );
 				echo $this->yikes_get_checkbox();
@@ -43,7 +46,12 @@
 		 * @return array
 		 */
 		public function update_payment_post_meta( $payment_id = 0, $payment_data = array() ) {
-			update_post_meta( '1637', '_yikes_easy_mc_optin', '1' );
+			// don't save anything if the checkbox was not checked
+			if( ! $this->was_checkbox_checked( $this->type ) ) {
+				update_post_meta( $payment_id, '_yikes_easy_mc_optin', '0' );
+				return;
+			}
+			update_post_meta( $payment_id, '_yikes_easy_mc_optin', '1' );
 		}
 		
 		/**
@@ -52,8 +60,8 @@
 		 * @return bool|string
 		 */
 		public function subscribe_from_edd_purchase( $payment_id ) {
-			$meta = edd_get_payment_meta( $payment_id );
-			if( ! is_array( $meta ) || ! isset( $meta['_yikes_easy_mc_optin'] ) || ! $meta['_yikes_easy_mc_optin'] ) {
+			$meta = get_post_meta( $payment_id , '_yikes_easy_mc_optin' , true );
+			if( $meta == '0' ) {
 				return false;
 			}
 			$email = (string) edd_get_payment_user_email( $payment_id );
