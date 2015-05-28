@@ -80,6 +80,8 @@ Have any questions? Feel free to open up an issue in the issue tracker and we'll
 - yikes-mailchimp-before-checkbox - output custom content before the opt-in checkbox for all integrations
 - yikes-mailchimp-after-checkbox - output custom content after the opt-in checkbox for all integrations
 - yikes-mailchimp-support-page - output custom content on the support page (used to add our support form for premium users)
+- yikes-mailchimp-edit-form-section-links - add additional links to the edit form page next to 'Custom Messages'
+- yikes-mailchimp-edit-form-sections	- add custom section to the edit form page
 
 ###### Hooks for Extensions
 - yikes-mailchimp-menu - hook to add additional menu items inside of the "Easy MailChimp" menu item

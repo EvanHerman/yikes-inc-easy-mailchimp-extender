@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: Easy MailChimp by Yikes Inc.\n"
-"POT-Creation-Date: 2015-05-27 13:21-0500\n"
-"PO-Revision-Date: 2015-05-27 13:21-0500\n"
+"POT-Creation-Date: 2015-05-28 11:10-0500\n"
+"PO-Revision-Date: 2015-05-28 11:10-0500\n"
 "Last-Translator: Evan <Evan@yikesinc.com>\n"
 "Language-Team: Yikes Inc. <http://www.yikesinc.com>\n"
 "Language: en\n"
@@ -408,15 +408,6 @@ msgid "Add to Form Builder"
 msgstr ""
 
 #: .././admin/class-yikes-inc-easy-mailchimp-extender-admin.php:1
-msgid "Sorry, but custom notifications are available in the pro version only."
-msgstr ""
-
-#: .././admin/class-yikes-inc-easy-mailchimp-extender-admin.php:1
-#: .././admin/partials/edit-form.php:1
-msgid "Upgrade to the Pro Version"
-msgstr ""
-
-#: .././admin/class-yikes-inc-easy-mailchimp-extender-admin.php:1
 msgid ""
 "We've run into an error. The security check didn't pass. Please try again."
 msgstr ""
@@ -539,18 +530,6 @@ msgid "Custom Messages"
 msgstr ""
 
 #: .././admin/partials/edit-form.php:1
-msgid "Customize Form Appearance (pro only)"
-msgstr ""
-
-#: .././admin/partials/edit-form.php:1
-msgid "Form Customizer (pro only)"
-msgstr ""
-
-#: .././admin/partials/edit-form.php:1
-msgid "Custom Notifications (pro only)"
-msgstr ""
-
-#: .././admin/partials/edit-form.php:1
 msgid ""
 "Select a form field from the right to add to this form. Once added to the "
 "form, you can click it to reveal advanced options for the field, or drag it "
@@ -572,41 +551,6 @@ msgstr ""
 
 #: .././admin/partials/edit-form.php:1
 msgid "No Interest Groups Exist"
-msgstr ""
-
-#: .././admin/partials/edit-form.php:1
-msgid "Form Customizer"
-msgstr ""
-
-#: .././admin/partials/edit-form.php:1
-msgid ""
-"Use the form customizer below to style the form to better fit in with the "
-"look and feel of your site."
-msgstr ""
-
-#: .././admin/partials/edit-form.php:1
-msgid "Sorry, but the form customizer is available in the pro version only."
-msgstr ""
-
-#: .././admin/partials/edit-form.php:1
-msgid "Style Adjustments"
-msgstr ""
-
-#: .././admin/partials/edit-form.php:1
-#: .././admin/partials/menu/manage-lists.php:1
-msgid "Pro Version Only"
-msgstr ""
-
-#: .././admin/partials/edit-form.php:1
-msgid "Enable Custom Styles"
-msgstr ""
-
-#: .././admin/partials/edit-form.php:1
-msgid "Available in the pro version"
-msgstr ""
-
-#: .././admin/partials/edit-form.php:1
-msgid "Enable custom styles for this form by checking off the field above."
 msgstr ""
 
 #: .././admin/partials/edit-form.php:1
@@ -659,36 +603,6 @@ msgid ""
 "The email already subscribed error message is displayed back to the user "
 "when they attempt to sign up for a mailing list that they are already "
 "subscribed to."
-msgstr ""
-
-#: .././admin/partials/edit-form.php:1
-msgid "Custom Notifications"
-msgstr ""
-
-#: .././admin/partials/edit-form.php:1
-msgid ""
-"Using the form below, you can set up custom email notifications for each of "
-"your forms. Send notifications to as many emails as you'd like."
-msgstr ""
-
-#: .././admin/partials/edit-form.php:1
-msgid "Create New Notification"
-msgstr ""
-
-#: .././admin/partials/edit-form.php:1
-msgid "Use the form below to create new notifications for this form. "
-msgstr ""
-
-#: .././admin/partials/edit-form.php:1
-msgid "Notification Name"
-msgstr ""
-
-#: .././admin/partials/edit-form.php:1
-msgid "Please enter a name for the new notification"
-msgstr ""
-
-#: .././admin/partials/edit-form.php:1
-msgid "Create Notification"
 msgstr ""
 
 #: .././admin/partials/edit-form.php:1
@@ -1206,6 +1120,10 @@ msgstr ""
 
 #: .././admin/partials/menu/manage-lists.php:1
 msgid "and enter your API key"
+msgstr ""
+
+#: .././admin/partials/menu/manage-lists.php:1
+msgid "Pro Version Only"
 msgstr ""
 
 #: .././admin/partials/menu/manage-lists.php:1
