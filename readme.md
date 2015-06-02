@@ -1,4 +1,4 @@
-Yikes Inc. Easy MailChimp Free (*Beta Release Candidate 2.0*)
+Yikes Inc. Easy MailChimp Free (*Beta Release Candidate 3.0*)
 =====================
 
 [![WordPress](https://img.shields.io/wordpress/plugin/dt/yikes-inc-easy-mailchimp-extender.svg)]()
