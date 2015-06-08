@@ -29,8 +29,8 @@ module.exports = function(grunt) {
             },
             all: [
                 'Gruntfile.js',
-                'plugin_core/admin/js/*.js',
-				'plugin_core/public/js/*.js'
+                'admin/js/*.js',
+				'public/js/*.js'
             ]
         },
 
@@ -39,21 +39,21 @@ module.exports = function(grunt) {
             dist: {
                 files: {
 					// admin scripts
-                    'plugin_core/admin/js/min/yikes-inc-easy-mailchimp-dashboard-widget.min.js': [ // widget specific script
-                        'plugin_core/admin/js/yikes-inc-easy-mailchimp-dashboard-widget.js'
+                    'admin/js/min/yikes-inc-easy-mailchimp-dashboard-widget.min.js': [ // widget specific script
+                        'admin/js/yikes-inc-easy-mailchimp-dashboard-widget.js'
                     ],
-                    'plugin_core/admin/js/min/yikes-inc-easy-mailchimp-extender-admin.min.js': [ // global admin script
-                        'plugin_core/admin/js/yikes-inc-easy-mailchimp-extender-admin.js'
+                    'admin/js/min/yikes-inc-easy-mailchimp-extender-admin.min.js': [ // global admin script
+                        'admin/js/yikes-inc-easy-mailchimp-extender-admin.js'
                     ],
-					'plugin_core/admin/js/min/yikes-inc-easy-mailchimp-extender-edit-form.min.js': [ // edit MailChimp form script
-                        'plugin_core/admin/js/yikes-inc-easy-mailchimp-extender-edit-form.js'
+					'admin/js/min/yikes-inc-easy-mailchimp-extender-edit-form.min.js': [ // edit MailChimp form script
+                        'admin/js/yikes-inc-easy-mailchimp-extender-edit-form.js'
                     ],
-					'plugin_core/admin/js/min/yikes-inc-easy-mailchimp-tinymce-button.min.js': [ // custom tinyMCE button script
-                        'plugin_core/admin/js/yikes-inc-easy-mailchimp-tinymce-button.js'
+					'admin/js/min/yikes-inc-easy-mailchimp-tinymce-button.min.js': [ // custom tinyMCE button script
+                        'admin/js/yikes-inc-easy-mailchimp-tinymce-button.js'
                     ],
 					// public scripts
-					'plugin_core/public/js/yikes-mc-ajax-forms.min.js': [ // public ajax script
-                        'plugin_core/public/js/yikes-mc-ajax-forms.js'
+					'public/js/yikes-mc-ajax-forms.min.js': [ // public ajax script
+                        'public/js/yikes-mc-ajax-forms.js'
                     ],
                 }
             }
@@ -66,9 +66,9 @@ module.exports = function(grunt) {
 					// admin css files
 					{
 						expand: true,
-						cwd: 'plugin_core/admin/css',
+						cwd: 'admin/css',
 						src: ['*.css'], // main style declaration file
-						dest: 'plugin_core/admin/css',
+						dest: 'admin/css',
 						ext: '.min.css'
 					},
 					{
@@ -85,7 +85,7 @@ module.exports = function(grunt) {
         // watch our project for changes
        watch: {
 			admin_css: { // admin css
-				files: 'plugin_core/admin/css/*.css',
+				files: 'admin/css/*.css',
 				tasks: ['cssmin'],
 				options: {
 					spawn:false,
@@ -93,7 +93,7 @@ module.exports = function(grunt) {
 				},
 			},
 			admin_js: { // admin js
-				files: 'plugin_core/admin/js/*.js',
+				files: 'admin/js/*.js',
 				tasks: ['uglify'],
 				options: {
 					spawn:false,
@@ -102,7 +102,7 @@ module.exports = function(grunt) {
 			},
 			public_css: {
 			 // public css
-				files: 'plugin_core/public/css/*.css',
+				files: 'public/css/*.css',
 				tasks: ['cssmin'],
 				options: {
 					spawn:false,
@@ -110,7 +110,7 @@ module.exports = function(grunt) {
 				},
 			},
 			public_js: { // public js
-				files: 'plugin_core/public/js/*.js',
+				files: 'public/js/*.js',
 				tasks: ['uglify'],
 				options: {
 					spawn:false,
@@ -122,7 +122,7 @@ module.exports = function(grunt) {
 		// Borwser Sync
 		browserSync: {
 			bsFiles: {
-				src : [ 'plugin_core/admin/css/*.css' , 'plugin_core/public/css/*.css' , 'plugin_core/admin/js/*.js' , 'plugin_core/public/js/*.js' ],
+				src : [ 'admin/css/*.css' , 'public/css/*.css' , 'admin/js/*.js' , 'public/js/*.js' ],
 			},
 			options: {
 				proxy : 'localhost/yikes-mailchimp',
@@ -141,7 +141,7 @@ module.exports = function(grunt) {
                 ]
             },
 			dist: {
-			  src: [ 'plugin_core/admin/css/*.css' , 'plugin_core/public/css/*.css' ]
+			  src: [ 'admin/css/*.css' , 'public/css/*.css' ]
 			}
 		},
 		  
@@ -149,7 +149,7 @@ module.exports = function(grunt) {
 		makepot: {
 	        target: {
 	            options: {
-	                domainPath: '/plugin_core/languages/',    // Where to save the POT file.
+	                domainPath: '/languages/',    // Where to save the POT file.
 	                potFilename: 'yikes-inc-easy-mailchimp-extender.pot',   // Name of the POT file.
 	                type: 'wp-plugin',  // Type of project
 	            }
