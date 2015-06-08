@@ -1,0 +1,22 @@
+{
+  "name": "yikes-inc-easy-mailchimp-extender",
+  "version": "6.0.0",
+  "description": "=== Easy MailChimp Forms by Yikes Inc. ===\rContributors: yikesinc, eherman24, liljimmi, hiwhatsup\rDonate link: http://www.yikesinc.com/\rTags: comments, spam\rRequires at least: 4.0\rTested up to: 4.2.2\rStable tag: 6.0.0-rc3\rLicense: GPLv2 or later\rLicense URI: http://www.gnu.org/licenses/gpl-2.0.html\r\rcomplete re-write , readme.txt to follow.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "grunt": "^0.4.5"
+  },
+  "devDependencies": {
+    "grunt-browser-sync": "^2.1.3",
+    "grunt-contrib-cssmin": "^0.12.3",
+    "grunt-contrib-jshint": "^0.11.2",
+    "grunt-contrib-uglify": "^0.9.1",
+    "grunt-contrib-watch": "^0.6.1",
+    "grunt-wp-i18n": "^0.5.2"
+  }
+}
