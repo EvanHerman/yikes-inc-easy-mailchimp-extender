@@ -18,6 +18,10 @@ This is the first release candidate for the final release of [Yikes Inc Easy Mai
 
 Feel free to use this plugin now. When the final version rolls out, you'll have a smooth transition.
 
+#### Grunt.js
+
+To develop with grunt place Gruntfile.js file inside the plugin root during development. The paths inside Gruntfile.js are setup from within the plugin root, so placing it anywhere else without changing the paths will cause an error.
+
 <br />
 
 #### Minimum Requirements
