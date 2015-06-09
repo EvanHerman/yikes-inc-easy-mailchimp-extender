@@ -26,22 +26,25 @@ To install the required dependencies we've included an [auto_install](https://ww
 
 First, make sure you install the latest version of Grunt to the local project directory.
 
-`
+```bash
 $ npm install -g grunt -cli
+```
+<br />
+```bash
 $ npm install grunt
-`
+```
 
 Then install autoprefixer-core using:
 
-`
+```bash
 $ npm install autoprefixer-core --save-dev
-`
+```
 
 Finally, run the [auto_install](https://www.npmjs.com/package/grunt-auto-install) task to install the required dependencies.
 
-`
+```bash
 $ grunt auto_install
-`
+```
 
 
 #### Minimum Requirements
