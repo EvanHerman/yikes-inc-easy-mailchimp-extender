@@ -156,6 +156,10 @@ module.exports = function(grunt) {
 	        }
 	    },
 		
+		auto_install: { 
+			local: {}
+		},
+		
     });
 
     // load tasks
@@ -164,8 +168,9 @@ module.exports = function(grunt) {
     grunt.loadNpmTasks('grunt-contrib-cssmin');
 	grunt.loadNpmTasks('grunt-contrib-watch');
 	grunt.loadNpmTasks('grunt-browser-sync'); // browser-sync auto refresh
-	grunt.loadNpmTasks('grunt-postcss'); // CSS autoprefixer plugin (cross-browser autoprefixes)
-	grunt.loadNpmTasks( 'grunt-wp-i18n' ); // wordpress localization plugin
+	grunt.loadNpmTasks('grunt-postcss'); // CSS autoprefixer plugin (cross-browser auto pre-fixes)
+	grunt.loadNpmTasks('grunt-wp-i18n'); // wordpress localization plugin
+	grunt.loadNpmTasks('grunt-auto-install'); // autoload all of ourd ependencies (ideally, you install this one package, and run grunt auto_install to install our dependencies automagically)
 
     // register task
     grunt.registerTask('default', [
