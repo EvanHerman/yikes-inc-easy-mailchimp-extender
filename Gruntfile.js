@@ -2,38 +2,7 @@
 module.exports = function(grunt) {
 
     grunt.initConfig({
-
-        // let us know if our JS is sound
-        jshint: {
-            options: {
-                "bitwise": true,
-                "browser": true,
-                "curly": true,
-                "eqeqeq": true,
-                "eqnull": true,
-                "es5": true,
-                "esnext": true,
-                "immed": true,
-                "jquery": true,
-                "latedef": true,
-                "newcap": true,
-                "noarg": true,
-                "node": true,
-                "strict": false,
-                "trailing": true,
-                "undef": true,
-                "globals": {
-                    "jQuery": true,
-                    "alert": true
-                }
-            },
-            all: [
-                'Gruntfile.js',
-                'admin/js/*.js',
-				'public/js/*.js'
-            ]
-        },
-
+	
         // js minification
         uglify: {
             dist: {
@@ -62,22 +31,29 @@ module.exports = function(grunt) {
 		// css minify all contents of our directory and add .min.css extension
 		cssmin: {
 			target: {
-				admin_files: [
+				files: [
 					// admin css files
 					{
 						expand: true,
 						cwd: 'admin/css',
-						src: ['*.css'], // main style declaration file
+						src: [
+							'yikes-inc-easy-mailchimp-extender-admin.css',
+							'yikes-inc-easy-mailchimp-migrate-option-styles.css',
+						], // main style declaration file
 						dest: 'admin/css',
 						ext: '.min.css'
 					},
 					{
 						expand: true,
 						cwd: 'public/css',
-						src: ['*.css'], // global public facing styles
+						src: [
+							'yikes-inc-easy-mailchimp-checkbox-integration.css',
+							'yikes-inc-easy-mailchimp-datepicker-styles.css',
+							'yikes-inc-easy-mailchimp-extender-public.css',
+						], // main style declaration file
 						dest: 'public/css',
 						ext: '.min.css'
-					},
+					}
 				]
 			}
 		},
@@ -122,10 +98,10 @@ module.exports = function(grunt) {
 		// Borwser Sync
 		browserSync: {
 			bsFiles: {
-				src : [ 'admin/css/*.css' , 'public/css/*.css' , 'admin/js/*.js' , 'public/js/*.js' ],
+				src : [ 'admin/css/*.min.css' , 'public/css/*.min.css' , 'admin/js/*.min.js' , 'public/js/*.min.js' ],
 			},
 			options: {
-				proxy : 'localhost/yikes-mailchimp',
+				proxy: "localhost/mc_free/",
 				watchTask : true
 			}
 		},
@@ -163,7 +139,6 @@ module.exports = function(grunt) {
     });
 
     // load tasks
-    grunt.loadNpmTasks('grunt-contrib-jshint');
     grunt.loadNpmTasks('grunt-contrib-uglify');
     grunt.loadNpmTasks('grunt-contrib-cssmin');
 	grunt.loadNpmTasks('grunt-contrib-watch');
@@ -174,12 +149,11 @@ module.exports = function(grunt) {
 
     // register task
     grunt.registerTask('default', [
-        'jshint',
+		'uglify',
         'cssmin',
-        'uglify',
-        'watch',
 		'postcss',
-		'makepot',
+		'browserSync',
+        'watch',
     ]);
 
 };

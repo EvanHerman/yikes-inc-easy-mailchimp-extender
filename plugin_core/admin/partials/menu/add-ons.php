@@ -7,7 +7,7 @@
 <div class="wrap">
 	
 	<!-- Freddie Logo -->
-	<img src="<?php echo YIKES_MC_URL . 'includes/images/MailChimp_Assets/Freddie_60px.png'; ?>" alt="<?php __( 'Freddie - MailChimp Mascot' , 'yikes-inc-easy-mailchimp-extender' ); ?>" style="float:left;margin-right:10px;" />
+	<img src="<?php echo YIKES_MC_URL . 'includes/images/MailChimp_Assets/Freddie_60px.png'; ?>" alt="<?php __( 'Freddie - MailChimp Mascot' , 'yikes-inc-easy-mailchimp-extender' ); ?>" class="yikes-mc-freddie-logo" />
 		
 	<h2>Easy MailChimp by Yikes Inc. | <?php echo __( 'Add-Ons' , 'yikes-inc-easy-mailchimp-extender' ); ?> &nbsp; <a href="#" onclick="return false;" disabled target="_blank" class="button-primary" style="position:absolute;" title="<?php _e( 'Coming Soon...' , 'yikes-inc-easy-mailchimp-extender' ); ?>"><?php _e( 'View All Add-Ons' , 'yikes-inc-easy-mailchimp-extender' ); ?> <span class="dashicons dashicons-external" style="font-size:14px;line-height:1.8;"></span></a></a></h2>				
 		
