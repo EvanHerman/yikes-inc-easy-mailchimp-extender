@@ -118,3 +118,84 @@ Have any questions? Feel free to open up an issue in the issue tracker and we'll
 
 ###### Hooks for Extensions
 - yikes-mailchimp-menu - hook to add additional menu items inside of the "Easy MailChimp" menu item
+
+
+###	Custom Edit Form Sections API
+Since we've built out a few add-ons to extend the base functionality, we've also built out an API to allow users to rapidly define custom sections on the edit form screen. This allows you to assign additional data to your forms.
+
+We use this API extensively to build out additional sections on the edit form page.
+
+Example:
+
+<em>First hook in to the proper locations, and attach a function:</em>
+```php
+add_action( 'yikes-mailchimp-edit-form-section-links' , 'add_custom_section_link' );
+add_action( 'yikes-mailchimp-edit-form-sections' , 'render_custom_section' );
+```
+
+<em>First hook in to the proper locations, and attach a function:</em>
+```php
+add_action( 'yikes-mailchimp-edit-form-section-links' , 'add_custom_section_link' );
+add_action( 'yikes-mailchimp-edit-form-sections' , 'render_custom_section' );
+```
+
+<em>Next , define your sections and fields by passing in a multi-dimensional array.</em>
+```php
+/* Add custom link to the links (next to fields & custom messages) */
+public function add_custom_section_link() {
+	// creating a new link on the edit form page
+	Yikes_Inc_Easy_Mailchimp_Extender_Helper::add_edit_form_section_link( array(
+		'id' => 'custom-section', // section id
+		'text' => 'Custom Section', // the text that will display in the link
+		'icon' => 'admin-appearance' // dashicon icon class
+	) );
+		
+	// creating a new link on the edit form page
+	Yikes_Inc_Easy_Mailchimp_Extender_Helper::add_edit_form_section_link( array(
+		'id' => 'custom-section-2', // section id
+		'text' => 'Custom Section 2', // the text that will display in the link
+		'icon' => 'admin-appearance' // dashicon icon class
+	) );
+}
+	
+/* Add custom section associated with link created above */
+public static function render_custom_section() {
+	// defining a new section, associated with the link above
+	Yikes_Inc_Easy_Mailchimp_Extender_Helper::add_edit_form_section( array(
+		'id' => 'custom-section',  // section id (must match link id above)
+		'main_title' => 'Main Section Title', // title of the main block of this custom section
+		'main_description' => __( 'This is a custom description for the main section' , 'test' ),
+		'main_fields' => array(
+			array(
+				'label' => 'Custom Field #1', // label text for this field
+				'placeholder' => 'Placeholder Value',  // placeholder value for the input field
+				'type' => 'text', // type of field (text,select,checkbox,radio)
+				'id' => 'custom-field-1', // field id - determines how data is saved in database
+				// 'description' => __( 'Testing custom description for field #1' , 'test' ), // field description
+			),
+			array(
+				'label' => 'Custom Field #2', // label text for this field
+				'placeholder' => 'Placeholder Value #2', // placeholder value for the input field
+				'type' => 'text', // type of field (text,select,checkbox,radio)
+				'id' => 'custom-field-2', // field id - determines how data is saved in database
+				'description' => __( 'Testing custom description for field #2' , 'test' ), // field description
+			),
+		),
+		'sidebar_title' => 'Sidebar Section Title', // sidebar title of the sidebar section
+		'sidebar_description' => __( 'This is a custom description for the sidebar section' , 'test' ),
+		'sidebar_fields' => array(
+			array(
+				'label' => 'Dropdown Field',
+				'type' => 'select',
+				'options' => array(
+					'1' => 'one',
+					'2' => 'two',
+					'3' => 'three',
+				),
+				'id' => 'select-field',
+				'description' => __( 'this is a select field.' , 'test' ),
+			),
+		),
+	) );
+}
+```
