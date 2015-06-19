@@ -17,7 +17,7 @@ This is a complete re-write of the original [Yikes Inc Easy MailChimp Extender](
 This is the first release candidate for the final release of [Yikes Inc Easy MailChimp Extender](https://wordpress.org/plugins/yikes-inc-easy-mailchimp-extender/). We will be rolling things out to the repository as we get closer to finalizing all of the documentation.
 
 Feel free to use this plugin now. When the final version rolls out, you'll have a smooth transition.
-
+ 
 #### Grunt.js
 
 To develop with grunt place Gruntfile.js file inside the plugin root during development (/wp-content/yikes-inc-easy-mailchimp-extender/). The paths inside Gruntfile.js are setup relative to the plugin root, so placing it anywhere else without changing the paths will cause an error.
