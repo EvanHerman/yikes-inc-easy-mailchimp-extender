@@ -118,6 +118,8 @@ Have any questions? Feel free to open up an issue in the issue tracker and we'll
 
 ###### Hooks for Extensions
 - yikes-mailchimp-menu - hook to add additional menu items inside of the "Easy MailChimp" menu item
+- yikes-mailchimp-settings-field - hook to register additional settings fields for add-ons
+- yikes-mailchimp-ADDON-SLUG-options-path - hook to load up a custom settings page
 
 
 ###	Custom Edit Form Sections API
