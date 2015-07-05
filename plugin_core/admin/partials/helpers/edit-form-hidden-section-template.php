@@ -18,8 +18,13 @@
 										}
 										$main_field_data = $section_data['main_fields'];
 										foreach( $main_field_data as $field ) { 
-											// include our field files
-											include( YIKES_MC_PATH . 'admin/partials/helpers/fields/yikes-mailchimp-' . $field['type'] . '-field.php' );
+											if( $field['type'] == 'custom' ) {
+												// execute the custom callback
+												$field['callback']();
+											} else {
+												// include our field files
+												include( YIKES_MC_PATH . 'admin/partials/helpers/fields/yikes-mailchimp-' . $field['type'] . '-field.php' );
+											}
 										}
 									?>
 								</div>
@@ -40,8 +45,13 @@
 										}
 										$sidebar_field_data = $section_data['sidebar_fields'];
 										foreach( $sidebar_field_data as $field ) { 
-											// include our field files
-											include( YIKES_MC_PATH . 'admin/partials/helpers/fields/yikes-mailchimp-' . $field['type'] . '-field.php' );
+											if( $field['type'] == 'custom' ) {
+												// execute the custom callback
+												$field['callback']();
+											} else {
+												// include our field files
+												include( YIKES_MC_PATH . 'admin/partials/helpers/fields/yikes-mailchimp-' . $field['type'] . '-field.php' );
+											}
 										}
 									?>
 								</div>
