@@ -1,12 +1,3 @@
-<style>
-.remove-file-button {
-	background: url('<?php echo plugin_dir_url( __FILE__ ); ?>/img/icon-delete.png');
-	height: 16px;
-	position: absolute;
-	text-indent: -99999px;
-	width: 16px;
-}
-</style>
 <?php
 	/*
 	* Upload File Input Field
@@ -22,6 +13,8 @@
 		'wp_includes_image_url' => includes_url() . 'images/media/'
 	) );
 	$i = 1;
+	// create an single item array when nothing is stored yet, loop for one field 
+	$field_data['incentive-attachment'] = isset( $field_data['incentive-attachment']  ) ? $field_data['incentive-attachment'] : array( '' );
 ?>
 	
 	<div class="yikes-mailchimp-file-field">
