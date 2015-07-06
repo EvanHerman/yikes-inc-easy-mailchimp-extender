@@ -14,7 +14,7 @@
 	) );
 	$i = 1;
 	// create an single item array when nothing is stored yet, loop for one field 
-	$field_data['incentive-attachment'] = isset( $field_data['incentive-attachment']  ) ? $field_data['incentive-attachment'] : array( '' );
+	$field_data['incentive-attachment'] = ( isset( $field_data['incentive-attachment'] ) && !empty( $field_data['incentive-attachment'] ) )  ? $field_data['incentive-attachment'] : array( '' );
 ?>
 	
 	<div class="yikes-mailchimp-file-field">

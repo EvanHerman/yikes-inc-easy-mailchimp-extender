@@ -67,5 +67,6 @@ function populate_file_container( image_url, clicked_incentive ) {
 		default:
 			alert('who knows');
 	}
-	jQuery( 'a[data-attr-position="'+clicked_incentive+'"]' ).parent( '.file-remove-wrapper' ).append( file_container ).find( 'a' ).next().remove();
+	jQuery( 'a[data-attr-position="'+clicked_incentive+'"]' ).parent( '.file-remove-wrapper' ).find( 'img.incentive-image-preview' ).remove()
+	jQuery( 'a[data-attr-position="'+clicked_incentive+'"]' ).parent( '.file-remove-wrapper' ).append( file_container ).find( 'a' );
 }
