@@ -102,6 +102,7 @@ Have any questions? Feel free to open up an issue in the issue tracker and we'll
 - yikes-mailchimp-process-default-tag - Pass the default tag through a filter to populate with dynamic content from the current site (process_form_shortcode.php - line 256)
 - yikes-mailchimp-MERGE_TAG-label - Alter the specified field label text (affects standard fields & interest groups) (process_form_shortcode.php) 
 - yikes-mailchimp-address-TYPE-label - Alter the field sub-label text for a specified address field (affects only standard address fields) (process_form_shortcode.php) 
+- yikes-mailchimp-form-submit-button - Alter the submit button to your liking (process_form_shortcode.php line 660) (@parameters - $submit_button, $form_id)
 
 ###### Hooks
 - yikes-mailchimp-form-submission - do something with the user email + form data on form submission
@@ -117,6 +118,8 @@ Have any questions? Feel free to open up an issue in the issue tracker and we'll
 - yikes-mailchimp-edit-form-sections - add custom section to the edit form page
 - yikes-mailchimp-edit-form-notice - hook to display a custom notice on the edit form page 
 - yikes-mailchimp-shortcode-enqueue-scripts-styles - hook to enqueue custom scripts & styles wherever the shortcode is being used (@paremeter $form_id - pass the id of the current form)
+- yikes-mailchimp-additional-form-fields - define additional fields to add below all forms
+- yikes-mailchimp-additional-form-fields-FORM_ID - define additional fields to add below a specific form
 
 ###### Hooks for Extensions
 - yikes-mailchimp-menu - hook to add additional menu items inside of the "Easy MailChimp" menu item
