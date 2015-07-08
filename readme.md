@@ -116,6 +116,7 @@ Have any questions? Feel free to open up an issue in the issue tracker and we'll
 - yikes-mailchimp-edit-form-section-links - add additional links to the edit form page next to 'Custom Messages'
 - yikes-mailchimp-edit-form-sections - add custom section to the edit form page
 - yikes-mailchimp-edit-form-notice - hook to display a custom notice on the edit form page 
+- yikes-mailchimp-shortcode-enqueue-scripts-styles - hook to enqueue custom scripts & styles wherever the shortcode is being used (@paremeter $form_id - pass the id of the current form)
 
 ###### Hooks for Extensions
 - yikes-mailchimp-menu - hook to add additional menu items inside of the "Easy MailChimp" menu item
