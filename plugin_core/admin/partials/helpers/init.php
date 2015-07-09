@@ -19,7 +19,11 @@
 					$link_data = wp_parse_args( array() , $link_array );
 					if( !empty( $link_data['text'] ) && !empty( $link_data['id'] ) ) {
 						if( !empty( $link_data['icon'] ) ) {
-							$icon =  '<span class="dashicons dashicons-' . esc_attr__( $link_data['icon'] ) . ' yikes-easy-mailchimp-custom-content-icon"></span>';
+							if( !isset( $link_data['icon_family'] ) || $link_data['icon_family'] == 'dashicons' || $link_data['icon_family'] == 'dashicon' ) {
+								$icon =  '<span class="dashicons dashicons-' . esc_attr__( $link_data['icon'] ) . ' yikes-easy-mailchimp-custom-content-icon"></span>';
+							} else {
+								$icon =  '<span class="' . esc_attr__( $link_data['icon'] ) . ' yikes-easy-mailchimp-custom-content-icon"></span>';
+							}
 						} else {
 							$icon = '';
 						}
@@ -53,7 +57,18 @@
 					echo $section;
 				}
 			}
-		
+			
+			/**
+			*	Check if the custom section is single or two columns (with sidebar)
+			*	@since 6.0
+			*	@Parameters:
+			*		-	Section Data - the array of data associated with the custom field you've set up
+			*/
+			public static function is_custom_section_two_column( $custom_section_data ) {
+				// print_r( $custom_section_data );
+				$value = ( isset( $custom_section_data['sidebar_title'] ) && isset( $custom_section_data['sidebar_fields'] ) && !empty( $custom_section_data['sidebar_fields'] ) ) ?  true : false;
+				return $value;
+			}
 	}
 	new Yikes_Inc_Easy_Mailchimp_Extender_Helper;
 
