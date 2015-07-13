@@ -107,10 +107,8 @@ Have any questions? Feel free to open up an issue in the issue tracker and we'll
 ###### Hooks
 - yikes-mailchimp-form-submission - do something with the user email + form data on form submission
 - yikes-mailchimp-form-submission-FORM_ID - do something with the user email + form data on form submission (specific form)
-- yikes-mailchimp-before-form - output content before all forms
-- yikes-mailchimp-before-form-FORM_ID - output content before a specific form
-- yikes-mailchimp-after-form - output content after all forms
-- yikes-mailchimp-after-FORM_ID - output content after a specific form
+- yikes-mailchimp-before-form - output content before all forms (@parameters - $form_id)
+- yikes-mailchimp-after-form - output content after all forms (@parameters - $form_id)
 - yikes-mailchimp-before-checkbox - output custom content before the opt-in checkbox for all integrations
 - yikes-mailchimp-after-checkbox - output custom content after the opt-in checkbox for all integrations
 - yikes-mailchimp-support-page - output custom content on the support page (used to add our support form for premium users)
