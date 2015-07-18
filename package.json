@@ -12,7 +12,7 @@
     "grunt": "^0.4.5"
   },
   "devDependencies": {
-    "autoprefixer-core": "^5.2.0",
+    "autoprefixer-core": "^5.2.1",
     "grunt-auto-install": "^0.2.4",
     "grunt-browser-sync": "^2.1.3",
     "grunt-contrib-cssmin": "^0.12.3",
