@@ -56,7 +56,7 @@ $ grunt auto_install
 - PHP v5.3+
 
 #### Plugin Preview Screenshots
-[Cloudup Gallery](https://cloudup.com/cBKo-0D2HTV)
+[Cloudup Gallery](https://cloudup.com/cDJtreQDIcJ)
 
 #### Questions?
 Have any questions? Feel free to open up an issue in the issue tracker and we'll get back to you as soon as possible.
