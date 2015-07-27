@@ -1,6 +1,6 @@
 msgid ""
 msgstr ""
-"Project-Id-Version: Easy MailChimp by YIKES Inc.\n"
+"Project-Id-Version: Easy MailChimp Forms by YIKES Inc.\n"
 "POT-Creation-Date: 2015-06-08 15:12-0500\n"
 "PO-Revision-Date: 2015-06-09 12:50-0500\n"
 "Last-Translator: Evan <Evan@yikesinc.com>\n"
@@ -18,7 +18,7 @@ msgstr ""
 
 #: .././admin/class-yikes-inc-easy-mailchimp-extender-admin.php:1
 msgid ""
-"YIKES Inc. Easy MailChimp requires a minimum of PHP 5.3. The plugin will not "
+"YIKES Inc. Easy MailChimp Forms requires a minimum of PHP 5.3. The plugin will not "
 "function properly until you update. Reach out to your host provider for "
 "assistance."
 msgstr ""
@@ -32,7 +32,7 @@ msgstr ""
 
 #: .././admin/class-yikes-inc-easy-mailchimp-extender-admin.php:1
 #: .././admin/partials/welcome-page/welcome-sections/credits-section.php:1
-msgid "Easy MailChimp"
+msgid "Easy MailChimp Forms"
 msgstr ""
 
 #: .././admin/class-yikes-inc-easy-mailchimp-extender-admin.php:1
@@ -199,12 +199,12 @@ msgid "by"
 msgstr ""
 
 #: .././admin/class-yikes-inc-easy-mailchimp-extender-admin.php:1
-msgid "View Easy MailChimp Add-Ons"
+msgid "View Easy MailChimp Forms Add-Ons"
 msgstr ""
 
 #: .././admin/class-yikes-inc-easy-mailchimp-extender-admin.php:1
 msgid ""
-"Checkout available add-ons for some seriously enhanced features."
+"Check out available add-ons for some seriously enhanced features."
 msgstr ""
 
 #: .././admin/class-yikes-inc-easy-mailchimp-extender-admin.php:1
@@ -1440,7 +1440,7 @@ msgid ""
 msgstr ""
 
 #: .././admin/partials/welcome-page/welcome-sections/getting-started-section.php:1
-msgid "Yikes Easy MailChimp Settings"
+msgid "Yikes Easy MailChimp Forms Settings"
 msgstr ""
 
 #: .././admin/partials/welcome-page/welcome-sections/getting-started-section.php:1
@@ -1573,7 +1573,7 @@ msgstr ""
 #: .././admin/partials/welcome-page/welcome.php:1
 #, php-format
 msgid ""
-"Thank you for updating to the latest version! Easy MailChimp by YIKES Inc. "
+"Thank you for updating to the latest version! Easy MailChimp Forms by YIKES Inc. "
 "%s is ready to help take your mailing lists to the next level!"
 msgstr ""
 
