@@ -13,7 +13,7 @@
 	<h2>Easy MailChimp by YIKES Inc. | <?php echo __( 'Add-Ons' , 'yikes-inc-easy-mailchimp-extender' ); ?> &nbsp; <a href="https://yikesplugins.com/plugins/?plugins=MailChimp" target="_blank" class="button-primary coming-soon-button" title="<?php _e( 'View All Add-Ons' , 'yikes-inc-easy-mailchimp-extender' ); ?>"><?php _e( 'View All Add-Ons' , 'yikes-inc-easy-mailchimp-extender' ); ?> <span class="dashicons dashicons-external"></span></a></h2>				
 		
 	<!-- Addons Page Description -->
-	<p class="yikes-easy-mc-about-text about-text"><?php _e( "Below you'll find a complete list of available add-ons for Easy MailChimp by YIKES Inc. Each add-on extends the base functionality of the plugin in some shape or form." , 'yikes-inc-easy-mailchimp-extender' ); ?></p>
+	<p class="yikes-easy-mc-about-text about-text"><?php _e( "Below you'll find a list of add-ons available for Easy MailChimp Forms by YIKES Inc. Each add-on extends the base functionality of the free plugin." , 'yikes-inc-easy-mailchimp-extender' ); ?></p>
 	
 	<!-- Add-On Container -->
 	<section id="add-ons">

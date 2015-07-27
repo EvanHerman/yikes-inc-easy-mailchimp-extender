@@ -391,7 +391,7 @@ msgstr ""
 
 #: .././admin/class-yikes-inc-easy-mailchimp-extender-admin.php:1
 msgid ""
-"No fields are assigned to this form. Select fields the right hand column "
+"No fields are assigned to this form. Select fields from the right hand column "
 "to add to this form."
 msgstr ""
 
@@ -496,7 +496,7 @@ msgid "Edit"
 msgstr ""
 
 #: .././admin/partials/edit-form.php:1
-msgid "Update this MailChimp form\'s settings and front end styles below."
+msgid "Update this MailChimp form's settings and front end styles below."
 msgstr ""
 
 #: .././admin/partials/edit-form.php:1
@@ -772,46 +772,6 @@ msgstr ""
 msgid "Submit Button Text:"
 msgstr ""
 
-#: .././admin/partials/menu/about-yikes.php:1
-msgid "About YIKES Inc."
-msgstr ""
-
-#: .././admin/partials/menu/about-yikes.php:1
-msgid ""
-"YIKES, Inc. is a web design and development company located in Philadelphia, "
-"Pennsylvania, US. YIKES specializes in custom WordPress theme and plugin  "
-"development, site maintenance, eCommerce, custom-built web-based applications " 
-"and more."
-msgstr ""
-
-#: .././admin/partials/menu/about-yikes.php:1
-msgid "YIKES Inc. Website"
-msgstr ""
-
-#: .././admin/partials/menu/about-yikes.php:1
-msgid "Certifications"
-msgstr ""
-
-#: .././admin/partials/menu/about-yikes.php:1
-msgid "B-Corp Certification"
-msgstr ""
-
-#: .././admin/partials/menu/about-yikes.php:1
-msgid "National Gay & Lesbian Chamber of Commerce Certification"
-msgstr ""
-
-#: .././admin/partials/menu/about-yikes.php:1
-msgid "NGLCC Certification"
-msgstr ""
-
-#: .././admin/partials/menu/about-yikes.php:1
-msgid "Womens Business Enterprise National Council Certification"
-msgstr ""
-
-#: .././admin/partials/menu/about-yikes.php:1
-msgid "WBENC CP Certification"
-msgstr ""
-
 #: .././admin/partials/menu/account-details.php:1
 msgid "Account Overview"
 msgstr ""
@@ -888,9 +848,8 @@ msgstr ""
 
 #: .././admin/partials/menu/add-ons.php:15
 msgid ""
-"Below you'll find a complete list of available add-ons for Easy MailChimp Forms by "
-"YIKES Inc. Each add-on extends the base functionality of the plugin in some "
-"shape or form."
+"Below you'll find a list of add-ons available for Easy MailChimp Forms by "
+"YIKES Inc. Each add-on extends the base functionality of the free plugin."
 msgstr ""
 
 #: .././admin/partials/menu/add-ons.php:20
@@ -1239,7 +1198,7 @@ msgid ""
 msgstr ""
 
 #: .././admin/partials/menu/support.php:1
-msgid "For a list of common issues and how to resolve them, please see our"
+msgid "For full plugin documentation, visit our"
 msgstr ""
 
 #: .././admin/partials/menu/support.php:1
@@ -1272,13 +1231,13 @@ msgstr ""
 
 #: .././admin/partials/upgrade-helpers/upgrade-migrate-options.php:1
 msgid ""
-"please be patient while your options are updated and the process is completed"
+"please be patient while your options are updated and the process has completed"
 msgstr ""
 
 #: .././admin/partials/upgrade-helpers/upgrade-migrate-options.php:1
 msgid "successfully imported."
 msgstr ""
-
+`
 #: .././admin/partials/upgrade-helpers/upgrade-migrate-options.php:1
 msgid "Migration Complete. Please wait..."
 msgstr ""
@@ -1514,7 +1473,7 @@ msgstr ""
 #: .././admin/partials/welcome-page/welcome-sections/getting-started-section.php:1
 #: .././admin/partials/welcome-page/welcome-sections/whats-new-section.php:1
 msgid ""
-"Once you create your form, you can choose which fields you want to add to it"
+"Once you create a form, you can choose which fields you want to add to it"
 "and customize the success and error messages returned by MailChimp."
 msgstr ""
 
@@ -1571,7 +1530,7 @@ msgid ""
 msgstr ""
 
 #: .././admin/partials/welcome-page/welcome-sections/getting-started-section.php:1
-msgid "WordPress Plugin Directory"
+msgid "WordPress Plugin Directory"`
 msgstr ""
 
 #: .././admin/partials/welcome-page/welcome-sections/getting-started-section.php:1
