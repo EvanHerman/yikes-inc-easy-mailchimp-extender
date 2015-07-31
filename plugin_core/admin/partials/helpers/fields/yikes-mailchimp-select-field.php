@@ -1,7 +1,9 @@
 <?php 
 	/*
-	* Standard Dropdown (select) Field
-	* @since 6.0
+	* 	Standard Dropdown (select) Field
+	*
+	*	For help on using, see our documentation [https://yikesinc.freshdesk.com/support/home]
+	* 	@since 6.0
 	*/
 	$field_data = json_decode( $form_data['custom_fields'] , true ); 
 ?>

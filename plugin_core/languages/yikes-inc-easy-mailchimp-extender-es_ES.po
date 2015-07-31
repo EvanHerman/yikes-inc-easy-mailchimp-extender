@@ -1,15 +1,15 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: Easy MailChimp Forms by YIKES Inc.\n"
-"POT-Creation-Date: 2015-07-30 18:10-0500\n"
-"PO-Revision-Date: 2015-07-30 18:17-0500\n"
-"Last-Translator: Evan Herman <evan.m.herman@gmail.com>\n"
+"POT-Creation-Date: 2015-07-31 15:54-0500\n"
+"PO-Revision-Date: 2015-07-31 15:55-0500\n"
+"Last-Translator: Evan <Evan@yikesinc.com>\n"
 "Language-Team: YIKES Inc. <http://www.yikesinc.com>\n"
 "Language: es\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Poedit 1.6.10\n"
+"X-Generator: Poedit 1.6.6\n"
 "X-Poedit-Basepath: .\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "X-Poedit-KeywordsList: __;_e\n"
@@ -63,10 +63,17 @@ msgid "Create a form"
 msgstr ""
 
 #: .././admin/class-yikes-inc-easy-mailchimp-extender-admin.php:1
-#: .././admin/partials/welcome-page/welcome-sections/credits-section.php:1
 #, fuzzy
 msgid "Easy MailChimp"
 msgstr "Easy MailChimp Forms"
+
+#: .././admin/class-yikes-inc-easy-mailchimp-extender-admin.php:1
+#, php-format
+msgid ""
+"The previously stored options for %s have been cleared from the database. "
+"You should update the options on the <a href='%s' title='Settings "
+"Page'>settings page</a> before continuing to use the plugin."
+msgstr ""
 
 #: .././admin/class-yikes-inc-easy-mailchimp-extender-admin.php:1
 #, php-format
@@ -100,6 +107,10 @@ msgid "Perform Migration"
 msgstr "Realizar la migración"
 
 #: .././admin/class-yikes-inc-easy-mailchimp-extender-admin.php:1
+msgid "Dismiss Notice"
+msgstr ""
+
+#: .././admin/class-yikes-inc-easy-mailchimp-extender-admin.php:1
 msgid "Additional Settings"
 msgstr "Configuración adicional"
 
@@ -130,7 +141,7 @@ msgid "Debug Settings"
 msgstr ""
 
 #: .././admin/class-yikes-inc-easy-mailchimp-extender-admin.php:1
-#: .././admin/partials/menu/options-sections/import-export-forms.php:11
+#: .././admin/partials/menu/options-sections/import-export-forms.php:8
 msgid "Import/Export Forms"
 msgstr ""
 
@@ -826,11 +837,11 @@ msgstr ""
 msgid "Submit Button Text:"
 msgstr ""
 
-#: .././admin/partials/helpers/fields/yikes-mailchimp-file-field.php:24
+#: .././admin/partials/helpers/fields/yikes-mailchimp-file-field.php:26
 msgid "Upload File"
 msgstr ""
 
-#: .././admin/partials/helpers/fields/yikes-mailchimp-file-field.php:27
+#: .././admin/partials/helpers/fields/yikes-mailchimp-file-field.php:29
 msgid "Remove File"
 msgstr ""
 
@@ -959,7 +970,6 @@ msgid "List Info."
 msgstr ""
 
 #: .././admin/partials/menu/lists.php:1
-#: .././admin/partials/menu/manage-lists.php:1
 msgid "No MailChimp lists found. Head over to"
 msgstr ""
 
@@ -1034,17 +1044,11 @@ msgid "Manage Mailing Lists"
 msgstr ""
 
 #: .././admin/partials/menu/manage-lists.php:1
+#, php-format
 msgid ""
 "You need to connect to MailChimp before you can start creating forms. Head "
-"over to the"
-msgstr ""
-
-#: .././admin/partials/menu/manage-lists.php:1
-msgid "Settings Page"
-msgstr ""
-
-#: .././admin/partials/menu/manage-lists.php:1
-msgid "and enter your API key"
+"over to the <a href=\"%s\" title=\"Settings Page\">Settings Page</a> and "
+"enter your API key."
 msgstr ""
 
 #: .././admin/partials/menu/manage-lists.php:1
@@ -1056,9 +1060,11 @@ msgid "Merge Variables"
 msgstr ""
 
 #: .././admin/partials/menu/manage-lists.php:1
+#, php-format
 msgid ""
-"to setup your first mailing list. Once that's done you can head back here to "
-"customize it!"
+"No MailChimp lists found. Head over to <a href=\"%s\" title=\"MailChimp.com"
+"\">MailChimp.com</a> to setup your first mailing list. Once thats done you "
+"can head back here to customize it!"
 msgstr ""
 
 #: .././admin/partials/menu/options-sections/api-cache-settings.php:1
@@ -1128,6 +1134,20 @@ msgstr ""
 msgid "Debug Log"
 msgstr ""
 
+#: .././admin/partials/menu/options-sections/debug-settings.php:1
+msgid "Clear Log"
+msgstr ""
+
+#: .././admin/partials/menu/options-sections/debug-settings.php:1
+#, fuzzy
+msgid "Error Message"
+msgstr "Errores"
+
+#: .././admin/partials/menu/options-sections/debug-settings.php:1
+#, fuzzy
+msgid "Error Details"
+msgstr "Errores"
+
 #: .././admin/partials/menu/options-sections/general-settings.php:1
 msgid ""
 "Enter your API key in the field below to connect your site to your MailChimp "
@@ -1142,32 +1162,32 @@ msgstr ""
 msgid "Get your API key here"
 msgstr ""
 
-#: .././admin/partials/menu/options-sections/import-export-forms.php:17
-#: .././admin/partials/menu/options-sections/import-export-forms.php:31
+#: .././admin/partials/menu/options-sections/import-export-forms.php:14
+#: .././admin/partials/menu/options-sections/import-export-forms.php:28
 #, fuzzy
 msgid "Export Forms"
 msgstr "Editar Formulario"
 
-#: .././admin/partials/menu/options-sections/import-export-forms.php:20
+#: .././admin/partials/menu/options-sections/import-export-forms.php:17
 msgid "Select Forms"
 msgstr ""
 
-#: .././admin/partials/menu/options-sections/import-export-forms.php:22
+#: .././admin/partials/menu/options-sections/import-export-forms.php:19
 msgid ""
 "Select which forms to export. Leave all checkboxes unchecked to export all "
 "of your forms."
 msgstr ""
 
-#: .././admin/partials/menu/options-sections/import-export-forms.php:28
+#: .././admin/partials/menu/options-sections/import-export-forms.php:25
 msgid "It looks like you haven't created any forms yet."
 msgstr ""
 
-#: .././admin/partials/menu/options-sections/import-export-forms.php:40
-#: .././admin/partials/menu/options-sections/import-export-forms.php:46
+#: .././admin/partials/menu/options-sections/import-export-forms.php:37
+#: .././admin/partials/menu/options-sections/import-export-forms.php:43
 msgid "Import Forms"
 msgstr ""
 
-#: .././admin/partials/menu/options-sections/import-export-forms.php:42
+#: .././admin/partials/menu/options-sections/import-export-forms.php:39
 msgid "Select the .csv forms export file to import to the site."
 msgstr ""
 
@@ -1250,13 +1270,10 @@ msgstr ""
 
 #: .././admin/partials/menu/options.php:1
 #, php-format
-msgid "Forms successfully imported. %s"
+msgid ""
+"Forms successfully imported. <a href=\"%s\" title=\"View Forms\">View Forms</"
+"a>"
 msgstr ""
-
-#: .././admin/partials/menu/options.php:1
-#, fuzzy
-msgid "View Forms"
-msgstr "Editar Formulario"
 
 #: .././admin/partials/menu/support.php:1
 msgid "Support"
@@ -1280,12 +1297,10 @@ msgid ""
 msgstr ""
 
 #: .././admin/partials/menu/support.php:1
-msgid "For full plugin documentation, visit our"
-msgstr ""
-
-#: .././admin/partials/menu/support.php:1
-#: .././admin/partials/welcome-page/welcome-sections/getting-started-section.php:1
-msgid "Knowledge Base"
+#, php-format
+msgid ""
+"For full plugin documentation, visit our <a href=\"%s\" target=\"_blank\" "
+"title=\"Knowledge Base\">knowledge base</a>."
 msgstr ""
 
 #: .././admin/partials/menu/support.php:1
@@ -1294,7 +1309,9 @@ msgid "Github Issue Tracker"
 msgstr "GitHub Seguimiento de Incidentes"
 
 #: .././admin/partials/menu/support.php:1
-msgid "Github Issue Tracker Screenshot"
+msgid ""
+"The fastest way to receive free support is to submit a new issue to our "
+"GitHub issue tracker. "
 msgstr ""
 
 #: .././admin/partials/menu/support.php:1
@@ -1302,7 +1319,9 @@ msgid "WordPress.org Plugin Directory"
 msgstr "WordPress Repositorio de Plugin"
 
 #: .././admin/partials/menu/support.php:1
-msgid "WordPress.org Issue Tracker Screenshot"
+msgid ""
+"Use your WordPress.org username to submit support requests on the WordPress "
+"Directory support forum."
 msgstr ""
 
 #: .././admin/partials/upgrade-helpers/upgrade-migrate-options.php:1
@@ -1494,9 +1513,11 @@ msgid "To edit this lists segments, head over to"
 msgstr ""
 
 #: .././admin/partials/welcome-page/welcome-sections/credits-section.php:1
+#, php-format
 msgid ""
-"is a free plugin licensed under GPL v2, and was meticulously constructed "
-"with a whole lot of love by the folks at"
+"%s is a free plugin licensed under GPL v2, and was meticulously constructed "
+"with a whole lot of love by the folks at <a href=\"%s\" target=\"_blank\" "
+"title=\"YIKES Inc.\"></a>"
 msgstr ""
 
 #: .././admin/partials/welcome-page/welcome-sections/credits-section.php:1
@@ -1517,9 +1538,19 @@ msgid "Creating Your First Opt-In Form"
 msgstr ""
 
 #: .././admin/partials/welcome-page/welcome-sections/getting-started-section.php:1
+msgid "Create first optin form screenshot"
+msgstr ""
+
+#: .././admin/partials/welcome-page/welcome-sections/getting-started-section.php:1
 #: .././admin/partials/welcome-page/welcome-sections/whats-new-section.php:1
 msgid "Manage Forms"
 msgstr ""
+
+#: .././admin/partials/welcome-page/welcome-sections/getting-started-section.php:1
+#: .././admin/partials/welcome-page/welcome-sections/whats-new-section.php:1
+#, fuzzy
+msgid "Forms"
+msgstr "Editar Formulario"
 
 #: .././admin/partials/welcome-page/welcome-sections/getting-started-section.php:1
 msgid ""
@@ -1542,6 +1573,10 @@ msgid ""
 msgstr ""
 
 #: .././admin/partials/welcome-page/welcome-sections/getting-started-section.php:1
+msgid "Optin settings screenshot"
+msgstr ""
+
+#: .././admin/partials/welcome-page/welcome-sections/getting-started-section.php:1
 msgid "Customize the Form"
 msgstr ""
 
@@ -1558,6 +1593,10 @@ msgid ""
 "Quickly and easily switch which list the form is associated with, toggle "
 "single or double optin, whether the welcome email should be sent, toggle "
 "AJAX form submissions and more. Get customizing!"
+msgstr ""
+
+#: .././admin/partials/welcome-page/welcome-sections/getting-started-section.php:1
+msgid "Add field to form screenshot"
 msgstr ""
 
 #: .././admin/partials/welcome-page/welcome-sections/getting-started-section.php:1
@@ -1627,12 +1666,24 @@ msgstr ""
 "pro que solo no podía hacerlo en el libre. Échale un vistazo!"
 
 #: .././admin/partials/welcome-page/welcome-sections/getting-started-section.php:1
-msgid "For plugin documentation, visit our"
+msgid "Knowledge Base"
+msgstr ""
+
+#: .././admin/partials/welcome-page/welcome-sections/getting-started-section.php:1
+#, php-format
+msgid ""
+"For plugin documentation, visit our <a href=\"%s\" title=\"Knowledge Base\" "
+"target=\"_blank\">knowledge base</a>."
 msgstr ""
 
 #: .././admin/partials/welcome-page/welcome-sections/whats-new-section.php:1
 msgid "All New Form Management"
 msgstr "Toda nueva administración de forma"
+
+#: .././admin/partials/welcome-page/welcome-sections/whats-new-section.php:1
+#, fuzzy
+msgid "Edit Form Screenshot"
+msgstr "Editar Formulario"
 
 #: .././admin/partials/welcome-page/welcome-sections/whats-new-section.php:1
 msgid ""

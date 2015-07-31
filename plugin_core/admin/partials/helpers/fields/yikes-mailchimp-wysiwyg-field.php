@@ -1,7 +1,10 @@
 <?php
 	/*
-	* Upload WYSIWYG Input Field
-	* @since 6.0
+	*	WYSIWYG Input Field
+	*	Used to extend the base functionality of the plugin
+	*
+	*	For help on using, see our documentation [https://yikesinc.freshdesk.com/support/home]
+	* 	@since 6.0
 	*/
 	$field_data = json_decode( $form_data['custom_fields'] , true ); 
 	$content = isset( $field_data[$field['id']] ) ? $field_data[$field['id']] : isset( $field['default'] ) ? $field['default'] : '';

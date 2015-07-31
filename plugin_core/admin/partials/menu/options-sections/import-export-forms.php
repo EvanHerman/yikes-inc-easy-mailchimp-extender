@@ -5,9 +5,6 @@
 	// return it as an array, so we can work with it to build our form below
 	$all_forms = $wpdb->get_results( 'SELECT id, form_name FROM ' . $wpdb->prefix . 'yikes_easy_mc_forms', ARRAY_A );
 ?>
-<!--
-	MailChimp API Clear Stored Cache Template
--->
 <h3><span><?php _e( 'Import/Export Forms' , 'yikes-inc-easy-mailchimp-extender' ); ?></span><?php echo $api_connection; ?></h3>
 <div class="inside">
 					
