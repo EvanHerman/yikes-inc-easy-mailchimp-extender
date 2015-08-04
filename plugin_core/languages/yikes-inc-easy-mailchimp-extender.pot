@@ -1,15 +1,15 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: Easy MailChimp Forms by YIKES Inc.\n"
-"POT-Creation-Date: 2015-07-31 15:54-0500\n"
-"PO-Revision-Date: 2015-07-31 15:54-0500\n"
-"Last-Translator: Evan <Evan@yikesinc.com>\n"
+"POT-Creation-Date: 2015-08-04 18:09-0500\n"
+"PO-Revision-Date: 2015-08-04 18:10-0500\n"
+"Last-Translator: Evan Herman <evan.m.herman@gmail.com>\n"
 "Language-Team: YIKES Inc. <http://www.yikesinc.com>\n"
 "Language: en\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Poedit 1.6.6\n"
+"X-Generator: Poedit 1.6.10\n"
 "X-Poedit-Basepath: .\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "X-Poedit-KeywordsList: __;_e;_n;esc_attr_e\n"
@@ -843,6 +843,127 @@ msgstr ""
 
 #: .././admin/partials/helpers/fields/yikes-mailchimp-file-field.php:29
 msgid "Remove File"
+msgstr ""
+
+#: .././admin/partials/menu/about-yikes.php:1
+msgid "About the Yikes Inc. Team"
+msgstr ""
+
+#: .././admin/partials/menu/about-yikes.php:1
+msgid ""
+"YIKES, Inc. – A Philadelphia based web design and development company "
+"dedicated to sustainable business practices since 1996, YIKES has continued "
+"to be a socially responsible business observing the triple bottom line: "
+"people, planet, profit. YIKES is committed to building a more socially, "
+"environmentally and financially sustainable local economy. The YIKES office "
+"is located in a Platinum LEED certified building and is powered by 100% "
+"Renewable electricity through The Energy Cooperative. YIKES recycles and "
+"composts office waste and prints promotional materials on recycled paper "
+"with soy ink. The YIKES office uses green cleaning and paper products. YIKES "
+"is also a 100% Replanted office."
+msgstr ""
+
+#: .././admin/partials/menu/about-yikes.php:1
+msgid "Mia Levesque"
+msgstr ""
+
+#: .././admin/partials/menu/about-yikes.php:1
+msgid ""
+"Mia is essential in maintaining clients relations and project management. "
+"She is responsible for overseeing YIKES, Inc. largest projects while making "
+"sure all of our clients receive the highest quality work."
+msgstr ""
+
+#: .././admin/partials/menu/about-yikes.php:1
+msgid "Tracy Levesque"
+msgstr ""
+
+#: .././admin/partials/menu/about-yikes.php:1
+msgid ""
+"Tracy has been designing websites since 1996 and has a large portfolio of "
+"work amassed.  She has expertise in HTML, CSS, WordPress and eCommerce sites."
+msgstr ""
+
+#: .././admin/partials/menu/about-yikes.php:1
+msgid "Scott Wilson"
+msgstr ""
+
+#: .././admin/partials/menu/about-yikes.php:1
+msgid ""
+"Scott is a multimedia expert and web designer with 10 years of experience "
+"with Flash, HTML, CSS, and encoding video for web using various technologies."
+msgstr ""
+
+#: .././admin/partials/menu/about-yikes.php:1
+msgid "Pearson Barlow"
+msgstr ""
+
+#: .././admin/partials/menu/about-yikes.php:1
+msgid ""
+"Pearson has over 10 years of experience in web development. He is expert "
+"level at several programming languages including ColdFusion, PHP, CSS, and "
+"JavaScript. Pearson also has extensive experience with MySQL and MS SQL "
+"databases."
+msgstr ""
+
+#: .././admin/partials/menu/about-yikes.php:1
+msgid "Jodie Riccelli"
+msgstr ""
+
+#: .././admin/partials/menu/about-yikes.php:1
+msgid ""
+"Jodie has nearly 15 years Sales and Marketing experience and passion for "
+"technology. Call Jodie today to learn about how we can work together on your "
+"web development project."
+msgstr ""
+
+#: .././admin/partials/menu/about-yikes.php:1
+msgid "Carlos Zuniga"
+msgstr ""
+
+#: .././admin/partials/menu/about-yikes.php:1
+msgid ""
+"Carlos has over 12 years of experience in web development. He is an expert "
+"level PHP developer with experience in open-source CMS development including "
+"creating &amp; modifying themes, plugins and modules."
+msgstr ""
+
+#: .././admin/partials/menu/about-yikes.php:1
+msgid "Programmer/WordPress Developer"
+msgstr ""
+
+#: .././admin/partials/menu/about-yikes.php:1
+msgid ""
+"Evan is an accomplished WordPress developer, specializing in building custom "
+"WordPress plugins and themes."
+msgstr ""
+
+#: .././admin/partials/menu/about-yikes.php:1
+msgid "Yikes Inc. Website"
+msgstr ""
+
+#: .././admin/partials/menu/about-yikes.php:1
+msgid "Certifications"
+msgstr ""
+
+#: .././admin/partials/menu/about-yikes.php:1
+msgid "B-Corp Certification"
+msgstr ""
+
+#: .././admin/partials/menu/about-yikes.php:1
+msgid "National Gay & Lesbian Chamber of Commerce Certification"
+msgstr ""
+
+#: .././admin/partials/menu/about-yikes.php:1
+msgid "NGLCC Certification"
+msgstr ""
+
+#: .././admin/partials/menu/about-yikes.php:1
+msgid "Womens Business Enterprise National Council Certification"
+msgstr ""
+
+#: .././admin/partials/menu/about-yikes.php:1
+msgid "WBENC CP Certification"
 msgstr ""
 
 #: .././admin/partials/menu/account-details.php:1
@@ -1777,16 +1898,15 @@ msgstr ""
 msgid "Whoops, you shouldn't be accessing this file directly. Abort!"
 msgstr ""
 
-#: .././public/classes/checkbox-integrations.php:190
+#: .././public/classes/checkbox-integrations.php:196
 msgid "Note"
 msgstr ""
 
 #: .././public/classes/checkbox-integrations/class.registration_form-checkbox.php:60
-msgid "You have not been subscribed to our mailing list."
-msgstr ""
-
-#: .././public/classes/checkbox-integrations/class.registration_form-checkbox.php:60
-msgid "is already subscribed to this list."
+#, php-format
+msgid ""
+"You have not been subscribed to our mailing list. %s is already subscribed "
+"to this list."
 msgstr ""
 
 #: .././public/partials/shortcodes/process/process_form_submission.php:1

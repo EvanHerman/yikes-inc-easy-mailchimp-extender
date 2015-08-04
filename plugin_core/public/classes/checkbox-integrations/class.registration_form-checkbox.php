@@ -57,7 +57,8 @@ class Yikes_Easy_MC_Registration_Checkbox_Class extends Yikes_Easy_MC_Checkbox_I
 			$this->subscribe_user_integration( sanitize_email( $user->user_email ) , $this->type , $merge_variables );
 		} else {
 			// add a temporary option to pass our email address and let the user know they are already subscribed
-			add_option( 'yikes_register_subscription_error' , __( "You have not been subscribed to our mailing list." , $this->text_domain ) . ' ' . $user->user_email . ' ' . __( "is already subscribed to this list." , $this->text_domain ) );
+			$user_already_subscirbed_message = sprintf( __( "You have not been subscribed to our mailing list. %s is already subscribed to this list.", "yikes-inc-easy-mailchimp-extender" ), $user->user_email  );
+			add_option( 'yikes_register_subscription_error' , $user_already_subscirbed_message );
 		}
 	}
 	

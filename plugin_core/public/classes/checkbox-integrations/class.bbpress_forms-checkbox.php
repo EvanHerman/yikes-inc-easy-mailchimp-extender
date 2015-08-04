@@ -30,12 +30,13 @@
 		* Outputs a checkbox
 		*/
 		public function output_checkbox() {
-				if( $this->is_user_already_subscribed( $this->type ) == '1' ) {
-					return;
-				}
-				echo do_action( 'yikes-mailchimp-before-checkbox' , $this->type );
-					echo $this->yikes_get_checkbox();
-				echo do_action( 'yikes-mailchimp-after-checkbox' , $this->type );
+			// if the user is already subscribed, abort and don't render the checkbox
+			if( $this->is_user_already_subscribed( $this->type ) == '1' ) {
+				return;
+			}
+			echo do_action( 'yikes-mailchimp-before-checkbox' , $this->type );
+				echo $this->yikes_get_checkbox();
+			echo do_action( 'yikes-mailchimp-after-checkbox' , $this->type );
 		}
 		
 		/**

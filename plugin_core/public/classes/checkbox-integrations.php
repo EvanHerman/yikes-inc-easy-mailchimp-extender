@@ -20,6 +20,8 @@
 		/*
 		*	Check if a user is already subscribed to
 		*	a given list, if so don't show the checkbox integration
+		*	@since 6.0.0
+		*	@$integration_type - pass in the type of checkbox integration
 		*/
 		public function is_user_already_subscribed( $integration_type ) {
 			// first check if the user is logged in
@@ -49,6 +51,9 @@
 		/*
 		*	Check if a new user registration email already subscribed
 		*	a given list, if so don't show the checkbox integration
+		*	@since 6.0.0
+		*	@$email - users email address entered into the form
+		*	@$integration_type - pass in the type of checkbox integration
 		*/
 		public function is_new_registration_already_subscribed( $email , $integration_type ) {
 			// first check if the user is logged in
@@ -68,8 +73,9 @@
 		}
 			
 		/**
-		* @param mixed $args Array or string
-		* @return string
+		* 	Get the checkbox for the given integration and render it on the front end
+		* 	@return string
+		*	@since 6.0.0
 		*/
 		public function yikes_get_checkbox() {
 			// enqueue our checkbox styles whenever the checkbox is displayed
@@ -117,7 +123,7 @@
 			try {
 				$MailChimp = new MailChimp( get_option( 'yikes-mc-api-key' , '' ) );
 				// subscribe the user
-				$subscribe_response = $MailChimp->call('/lists/subscribe', array( 
+				$subscribe_response = $MailChimp->call( '/lists/subscribe', array( 
 					'api_key' => get_option( 'yikes-mc-api-key' , '' ),
 					'id' => $checkbox_options['comment_form']['associated-list'],
 					'email' => array( 'email' => sanitize_email( $email) ),
@@ -187,7 +193,7 @@
 					$old = 'Registration complete. Please check your e-mail.';
 					foreach( $tmp['registered'] as $index => $msg ) {
 						if( $msg === $old ) {
-							$tmp['registered'][$index] = $old . ' <p class="message"><strong>' . __( 'Note' , $this->text_domain ) . '</strong>: ' . $email_error . '</p>';        
+							$tmp['registered'][$index] = $old . ' <p class="message"><strong>' . __( 'Note' , 'yikes-inc-easy-mailchimp-extender' ) . '</strong>: ' . $email_error . '</p>';        
 						}
 					}
 					// Use the magic __set method to override the errors property:
