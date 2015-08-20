@@ -149,7 +149,30 @@ class Yikes_Inc_Easy_Mailchimp_Forms_Admin {
 		}
 		/** Parse default value into usable dynamic data **/
 		add_filter( 'yikes-mailchimp-process-default-tag' , array( $this , 'parse_mailchimp_default_tag' ) );
+		/** Add a disclaimer to ensure that we let people know we are not endorsed/backed by MailChimp at all **/
+		add_filter( 'admin_footer_text', array( $this, 'yikes_easy_forms_admin_disclaimer' ) );
 	}
+		
+		/**
+		 *	Add a disclaimer to the admin footer for all YIKES pages to ensure that users understand there is no coorelation between this plugin and MailChimp. 
+		 *	This plugin simply provides the service of linking MailChimp with your site.
+		 *
+		 * @since        6.0
+		 *
+		 * @param       string   $footer_text The existing footer text
+		 *
+		 * @return      string
+		 */
+		public function yikes_easy_forms_admin_disclaimer( $footer_text ) {
+			$page = get_current_screen();
+			$base = $page->base;
+			if ( strpos( $base, 'yikes-inc' ) !== false ) {
+				$disclaimer_text = sprintf( '<em>' . __( 'Disclaimer: <strong>YIKES Easy Forms for MailChimp</strong> is in no way endorsed, affiliated or backed by MailChimp, or its parent company Rocket Science Group.', 'yikes-inc-easy-mailchimp-extender' ), '<a href="https://wordpress.org/support/view/plugin-reviews/give?filter=5#postform" target="_blank" class="give-rating-link" data-rated="' . __( 'Thanks :)', 'yikes-inc-easy-mailchimp-extender' ) . '">', '</a></em>' );
+				return $disclaimer_text;
+			} else {
+				return $footer_text;
+			}
+		}
 			
 		/*
 		*	Parse our default tag into dynamic data
@@ -386,7 +409,7 @@ class Yikes_Inc_Easy_Mailchimp_Forms_Admin {
 				$install_date = get_option( 'yikes_easy_mailchimp_activation_date' );
 				$past_date = strtotime( '-14 days' );
 				if ( $past_date >= $install_date && current_user_can( 'install_plugins' ) ) {
-					add_action( 'admin_notices', array( &$this , 'yikes_easy_mailchimp_display_review_us_notice' ) );
+					add_action( 'admin_notices', array( $this , 'yikes_easy_mailchimp_display_review_us_notice' ) );
 				}
 			}
 		
@@ -560,7 +583,7 @@ class Yikes_Inc_Easy_Mailchimp_Forms_Admin {
 		/*
 		*	Enqueue Add-ons styles
 		*/	
-		if ( get_current_screen()->base == 'easy-mailchimp_page_yikes-inc-easy-mailchimp-addons' ) {
+		if ( get_current_screen()->base == 'easy-forms_page_yikes-inc-easy-mailchimp-addons' ) {
 			wp_enqueue_style( 'yikes-inc-easy-mailchimp-extender-addons-styles', plugin_dir_url( __FILE__ ) . 'css/yikes-inc-easy-mailchimp-extender-addons.min.css', array(), $this->version, 'all' );
 		}
 	}
@@ -610,8 +633,8 @@ class Yikes_Inc_Easy_Mailchimp_Forms_Admin {
 				
 		/* Top Level Menu 'Easy MailChimp' */
 		add_menu_page( 
-			__( 'Easy MailChimp' , 'yikes-inc-easy-mailchimp-extender' ), 
-			'Easy MailChimp',
+			__( 'Easy Forms' , 'yikes-inc-easy-mailchimp-extender' ), 
+			'Easy Forms',
 			apply_filters( 'yikes-mailchimp-user-role-access' , 'manage_options' ), 
 			'yikes-inc-easy-mailchimp', 
 			'', // no callback,
@@ -626,11 +649,11 @@ class Yikes_Inc_Easy_Mailchimp_Forms_Admin {
 				/* YIKES Inc. Easy MailChimp Manage Forms */
 				add_submenu_page(
 					'yikes-inc-easy-mailchimp', 
-					__( 'Signup Forms' , 'yikes-inc-easy-mailchimp-extender' ), 
-					__( 'Signup Forms' , 'yikes-inc-easy-mailchimp-extender' ), 
+					__( 'Opt-in Forms' , 'yikes-inc-easy-mailchimp-extender' ), 
+					__( 'Opt-in Forms' , 'yikes-inc-easy-mailchimp-extender' ), 
 					apply_filters( 'yikes-mailchimp-user-role-access' , 'manage_options' ), 
 					'yikes-inc-easy-mailchimp', 
-					array( &$this, 'generateManageFormsPage' )
+					array( $this, 'generateManageFormsPage' )
 				);
 				
 				/* YIKES Inc. Easy MailChimp Manage Lists */
@@ -640,7 +663,7 @@ class Yikes_Inc_Easy_Mailchimp_Forms_Admin {
 					__( 'Mailing Lists' , 'yikes-inc-easy-mailchimp-extender' ), 
 					apply_filters( 'yikes-mailchimp-user-role-access' , 'manage_options' ), 
 					'yikes-inc-easy-mailchimp-lists', 
-					array( &$this, 'generateManageListsPage' )
+					array( $this, 'generateManageListsPage' )
 				);
 				
 							
