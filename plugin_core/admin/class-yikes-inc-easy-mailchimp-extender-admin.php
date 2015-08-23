@@ -431,11 +431,11 @@ class Yikes_Inc_Easy_Mailchimp_Forms_Admin {
 				get_currentuserinfo();
 				if ( '' != $current_user->user_firstname ) {
 					$review_message = '<p><div id="yikes-mailchimp-logo"></div>';
-						$review_message .= sprintf( __( "Hi, %s, you've been using %s for 2 weeks now. We hope you're enjoying the features included with the free version. If so, please consider leaving us a review. Reviews provide us with feedback to grow and improve the plugin. If you're really enjoying the plugin, consider buying an add-on or developer license for some really awesome features and premium support." , 'yikes-inc-easy-mailchimp-extender' ) . "<span class='button-container'> <a href='%s' target='_blank' class='button-secondary'><span class='dashicons dashicons-star-filled'></span>" . __( "Leave A Review" , 'yikes-inc-easy-mailchimp-extender' ) . "</a> <a href='%s' class='button-secondary'><span class='dashicons dashicons-upload'></span>" . __( "View Addons" , 'yikes-inc-easy-mailchimp-extender' ) . "</a> <a href='%s' class='button-secondary'><span class='dashicons dashicons-no-alt'></span>" . __( "Dismiss" , 'yikes-inc-easy-mailchimp-extender' ) . "</a> </span>",  $current_user->user_firstname, '<strong>Easy MailChimp Forms by YIKES Inc.</strong>', $reviewurl, $addons_url, $nobugurl );
+						$review_message .= sprintf( __( "Hi, %s, you've been using %s for 2 weeks now. We hope you're enjoying the features included with the free version. If so, please consider leaving us a review. Reviews provide us with feedback to grow and improve the plugin. If you're really enjoying the plugin, consider buying an add-on or developer license for some really awesome features and premium support." , 'yikes-inc-easy-mailchimp-extender' ) . "<span class='button-container'> <a href='%s' target='_blank' class='button-secondary'><span class='dashicons dashicons-star-filled'></span>" . __( "Leave A Review" , 'yikes-inc-easy-mailchimp-extender' ) . "</a> <a href='%s' class='button-secondary'><span class='dashicons dashicons-upload'></span>" . __( "View Addons" , 'yikes-inc-easy-mailchimp-extender' ) . "</a> <a href='%s' class='button-secondary'><span class='dashicons dashicons-no-alt'></span>" . __( "Dismiss" , 'yikes-inc-easy-mailchimp-extender' ) . "</a> </span>",  $current_user->user_firstname, '<strong>Easy Forms for MailChimp by YIKES Inc.</strong>', $reviewurl, $addons_url, $nobugurl );
 					$review_message .= '</p>';
 				} else {
 					$review_message = '<p><div id="yikes-mailchimp-logo"></div>';
-					$review_message .= sprintf( __( "It looks like you've been using %s for 2 weeks now. We hope you're enjoying the features included with the free version. If so, please consider leaving us a review. Reviews only help to catch other users attention as well as provide us with feedback to grow and improve upon. If you're really enjoying the plugin, consider buying an add-on or developer license for some really awesome features and premium support." , 'yikes-inc-easy-mailchimp-extender' ) . "<span class='button-container'> <a href='%s' target='_blank' class='button-secondary'><span class='dashicons dashicons-star-filled'></span>" . __( "Leave A Review" , 'yikes-inc-easy-mailchimp-extender' ) . "</a> <a href='%s' class='button-secondary'><span class='dashicons dashicons-upload'></span>" . __( "View Addons" , 'yikes-inc-easy-mailchimp-extender' ) . "</a> <a href='%s' class='button-secondary'><span class='dashicons dashicons-no-alt'></span>" . __( "Dismiss" , 'yikes-inc-easy-mailchimp-extender' ) . "</a> </span>", '<strong>Easy MailChimp Forms by YIKES Inc.</strong>', $reviewurl, $addons_url, $nobugurl ) . '</p>';
+					$review_message .= sprintf( __( "It looks like you've been using %s for 2 weeks now. We hope you're enjoying the features included with the free version. If so, please consider leaving us a review. Reviews only help to catch other users attention as well as provide us with feedback to grow and improve upon. If you're really enjoying the plugin, consider buying an add-on or developer license for some really awesome features and premium support." , 'yikes-inc-easy-mailchimp-extender' ) . "<span class='button-container'> <a href='%s' target='_blank' class='button-secondary'><span class='dashicons dashicons-star-filled'></span>" . __( "Leave A Review" , 'yikes-inc-easy-mailchimp-extender' ) . "</a> <a href='%s' class='button-secondary'><span class='dashicons dashicons-upload'></span>" . __( "View Addons" , 'yikes-inc-easy-mailchimp-extender' ) . "</a> <a href='%s' class='button-secondary'><span class='dashicons dashicons-no-alt'></span>" . __( "Dismiss" , 'yikes-inc-easy-mailchimp-extender' ) . "</a> </span>", '<strong>Easy Forms for MailChimp by YIKES Inc.</strong>', $reviewurl, $addons_url, $nobugurl ) . '</p>';
 				}
 				?>
 					<div id="review-yikes-easy-mailchimp-notice">
@@ -464,7 +464,7 @@ class Yikes_Inc_Easy_Mailchimp_Forms_Admin {
 	
 		/* Display a warning users who are using PHP < 5.3 */
 		public function display_php_warning() {
-			$message = __( 'YIKES Inc. Easy MailChimp Forms requires a minimum of PHP 5.3. The plugin will not function properly until you update. Reach out to your host provider for assistance.' , 'yikes-inc-easy-mailchimp-extender' );
+			$message = __( 'YIKES Inc. Easy Forms for MailChimp requires a minimum of PHP 5.3. The plugin will not function properly until you update. Reach out to your host provider for assistance.' , 'yikes-inc-easy-mailchimp-extender' );
 			echo "<div class='error'> <p><span class='dashicons dashicons-no-alt' style='color:rgb(231, 98, 98)'></span> $message</p></div>"; 
 		}
 	
@@ -529,8 +529,8 @@ class Yikes_Inc_Easy_Mailchimp_Forms_Admin {
 					'data' : '<?php echo json_encode( $lists ); ?>'
 				};
 				var localized_data = {
-					'button_title' : '<?php _e( 'Easy MailChimp Forms by Yikes Inc.', 'yikes-inc-easy-mailchimp-extender' ); ?>',
-					'popup_title' : '<?php _e( 'Easy MailChimp Forms by Yikes Inc.', 'yikes-inc-easy-mailchimp-extender' ); ?>',
+					'button_title' : '<?php _e( 'Easy Forms for MailChimp by Yikes Inc.', 'yikes-inc-easy-mailchimp-extender' ); ?>',
+					'popup_title' : '<?php _e( 'Easy Forms for MailChimp by Yikes Inc.', 'yikes-inc-easy-mailchimp-extender' ); ?>',
 					'list_id_label' : '<?php _e( 'MailChimp List' , 'yikes-inc-easy-mailchimp-extender' ); ?>',
 					'show_title_label' : '<?php _e( 'Display Form Title' , 'yikes-inc-easy-mailchimp-extender' ); ?>',
 					'show_description_label' : '<?php _e( 'Display Form Description' , 'yikes-inc-easy-mailchimp-extender' ); ?>',
@@ -733,8 +733,8 @@ class Yikes_Inc_Easy_Mailchimp_Forms_Admin {
 				/* Add Hidden Migrate Options Page */
 				add_submenu_page( 
 					'options-writing.php', 
-					__( 'YIKES Inc. Easy MailChimp Forms Upgrade Options Structure' , 'yikes-inc-easy-mailchimp-extender' ), 
-					'YIKES Inc. Easy MailChimp Forms Upgrade Options Structure', 
+					__( 'YIKES Inc. Easy Forms for MailChimp Upgrade Options Structure' , 'yikes-inc-easy-mailchimp-extender' ), 
+					'YIKES Inc. Easy Forms for MailChimp Upgrade Options Structure', 
 					'manage_options', 
 					'yikes-inc-easy-mailchimp-update' ,
 					array( $this , 'migrate_old_yks_mc_options' )
@@ -982,7 +982,7 @@ class Yikes_Inc_Easy_Mailchimp_Forms_Admin {
 	}
 	
 	/**
-	* Generate YIKES Inc. Easy MailChimp Forms Options Page
+	* Generate YIKES Inc. Easy Forms for MailChimp Options Page
 	* 
 	* @since    1.0.0
 	*/
@@ -1064,13 +1064,13 @@ class Yikes_Inc_Easy_Mailchimp_Forms_Admin {
 					delete_option( 'yikes-mc-lists' );
 				?>
 					<div class="yikes-easy-mc-updated migrate-options-notice">
-						<p><?php printf( __( "The previously stored options for %s have been cleared from the database. You should update the options on the <a href='%s' title='Settings Page'>settings page</a> before continuing to use the plugin.", 'yikes-inc-easy-mailchimp-extender' ), '<strong>YIKES Inc. Easy MailChimp Forms</strong>', admin_url( 'admin.php?page=yikes-inc-easy-mailchimp-settings' ) ); ?></p>
+						<p><?php printf( __( "The previously stored options for %s have been cleared from the database. You should update the options on the <a href='%s' title='Settings Page'>settings page</a> before continuing to use the plugin.", 'yikes-inc-easy-mailchimp-extender' ), '<strong>YIKES Inc. Easy Forms for MailChimp</strong>', admin_url( 'admin.php?page=yikes-inc-easy-mailchimp-settings' ) ); ?></p>
 					</div>
 				<?php
 			} else {
 			?>
 				<div class="yikes-easy-mc-updated migrate-options-notice">
-					<p><?php printf( __( "It looks like you're upgrading from a previous version of %s.", 'yikes-inc-easy-mailchimp-extender' ), '<strong>YIKES Inc. Easy MailChimp Forms</strong>' ); ?> <?php printf( __( "In the newest version of %s, the options data structure has changed. We've also moved the mailing lists into its own database table to allow for some higher level customization. Now you can easily create multiple forms and assign them to the same mailing list." , 'yikes-inc-easy-mailchimp-extender' ), '<strong>YIKES Inc. Easy MailChimp Forms</strong>' ); ?></p>
+					<p><?php printf( __( "It looks like you're upgrading from a previous version of %s.", 'yikes-inc-easy-mailchimp-extender' ), '<strong>YIKES Inc. Easy Forms for MailChimp</strong>' ); ?> <?php printf( __( "In the newest version of %s, the options data structure has changed. We've also moved the mailing lists into its own database table to allow for some higher level customization. Now you can easily create multiple forms and assign them to the same mailing list." , 'yikes-inc-easy-mailchimp-extender' ), '<strong>YIKES Inc. Easy Forms for MailChimp</strong>' ); ?></p>
 					<p><?php _e( "Before you continue, it's strongly recommended you the perform the migration to ensure the plugin continues to function properly.", 'yikes-inc-easy-mailchimp-extender' ); ?></p>
 					
 					<section id="migration-buttons">
@@ -1397,7 +1397,7 @@ class Yikes_Inc_Easy_Mailchimp_Forms_Admin {
 				<div class="postbox yikes-easy-mc-postbox">
 								
 					<!-- review us container -->
-					<h3><?php _e( 'View Easy MailChimp Forms Add-Ons' , 'yikes-inc-easy-mailchimp-extender' ); ?></h3>
+					<h3><?php _e( 'View Easy Forms for MailChimp Add-Ons' , 'yikes-inc-easy-mailchimp-extender' ); ?></h3>
 					<div id="review-yikes-easy-mc" class="inside">
 						<p><?php _e( "Check out available add-ons for some seriously enhanced features." , 'yikes-inc-easy-mailchimp-extender' ); ?></p>
 						<p><a class="button-secondary" href="<?php echo esc_url_raw( admin_url( 'admin.php?page=yikes-inc-easy-mailchimp-addons' ) ); ?>" title="<?php _e( 'View Add-Ons' , 'yikes-inc-easy-mailchimp-extender' ); ?>"><?php _e( 'View Add-Ons' , 'yikes-inc-easy-mailchimp-extender' ); ?></a></p>

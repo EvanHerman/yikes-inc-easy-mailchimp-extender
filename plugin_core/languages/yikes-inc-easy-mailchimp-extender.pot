@@ -1,9 +1,9 @@
 msgid ""
 msgstr ""
-"Project-Id-Version: Easy MailChimp Forms by YIKES Inc.\n"
+"Project-Id-Version: Easy Forms for MailChimp by YIKES Inc.\n"
 "POT-Creation-Date: 2015-08-05 14:32-0500\n"
 "PO-Revision-Date: 2015-08-05 14:32-0500\n"
-"Last-Translator: Evan <Evan@yikesinc.com>\n"
+"Last-Translator: Evan <evan@yikesinc.com>\n"
 "Language-Team: YIKES Inc. <http://www.yikesinc.com>\n"
 "Language: en\n"
 "MIME-Version: 1.0\n"
@@ -82,7 +82,7 @@ msgstr ""
 
 #: .././admin/class-yikes-inc-easy-mailchimp-extender-admin.php:444
 msgid ""
-"YIKES Inc. Easy MailChimp Forms requires a minimum of PHP 5.3. The plugin "
+"YIKES Inc. Easy Forms for MailChimp requires a minimum of PHP 5.3. The plugin "
 "will not function properly until you update. Reach out to your host provider "
 "for assistance."
 msgstr ""
@@ -93,7 +93,7 @@ msgstr ""
 
 #: .././admin/class-yikes-inc-easy-mailchimp-extender-admin.php:509
 #: .././admin/class-yikes-inc-easy-mailchimp-extender-admin.php:510
-msgid "Easy MailChimp Forms by Yikes Inc."
+msgid "Easy Forms for MailChimp by Yikes Inc."
 msgstr ""
 
 #: .././admin/class-yikes-inc-easy-mailchimp-extender-admin.php:511
@@ -170,7 +170,7 @@ msgid "Edit Form"
 msgstr ""
 
 #: .././admin/class-yikes-inc-easy-mailchimp-extender-admin.php:713
-msgid "YIKES Inc. Easy MailChimp Forms Upgrade Options Structure"
+msgid "YIKES Inc. Easy Forms for MailChimp Upgrade Options Structure"
 msgstr ""
 
 #: .././admin/class-yikes-inc-easy-mailchimp-extender-admin.php:723
@@ -405,7 +405,7 @@ msgid ""
 msgstr ""
 
 #: .././admin/class-yikes-inc-easy-mailchimp-extender-admin.php:1377
-msgid "View Easy MailChimp Forms Add-Ons"
+msgid "View Easy Forms for MailChimp Add-Ons"
 msgstr ""
 
 #: .././admin/class-yikes-inc-easy-mailchimp-extender-admin.php:1379
@@ -1293,7 +1293,7 @@ msgstr ""
 
 #: .././admin/partials/menu/add-ons.php:16
 msgid ""
-"Below you'll find a list of add-ons available for Easy MailChimp Forms by "
+"Below you'll find a list of add-ons available for Easy Forms for MailChimp by "
 "YIKES Inc. Each add-on extends the base functionality of the free plugin."
 msgstr ""
 
@@ -1467,7 +1467,7 @@ msgstr ""
 
 #: .././admin/partials/menu/options-sections/checkbox-settings.php:1
 msgid ""
-"Select which plugins should integrate with YIKES Inc. Easy MailChimp Forms. "
+"Select which plugins should integrate with YIKES Inc. Easy Forms for MailChimp. "
 "Depending on which plugins you choose to integrate with, an optin checkbox "
 "will be generated. For example, the comment form checkbox will generate a "
 "checkbox below the standard WordPress comment form to add commenters to a "
@@ -1498,7 +1498,7 @@ msgstr ""
 
 #: .././admin/partials/menu/options-sections/debug-settings.php:1
 msgid ""
-"If you encounter an issue with Easy MailChimp Forms you can toggle on "
+"If you encounter an issue with Easy Forms for MailChimp you can toggle on "
 "debugging to display advanced error messages and start logging errors."
 msgstr ""
 
@@ -1606,7 +1606,7 @@ msgstr ""
 
 #: .././admin/partials/menu/options.php:1
 msgid ""
-"Easy MailChimp Forms allows you to painlessly add MailChimp sign up forms to "
+"Easy Forms for MailChimp allows you to painlessly add MailChimp sign up forms to "
 "your WordPress site and track user activity with interactive reports."
 msgstr ""
 
@@ -1646,7 +1646,7 @@ msgstr ""
 
 #: .././admin/partials/menu/support.php:1
 msgid ""
-"Users of the free version of YIKES Inc. Easy MailChimp Forms are limited to "
+"Users of the free version of YIKES Inc. Easy Forms for MailChimp are limited to "
 "two methods of support. We respond to support requests for the free version "
 "of the plugin once a week."
 msgstr ""
@@ -2076,7 +2076,7 @@ msgstr ""
 #: .././admin/partials/welcome-page/welcome.php:1
 #, php-format
 msgid ""
-"Thank you for updating to the latest version! Easy MailChimp Forms by YIKES "
+"Thank you for updating to the latest version! Easy Forms for MailChimp by YIKES "
 "Inc. %s is ready to help take your mailing lists to the next level!"
 msgstr ""
 

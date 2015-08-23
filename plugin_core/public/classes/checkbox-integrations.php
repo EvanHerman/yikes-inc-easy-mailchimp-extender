@@ -85,7 +85,7 @@
 			if( isset( $checkbox_options[$this->type]['associated-list'] ) && $checkbox_options[$this->type]['associated-list'] != '-' ) {
 				$checked = ( $checkbox_options[$this->type]['precheck'] == 'true' ) ? 'checked' : '';
 				// before checkbox HTML (comment, ...)
-				$before = '<!-- Easy MailChimp Forms by Yikes Inc - https://www.yikesinc.com/ -->';
+				$before = '<!-- Easy Forms for MailChimp by YIKES, Inc. - https://www.yikesinc.com/ -->';
 				$before .= apply_filters( 'yikes-mailchimp-before-checkbox-html', '' );
 				// checkbox
 				$content = '<p id="yikes-easy-mailchimp-' . $this->type . '-checkbox" class="yikes-easy-mailchimp-' . $this->type . '-checkbox">';
@@ -96,7 +96,7 @@
 				$content .= '</p>';
 				// after checkbox HTML (..., honeypot, closing comment)
 				$after = apply_filters( 'yikes-mailchimp-after-checkbox-html', '' );
-				$after .= '<!-- Easy MailChimp Forms by Yikes Inc -->';
+				$after .= '<!-- Easy Forms for MailChimp by YIKES, Inc. -->';
 				return $before . $content . $after;
 			}
 		}	
