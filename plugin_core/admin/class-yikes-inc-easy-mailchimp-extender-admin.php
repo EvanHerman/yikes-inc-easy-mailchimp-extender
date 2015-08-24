@@ -151,7 +151,20 @@ class Yikes_Inc_Easy_Mailchimp_Forms_Admin {
 		add_filter( 'yikes-mailchimp-process-default-tag' , array( $this , 'parse_mailchimp_default_tag' ) );
 		/** Add a disclaimer to ensure that we let people know we are not endorsed/backed by MailChimp at all **/
 		add_filter( 'admin_footer_text', array( $this, 'yikes_easy_forms_admin_disclaimer' ) );
+		/** Add custom plugin action links **/
+		add_filter( 'plugin_action_links_yikes-inc-easy-mailchimp-extender/yikes-inc-easy-mailchimp-extender.php', array( $this, 'easy_forms_plugin_action_links' ) );
 	}
+				
+		/*
+		*	Add custom action links on plugins.php
+		*	@ param 	array	$links 	Pre-existing plugin action links
+		*	@ return	array	$links		New array of plugin actions
+		*/
+		public function easy_forms_plugin_action_links( $links ) {
+		   $links[] = '<a href="'. esc_url( get_admin_url(null, 'admin.php?page=yikes-inc-easy-mailchimp-settings') ) .'">' . __( 'Settings', 'yikes-inc-easy-mailchimp-extender' ) . '</a>';
+		   $links[] = '<a href="' . esc_url( 'http://www.yikesplugins.com' ) . '" target="_blank">' . __( 'More plugins by YIKES' , 'yikes-inc-easy-mailchimp-extender' ) . '</a>';
+		   return $links;
+		}
 		
 		/**
 		 *	Add a disclaimer to the admin footer for all YIKES pages to ensure that users understand there is no coorelation between this plugin and MailChimp. 
