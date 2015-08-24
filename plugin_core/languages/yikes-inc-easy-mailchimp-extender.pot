@@ -825,7 +825,7 @@ msgid "Edit"
 msgstr ""
 
 #: .././admin/partials/edit-form.php:1
-msgid "Update this MailChimp forms settings and front end styles below."
+msgid "Update this MailChimp form's fields, styles and settings below."
 msgstr ""
 
 #: .././admin/partials/edit-form.php:1
