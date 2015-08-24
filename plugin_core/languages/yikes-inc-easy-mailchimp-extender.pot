@@ -1350,7 +1350,7 @@ msgid "No MailChimp lists found. Head over to"
 msgstr ""
 
 #: .././admin/partials/menu/manage-forms.php:1
-msgid "Manage Signup Forms"
+msgid "Manage Forms"
 msgstr ""
 
 #: .././admin/partials/menu/manage-forms.php:1
