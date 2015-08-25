@@ -9,8 +9,8 @@ Yikes Inc. Easy MailChimp Free (*Beta Release Candidate 3.2*)
 
 <strong>Latest Stable Beta - Release Candidate 3.2</strong>
 
-> [Latest Stable Beta Release Download](https://cloudup.com/files/ikw-kH1S-iK/download)
-> - Last Updated July 31st, 2015
+> [Latest Stable Beta Release Download](https://cldup.com/KCt_IxOZ4d.zip)
+> - Last Updated August 25, 2015
 
 This is a complete re-write of the original [Yikes Inc Easy MailChimp Extender](https://wordpress.org/plugins/yikes-inc-easy-mailchimp-extender/) plugin.
 
