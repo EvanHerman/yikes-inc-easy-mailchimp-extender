@@ -915,27 +915,25 @@ msgstr ""
 
 #: .././admin/partials/edit-form.php:1
 msgid ""
-"The success message will be displayed back to the user after the form has "
-"been submitted and the data has been successfully sent to MailChimp."
+"The message displayed to the user after they have submitted the form "
+"and the data has been successfully sent to MailChimp."
 msgstr ""
 
 #: .././admin/partials/edit-form.php:1
 msgid ""
-"The general error message will be displayed back to the user when a generic "
-"error has been encountered."
+"The message displayed to the user after a generic error has occurred."
 msgstr ""
 
 #: .././admin/partials/edit-form.php:1
 msgid ""
-"The invalid email error will be displayed when the user provides a non-valid "
+"The message displayed to the user after they have entered a non-valid "
 "email address."
 msgstr ""
 
 #: .././admin/partials/edit-form.php:1
 msgid ""
-"The email already subscribed error message is displayed back to the user "
-"when they attempt to sign up for a mailing list they are already subscribed "
-"to."
+"The message displayed to the user after they attempt to sign up for "
+"a mailing list using an email address that is already subscribed."
 msgstr ""
 
 #: .././admin/partials/edit-form.php:1
