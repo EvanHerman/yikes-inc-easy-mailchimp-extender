@@ -952,7 +952,7 @@ msgid "No Lists Found"
 msgstr ""
 
 #: .././admin/partials/edit-form.php:1
-msgid "Users who sign up via this form will be added to the following list."
+msgid "Users who sign up via this form will be added to the selected list."
 msgstr ""
 
 #: .././admin/partials/edit-form.php:1
@@ -1018,7 +1018,7 @@ msgstr ""
 #: .././admin/partials/edit-form.php:1
 #, php-format
 msgid ""
-"Update an existing subscribers info when they attempt to re-subscribe "
+"Update an existing subscriber's info when they attempt to re-subscribe "
 "instead of displaying an %s message."
 msgstr ""
 
