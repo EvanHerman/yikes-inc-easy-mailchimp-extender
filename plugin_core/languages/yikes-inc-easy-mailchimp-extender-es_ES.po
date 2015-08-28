@@ -958,7 +958,7 @@ msgid "No Lists Found"
 msgstr ""
 
 #: .././admin/partials/edit-form.php:1
-msgid "Users who sign up via this form will be added to the selected list."
+msgid "Users who sign up via this form will be added to the list selected above."
 msgstr ""
 
 #: .././admin/partials/edit-form.php:1
