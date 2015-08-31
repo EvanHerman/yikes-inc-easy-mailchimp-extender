@@ -1077,7 +1077,7 @@ class Yikes_Inc_Easy_Mailchimp_Forms_Admin {
 					delete_option( 'yikes-mc-lists' );
 				?>
 					<div class="yikes-easy-mc-updated migrate-options-notice">
-						<p><?php printf( __( "The previously stored options for %s have been cleared from the database. You should update the options on the <a href='%s' title='Settings Page'>settings page</a> before continuing to use the plugin.", 'yikes-inc-easy-mailchimp-extender' ), '<strong>YIKES Inc. Easy Forms for MailChimp</strong>', admin_url( 'admin.php?page=yikes-inc-easy-mailchimp-settings' ) ); ?></p>
+						<p><?php printf( __( "The previously stored options for %s have been cleared from the database. You should update the plugin options on the <a href='%s' title='Settings Page'>settings page</a> before continuing. You should also update the shortcodes used to generate your forms, and any widgets you may have previously set-up.", 'yikes-inc-easy-mailchimp-extender' ), '<strong>YIKES Inc. Easy Forms for MailChimp</strong>', admin_url( 'admin.php?page=yikes-inc-easy-mailchimp-settings' ) ); ?></p>
 					</div>
 				<?php
 			} else {
@@ -1085,7 +1085,7 @@ class Yikes_Inc_Easy_Mailchimp_Forms_Admin {
 				<div class="yikes-easy-mc-updated migrate-options-notice">
 					<p><?php printf( __( "It looks like you're upgrading from a previous version of %s.", 'yikes-inc-easy-mailchimp-extender' ), '<strong>YIKES Inc. Easy Forms for MailChimp</strong>' ); ?> <?php printf( __( "In the newest version of %s, the options data structure has changed. We've also moved the mailing lists into its own database table to allow for some higher level customization. Now you can easily create multiple forms and assign them to the same mailing list." , 'yikes-inc-easy-mailchimp-extender' ), '<strong>YIKES Inc. Easy Forms for MailChimp</strong>' ); ?></p>
 					<p><?php _e( "Before you continue, it's strongly recommended you the perform the migration to ensure the plugin continues to function properly.", 'yikes-inc-easy-mailchimp-extender' ); ?></p>
-					
+					<p><em><?php _e( "It's also strongly recommended that you take a backup of your database.", 'yikes-inc-easy-mailchimp-extender' ); ?></em></p>
 					<section id="migration-buttons">
 						<!-- migrate button -->
 						<form>
