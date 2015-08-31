@@ -1410,7 +1410,7 @@ class Yikes_Inc_Easy_Mailchimp_Forms_Admin {
 				<div class="postbox yikes-easy-mc-postbox">
 								
 					<!-- review us container -->
-					<h3><?php _e( 'View Easy Forms for MailChimp Add-Ons' , 'yikes-inc-easy-mailchimp-extender' ); ?></h3>
+					<h3><?php _e( 'Easy Forms for MailChimp Add-Ons' , 'yikes-inc-easy-mailchimp-extender' ); ?></h3>
 					<div id="review-yikes-easy-mc" class="inside">
 						<p><?php _e( "Check out available add-ons for some seriously enhanced features." , 'yikes-inc-easy-mailchimp-extender' ); ?></p>
 						<p><a class="button-secondary" href="<?php echo esc_url_raw( admin_url( 'admin.php?page=yikes-inc-easy-mailchimp-addons' ) ); ?>" title="<?php _e( 'View Add-Ons' , 'yikes-inc-easy-mailchimp-extender' ); ?>"><?php _e( 'View Add-Ons' , 'yikes-inc-easy-mailchimp-extender' ); ?></a></p>
