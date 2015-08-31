@@ -906,9 +906,9 @@ class Yikes_Inc_Easy_Mailchimp_Forms_Admin {
 		
 		/* reCAPTCHA Settings */
 		
-			register_setting( 'yikes_inc_easy_mc_recaptcha_settings_page' , 'yikes-mailchimp-recaptcha-status' );
-			register_setting( 'yikes_inc_easy_mc_recaptcha_settings_page' , 'yikes-mailchimp-recaptcha-site-key' );
-			register_setting( 'yikes_inc_easy_mc_recaptcha_settings_page' , 'yikes-mailchimp-recaptcha-secret-key' );
+			register_setting( 'yikes_inc_easy_mc_recaptcha_settings_page' , 'yikes-mc-recaptcha-status' );
+			register_setting( 'yikes_inc_easy_mc_recaptcha_settings_page' , 'yikes-mc-recaptcha-site-key' );
+			register_setting( 'yikes_inc_easy_mc_recaptcha_settings_page' , 'yikes-mc-recaptcha-secret-key' );
 		
 			/* Register reCaptcha Settings Section */
 			add_settings_section(
@@ -919,21 +919,21 @@ class Yikes_Inc_Easy_Mailchimp_Forms_Admin {
 			);
 			
 			add_settings_field( 
-				'yikes-mailchimp-recaptcha-site-key', 
+				'yikes-mc-recaptcha-site-key', 
 				__( 'Enter reCaptcha Site Key', 'yikes-inc-easy-mailchimp-extender' ), 
 				'',  // callback + validation inside of admin/partials/menu/options.php
 				'yikes_easy_mc_settings_recpatcha_section'
 			);
 			
 			add_settings_field( 
-				'yikes-mailchimp-recaptcha-secret-key', 
+				'yikes-mc-recaptcha-secret-key', 
 				__( 'Enter reCaptcha Secret Key', 'yikes-inc-easy-mailchimp-extender' ), 
 				'',  // callback + validation inside of admin/partials/menu/options.php
 				'yikes_easy_mc_settings_recpatcha_section'
 			);
 			
 			add_settings_field( 
-				'yikes-mailchimp-recaptcha-status', 
+				'yikes-mc-recaptcha-status', 
 				__( 'Enable ReCaptcha', 'yikes-inc-easy-mailchimp-extender' ), 
 				'',  // callback + validation inside of admin/partials/menu/options.php
 				'yikes_easy_mc_settings_recpatcha_section'
