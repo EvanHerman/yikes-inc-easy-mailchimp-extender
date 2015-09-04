@@ -104,6 +104,11 @@ Have any questions? Feel free to open up an issue in the issue tracker and we'll
 - yikes-mailchimp-address-TYPE-label - Alter the field sub-label text for a specified address field (affects only standard address fields) (process_form_shortcode.php) 
 - yikes-mailchimp-form-submit-button - Alter the submit button to your liking (process_form_shortcode.php line 660) (@parameters - $submit_button, $form_id)
 - yikes-mailchimp-form-container-class - add additional classes to the parent form container (process_form_shortcode.php line157) (@parameters - $content, $form_id)
+- yikes-mailchimp-front-end-form-action-links
+Parameters:
+$form_action_links - exisitng action links (edit form, customize form etc)
+$form_id - form ID we are displaying the action link son 
+$form_name - formatted form title given to this form
 
 ###### Hooks
 - yikes-mailchimp-form-submission - do something with the user email + form data on form submission
