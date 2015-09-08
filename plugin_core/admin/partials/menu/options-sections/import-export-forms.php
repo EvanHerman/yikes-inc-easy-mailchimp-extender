@@ -6,7 +6,11 @@
 	$all_forms = $wpdb->get_results( 'SELECT id, form_name FROM ' . $wpdb->prefix . 'yikes_easy_mc_forms', ARRAY_A );
 ?>
 <h3><span><?php _e( 'Import/Export Forms' , 'yikes-inc-easy-mailchimp-extender' ); ?></span><?php echo $api_connection; ?></h3>
-<div class="inside">
+
+<div class="inside">	
+	<p>
+		<?php _e( 'If you have our plugin installed on multiple sites, you can export all the form settings you\'ve created on one site and import them into another site.' , 'yikes-inc-easy-mailchimp-extender' ); ?>
+	</p>
 					
 	<!-- Export Form -->
 	<form action="<?php echo esc_url_raw( add_query_arg( array( 'action' => 'yikes-easy-mc-export-forms' , 'nonce' => wp_create_nonce( 'export-forms' ) ) ) ); ?>" method="post">							
