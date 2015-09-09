@@ -197,7 +197,7 @@ class Yikes_Inc_Easy_Mailchimp_Forms_Admin {
 		*		- add hooks to allow users to define their own default tags
 		*/
 		public function parse_mailchimp_default_tag( $default_tag ) {
-			if( !$default_tag || $default_tag == '' ) {
+			if( ! $default_tag || $default_tag == '' ) {
 				return $default_tag;
 			}
 			global $post;
@@ -225,7 +225,8 @@ class Yikes_Inc_Easy_Mailchimp_Forms_Admin {
 					$default_tag = 'Guest User';
 				}
 			}
-			return $default_tag;
+			/* Return our filtered tag */
+			return apply_filters( 'yikes-mailchimp-parse-custom-default-value', $default_tag );
 		}
 				
 		/* 
@@ -1610,7 +1611,7 @@ class Yikes_Inc_Easy_Mailchimp_Forms_Admin {
 														$x = 0;
 														foreach( json_decode( stripslashes( $field['choices'] ) , true ) as $choice => $value ) { ?>
 															<label for="<?php echo $field['merge'].'-'.$x; ?>">	
-																<input id="<?php echo $field['merge'].'-'.$x; ?>" type="radio" name="field[<?php echo $field['merge']; ?>][default_choice]" value="<?php echo $value; ?>" <?php checked( $field['default_choice'] , $value ); ?>><?php echo stripslashes( $value ); ?>
+																<input id="<?php echo $field['merge'].'-'.$x; ?>" type="radio" name="field[<?php echo $field['merge']; ?>][default_choice]" value="<?php echo $value; ?>" <?php checked( $field['default_choice'] , $value ); ?>><?php echo $value; ?>
 															</label>
 														<?php $x++; } ?>
 														<p class="description"><small><?php _e( "Select the option that should be selected by default.", 'yikes-inc-easy-mailchimp-extender' );?></small></p>
@@ -1961,8 +1962,13 @@ class Yikes_Inc_Easy_Mailchimp_Forms_Admin {
 						</section>
 						<?php
 					}	// its an interest group!
-				}	
-				/* Pre Defined Merge Tag Container */
+				}		
+			} else {
+				?>
+					<h4 class="no-fields-assigned-notice"><em><?php _e( 'No fields are assigned to this form. Select fields from the right hand column to add to this form.' , 'yikes-inc-easy-mailchimp-extender' ); ?></em></h4>
+				<?php
+			}
+				/* Pre Defined Merge Tag Container - Always rendered so the modal appears and links are clickable on initial page load */
 				add_thickbox();
 				// enqueue jquery qtip for our tooltip
 				wp_enqueue_script( 'jquery-qtip-tooltip' , YIKES_MC_URL . 'admin/js/min/jquery.qtip.min.js' , array( 'jquery' ) );
@@ -1999,7 +2005,6 @@ class Yikes_Inc_Easy_Mailchimp_Forms_Admin {
 				<script type="text/javascript">
 					/* Initialize Qtip tooltips for pre-defined tags */
 					jQuery( document ).ready( function() {
-						console.log( 'ready ');
 						jQuery( '.dashicons-editor-help' ).each(function() {
 							 jQuery(this).qtip({
 								 content: {
@@ -2022,7 +2027,7 @@ class Yikes_Inc_Easy_Mailchimp_Forms_Admin {
 						<h3><?php _e( 'Pre Defined Tags' , 'yikes-inc-easy-mailchimp-extender' ); ?></h3>
 						<p class="description"><?php _e( 'You can use any of the following tags to populate a MailChimp text field with dynamic content. This can be used to determine which page the user signed up on, if the user was logged in and more.' , 'yikes-inc-easy-mailchimp-extender' ); ?></p> 
 						<ul>
-							<?php foreach( $available_tags as $tag ) { ?>
+							<?php foreach( apply_filters( 'yikes-mailchimp-custom-default-value-tags' , $available_tags ) as $tag ) { ?>
 								<li class="tooltop-tag">
 									<!-- link/tag -->
 									<a href="#" onclick="populateDefaultValue( this );return false;" title="<?php echo $tag['title']; ?>"><?php echo $tag['tag']; ?></a>
@@ -2035,12 +2040,7 @@ class Yikes_Inc_Easy_Mailchimp_Forms_Admin {
 						</ul>
 					</div>
 				</div>				
-				<?php			
-			} else {
-				?>
-					<h4 class="no-fields-assigned-notice"><em><?php _e( 'No fields are assigned to this form. Select fields from the right hand column to add to this form.' , 'yikes-inc-easy-mailchimp-extender' ); ?></em></h4>
-				<?php
-			}
+				<?php	
 		}
 		
 		/*
@@ -2312,7 +2312,7 @@ class Yikes_Inc_Easy_Mailchimp_Forms_Admin {
 			if( isset( $_POST['custom-styles'] ) ) {
 				$custom_styles = $_POST['custom-styles'];
 			}
-			$assigned_fields = isset( $_POST['field'] ) ? json_encode( stripslashes_deep( $_POST['field'] ) ) : '';
+			$assigned_fields = isset( $_POST['field'] ) ? json_encode( $_POST['field'] ) : '';
 			
 			// setup our custom styles serialized array
 			if( isset( $custom_styles ) ) {
@@ -2491,8 +2491,7 @@ class Yikes_Inc_Easy_Mailchimp_Forms_Admin {
 			delete_transient( 'yikes-easy-mailchimp-profile-data' );
 			// redirect the user to the manage forms page, display confirmation
 			wp_redirect( esc_url_raw( admin_url( 'admin.php?page=yikes-inc-easy-mailchimp-settings&section=api-cache-settings&transient-cleared=true' ) ) );
-			exit();
-			die();
+			exit;
 		}
 				
 		

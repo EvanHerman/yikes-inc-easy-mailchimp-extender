@@ -104,11 +104,9 @@ Have any questions? Feel free to open up an issue in the issue tracker and we'll
 - yikes-mailchimp-address-TYPE-label - Alter the field sub-label text for a specified address field (affects only standard address fields) (process_form_shortcode.php) 
 - yikes-mailchimp-form-submit-button - Alter the submit button to your liking (process_form_shortcode.php line 660) (@parameters - $submit_button, $form_id)
 - yikes-mailchimp-form-container-class - add additional classes to the parent form container (process_form_shortcode.php line157) (@parameters - $content, $form_id)
-- yikes-mailchimp-front-end-form-action-links
-Parameters:
-$form_action_links - exisitng action links (edit form, customize form etc)
-$form_id - form ID we are displaying the action link son 
-$form_name - formatted form title given to this form
+- yikes-mailchimp-front-end-form-action-links - Add custom front end action links alongside Edit Form, Customize Form etc. (@parameters - $form_action_links, $form_id, $form_name)
+- yikes-mailchimp-custom-default-value-tags - Define your own custom pre-defined tags to populate the default value fields with - these tags appear in the modal - (@parameters - $pre_defined_tags_array)
+- yikes-mailchimp-parse-custom-default-value - Process your custom default merge tag into a custom value to populate the form field with - (Goes hand in hand with `yikes-mailchimp-custom-default-value-tags` filter)
 
 ###### Hooks
 - yikes-mailchimp-form-submission - do something with the user email + form data on form submission
@@ -124,6 +122,9 @@ $form_name - formatted form title given to this form
 - yikes-mailchimp-shortcode-enqueue-scripts-styles - hook to enqueue custom scripts & styles wherever the shortcode is being used (@paremeter $form_id - pass the id of the current form)
 - yikes-mailchimp-additional-form-fields - define additional fields to add below all forms (@parameter $form_data - all data associated with the given form)
 - yikes-mailchimp-custom-form-actions - add custom action links on the manage forms page (alongside Edit, Duplicate, Shortcode, Delete ) (@parameter $form_id - the id of the form)
+
+
+
 
 ###### Hooks for Extensions
 - yikes-mailchimp-menu - hook to add additional menu items inside of the "Easy MailChimp" menu item
