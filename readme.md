@@ -1,4 +1,4 @@
-Yikes Inc. Easy MailChimp Free (*Beta Release Candidate 3.2*)
+YIKES Inc. Easy Forms for MailChimp
 =====================
 
 [![WordPress](https://img.shields.io/wordpress/plugin/dt/yikes-inc-easy-mailchimp-extender.svg)]()
