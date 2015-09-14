@@ -764,7 +764,7 @@ class Yikes_Inc_Easy_Mailchimp_Forms_Admin {
 					array( $this, 'generateWelcomePage' )
 				);
 								
-				/* Add Hidden Welcome Page */
+				/* Add Hidden 'View List' Page */
 				add_submenu_page(
 					'options.php', 
 					__( 'View List' , 'yikes-inc-easy-mailchimp-extender' ), 
@@ -772,6 +772,16 @@ class Yikes_Inc_Easy_Mailchimp_Forms_Admin {
 					apply_filters( 'yikes-mailchimp-user-role-access' , 'manage_options' ), 
 					'yikes-mailchimp-view-list', 
 					array( $this, 'generateViewListPage' )
+				);
+				
+				/* Add Hidden View User Page */
+				add_submenu_page(
+					'options.php', 
+					__( 'View User' , 'yikes-inc-easy-mailchimp-extender' ), 
+					__( 'View User' , 'yikes-inc-easy-mailchimp-extender' ), 
+					apply_filters( 'yikes-mailchimp-user-role-access' , 'manage_options' ), 
+					'yikes-mailchimp-view-user', 
+					array( $this, 'generateViewUserPage' )
 				);
 							
 	}
@@ -846,6 +856,15 @@ class Yikes_Inc_Easy_Mailchimp_Forms_Admin {
 	*/
 	function generateViewListPage() {
 		require_once YIKES_MC_PATH . 'admin/partials/view-list.php'; // include our options page
+	}
+	
+	/**
+	* Generate YIKES Inc. Easy MailChimp View User Page
+	* 
+	* @since    1.0.0
+	*/
+	function generateViewUserPage() {
+		require_once YIKES_MC_PATH . 'admin/partials/view-user.php'; // include our options page
 	}
 	
 	/**
