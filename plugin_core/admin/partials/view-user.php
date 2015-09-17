@@ -311,11 +311,11 @@
 		$geocode_url = 'https://maps.googleapis.com/maps/api/geocode/json?latlng=' . $latitude . ',' . $longitude;
 		$geocode_response = wp_remote_get( $geocode_url );
 		if( is_wp_error( $geocode_response ) ) {
-			return __( 'Error', 'yikes-easy-mailchimp-extender' );
+			return;
 		}
 		$geocode_response_body = json_decode( wp_remote_retrieve_body( $geocode_response ), true );
 		if( is_wp_error( $geocode_response_body ) ) {
-			return __( 'Error', 'yikes-easy-mailchimp-extender' );
+			return;
 		}
 		$city = $geocode_response_body['results'][0]['address_components'][2]['short_name'];
 		$state = $geocode_response_body['results'][0]['address_components'][5]['short_name'];
