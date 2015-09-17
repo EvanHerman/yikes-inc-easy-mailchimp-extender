@@ -142,10 +142,18 @@
 							<?php echo __( 'Subscribed:', 'yikes-inc-easy-mailchimp-extender' ) . ' ' . get_date_from_gmt( $user_data['info_changed'], 'F jS, Y h:i a' ); ?>
 						</span>
 						<?php if( isset( $user_data['geo'] ) && ! empty( $user_data['geo'] ) ) { ?>
+							<?php if( isset( $user_data['geo']['latitude'] ) && isset( $user_data['geo']['longitude'] ) ) { ?>
+								<span class="member-location-data">
+									<?php echo __( 'Location:', 'yikes-inc-easy-mailchimp-extender' ) . ' ' . yikes_mc_geocode_subscriber_data( $user_data['geo']['latitude'], $user_data['geo']['longitude'] ); ?>
+								</span>
+							<?php } else { ?>
 							<span class="member-location-data">
 								<?php echo __( 'Location:', 'yikes-inc-easy-mailchimp-extender' ) . ' ' . $user_data['geo']['region'] . ', ' . $user_data['geo']['cc']; ?>
 							</span>
-						<?php } ?>
+						<?php 
+								}
+							} 
+						?>
 					</section>
 					
 					<hr class="yikes-mc-subscriber-hr" />
@@ -171,6 +179,11 @@
 												<strong><?php _e( 'No Subscriber Data Found', 'yikes-inc-easy-mailchimp-extender' ); ?></strong>
 											<?php
 										}
+									}
+									if( isset( $user_data['ip_signup'] ) && $user_data['ip_signup'] != '' ) {
+										?>
+											<p class="subscriber-optin-ip"><?php echo __( 'Signup IP', 'yikes-inc-easy-mailchimp-extender' ) . ': ' . $user_data['ip_signup']; ?></p>
+										<?php
 									}
 								?>
 								</section>
@@ -291,4 +304,22 @@
 				
 			</div>
 		<?php
+	}
+	
+	
+	function yikes_mc_geocode_subscriber_data( $latitude, $longitude ) {
+		$geocode_url = 'https://maps.googleapis.com/maps/api/geocode/json?latlng=' . $latitude . ',' . $longitude;
+		$geocode_response = wp_remote_get( $geocode_url );
+		if( is_wp_error( $geocode_response ) ) {
+			return __( 'Error', 'yikes-easy-mailchimp-extender' );
+		}
+		$geocode_response_body = json_decode( wp_remote_retrieve_body( $geocode_response ), true );
+		if( is_wp_error( $geocode_response_body ) ) {
+			return __( 'Error', 'yikes-easy-mailchimp-extender' );
+		}
+		$city = $geocode_response_body['results'][0]['address_components'][2]['short_name'];
+		$state = $geocode_response_body['results'][0]['address_components'][5]['short_name'];
+		$country = $geocode_response_body['results'][0]['address_components'][6]['short_name'];
+		$link = '<a href="http://maps.google.com/maps?q=' . $latitude . ',' . $longitude . '" target="_blank" title="' . __( 'View Google Map', 'yikes-inc-easy-mailchimp-extender' ) . '">' . $city . ', ' . $state . ', ' . $country . '</a>&nbsp;<span class="flag-icon flag-icon-' . strtolower( $country ) . '"></span>';
+		return $link;
 	}

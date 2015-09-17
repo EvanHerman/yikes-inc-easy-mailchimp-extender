@@ -600,6 +600,12 @@ class Yikes_Inc_Easy_Mailchimp_Forms_Admin {
 		if ( get_current_screen()->base == 'easy-forms_page_yikes-inc-easy-mailchimp-addons' ) {
 			wp_enqueue_style( 'yikes-inc-easy-mailchimp-extender-addons-styles', plugin_dir_url( __FILE__ ) . 'css/yikes-inc-easy-mailchimp-extender-addons.min.css', array(), $this->version, 'all' );
 		}
+		/*
+		*	Enqueue Subscriber Profile Flags
+		*/	
+		if ( get_current_screen()->base == 'admin_page_yikes-mailchimp-view-user' ) {
+			wp_enqueue_style( 'yikes-inc-easy-mailchimp-extender-subscriber-flags', plugin_dir_url( __FILE__ ) . 'css/flag-icon.min.css', array(), $this->version, 'all' );
+		}
 	}
 	/**
 	 * Register the JavaScript for the admin area.
