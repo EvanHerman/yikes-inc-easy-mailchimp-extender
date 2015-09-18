@@ -182,7 +182,11 @@
 									}
 									if( isset( $user_data['ip_signup'] ) && $user_data['ip_signup'] != '' ) {
 										?>
-											<p class="subscriber-optin-ip"><?php echo __( 'Signup IP', 'yikes-inc-easy-mailchimp-extender' ) . ': ' . $user_data['ip_signup']; ?></p>
+											<li>
+												<label>
+													<strong class="section-label"><?php echo __( 'Signup IP', 'yikes-inc-easy-mailchimp-extender' ) . '</strong><p class="section-value"><em>' . $user_data['ip_signup']; ?></em></p>
+												</label>
+											</li>
 										<?php
 									}
 								?>
