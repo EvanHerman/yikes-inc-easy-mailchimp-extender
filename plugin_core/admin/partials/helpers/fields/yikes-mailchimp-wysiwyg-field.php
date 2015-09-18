@@ -7,7 +7,7 @@
 	* 	@since 6.0
 	*/
 	$field_data = json_decode( $form_data['custom_fields'] , true ); 
-	$content = isset( $field_data[$field['id']] ) ? $field_data[$field['id']] : isset( $field['default'] ) ? $field['default'] : '';
+	$content = ( isset( $field_data[$field['id']] ) ) ? $field_data[$field['id']] : ( isset( $field['default'] ) ? $field['default'] : '' );
 	$wysiwyg_id = 'custom-field['.$field['id'].']';
 ?>
 
