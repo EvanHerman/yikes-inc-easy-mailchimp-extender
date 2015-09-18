@@ -53,40 +53,43 @@
 				$description_pre_split = $add_on->get_description();
 				$permalink = esc_url( $add_on->get_permalink() );
 				$add_on_title = $add_on->get_title();
-				// extract the image
-				preg_match( '/<img[^>]+\>/i', $description_pre_split, $split_string );
-				// store the content sans image tag
-				$description = preg_replace( "/<img[^>]+\>/i", "", $add_on->get_description() ); 
-				// store the image
-				$image = ( count( $split_string ) > 0 ) ? $split_string[0] : '';
-				// if {hidden} is found, exclude it
-				if( strpos( $description_pre_split, '{hidden}' ) ) {
-					continue;
+				// If the returned add-on is this base plugin, skip it
+				if( $add_on_title != 'Easy Forms for MailChimp' ) {
+					// extract the image
+					preg_match( '/<img[^>]+\>/i', $description_pre_split, $split_string );
+					// store the content sans image tag
+					$description = preg_replace( "/<img[^>]+\>/i", "", $add_on->get_description() ); 
+					// store the image
+					$image = ( count( $split_string ) > 0 ) ? $split_string[0] : '';
+					// if {hidden} is found, exclude it
+					if( strpos( $description_pre_split, '{hidden}' ) ) {
+						continue;
+					}
+					?>
+					<div class="type-download">
+
+						<div class="featured-img">
+							<a href="<?php echo $permalink; ?>" title="<?php _e( 'Add-on Title' , 'yikes-inc-easy-mailchimp-extender' ); ?>" target="_blank">
+								<?php echo $image; ?>
+							</a>		
+						</div>
+
+						<div class="addon-content">
+							<h3 class="addon-heading">
+								<a href="<?php echo $permalink; ?>" title="<?php echo $add_on_title; ?>" target="_blank"><?php echo $add_on_title; ?></a>
+							</h3>
+							<p><?php echo $description; ?></p>
+						</div>
+
+						<div class="addon-footer-wrap give-clearfix">
+							<a href="<?php echo $permalink; ?>" title="<?php echo $add_on_title; ?>" class="button-secondary" target="_blank">
+								<?php _e( 'View Add-on' , 'yikes-inc-easy-mailchimp-extender' ); ?>	
+							<span class="dashicons dashicons-external"></span></a>
+						</div>
+
+					</div>
+					<?php
 				}
-				?>
-				<div class="type-download">
-
-					<div class="featured-img">
-						<a href="<?php echo $permalink; ?>" title="<?php _e( 'Add-on Title' , 'yikes-inc-easy-mailchimp-extender' ); ?>" target="_blank">
-							<?php echo $image; ?>
-						</a>		
-					</div>
-
-					<div class="addon-content">
-						<h3 class="addon-heading">
-							<a href="<?php echo $permalink; ?>" title="<?php echo $add_on_title; ?>" target="_blank"><?php echo $add_on_title; ?></a>
-						</h3>
-						<p><?php echo $description; ?></p>
-					</div>
-
-					<div class="addon-footer-wrap give-clearfix">
-						<a href="<?php echo $permalink; ?>" title="<?php echo $add_on_title; ?>" class="button-secondary" target="_blank">
-							<?php _e( 'View Add-on' , 'yikes-inc-easy-mailchimp-extender' ); ?>	
-						<span class="dashicons dashicons-external"></span></a>
-					</div>
-
-				</div>
-				<?php
 			}
 		?>
 
