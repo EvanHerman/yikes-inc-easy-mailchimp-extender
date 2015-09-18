@@ -165,20 +165,19 @@
 								<h3><?php _e( 'Fields:', 'yikes-inc-easy-mailchimp-extender' ); ?></h3>
 								<?php
 									if( ! empty( $merge_variable_fields ) ) {	
+									?>
+										<?php foreach( $merge_variable_fields as $field_name => $value ) { ?>
+											<li>
+												<label>
+													<strong class="section-label"><?php echo $field_name; ?></strong>
+													<p class="section-value"><em><?php echo $value; ?></em></p>
+												</label>
+											</li>
+										<?php }
+									} else {
 										?>
-											<?php foreach( $merge_variable_fields as $field_name => $value ) { ?>
-												<li>
-													<label>
-														<strong class="section-label"><?php echo $field_name; ?></strong>
-														<p class="section-value"><em><?php echo $value; ?></em></p>
-													</label>
-												</li>
-											<?php }
-										} else {
-											?>
-												<strong><?php _e( 'No Subscriber Data Found', 'yikes-inc-easy-mailchimp-extender' ); ?></strong>
-											<?php
-										}
+											<strong><?php _e( 'No Subscriber Data Found', 'yikes-inc-easy-mailchimp-extender' ); ?></strong>
+										<?php
 									}
 									if( isset( $user_data['ip_signup'] ) && $user_data['ip_signup'] != '' ) {
 										?>
@@ -189,6 +188,7 @@
 											</li>
 										<?php
 									}
+								}
 								?>
 								</section>
 							<?php
