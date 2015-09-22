@@ -2449,7 +2449,7 @@ class Yikes_Inc_Easy_Mailchimp_Forms_Admin {
 				);
 			
 			/* Custom action hook which allows users to update specific options when a form is updated - used in add ons */
-			do_action( 'yikes-mailchimp-save-form', $form_id,  json_decode( $custom_fields, true )
+			do_action( 'yikes-mailchimp-save-form', $form_id,  json_decode( $custom_fields, true ) );
 			
 			// redirect the user to the manage forms page, display confirmation
 			wp_redirect( esc_url_raw( admin_url( 'admin.php?page=yikes-mailchimp-edit-form&id=' . $form_id . '&updated-form=true' ) ) );
