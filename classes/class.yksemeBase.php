@@ -18,8 +18,53 @@ if(!class_exists("yksemeBase")) {
 			public function __construct() {
 					yksemeBase::initialize();
 					add_action('init', array(&$this, 'ykes_mc_apply_filters'));
+					/* Display a notice that can be dismissed */
+					add_action('admin_notices', array( $this, 'yikes_mailchimp_update_admin_notice' ) );
+					add_action('admin_init', array( $this, 'yikes_mailchimp_update_nag_ignore' ) );
 				}
-
+			
+			public function yikes_mailchimp_update_admin_notice() {
+				global $current_user ;
+				$user_id = $current_user->ID;
+				if( current_user_can( 'activate_plugins' ) ) {
+					/* Check that the user hasn't already clicked to ignore the message */
+					if ( ! get_option( 'yikes_mailchimp_upgrade_notice', '0' ) ) {
+						?>
+							<style>
+								#yikes_mailchimp_mailing_list_form {
+									display: inline-block;
+									width: 100%;
+								}
+								#yikes_mailchimp_mailing_list_form label {
+									float: left; 
+									margin-right: .5em;
+								}	
+								#yikes_mailchimp_mailing_list_form .submit {
+									float: left;
+									margin-top: 33px;
+									margin-bottom: 0;
+								}
+							</style>
+						<?php
+						$upgrade_notice = __( 'Notice: <strong>YIKES Easy MailChimp Extender</strong> is gearing up for a major release within the next week. The entire plugin has been re-written from the ground up to iron out many of the bugs our users were facing.', 'yikes-inc-easy-mailchimp-extender' );
+						$upgrade_notice .= '<p>' . __( 'For Developers: Mailing lists and all associated data will be migrated to its own table in the database, which allows for a new level of customization on your opt in forms.', 'yikes-inc-easy-mailchimp-extender' ) . '</p>';
+						$jQuery = "jQuery( '#yikes_mailchimp_mailing_list_form' ).fadeIn();return false;";
+						$links = '<a href="?yikes_mailchimp_upgrade_notice=1">' . __( 'Thanks, I got it!', 'yikes-inc-easy-mailchimp-extender' ) . '</a> | <a href="http://www.yikesinc.com/services/yikes-inc-easy-mailchimp-extender/" target="_blank" title="YIKES Plugins Mailing List">' . __( 'Signup for Our Mailing List', 'yikes-inc-easy-mailchimp-extender' ) . '</a> | <a href="https://yikesplugins.com/" title="YIKES Plugins">' . __( 'View YIKES Plugins Site', 'yikes-inc-easy-mailchimp-extender' ) . '</a>';
+						echo '<div class="updated"><p>'; 
+							echo $upgrade_notice;
+							echo '<p>' . $links . '</p>';
+						echo "</p></div>";
+					}
+				}
+			}
+			
+			public function yikes_mailchimp_update_nag_ignore() {
+				/* If user clicks to ignore the notice, add that to their user meta */
+				if ( isset($_GET['yikes_mailchimp_upgrade_notice']) && '1' == $_GET['yikes_mailchimp_upgrade_notice'] ) {
+					update_option( 'yikes_mailchimp_upgrade_notice', '1' );
+				}
+			}
+			
 			/**
 			*	Destruct
 			*/
@@ -51,9 +96,10 @@ if(!class_exists("yksemeBase")) {
 				}
 				
 			public function uninstall() { // delete options on plugin uninstall
-					delete_option(YKSEME_OPTION);
-					delete_option('api_validation');
-					delete_option('imported_lists');
+					delete_option (YKSEME_OPTION );
+					delete_option( 'api_validation' );
+					delete_option( 'imported_lists' );
+					delete_option( 'yikes_mailchimp_upgrade_notice' );
 				}
 
 			/***** INITIAL SETUP
