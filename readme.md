@@ -14,9 +14,26 @@ YIKES Inc. Easy Forms for MailChimp
 
 This is a complete re-write of the original [Yikes Inc Easy MailChimp Extender](https://wordpress.org/plugins/yikes-inc-easy-mailchimp-extender/) plugin.
 
-This is the first release candidate for the final release of [Yikes Inc Easy MailChimp Extender](https://wordpress.org/plugins/yikes-inc-easy-mailchimp-extender/). We will be rolling things out to the repository as we get closer to finalizing all of the documentation.
+This is the release candidate for the final release of [Yikes Inc Easy MailChimp Extender](https://wordpress.org/plugins/yikes-inc-easy-mailchimp-extender/).
+Target launch date is by the end of September 2015.
 
 Feel free to use this plugin now. When the final version rolls out, you'll have a smooth transition.
+
+
+#### Minimum Requirements
+- WordPress 3.8+ 
+- PHP v5.3+
+
+#### Plugin Preview Screenshots
+[Cloudup Gallery](https://cloudup.com/cyfImk387Ez)
+
+#### Questions?
+Have any questions? Feel free to open up an issue in the issue tracker and we'll get back to you as soon as possible.
+
+
+#### Documentation
+
+For full documentation, please visit [our Knowledge Base](https://yikesinc.freshdesk.com/support/solutions/6000083118).
  
 #### Grunt.js
 
@@ -50,21 +67,6 @@ Finally, run the [auto_install](https://www.npmjs.com/package/grunt-auto-install
 $ grunt auto_install
 ```
 
-
-#### Minimum Requirements
-- WordPress 3.8+ 
-- PHP v5.3+
-
-#### Plugin Preview Screenshots
-[Cloudup Gallery](https://cloudup.com/cDJtreQDIcJ)
-
-#### Questions?
-Have any questions? Feel free to open up an issue in the issue tracker and we'll get back to you as soon as possible.
-
-
-#### Documentation
-
-For full documentation, please visit [our Knowledge Base](https://yikesinc.freshdesk.com/support/solutions/6000083118).
 
 ##### Shortcode
 
