@@ -41,15 +41,15 @@ if(!class_exists("yksemeBase")) {
 								}	
 								#yikes_mailchimp_mailing_list_form .submit {
 									float: left;
-									margin-top: 33px;
+									margin-top: 33px;.
 									margin-bottom: 0;
 								}
 							</style>
 						<?php
-						$upgrade_notice = __( 'Notice: <strong>YIKES Easy MailChimp Extender</strong> is gearing up for a major release within the next week. The entire plugin has been re-written from the ground up to iron out many of the bugs our users were facing.', 'yikes-inc-easy-mailchimp-extender' );
-						$upgrade_notice .= '<p>' . __( 'For Developers: Mailing lists and all associated data will be migrated to its own table in the database, which allows for a new level of customization on your opt in forms.', 'yikes-inc-easy-mailchimp-extender' ) . '</p>';
+						$upgrade_notice = __( '<strong>Notice: The next release of YIKES Easy Forms for MailChimp is a major update.</strong> The entire plugin has been re-written from the ground up to iron out reoccurring bugs and make the plugin better than ever!', 'yikes-inc-easy-mailchimp-extender' );
+						$upgrade_notice .= '<p>' . __( '<a href="http://www.yikesinc.com/services/yikes-inc-easy-mailchimp-extender/" target="_blank" title="YIKES Plugins Mailing List">' . __( 'Sign up for our Plugins mailing list ', 'yikes-inc-easy-mailchimp-extender' ) . '</a>' . 'and before launch, we will send you <strong>a Guide to Upgrading</strong> as well as <strong>a coupon code</strong> for great new add-ons we built for the new version of the plugin.', 'yikes-inc-easy-mailchimp-extender' ) . '</p>';
 						$jQuery = "jQuery( '#yikes_mailchimp_mailing_list_form' ).fadeIn();return false;";
-						$links = '<a href="?yikes_mailchimp_upgrade_notice=1">' . __( 'Thanks, I got it!', 'yikes-inc-easy-mailchimp-extender' ) . '</a> | <a href="http://www.yikesinc.com/services/yikes-inc-easy-mailchimp-extender/" target="_blank" title="YIKES Plugins Mailing List">' . __( 'Signup for Our Mailing List', 'yikes-inc-easy-mailchimp-extender' ) . '</a> | <a href="https://yikesplugins.com/" title="YIKES Plugins">' . __( 'View YIKES Plugins Site', 'yikes-inc-easy-mailchimp-extender' ) . '</a>';
+						$links = '<a href="?yikes_mailchimp_upgrade_notice=1">' . __( 'Thanks, I got it!', 'yikes-inc-easy-mailchimp-extender' ) . '</a> | <a href="http://www.yikesinc.com/services/yikes-inc-easy-mailchimp-extender/" target="_blank" title="YIKES Plugins Mailing List">' . __( 'Sign up for our Mailing List', 'yikes-inc-easy-mailchimp-extender' ) . '</a>';
 						echo '<div class="updated"><p>'; 
 							echo $upgrade_notice;
 							echo '<p>' . $links . '</p>';
