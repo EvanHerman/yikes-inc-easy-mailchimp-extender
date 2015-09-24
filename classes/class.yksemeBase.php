@@ -23,7 +23,7 @@ if(!class_exists("yksemeBase")) {
 					add_action('admin_init', array( $this, 'yikes_mailchimp_update_nag_ignore' ) );
 				}
 			
-			public function yikes_mailchimp_update_admin_notice() {
+			public function yikes_mailchimp_update_admin_notice() { 
 				global $current_user ;
 				$user_id = $current_user->ID;
 				if( current_user_can( 'activate_plugins' ) ) {
