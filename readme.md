@@ -12,9 +12,9 @@ YIKES Inc. Easy Forms for MailChimp
 > [Latest Stable Beta Release Download](https://cloudup.com/files/igb9MJNZhKd/download)
 > - Last Updated September 18th, 2015
 
-This is a complete re-write of the original [Yikes Inc Easy MailChimp Extender](https://wordpress.org/plugins/yikes-inc-easy-mailchimp-extender/) plugin.
+This is a complete re-write of the original [YIKES Inc Easy MailChimp Extender](https://wordpress.org/plugins/yikes-inc-easy-mailchimp-extender/) plugin.
 
-This is the release candidate for the final release of [Yikes Inc Easy MailChimp Extender](https://wordpress.org/plugins/yikes-inc-easy-mailchimp-extender/).
+This is the release candidate for the final release of [YIKES Inc Easy MailChimp Extender](https://wordpress.org/plugins/yikes-inc-easy-mailchimp-extender/).
 Target launch date is by the end of September 2015.
 
 Feel free to use this plugin now. When the final version rolls out, you'll have a smooth transition.
@@ -27,13 +27,16 @@ Feel free to use this plugin now. When the final version rolls out, you'll have 
 #### Plugin Preview Screenshots
 [Cloudup Gallery](https://cloudup.com/cyfImk387Ez)
 
-#### Questions?
-Have any questions? Feel free to open up an issue in the issue tracker and we'll get back to you as soon as possible.
-
 
 #### Documentation
 
 For full documentation, please visit [our Knowledge Base](https://yikesinc.freshdesk.com/support/solutions/6000083118).
+
+
+#### Questions?
+Have any questions? Feel free to open up an issue in the issue tracker and we'll get back to you as soon as possible.
+
+<hr />
  
 #### Grunt.js
 
