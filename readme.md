@@ -62,7 +62,9 @@ $ grunt auto_install
 Have any questions? Feel free to open up an issue in the issue tracker and we'll get back to you as soon as possible.
 
 
-#### Documentation In The Works...
+#### Documentation
+
+For full documentation, please visit [our Knowledge Base](https://yikesinc.freshdesk.com/support/solutions/6000083118).
 
 ##### Shortcode
 
