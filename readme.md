@@ -152,13 +152,6 @@ Example:
 add_action( 'yikes-mailchimp-edit-form-section-links' , 'add_custom_section_link' );
 add_action( 'yikes-mailchimp-edit-form-sections' , 'render_custom_section' );
 ```
-
-<em>First hook in to the proper locations, and attach a function:</em>
-```php
-add_action( 'yikes-mailchimp-edit-form-section-links' , 'add_custom_section_link' );
-add_action( 'yikes-mailchimp-edit-form-sections' , 'render_custom_section' );
-```
-
 <em>Next , define your sections and fields by passing in a multi-dimensional array.</em>
 ```php
 /* Add custom link to the links (next to fields & custom messages) */
