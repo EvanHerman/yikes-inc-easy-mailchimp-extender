@@ -9,8 +9,8 @@ YIKES Inc. Easy Forms for MailChimp
 
 <strong>Latest Stable Beta - Release Candidate 3.2</strong>
 
-> [Latest Stable Beta Release Download](https://cloudup.com/files/igb9MJNZhKd/download)
-> - Last Updated September 18th, 2015
+> [Latest Stable Beta Release Download](https://cloudup.com/files/iU2qFFvl2li/download)
+> - Last Updated September 28th, 2015
 
 This is a complete re-write of the original [YIKES Inc Easy MailChimp Extender](https://wordpress.org/plugins/yikes-inc-easy-mailchimp-extender/) plugin.
 
@@ -111,6 +111,7 @@ $ grunt auto_install
 - yikes-mailchimp-address-TYPE-label - Alter the field sub-label text for a specified address field (affects only standard address fields) (process_form_shortcode.php) 
 - yikes-mailchimp-form-submit-button - Alter the submit button to your liking (process_form_shortcode.php line 660) (@parameters - $submit_button, $form_id)
 - yikes-mailchimp-form-container-class - add additional classes to the parent form container (process_form_shortcode.php line157) (@parameters - $content, $form_id)
+- yikes-mailchimp-form-class - add additional classes to <form> element of your opt-in form (process_form_shortcode.php line157) (@parameters - $content, $form_id)
 - yikes-mailchimp-front-end-form-action-links - Add custom front end action links alongside Edit Form, Customize Form etc. (@parameters - $form_action_links, $form_id, $form_name)
 - yikes-mailchimp-custom-default-value-tags - Define your own custom pre-defined tags to populate the default value fields with - these tags appear in the modal - (@parameters - $pre_defined_tags_array)
 - yikes-mailchimp-parse-custom-default-value - Process your custom default merge tag into a custom value to populate the form field with - (Goes hand in hand with `yikes-mailchimp-custom-default-value-tags` filter)
