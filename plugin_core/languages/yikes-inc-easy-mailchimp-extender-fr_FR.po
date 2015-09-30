@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Easy Forms for MailChimp by YIKES Inc.\n"
 "POT-Creation-Date: 2015-09-30 16:20-0400\n"
-"PO-Revision-Date: 2015-09-30 17:36-0400\n"
+"PO-Revision-Date: 2015-09-30 18:00-0400\n"
 "Language-Team: YIKES Inc. <http://www.yikesinc.com>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -615,7 +615,7 @@ msgstr ""
 #: .././admin/partials/ajax/add_interest_group_to_form.php:1
 #: .././admin/partials/ajax/process_ajax.php:1
 msgid "Additional Classes"
-msgstr ""
+msgstr "Classes supplémentaires"
 
 #: .././admin/class-yikes-inc-easy-mailchimp-extender-admin.php:1700
 #: .././admin/class-yikes-inc-easy-mailchimp-extender-admin.php:1916
@@ -623,7 +623,7 @@ msgstr ""
 #: .././admin/partials/ajax/add_interest_group_to_form.php:1
 #: .././admin/partials/ajax/process_ajax.php:1
 msgid "Assign additional classes to this field."
-msgstr ""
+msgstr "Attribuer des classes supplémentaires à ce champ."
 
 #: .././admin/class-yikes-inc-easy-mailchimp-extender-admin.php:1707
 #: .././admin/class-yikes-inc-easy-mailchimp-extender-admin.php:1923
@@ -631,13 +631,13 @@ msgstr ""
 #: .././admin/partials/ajax/add_interest_group_to_form.php:1
 #: .././admin/partials/ajax/process_ajax.php:1
 msgid "Field Required?"
-msgstr ""
+msgstr "Champ obligatoire ?"
 
 #: .././admin/class-yikes-inc-easy-mailchimp-extender-admin.php:1712
 #: .././admin/partials/ajax/add_field_to_form.php:1
 #: .././admin/partials/ajax/process_ajax.php:1
 msgid "Email is a required field."
-msgstr ""
+msgstr "Adresse email est un champ obligatoire."
 
 #: .././admin/class-yikes-inc-easy-mailchimp-extender-admin.php:1713
 #: .././admin/class-yikes-inc-easy-mailchimp-extender-admin.php:1929
@@ -646,6 +646,7 @@ msgstr ""
 #: .././admin/partials/ajax/process_ajax.php:1
 msgid "Require this field to be filled in before the form can be submitted."
 msgstr ""
+"Exigez ce champ doit être remplie avant que le formulaire peut être envoyé."
 
 #: .././admin/class-yikes-inc-easy-mailchimp-extender-admin.php:1720
 #: .././admin/class-yikes-inc-easy-mailchimp-extender-admin.php:1936
@@ -653,13 +654,13 @@ msgstr ""
 #: .././admin/partials/ajax/add_interest_group_to_form.php:1
 #: .././admin/partials/ajax/process_ajax.php:1
 msgid "Hide Field"
-msgstr ""
+msgstr "Masquer le champ"
 
 #: .././admin/class-yikes-inc-easy-mailchimp-extender-admin.php:1725
 #: .././admin/partials/ajax/add_field_to_form.php:1
 #: .././admin/partials/ajax/process_ajax.php:1
 msgid "Cannot toggle email field visibility."
-msgstr ""
+msgstr "Ne peut pas activer/désactiver la visibilité de champ de email."
 
 #: .././admin/class-yikes-inc-easy-mailchimp-extender-admin.php:1726
 #: .././admin/class-yikes-inc-easy-mailchimp-extender-admin.php:1942
@@ -667,7 +668,7 @@ msgstr ""
 #: .././admin/partials/ajax/add_interest_group_to_form.php:1
 #: .././admin/partials/ajax/process_ajax.php:1
 msgid "Hide this field from being displayed on the front end."
-msgstr ""
+msgstr "Masquer le champ de front-end ?"
 
 #: .././admin/class-yikes-inc-easy-mailchimp-extender-admin.php:1733
 #: .././admin/class-yikes-inc-easy-mailchimp-extender-admin.php:1949
@@ -675,7 +676,7 @@ msgstr ""
 #: .././admin/partials/ajax/add_field_to_form.php:1
 #: .././admin/partials/ajax/add_interest_group_to_form.php:1
 msgid "Hide Label"
-msgstr ""
+msgstr "Masquer l’étiquette"
 
 #: .././admin/class-yikes-inc-easy-mailchimp-extender-admin.php:1739
 #: .././admin/class-yikes-inc-easy-mailchimp-extender-admin.php:1955
@@ -683,22 +684,22 @@ msgstr ""
 #: .././admin/partials/ajax/add_field_to_form.php:1
 #: .././admin/partials/ajax/add_interest_group_to_form.php:1
 msgid "Toggle field label visibility."
-msgstr ""
+msgstr "Activer/désactiver la visibilité étiquette de champ."
 
 #: .././admin/class-yikes-inc-easy-mailchimp-extender-admin.php:1756
 #: .././admin/partials/ajax/add_field_to_form.php:1
 msgid "Date Format"
-msgstr ""
+msgstr "Format de la Date"
 
 #: .././admin/class-yikes-inc-easy-mailchimp-extender-admin.php:1761
 #: .././admin/partials/ajax/add_field_to_form.php:1
 msgid "Phone Format"
-msgstr ""
+msgstr "Format du téléphone"
 
 #: .././admin/class-yikes-inc-easy-mailchimp-extender-admin.php:1762
 #: .././admin/partials/ajax/add_field_to_form.php:1
 msgid "International"
-msgstr ""
+msgstr "Internationale"
 
 #: .././admin/class-yikes-inc-easy-mailchimp-extender-admin.php:1772
 #: .././admin/partials/ajax/add_field_to_form.php:1
@@ -708,6 +709,9 @@ msgid ""
 "target=\"_blank\">MailChimp</a>. If you alter the format, you should re-"
 "import this field."
 msgstr ""
+"Pour modifier le %s veuillez visiter à <a href=“%s” title=“MailChimp” "
+"target=“_blank”>MailChimp</a>. Si vous modifiez le format, vous devez "
+"réimporter ce champ."
 
 #: .././admin/class-yikes-inc-easy-mailchimp-extender-admin.php:1791
 #: .././admin/class-yikes-inc-easy-mailchimp-extender-admin.php:1978
@@ -715,7 +719,7 @@ msgstr ""
 #: .././admin/partials/ajax/add_interest_group_to_form.php:1
 #: .././admin/partials/ajax/process_ajax.php:1
 msgid "Close"
-msgstr ""
+msgstr "Fermer"
 
 #: .././admin/class-yikes-inc-easy-mailchimp-extender-admin.php:1792
 #: .././admin/class-yikes-inc-easy-mailchimp-extender-admin.php:1979
@@ -723,13 +727,15 @@ msgstr ""
 #: .././admin/partials/ajax/add_interest_group_to_form.php:1
 #: .././admin/partials/ajax/process_ajax.php:1
 msgid "Remove Field"
-msgstr ""
+msgstr "Enlever le champ"
 
 #: .././admin/class-yikes-inc-easy-mailchimp-extender-admin.php:1822
 msgid ""
 "This field no longer exists in this list. Delete this field from the form to "
 "prevent issues on the front end."
 msgstr ""
+"Ce champ n’existe plus dans cette liste. Supprimer ce champ du formulaire "
+"pour éviter tout problème sur le serveur frontal."
 
 #: .././admin/class-yikes-inc-easy-mailchimp-extender-admin.php:1903
 #: .././admin/partials/ajax/add_field_to_form.php:1
