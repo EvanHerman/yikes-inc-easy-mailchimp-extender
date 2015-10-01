@@ -1095,6 +1095,12 @@ class Yikes_Inc_Easy_Mailchimp_Forms_Admin {
 		 * @param      string    $version    The version of this plugin.
 		 */
 		public function display_options_migrate_notice() {
+			
+			// Confirm that the necessary forms table in the database exists, else bail
+			if( $wpdb->get_var("show tables like '" . $wpdb->prefix . "yikes_easy_mc_forms'") != $wpdb->prefix . "yikes_easy_mc_forms" ) {
+				return;
+			}
+			
 			if( isset( $_GET['yikes-mc-options-migration-dismissed'] ) && $_GET['yikes-mc-options-migration-dismissed'] == 'true' ) {
 					// Delete the options, start a-new! (this will disable the migration notice altogether)
 					delete_option( 'widget_yikes_mc_widget' );
