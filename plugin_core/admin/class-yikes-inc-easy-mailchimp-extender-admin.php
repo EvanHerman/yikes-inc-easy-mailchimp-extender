@@ -1097,6 +1097,7 @@ class Yikes_Inc_Easy_Mailchimp_Forms_Admin {
 		public function display_options_migrate_notice() {
 			
 			// Confirm that the necessary forms table in the database exists, else bail
+			global $wpdb;
 			if( $wpdb->get_var("show tables like '" . $wpdb->prefix . "yikes_easy_mc_forms'") != $wpdb->prefix . "yikes_easy_mc_forms" ) {
 				return;
 			}
