@@ -1461,18 +1461,18 @@ class Yikes_Inc_Easy_Mailchimp_Forms_Admin {
 		*	-
 		* @parameters - $list_id - pass in the list ID to retreive merge variables from
 		*/
-		public function generate_form_editor( $form_fields , $list_id , $merge_variables , $interest_groups ) {
+		public function generate_form_editor( $form_fields, $list_id, $merge_variables, $interest_groups ) {
 		
 			// if no list id, die!
-			if( !$list_id ) {
+			if( ! $list_id ) {
 				die( __( "We've encountered an error. No list ID was sent." , 'yikes-inc-easy-mailchimp-extender' ) );
 			}		
 			
-			if( !$merge_variables ) {
+			if( ! $merge_variables ) {
 				die( __( "We've encountered an error. Reload the page and try again. If the error persists, please reach out to support." , 'yikes-inc-easy-mailchimp-extender' ) );
 			}		
 			
-			if( !empty( $form_fields ) ) {
+			if( ! empty( $form_fields ) ) {
 			
 				// find any fields that are assigned to this form, that don't exist in MailChimp
 				// or else were going to run into issues when we submit the form
@@ -1482,7 +1482,7 @@ class Yikes_Inc_Easy_Mailchimp_Forms_Admin {
 				$assigned_fields= array();
 				
 				// loop over merge variables
-				if( !empty( $merge_variables['data'][0]['merge_vars'] ) ) {
+				if( ! empty( $merge_variables['data'][0]['merge_vars'] ) ) {
 					foreach( $merge_variables['data'][0]['merge_vars'] as $merge_tag ) {
 						$available_merge_variables[] = $merge_tag['tag'];
 					}
@@ -1654,6 +1654,7 @@ class Yikes_Inc_Easy_Mailchimp_Forms_Admin {
 												break;
 												
 											case 'dropdown':
+											print_r( $field['choices'] );
 											?>
 												<tr valign="top">
 													<td scope="row">
