@@ -9,7 +9,7 @@ YIKES Inc. Easy Forms for MailChimp
 
 <strong>Latest Stable Beta Release Candidate</strong>
 
-> [Latest Stable Beta Release Download](https://cloudup.com/files/i99vHOTEgfi/download)
+> [Latest Stable Beta Release Download](https://cloudup.com/files/irGHmsXTszK/download)
 > - Last Updated October 2nd, 2015
 
 This is a complete re-write of the original [YIKES Inc Easy MailChimp Extender](https://wordpress.org/plugins/yikes-inc-easy-mailchimp-extender/) plugin.
