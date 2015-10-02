@@ -1,15 +1,15 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: Easy Forms for MailChimp by YIKES Inc.\n"
-"POT-Creation-Date: 2015-10-02 12:58-0400\n"
-"PO-Revision-Date: 2015-10-02 12:58-0400\n"
+"POT-Creation-Date: 2015-10-02 16:46-0400\n"
+"PO-Revision-Date: 2015-10-02 16:50-0400\n"
 "Last-Translator: Evan <Evan@yikesinc.com>\n"
 "Language-Team: YIKES Inc. <http://www.yikesinc.com>\n"
 "Language: fr\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Poedit 1.8.4\n"
+"X-Generator: Poedit 1.8.5\n"
 "X-Poedit-Basepath: ..\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
 "X-Poedit-KeywordsList: __;_e;_n;esc_attr_e\n"
@@ -102,7 +102,7 @@ msgstr "Vue Les Extensions"
 #: admin/class-yikes-inc-easy-mailchimp-extender-admin.php:448
 #: admin/class-yikes-inc-easy-mailchimp-extender-admin.php:452
 msgid "Dismiss"
-msgstr ""
+msgstr "Ignorer"
 
 #: admin/class-yikes-inc-easy-mailchimp-extender-admin.php:452
 #, php-format
@@ -744,30 +744,41 @@ msgid ""
 "Enter the description for the form field. This will be displayed to the user "
 "and provide some direction on how the field should be filled out or selected."
 msgstr ""
+"Entrez la description du champ de formulaire. Cela sera affiché à "
+"l’utilisateur et fournira des conseils sur comment le champ doit être rempli "
+"ou sélectionné."
 
 #: admin/class-yikes-inc-easy-mailchimp-extender-admin.php:2000
 msgid ""
 "No fields are assigned to this form. Select fields from the right hand "
 "column to add to this form."
 msgstr ""
+"Il n'y a pas de champs affectés à ce formulaire. Sélectionnez les champs "
+"dans la colonne de droite à ajouter à ce formulaire."
 
 #: admin/class-yikes-inc-easy-mailchimp-extender-admin.php:2011
 msgid ""
 "Pre-populate the field with the current page or post title that the user is "
 "on when opting in to your mailing list."
 msgstr ""
+"Pré-remplir le champ avec la page actuelle ou l’article titre dont "
+"l’utilisateur est sur quand ont in à votre liste de malin."
 
 #: admin/class-yikes-inc-easy-mailchimp-extender-admin.php:2016
 msgid ""
 "Pre-populate the field with the current page or post ID that the user is on "
 "when opting in to your mailing list."
 msgstr ""
+"Pré-remplir le champ avec la page actuelle ou post ID que l’utilisateur est "
+"sur quand ont sélectionné pour l’opt-in à votre liste de diffusion."
 
 #: admin/class-yikes-inc-easy-mailchimp-extender-admin.php:2021
 msgid ""
 "Pre-populate the field with the current page URL that the user is on when "
 "opting in to your mailing list."
 msgstr ""
+"Pré-remplir le champ avec la page actuelle ou post ID que l’utilisateur est "
+"sur quand ont sélectionné pour l’opt-in à votre liste de diffusion."
 
 #: admin/class-yikes-inc-easy-mailchimp-extender-admin.php:2026
 msgid ""
@@ -775,16 +786,21 @@ msgid ""
 "opting in to your mailing list. This is especially helpful for multi-site "
 "networks."
 msgstr ""
+"Pré-remplir le champ avec le nom du blog actuel dont l’utilisateur est sur "
+"quand ont  sélectionné pour l’opt-in à votre liste de diffusion. Ceci est "
+"particulièrement utile pour les réseaux multi-sites."
 
 #: admin/class-yikes-inc-easy-mailchimp-extender-admin.php:2031
 msgid ""
 "Detects if a user is logged in and pre-populates the field with an "
 "appropriate value."
 msgstr ""
+"Détecte si un utilisateur est connecté et pré-remplit le champ avec une "
+"valeur appropriée."
 
 #: admin/class-yikes-inc-easy-mailchimp-extender-admin.php:2059
 msgid "Pre Defined Tags"
-msgstr ""
+msgstr "Afficher les balises prédéfinies"
 
 #: admin/class-yikes-inc-easy-mailchimp-extender-admin.php:2060
 msgid ""
@@ -792,96 +808,104 @@ msgid ""
 "with dynamic content. This can be used to determine which page the user "
 "signed up on, if the user was logged in and more."
 msgstr ""
+"Vous pouvez utiliser toutes les balises suivantes pour remplir un champ de "
+"texte de MailChimp avec du contenu dynamique. Ceci peut être utilisé pour "
+"déterminer quelle page l’utilisateur inscrit on, si l’utilisateur était "
+"connecté et bien plus encore."
 
 #: admin/class-yikes-inc-easy-mailchimp-extender-admin.php:2101
 #: admin/class-yikes-inc-easy-mailchimp-extender-admin.php:2136
 msgid "Already assigned to your form"
-msgstr ""
+msgstr "Déjà assigné à votre formulaire"
 
 #: admin/class-yikes-inc-easy-mailchimp-extender-admin.php:2101
 #: admin/class-yikes-inc-easy-mailchimp-extender-admin.php:2105
 msgid "required field"
-msgstr ""
+msgstr "Champ requis"
 
 #: admin/class-yikes-inc-easy-mailchimp-extender-admin.php:2110
 #: admin/class-yikes-inc-easy-mailchimp-extender-admin.php:2145
 msgid "Add to Form Builder"
-msgstr ""
+msgstr "Ajoutez au Form Builder"
 
 #: admin/class-yikes-inc-easy-mailchimp-extender-admin.php:2238
 msgid "Creating a new form"
-msgstr ""
+msgstr "Créer un nouveau formulaire"
 
 #: admin/class-yikes-inc-easy-mailchimp-extender-admin.php:2238
 #: admin/partials/welcome-page/welcome-sections/getting-started-section.php:1
 #: admin/partials/welcome-page/welcome-sections/whats-new-section.php:1
 msgid "Forms"
-msgstr ""
+msgstr "Formulaires"
 
 #: admin/partials/ajax/add_field_to_form.php:1
 #: admin/partials/ajax/add_interest_group_to_form.php:1
 msgid "Expand Field"
-msgstr ""
+msgstr "Élargir le champ"
 
 #: admin/partials/dashboard-widgets/class.list-activity-widget.php:1
 msgid "Select a list"
-msgstr ""
+msgstr "Sélectionner une liste…"
 
 #: admin/partials/dashboard-widgets/class.list-activity-widget.php:1
 msgid ""
 "Select a list from the dropdown above. View statistics related to this list "
 "below."
 msgstr ""
+"Sélectionnez une liste dans le menu déroulant ci-dessus. Voir les "
+"statistiques relatives à la liste ci-dessous."
 
 #: admin/partials/dashboard-widgets/class.list-activity-widget.php:1
 msgid ""
 "Whoops, you don't have any lists set up. Head over to MailChimp to set up "
 "lists."
 msgstr ""
+"Oups, vous n’avez aucune liste mis en place. Visiez-Vous MailChimp pour "
+"définir les listes."
 
 #: admin/partials/dashboard-widgets/templates/account-activity-template.php:1
 msgid "Type"
-msgstr ""
+msgstr "Type"
 
 #: admin/partials/dashboard-widgets/templates/account-activity-template.php:1
 msgid "Message"
-msgstr ""
+msgstr "Message"
 
 #: admin/partials/dashboard-widgets/templates/stats-list-template.php:1
 msgid "view List"
-msgstr ""
+msgstr "Voir liste"
 
 #: admin/partials/dashboard-widgets/templates/stats-list-template.php:1
 msgid "view list"
-msgstr ""
+msgstr "Voir liste"
 
 #: admin/partials/dashboard-widgets/templates/stats-list-template.php:1
 msgid "Subscribers"
-msgstr ""
+msgstr "S’abonner"
 
 #: admin/partials/dashboard-widgets/templates/stats-list-template.php:1
 msgid "Unsubscribed"
-msgstr ""
+msgstr "Désabonné"
 
 #: admin/partials/dashboard-widgets/templates/stats-list-template.php:1
 msgid "New Since Send"
-msgstr ""
+msgstr "Nouveau depuis l’envoi"
 
 #: admin/partials/dashboard-widgets/templates/stats-list-template.php:1
 msgid "Avg. Sub. Rate"
-msgstr ""
+msgstr "Taux moyen d'abonnés"
 
 #: admin/partials/dashboard-widgets/templates/stats-list-template.php:1
 msgid "Number of active subscribers."
-msgstr ""
+msgstr "Nombre d’abonnés actifs."
 
 #: admin/partials/dashboard-widgets/templates/stats-list-template.php:1
 msgid "subscribers"
-msgstr ""
+msgstr "abonnés"
 
 #: admin/partials/dashboard-widgets/templates/stats-list-template.php:1
 msgid "Number of users who have unsusbscribed."
-msgstr ""
+msgstr "Nombre d’utilisateurs qui ont désinscrit."
 
 #: admin/partials/dashboard-widgets/templates/stats-list-template.php:1
 msgid "unsubscribed"
@@ -889,7 +913,7 @@ msgstr ""
 
 #: admin/partials/dashboard-widgets/templates/stats-list-template.php:1
 msgid "Number of new subscribers since the last campaign was sent."
-msgstr ""
+msgstr "Nombre de nouveaux abonnés depuis la dernière campagne a été envoyée."
 
 #: admin/partials/dashboard-widgets/templates/stats-list-template.php:1
 msgid "new since send"
@@ -897,11 +921,11 @@ msgstr ""
 
 #: admin/partials/dashboard-widgets/templates/stats-list-template.php:1
 msgid "Average number of subscribers per month."
-msgstr ""
+msgstr "Nombre moyen d’abonnés par mois."
 
 #: admin/partials/dashboard-widgets/templates/stats-list-template.php:1
 msgid "avg. sub. rate"
-msgstr ""
+msgstr "Taux moyen d’abonnés"
 
 #: admin/partials/edit-form.php:1 admin/partials/menu/account-details.php:1
 #: admin/partials/menu/add-ons.php:11 admin/partials/menu/lists.php:1
@@ -909,187 +933,208 @@ msgstr ""
 #: admin/partials/menu/manage-lists.php:1 admin/partials/menu/options.php:1
 #: admin/partials/view-list.php:1 admin/partials/view-user.php:114
 msgid "Freddie - MailChimp Mascot"
-msgstr ""
+msgstr "Freddie - mascotte de MailChimp"
 
 #: admin/partials/edit-form.php:1 admin/partials/menu/manage-forms.php:1
 #: public/partials/shortcodes/process_form_shortcode.php:1
 msgid "Edit"
-msgstr ""
+msgstr "Modifier"
 
 #: admin/partials/edit-form.php:1
 msgid "Update this MailChimp form's fields, styles and settings below."
 msgstr ""
+"Mettre à jour les champs de ce formulaire MailChimp, les styles et les "
+"paramètres ci-dessous."
 
 #: admin/partials/edit-form.php:1
 msgid "MailChimp Form successfully updated."
-msgstr ""
+msgstr "Le formulaire MailChimp a été mis à jour avec succès!"
 
 #: admin/partials/edit-form.php:1
 msgid "The title of this signup form."
-msgstr ""
+msgstr "Le titre de ce formulaire d’inscription."
 
 #: admin/partials/edit-form.php:1
 msgid ""
 "Descriptions are optional and you may choose to display it to visitors to "
 "your site."
 msgstr ""
+"Descriptions sont facultatifs et vous pouvez choisir de l’afficher aux "
+"visiteurs de votre site."
 
 #: admin/partials/edit-form.php:1
 msgid "Customize Form Fields"
-msgstr ""
+msgstr "Personnaliser les champs de formulaire"
 
 #: admin/partials/edit-form.php:1
 msgid "Form Builder"
-msgstr ""
+msgstr "Form Builder"
 
 #: admin/partials/edit-form.php:1
 msgid "Customize Form Messages"
-msgstr ""
+msgstr "Personnaliser les Messages de la formulaire."
 
 #: admin/partials/edit-form.php:1
 msgid "Custom Messages"
-msgstr ""
+msgstr "Messages personnalisés"
 
 #: admin/partials/edit-form.php:1
 msgid ""
 "Select fields from the right to add to this form, you can click a field to "
 "reveal advanced options, or drag it to re-arrange its position in the form."
 msgstr ""
+"Sélectionnez les champs dans le droit d’ajouter à ce formulaire, vous pouvez "
+"cliquez sur un champ pour faire apparaître les options avancées, ou faites-"
+"la glisser pour ré-organiser sa position dans la forme."
 
 #: admin/partials/edit-form.php:1
 msgid "Form Fields &amp; Interest Groups"
-msgstr ""
+msgstr "Champs de formulaire et les groupes d’intérêt"
 
 #: admin/partials/edit-form.php:1 admin/partials/view-list.php:1
 msgid "Form Fields"
-msgstr ""
+msgstr "Champs du formulaire"
 
 #: admin/partials/edit-form.php:1
 msgid "Interest Groups"
-msgstr ""
+msgstr "Groupes d’intérêts"
 
 #: admin/partials/edit-form.php:1
 msgid "No Interest Groups Exist"
-msgstr ""
+msgstr "Pas de groupes d'intérêts existent."
 
 #: admin/partials/edit-form.php:1
 msgid ""
 "Enter your custom messages for this form below. Leave the field blank to use "
 "the default global error message."
 msgstr ""
+"Entrez vos messages personnalisés pour ce formulaire ci-dessous. Laissez le "
+"champ vide pour utiliser le message d'erreur par défaut mondiale."
 
 #: admin/partials/edit-form.php:1
 msgid "Success Message"
-msgstr ""
+msgstr "Message de réussite"
 
 #: admin/partials/edit-form.php:1
 msgid "General Error Message"
-msgstr ""
+msgstr "Message d’erreur général"
 
 #: admin/partials/edit-form.php:1
 msgid "Invalid Email"
-msgstr ""
+msgstr "Adresse email invalide"
 
 #: admin/partials/edit-form.php:1
 msgid "Email Already Subscribed"
-msgstr ""
+msgstr "Email déjà abonné"
 
 #: admin/partials/edit-form.php:1
 msgid "Error Message Explanation"
-msgstr ""
+msgstr "Message d’erreur explication"
 
 #: admin/partials/edit-form.php:1
 msgid ""
 "The message displayed to the user after they have submitted the form and the "
 "data has been successfully sent to MailChimp."
 msgstr ""
+"Le message affiché à l’utilisateur après avoir présenté les données et le "
+"formulaire a été envoyé avec succès à MailChimp."
 
 #: admin/partials/edit-form.php:1
 msgid "The message displayed to the user after a generic error has occurred."
 msgstr ""
+"Le message affiché à l’utilisateur après qu’une erreur générique s’est "
+"produite."
 
 #: admin/partials/edit-form.php:1
 msgid ""
 "The message displayed to the user after they have entered a non-valid email "
 "address."
 msgstr ""
+"Le message affiché à l’utilisateur après que qu’ils ont entré une adresse "
+"email non valide."
 
 #: admin/partials/edit-form.php:1
 msgid ""
 "The message displayed to the user after they attempt to sign up for a "
 "mailing list using an email address that is already subscribed."
 msgstr ""
+"Le message affiché à l’utilisateur après qu’ils essaient de vous inscrire à "
+"une liste de diffusion en utilisant une adresse e-mail qui est déjà abonnée."
 
 #: admin/partials/edit-form.php:1
 msgid "Form Settings"
-msgstr ""
+msgstr "Options du formulaire"
 
 #: admin/partials/edit-form.php:1
 msgid "Edit Another Form"
-msgstr ""
+msgstr "Modifier un autre formulaire"
 
 #: admin/partials/edit-form.php:1 admin/partials/menu/manage-forms.php:1
 msgid "Shortcode"
-msgstr ""
+msgstr "Un shortcode"
 
 #: admin/partials/edit-form.php:1
 msgid "Associated List Settings"
-msgstr ""
+msgstr "Paramètres de la liste associée"
 
 #: admin/partials/edit-form.php:1
 msgid "No Lists Found"
-msgstr ""
+msgstr "Pas de listes trouvés"
 
 #: admin/partials/edit-form.php:1
 msgid ""
 "Users who sign up via this form will be added to the list selected above."
 msgstr ""
+"Utilisateurs qui s’inscrivent via ce formulaire seront ajoutés à la liste "
+"sélectionnée ci-dessus."
 
 #: admin/partials/edit-form.php:1
 msgid ""
 "It looks like you first need to create a list to assign this form to. Head "
 "over to"
-msgstr ""
+msgstr "Vous devez d'abord créer une liste d'attribuer ce formulaire . Visitez"
 
 #: admin/partials/edit-form.php:1
 msgid "Create a new list"
-msgstr ""
+msgstr "Créer un liste nouveaux"
 
 #: admin/partials/edit-form.php:1
 msgid "to create your first list"
-msgstr ""
+msgstr "pour créer votre première liste"
 
 #: admin/partials/edit-form.php:1
 msgid "Optin Settings"
-msgstr ""
+msgstr "Paramètres d’opt-in"
 
 #: admin/partials/edit-form.php:1
 msgid "Single or Double Opt-in"
-msgstr ""
+msgstr "Simple ou Double Opt-in"
 
 #: admin/partials/edit-form.php:1
 msgid "Single"
-msgstr ""
+msgstr "Simple"
 
 #: admin/partials/edit-form.php:1
 msgid "Double"
-msgstr ""
+msgstr "Doublé"
 
 #: admin/partials/edit-form.php:1
 msgid ""
 "Double opt-in requires users to confirm their email address before being "
 "added to a list (recommended)"
 msgstr ""
+"Double opt-in , les utilisateurs doivent confirmer leur adresse e-mail avant "
+"d'être ajouté à une liste (recommandé)."
 
 #: admin/partials/edit-form.php:1
 msgid "Send Welcome Email"
-msgstr ""
+msgstr "Envoyer un message de bienvenue"
 
 #: admin/partials/edit-form.php:1
 #: admin/partials/menu/options-sections/integration-settings.php:1
 #: public/classes/checkbox-integrations/class.contact_form_7-checkbox.php:54
 msgid "Yes"
-msgstr ""
+msgstr "Oui"
 
 #: admin/partials/edit-form.php:1
 #: admin/partials/menu/options-sections/integration-settings.php:1
@@ -1100,10 +1145,11 @@ msgstr ""
 #: admin/partials/edit-form.php:1
 msgid "When the user signs up, should they receive the default welcome email?"
 msgstr ""
+"Lorsque l’utilisateur inscrit, doit recevoir l’email de bienvenue par défaut?"
 
 #: admin/partials/edit-form.php:1
 msgid "Update Existing Subscriber"
-msgstr ""
+msgstr "Mise à jour des abonné existant"
 
 #: admin/partials/edit-form.php:1
 #, php-format
@@ -1111,19 +1157,23 @@ msgid ""
 "Update an existing subscriber's info when they attempt to re-subscribe "
 "instead of displaying an %s message."
 msgstr ""
+"Mise à jour d’informations de l’abonné existant lorsque vous tentez de vous "
+"réinscrire au lieu d'afficher un message %s."
 
 #: admin/partials/edit-form.php:1
 msgid "Submission Settings"
-msgstr ""
+msgstr "Paramètres de soumissions"
 
 #: admin/partials/edit-form.php:1
 msgid "Enable AJAX Submission"
-msgstr ""
+msgstr "Activer la soumission AJAX?"
 
 #: admin/partials/edit-form.php:1
 msgid ""
 "AJAX form submissions transmit data without requiring the page to refresh."
 msgstr ""
+"Les envois de formulaire AJAX transmettent des données sans nécessiter la "
+"page à actualiser."
 
 #: admin/partials/edit-form.php:1
 msgid "Redirect On Submission"
@@ -2255,11 +2305,11 @@ msgstr ""
 #: public/classes/checkbox-integrations/class.registration_form-checkbox.php:11
 #: public/classes/checkbox-integrations/class.woocommerce_checkout_form-checkbox.php:11
 msgid "Whoops, you shouldn't be accessing this file directly. Abort!"
-msgstr ""
+msgstr "Oups, vous ne devriez pas accéder à ce fichier directement. Avorter!"
 
 #: public/classes/checkbox-integrations.php:196
 msgid "Note"
-msgstr ""
+msgstr "Remarque"
 
 #: public/classes/checkbox-integrations/class.registration_form-checkbox.php:60
 #, php-format
@@ -2267,36 +2317,40 @@ msgid ""
 "You have not been subscribed to our mailing list. %s is already subscribed "
 "to this list."
 msgstr ""
+"Vous n’avez pas été souscrit à notre liste d’envoi. %s est déjà abonné à "
+"cette liste."
 
 #: public/partials/shortcodes/process/process_form_submission.php:1
 msgid ""
 "It looks like we've run into a reCaptcha error. Please refresh the page and "
 "try again."
 msgstr ""
+"Il y’a une erreur reCaptcha. S’il vous plaît, rafraîchir la page et essayez "
+"à nouveau."
 
 #: public/partials/shortcodes/process/process_form_submission.php:1
 msgid "Errors"
-msgstr ""
+msgstr "Erreurs"
 
 #: public/partials/shortcodes/process_form_shortcode.php:1
 msgid "Please enter a valid URL to the website."
-msgstr ""
+msgstr "Veuillez entrer une image valide à l’URL."
 
 #: public/partials/shortcodes/process_form_shortcode.php:1
 msgid "Please enter a valid URL to the image."
-msgstr ""
+msgstr "Veuillez entrer une image valide à l’URL."
 
 #: public/partials/shortcodes/process_form_shortcode.php:1
 msgid "International Phone number (eg: #-###-###-####)"
-msgstr ""
+msgstr "Numéro de téléphone international (par exemple: #-###-###-###)"
 
 #: public/partials/shortcodes/process_form_shortcode.php:1
 msgid "US Phone Number (###) ### - ####"
-msgstr ""
+msgstr "Numéro de téléphone des US (1-###-###-####)"
 
 #: public/partials/shortcodes/process_form_shortcode.php:1
 msgid "5 digit zip code, numbers only"
-msgstr ""
+msgstr "Code numérique à 5 chiffres"
 
 #~ msgid "If"
 #~ msgstr "Si se"
