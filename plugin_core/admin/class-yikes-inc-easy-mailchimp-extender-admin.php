@@ -1461,18 +1461,18 @@ class Yikes_Inc_Easy_Mailchimp_Forms_Admin {
 		*	-
 		* @parameters - $list_id - pass in the list ID to retreive merge variables from
 		*/
-		public function generate_form_editor( $form_fields , $list_id , $merge_variables , $interest_groups ) {
+		public function generate_form_editor( $form_fields, $list_id, $merge_variables, $interest_groups ) {
 		
 			// if no list id, die!
-			if( !$list_id ) {
+			if( ! $list_id ) {
 				die( __( "We've encountered an error. No list ID was sent." , 'yikes-inc-easy-mailchimp-extender' ) );
 			}		
 			
-			if( !$merge_variables ) {
+			if( ! $merge_variables ) {
 				die( __( "We've encountered an error. Reload the page and try again. If the error persists, please reach out to support." , 'yikes-inc-easy-mailchimp-extender' ) );
 			}		
 			
-			if( !empty( $form_fields ) ) {
+			if( ! empty( $form_fields ) ) {
 			
 				// find any fields that are assigned to this form, that don't exist in MailChimp
 				// or else were going to run into issues when we submit the form
@@ -1482,7 +1482,7 @@ class Yikes_Inc_Easy_Mailchimp_Forms_Admin {
 				$assigned_fields= array();
 				
 				// loop over merge variables
-				if( !empty( $merge_variables['data'][0]['merge_vars'] ) ) {
+				if( ! empty( $merge_variables['data'][0]['merge_vars'] ) ) {
 					foreach( $merge_variables['data'][0]['merge_vars'] as $merge_tag ) {
 						$available_merge_variables[] = $merge_tag['tag'];
 					}
@@ -1997,7 +1997,7 @@ class Yikes_Inc_Easy_Mailchimp_Forms_Admin {
 				}		
 			} else {
 				?>
-					<h4 class="no-fields-assigned-notice"><em><?php _e( 'No fields are assigned to this form. Select fields from the right hand column to add to this form.' , 'yikes-inc-easy-mailchimp-extender' ); ?></em></h4>
+					<h4 class="no-fields-assigned-notice non-draggable-yikes"><em><?php _e( 'No fields are assigned to this form. Select fields from the right hand column to add to this form.' , 'yikes-inc-easy-mailchimp-extender' ); ?></em></h4>
 				<?php
 			}
 				/* Pre Defined Merge Tag Container - Always rendered so the modal appears and links are clickable on initial page load */
@@ -2008,22 +2008,22 @@ class Yikes_Inc_Easy_Mailchimp_Forms_Admin {
 					$available_tags = array(
 						array(
 							'tag' => '{page_title}',
-							'description' => '<h4 class="tooltip-title">{page_title}</h4><hr />' . __( 'Pre-populate the field with the current page or post title that the user is on when opting in to your maling list.' , 'yikes-inc-easy-mailchimp-extender' ),
+							'description' => '<h4 class="tooltip-title">{page_title}</h4><hr />' . __( 'Pre-populate the field with the current page or post title that the user is on when opting in to your mailing list.' , 'yikes-inc-easy-mailchimp-extender' ),
 							'title' => ''
 						),
 						array(
 							'tag' => '{page_id}',
-							'description' => '<h4 class="tooltip-title">{page_id}</h4><hr />' . __( 'Pre-populate the field with the current page or post ID that the user is on when opting in to your maling list.' , 'yikes-inc-easy-mailchimp-extender' ),
+							'description' => '<h4 class="tooltip-title">{page_id}</h4><hr />' . __( 'Pre-populate the field with the current page or post ID that the user is on when opting in to your mailing list.' , 'yikes-inc-easy-mailchimp-extender' ),
 							'title' => ''
 						),
 						array(
 							'tag' => '{page_url}',
-							'description' => '<h4 class="tooltip-title">{page_url}</h4><hr />' . __( 'Pre-populate the field with the current page URL that the user is on when opting in to your maling list.' , 'yikes-inc-easy-mailchimp-extender' ),
+							'description' => '<h4 class="tooltip-title">{page_url}</h4><hr />' . __( 'Pre-populate the field with the current page URL that the user is on when opting in to your mailing list.' , 'yikes-inc-easy-mailchimp-extender' ),
 							'title' => ''
 						),
 						array(
 							'tag' => '{blog_name}',
-							'description' => '<h4 class="tooltip-title">{blog_name}</h4><hr />' . __( 'Pre-populate the field with the current blog name that the user is on when opting in to your maling list. This is especially helpful for multi-site networks.' , 'yikes-inc-easy-mailchimp-extender' ),
+							'description' => '<h4 class="tooltip-title">{blog_name}</h4><hr />' . __( 'Pre-populate the field with the current blog name that the user is on when opting in to your mailing list. This is especially helpful for multi-site networks.' , 'yikes-inc-easy-mailchimp-extender' ),
 							'title' => ''
 						),
 						array(
