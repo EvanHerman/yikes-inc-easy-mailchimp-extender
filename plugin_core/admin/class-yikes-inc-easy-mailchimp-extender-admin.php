@@ -1654,7 +1654,6 @@ class Yikes_Inc_Easy_Mailchimp_Forms_Admin {
 												break;
 												
 											case 'dropdown':
-											print_r( $field['choices'] );
 											?>
 												<tr valign="top">
 													<td scope="row">
