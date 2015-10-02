@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Easy Forms for MailChimp by YIKES Inc.\n"
 "POT-Creation-Date: 2015-10-02 16:46-0400\n"
-"PO-Revision-Date: 2015-10-02 17:50-0400\n"
+"PO-Revision-Date: 2015-10-02 18:07-0400\n"
 "Last-Translator: Evan <Evan@yikesinc.com>\n"
 "Language-Team: YIKES Inc. <http://www.yikesinc.com>\n"
 "Language: fr\n"
@@ -1303,19 +1303,19 @@ msgstr "Type de plan:"
 
 #: admin/partials/menu/account-details.php:1
 msgid "Emails Left"
-msgstr ""
+msgstr "Emails restants"
 
 #: admin/partials/menu/account-details.php:1
 msgid "Affiliate Link"
-msgstr ""
+msgstr "Lien d’affiliation"
 
 #: admin/partials/menu/account-details.php:1
 msgid "View Link"
-msgstr ""
+msgstr "Voir le lien"
 
 #: admin/partials/menu/add-ons.php:13
 msgid "View All Add-Ons"
-msgstr ""
+msgstr "Voir tous les extensions"
 
 #: admin/partials/menu/add-ons.php:16
 msgid ""
@@ -1470,7 +1470,7 @@ msgstr ""
 
 #: admin/partials/menu/options-sections/api-cache-settings.php:1
 msgid "Clear MailChimp API Cache"
-msgstr ""
+msgstr "Nettoyer le cache d’API MailChimp"
 
 #: admin/partials/menu/options-sections/debug-settings.php:1
 msgid ""
@@ -1598,23 +1598,23 @@ msgstr ""
 
 #: admin/partials/menu/options-sections/recaptcha-settings.php:1
 msgid "Get your reCAPTCHA API Key"
-msgstr ""
+msgstr "Obtenez votre clé API de reCAPTCHA"
 
 #: admin/partials/menu/options-sections/recaptcha-settings.php:1
 msgid "Get Your reCAPTCHA API Key"
-msgstr ""
+msgstr "Obtenez votre clé API de reCAPTCHA"
 
 #: admin/partials/menu/options-sections/recaptcha-settings.php:1
 msgid "Enable reCAPTCHA Protection"
-msgstr ""
+msgstr "Activez reCAPTCHA"
 
 #: admin/partials/menu/options-sections/recaptcha-settings.php:1
 msgid "reCAPTCHA Site Key"
-msgstr ""
+msgstr "Clé du site reCAPTCHA"
 
 #: admin/partials/menu/options-sections/recaptcha-settings.php:1
 msgid "reCAPTCHA Secret Key"
-msgstr ""
+msgstr "Clé secrète reCAPTCHA"
 
 #: admin/partials/menu/options-sections/recaptcha-settings.php:1
 msgid "View reCAPTCHA Preview"
@@ -2359,7 +2359,7 @@ msgstr "Veuillez entrer une image valide à l’URL."
 
 #: public/partials/shortcodes/process_form_shortcode.php:1
 msgid "International Phone number (eg: #-###-###-####)"
-msgstr "Numéro de téléphone international (par exemple: #-###-###-###)"
+msgstr "Numéro de téléphone international"
 
 #: public/partials/shortcodes/process_form_shortcode.php:1
 msgid "US Phone Number (###) ### - ####"
