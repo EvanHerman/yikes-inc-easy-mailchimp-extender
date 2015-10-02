@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Easy Forms for MailChimp by YIKES Inc.\n"
 "POT-Creation-Date: 2015-10-02 16:46-0400\n"
-"PO-Revision-Date: 2015-10-02 16:50-0400\n"
+"PO-Revision-Date: 2015-10-02 17:50-0400\n"
 "Last-Translator: Evan <Evan@yikesinc.com>\n"
 "Language-Team: YIKES Inc. <http://www.yikesinc.com>\n"
 "Language: fr\n"
@@ -1177,120 +1177,129 @@ msgstr ""
 
 #: admin/partials/edit-form.php:1
 msgid "Redirect On Submission"
-msgstr ""
+msgstr "Redirent"
 
 #: admin/partials/edit-form.php:1
 msgid "When the user signs up would you like to redirect them to another page?"
 msgstr ""
+"Lorsque l’utilisateur s’inscrit, voudriez-vous le rediriger vers une autre "
+"page?"
 
 #: admin/partials/edit-form.php:1
 msgid "Hide Form After Sign Up"
-msgstr ""
+msgstr "Cacher le formulaire après inscription"
 
 #: admin/partials/edit-form.php:1
 msgid "Should the form be hidden after the user successfully signs up?"
 msgstr ""
+"Doit la forme être cachée après que l'utilisateur souscrit avec succès?"
 
 #: admin/partials/edit-form.php:1
 msgid "Update Form"
-msgstr ""
+msgstr "Mise à jour le formulaire"
 
 #: admin/partials/edit-form.php:1
 msgid "Are you sure you want to delete this form? This cannot be undone."
-msgstr ""
+msgstr "Etes-vous sûr que vous voulez supprimer? Ça ne peut pas être annulé."
 
 #: admin/partials/edit-form.php:1
 msgid "Delete Form"
-msgstr ""
+msgstr "Supprimer le formulaire"
 
 #: admin/partials/front-end-widgets/front-end-widget-form.php:1
 #, php-format
 msgid ""
 "No forms found. It looks like you need to <a href=\"%s\" title=\"%s\">%s</a>."
 msgstr ""
+"Aucun formulaires trouvés. Vous aurez besoin de <a href=“%s” title=“%s”>%s</"
+"a>."
 
 #: admin/partials/front-end-widgets/front-end-widget-form.php:1
 msgid "create a form"
-msgstr ""
+msgstr "Créer un formulaire"
 
 #: admin/partials/front-end-widgets/front-end-widget-form.php:1
 msgid ""
 "Please enter a valid MailChimp API key to connect your site to MailChimp."
 msgstr ""
+"Veuillez entrer une clé API valide de MailChimp pour se connecter à votre "
+"site à MailChimp."
 
 #: admin/partials/front-end-widgets/front-end-widget-form.php:1
 msgid "Title:"
-msgstr ""
+msgstr "Titre :"
 
 #: admin/partials/front-end-widgets/front-end-widget-form.php:1
 msgid "Form:"
-msgstr ""
+msgstr "Formulaire :"
 
 #: admin/partials/front-end-widgets/front-end-widget-form.php:1
 msgid "Display Form Description:"
-msgstr ""
+msgstr "Description de formulaire d’affichage"
 
 #: admin/partials/front-end-widgets/front-end-widget-form.php:1
 msgid "Submit Button Text:"
-msgstr ""
+msgstr "Texte du bouton de soumission"
 
 #: admin/partials/helpers/fields/yikes-mailchimp-file-field.php:26
 msgid "Upload File"
-msgstr ""
+msgstr "Uploader le fichier"
 
 #: admin/partials/helpers/fields/yikes-mailchimp-file-field.php:29
 msgid "Remove File"
-msgstr ""
+msgstr "Supprimer le fichier"
 
 #: admin/partials/menu/account-details.php:1
 msgid "Account Overview"
-msgstr ""
+msgstr "Aperçu du compte"
 
 #: admin/partials/menu/account-details.php:1
 msgid ""
 "Below you'll find a brief overview of account activity as well as some "
 "account and profile info."
 msgstr ""
+"Vous trouverez ci-dessous un bref aperçu des activités du compte ainsi que "
+"quelques infos de compte et votre profil."
 
 #: admin/partials/menu/account-details.php:1
 msgid "Chimp Chatter"
-msgstr ""
+msgstr "Champ Chatter"
 
 #: admin/partials/menu/account-details.php:1
 msgid "View All Activity"
-msgstr ""
+msgstr "Voir l’activité"
 
 #: admin/partials/menu/account-details.php:1
 msgid "MailChimp Site"
-msgstr ""
+msgstr "Site de MailChimp"
 
 #: admin/partials/menu/account-details.php:1
 msgid "Account Active"
-msgstr ""
+msgstr "Compte actif"
 
 #: admin/partials/menu/account-details.php:1
 msgid "Account Inactive"
-msgstr ""
+msgstr "Compte inactif"
 
 #: admin/partials/menu/account-details.php:1
 msgid "MailChimp avatar"
-msgstr ""
+msgstr "Avatar de MailChimp"
 
 #: admin/partials/menu/account-details.php:1
 msgid "Company"
-msgstr ""
+msgstr "Entreprise"
 
 #: admin/partials/menu/account-details.php:1
 msgid "Industry"
-msgstr ""
+msgstr "Industrie"
 
 #: admin/partials/menu/account-details.php:1
 msgid "Member Since"
-msgstr ""
+msgstr "Membre depuis :"
 
 #: admin/partials/menu/account-details.php:1
 msgid "Plan Type"
-msgstr ""
+msgstr "Type de plan:"
 
 #: admin/partials/menu/account-details.php:1
 msgid "Emails Left"
@@ -2253,49 +2262,57 @@ msgstr ""
 
 #: includes/error_log/class-yikes-inc-easy-mailchimp-error-logging.php:1
 msgid "Page:"
-msgstr ""
+msgstr "Page:"
 
 #: includes/error_log/class-yikes-inc-easy-mailchimp-error-logging.php:1
 msgid "Type:"
-msgstr ""
+msgstr "Type :"
 
 #: includes/error_log/class-yikes-inc-easy-mailchimp-error-logging.php:1
 msgid "Time:"
-msgstr ""
+msgstr "Temps:"
 
 #: includes/error_log/class-yikes-inc-easy-mailchimp-error-logging.php:1
 msgid "No errors logged."
-msgstr ""
+msgstr "Aucune erreurs consignées."
 
 #: includes/error_log/class-yikes-inc-easy-mailchimp-error-logging.php:1
 msgid "To start logging errors toggle on the 'Enable Debugging' option above."
 msgstr ""
+"Pour commencer la consignation des erreurs sur le 'activer le débogage' ci-"
+"dessus."
 
 #: includes/error_log/class-yikes-inc-easy-mailchimp-error-logging.php:1
 msgid "Error Log Missing"
-msgstr ""
+msgstr "Journal des erreurs se manque."
 
 #: includes/error_log/class-yikes-inc-easy-mailchimp-error-logging.php:1
 msgid ""
 "It looks like your error log file is missing. You can attempt to create one "
 "by clicking the button below."
 msgstr ""
+"Il semble que votre fichier journal des erreurs est manquant. Vous pouvez "
+"essayer d’en créer un en cliquant sur le bouton ci-dessous."
 
 #: includes/error_log/class-yikes-inc-easy-mailchimp-error-logging.php:1
 msgid "Attempt to Create Error Log"
-msgstr ""
+msgstr "Essayez de créer le journal des erreurs"
 
 #: includes/error_log/class-yikes-inc-easy-mailchimp-error-logging.php:1
 msgid ""
 "It looks like the function file_get_contents() is disabled on your server. "
 "We cannot retrieve the contents of the error log."
 msgstr ""
+"Il semble que la fonction file_get_contents() est désactivée sur votre "
+"serveur. Nous ne pouvons pas récupérer le contenu du journal des erreurs."
 
 #: includes/import-export/yikes-easy-mailchimp-import.class.php:72
 msgid ""
 "There was an error during import. If you continue to run into issues, please "
 "reach out to the Yikes Inc. support team."
 msgstr ""
+"Il y avait une erreur lors de l’importation. Si vous continuez à rencontrer "
+"des problèmes, veuillez rejoindre l’équipe de soutien à Yikes Inc."
 
 #: public/classes/checkbox-integrations.php:8
 #: public/classes/checkbox-integrations/class.bbpress_forms-checkbox.php:9
