@@ -123,11 +123,17 @@ class Yikes_Inc_Easy_Mailchimp_Forms_Admin {
 		if ( isset( $_REQUEST[ 'action' ] ) && $_REQUEST[ 'action' ] == 'yikes-easy-mc-clear-error-log' ) {
 			add_action( 'init' , array( $this , 'yikes_easy_mailchimp_clear_error_log' ) );
 		}
+		/*********************************************/
+		/** 		Export MailChimp Optin Forms   **/
 		/*******************************************/
-		/** 		Export Class Inclusion	   **/
-		/*****************************************/
 		if ( isset( $_REQUEST[ 'action' ] ) && $_REQUEST[ 'action' ] == 'yikes-easy-mc-export-forms' ) {
 			add_action( 'init' , array( $this , 'yikes_easy_mailchimp_export_forms' ) );
+		}	
+		/*********************************************/
+		/** 				Export Plugin Settings    	   **/
+		/*******************************************/
+		if ( isset( $_REQUEST[ 'action' ] ) && $_REQUEST[ 'action' ] == 'yikes-easy-mc-export-settings' ) {
+			add_action( 'init' , array( $this , 'yikes_easy_mailchimp_export_plugin_settings' ) );
 		}	
 		/*******************************************/
 		/** 		Import Class Inclusion	   **/
@@ -255,7 +261,8 @@ class Yikes_Inc_Easy_Mailchimp_Forms_Admin {
 		/* 
 		*	Custom export function to export all or specific forms
 		*	to allow for easy transpot to other sites
-		*	@since 6.0.0
+		*	@since 		6.0.0
+		*	@return 	CSV export file
 		*/
 		public function yikes_easy_mailchimp_export_forms() {
 			// grab our nonce
@@ -263,16 +270,41 @@ class Yikes_Inc_Easy_Mailchimp_Forms_Admin {
 			// grab the forms
 			$forms = isset( $_REQUEST['export_forms'] ) ? $_REQUEST['export_forms'] : 'all';
 			// validate nonce
-			if( !wp_verify_nonce( $nonce, 'export-forms' ) ) {
+			if( ! wp_verify_nonce( $nonce, 'export-forms' ) ) {
 				wp_die( __( "We've run into an error. The security check didn't pass. Please try again." , 'yikes-inc-easy-mailchimp-extender' ) , __( "Failed nonce validation" , 'yikes-inc-easy-mailchimp-extender' ) , array( 'response' => 500 , 'back_link' => true ) );
 			}
 			// include the export class
-			if( !class_exists( 'Yikes_Inc_Easy_MailChimp_Export_Class' ) ) {	
+			if( ! class_exists( 'Yikes_Inc_Easy_MailChimp_Export_Class' ) ) {	
 				include_once( YIKES_MC_PATH . 'includes/import-export/yikes-easy-mailchimp-export.class.php' );
 			}
 			// run the export function
 			// parameters: ( $table_name, $form_ids, $file_name )
-			Yikes_Inc_Easy_MailChimp_Export_Class::yikes_mailchimp_export( 'yikes_easy_mc_forms' , $forms, 'Yikes-Inc-Easy-MailChimp-Forms-Export' );
+			Yikes_Inc_Easy_MailChimp_Export_Class::yikes_mailchimp_form_export( 'yikes_easy_mc_forms' , $forms, 'Yikes-Inc-Easy-MailChimp-Forms-Export' );
+			// re-direct the user back to the page
+			wp_redirect( esc_url_raw( admin_url( 'admin.php?page=yikes-inc-easy-mailchimp-settings&section=import-export-forms' ) ) );
+			die();
+		}
+		
+		/* 
+		*	Custom export function to export YIKES Easy Forms for MailChimp Plugin Settings
+		*	to allow for easy transpot to other sites
+		*	@since 		6.0.0
+		*	@return 	CSV export file
+		*/
+		public function yikes_easy_mailchimp_export_plugin_settings() {
+			// grab our nonce
+			$nonce = $_REQUEST['nonce'];
+			// validate nonce
+			if( ! wp_verify_nonce( $nonce, 'export-settings' ) ) {
+				wp_die( __( "We've run into an error. The security check didn't pass. Please try again." , 'yikes-inc-easy-mailchimp-extender' ) , __( "Failed nonce validation" , 'yikes-inc-easy-mailchimp-extender' ) , array( 'response' => 500 , 'back_link' => true ) );
+			}
+			// include the export class
+			if( ! class_exists( 'Yikes_Inc_Easy_MailChimp_Export_Class' ) ) {	
+				include_once( YIKES_MC_PATH . 'includes/import-export/yikes-easy-mailchimp-export.class.php' );
+			}
+			// run the export function
+			// parameters: ( $table_name, $form_ids, $file_name )
+			Yikes_Inc_Easy_MailChimp_Export_Class::yikes_mailchimp_settings_export( 'Yikes-Inc-Easy-MailChimp-Settings-Export' );
 			// re-direct the user back to the page
 			wp_redirect( esc_url_raw( admin_url( 'admin.php?page=yikes-inc-easy-mailchimp-settings&section=import-export-forms' ) ) );
 			die();
@@ -286,18 +318,19 @@ class Yikes_Inc_Easy_Mailchimp_Forms_Admin {
 			// grab our nonce
 			$nonce = $_REQUEST['nonce'];
 			// validate nonce
-			if( !wp_verify_nonce( $nonce, 'import-forms' ) ) {
+			if( ! wp_verify_nonce( $nonce, 'import-forms' ) ) {
 				wp_die( __( "We've run into an error. The security check didn't pass. Please try again." , 'yikes-inc-easy-mailchimp-extender' ) , __( "Failed nonce validation" , 'yikes-inc-easy-mailchimp-extender' ) , array( 'response' => 500 , 'back_link' => true ) );
 			}
 			// include the export class
-			if( !class_exists( 'Yikes_Inc_Easy_MailChimp_Import_Class' ) ) {	
+			if( ! class_exists( 'Yikes_Inc_Easy_MailChimp_Import_Class' ) ) {	
 				include_once( YIKES_MC_PATH . 'includes/import-export/yikes-easy-mailchimp-import.class.php' );
 			}
 			// run the import function
-			// parameters: ( $table_name, $form_ids, $file_name )
+			// parameters: ( $_FILES )
 			Yikes_Inc_Easy_MailChimp_Import_Class::yikes_mailchimp_import_forms( $_FILES );
+			$import_query_arg = Yikes_Inc_Easy_MailChimp_Import_Class::yikes_mailchimp_import_type( $_FILES );
 			// re-direct the user back to the page
-			wp_redirect( esc_url_raw( admin_url( 'admin.php?page=yikes-inc-easy-mailchimp-settings&section=import-export-forms&import=true' ) ) );
+			wp_redirect( esc_url_raw( admin_url( 'admin.php?page=yikes-inc-easy-mailchimp-settings&section=import-export-forms&' . $import_query_arg . '=true' ) ) );
 			die();
 		}
 		
@@ -1231,7 +1264,7 @@ class Yikes_Inc_Easy_Mailchimp_Forms_Admin {
 						<li><?php if( isset( $_REQUEST['section'] ) && $_REQUEST['section'] == 'recaptcha-settings' ) { ?><div class="option-menu-selected-arrow"></div><?php } ?><a href="<?php echo esc_url_raw( add_query_arg( array( 'section' => 'recaptcha-settings' ) , admin_url( 'admin.php?page=yikes-inc-easy-mailchimp-settings&section=recaptcha-settings' ) ) ); ?>"><?php _e( 'ReCaptcha Settings' , 'yikes-inc-easy-mailchimp-extender' ); ?></a></li>						
 						<li><?php if( isset( $_REQUEST['section'] ) && $_REQUEST['section'] == 'api-cache-settings' ) { ?><div class="option-menu-selected-arrow"></div><?php } ?><a href="<?php echo esc_url_raw( add_query_arg( array( 'section' => 'api-cache-settings' ) , admin_url( 'admin.php?page=yikes-inc-easy-mailchimp-settings&section=api-cache-settings' ) ) ); ?>"><?php _e( 'API Cache Settings' , 'yikes-inc-easy-mailchimp-extender' ); ?></a></li>
 						<li><?php if( isset( $_REQUEST['section'] ) && $_REQUEST['section'] ==  'debug-settings' ) { ?><div class="option-menu-selected-arrow"></div><?php } ?><a href="<?php echo esc_url_raw( add_query_arg( array( 'section' => 'debug-settings' ) , admin_url( 'admin.php?page=yikes-inc-easy-mailchimp-settings&section=debug-settings' ) ) ); ?>"><?php _e( 'Debug Settings' , 'yikes-inc-easy-mailchimp-extender' ); ?></a></li>
-						<li><?php if( isset( $_REQUEST['section'] ) && $_REQUEST['section'] ==  'import-export-forms' ) { ?><div class="option-menu-selected-arrow"></div><?php } ?><a href="<?php echo esc_url_raw( add_query_arg( array( 'section' => 'import-export-forms' ) , admin_url( 'admin.php?page=yikes-inc-easy-mailchimp-settings&section=import-export-forms' ) ) ); ?>"><?php _e( 'Import/Export Forms' , 'yikes-inc-easy-mailchimp-extender' ); ?></a></li>
+						<li><?php if( isset( $_REQUEST['section'] ) && $_REQUEST['section'] ==  'import-export-forms' ) { ?><div class="option-menu-selected-arrow"></div><?php } ?><a href="<?php echo esc_url_raw( add_query_arg( array( 'section' => 'import-export-forms' ) , admin_url( 'admin.php?page=yikes-inc-easy-mailchimp-settings&section=import-export-forms' ) ) ); ?>"><?php _e( 'Import/Export' , 'yikes-inc-easy-mailchimp-extender' ); ?></a></li>
 					</ul>
 					<?php 
 						// create our add-on settings pages
