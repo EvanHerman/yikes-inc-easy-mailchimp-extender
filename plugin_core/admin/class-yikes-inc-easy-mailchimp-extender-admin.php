@@ -1458,9 +1458,8 @@ class Yikes_Inc_Easy_Mailchimp_Forms_Admin {
 								
 						<?php _e( 'Tweet about it' , 'yikes-inc-easy-mailchimp-extender' ); ?>
 						<p class="sidebar-container">
-							<a class="sidebar-twitter-icon" href="https://twitter.com/intent/tweet?text=I%20am%20using%20Easy%20MailChimp%20for%20WordPress%20by%20%40YikesInc%20-%20it's%20absolutely%20great%21%20-%20https%3A%2F%2Fwordpress.org/plugins/yikes-inc-easy-mailchimp-extender%2F" title="<?php _e( 'Tweet it!' , 'yikes-inc-easy-mailchimp-extender' ); ?>" target="_blank">
-								<span class="dashicons dashicons-twitter"></span>
-							</a>		
+							<a href="https://twitter.com/share" class="twitter-share-button" data-url="https://wordpress.org/plugins/yikes-inc-easy-mailchimp-extender/" data-text="I'm using the Easy Forms for MailChimp plugin by @YikesInc to grow my mailing list - it's awesome! -" data-hashtags="MailChimp">Tweet</a>
+							<script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');</script>
 						</p>
 									
 						<?php _e( 'Vote that the plugin works' , 'yikes-inc-easy-mailchimp-extender' ); ?>
