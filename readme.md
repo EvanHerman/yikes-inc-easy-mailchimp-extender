@@ -115,7 +115,7 @@ $ grunt auto_install
 - yikes-mailchimp-front-end-form-action-links - Add custom front end action links alongside Edit Form, Customize Form etc. (@parameters - $form_action_links, $form_id, $form_name)
 - yikes-mailchimp-custom-default-value-tags - Define your own custom pre-defined tags to populate the default value fields with - these tags appear in the modal - (@parameters - $pre_defined_tags_array)
 - yikes-mailchimp-parse-custom-default-value - Process your custom default merge tag into a custom value to populate the form field with - (Goes hand in hand with `yikes-mailchimp-custom-default-value-tags` filter)
-
+- yikes-mailchimp-field-data - Filter form field data such as placeholder, label, etc. (@parameters - $field_array, $field, $form_id) (process_form_shortcode.php - line 258 & process_preview_form_shortcode.php - line 258)
 ###### Hooks
 - yikes-mailchimp-form-submission - do something with the user email + form data on form submission
 - yikes-mailchimp-form-submission-FORM_ID - do something with the user email + form data on form submission (specific form)

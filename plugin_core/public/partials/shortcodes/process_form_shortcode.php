@@ -255,6 +255,9 @@ function process_mailchimp_shortcode( $atts ) {
 						$label_array['visible'] = isset( $field['hide'] ) ? 'style="display:none;"' : '';
 					}
 					
+					// filter the field array data
+					$field_array = apply_filters( 'yikes-mailchimp-field-data', $field_array, $field, $form_id );
+					
 					/* Loop Over Standard Fields (aka merge variables) */
 					if( isset( $field['merge'] ) ) {
 															
