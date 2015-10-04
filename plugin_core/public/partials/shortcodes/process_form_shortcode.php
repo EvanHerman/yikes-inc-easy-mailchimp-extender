@@ -431,7 +431,16 @@ function process_mailchimp_shortcode( $atts ) {
 								wp_enqueue_style( 'bootstrap-datepicker-styles' , YIKES_MC_URL . 'public/css/bootstrap-datepicker3.standalone.min.css' );
 								wp_enqueue_style( 'override-datepicker-styles' , YIKES_MC_URL . 'public/css/yikes-inc-easy-mailchimp-datepicker-styles.css' , array( 'bootstrap-datepicker-styles' ) );
 								
-								$date_format = $field['date_format'];
+								switch ( $field['type'] ) {
+									default:
+									case 'date':
+										$date_format = ( isset( $field['date_format'] ) ) ? $field['date_format'] : 'mm/dd/yy';
+										break;
+										
+									case 'birthday':
+										$date_format = ( isset( $field['date_format'] ) ) ? $field['date_format'] : 'mm/dd';
+										break;
+								}
 								// initialize the datepicker
 								?>
 									<style>
