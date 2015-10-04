@@ -2627,8 +2627,12 @@ class Yikes_Inc_Easy_Mailchimp_Forms_Admin {
 			?>
 				<style>
 					.yikes-easy-mc-postbox h3,
-					.column-columnname .form-id-container { 
-						background: <?php echo $main_color; ?> 
+					.column-columnname .form-id-container,
+					.mv_ig_list .nav-tab-active { 
+						background: <?php echo $main_color; ?>;
+					}
+					.mv_ig_list .arrow-down {
+						border-top: 9pt solid <?php echo $main_color; ?>;
 					}
 				</style>
 			<?php
