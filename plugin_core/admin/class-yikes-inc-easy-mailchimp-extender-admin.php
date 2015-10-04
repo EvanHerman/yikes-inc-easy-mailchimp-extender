@@ -1196,7 +1196,7 @@ class Yikes_Inc_Easy_Mailchimp_Forms_Admin {
 			} else {
 				$opt_value = $option_value;
 			}
-			update_option( $option_name, stripslashes_deep( $opt_value ) );
+			update_option( $option_name, $opt_value );
 			wp_die(); // this is required to terminate immediately and return a proper response
 			exit;
 		}
@@ -1204,6 +1204,7 @@ class Yikes_Inc_Easy_Mailchimp_Forms_Admin {
 		/* Ajax Migrate Forms */
 		function migrate_previously_setup_forms() {
 			$option_name = $_POST['option_name'];
+			$done = $_POST['done_import'];
 			// Create some starter forms for the user
 			// based on previously imported lists (to our old version)
 			if( $option_name == 'yikes-mc-lists' ) {	
@@ -1244,6 +1245,13 @@ class Yikes_Inc_Easy_Mailchimp_Forms_Admin {
 					)
 				);						
 			}
+			if( $done == 'done' ) {
+				wp_send_json( array( 'form_name' => $form_name, 'completed_import' => true ) );
+			} else {
+				wp_send_json( array( 'form_name' => $form_name, 'completed_import' => false ) );
+			}
+			wp_die();
+			exit;
 		}
 		
 		/*
