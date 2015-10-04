@@ -43,6 +43,8 @@ class Yikes_Inc_Easy_Mailchimp_Forms_Admin {
 		add_action( 'admin_init' , array( $this , 'check_for_old_yks_mc_options' ) );
 		// Ajax function to update new options...
 		add_action( 'wp_ajax_migrate_old_plugin_settings', array( $this , 'migrate_archived_options' ) );
+		// Ajax function to migrate our forms
+		add_action( 'wp_ajax_migrate_prevoious_forms', array( $this , 'migrate_previously_setup_forms' ) );
 		// fix menu icon spacing
 		add_action( 'admin_head' , array( $this , 'fix_menu_icon_spacing' ) );
 		// register our plugin settings
@@ -1190,58 +1192,59 @@ class Yikes_Inc_Easy_Mailchimp_Forms_Admin {
 			$option_value = $_POST['option_value'];	
 			if( json_decode( $option_value ) ) {
 				// decode our lists() array, and store it
-				$opt_value = json_decode( $option_value );
+				$opt_value = json_decode( $option_value, true );
 			} else {
 				$opt_value = $option_value;
 			}
-			// must strip slashes, and convert \ to / to properly store our path in the db
-			add_option( $option_name , str_replace( '\\' , '/' , stripslashes( $opt_value ) ) );
-			// Create some starter forms for the user
-			// based on previously imported lists (to our old version)
-			if( $option_name == 'yikes-mc-lists' ) {
-				global $wpdb;
-				$new_options = json_decode( str_replace( '\\' , '/' , stripslashes( $option_value ) ) , true );
-				if( !empty( $new_options ) ) {	
-					// loop over our imported lists, and create an entry in our custom table
-					// for each list, which will be used
-					foreach( $new_options as $option ) {
-						$list_id = $option['id'];
-						$form_name = $option['name'];
-						$fields = $option['fields']; // $option['fields']; // didn't get stored in our yikes-mc-list option --- where is it??
-						$custom_styles = isset( $option['custom_styles'] ) ? json_encode( $option['custom_styles'] ) : '0'; // store as an array with all of our styles
-						$custom_template = isset( $option['custom_template'] ) ? json_encode( $option['custom_template'] ) : '0'; // store template data as an array ( active , template used )
-						$send_welcome_email = isset( $option['yks_mailchimp_send_welcome_'.$list_id] ) ? '0' : '1';
-						$redirect_user_on_submit = isset( $option['yks_mailchimp_redirect_'.$list_id] ) ? '1' : '0';
-						$redirect_page = isset( $option['page_id_'.$list_id] ) ? $option['page_id_'.$list_id] : '';
-						
-						/* Insert Forms Function  */
-						$wpdb->insert(
-							$wpdb->prefix . 'yikes_easy_mc_forms',
-							array(
-								'list_id' => $list_id,
-								'form_name' => $form_name,
-								'form_description' => '',
-								'fields' => json_encode( $fields ),
-								'custom_styles' => $custom_styles,
-								'custom_template' => $custom_template,
-								'send_welcome_email' => $send_welcome_email,
-								'redirect_user_on_submit' => $redirect_user_on_submit,
-								'redirect_page' => $redirect_page,
-								'submission_settings' => '',
-								'optin_settings' => '',
-								'error_messages' => '',
-								'custom_notifications' => '',
-								'impressions' => '0',
-								'submissions' => '0',
-								'custom_fields' => '',
-							)
-						);
-					}
-				}
-			}
+			update_option( $option_name, stripslashes_deep( $opt_value ) );
 			wp_die(); // this is required to terminate immediately and return a proper response
+			exit;
 		}
 		
+		/* Ajax Migrate Forms */
+		function migrate_previously_setup_forms() {
+			$option_name = $_POST['option_name'];
+			// Create some starter forms for the user
+			// based on previously imported lists (to our old version)
+			if( $option_name == 'yikes-mc-lists' ) {	
+				global $wpdb;
+				$option_value = $_POST['option_value'];	
+				$new_options = json_decode( stripslashes_deep( $option_value ) , true );
+				
+				$list_id = $new_options['id'];
+				$form_name = $new_options['name'];
+				$fields = $new_options['fields']; // our fields array
+					
+				$custom_styles = isset( $new_options['custom_styles'] ) ? json_encode( $new_options['custom_styles'] ) : '0'; // store as an array with all of our styles
+				$custom_template = isset( $new_options['custom_template'] ) ? json_encode( $new_options['custom_template'] ) : '0'; // store template data as an array ( active , template used )
+				$send_welcome_email = isset( $new_options['yks_mailchimp_send_welcome_'.$list_id] ) ? '0' : '1';
+				$redirect_user_on_submit = isset( $new_options['yks_mailchimp_redirect_'.$list_id] ) ? '1' : '0';
+				$redirect_page = isset( $new_options['page_id_'.$list_id] ) ? $new_options['page_id_'.$list_id] : '';
+						
+				/* Insert Forms Function  */
+				$wpdb->insert(
+					$wpdb->prefix . 'yikes_easy_mc_forms',
+					array(
+						'list_id' => $list_id,
+						'form_name' => $form_name,
+						'form_description' => '',
+						'fields' => json_encode( $fields ),
+						'custom_styles' => $custom_styles,
+						'custom_template' => $custom_template,
+						'send_welcome_email' => $send_welcome_email,
+						'redirect_user_on_submit' => $redirect_user_on_submit,
+						'redirect_page' => $redirect_page,
+						'submission_settings' => '',
+						'optin_settings' => '',
+						'error_messages' => '',
+						'custom_notifications' => '',
+						'impressions' => '0',
+						'submissions' => '0',
+						'custom_fields' => '',
+					)
+				);						
+			}
+		}
 		
 		/*
 		*	generate_options_pages_sidebar_menu();
@@ -1536,7 +1539,7 @@ class Yikes_Inc_Easy_Mailchimp_Forms_Admin {
 				
 				$i = 1;
 				foreach( $form_fields as $field ) {
-					// print_r( $field );
+					
 					if( isset( $field['merge'] ) ) {
 					?>
 						<section class="draggable" id="<?php echo $field['merge']; ?>">
@@ -1672,7 +1675,7 @@ class Yikes_Inc_Easy_Mailchimp_Forms_Admin {
 														</label>
 													</td>
 													<td>
-														<?php if( !isset( $field['default_choice'] ) ) { $decode = json_decode( stripslashes( $field['choices'] ) , true ); $field['default_choice'] = $decode[0]; }
+														<?php if( ! isset( $field['default_choice'] ) || empty( $field['default_choice'] ) ) { $decode = json_decode( stripslashes_deep( $field['choices'] ) , true ); $field['default_choice'] = $decode[0]; }
 														$x = 0;
 														foreach( json_decode( stripslashes( $field['choices'] ) , true ) as $choice => $value ) { ?>
 															<label for="<?php echo $field['merge'].'-'.$x; ?>">	
@@ -1794,7 +1797,7 @@ class Yikes_Inc_Easy_Mailchimp_Forms_Admin {
 																			default:
 																			case 'birthday':
 																				$type = __( 'Date Format' , 'yikes-inc-easy-mailchimp-extender' );
-																				$format = $field['date_format'];
+																				$format = ( isset( $field['date_format'] ) ) ? $field['date_format'] : 'MM/DD';
 																				break;
 																				
 																			case 'phone':
