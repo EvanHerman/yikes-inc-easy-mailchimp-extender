@@ -8,6 +8,8 @@
 ?>
 <div class="wrap yikes-easy-mc-support-wrap">
 
+	<div id="yikes-mailchimp-logo" class="support-page"></div>
+	
 	<h2><?php _e( 'Support' , 'yikes-inc-easy-mailchimp-extender' ); ?></h2>
 	<strong><?php _e( "You've got questions? We have answers!" , 'yikes-inc-easy-mailchimp-extender' ); ?></strong>
 	<?php if( get_option( 'yikes-easy-mc-active-addons' , array() ) == array() ) { ?>

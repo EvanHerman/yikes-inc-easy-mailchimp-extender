@@ -111,7 +111,7 @@ class Yikes_Inc_Easy_Mailchimp_Forms_Admin {
 		foreach ( array('post.php','post-new.php') as $hook ) {
 			add_action( "admin_head-$hook", array( $this, 'tinymce_yikes_easy_mc' ) );
 		}
-		// display an admin notice for users on PHP > 5.3
+		// display an admin notice for users on PHP < 5.3
 		if( phpversion() < '5.3' ) {
 			add_action( "admin_notices", array( $this, 'display_php_warning' ), 999 );
 		}
@@ -161,6 +161,8 @@ class Yikes_Inc_Easy_Mailchimp_Forms_Admin {
 		add_filter( 'admin_footer_text', array( $this, 'yikes_easy_forms_admin_disclaimer' ) );
 		/** Add custom plugin action links **/
 		add_filter( 'plugin_action_links_yikes-inc-easy-mailchimp-extender/yikes-inc-easy-mailchimp-extender.php', array( $this, 'easy_forms_plugin_action_links' ) );
+		/* Alter the color scheme based on the users selection */
+		add_action( 'admin_print_scripts', array( $this, 'alter_yikes_easy_mc_color_scheme' ) );
 	}
 				
 		/*
@@ -626,7 +628,7 @@ class Yikes_Inc_Easy_Mailchimp_Forms_Admin {
 		/**
 		 *	Enqueue our global dashboard styles
 		 */
-		wp_enqueue_style( $this->yikes_inc_easy_mailchimp_extender, plugin_dir_url( __FILE__ ) . 'css/yikes-inc-easy-mailchimp-extender-admin.min.css', array(), $this->version, 'all' );
+		wp_enqueue_style( 'yikes-inc-easy-mailchimp-extender-admin', plugin_dir_url( __FILE__ ) . 'css/yikes-inc-easy-mailchimp-extender-admin.min.css', array(), $this->version, 'all' );
 		/*
 		*	Enqueue Add-ons styles
 		*/	
@@ -2582,5 +2584,56 @@ class Yikes_Inc_Easy_Mailchimp_Forms_Admin {
 				include_once( YIKES_MC_PATH . 'admin/partials/helpers/init.php' );
 			}
 		}
-			
+		
+		/*
+		*	Alter the color scheme based on the current user selection (this is done to help integrate the plugin into the dashboard more seamlessly)
+		*
+		*	@since 0.1
+		*	@order 	requires that yikes-inc-easy-mailchimp-extender-admin.min.css be enqueued, so we can override the defaults (handle: yikes-inc-easy-mailchimp-extender-admin)
+		* 	@retutrn print out custom styles to the admin header to alter the defualt blue color
+		*/
+		public function alter_yikes_easy_mc_color_scheme() {
+			// get the current set color scheme for the logged in user
+			$current_color_scheme = get_user_option( 'admin_color' );
+			// switch over each color scheme, and set our variable
+			switch( $current_color_scheme ) {
+				default:
+				case 'fresh': // default blue (defined by this plugin)
+					$main_color = '#00a0d2';
+					break;
+				case 'light': // light grey
+					$main_color = '#E5E5E5';
+					break;
+				case 'blue': // light blue
+					$main_color = '#52ACCC';
+					break;
+				case 'coffee': // light brown-ish
+					$main_color = '#59524C';
+					break;	
+				case 'ectoplasm': // purple
+					$main_color = '#523F6D';
+					break;
+				case 'midnight': // black
+					$main_color = '#363B3F';
+					break;
+				case 'ocean': // green/teal-ish
+					$main_color = '#738E96';
+					break;
+				case 'sunrish': // red/orange
+					$main_color = '#CF4944';
+					break;	
+			}
+			ob_start();
+			?>
+				<style>
+					.yikes-easy-mc-postbox h3,
+					.column-columnname .form-id-container { 
+						background: <?php echo $main_color; ?> 
+					}
+				</style>
+			<?php
+			$override_admin_styles = ob_get_clean();
+			// add our inline styles
+			echo $override_admin_styles;
+		}
 }
