@@ -2163,7 +2163,7 @@ class Yikes_Inc_Easy_Mailchimp_Forms_Admin {
 					}
 				}
 				?></ul>
-				<a href="#" class="add-field-to-editor button-secondary yikes-easy-mc-hidden"><small><span class="dashicons dashicons-arrow-left-alt add-to-form-builder-arrow"></span> <?php _e( 'Add to Form Builder' , 'yikes-inc-easy-mailchimp-extender' ); ?></small></a>
+				<a href="#" class="add-field-to-editor button-secondary yikes-easy-mc-hidden" style="display:none;"><small><span class="dashicons dashicons-arrow-left-alt add-to-form-builder-arrow"></span> <?php _e( 'Add to Form Builder' , 'yikes-inc-easy-mailchimp-extender' ); ?></small></a>
 				<?php
 			}
 		}
@@ -2198,7 +2198,7 @@ class Yikes_Inc_Easy_Mailchimp_Forms_Admin {
 					}
 				}
 				?></ul>
-				<a href="#" class="add-interest-group-to-editor button-secondary yikes-easy-mc-hidden"><small><span class="dashicons dashicons-arrow-left-alt add-to-form-builder-arrow"></span> <?php _e( 'Add to Form Builder' , 'yikes-inc-easy-mailchimp-extender' ); ?></small></a>
+				<a href="#" class="add-interest-group-to-editor button-secondary yikes-easy-mc-hidden" style="display:none;"><small><span class="dashicons dashicons-arrow-left-alt add-to-form-builder-arrow"></span> <?php _e( 'Add to Form Builder' , 'yikes-inc-easy-mailchimp-extender' ); ?></small></a>
 				<?php
 			}
 		}
