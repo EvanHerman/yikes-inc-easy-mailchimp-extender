@@ -1629,9 +1629,16 @@ class Yikes_Inc_Easy_Mailchimp_Forms_Admin {
 											switch( $field['type'] ) {
 												/* Store the date format, for properly rendering dates on the front end */
 												case 'date':
-												case 'birthday':
+													$date_format = ( isset( $field['date_format'] ) ) ? $field['date_format'] : 'MM/DD/YYYY';
 													?>
-														<input type="hidden" name="field[<?php echo $field['merge']; ?>][date_format]" value="<?php echo strtolower( str_replace( 'YYYY' , 'YY' , $field['date_format'] ) ); ?>" />
+														<input type="hidden" name="field[<?php echo $field['merge']; ?>][date_format]" value="<?php echo strtolower( str_replace( 'YYYY' , 'YY' , $date_format ) ); ?>" />
+													<?php
+												break;
+												
+												case 'birthday':
+													$date_format = ( isset( $field['date_format'] ) ) ? $field['date_format'] : 'MM/DD';
+													?>
+														<input type="hidden" name="field[<?php echo $field['merge']; ?>][date_format]" value="<?php echo strtolower( str_replace( 'YYYY' , 'YY' , ( isset( $field['date_format'] ) ) ? $field['date_format'] : 'MM/DD' ) ); ?>" />
 													<?php
 												break;
 												
@@ -1795,6 +1802,7 @@ class Yikes_Inc_Easy_Mailchimp_Forms_Admin {
 												/* Store the phone format, for properly regex pattern */
 												case 'phone':
 												case 'birthday':
+												case 'date':
 													?>
 														<tr valign="top">
 															<td scope="row">
@@ -1806,7 +1814,12 @@ class Yikes_Inc_Easy_Mailchimp_Forms_Admin {
 																				$type = __( 'Date Format' , 'yikes-inc-easy-mailchimp-extender' );
 																				$format = ( isset( $field['date_format'] ) ) ? $field['date_format'] : 'MM/DD';
 																				break;
-																				
+																			
+																			case 'date':
+																				$type = __( 'Date Format' , 'yikes-inc-easy-mailchimp-extender' );
+																				$format = ( isset( $field['date_format'] ) ) ? $field['date_format'] : 'MM/DD/YYYY';
+																				break;
+													
 																			case 'phone':
 																				$type = __( 'Phone Format' , 'yikes-inc-easy-mailchimp-extender' );
 																				$format = ( ( $field['phone_format'] == 'none' ) ? __( 'International', 'yikes-inc-easy-mailchimp-extender' ) : $field['phone_format'] . ' - (###) ### - ####' );

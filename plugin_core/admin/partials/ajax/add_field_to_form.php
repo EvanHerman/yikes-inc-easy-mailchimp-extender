@@ -81,9 +81,16 @@
 												
 						/* Store the date format, for properly rendering dates on the front end */
 						case 'date':
-						case 'birthday':
+							$date_format = ( isset( $merge_field_data['dateformat'] ) ) ? $merge_field_data['dateformat'] : 'MM/DD/YYYY';
 							?>
-								<input type="hidden" name="field[<?php echo $merge_field_data['tag']; ?>][date_format]" value="<?php echo strtolower( str_replace( 'YYYY' , 'YY' , $merge_field_data['dateformat'] ) ); ?>" />
+								<input type="hidden" name="field[<?php echo $merge_field_data['tag']; ?>][date_format]" value="<?php echo strtolower( $merge_field_data['dateformat'] ); ?>" />
+							<?php
+						break;
+						
+						case 'birthday':
+							$date_format = ( isset( $merge_field_data['dateformat'] ) ) ? $merge_field_data['dateformat'] : 'MM/DD';
+							?>
+								<input type="hidden" name="field[<?php echo $merge_field_data['tag']; ?>][date_format]" value="<?php echo strtolower( $date_format ); ?>" />
 							<?php
 						break;
 						
@@ -244,6 +251,7 @@
 							/* Store the phone format, for properly regex pattern */
 							case 'phone':
 							case 'birthday':
+							case 'date':
 							?>
 								<tr valign="top">
 									<td scope="row">
@@ -252,6 +260,11 @@
 											switch( $form_data_array['field_type'] ) {
 												default:
 												case 'birthday':
+													$type = __( 'Date Format' , 'yikes-inc-easy-mailchimp-extender' );
+													$format = $merge_field_data['dateformat'];
+													break;
+													
+												case 'date':
 													$type = __( 'Date Format' , 'yikes-inc-easy-mailchimp-extender' );
 													$format = $merge_field_data['dateformat'];
 													break;
