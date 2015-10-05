@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Easy Forms for MailChimp by YIKES Inc.\n"
 "POT-Creation-Date: 2015-10-04 13:06-0400\n"
-"PO-Revision-Date: 2015-10-05 17:18-0400\n"
+"PO-Revision-Date: 2015-10-05 17:38-0400\n"
 "Last-Translator: Evan Herman <evan.m.herman@gmail.com>\n"
 "Language-Team: YIKES Inc. <http://www.yikesinc.com>\n"
 "Language: fr\n"
@@ -1534,10 +1534,10 @@ msgid ""
 "the plugin to attempt to create the table. If the error persists, please get "
 "in touch with the YIKES Inc. support team."
 msgstr ""
-"Il semble que la table des formes est absent. S'il vous plaît de désactiver "
-"et de réactiver l’extension pour tenter de créer la table . Si l'erreur "
+"Il semble que les formes table est absent . S'il vous plaît de désactiver et "
+"de réactiver l’extension pour tenter de créer la table. Si l'erreur "
 "persiste, s'il vous plaît entrer en contact avec l'équipe de soutien YIKES "
-"Inc. ."
+"Inc."
 
 #: admin/partials/menu/manage-forms.php:46
 #: admin/partials/menu/manage-lists.php:27
@@ -1547,73 +1547,83 @@ msgid ""
 "over to the <a href=\"%s\" title=\"Settings Page\">Settings Page</a> and "
 "enter your API key."
 msgstr ""
+"Vous avez besoin de connecter à MailChimp avant de créer de formulaires. "
+"Rendez-vous sur la <a href=“%s” title=“Page paramètres”>Page paramètres</a> "
+"et entrez votre clé API."
 
 #: admin/partials/menu/manage-forms.php:54
 msgid "Opt-in form successfully deleted."
-msgstr ""
+msgstr "Le formulaire opt-in a été mis à jour avec succès!"
 
 #: admin/partials/menu/manage-forms.php:62
 msgid "MailChimp Form successfully cloned."
-msgstr ""
+msgstr "Le formulaire MailChimp clonés avec succès."
 
 #: admin/partials/menu/manage-forms.php:70
 msgid ""
 "There was an error trying to clone your form. Please try again. If this "
 "error persists, please contact the YIKES Inc. support team."
 msgstr ""
+"Il y avait une erreur d’essayer de cloner votre formulaire. S’il vous plaît "
+"essayer de nouveau. Si cette erreur persiste, veuillez contacter l’équipe de "
+"soutien YIKES Inc."
 
 #: admin/partials/menu/manage-forms.php:94
 #: admin/partials/menu/manage-forms.php:109
 msgid "ID"
-msgstr ""
+msgstr "ID"
 
 #: admin/partials/menu/manage-forms.php:97
 #: admin/partials/menu/manage-forms.php:112
 msgid "List"
-msgstr ""
+msgstr "Liste"
 
 #: admin/partials/menu/manage-forms.php:98
 #: admin/partials/menu/manage-forms.php:113
 #: admin/partials/menu/manage-forms.php:152
 msgid "Impressions"
-msgstr ""
+msgstr "Impressions"
 
 #: admin/partials/menu/manage-forms.php:99
 #: admin/partials/menu/manage-forms.php:114
 #: admin/partials/menu/manage-forms.php:158
 msgid "Submissions"
-msgstr ""
+msgstr "Soumissions"
 
 #: admin/partials/menu/manage-forms.php:100
 #: admin/partials/menu/manage-forms.php:115
 msgid "Conversion Rate"
-msgstr ""
+msgstr "Taux de conversion"
 
 #: admin/partials/menu/manage-forms.php:132
 msgid "Duplicate"
-msgstr ""
+msgstr "Dupliquer"
 
 #: admin/partials/menu/manage-forms.php:133
 msgid "Stats"
-msgstr ""
+msgstr "Statistiques"
 
 #: admin/partials/menu/manage-forms.php:142
 #, php-format
 msgid "Are you sure you want to delete the %s form? This cannot be undone."
 msgstr ""
+"Etes-vous sûr que vous voulez supprimer le %s formulaire? Ça ne peut pas "
+"être annulé."
 
 #: admin/partials/menu/manage-forms.php:147
 msgid "List Not Found"
-msgstr ""
+msgstr "Liste introuvable"
 
 #: admin/partials/menu/manage-forms.php:191
 msgid ""
 "No MailChimp forms found. Use the form to the right to create a new one."
 msgstr ""
+"Aucun formulaire de MailChimp trouvé. Utilisez le formulaire à droite pour "
+"créer un nouveau."
 
 #: admin/partials/menu/manage-lists.php:19
 msgid "Manage Mailing Lists"
-msgstr ""
+msgstr "Gérer des listes"
 
 #: admin/partials/menu/manage-lists.php:82
 #, php-format
@@ -1622,6 +1632,9 @@ msgid ""
 "\">MailChimp.com</a> to setup your first mailing list. Once thats done you "
 "can head back here to customize it!"
 msgstr ""
+"Aucune liste de MailChimp trouvé. Visitez <a href=“%s” title=“MailChimp."
+"com”>MailChimp.com</a> pour configurer votre première liste de diffusion. "
+"Après vous faites cela, vous pouvez retournez ici pour la personnaliser !"
 
 #: admin/partials/menu/options-sections/api-cache-settings.php:12
 msgid ""
