@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Easy Forms for MailChimp by YIKES Inc.\n"
 "POT-Creation-Date: 2015-10-04 13:06-0400\n"
-"PO-Revision-Date: 2015-10-05 17:38-0400\n"
+"PO-Revision-Date: 2015-10-05 18:00-0400\n"
 "Last-Translator: Evan Herman <evan.m.herman@gmail.com>\n"
 "Language-Team: YIKES Inc. <http://www.yikesinc.com>\n"
 "Language: fr\n"
@@ -1634,17 +1634,21 @@ msgid ""
 msgstr ""
 "Aucune liste de MailChimp trouvé. Visitez <a href=“%s” title=“MailChimp."
 "com”>MailChimp.com</a> pour configurer votre première liste de diffusion. "
-"Après vous faites cela, vous pouvez retournez ici pour la personnaliser !"
+"Après vous faites cela, vous pouvez retournez ici pour la personnaliser!"
 
 #: admin/partials/menu/options-sections/api-cache-settings.php:12
 msgid ""
 "Delete all MailChimp data stored in your sites cache. Most data is stored in "
 "the cache for 1 hour."
 msgstr ""
+"Supprimer toutes les données MailChimp stockées dans votre cache de sites. "
+"La plupart des données sont stockées dans le cache pendant 1 heure."
 
 #: admin/partials/menu/options-sections/api-cache-settings.php:15
 msgid "No MailChimp data found in temporary cache storage."
 msgstr ""
+"Aucune donnée MailChimp trouvées dans le stockage de la mémoire cache "
+"temporaire."
 
 #: admin/partials/menu/options-sections/api-cache-settings.php:15
 #: admin/partials/menu/options-sections/api-cache-settings.php:17
