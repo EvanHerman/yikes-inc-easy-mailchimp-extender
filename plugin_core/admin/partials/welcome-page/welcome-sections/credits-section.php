@@ -47,7 +47,7 @@
 			<h2><?php _e( 'Developers', 'yikes-inc-easy-mailchimp-extender' ); ?></h2>
 			<?php
 				if( ! empty( $contributors ) ) {
-					$old_contributors = array( 'seriouslysean' , 'Apfelbiss', 'hiwhatsup' );
+					$old_contributors = array( 'seriouslysean' , 'Apfelbiss', 'hiwhatsup', 'mialevesque' );
 						foreach( $contributors as $contributor ) {
 							// skip contributors from our old plugin (this is a new re-write)
 							if( ! in_array( $contributor['login'] , $old_contributors ) ) {
