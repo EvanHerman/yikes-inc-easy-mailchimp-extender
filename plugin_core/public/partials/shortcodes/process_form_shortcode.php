@@ -384,7 +384,8 @@ function process_mailchimp_shortcode( $atts ) {
 										case 'addr2':
 										case 'city':
 											?>
-												<label class="yikes-mailchimp-<?php echo $type; ?>-field"><?php echo ucwords( apply_filters( 'yikes-mailchimp-address-'.$type.'-label' , esc_attr( $label ) ) ); ?>
+												<label class="yikes-mailchimp-<?php echo $type; ?>-field">
+												<span class="<?php echo esc_attr( $field['merge'] ) . '-label'; ?>"><?php echo ucwords( apply_filters( 'yikes-mailchimp-address-'.$type.'-label' , esc_attr( $label ) ) ); ?></span>
 													<input <?php echo implode( ' ' , $field_array ); ?> type="text"  value="<?php if( isset( $_POST[$field['merge']] ) && $form_submitted != 1 ) { echo $_POST[$field['merge']]; } ?>">
 												</label>
 											<?php
@@ -392,7 +393,8 @@ function process_mailchimp_shortcode( $atts ) {
 										
 										case 'state':
 											?>
-												<label class="yikes-mailchimp-<?php echo $type; ?>-field"><?php echo ucwords( apply_filters( 'yikes-mailchimp-address-'.$type.'-label' , esc_attr( $label ) ) ); ?>
+												<label class="yikes-mailchimp-<?php echo $type; ?>-field">
+												<span class="<?php echo esc_attr( $field['merge'] ) . '-label'; ?><?php echo esc_attr( $field['merge'] ) . '-state'; ?>"><?php echo ucwords( apply_filters( 'yikes-mailchimp-address-'.$type.'-label' , esc_attr( $label ) ) ); ?></span>
 													<select <?php echo implode( ' ' , $field_array ); ?>>
 														<?php include_once( YIKES_MC_PATH . 'public/partials/shortcodes/templates/state-dropdown.php' ); ?>
 													</select>
@@ -402,7 +404,8 @@ function process_mailchimp_shortcode( $atts ) {
 										
 										case 'zip':
 											?>
-												<label class="yikes-mailchimp-<?php echo $type; ?>-field"><?php echo ucwords( apply_filters( 'yikes-mailchimp-address-'.$type.'-label' , esc_attr( $label ) ) ); ?>
+												<label class="yikes-mailchimp-<?php echo $type; ?>-field">
+													<span class="<?php echo esc_attr( $field['merge'] ) . '-label'; ?><?php echo esc_attr( $field['merge'] ) . '-zip'; ?>"><?php echo ucwords( apply_filters( 'yikes-mailchimp-address-'.$type.'-label' , esc_attr( $label ) ) ); ?>
 													<input <?php echo implode( ' ' , $field_array ); ?> type="text" pattern="\d{5,5}(-\d{4,4})?" title="<?php _e( '5 digit zip code, numbers only' , 'yikes-inc-easy-mailchimp-extender' ); ?>" value="<?php if( isset( $_POST[$field['merge']] ) && $form_submitted != 1 ) { echo $_POST[$field['merge']]; } else { echo esc_attr( $default_value ); } ?>">
 												</label>
 											<?php
@@ -410,7 +413,8 @@ function process_mailchimp_shortcode( $atts ) {
 										
 										case 'country':
 											?>
-												<label class="yikes-mailchimp-<?php echo $type; ?>-field"><?php echo ucwords( apply_filters( 'yikes-mailchimp-address-'.$type.'-label' , esc_attr( $label ) ) ); ?>
+												<label class="yikes-mailchimp-<?php echo $type; ?>-field">
+													<span class="<?php echo esc_attr( $field['merge'] ) . '-label'; ?><?php echo esc_attr( $field['merge'] ) . '-zip'; ?>"><?php echo ucwords( apply_filters( 'yikes-mailchimp-address-'.$type.'-label' , esc_attr( $label ) ) ); ?></span>
 													<select <?php echo implode( ' ' , $field_array ); ?>>
 														<?php include_once( YIKES_MC_PATH . 'public/partials/shortcodes/templates/country-dropdown.php' ); ?>
 													</select>
