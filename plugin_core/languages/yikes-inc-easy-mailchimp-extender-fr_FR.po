@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Easy Forms for MailChimp by YIKES Inc.\n"
 "POT-Creation-Date: 2015-10-04 13:06-0400\n"
-"PO-Revision-Date: 2015-10-05 17:18-0400\n"
+"PO-Revision-Date: 2015-10-05 20:25-0400\n"
 "Last-Translator: Evan Herman <evan.m.herman@gmail.com>\n"
 "Language-Team: YIKES Inc. <http://www.yikesinc.com>\n"
 "Language: fr\n"
@@ -306,8 +306,8 @@ msgstr ""
 "Dans la dernière version de %s, a changé la structure de données d’options. "
 "Nous avons aussi déplacé les listes de diffusion dans sa propre table de "
 "base de données pour permettre une configuration de niveau supérieure. "
-"Maintenant vous pouvez facilement créer des formes multiples et assignez-les "
-"à la même liste de diffusion."
+"Maintenant vous pouvez facilement créer des formulaire multiples et assignez-"
+"les à la même liste de diffusion."
 
 #: admin/class-yikes-inc-easy-mailchimp-extender-admin.php:1153
 msgid ""
@@ -528,8 +528,8 @@ msgid ""
 "This field no longer exists in this list. Delete this field from the form to "
 "prevent issues on your website."
 msgstr ""
-"Ce champ n’existe plus dans cette liste. Supprimer ce champ de forme afin "
-"d’éviter les questions sur votre site Internet."
+"Ce champ n’existe plus dans cette liste. Supprimer ce champ de formulaire "
+"afin d’éviter les questions sur votre site Internet."
 
 #: admin/class-yikes-inc-easy-mailchimp-extender-admin.php:1585
 #: admin/partials/ajax/add_field_to_form.php:40
@@ -1059,7 +1059,7 @@ msgid ""
 msgstr ""
 "Sélectionnez les champs dans le droit d’ajouter à ce formulaire, vous pouvez "
 "cliquez sur un champ pour faire apparaître les options avancées, ou faites-"
-"la glisser pour ré-organiser sa position dans la forme."
+"la glisser pour ré-organiser sa position dans la formulaire."
 
 #: admin/partials/edit-form.php:192
 msgid "Form Fields &amp; Interest Groups"
@@ -1303,7 +1303,7 @@ msgstr "Cacher le formulaire après inscription"
 #: admin/partials/edit-form.php:494
 msgid "Should the form be hidden after the user successfully signs up?"
 msgstr ""
-"Doit la forme être cachée après que l'utilisateur souscrit avec succès?"
+"Doit la formulaire être cachée après que l'utilisateur souscrit avec succès?"
 
 #: admin/partials/edit-form.php:506
 msgid "Update Form"
@@ -1534,10 +1534,10 @@ msgid ""
 "the plugin to attempt to create the table. If the error persists, please get "
 "in touch with the YIKES Inc. support team."
 msgstr ""
-"Il semble que la table des formes est absent. S'il vous plaît de désactiver "
-"et de réactiver l’extension pour tenter de créer la table . Si l'erreur "
-"persiste, s'il vous plaît entrer en contact avec l'équipe de soutien YIKES "
-"Inc. ."
+"Il semble que les formulaires table est absent . S'il vous plaît de "
+"désactiver et de réactiver l’extension pour tenter de créer la table. Si "
+"l'erreur persiste, s'il vous plaît entrer en contact avec l'équipe de "
+"soutien YIKES Inc."
 
 #: admin/partials/menu/manage-forms.php:46
 #: admin/partials/menu/manage-lists.php:27
@@ -1547,73 +1547,83 @@ msgid ""
 "over to the <a href=\"%s\" title=\"Settings Page\">Settings Page</a> and "
 "enter your API key."
 msgstr ""
+"Vous avez besoin de connecter à MailChimp avant de créer de formulaires. "
+"Rendez-vous sur la <a href=“%s” title=“Page paramètres”>Page paramètres</a> "
+"et entrez votre clé API."
 
 #: admin/partials/menu/manage-forms.php:54
 msgid "Opt-in form successfully deleted."
-msgstr ""
+msgstr "Le formulaire opt-in a été mis à jour avec succès!"
 
 #: admin/partials/menu/manage-forms.php:62
 msgid "MailChimp Form successfully cloned."
-msgstr ""
+msgstr "Le formulaire MailChimp clonés avec succès."
 
 #: admin/partials/menu/manage-forms.php:70
 msgid ""
 "There was an error trying to clone your form. Please try again. If this "
 "error persists, please contact the YIKES Inc. support team."
 msgstr ""
+"Il y avait une erreur d’essayer de cloner votre formulaire. S’il vous plaît "
+"essayer de nouveau. Si cette erreur persiste, veuillez contacter l’équipe de "
+"soutien YIKES Inc."
 
 #: admin/partials/menu/manage-forms.php:94
 #: admin/partials/menu/manage-forms.php:109
 msgid "ID"
-msgstr ""
+msgstr "ID"
 
 #: admin/partials/menu/manage-forms.php:97
 #: admin/partials/menu/manage-forms.php:112
 msgid "List"
-msgstr ""
+msgstr "Liste"
 
 #: admin/partials/menu/manage-forms.php:98
 #: admin/partials/menu/manage-forms.php:113
 #: admin/partials/menu/manage-forms.php:152
 msgid "Impressions"
-msgstr ""
+msgstr "Impressions"
 
 #: admin/partials/menu/manage-forms.php:99
 #: admin/partials/menu/manage-forms.php:114
 #: admin/partials/menu/manage-forms.php:158
 msgid "Submissions"
-msgstr ""
+msgstr "Soumissions"
 
 #: admin/partials/menu/manage-forms.php:100
 #: admin/partials/menu/manage-forms.php:115
 msgid "Conversion Rate"
-msgstr ""
+msgstr "Taux de conversion"
 
 #: admin/partials/menu/manage-forms.php:132
 msgid "Duplicate"
-msgstr ""
+msgstr "Dupliquer"
 
 #: admin/partials/menu/manage-forms.php:133
 msgid "Stats"
-msgstr ""
+msgstr "Statistiques"
 
 #: admin/partials/menu/manage-forms.php:142
 #, php-format
 msgid "Are you sure you want to delete the %s form? This cannot be undone."
 msgstr ""
+"Etes-vous sûr que vous voulez supprimer le %s formulaire? Ça ne peut pas "
+"être annulé."
 
 #: admin/partials/menu/manage-forms.php:147
 msgid "List Not Found"
-msgstr ""
+msgstr "Liste introuvable"
 
 #: admin/partials/menu/manage-forms.php:191
 msgid ""
 "No MailChimp forms found. Use the form to the right to create a new one."
 msgstr ""
+"Aucun formulaire de MailChimp trouvé. Utilisez le formulaire à droite pour "
+"créer un nouveau."
 
 #: admin/partials/menu/manage-lists.php:19
 msgid "Manage Mailing Lists"
-msgstr ""
+msgstr "Gérer des listes"
 
 #: admin/partials/menu/manage-lists.php:82
 #, php-format
@@ -1622,16 +1632,23 @@ msgid ""
 "\">MailChimp.com</a> to setup your first mailing list. Once thats done you "
 "can head back here to customize it!"
 msgstr ""
+"Aucune liste de MailChimp trouvé. Visitez <a href=“%s” title=“MailChimp."
+"com”>MailChimp.com</a> pour configurer votre première liste de diffusion. "
+"Après vous faites cela, vous pouvez retournez ici pour la personnaliser!"
 
 #: admin/partials/menu/options-sections/api-cache-settings.php:12
 msgid ""
 "Delete all MailChimp data stored in your sites cache. Most data is stored in "
 "the cache for 1 hour."
 msgstr ""
+"Supprimer toutes les données MailChimp stockées dans votre cache de sites. "
+"La plupart des données sont stockées dans le cache pendant 1 heure."
 
 #: admin/partials/menu/options-sections/api-cache-settings.php:15
 msgid "No MailChimp data found in temporary cache storage."
 msgstr ""
+"Aucune donnée MailChimp trouvées dans le stockage de la mémoire cache "
+"temporaire."
 
 #: admin/partials/menu/options-sections/api-cache-settings.php:15
 #: admin/partials/menu/options-sections/api-cache-settings.php:17
@@ -1643,40 +1660,45 @@ msgid ""
 "If you encounter an issue with Easy Forms for MailChimp you can toggle on "
 "debugging to display advanced error messages and start logging errors."
 msgstr ""
+"Si vous rencontrez un problème avec Easy Forms pour MailChimp, vous pouvez "
+"basculer sur le débogage pour afficher les messages d’erreur avancé et "
+"commencer l’enregistrement des erreurs."
 
 #: admin/partials/menu/options-sections/debug-settings.php:38
 msgid "Debug Log"
-msgstr ""
+msgstr "Journal de débogage"
 
 #: admin/partials/menu/options-sections/debug-settings.php:38
 msgid "Clear Log"
-msgstr ""
+msgstr "Effacer le log"
 
 #: admin/partials/menu/options-sections/debug-settings.php:43
 msgid "Error Message"
-msgstr ""
+msgstr "Message d’erreur"
 
 #: admin/partials/menu/options-sections/debug-settings.php:44
 msgid "Error Details"
-msgstr ""
+msgstr "Détails de l’erreur"
 
 #: admin/partials/menu/options-sections/general-settings.php:18
 msgid ""
 "Enter your API key in the field below to connect your site to your MailChimp "
 "account."
 msgstr ""
+"Entrez votre clé API dans le champ ci-dessous pour vous connecter à votre "
+"site à votre compte MailChimp."
 
 #: admin/partials/menu/options-sections/general-settings.php:26
 msgid "Get your API key here"
-msgstr ""
+msgstr "Obtenez votre clef API ici"
 
 #: admin/partials/menu/options-sections/import-export-forms.php:8
 msgid "Import/Export Forms & Settings"
-msgstr ""
+msgstr "Importer/exporter des formulaires & paramètres"
 
 #: admin/partials/menu/options-sections/import-export-forms.php:15
 msgid "Export Forms"
-msgstr ""
+msgstr "Exporter formulaires"
 
 #: admin/partials/menu/options-sections/import-export-forms.php:17
 msgid ""
@@ -1685,60 +1707,70 @@ msgid ""
 "save to your computer. Once you've saved the download file, you can use the "
 "Import tool to import the forms to this or any other site."
 msgstr ""
+"Sélectionnez les formulaires que vous souhaitez exporter. Lorsque vous "
+"cliquez sur le bouton de téléchargement ci-dessous, Easy Forms pour "
+"MailChimp va créer un fichier CSV pour vous enregistrer sur votre "
+"ordinateur. Quand vous avez enregistré le fichier téléchargé, vous pouvez "
+"utiliser l’outil d’importation pour importer les formulaires de cet appareil "
+"ou de tout autre site."
 
 #: admin/partials/menu/options-sections/import-export-forms.php:22
 msgid "Select Forms"
-msgstr ""
+msgstr "Sélectionnez les formulaires"
 
 #: admin/partials/menu/options-sections/import-export-forms.php:24
 msgid ""
 "Select which forms to export. Leave all checkboxes unchecked to export all "
 "of your forms."
 msgstr ""
+"Sélectionnez quels formulaire à l’exporter. Laissez toutes les cases à "
+"cocher désactivé pour exporter toutes vos formulaires."
 
 #: admin/partials/menu/options-sections/import-export-forms.php:30
 msgid "It looks like you haven't created any forms yet."
-msgstr ""
+msgstr "Vous ne l'avez pas encore créé de formulaires."
 
 #: admin/partials/menu/options-sections/import-export-forms.php:33
 msgid "Export Opt-in Forms"
-msgstr ""
+msgstr "Exporter les formulaires Opt-in"
 
 #: admin/partials/menu/options-sections/import-export-forms.php:42
 msgid "Export Settings"
-msgstr ""
+msgstr "Exporter les paramètres"
 
 #: admin/partials/menu/options-sections/import-export-forms.php:44
 msgid "Export YIKES Easy Forms for MailChimp plugin settings."
-msgstr ""
+msgstr "Exporter Easy Forms pour MailChimp par Yikes Inc."
 
 #: admin/partials/menu/options-sections/import-export-forms.php:48
 msgid "Export Plugin Settings"
-msgstr ""
+msgstr "Exporter des paramètres des extensions"
 
 #: admin/partials/menu/options-sections/import-export-forms.php:57
 #: admin/partials/menu/options-sections/import-export-forms.php:66
 msgid "Import"
-msgstr ""
+msgstr "Importer"
 
 #: admin/partials/menu/options-sections/import-export-forms.php:59
 msgid ""
 "Select the Easy Forms for MailChimp export file you would like to import. "
 "You can use this field to import your optin forms or settings. "
 msgstr ""
+"Sélectionnez le fichier d’exportation Easy Forms  pour MallChimp que vous "
+"voulez importer. Vous pouvez utilizer votre formulaire opt-in ou paramètres."
 
 #: admin/partials/menu/options-sections/integration-settings.php:40
 msgid "WordPress Comment Form"
-msgstr ""
+msgstr "Formulaire de commentaires de WordPress"
 
 #: admin/partials/menu/options-sections/integration-settings.php:41
 msgid "WordPress Registration Form"
-msgstr ""
+msgstr "Formulaire d’inscription de WordPress"
 
 #: admin/partials/menu/options-sections/integration-settings.php:45
 #: admin/partials/menu/options-sections/integration-settings.php:46
 msgid "WordPress"
-msgstr ""
+msgstr "WordPress"
 
 #: admin/partials/menu/options-sections/integration-settings.php:45
 msgid ""
@@ -2727,7 +2759,7 @@ msgid ""
 "select a different form."
 msgstr ""
 "Oh non… Ce formulaire n’existe pas. Retournez à la page pour gérer les "
-"formulaires et sélectionnez une forme différente."
+"formulaires et sélectionnez une formulaire différente."
 
 #: public/partials/shortcodes/process_form_shortcode.php:42
 msgid ""
@@ -2754,8 +2786,8 @@ msgid ""
 "An email field is required for all MailChimp forms. Please add an email "
 "field to this form."
 msgstr ""
-"Un champ email est obligatoire pour toutes les formes de MailChimp. S’il "
-"vous plaît ajouter un champ email à ce formulaire."
+"Un champ email est obligatoire pour toutes les formulaires de MailChimp. "
+"S’il vous plaît ajouter un champ email à ce formulaire."
 
 #: public/partials/shortcodes/process_form_shortcode.php:112
 msgid "Whoops, it looks like you forgot to assign fields to this form."
