@@ -414,7 +414,7 @@ function process_mailchimp_shortcode( $atts ) {
 										case 'country':
 											?>
 												<label class="yikes-mailchimp-<?php echo $type; ?>-field">
-													<span class="<?php echo esc_attr( $field['merge'] ) . '-label'; ?><?php echo esc_attr( $field['merge'] ) . '-zip'; ?>"><?php echo ucwords( apply_filters( 'yikes-mailchimp-address-'.$type.'-label' , esc_attr( $label ) ) ); ?></span>
+													<span class="<?php echo esc_attr( $field['merge'] ) . '-label'; ?><?php echo esc_attr( $field['merge'] ) . '-country'; ?>"><?php echo ucwords( apply_filters( 'yikes-mailchimp-address-'.$type.'-label' , esc_attr( $label ) ) ); ?></span>
 													<select <?php echo implode( ' ' , $field_array ); ?>>
 														<?php include_once( YIKES_MC_PATH . 'public/partials/shortcodes/templates/country-dropdown.php' ); ?>
 													</select>
