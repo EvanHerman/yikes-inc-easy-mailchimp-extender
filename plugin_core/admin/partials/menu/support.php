@@ -23,7 +23,7 @@
 
 	<hr />
 	
-	<div id="col-container free-support-container">
+	<div id="col-container" class="free-support-container">
 
 		<div id="col-right">
 
