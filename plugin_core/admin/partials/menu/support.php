@@ -6,7 +6,7 @@
 *	By: Yikes Inc. | https://www.yikesinc.com
 */
 ?>
-<div class="wrap yikes-easy-mc-support-wrap">
+<div class="wrap yikes-easy-mc-support-wrap"> 
 
 	<div id="yikes-mailchimp-logo" class="support-page"></div>
 	
