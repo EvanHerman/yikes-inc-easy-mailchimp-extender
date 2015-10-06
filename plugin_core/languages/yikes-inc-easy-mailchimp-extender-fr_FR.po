@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Easy Forms for MailChimp by YIKES Inc.\n"
 "POT-Creation-Date: 2015-10-04 13:06-0400\n"
-"PO-Revision-Date: 2015-10-05 20:25-0400\n"
+"PO-Revision-Date: 2015-10-06 09:33-0400\n"
 "Last-Translator: Evan Herman <evan.m.herman@gmail.com>\n"
 "Language-Team: YIKES Inc. <http://www.yikesinc.com>\n"
 "Language: fr\n"
@@ -1778,16 +1778,22 @@ msgid ""
 "checkbox to your current users when leaving a comment (if they are not "
 "currently subscribed)."
 msgstr ""
+"Activation du noyau de WordPress formulaire de commentaire opt-in affiche "
+"une case à cocher pour vos utilisateurs actuels au moment de quitter un "
+"commentaire (si elles ne sont pas actuellement souscrites)."
 
 #: admin/partials/menu/options-sections/integration-settings.php:46
 msgid ""
 "Enabling the WordPress core registration form opt-in checkbox will display a "
 "checkbox to new users when registering for your site."
 msgstr ""
+"Activation du noyau de WordPress formulaire de commentaire opt-in affiche "
+"une case à cocher pour pour les nouveaux utilisateurs au moment de quitter "
+"un commentaire (si elles ne sont pas actuellement souscrites)."
 
 #: admin/partials/menu/options-sections/integration-settings.php:47
 msgid "WooCommerce Store"
-msgstr ""
+msgstr "WooCommerce Boutique en Ligne"
 
 #: admin/partials/menu/options-sections/integration-settings.php:47
 msgid ""
@@ -1795,42 +1801,54 @@ msgid ""
 "addresses from users who make purchases in your store. This option will add "
 "an opt-in checkbox to the checkout page."
 msgstr ""
+"Activation de WooCommerce formulaire de commande opt-in peut capturer les "
+"adresses email des utilisateurs qui font des achats dans votre boutique en "
+"ligne . Cette option ajoute une boîte de opt-in sur la page de paiement."
 
 #: admin/partials/menu/options-sections/integration-settings.php:48
 msgid "Easy Digital Downloads"
-msgstr ""
+msgstr "Easy Digital Downloads"
 
 #: admin/partials/menu/options-sections/integration-settings.php:48
 msgid ""
 "Enabling the Easy Digital Downloads checkout opt-in allows users who make a "
 "purchase to opt-in to your mailing list during checkout."
 msgstr ""
+"Activation du caisse opt-in de Easy Digital Downloads permet aux "
+"utilisateurs qui font un achat à l’opt-in à votre liste de diffusion lors du "
+"paiement."
 
 #: admin/partials/menu/options-sections/integration-settings.php:49
 msgid "BuddyPress"
-msgstr ""
+msgstr "BuddyPress"
 
 #: admin/partials/menu/options-sections/integration-settings.php:49
 msgid ""
 "Enabling the BuddyPress opt-in allows users who register for your site to be "
 "automatically added to the mailing list of your choice."
 msgstr ""
+"Activation de la BuddyPress opt-in permet aux utilisateurs qui souscrivent "
+"pour votre site automatiquement ajoutés à la liste de diffusion de votre "
+"choix ."
 
 #: admin/partials/menu/options-sections/integration-settings.php:50
 #: admin/partials/menu/options-sections/integration-settings.php:68
 msgid "bbPress"
-msgstr ""
+msgstr "bbPress"
 
 #: admin/partials/menu/options-sections/integration-settings.php:50
 msgid ""
 "Enabling the bbPress opt-in enables users who register to use the forums on "
 "your site to be automatically added to the mailing list of your choice."
 msgstr ""
+"Permettant le bbPress opt-in permet aux utilisateurs qui s’inscrivent à "
+"utiliser les forums sur votre site pour être automatiquement ajoutés à la "
+"liste de diffusion de votre choix."
 
 #: admin/partials/menu/options-sections/integration-settings.php:51
 #: admin/partials/menu/options-sections/integration-settings.php:72
 msgid "Contact Form 7"
-msgstr ""
+msgstr "Contact Form 7"
 
 #: admin/partials/menu/options-sections/integration-settings.php:51
 msgid ""
@@ -1838,28 +1856,33 @@ msgid ""
 "[yikes_mailchimp_checkbox label=\"Custom Label Text\"] in your contact forms "
 "to subscribe users to a pre-selected list."
 msgstr ""
+"Une fois que le Formulaire de contact 7 intégration est actif, vous pouvez "
+"utiliser notre coutume [yikes_mailchimp_checkbox label = \"text custom label"
+"\"] dans vos formulaires de contact pour vous abonner aux utilisateurs d' "
+"une liste présélectionnée."
 
 #: admin/partials/menu/options-sections/integration-settings.php:56
 msgid "Easy Digital Downloads Checkout"
-msgstr ""
+msgstr "Easy Digital Downloads Commander"
 
 #: admin/partials/menu/options-sections/integration-settings.php:60
 msgid "WooCommerce Checkout"
-msgstr ""
+msgstr "WooCommerce Commander"
 
 #: admin/partials/menu/options-sections/integration-settings.php:64
 msgid "BuddyPress Registration"
-msgstr ""
+msgstr "Enregistrement de BuddyPress"
 
 #: admin/partials/menu/options-sections/integration-settings.php:97
 #, php-format
 msgid "Please %s to setup your integrations."
-msgstr ""
+msgstr "Veuillez %s configurer vos intégrations. "
 
 #: admin/partials/menu/options-sections/integration-settings.php:97
 msgid "enter a valid MailChimp API key"
-msgstr ""
+msgstr "Entrez une clé API MailChimp valide"
 
+# rework
 #: admin/partials/menu/options-sections/integration-settings.php:108
 msgid ""
 "Select which plugins or features Easy Forms for MailChimp by Yikes Inc. "
@@ -1869,32 +1892,40 @@ msgid ""
 "comment form to add any new commenters to a pre-determined MailChimp mailing "
 "list."
 msgstr ""
+"Sélectionnez les plugins ou des caractéristiques Easy Forms pour MailChimp "
+"par YIKES, Inc. devraient intégrer. Selon les plugins ou fonctionnalités que "
+"vous choisissez d’intégrer, d’une case à cocher option sera généré. Par "
+"exemple, le formulaire de commentaires case va générer une case ci-dessous "
+"la forme WordPress de commentaire standard à ajouter de nouveaux "
+"intervenants à une liste pré-établie mailing MailChimp."
 
 #: admin/partials/menu/options-sections/integration-settings.php:142
 msgid "Select a List"
-msgstr ""
+msgstr "Sélectionner une liste…"
 
 #: admin/partials/menu/options-sections/integration-settings.php:149
 msgid ""
 "You have not setup any lists. You should head over to MailChimp and setup "
 "your first list."
 msgstr ""
+"Vous avez pas de liste en place . Visitez-vous MailChimp pour créer votre "
+"première liste."
 
 #: admin/partials/menu/options-sections/integration-settings.php:154
 msgid "Checkbox Label"
-msgstr ""
+msgstr "Libellé de case à cocher"
 
 #: admin/partials/menu/options-sections/integration-settings.php:158
 msgid "Precheck Checkbox"
-msgstr ""
+msgstr "Pré-vérifier de case à cocher"
 
 #: admin/partials/menu/options-sections/integration-settings.php:172
 msgid "Nothing is active."
-msgstr ""
+msgstr "Rien n’est actif."
 
 #: admin/partials/menu/options-sections/recaptcha-settings.php:15
 msgid "reCAPTCHA Settings"
-msgstr ""
+msgstr "Paramètres reCAPTCHA"
 
 #: admin/partials/menu/options-sections/recaptcha-settings.php:20
 msgid ""
@@ -1903,6 +1934,11 @@ msgid ""
 "computers try to disguise themselves as a human. reCAPTCHA will help prevent "
 "spammers and bots from submitting data through your MailChimp forms."
 msgstr ""
+"reCAPTCHA est un service gratuit de CAPTCHA, de Google, qui permet de "
+"protéger votre site contre le spam, les enregistrements malveillants et "
+"autres formes d’attaques où les ordinateurs essaient de se déguiser comme un "
+"être humain. reCAPTCHA aidera à empêcher les spammeurs et les bots de "
+"soumettre des données par le biais de vos formulaires de MailChimp."
 
 #: admin/partials/menu/options-sections/recaptcha-settings.php:24
 msgid "Get your reCAPTCHA API Key"
@@ -1926,23 +1962,23 @@ msgstr "Clé secrète reCAPTCHA"
 
 #: admin/partials/menu/options-sections/recaptcha-settings.php:44
 msgid "View reCAPTCHA Preview"
-msgstr ""
+msgstr "Vue aperçu ReCAPTCHA "
 
 #: admin/partials/menu/options-sections/recaptcha-settings.php:46
 msgid "reCAPTCHA Preview"
-msgstr ""
+msgstr "Aperçu reCAPTCHA"
 
 #: admin/partials/menu/options.php:9
 msgid "Your site is currently connected to the MailChimp API"
-msgstr ""
+msgstr "Votre site est actuellement connecté à l’API MailChimp."
 
 #: admin/partials/menu/options.php:9
 msgid "Connected"
-msgstr ""
+msgstr "Connecté"
 
 #: admin/partials/menu/options.php:12
 msgid "Not Connected"
-msgstr ""
+msgstr "Non-connecté"
 
 #: admin/partials/menu/options.php:33
 msgid ""
@@ -1950,18 +1986,21 @@ msgid ""
 "forms to your WordPress site and track user activity with interactive "
 "reports."
 msgstr ""
+"Easy Forms pour MailChimp vous permet sans douleur ajouter MailChimp "
+"formulaires d’inscription à votre site WordPress pour suivre l'activité de "
+"l'utilisateur avec des rapports interactifs."
 
 #: admin/partials/menu/options.php:39
 msgid "Settings successfully updated."
-msgstr ""
+msgstr "Paramètres mis à jour avec succès."
 
 #: admin/partials/menu/options.php:47
 msgid "MailChimp API Cache successfully cleared."
-msgstr ""
+msgstr "MailChimp API cache effacé avec succès."
 
 #: admin/partials/menu/options.php:56
 msgid "Error log successfully cleared."
-msgstr ""
+msgstr "Journal des erreurs effacé avec succès."
 
 #: admin/partials/menu/options.php:64
 msgid ""
@@ -2554,29 +2593,32 @@ msgstr ""
 
 #: admin/partials/welcome-page/welcome-sections/whats-new-section.php:43
 msgid "Settings Page"
-msgstr ""
+msgstr "Page des Paramètres"
 
 #: admin/partials/welcome-page/welcome-sections/whats-new-section.php:45
 msgid ""
 "We've re-laid out the settings page to allow for a more intuitive workflow. "
 "All of your settings are neatly tucked away in their respective setting tab."
 msgstr ""
+"Nous avons changé la page des paramètres pour permettre un flux de travail "
+"plus intuitif . Tous vos réglages se trouvent facilement dans leur onglet de "
+"réglages respectifs."
 
 #: admin/partials/welcome-page/welcome.php:14
 msgid "Getting Started"
-msgstr ""
+msgstr "Commencer"
 
 #: admin/partials/welcome-page/welcome.php:17
 msgid "What's New"
-msgstr ""
+msgstr "Quoi de neuf?"
 
 #: admin/partials/welcome-page/welcome.php:20
 msgid "Credits"
-msgstr ""
+msgstr "Crédits"
 
 #: admin/partials/welcome-page/welcome.php:41
 msgid "MailChimp Done Right"
-msgstr ""
+msgstr "MailChimp Bien Fait"
 
 #: admin/partials/welcome-page/welcome.php:45
 #, php-format
@@ -2584,14 +2626,17 @@ msgid ""
 "Thank you for updating to the latest version! YIKES Easy Forms for MailChimp "
 "%s is ready to help take your mailing lists to the next level!"
 msgstr ""
+"Merci de mettre à jour à la dernière version! Easy Forms pour MailChimp par "
+"YIKES, Inc. %s est prête à aider à faire progresser vos listes de diffusion "
+"un niveau superieur!"
 
 #: includes/error_log/class-yikes-inc-easy-mailchimp-error-logging.php:67
 msgid "Admin"
-msgstr ""
+msgstr "Admin"
 
 #: includes/error_log/class-yikes-inc-easy-mailchimp-error-logging.php:69
 msgid "Front End"
-msgstr ""
+msgstr "Front-End"
 
 #: includes/error_log/class-yikes-inc-easy-mailchimp-error-logging.php:82
 msgid "Page:"
@@ -2605,10 +2650,9 @@ msgstr "Type :"
 msgid "Time:"
 msgstr "Temps:"
 
-# File GET?
 #: includes/error_log/class-yikes-inc-easy-mailchimp-error-logging.php:110
 msgid "File get contents not available"
-msgstr "Le contenu des fichiers ne sont pas disponibles."
+msgstr "Le fichier GET n’est pas disponible."
 
 #: includes/error_log/class-yikes-inc-easy-mailchimp-error-logging.php:120
 msgid "No errors logged."
