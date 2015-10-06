@@ -1,6 +1,6 @@
 {
   "name": "yikes-inc-easy-mailchimp-extender",
-  "version": "6.0.0",
+  "version": "6.0.1",
   "description": "Easy MailChimp opt-in forms for your site.",
   "main": "index.js",
   "scripts": {
