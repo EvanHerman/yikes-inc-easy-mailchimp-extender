@@ -73,6 +73,10 @@ function process_mailchimp_shortcode( $atts ) {
 	$error_messages = json_decode( $form_data['error_messages'] , true );	
 	$notifications = isset( $form_data['custom_notifications'] ) ? json_decode( stripslashes( $form_data['custom_notifications'] ) , true ) : '';
 	
+	// used in yikes-mailchimp-redirect-url filter
+	global $post;
+	$page_data = $post;
+	
 	// enqueue the form styles
 	wp_enqueue_style( 'yikes-inc-easy-mailchimp-public-styles', YIKES_MC_URL . 'public/css/yikes-inc-easy-mailchimp-extender-public.min.css' );
 	
@@ -142,8 +146,6 @@ function process_mailchimp_shortcode( $atts ) {
 		
 		// Check for AJAX
 		if( ( !empty( $atts['ajax'] ) && $atts['ajax'] == 1 ) || $submission_settings['ajax'] == 1 ) {
-			// Include our ajax processing class
-			// require_once( YIKES_MC_PATH . 'public/partials/ajax/class.public_ajax.php' );
 			// enqueue our ajax script
 			wp_register_script( 'yikes-easy-mc-ajax' , YIKES_MC_URL . 'public/js/yikes-mc-ajax-forms.min.js' , array( 'jquery' ) , 'yikes-inc-easy-mailchimp-extender', false );
 			wp_localize_script( 'yikes-easy-mc-ajax' , 'object' , array( 
@@ -153,7 +155,8 @@ function process_mailchimp_shortcode( $atts ) {
 				'submission_settings' => json_encode( $submission_settings ), 
 				'error_messages' => json_encode( $error_messages ), 
 				'notifications' => json_encode( $notifications ), 
-				'form_id' => $form_id 
+				'form_id' => $form_id,
+				'page_data' => $page_data,
 			) );
 			wp_enqueue_script( 'yikes-easy-mc-ajax' );
 		}

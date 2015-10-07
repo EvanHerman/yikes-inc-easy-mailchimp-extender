@@ -10,13 +10,16 @@
 			// store the form ID to use in our hooks and filters
 			$form = $_POST['form_id'];
 			// decode our submission settings
-			$submission_settings = json_decode( stripslashes( $_POST['submission_settings'] ) , true );
+			$submission_settings = json_decode( stripslashes( $_POST['submission_settings'] ), true );
 			// decode our optin settings
-			$optin_settings = json_decode( stripslashes( $_POST['optin_settings'] ) , true );
+			$optin_settings = json_decode( stripslashes( $_POST['optin_settings'] ), true );
 			// decode our error messages
-			$error_messages = json_decode( stripslashes( $_POST['error_messages'] ) , true );
+			$error_messages = json_decode( stripslashes( $_POST['error_messages'] ), true );
 			/** Submit Process **/
-			$notifications = json_decode( stripslashes( $_POST['notifications'] ) , true );
+			$notifications = json_decode( stripslashes( $_POST['notifications'] ), true );
+			/* Page Data */
+			$page_data = $_POST['page_data'];
+						
 			// Empty array to build up merge variables
 			$merge_variables = array();
 			
@@ -119,7 +122,7 @@
 				*/
 				if( $submission_settings['redirect_on_submission'] == '1' ) {
 					$redirection = '1';
-					$redirect = '<script type="text/javascript">setTimeout(function() { window.location="' . apply_filters( 'yikes-mailchimp-redirect-url', get_permalink( $submission_settings['redirect_page'] ), $form ) . '"; }, ' . apply_filters( 'yikes-mailchimp-redirect-timer', 1500 ) . ');</script>';
+					$redirect = '<script type="text/javascript">setTimeout(function() { window.location="' . apply_filters( 'yikes-mailchimp-redirect-url', get_permalink( $submission_settings['redirect_page'] ), $form, $page_data ) . '"; }, ' . apply_filters( 'yikes-mailchimp-redirect-timer', 1500 ) . ');</script>';
 				}
 				
 				/*
