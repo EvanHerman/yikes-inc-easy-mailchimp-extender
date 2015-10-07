@@ -98,7 +98,8 @@ $ grunt auto_install
 ###### Filters
 - yikes-mailchimp-form-title-FORM_ID - alter the output of the form title of the specified form
 - yikes-mailchimp-form-description-FORM_ID - alter the output of the form description of the specified form
-- yikes-mailchimp-redirect-timer - (ms : 1 second = 1000ms) alter the amount of time the user sees the success message before being redirected (default: 1500ms);
+- yikes-mailchimp-redirect-timer (ms : 1 second = 1000ms) alter the amount of time the user sees the success message before being redirected (default: 1500ms) (@parameters - $time, $form_id)
+- yikes-mailchimp-redirect-url - Alter the URL of the page that the user will be redirected too on a successful submission. (@parameters - $url, $form_id)
 - yikes-mailchimp-before-submission - catch the merge variables of all forms before they get sent over to MailChimp
 - yikes-mailchimp-before-submission-FORM_ID - catch the merge variables of the specified form before they get sent over to MailChimp
 - yikes-mailchimp-after-submission - catch the merge variables of all forms after they get sent over to MailChimp
