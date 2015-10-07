@@ -16,10 +16,10 @@
 		<p><?php _e( 'Users of the free version of YIKES Inc. Easy Forms for MailChimp are limited to two methods of support. We respond to support requests for the free version of the plugin once a week.' , 'yikes-inc-easy-mailchimp-extender' ); ?></p>
 		<p><?php printf( __( 'Purchasers of our paid add-ons qualify for premium support, <a href="%s" target="_blank" title="' . __( 'check them out', 'yikes-inc-easy-mailchimp-extender' ) . '">' . __( 'check them out', 'yikes-inc-easy-mailchimp-extender' ) . '</a>!' , 'yikes-inc-easy-mailchimp-extender' ), esc_url( 'https://yikesplugins.com/' ) ); ?></p>
 	<?php } else { ?>
-		<p><?php _e( "It looks like you are one of our premium users! Scroll down and fill out the form at the bottom of the page to submit a priority support request." , 'yikes-inc-easy-mailchimp-extender' ); ?></p>
+		<p><?php _e( "It looks like you are one of our premium users! Fill out the form below to submit a priority support request." , 'yikes-inc-easy-mailchimp-extender' ); ?></p>
 	<?php } ?>
 
-		<p><?php printf( __( 'For full YIKES Inc. Easy Forms for MailChimp documentation, visit our %s.' , 'yikes-inc-easy-mailchimp-extender' ), '<a target="_blank" href="' . esc_url( 'https://yikesinc.freshdesk.com/support/home' ) . '" title="' . __( 'Knowledge Base', 'yikes-inc-easy-mailchimp-extender' ) . '">' . __( 'knowledge base', 'yikes-inc-easy-mailchimp-extender' ) . '</a>' ); ?></p>
+		<p><?php printf( __( 'Before submitting a support request, visit our %s.' , 'yikes-inc-easy-mailchimp-extender' ), '<a target="_blank" href="' . esc_url( 'https://yikesinc.freshdesk.com/support/home' ) . '" title="' . __( 'Knowledge Base', 'yikes-inc-easy-mailchimp-extender' ) . '">' . __( 'knowledge base', 'yikes-inc-easy-mailchimp-extender' ) . '</a> where we have step-by-step guides and troubleshooting help.' ); ?></p>
 
 	<hr />
 	
