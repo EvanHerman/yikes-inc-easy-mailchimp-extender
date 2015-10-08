@@ -103,11 +103,11 @@
 	
 		/**
 		 *	Hook to submit the data to MailChimp when 
-		 *	a new comment is submitted
+		 *	a new integration type is submitted
 		 *
 		 *	@since 6.0.0
 		**/
-		public function subscribe_user_integration( $email , $type , $merge_vars ) {			
+		public function subscribe_user_integration( $email, $type, $merge_vars ) {			
 			// get checkbox data
 			$checkbox_options = get_option( 'optin-checkbox-init' , '' );
 			if( $type != 'registration_form' ) {
@@ -125,7 +125,7 @@
 				// subscribe the user
 				$subscribe_response = $MailChimp->call( '/lists/subscribe', array( 
 					'api_key' => get_option( 'yikes-mc-api-key' , '' ),
-					'id' => $checkbox_options['comment_form']['associated-list'],
+					'id' => $checkbox_options[$type]['associated-list'],
 					'email' => array( 'email' => sanitize_email( $email) ),
 					'merge_vars' => $merge_vars,
 					'double_optin' => 0,

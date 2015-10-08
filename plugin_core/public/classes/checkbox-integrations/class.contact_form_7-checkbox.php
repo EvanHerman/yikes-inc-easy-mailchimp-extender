@@ -42,10 +42,11 @@ class Yikes_Easy_MC_CF7_Checkbox_Class extends Yikes_Easy_MC_Checkbox_Integratio
 		wpcf7_add_shortcode( 'yikes_mailchimp_checkbox', array( $this, 'yikes_get_checkbox' ) );
 		return true;
 	}
+	
 	/**
 	* Alter Contact Form 7 data.
 	*
-	* Adds mc4wp_checkbox to post data so users can use `mc4wp_checkbox` in their email templates
+	* Adds yikes_mailchimp_checkbox to post data so users can use `yikes_mailchimp_checkbox` in their email templates
 	*
 	* @param array $data
 	* @return array
@@ -54,16 +55,23 @@ class Yikes_Easy_MC_CF7_Checkbox_Class extends Yikes_Easy_MC_Checkbox_Integratio
 		$data['yikes_mailchimp_checkbox'] = $this->was_checkbox_checked( $this->type ) ? __( 'Yes', $this->text_domain ) : __( 'No', $this->text_domain );
 		return $data;
 	}
+	
 	/**
 	* Subscribe from Contact Form 7 Forms
 	*/
-	public function new_cf7_subscription() {
+	public function new_cf7_subscription( $contact_form ) {
 		// was sign-up checkbox checked?
 		if ( $this->was_checkbox_checked( $this->type ) === false ) {
 			return false;
 		}
-		return $this->attempt_subscription();
+		$submission = WPCF7_Submission::get_instance();
+		if ( $submission ) {
+			$posted_data = $submission->get_posted_data();
+			$email = ( isset( $posted_data['your-email'] ) ) ? $posted_data['your-email'] : '';
+			return $this->subscribe_user_integration( $email, 'contact_form_7', array() );
+		}
 	}
+	
 }
 new Yikes_Easy_MC_CF7_Checkbox_Class;
 
