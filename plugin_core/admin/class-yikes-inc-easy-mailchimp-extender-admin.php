@@ -654,7 +654,8 @@ class Yikes_Inc_Easy_Mailchimp_Forms_Admin {
 		 */
 		wp_register_script( $this->yikes_inc_easy_mailchimp_extender, plugin_dir_url( __FILE__ ) . 'js/min/yikes-inc-easy-mailchimp-extender-admin.min.js', array( 'jquery' , 'jquery-ui-sortable' ), $this->version, false );
 		$localized_data = array(
-			'admin_url' => esc_url_raw( admin_url() )
+			'admin_url' => esc_url_raw( admin_url() ),
+			'ajax_url' => esc_url_raw( admin_url( 'admin-ajax.php' ) ),
 		);
 		wp_localize_script( $this->yikes_inc_easy_mailchimp_extender , 'object_data' , $localized_data );
 		wp_enqueue_script( $this->yikes_inc_easy_mailchimp_extender );
