@@ -128,7 +128,7 @@
 					?>
 						<li>
 							<label>
-								<input type="checkbox" name="optin-checkbox-init[<?php echo $class; ?>][value]" <?php echo $checked; ?> onclick="jQuery(this).parents('li').next().stop().slideToggle();"><?php echo ucwords( $value ); ?><span class="dashicons dashicons-editor-help"></span><div class="tooltiptext qtip-bootstrap" style="display:none;"><?php echo $class_descriptions[$class]; ?></div>
+								<input type="checkbox" name="optin-checkbox-init[<?php echo $class; ?>][value]" value="on" <?php echo $checked; ?> onclick="jQuery(this).parents('li').next().stop().slideToggle();"><?php echo ucwords( $value ); ?><span class="dashicons dashicons-editor-help"></span><div class="tooltiptext qtip-bootstrap" style="display:none;"><?php echo $class_descriptions[$class]; ?></div>
 							</label>
 						</li>
 						<!-- checkbox settings, text - associated list etc. -->
