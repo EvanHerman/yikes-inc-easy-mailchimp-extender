@@ -124,6 +124,7 @@
 					$checkbox_label = isset( $options[$class]['label'] ) ? esc_attr__( $options[$class]['label'] ) : '';
 					$precheck_checkbox = isset( $options[$class]['precheck'] ) ? $options[$class]['precheck'] : '';
 					$selected_list = isset( $options[$class]['associated-list'] ) ? $options[$class]['associated-list'] : '-';
+					$list_interest_groups = isset( $options[$class]['interest-groups'] ) ? $options[$class]['interest-groups'] : false;
 					?>
 						<li>
 							<label>
@@ -168,6 +169,11 @@
 										if ( $selected_list != '-' && get_transient( $selected_list . '_interest_group' ) ) {
 											$interest_groupings = get_transient( $selected_list . '_interest_group' );
 											$integration_type = str_replace( 'wordpress_', '', strtolower( str_replace( ' ', '_', $value ) ) );
+											require( YIKES_MC_PATH . 'admin/partials/menu/options-sections/templates/integration-interest-groups.php' );
+										} else if( $list_interest_groups ) {
+											$list_id = $options[$class]['associated-list'];
+											$integration_type = str_replace( 'wordpress_', '', strtolower( str_replace( ' ', '_', $value ) ) );
+											YIKES_Inc_Easy_MailChimp_Process_Ajax::check_list_for_interest_groups( $list_id, $integration_type ); 
 											require( YIKES_MC_PATH . 'admin/partials/menu/options-sections/templates/integration-interest-groups.php' );
 										}
 									?>

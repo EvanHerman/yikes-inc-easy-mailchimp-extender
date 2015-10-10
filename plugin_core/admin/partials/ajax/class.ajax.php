@@ -56,12 +56,17 @@
 		// whent the user switches lists in the integration settings page
 		// we want to return the interest groups associated with this list,
 		// to allow users to pre-check anything they want to assign users appropriately
-		public function check_list_for_interest_groups() {
-			$list_id = $_POST['list_id'];
-			$integration_type = $_POST['integration'];
+		/* note: this function is called statically from the integration settings page */
+		public static function check_list_for_interest_groups( $list_id='', $integration_type='' ) {
+			if( ! $list_id ) { 	
+				$list_id = $_POST['list_id'];
+			}
+			if( ! $integration_type ) {	
+				$integration_type = $_POST['integration'];
+			}
 			$api_key = get_option( 'yikes-mc-api-key' , '' );
 			// setup/check our transients
-			if ( /* WP_DEBUG || */ false === ( $interest_groupings = get_transient( $list_id . '_interest_group' ) ) ) {
+			if ( WP_DEBUG ||  false === ( $interest_groupings = get_transient( $list_id . '_interest_group' ) ) ) {
 			  // It wasn't there, so regenerate the data and save the transient
 				try {
 					// initialize MailChimp Class
@@ -71,7 +76,7 @@
 				} catch( Exception $error ) {
 					$interest_groupings = $error->getMessage();
 				}
-				// set the transient for 1 hour
+				// set the transient for 2 hours
 				set_transient( $list_id . '_interest_group', $interest_groupings, 2 * HOUR_IN_SECONDS );
 			}
 			if( isset( $interest_groupings ) && ! empty( $interest_groupings ) ) {

@@ -4,7 +4,7 @@
 *	Main class file for the integration with Contact Form 7
 *
 *	@description
-*	enables the use of a [yikes_mailchimp_checkbox label="xyz"] shortcode
+*	enables the use of a [yikes_mailchimp_checkbox] shortcode
 *	for use in contact forms
 *
 *	@since 6.0.0
@@ -18,7 +18,6 @@ class Yikes_Easy_MC_CF7_Checkbox_Class extends Yikes_Easy_MC_Checkbox_Integratio
 	 * @var string
 	 */
 	protected $type = 'contact_form_7';
-	protected $text_domain = 'yikes-inc-easy-mailchimp-extender';
 	
 	/**
 	 * Constructor
@@ -52,7 +51,7 @@ class Yikes_Easy_MC_CF7_Checkbox_Class extends Yikes_Easy_MC_Checkbox_Integratio
 	* @return array
 	*/
 	public function alter_cf7_data( $data = array() ) {
-		$data['yikes_mailchimp_checkbox'] = $this->was_checkbox_checked( $this->type ) ? __( 'Yes', $this->text_domain ) : __( 'No', $this->text_domain );
+		$data['yikes_mailchimp_checkbox'] = $this->was_checkbox_checked( $this->type ) ? __( 'Yes', 'yikes-inc-easy-mailchimp-extender' ) : __( 'No', 'yikes-inc-easy-mailchimp-extender' );
 		return $data;
 	}
 	
@@ -64,11 +63,18 @@ class Yikes_Easy_MC_CF7_Checkbox_Class extends Yikes_Easy_MC_Checkbox_Integratio
 		if ( $this->was_checkbox_checked( $this->type ) === false ) {
 			return false;
 		}
+		// get the integration options
+		$integration_options = get_option( 'optin-checkbox-init' , '' );
+		// get the contact form 7 submission instance
 		$submission = WPCF7_Submission::get_instance();
+		// confirm the submission was received
 		if ( $submission ) {
+			// get the submission data
 			$posted_data = $submission->get_posted_data();
+			// store the email -- this needs to be more dynamic (find string with containing string email?)
 			$email = ( isset( $posted_data['your-email'] ) ) ? $posted_data['your-email'] : '';
-			return $this->subscribe_user_integration( $email, 'contact_form_7', array() );
+			// submit this subscriber
+			return $this->subscribe_user_integration( $email, $this->type, apply_filters( 'yikes-mailchimp-contact-form-7', array() ) );
 		}
 	}
 	

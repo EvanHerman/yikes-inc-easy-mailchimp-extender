@@ -119,6 +119,21 @@
 			if( ! isset( $merge_vars['OPTIN_IP'] ) && isset( $_SERVER['REMOTE_ADDR'] ) ) {
 				$merge_vars['OPTIN_IP'] = sanitize_text_field( $_SERVER['REMOTE_ADDR'] );
 			}
+			// check for interest groups
+			$interest_groups = ( isset( $checkbox_options[$type]['interest-groups'] ) ) ? $checkbox_options[$type]['interest-groups'] : false;
+			// if interest groups were found, push them to the merge variable array
+			if( $interest_groups ) {
+				$merge_vars['groupings'] = array();
+				foreach( $interest_groups as $interest_group_id => $interest_group_selections ) {
+					// merge variable interest groups array
+					$merge_vars['groupings'][] = array(
+						'id' => $interest_group_id,
+						'groups' => $interest_group_selections,
+					); 	
+				}
+				// replace the interest groups - to avoid any errors thrown if the admin switches lists, or interest groups
+				$merge_vars['replace_interests'] = 1;
+			}
 			// initialize MailChimp API
 			try {
 				$MailChimp = new MailChimp( get_option( 'yikes-mc-api-key' , '' ) );
@@ -126,7 +141,7 @@
 				$subscribe_response = $MailChimp->call( '/lists/subscribe', array( 
 					'api_key' => get_option( 'yikes-mc-api-key' , '' ),
 					'id' => $checkbox_options[$type]['associated-list'],
-					'email' => array( 'email' => sanitize_email( $email) ),
+					'email' => array( 'email' => sanitize_email( $email ) ),
 					'merge_vars' => $merge_vars,
 					'double_optin' => 0,
 					'update_existing' => $update,
@@ -135,6 +150,7 @@
 			} catch( Exception $e ) { 
 				$e->getMessage();
 			}
+			return;
 		}
 		
 		/**

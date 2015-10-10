@@ -51,8 +51,11 @@ class Yikes_Inc_Easy_Mailchimp_Forms_Admin {
 		add_action( 'admin_init', array( $this , 'yikes_easy_mc_settings_init' ) );
 		// plugin redirect on activation
 		add_action( 'admin_init' , array( $this , 'yikes_easy_mc_activation_redirect' ) );
-		// Include our MailChimp API Wrapper
-		include_once( YIKES_MC_PATH . 'includes/MailChimp/Mailchimp.php' );
+		// ensure the MailChimp class wasn't previously declared in another plugin
+		if( ! class_exists( 'Mailchimp' ) ) {
+			// Include our MailChimp API Wrapper
+			include_once( YIKES_MC_PATH . 'includes/MailChimp/Mailchimp.php' );
+		}
 		// Include our dashboard widget class
 		include_once( YIKES_MC_PATH . 'admin/partials/dashboard-widgets/class.list-activity-widget.php' );
 		// Include our front end widget class
@@ -656,6 +659,9 @@ class Yikes_Inc_Easy_Mailchimp_Forms_Admin {
 		$localized_data = array(
 			'admin_url' => esc_url_raw( admin_url() ),
 			'ajax_url' => esc_url_raw( admin_url( 'admin-ajax.php' ) ),
+			'locating_interest_groups' => __( 'Locating Interest Groups', 'yikes-inc-easy-mailchimp-extender' ),
+			'search_preloader_url' => YIKES_MC_URL . 'includes/images/search-interest-group-preloader.gif',
+			'preloader_url' => esc_url_raw( admin_url( '/images/wpspin_light.gif' ) )
 		);
 		wp_localize_script( $this->yikes_inc_easy_mailchimp_extender , 'object_data' , $localized_data );
 		wp_enqueue_script( $this->yikes_inc_easy_mailchimp_extender );
