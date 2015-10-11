@@ -91,7 +91,7 @@
 				$content = '<p id="yikes-easy-mailchimp-' . $this->type . '-checkbox" class="yikes-easy-mailchimp-' . $this->type . '-checkbox">';
 					$content .= '<label>';
 						$content .= '<input type="checkbox" name="yikes_mailchimp_checkbox_' . $this->type . '" value="1" '. $checked . ' /> ';
-						$content .= $checkbox_options[$this->type]['label'];
+						$content .= ( isset( $checkbox_options[$this->type]['label'] ) && trim( $checkbox_options[$this->type]['label'] ) != '' ) ? trim( $checkbox_options[$this->type]['label'] ) : __( 'Sign me up for your mailing list.', 'yikes-inc-easy-mailchimp-extender' );
 					$content .= '</label>';
 				$content .= '</p>';
 				// after checkbox HTML (..., honeypot, closing comment)
@@ -138,15 +138,15 @@
 			try {
 				$MailChimp = new MailChimp( get_option( 'yikes-mc-api-key' , '' ) );
 				// subscribe the user
-				$subscribe_response = $MailChimp->call( '/lists/subscribe', array( 
+				$subscribe_response = $MailChimp->call( '/lists/subscribe', apply_filters( 'yikes-mailchimp-checkbox-integration-subscibe-api-request', array( 
 					'api_key' => get_option( 'yikes-mc-api-key' , '' ),
 					'id' => $checkbox_options[$type]['associated-list'],
 					'email' => array( 'email' => sanitize_email( $email ) ),
-					'merge_vars' => $merge_vars,
-					'double_optin' => 0,
+					'merge_vars' => apply_filters( 'yikes-mailchimp-checkbox-integration-merge-variables', $merge_vars, $type ), // filter merge variables
+					'double_optin' => 1,
 					'update_existing' => $update,
 					'send_welcome' => 1
-				) );
+				), $type ) );
 			} catch( Exception $e ) { 
 				$e->getMessage();
 			}

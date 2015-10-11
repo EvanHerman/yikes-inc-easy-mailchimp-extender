@@ -2071,28 +2071,28 @@ class Yikes_Inc_Easy_Mailchimp_Forms_Admin {
 					$available_tags = array(
 						array(
 							'tag' => '{page_title}',
-							'description' => '<h4 class="tooltip-title">{page_title}</h4><hr />' . __( 'Pre-populate the field with the current page or post title that the user is on when opting in to your mailing list.' , 'yikes-inc-easy-mailchimp-extender' ),
-							'title' => ''
+							'description' => '<h4 class="tooltip-title">' . __( 'Page Title', 'yikes-inc-easy-mailchimp-extender' ) . '</h4><hr />' . __( 'Pre-populate the field with the current page or post title that the user is on when opting in to your mailing list.' , 'yikes-inc-easy-mailchimp-extender' ),
+							'title' => __( 'Page Title', 'yikes-inc-easy-mailchimp-extender' )
 						),
 						array(
 							'tag' => '{page_id}',
-							'description' => '<h4 class="tooltip-title">{page_id}</h4><hr />' . __( 'Pre-populate the field with the current page or post ID that the user is on when opting in to your mailing list.' , 'yikes-inc-easy-mailchimp-extender' ),
-							'title' => ''
+							'description' => '<h4 class="tooltip-title">' . __( 'Page ID', 'yikes-inc-easy-mailchimp-extender' ) . '</h4><hr />' . __( 'Pre-populate the field with the current page or post ID that the user is on when opting in to your mailing list.' , 'yikes-inc-easy-mailchimp-extender' ),
+							'title' => __( 'Page ID', 'yikes-inc-easy-mailchimp-extender' )
 						),
 						array(
 							'tag' => '{page_url}',
-							'description' => '<h4 class="tooltip-title">{page_url}</h4><hr />' . __( 'Pre-populate the field with the current page URL that the user is on when opting in to your mailing list.' , 'yikes-inc-easy-mailchimp-extender' ),
-							'title' => ''
+							'description' => '<h4 class="tooltip-title">' . __( 'Page URL', 'yikes-inc-easy-mailchimp-extender' ) . '</h4><hr />' . __( 'Pre-populate the field with the current page URL that the user is on when opting in to your mailing list.' , 'yikes-inc-easy-mailchimp-extender' ),
+							'title' => __( 'Page URL', 'yikes-inc-easy-mailchimp-extender' )
 						),
 						array(
 							'tag' => '{blog_name}',
-							'description' => '<h4 class="tooltip-title">{blog_name}</h4><hr />' . __( 'Pre-populate the field with the current blog name that the user is on when opting in to your mailing list. This is especially helpful for multi-site networks.' , 'yikes-inc-easy-mailchimp-extender' ),
-							'title' => ''
+							'description' => '<h4 class="tooltip-title">' . __( 'Blog Name', 'yikes-inc-easy-mailchimp-extender' ) . '</h4><hr />' . __( 'Pre-populate the field with the current blog name that the user is on when opting in to your mailing list. This is especially helpful for multi-site networks.' , 'yikes-inc-easy-mailchimp-extender' ),
+							'title' => __( 'Blog Name', 'yikes-inc-easy-mailchimp-extender' )
 						),
 						array(
 							'tag' => '{user_logged_in}',
-							'description' => '<h4 class="tooltip-title">{user_logged_in}</h4><hr />' . __( 'Detects if a user is logged in and pre-populates the field with an appropriate value.' , 'yikes-inc-easy-mailchimp-extender' ),
-							'title' => ''
+							'description' => '<h4 class="tooltip-title">' . __( 'User Logged In', 'yikes-inc-easy-mailchimp-extender' ) . '</h4><hr />' . __( 'Detects if a user is logged in and pre-populates the field with an appropriate value.' , 'yikes-inc-easy-mailchimp-extender' ),
+							'title' => __( 'User Logged In', 'yikes-inc-easy-mailchimp-extender' )
 						),
 					);
 				?>
@@ -2100,10 +2100,10 @@ class Yikes_Inc_Easy_Mailchimp_Forms_Admin {
 				<script type="text/javascript">
 					/* Initialize Qtip tooltips for pre-defined tags */
 					jQuery( document ).ready( function() {
-						jQuery( '.dashicons-editor-help' ).each(function() {
-							 jQuery(this).qtip({
+						jQuery( '.dashicons-editor-help' ).each( function() {
+							 jQuery( this ).qtip({
 								 content: {
-									 text: jQuery(this).next('.tooltiptext'),
+									 text: jQuery( this ).next( '.tooltiptext' ),
 									 style: { 
 										def: false
 									 }
@@ -2125,7 +2125,7 @@ class Yikes_Inc_Easy_Mailchimp_Forms_Admin {
 							<?php foreach( apply_filters( 'yikes-mailchimp-custom-default-value-tags' , $available_tags ) as $tag ) { ?>
 								<li class="tooltop-tag">
 									<!-- link/tag -->
-									<a href="#" onclick="populateDefaultValue( this );return false;" title="<?php echo $tag['title']; ?>"><?php echo $tag['tag']; ?></a>
+									<a href="#" onclick="populateDefaultValue( '<?php echo $tag['tag']; ?>' );return false;" data-attr-tag="<?php echo $tag['tag']; ?>" title="<?php echo $tag['title']; ?>"><?php echo $tag['title']; ?></a>
 									<!-- help icon -->
 									<span class="dashicons dashicons-editor-help"></span>
 									<!-- tooltip -->

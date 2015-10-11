@@ -168,11 +168,11 @@
 									<?php 	
 										if ( $selected_list != '-' && get_transient( $selected_list . '_interest_group' ) ) {
 											$interest_groupings = get_transient( $selected_list . '_interest_group' );
-											$integration_type = str_replace( 'wordpress_', '', strtolower( str_replace( ' ', '_', $value ) ) );
+											$integration_type = $class;
 											require( YIKES_MC_PATH . 'admin/partials/menu/options-sections/templates/integration-interest-groups.php' );
-										} else if( $list_interest_groups ) {
+										} else if( $selected_list != '-' && $list_interest_groups ) {
 											$list_id = $options[$class]['associated-list'];
-											$integration_type = str_replace( 'wordpress_', '', strtolower( str_replace( ' ', '_', $value ) ) );
+											$integration_type = $class;
 											YIKES_Inc_Easy_MailChimp_Process_Ajax::check_list_for_interest_groups( $list_id, $integration_type ); 
 											require( YIKES_MC_PATH . 'admin/partials/menu/options-sections/templates/integration-interest-groups.php' );
 										}

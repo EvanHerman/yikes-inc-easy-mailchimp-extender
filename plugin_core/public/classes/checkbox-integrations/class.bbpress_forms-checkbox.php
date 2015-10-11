@@ -34,9 +34,7 @@
 			if( $this->is_user_already_subscribed( $this->type ) == '1' ) {
 				return;
 			}
-			echo do_action( 'yikes-mailchimp-before-checkbox' , $this->type );
-				echo $this->yikes_get_checkbox();
-			echo do_action( 'yikes-mailchimp-after-checkbox' , $this->type );
+			echo $this->yikes_get_checkbox();
 		}
 		
 		/**
@@ -47,7 +45,11 @@
 		 */
 		public function subscribe_from_bbpress( $anonymous_data, $user_id, $trigger ) {
 			$user_data = get_userdata( $user_id );
-			return $this->subscribe_user_integration( $user_data->user_email, $this->type , array() );
+			return $this->subscribe_user_integration( $user_data->user_email, $this->type , array(
+				'FNAME' => $user_data->first_name,
+				'LNAME' => $user_data->last_name,
+				'NAE' => $user_data->first_name,
+			) );
 		}
 
 		public function subscribe_from_bbpress_new_topic( $topic_id, $forum_id, $anonymous_data, $topic_author_id ) {
