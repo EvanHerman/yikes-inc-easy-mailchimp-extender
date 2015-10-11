@@ -112,7 +112,7 @@ $ grunt auto_install
 - yikes-mailchimp-field-data - Filter form field data such as placeholder, label, etc. (@parameters - $field_array, $field, $form_id) (process_form_shortcode.php - line 258 & process_preview_form_shortcode.php - line 258)
 - yikes-mailchimp-checkbox-integration-merge-variables - Filter the merge variables before they are sent to MailChimp. This allows you to add additional merge variables as you need. (@parameters - $merge_variables, $integration_type) (checkbox-integrations.php)
 - yikes-mailchimp-checkbox-integration-subscibe-api-request - Filter the entire API request, allowing you to alter the merge variable array, update user, list user is added to etc. For additional API parameters , see (https://apidocs.mailchimp.com/api/2.0/lists/subscribe.php) (@parameters - $merge_variables, $integration_type) (checkbox-integrations.php) (defaults to double optin - to prevent spam issues)
-###### Hooks
+###### Hooks 
 - yikes-mailchimp-form-submission - do something with the user email + form data on form submission
 - yikes-mailchimp-form-submission-FORM_ID - do something with the user email + form data on form submission (specific form)
 - yikes-mailchimp-before-form - output content before all forms (@parameters - $form_id)
