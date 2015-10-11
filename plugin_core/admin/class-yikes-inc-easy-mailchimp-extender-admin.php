@@ -367,7 +367,7 @@ class Yikes_Inc_Easy_Mailchimp_Forms_Admin {
 				'support_content' => $support_content,
 			);
 			
-			$yikes_plugin_support_url = 'https://www.yikesplugins.com';
+			$yikes_plugin_support_url = 'https://yikesplugins.com';
 			
 			if( $license != 'plugin-core' ) {
 				$split_license = explode( '|', $license );
