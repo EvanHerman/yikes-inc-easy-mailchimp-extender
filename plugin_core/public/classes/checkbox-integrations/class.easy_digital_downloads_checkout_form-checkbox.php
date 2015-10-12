@@ -20,7 +20,7 @@
 		 * Constructor
 		 */
 		public function __construct() {
-			add_action( 'edd_purchase_form_user_info', array( $this, 'output_checkbox' ) );
+			add_action( 'edd_purchase_form_user_info_fields', array( $this, 'output_checkbox' ) );
 			add_action( 'edd_insert_payment', array( $this, 'update_payment_post_meta' ) , 99999 );
 			add_action( 'edd_complete_purchase', array( $this, 'subscribe_from_edd_purchase'), 50 );
 		}
