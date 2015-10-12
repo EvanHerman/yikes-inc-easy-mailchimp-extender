@@ -25,11 +25,9 @@
 				return;
 			}
 			?>
-				<div class="register-section" id="yikes-mailchimp-checkbox-section">  
+				<div id="yikes-mailchimp-checkbox-section" class="register-section yikes-mailchimp-bbpress-optin">  
 					<?php
-						echo do_action( 'yikes-mailchimp-before-checkbox' , $this->type );
-							echo $comment_field . $this->yikes_get_checkbox();
-						echo do_action( 'yikes-mailchimp-after-checkbox' , $this->type );
+						echo $this->yikes_get_checkbox();
 					?>
 				</div>
 			<?php

@@ -140,11 +140,13 @@
 				do_action( 'yikes-mailchimp-form-submission' , sanitize_email( $data['EMAIL'] ) , $merge_variables , $form , $notifications );
 				do_action( 'yikes-mailchimp-form-submission-' . $form , sanitize_email( $data['EMAIL'] ) , $merge_variables , $form , $notifications );
 				
+				$default_success_response = ( $optin_settings['optin'] == 1 ) ? __( "Thank you for subscribing! Check your email for the confirmation message." , 'yikes-inc-easy-mailchimp-extender' ) : __( "Thank you for subscribing!" , 'yikes-inc-easy-mailchimp-extender' );
+				
 				wp_send_json( 
 					array( 
 						'hide' => $submission_settings['hide_form_post_signup'], 
 						'error' => $error, 
-						'response' => !empty( $error_messages['success'] ) ? $error_messages['success'] : __( "Thank you for subscribing! Check your email for the confirmation message." , 'yikes-inc-easy-mailchimp-extender' ), 
+						'response' => ! empty( $error_messages['success'] ) ? $error_messages['success'] : $default_success_response, 
 						'redirection' => isset( $redirection ) ? '1' : '0', 
 						'redirect' => isset( $redirect ) ? $redirect : '',
 					) 

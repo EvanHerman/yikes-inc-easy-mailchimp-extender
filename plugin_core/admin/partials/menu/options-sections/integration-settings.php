@@ -11,28 +11,8 @@
 */
 		
 	// enqueue jquery qtip for our tooltip
-	wp_enqueue_script( 'jquery-qtip-tooltip' , YIKES_MC_URL . 'admin/js/min/jquery.qtip.min.js' , array( 'jquery' ) );
+	wp_enqueue_script( 'jquery-qtip-tooltip' , YIKES_MC_URL . 'admin/js/min/jquery.qtip.min.js' , array( 'jquery', 'yikes-inc-easy-mailchimp-extender-admin-js' ) );
 	wp_enqueue_style( 'jquery-qtip-style' ,  YIKES_MC_URL . 'admin/css/jquery.qtip.min.css' );
-	
-	?>
-		<script>
-			jQuery( document ).ready( function() {
-				jQuery( '.dashicons-editor-help' ).each(function() {
-					 jQuery(this).qtip({
-						 content: {
-							 text: jQuery(this).next('.tooltiptext'),
-							 style: { 
-								def: false
-							 }
-						 }
-					 });
-				 });
-				 jQuery( '.qtip' ).each( function() {
-					jQuery( this ).removeClass( 'qtip-default' );
-				 });
-			});
-		</script>	
-	<?php
 	
 	// active plugins array
 	// defaults: comments / registration
@@ -48,7 +28,7 @@
 		'easy_digital_downloads_checkout_form' => '<img class="tooltip-integration-banner" src="' . YIKES_MC_URL . 'includes/images/Checkbox_Integration_Logos/edd-banner.png" title="' . __( 'Easy Digital Downloads' , 'yikes-inc-easy-mailchimp-extender' ) . '">' . __( 'Enabling the Easy Digital Downloads checkout opt-in allows users who make a purchase to opt-in to your mailing list during checkout.' , 'yikes-inc-easy-mailchimp-extender' ),
 		'buddypress_form' => '<img class="tooltip-integration-banner" src="' . YIKES_MC_URL . 'includes/images/Checkbox_Integration_Logos/buddypress-banner.png" title="' . __( 'BuddyPress' , 'yikes-inc-easy-mailchimp-extender' ) . '">' . __( 'Enabling the BuddyPress opt-in allows users who register for your site to be automatically added to the mailing list of your choice.' , 'yikes-inc-easy-mailchimp-extender' ),
 		'bbpress_forms' => '<img class="tooltip-integration-banner" src="' . YIKES_MC_URL . 'includes/images/Checkbox_Integration_Logos/bbpress-banner.png" title="' . __( 'bbPress' , 'yikes-inc-easy-mailchimp-extender' ) . '">' . __( 'Enabling the bbPress opt-in enables users who register to use the forums on your site to be automatically added to the mailing list of your choice.' , 'yikes-inc-easy-mailchimp-extender' ),
-		'contact_form_7' => '<img class="tooltip-integration-banner" src="' . YIKES_MC_URL . 'includes/images/Checkbox_Integration_Logos/cf7-banner.png" title="' . __( 'Contact Form 7' , 'yikes-inc-easy-mailchimp-extender' ) . '">' . __( 'Once the Contact Form 7 integration is active you can use our custom [yikes_mailchimp_checkbox label="Custom Label Text"] in your contact forms to subscribe users to a pre-selected list.' , 'yikes-inc-easy-mailchimp-extender' ),
+		'contact_form_7' => '<img class="tooltip-integration-banner" src="' . YIKES_MC_URL . 'includes/images/Checkbox_Integration_Logos/cf7-banner.png" title="' . __( 'Contact Form 7' , 'yikes-inc-easy-mailchimp-extender' ) . '">' . __( 'Once the Contact Form 7 integration is active you can use our custom shortcode [yikes_mailchimp_checkbox] in your contact forms to subscribe users to a pre-selected list.' , 'yikes-inc-easy-mailchimp-extender' ),
 	);
 		
 	// Easy Digital Downloads
@@ -124,10 +104,11 @@
 					$checkbox_label = isset( $options[$class]['label'] ) ? esc_attr__( $options[$class]['label'] ) : '';
 					$precheck_checkbox = isset( $options[$class]['precheck'] ) ? $options[$class]['precheck'] : '';
 					$selected_list = isset( $options[$class]['associated-list'] ) ? $options[$class]['associated-list'] : '-';
+					$list_interest_groups = isset( $options[$class]['interest-groups'] ) ? $options[$class]['interest-groups'] : false;
 					?>
 						<li>
 							<label>
-								<input type="checkbox" name="optin-checkbox-init[<?php echo $class; ?>][value]" <?php echo $checked; ?> onclick="jQuery(this).parents('li').next().stop().slideToggle();"><?php echo ucwords( $value ); ?><span class="dashicons dashicons-editor-help"></span><div class="tooltiptext qtip-bootstrap" style="display:none;"><?php echo $class_descriptions[$class]; ?></div>
+								<input type="checkbox" name="optin-checkbox-init[<?php echo $class; ?>][value]" value="on" <?php echo $checked; ?> onclick="jQuery(this).parents('li').next().stop().slideToggle();"><?php echo ucwords( $value ); ?><span class="dashicons dashicons-editor-help"></span><div class="tooltiptext qtip-bootstrap" style="display:none;"><?php echo $class_descriptions[$class]; ?></div>
 							</label>
 						</li>
 						<!-- checkbox settings, text - associated list etc. -->
@@ -138,7 +119,7 @@
 									<?php
 										if( $list_data['total'] > 0 ) {
 											?>
-												<select class="optin-checkbox-init[<?php echo $class; ?>][associated-list] checkbox-settings-list-dropdown" name="optin-checkbox-init[<?php echo $class; ?>][associated-list]" >
+												<select class="optin-checkbox-init[<?php echo $class; ?>][associated-list] checkbox-settings-list-dropdown" data-attr-integration="<?php echo $class; ?>" name="optin-checkbox-init[<?php echo $class; ?>][associated-list]" onchange="checkForInterestGroups( jQuery( this ), jQuery( this ).find( 'option:selected' ).val(), jQuery( this ).attr( 'data-attr-integration' ) );return false;">
 														<option value="-" <?php selected( $selected_list , '-' ); ?>><?php _e( 'Select a List' , 'yikes-inc-easy-mailchimp-extender' ); ?></option>
 													<?php foreach( $list_data['data'] as $list ) { ?>
 														<option value="<?php echo $list['id']; ?>" <?php selected( $selected_list , $list['id'] ); ?>><?php echo $list['name']; ?></option>
@@ -161,6 +142,22 @@
 										<option value="false" <?php selected( $precheck_checkbox , 'false' ); ?>><?php _e( 'No' , 'yikes-inc-easy-mailchimp-extender' ); ?></option>
 									</select>
 								</label>
+								
+								<!-- Interest Group -- precheck/pre-select -->
+								<div class="interest-groups-container">
+									<?php 	
+										if ( $selected_list != '-' && get_transient( $selected_list . '_interest_group' ) ) {
+											$interest_groupings = get_transient( $selected_list . '_interest_group' );
+											$integration_type = $class;
+											require( YIKES_MC_PATH . 'admin/partials/menu/options-sections/templates/integration-interest-groups.php' );
+										} else if( $selected_list != '-' && $list_interest_groups ) {
+											$list_id = $options[$class]['associated-list'];
+											$integration_type = $class;
+											YIKES_Inc_Easy_MailChimp_Process_Ajax::check_list_for_interest_groups( $list_id, $integration_type, true ); 
+										}
+									?>
+								</div>
+								
 							</p>
 							<br />
 						</li>

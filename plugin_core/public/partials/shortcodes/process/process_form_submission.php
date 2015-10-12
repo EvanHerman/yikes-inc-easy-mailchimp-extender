@@ -97,7 +97,8 @@ if ( ! isset( $_POST['yikes_easy_mc_new_subscriber'] ) || ! wp_verify_nonce( $_P
 			if( ! empty( $error_messages['success'] ) ) {
 				echo  stripslashes( esc_html( $error_messages['success'] ) );
 			} else {
-				echo __( 'Thank you for subscribing!' , 'yikes-inc-easy-mailchimp-extender' );
+				$default_success_response = ( $optin_settings['optin'] == 1 ) ? __( "Thank you for subscribing! Check your email for the confirmation message." , 'yikes-inc-easy-mailchimp-extender' ) : __( "Thank you for subscribing!" , 'yikes-inc-easy-mailchimp-extender' );
+				echo $default_success_response;
 			}
 		?></p> <?php
 		

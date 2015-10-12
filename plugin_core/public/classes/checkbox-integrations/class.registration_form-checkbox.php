@@ -27,9 +27,7 @@ class Yikes_Easy_MC_Registration_Checkbox_Class extends Yikes_Easy_MC_Checkbox_I
 	* Outputs a checkbox
 	*/
 	public function output_checkbox() {
-		echo do_action( 'yikes-mailchimp-before-checkbox' , $this->type );
-			echo $this->yikes_get_checkbox();
-		echo do_action( 'yikes-mailchimp-after-checkbox' , $this->type );
+		echo $this->yikes_get_checkbox();
 	}
 				
 	/**

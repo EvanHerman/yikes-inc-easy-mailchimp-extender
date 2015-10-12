@@ -232,7 +232,7 @@
 									</p>
 									<br />
 									<label>
-										<input type="checkbox" name="confirm_delete_subscriber" value="1" onclick="toggleDelteSubscriberButton(jQuery(this));">
+										<input type="checkbox" name="confirm_delete_subscriber" value="1" onclick="toggleDeleteSubscriberButton(jQuery(this));">
 										<?php printf( __( 'Are you sure you want to delete "%s" from "%s?"', 'yikes-inc-easy-mailchimp-extender' ), '<strong>' . $user_email . '</strong>', '<strong>' . $list_name . '</strong>' ); ?>
 									</label>
 									<?php echo submit_button( __( 'Delete Subscriber', 'yikes-inc-easy-mailchimp-extender' ), 'primary', 'delete-mailchimp-subscriber', true, array( 'disabled' => 'disabled' ) ); ?>

@@ -38,11 +38,11 @@
 		<div id="yikes-mailchimp-logo"></div>
 		
 		<h2 class="welcome-title">
-			YIKES Easy Forms for MailChimp | <?php echo __( 'MailChimp Done Right' , 'yikes-inc-easy-mailchimp-extender' ); ?>
+			Easy Forms for MailChimp by YIKES | <?php echo __( 'MailChimp Done Right' , 'yikes-inc-easy-mailchimp-extender' ); ?>
 		</h2>		
 		
 		<p class="about-text">
-			<?php echo sprintf( __( 'Thank you for updating to the latest version! YIKES Easy Forms for MailChimp %s is ready to help take your mailing lists to the next level!' , 'yikes-inc-easy-mailchimp-extender' ) , $this->version ); ?>
+			<?php echo sprintf( __( 'Thank you for updating to the latest version! Easy Forms for MailChimp by YIKES %s is ready to help take your mailing lists to the next level!' , 'yikes-inc-easy-mailchimp-extender' ) , $this->version ); ?>
 		</p>
 		
 		<?php

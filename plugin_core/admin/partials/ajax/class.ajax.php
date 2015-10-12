@@ -17,6 +17,8 @@
 			add_action( 'wp_ajax_add_interest_group_to_form', array( $this , 'send_interest_group_to_form' ), 10 );
 			// return new list data + activity (for dashboard widget )
 			add_action( 'wp_ajax_get_new_list_data', array( $this , 'get_new_list_data' ), 10 );
+			// return new list data + activity (for dashboard widget )
+			add_action( 'wp_ajax_check_list_for_interest_groups', array( $this , 'check_list_for_interest_groups' ), 10 );
 			// Add a new notification to a form
 			add_action( 'wp_ajax_add_notification_to_form', array( $this , 'add_notification_to_form' ), 10 , 1 );
 		}
@@ -48,6 +50,43 @@
 			}
 			exit();
 			wp_die();
+		}
+		
+		// Process our AJAX request,
+		// whent the user switches lists in the integration settings page
+		// we want to return the interest groups associated with this list,
+		// to allow users to pre-check anything they want to assign users appropriately
+		/* note: this function is called statically from the integration settings page */
+		public static function check_list_for_interest_groups( $list_id='', $integration_type='', $load=false ) {
+			if( ! $list_id ) { 	
+				$list_id = $_POST['list_id'];
+			}
+			if( ! $integration_type ) {	
+				$integration_type = $_POST['integration'];
+			}
+			$api_key = get_option( 'yikes-mc-api-key' , '' );
+			// setup/check our transients
+			if ( WP_DEBUG ||  false === ( $interest_groupings = get_transient( $list_id . '_interest_group' ) ) ) {
+			  // It wasn't there, so regenerate the data and save the transient
+				try {
+					// initialize MailChimp Class
+					$MailChimp = new MailChimp( $api_key );
+					// retreive our interest group data
+				    $interest_groupings = $MailChimp->call( 'lists/interest-groupings' , array( 'apikey' => $api_key , 'id' => $list_id , 'counts' => false ) );
+				} catch( Exception $error ) {
+					$interest_groupings = $error->getMessage();
+				}
+				// set the transient for 2 hours
+				set_transient( $list_id . '_interest_group', $interest_groupings, 2 * HOUR_IN_SECONDS );
+			}
+			if( isset( $interest_groupings ) && ! empty( $interest_groupings ) ) {
+				require( YIKES_MC_PATH . 'admin/partials/menu/options-sections/templates/integration-interest-groups.php' );
+			}
+			// do not kill off execution on load, only on an ajax request
+			if( ! $load ) {
+				exit();
+				wp_die();
+			}
 		}
 		
 		// Process our Ajax Request
