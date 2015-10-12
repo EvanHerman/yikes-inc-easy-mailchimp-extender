@@ -11,28 +11,8 @@
 */
 		
 	// enqueue jquery qtip for our tooltip
-	wp_enqueue_script( 'jquery-qtip-tooltip' , YIKES_MC_URL . 'admin/js/min/jquery.qtip.min.js' , array( 'jquery' ) );
+	wp_enqueue_script( 'jquery-qtip-tooltip' , YIKES_MC_URL . 'admin/js/min/jquery.qtip.min.js' , array( 'jquery', 'yikes-inc-easy-mailchimp-extender-admin-js' ) );
 	wp_enqueue_style( 'jquery-qtip-style' ,  YIKES_MC_URL . 'admin/css/jquery.qtip.min.css' );
-	
-	?>
-		<script>
-			jQuery( document ).ready( function() {
-				jQuery( '.dashicons-editor-help' ).each(function() {
-					 jQuery(this).qtip({
-						 content: {
-							 text: jQuery(this).next('.tooltiptext'),
-							 style: { 
-								def: false
-							 }
-						 }
-					 });
-				 });
-				 jQuery( '.qtip' ).each( function() {
-					jQuery( this ).removeClass( 'qtip-default' );
-				 });
-			});
-		</script>	
-	<?php
 	
 	// active plugins array
 	// defaults: comments / registration
@@ -173,8 +153,7 @@
 										} else if( $selected_list != '-' && $list_interest_groups ) {
 											$list_id = $options[$class]['associated-list'];
 											$integration_type = $class;
-											YIKES_Inc_Easy_MailChimp_Process_Ajax::check_list_for_interest_groups( $list_id, $integration_type ); 
-											require( YIKES_MC_PATH . 'admin/partials/menu/options-sections/templates/integration-interest-groups.php' );
+											YIKES_Inc_Easy_MailChimp_Process_Ajax::check_list_for_interest_groups( $list_id, $integration_type, true ); 
 										}
 									?>
 								</div>

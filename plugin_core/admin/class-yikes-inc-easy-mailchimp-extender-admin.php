@@ -193,7 +193,7 @@ class Yikes_Inc_Easy_Mailchimp_Forms_Admin {
 			$page = get_current_screen();
 			$base = $page->base;
 			if ( strpos( $base, 'yikes-' ) !== false ) {
-				$disclaimer_text = sprintf( '<em>' . __( 'Disclaimer: <strong>YIKES Inc. Easy Forms for MailChimp</strong> is in no way endorsed, affiliated or backed by MailChimp, or its parent company Rocket Science Group.', 'yikes-inc-easy-mailchimp-extender' ), '<a href="https://wordpress.org/support/view/plugin-reviews/give?filter=5#postform" target="_blank" class="give-rating-link" data-rated="' . __( 'Thanks :)', 'yikes-inc-easy-mailchimp-extender' ) . '">', '</a></em>' );
+				$disclaimer_text = sprintf( '<em>' . __( 'Disclaimer: <strong>Easy Forms for MailChimp by YIKES</strong> is in no way endorsed, affiliated or backed by MailChimp, or its parent company Rocket Science Group.', 'yikes-inc-easy-mailchimp-extender' ), '<a href="https://wordpress.org/support/view/plugin-reviews/give?filter=5#postform" target="_blank" class="give-rating-link" data-rated="' . __( 'Thanks :)', 'yikes-inc-easy-mailchimp-extender' ) . '">', '</a></em>' );
 				return $disclaimer_text;
 			} else {
 				return $footer_text;
@@ -655,7 +655,7 @@ class Yikes_Inc_Easy_Mailchimp_Forms_Admin {
 		/**
 		 * Enqueue our scripts across the dashboard as needed 
 		 */
-		wp_register_script( $this->yikes_inc_easy_mailchimp_extender, plugin_dir_url( __FILE__ ) . 'js/min/yikes-inc-easy-mailchimp-extender-admin.min.js', array( 'jquery' , 'jquery-ui-sortable' ), $this->version, false );
+		wp_register_script( 'yikes-inc-easy-mailchimp-extender-admin-js', plugin_dir_url( __FILE__ ) . 'js/min/yikes-inc-easy-mailchimp-extender-admin.min.js', array( 'jquery' , 'jquery-ui-sortable' ), $this->version, false );
 		$localized_data = array(
 			'admin_url' => esc_url_raw( admin_url() ),
 			'ajax_url' => esc_url_raw( admin_url( 'admin-ajax.php' ) ),
@@ -663,8 +663,8 @@ class Yikes_Inc_Easy_Mailchimp_Forms_Admin {
 			'search_preloader_url' => YIKES_MC_URL . 'includes/images/search-interest-group-preloader.gif',
 			'preloader_url' => esc_url_raw( admin_url( '/images/wpspin_light.gif' ) )
 		);
-		wp_localize_script( $this->yikes_inc_easy_mailchimp_extender , 'object_data' , $localized_data );
-		wp_enqueue_script( $this->yikes_inc_easy_mailchimp_extender );
+		wp_localize_script( 'yikes-inc-easy-mailchimp-extender-admin-js' , 'object_data' , $localized_data );
+		wp_enqueue_script( 'yikes-inc-easy-mailchimp-extender-admin-js' );
 		
 	
 		/*
@@ -2071,27 +2071,27 @@ class Yikes_Inc_Easy_Mailchimp_Forms_Admin {
 					$available_tags = array(
 						array(
 							'tag' => '{page_title}',
-							'description' => '<h4 class="tooltip-title">' . __( 'Page Title', 'yikes-inc-easy-mailchimp-extender' ) . '</h4><hr />' . __( 'Pre-populate the field with the current page or post title that the user is on when opting in to your mailing list.' , 'yikes-inc-easy-mailchimp-extender' ),
+							'description' => '<h4 class="tooltip-title">' . __( 'Page Title', 'yikes-inc-easy-mailchimp-extender' ) . ' | <small>{page_title}</small></h4><hr />' . __( 'Pre-populate the field with the current page or post title that the user is on when opting in to your mailing list.' , 'yikes-inc-easy-mailchimp-extender' ),
 							'title' => __( 'Page Title', 'yikes-inc-easy-mailchimp-extender' )
 						),
 						array(
 							'tag' => '{page_id}',
-							'description' => '<h4 class="tooltip-title">' . __( 'Page ID', 'yikes-inc-easy-mailchimp-extender' ) . '</h4><hr />' . __( 'Pre-populate the field with the current page or post ID that the user is on when opting in to your mailing list.' , 'yikes-inc-easy-mailchimp-extender' ),
+							'description' => '<h4 class="tooltip-title">' . __( 'Page ID', 'yikes-inc-easy-mailchimp-extender' ) . ' | <small>{page_id}</small></h4><hr />' . __( 'Pre-populate the field with the current page or post ID that the user is on when opting in to your mailing list.' , 'yikes-inc-easy-mailchimp-extender' ),
 							'title' => __( 'Page ID', 'yikes-inc-easy-mailchimp-extender' )
 						),
 						array(
 							'tag' => '{page_url}',
-							'description' => '<h4 class="tooltip-title">' . __( 'Page URL', 'yikes-inc-easy-mailchimp-extender' ) . '</h4><hr />' . __( 'Pre-populate the field with the current page URL that the user is on when opting in to your mailing list.' , 'yikes-inc-easy-mailchimp-extender' ),
+							'description' => '<h4 class="tooltip-title">' . __( 'Page URL', 'yikes-inc-easy-mailchimp-extender' ) . ' | <small>{page_url}</small></h4><hr />' . __( 'Pre-populate the field with the current page URL that the user is on when opting in to your mailing list.' , 'yikes-inc-easy-mailchimp-extender' ),
 							'title' => __( 'Page URL', 'yikes-inc-easy-mailchimp-extender' )
 						),
 						array(
 							'tag' => '{blog_name}',
-							'description' => '<h4 class="tooltip-title">' . __( 'Blog Name', 'yikes-inc-easy-mailchimp-extender' ) . '</h4><hr />' . __( 'Pre-populate the field with the current blog name that the user is on when opting in to your mailing list. This is especially helpful for multi-site networks.' , 'yikes-inc-easy-mailchimp-extender' ),
+							'description' => '<h4 class="tooltip-title">' . __( 'Blog Name', 'yikes-inc-easy-mailchimp-extender' ) . ' | <small>{blog_name}</small></h4><hr />' . __( 'Pre-populate the field with the current blog name that the user is on when opting in to your mailing list. This is especially helpful for multi-site networks.' , 'yikes-inc-easy-mailchimp-extender' ),
 							'title' => __( 'Blog Name', 'yikes-inc-easy-mailchimp-extender' )
 						),
 						array(
 							'tag' => '{user_logged_in}',
-							'description' => '<h4 class="tooltip-title">' . __( 'User Logged In', 'yikes-inc-easy-mailchimp-extender' ) . '</h4><hr />' . __( 'Detects if a user is logged in and pre-populates the field with an appropriate value.' , 'yikes-inc-easy-mailchimp-extender' ),
+							'description' => '<h4 class="tooltip-title">' . __( 'User Logged In', 'yikes-inc-easy-mailchimp-extender' ) . ' | <small>{user_logged_in}</small></h4><hr />' . __( 'Detects if a user is logged in and pre-populates the field with an appropriate value.' , 'yikes-inc-easy-mailchimp-extender' ),
 							'title' => __( 'User Logged In', 'yikes-inc-easy-mailchimp-extender' )
 						),
 					);
@@ -2578,8 +2578,19 @@ class Yikes_Inc_Easy_Mailchimp_Forms_Admin {
 			// grab & store our variables ( associated list & form name )
 			$nonce = $_REQUEST['nonce'];
 			// verify our nonce
-			if( !wp_verify_nonce( $nonce, 'clear-mc-transient-data' ) ) {
+			if( ! wp_verify_nonce( $nonce, 'clear-mc-transient-data' ) ) {
 				wp_die( __( "We've run into an error. The security check didn't pass. Please try again." , 'yikes-inc-easy-mailchimp-extender' ) , __( "Failed nonce validation" , 'yikes-inc-easy-mailchimp-extender' ) , array( 'response' => 500 , 'back_link' => true ) );
+			}
+			// delete all of the integration settings list data in the cache
+			$list_ids = $this->get_mailchimp_list_ids_on_account();
+			// confirm the list IDs was returned and is not empty
+			if( isset( $list_ids ) && ! empty( $list_ids ) ) {
+				foreach( $list_ids as $id ) {
+					// loop over each interest group and delete the transient associated with it
+					// this is created & stored on the integration list page
+					// id = groupID_interest_group
+					delete_transient( $id . '_interest_group' );
+				}
 			}
 			// Delete list data transient
 			delete_transient( 'yikes-easy-mailchimp-list-data' );
@@ -2592,6 +2603,40 @@ class Yikes_Inc_Easy_Mailchimp_Forms_Admin {
 			exit;
 		}
 				
+		/**
+		*	Return an array of MailChimp lists associated with this account
+		*
+		*	Used when deleting the sites MailChimp cache stored
+		*	@since 6.0.2
+		*	@return 	$list_id_array - array of list id's to loop over
+		*/
+		public function get_mailchimp_list_ids_on_account() {
+			$api_key = trim( get_option( 'yikes-mc-api-key' , '' ) );
+			if( ! $api_key ) {
+				// if no api key is set/site is not connected, return an empty array
+				return array();
+			}
+			try {
+				$MailChimp = new MailChimp( $api_key );
+				// retreive our list data
+				$mailchimp_lists = $MailChimp->call( 'lists/list' , array( 'apikey' => $api_key ) );
+				$mail_chimp_list_ids = array();
+				if( $mailchimp_lists ) {
+					foreach( $mailchimp_lists['data'] as $list ) {
+						$mail_chimp_list_ids[] = $list['id'];
+					}
+					return $mail_chimp_list_ids;
+				} else {
+					return array();
+				}
+			} catch ( Exception $e ) {
+				// log to our error log
+				require_once YIKES_MC_PATH . 'includes/error_log/class-yikes-inc-easy-mailchimp-error-logging.php';
+				$error_logging = new Yikes_Inc_Easy_Mailchimp_Error_Logging();
+				$error_logging->yikes_easy_mailchimp_write_to_error_log( $e->getMessage() , __( "Retreiving List Data" , 'yikes-inc-easy-mailchimp-extender' ) , __( "Delete MailChimp Site Cache" , 'yikes-inc-easy-mailchimp-extender' ) );
+			}	
+			return;
+		}
 		
 		/*
 		*	Include our main Helper class file

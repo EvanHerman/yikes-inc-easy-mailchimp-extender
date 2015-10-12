@@ -57,7 +57,7 @@
 		// we want to return the interest groups associated with this list,
 		// to allow users to pre-check anything they want to assign users appropriately
 		/* note: this function is called statically from the integration settings page */
-		public static function check_list_for_interest_groups( $list_id='', $integration_type='' ) {
+		public static function check_list_for_interest_groups( $list_id='', $integration_type='', $load=false ) {
 			if( ! $list_id ) { 	
 				$list_id = $_POST['list_id'];
 			}
@@ -80,10 +80,13 @@
 				set_transient( $list_id . '_interest_group', $interest_groupings, 2 * HOUR_IN_SECONDS );
 			}
 			if( isset( $interest_groupings ) && ! empty( $interest_groupings ) ) {
-				include_once( YIKES_MC_PATH . 'admin/partials/menu/options-sections/templates/integration-interest-groups.php' );
+				require( YIKES_MC_PATH . 'admin/partials/menu/options-sections/templates/integration-interest-groups.php' );
 			}
-			exit();
-			wp_die();
+			// do not kill off execution on load, only on an ajax request
+			if( ! $load ) {
+				exit();
+				wp_die();
+			}
 		}
 		
 		// Process our Ajax Request
