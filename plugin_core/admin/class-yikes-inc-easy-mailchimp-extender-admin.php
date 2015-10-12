@@ -175,7 +175,7 @@ class Yikes_Inc_Easy_Mailchimp_Forms_Admin {
 		*/
 		public function easy_forms_plugin_action_links( $links ) {
 		   $links[] = '<a href="'. esc_url( get_admin_url(null, 'admin.php?page=yikes-inc-easy-mailchimp-settings') ) .'">' . __( 'Settings', 'yikes-inc-easy-mailchimp-extender' ) . '</a>';
-		   $links[] = '<a href="' . esc_url( 'http://www.yikesplugins.com' ) . '" target="_blank">' . __( 'More plugins by YIKES' , 'yikes-inc-easy-mailchimp-extender' ) . '</a>';
+		   $links[] = '<a href="' . esc_url( 'http://www.yikesplugins.com?utm_source=plugins-page&utm_medium=plugin-row&utm_campaign=admin' ) . '" target="_blank">' . __( 'More plugins by YIKES' , 'yikes-inc-easy-mailchimp-extender' ) . '</a>';
 		   return $links;
 		}
 		
