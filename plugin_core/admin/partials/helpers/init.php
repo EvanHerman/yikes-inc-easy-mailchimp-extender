@@ -69,6 +69,7 @@
 				$value = ( isset( $custom_section_data['sidebar_title'] ) && isset( $custom_section_data['sidebar_fields'] ) && !empty( $custom_section_data['sidebar_fields'] ) ) ?  true : false;
 				return $value;
 			}
+			
 	}
 	new Yikes_Inc_Easy_Mailchimp_Extender_Helper;
 

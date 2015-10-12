@@ -6,6 +6,8 @@ $integration_options = get_option( 'optin-checkbox-init' , '' );
 
 // print_r( $integration_options );
 
+// confirm interest groups are set, else bail
+
 /*
 * Confirm the interest groups is an array and not empty or else bail
 */
@@ -30,8 +32,8 @@ foreach( $interest_groupings as $interest_group ) {
 	$interest_groups_fields = ( isset( $interest_group['groups'] ) ) ? $interest_group['groups'] : false; // if not set return false
 	$selected_interest_groups = ( isset( $integration_options[$integration_type]['interest-groups'] ) ) ? $integration_options[$integration_type]['interest-groups'] : array();
 	?>
-	<section class="interest-group-section" style="display:block;width:100%;">
-		<h4><?php echo $interest_group['name']; ?></h4>
+	<section class="interest-group-section">
+		<strong class="interest-group-section-title"><?php echo ucwords( $interest_group['name'] ); ?></strong>
 	<?php
 	/*
 	*	Loop over the interest group types, and return the appropriate type
