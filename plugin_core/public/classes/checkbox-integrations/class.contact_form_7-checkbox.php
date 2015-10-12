@@ -74,7 +74,7 @@ class Yikes_Easy_MC_CF7_Checkbox_Class extends Yikes_Easy_MC_Checkbox_Integratio
 			// store the email -- this needs to be more dynamic (find string with containing string email?)
 			$email = ( isset( $posted_data['your-email'] ) ) ? $posted_data['your-email'] : '';
 			// submit this subscriber
-			return $this->subscribe_user_integration( $email, $this->type, apply_filters( 'yikes-mailchimp-contact-form-7', array() ) );
+			return $this->subscribe_user_integration( $email, $this->type, apply_filters( 'yikes-mailchimp-contact-form-7', array(), $posted_data ) );
 		}
 	}
 	
