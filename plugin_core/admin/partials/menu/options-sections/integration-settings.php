@@ -94,7 +94,7 @@
 	<?php settings_fields( 'yikes_inc_easy_mc_checkbox_settings_page' ); ?>
 	
 	<ul>
-		<?php
+		<?php 
 			if( !empty( $active_plugins ) ) { 
 				
 				foreach( $active_plugins as $class => $value ) {
