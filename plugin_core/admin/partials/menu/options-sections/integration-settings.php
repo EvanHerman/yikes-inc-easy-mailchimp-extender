@@ -113,6 +113,9 @@
 						</li>
 						<!-- checkbox settings, text - associated list etc. -->
 						<li class="optin-checkbox-init[<?php echo $class; ?>]-settings <?php echo $hidden; ?>">
+							<?php if( $class == 'contact_form_7' ) { ?>
+								<p style="margin-top:0;"><small class="contact-form-7-notice"><?php printf( __( 'Use %s in Contact Form 7 to display the checkbox.', 'yikes-inc-easy-mailchimp-extender' ), '<code>[yikes_mailchimp_checkbox]</code>' ); ?></small></p>
+							<?php } ?>
 							<p style="margin-top:0;padding-top:0;margin-bottom:0;padding-bottom:0;">
 								<!-- checkbox associated list -->
 								<label><?php _e( 'Associated List' , 'yikes-inc-easy-mailchimp-extender' ); ?>
