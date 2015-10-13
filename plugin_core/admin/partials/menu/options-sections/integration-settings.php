@@ -11,8 +11,29 @@
 */
 		
 	// enqueue jquery qtip for our tooltip
-	wp_enqueue_script( 'jquery-qtip-tooltip' , YIKES_MC_URL . 'admin/js/min/jquery.qtip.min.js' , array( 'jquery', 'yikes-inc-easy-mailchimp-extender-admin-js' ) );
-	wp_enqueue_style( 'jquery-qtip-style' ,  YIKES_MC_URL . 'admin/css/jquery.qtip.min.css' );
+	wp_enqueue_script( 'jquery-qtip-tooltip', YIKES_MC_URL . 'admin/js/min/jquery.qtip.min.js' , array( 'jquery' ) );
+	wp_enqueue_style( 'jquery-qtip-style',  YIKES_MC_URL . 'admin/css/jquery.qtip.min.css' );
+	
+	?>
+	<script>
+		jQuery( document ).ready( function() {
+		/* Initialize qtip tooltips */
+			jQuery( '.dashicons-editor-help' ).each(function() {
+				 jQuery(this).qtip({
+					 content: {
+						 text: jQuery(this).next('.tooltiptext'),
+						 style: { 
+							def: false
+						 }
+					 }
+				 });
+			 });
+			 jQuery( '.qtip' ).each( function() {
+				jQuery( this ).removeClass( 'qtip-default' );
+			 });
+		});
+	</script>
+	<?php
 	
 	// active plugins array
 	// defaults: comments / registration
@@ -94,7 +115,7 @@
 	<?php settings_fields( 'yikes_inc_easy_mc_checkbox_settings_page' ); ?>
 	
 	<ul>
-		<?php
+		<?php 
 			if( !empty( $active_plugins ) ) { 
 				
 				foreach( $active_plugins as $class => $value ) {
@@ -113,6 +134,9 @@
 						</li>
 						<!-- checkbox settings, text - associated list etc. -->
 						<li class="optin-checkbox-init[<?php echo $class; ?>]-settings <?php echo $hidden; ?>">
+							<?php if( $class == 'contact_form_7' ) { ?>
+								<p style="margin-top:0;"><small class="contact-form-7-notice"><?php printf( __( 'Use %s in Contact Form 7 to display the checkbox.', 'yikes-inc-easy-mailchimp-extender' ), '<code>[yikes_mailchimp_checkbox]</code>' ); ?></small></p>
+							<?php } ?>
 							<p style="margin-top:0;padding-top:0;margin-bottom:0;padding-bottom:0;">
 								<!-- checkbox associated list -->
 								<label><?php _e( 'Associated List' , 'yikes-inc-easy-mailchimp-extender' ); ?>
