@@ -87,7 +87,7 @@
 				// initialize MailChimp Class
 				$MailChimp = new MailChimp( get_option( 'yikes-mc-api-key' , '' ) );
 				// retreive our list data
-				$list_data = $MailChimp->call( 'lists/list' , array( 'apikey' => get_option( 'yikes-mc-api-key' , '' ) ) );
+				$list_data = $MailChimp->call( 'lists/list' , array( 'apikey' => get_option( 'yikes-mc-api-key' , '' ), 'limit' => 100 ) );
 				// set our transient
 				set_transient( 'yikes-easy-mailchimp-list-data', $list_data, 1 * HOUR_IN_SECONDS );
 			}
