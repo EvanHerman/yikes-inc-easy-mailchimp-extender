@@ -11,8 +11,29 @@
 */
 		
 	// enqueue jquery qtip for our tooltip
-	wp_enqueue_script( 'jquery-qtip-tooltip' , YIKES_MC_URL . 'admin/js/min/jquery.qtip.min.js' , array( 'jquery', 'yikes-inc-easy-mailchimp-extender-admin-js' ) );
-	wp_enqueue_style( 'jquery-qtip-style' ,  YIKES_MC_URL . 'admin/css/jquery.qtip.min.css' );
+	wp_enqueue_script( 'jquery-qtip-tooltip', YIKES_MC_URL . 'admin/js/min/jquery.qtip.min.js' , array( 'jquery' ) );
+	wp_enqueue_style( 'jquery-qtip-style',  YIKES_MC_URL . 'admin/css/jquery.qtip.min.css' );
+	
+	?>
+	<script>
+		jQuery( document ).ready( function() {
+		/* Initialize qtip tooltips */
+			jQuery( '.dashicons-editor-help' ).each(function() {
+				 jQuery(this).qtip({
+					 content: {
+						 text: jQuery(this).next('.tooltiptext'),
+						 style: { 
+							def: false
+						 }
+					 }
+				 });
+			 });
+			 jQuery( '.qtip' ).each( function() {
+				jQuery( this ).removeClass( 'qtip-default' );
+			 });
+		});
+	</script>
+	<?php
 	
 	// active plugins array
 	// defaults: comments / registration
