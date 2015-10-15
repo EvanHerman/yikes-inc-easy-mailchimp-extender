@@ -7,11 +7,18 @@ YIKES Inc. Easy Forms for MailChimp
 ![WordPress plugin](https://img.shields.io/wordpress/plugin/v/yikes-inc-easy-mailchimp-extender.svg)
 ![WordPress](https://img.shields.io/wordpress/v/yikes-inc-easy-mailchimp-extender.svg)
 
-#### Staging Branch</strong>
+<strong>Latest Stable Beta Release Candidate</strong>
 
-This is the development version of [Easy Forms for MailChimp](https://wordpress.org/plugins/yikes-inc-easy-mailchimp-extender/) where we work on fixing bugs and adding new features.
+> [Latest Stable Beta Release Download](https://cloudup.com/files/iFNHWI2TTS8/download)
+> - Last Updated October 3rd, 2015
 
-Feel free to use this version now, although it is a development version and not a stable release. 
+This is a complete re-write of the original [YIKES Inc Easy MailChimp Extender](https://wordpress.org/plugins/yikes-inc-easy-mailchimp-extender/) plugin.
+
+This is the release candidate for the final release of [YIKES Inc Easy MailChimp Extender](https://wordpress.org/plugins/yikes-inc-easy-mailchimp-extender/).
+Target launch date is by the end of September 2015.
+
+Feel free to use this plugin now. When the final version rolls out, you'll have a smooth transition.
+
 
 #### Minimum Requirements
 - WordPress 3.8+ 
@@ -89,6 +96,7 @@ $ grunt auto_install
 ##### Filters + Hooks
 
 ###### Filters
+
 - yikes-mailchimp-form-title-FORM_ID - alter the output of the form title of the specified form
 - yikes-mailchimp-form-description-FORM_ID - alter the output of the form description of the specified form
 - yikes-mailchimp-redirect-timer (ms : 1 second = 1000ms) alter the amount of time the user sees the success message before being redirected (default: 1500ms) (@parameters - $time, $form_id)
@@ -110,10 +118,10 @@ $ grunt auto_install
 - yikes-mailchimp-custom-default-value-tags - Define your own custom pre-defined tags to populate the default value fields with - these tags appear in the modal - (@parameters - $pre_defined_tags_array)
 - yikes-mailchimp-parse-custom-default-value - Process your custom default merge tag into a custom value to populate the form field with - (Goes hand in hand with `yikes-mailchimp-custom-default-value-tags` filter)
 - yikes-mailchimp-field-data - Filter form field data such as placeholder, label, etc. (@parameters - $field_array, $field, $form_id) (process_form_shortcode.php - line 258 & process_preview_form_shortcode.php - line 258)
-- yikes-mailchimp-checkbox-integration-merge-variables - Filter the merge variables before they are sent to MailChimp. This allows you to add additional merge variables as you need. (@parameters - $merge_variables, $integration_type) (checkbox-integrations.php)
-- yikes-mailchimp-checkbox-integration-subscibe-api-request - Filter the entire API request, allowing you to alter the merge variable array, update user, list user is added to etc. For additional API parameters , see (https://apidocs.mailchimp.com/api/2.0/lists/subscribe.php) (@parameters - $merge_variables, $integration_type) (checkbox-integrations.php) (defaults to double optin - to prevent spam issues)
+- yikes-mailchimp-user-subscribe-api-request - Alter the API request whenever a new user subscribed (@parameters - $api_request data, $form_id, $list_id, $email ) (process_form_shortcode.php/process_form_shortcode_ajax.php)
 
-###### Hooks 
+###### Hooks
+
 - yikes-mailchimp-form-submission - do something with the user email + form data on form submission
 - yikes-mailchimp-form-submission-FORM_ID - do something with the user email + form data on form submission (specific form)
 - yikes-mailchimp-before-form - output content before all forms (@parameters - $form_id)
