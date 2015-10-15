@@ -105,15 +105,16 @@
 			// submit the request & data, using the form settings
 			try {
 								
-				$subscribe_response = $MailChimp->call('/lists/subscribe', array( 
+				$subscribe_response = $MailChimp->call('/lists/subscribe', apply_filters( 'yikes-mailchimp-user-subscribe-api-request', array( 
 					'api_key' => $api_key,
 					'id' => $_POST['list_id'],
 					'email' => array( 'email' => sanitize_email( $data['EMAIL'] ) ),
 					'merge_vars' => $merge_variables,
 					'double_optin' => $optin_settings['optin'],
 					'update_existing' => $optin_settings['update_existing_user'],
-					'send_welcome' => $optin_settings['send_welcome_email']
-				) );
+					'send_welcome' => $optin_settings['send_welcome_email'],
+					'replace_interests' => ( isset( $submission_settings['replace_interests'] ) ) ? $submission_settings['replace_interests'] : 1, // defaults to replace
+				), $form, $_POST['list_id'], $data['EMAIL'] ) );
 								
 				// set the global variable to 1, to trigger a successful submission
 				$form_submitted = 1;
