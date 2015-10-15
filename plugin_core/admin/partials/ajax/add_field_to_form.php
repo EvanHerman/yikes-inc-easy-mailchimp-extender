@@ -205,7 +205,7 @@
 					</td>
 					<td>
 						<input type="text" class="widefat" name="field[<?php echo $merge_field_data['tag']; ?>][additional-classes]" value="<?php echo isset( $form_data_array['classes'] ) ? stripslashes( wp_strip_all_tags( $form_data_array['classes'] ) ) : '' ; ?>" />
-						<p class="description"><small><?php _e( "Assign additional classes to this field.", 'yikes-inc-easy-mailchimp-extender' );?></small></p>
+						<p class="description"><small><?php printf( __( "Assign additional classes to this field. %s.", 'yikes-inc-easy-mailchimp-extender' ), '<a target="_blank" href="' . esc_url( 'https://yikesinc.freshdesk.com/solution/articles/6000077895' ) . '">' . __( 'View bundled classes', 'yikes-inc-easy-mailchimp-extender' ) . '</a>' );?></small></p>
 					</td>
 				</tr>
 					<!-- Required Toggle -->
