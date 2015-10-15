@@ -178,6 +178,10 @@
 																	<!-- #poststuff -->
 																	<?php echo $this->generate_form_editor( json_decode( $form['fields'] , true ) , $form['list_id'] , $available_merge_variables , isset( $interest_groupings ) ? $interest_groupings : array() ); ?>
 																</div>
+																
+																<!-- Bulk Delete Form Fields -->
+																<a href="#" class="clear-form-fields" <?php if( isset( $form['fields'] ) && count( json_decode( $form['fields'] , true ) ) <= 0 ) { ?> style="display:none;" <?php } ?>><?php _e( 'Clear Form Fields', 'yikes-inc-easy-mailchimp-extender' ); ?></a>
+
 																<!-- .inside -->
 															</div>
 															<!-- .postbox -->
@@ -492,6 +496,25 @@
 													&nbsp;<label for="do-not-hide-form"><input type="radio" id="do-not-hide-form" name="hide-form-post-signup" value="0" <?php checked( $submission_settings['hide_form_post_signup'] , '0' ); ?>><?php _e( 'No' , 'yikes-inc-easy-mailchimp-extender' ); ?></label>
 												</span>
 												<p class="description"><?php _e( "Should the form be hidden after the user successfully signs up?" , 'yikes-inc-easy-mailchimp-extender' ); ?></p>
+											</label></p>
+											
+											<!-- Append or Replace Interest Groups -->
+											<?php
+												if( !isset( $submission_settings['replace_interests'] ) ) {
+													$submission_settings['replace_interests'] = '1'; // defaults to true
+												}
+											?>
+											<p><label for="replace-interest-groups"><strong><?php _e( 'Existing Interest Groups' , 'yikes-inc-easy-mailchimp-extender' ); ?></strong>
+												<span class="form-field-container-span">
+													<label for="replace-interest-groups"><input type="radio"  id="replace-interest-groups" name="replace-interest-groups" value="1" <?php checked( $submission_settings['replace_interests'] , '1' ); ?> checked><?php _e( 'Replace' , 'yikes-inc-easy-mailchimp-extender' ); ?></label>
+													&nbsp;<label for="update-interest-groups"><input type="radio" id="update-interest-groups" name="replace-interest-groups" value="0" <?php checked( $submission_settings['replace_interests'] , '0' ); ?>><?php _e( 'Update' , 'yikes-inc-easy-mailchimp-extender' ); ?></label>
+												</span>
+												
+													<p class="description"><small><?php _e( "<strong>Replace</strong>: Replace all interest groups with the new ones submitted." , 'yikes-inc-easy-mailchimp-extender' ); ?></small></p>
+												
+												
+													<p class="description"><small><?php _e( "<strong>Update</strong>: Update <em>only</em> the ones submitted. Leave existing interest groups as is." , 'yikes-inc-easy-mailchimp-extender' ); ?></small></p>
+												
 											</label></p>
 											
 										</div>

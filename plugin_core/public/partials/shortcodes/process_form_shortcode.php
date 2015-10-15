@@ -637,14 +637,16 @@ function process_mailchimp_shortcode( $atts ) {
 					} else { // loop over interest groups
 					
 						// store default choice
-						$default_choice = ( isset( $field['default_choice'] ) && ! empty( $field['default_choice'] ) ) ? ( is_array( $field['default_choice'] ) ? $field['default_choice'] : array( $field['default_choice'] ) ) : array();
+						$default_choice = ( isset( $field['default_choice'] ) && ! empty( $field['default_choice'] ) ) ? ( is_array( $field['default_choice'] ) ? $field['default_choice'] : $field['default_choice'] ) : $field['default_choice'];
 						
 						// if the form was submit, but failed, let's reset the post data
 						if( isset( $_POST[$field['group_id']] ) && $form_submitted != 1 ) {
 							$default_value = $default_choice;
 						}
+						
 						// get our groups
-						$groups = json_decode( stripslashes_deep( $field['groups'] ) , true );
+						$groups = ( isset( $field['groups'] ) && ! empty( $field['groups'] ) ) ? json_decode( stripslashes_deep( $field['groups'] ), true ) : array();
+												
 						$count = count( $groups );						
 						
 						if( $field['type'] == 'checkboxes' ) {
@@ -672,7 +674,7 @@ function process_mailchimp_shortcode( $atts ) {
 										foreach( $groups as $group ) {
 											?>
 											<label for="<?php echo $field['group_id'] . '-' . $i; ?>" class="yikes-easy-mc-checkbox-label <?php echo implode( ' ' , $custom_classes ); if( $x === $count ) { ?>last-selection<?php } ?>">
-												<input type="<?php echo $type; ?>" name="<?php echo $field['group_id']; ?>[]" id="<?php echo $field['group_id'] . '-' . $i; ?>" <?php if( $field['type'] == 'checkboxes' ) { if( in_array( $i , $default_choice ) ) { echo 'checked="checked"'; } } else { checked( $default_choice , $i ); } ?> value="<?php echo esc_attr( $group['name'] ); ?>">
+												<input type="<?php echo $type; ?>" name="<?php echo $field['group_id']; ?>[]" id="<?php echo $field['group_id'] . '-' . $i; ?>" <?php if( $field['type'] == 'checkboxes' ) { if( in_array( $i , $default_choice ) ) { echo 'checked="checked"'; } } else { checked( ( isset( $default_choice ) && is_array( $default_choice ) ) ? $default_choice[0] : $default_choice , $i ); } ?> value="<?php echo esc_attr( $group['name'] ); ?>">
 												<?php echo esc_attr( stripslashes( str_replace( '~' , '\'', $group['name'] ) ) ); ?>
 											</label>
 											<?php
@@ -706,7 +708,7 @@ function process_mailchimp_shortcode( $atts ) {
 											<?php 	
 												$i = 0;
 												foreach( $groups as $group ) {
-													?><option <?php selected( $i , $default_choice ); ?> value="<?php echo $i; ?>"><?php echo esc_attr( stripslashes( $group['name'] ) ); ?></option><?php
+													?><option <?php selected( $i , $default_choice ); ?> value="<?php echo $group['name']; ?>"><?php echo esc_attr( stripslashes( $group['name'] ) ); ?></option><?php
 													$i++;
 												} 
 											?>
@@ -719,6 +721,41 @@ function process_mailchimp_shortcode( $atts ) {
 										?>
 										</label>
 										<?php
+									}
+
+								break;
+								
+							case 'hidden':
+								$i = 0; // used to select our checkboxes/radios
+								$x = 1; // used to find the last item of our array
+																
+								// hidden labels
+								if( !isset( $field['hide-label'] ) ) {
+									?>
+									<label for="<?php echo esc_attr( $field['group_id'] ); ?>" <?php echo implode( ' ' , $label_array ); ?>><span class="<?php echo esc_attr( $field['group_id'] ) . '-label'; ?> checkbox-parent-label" style="display:none;"><?php echo apply_filters( 'yikes-mailchimp-'.$field['group_id'].'-label' , esc_attr( stripslashes( $field['label'] ) ) ); ?></span>
+									<?php
+								}
+										
+										
+										foreach( $groups as $group ) {
+											?>
+											<label for="<?php echo $field['group_id'] . '-' . $i; ?>" class="yikes-easy-mc-checkbox-label <?php echo implode( ' ' , $custom_classes ); if( $x === $count ) { ?>last-selection<?php } ?>" style="display:none;">
+												<input type="radio" name="<?php echo $field['group_id']; ?>[]" id="<?php echo $field['group_id'] . '-' . $i; ?>" <?php if( $field['type'] == 'checkboxes' ) { if( in_array( $i , $default_choice ) ) { echo 'checked="checked"'; } } else { checked( ( isset( $default_choice ) && is_array( $default_choice ) ) ? $default_choice[0] : $default_choice , $i ); } ?> value="<?php echo esc_attr( $group['name'] ); ?>">
+												<?php echo esc_attr( stripslashes( str_replace( '~' , '\'', $group['name'] ) ) ); ?>
+											</label>
+											<?php
+											$i++;
+											$x++;
+										}
+											
+										// description
+										if( isset( $field['description'] ) && trim( $field['description'] ) != '' ) { ?><p class="form-field-description"><small><?php echo esc_attr( trim( stripslashes( $field['description'] ) ) ); ?></small></p><?php } 
+											
+									// close label
+									if( !isset( $field['hide-label'] ) ) {
+									?>
+										</label>
+									<?php
 									}
 
 								break;
