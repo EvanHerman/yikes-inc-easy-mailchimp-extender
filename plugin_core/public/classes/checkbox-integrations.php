@@ -119,6 +119,8 @@
 			if( ! isset( $merge_vars['OPTIN_IP'] ) && isset( $_SERVER['REMOTE_ADDR'] ) ) {
 				$merge_vars['OPTIN_IP'] = sanitize_text_field( $_SERVER['REMOTE_ADDR'] );
 			}
+			// set the optin time
+			$merge_vars['OPTIN_TIME'] = current_time( 'Y-m-d H:i:s', 1 );
 			// check for interest groups
 			$interest_groups = ( isset( $checkbox_options[$type]['interest-groups'] ) ) ? $checkbox_options[$type]['interest-groups'] : false;
 			// if interest groups were found, push them to the merge variable array

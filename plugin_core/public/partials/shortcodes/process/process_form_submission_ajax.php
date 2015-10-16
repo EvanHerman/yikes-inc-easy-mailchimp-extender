@@ -67,14 +67,14 @@
 			foreach ( $data as $merge_tag => $value ) {
 				if( $merge_tag != 'yikes_easy_mc_new_subscriber' && $merge_tag != '_wp_http_referer' ) {
 					if( is_numeric( $merge_tag ) ) { // this is is an interest group!
-						$merge_variables['groupings'][] = array( 'id' => $merge_tag , 'groups' => $value );
+						$merge_variables['groupings'][] = array( 'id' => $merge_tag , 'groups' => ( is_array( $value ) ) ? $value : array( $value ) );
 					} else { // or else it's just a standard merge variable
 						$merge_variables[$merge_tag] = $value;
 					}
 				}
 			}
 			// store the opt-in time
-			$merge_variables['optin_time'] = strtotime( date( get_option( 'date_format' ) . get_option( 'time_format' ) , current_time('timestamp') ) );
+			$merge_variables['optin_time'] = current_time( 'Y-m-d H:i:s', 1 );
 			
 			// Submit our form data
 			$api_key = get_option( 'yikes-mc-api-key' , '' );

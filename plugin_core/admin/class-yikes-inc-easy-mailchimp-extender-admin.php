@@ -2027,19 +2027,6 @@ class Yikes_Inc_Easy_Mailchimp_Forms_Admin {
 												<p class="description"><small><?php _e( "Toggle field label visibility.", 'yikes-inc-easy-mailchimp-extender' );?></small></p>
 											</td>
 										</tr>
-										<!-- Toggle Field Label Visibility -->
-										<tr valign="top">
-											<td scope="row">
-												<label for="placeholder">
-													<?php _e( 'Hide Label' , 'yikes-inc-easy-mailchimp-extender' ); ?>
-												</label>
-											</td>
-											<td>
-												<?php $hide = isset( $field['hide-label'] ) ? $field['hide-label'] : '0'; ?>
-												<input type="checkbox" name="field[<?php echo $field['group_id']; ?>][hide-label]" value="1" <?php checked( $hide , 1 ); ?>/>
-												<p class="description"><small><?php _e( "Toggle field label visibility.", 'yikes-inc-easy-mailchimp-extender' );?></small></p>
-											</td>
-										</tr>	
 										<!-- Toggle Buttons -->
 										<tr valign="top">
 											<td scope="row">
@@ -2472,6 +2459,8 @@ class Yikes_Inc_Easy_Mailchimp_Forms_Admin {
 					}
 				}
 				$custom_fields = json_encode( $custom_field_array );
+			} else {
+				$custom_fields = array();
 			}
 			
 			

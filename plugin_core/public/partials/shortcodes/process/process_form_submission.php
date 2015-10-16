@@ -49,7 +49,7 @@ if ( ! isset( $_POST['yikes_easy_mc_new_subscriber'] ) || ! wp_verify_nonce( $_P
 	}
 	
 	// store the opt-in time
-	$merge_variables['optin_time'] = date( 'Y-m-d G:H:s' , strtotime('now') );
+	$merge_variables['optin_time'] = current_time( 'Y-m-d H:i:s', 1 );
 	
 	// Submit our form data
 	$api_key = get_option( 'yikes-mc-api-key' , '' );
