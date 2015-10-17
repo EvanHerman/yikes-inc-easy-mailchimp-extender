@@ -51,7 +51,10 @@ class Yikes_Inc_Easy_Mailchimp_Extender_Public {
 		// Include our Shortcode & Processing function (public folder)
 		include_once( YIKES_MC_PATH . 'public/partials/shortcodes/process_form_shortcode.php' );
 		// Process our old shortcode to alert the user that this is now depracated
-		include_once( YIKES_MC_PATH . 'public/partials/shortcodes/process_form_shortcode_depracated.php' );
+		include_once( YIKES_MC_PATH . 'public/partials/shortcodes/yikes-mailchimp-subscriber-count.php' );
+		// Include our subscriber count shortcode
+		// @since 6.0.2.4
+		include_once( YIKES_MC_PATH . 'public/partials/shortcodes/process_form_shortcode.php' );
 		// include our ajax processing class
 		require_once( YIKES_MC_PATH . 'public/partials/ajax/class.public_ajax.php' );
 		// Include our error logging class

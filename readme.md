@@ -106,12 +106,13 @@ $ grunt auto_install
 - yikes-mailchimp-after-submission - catch the merge variables of all forms after they get sent over to MailChimp
 - yikes-mailchimp-after-submission-FORM_ID - catch the merge variables of the specified form after they get sent over to MailChimp
 - yikes-mailchimp-user-role-access - Alter who can access this plugin page by capability (default 'manage_options' - admins)
-- yikes-mailchimp-international-phone-pattern - Alter the regex pattern for acceptable international phone number formats. (process form shortcode.php - line 295)
-- yikes-mailchimp-us-phone-pattern - Alter the regex pattern for acceptable US phone number formats. (process form shortcode.php - line 295)
+- yikes-mailchimp-international-phone-pattern - Alter the regex pattern for acceptable international phone number formats. (default: [0-9]{1,}) (process form shortcode.php - line 295)
+- yikes-mailchimp-us-phone-pattern - Alter the regex pattern for acceptable US phone number formats. (default: [^(\([0-9]{3}\)|[0-9]{3}-)[0-9]{3}-[0-9]{4}$) (process form shortcode.php - line 295)
 - yikes-mailchimp-process-default-tag - Pass the default tag through a filter to populate with dynamic content from the current site (process_form_shortcode.php - line 256)
 - yikes-mailchimp-MERGE_TAG-label - Alter the specified field label text (affects standard fields & interest groups) (process_form_shortcode.php) 
 - yikes-mailchimp-address-TYPE-label - Alter the field sub-label text for a specified address field (affects only standard address fields) (process_form_shortcode.php) 
 - yikes-mailchimp-form-submit-button - Alter the submit button to your liking (process_form_shortcode.php line 660) (@parameters - $submit_button, $form_id)
+- yikes-mailchimp-form-submit-button-text - Alter the submit button text value (process_form_shortcode.php line 660) (@parameters - $submit_button_text, $form_id )
 - yikes-mailchimp-form-container-class - add additional classes to the parent form container (process_form_shortcode.php line157) (@parameters - $content, $form_id)
 - yikes-mailchimp-form-class - add additional classes to <form> element of your opt-in form (process_form_shortcode.php line157) (@parameters - $content, $form_id)
 - yikes-mailchimp-front-end-form-action-links - Add custom front end action links alongside Edit Form, Customize Form etc. (@parameters - $form_action_links, $form_id, $form_name)
@@ -137,12 +138,18 @@ $ grunt auto_install
 - yikes-mailchimp-custom-form-actions - add custom action links on the manage forms page (alongside Edit, Duplicate, Shortcode, Delete ) (@parameter $form_id - the id of the form)
 
 
-
-
 ###### Hooks for Extensions
 - yikes-mailchimp-menu - hook to add additional menu items inside of the "Easy MailChimp" menu item
 - yikes-mailchimp-settings-field - hook to register additional settings fields for add-ons
 - yikes-mailchimp-ADDON-SLUG-options-path - hook to load up a custom settings page
+
+
+##### Helper Shortcodes
+
+<strong>Display current number of subscribers</strong>
+`[yikes-mailchimp-subscriber-count form="1"]` 
+
+Display the current number of subscribers for a given list. Pass in the form ID whos list you want to display. (also accepts list="mailchimp_list_id")
 
 
 ###	Custom Edit Form Sections API
