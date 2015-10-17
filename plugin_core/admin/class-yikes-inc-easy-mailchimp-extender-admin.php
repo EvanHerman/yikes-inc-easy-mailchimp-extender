@@ -64,6 +64,8 @@ class Yikes_Inc_Easy_Mailchimp_Forms_Admin {
 		include_once( YIKES_MC_PATH . 'admin/partials/ajax/class.ajax.php' );
 		// load up our helper class
 		add_action( 'admin_init' , array( $this , 'yikes_mailchimp_load_helper_class' ) );
+		// process the subscriber count shortcode in form descriptions
+		add_action( 'yikes-mailchimp-form-description', array( $this, 'process_subscriber_count_shortcode_in_form_descriptions' ), 10, 2 );
 		/***********************/
 		/** Create A Form **/
 		/**********************/
@@ -1464,7 +1466,7 @@ class Yikes_Inc_Easy_Mailchimp_Forms_Admin {
 								<?php _e( 'Quickly and easily customize every aspect of your MailChimp optin forms using our powerful customizer add-on.', 'yikes-inc-easy-mailchimp-extender' ); ?>
 							</p>
 							<hr style="margin:1em 0;" />
-							<a href="https://yikesplugins.com/plugin/form-customizer-for-easy-forms-for-mailchimp/?utm_source=edit-form-page&utm_medium=banner&utm_campaign=admin" title="<?php _e( 'Easy Forms for MailChimp Customizer Add-On', 'yikes-inc-easy-mailchimp-extender' ); ?>">	
+							<a href="https://yikesplugins.com/plugin/form-customizer-for-easy-forms-for-mailchimp/?utm_source=edit-form-page&utm_medium=banner&utm_campaign=admin" target="_blank" title="<?php _e( 'Easy Forms for MailChimp Customizer Add-On', 'yikes-inc-easy-mailchimp-extender' ); ?>">	
 								<img src="<?php echo YIKES_MC_URL . 'includes/images/yikes-customizer-upsell-banner.jpg'; ?>" class="customizer-upsell-banner" />
 							</a>
 						</div>
@@ -2726,4 +2728,14 @@ class Yikes_Inc_Easy_Mailchimp_Forms_Admin {
 			// add our inline styles
 			echo $override_admin_styles;
 		}
+		
+		/*
+		*	Process [yikes-mailchimp-form-description] into the shortcode
+		*	@since 6.0.4.4
+		*/
+		public function process_subscriber_count_shortcode_in_form_descriptions( $form_description, $form_id ) {
+			$form_description = str_replace( '[yikes-mailchimp-subscriber-count]', do_shortcode( '[yikes-mailchimp-subscriber-count form="' . $form_id . '"]' ), $form_description );
+			return $form_description;
+		}
+		
 }
