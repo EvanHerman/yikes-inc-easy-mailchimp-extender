@@ -101,12 +101,15 @@ $ grunt auto_install
 - yikes-mailchimp-MERGE_TAG-label - Alter the specified field label text (affects standard fields & interest groups) (process_form_shortcode.php) 
 - yikes-mailchimp-address-TYPE-label - Alter the field sub-label text for a specified address field (affects only standard address fields) (process_form_shortcode.php) 
 - yikes-mailchimp-form-submit-button - Alter the submit button to your liking (process_form_shortcode.php line 660) (@parameters - $submit_button, $form_id)
+- yikes-mailchimp-form-submit-button-text - Alter the submit button text value (process_form_shortcode.php line 660) (@parameters - $submit_button_text, $form_id )
 - yikes-mailchimp-form-container-class - add additional classes to the parent form container (process_form_shortcode.php line157) (@parameters - $content, $form_id)
 - yikes-mailchimp-form-class - add additional classes to <form> element of your opt-in form (process_form_shortcode.php line157) (@parameters - $content, $form_id)
 - yikes-mailchimp-front-end-form-action-links - Add custom front end action links alongside Edit Form, Customize Form etc. (@parameters - $form_action_links, $form_id, $form_name)
 - yikes-mailchimp-custom-default-value-tags - Define your own custom pre-defined tags to populate the default value fields with - these tags appear in the modal - (@parameters - $pre_defined_tags_array)
 - yikes-mailchimp-parse-custom-default-value - Process your custom default merge tag into a custom value to populate the form field with - (Goes hand in hand with `yikes-mailchimp-custom-default-value-tags` filter)
 - yikes-mailchimp-field-data - Filter form field data such as placeholder, label, etc. (@parameters - $field_array, $field, $form_id) (process_form_shortcode.php - line 258 & process_preview_form_shortcode.php - line 258)
+- yikes-mailchimp-subscriber-count-value - Adjust the returned value for the total subscriber count of a given MailChimp mailing list as needed. (@parameters - $subscriber_count) (yikes-mailchimp-subscriber-count.php- line 80)
+
 ###### Hooks
 - yikes-mailchimp-form-submission - do something with the user email + form data on form submission
 - yikes-mailchimp-form-submission-FORM_ID - do something with the user email + form data on form submission (specific form)
@@ -122,14 +125,25 @@ $ grunt auto_install
 - yikes-mailchimp-additional-form-fields - define additional fields to add below all forms (@parameter $form_data - all data associated with the given form)
 - yikes-mailchimp-custom-form-actions - add custom action links on the manage forms page (alongside Edit, Duplicate, Shortcode, Delete ) (@parameter $form_id - the id of the form)
 
-
-
-
 ###### Hooks for Extensions
 - yikes-mailchimp-menu - hook to add additional menu items inside of the "Easy MailChimp" menu item
 - yikes-mailchimp-settings-field - hook to register additional settings fields for add-ons
 - yikes-mailchimp-ADDON-SLUG-options-path - hook to load up a custom settings page
 
+##### Helper Shortcodes
+
+<strong>Display current number of subscribers</strong>
+`[yikes-mailchimp-subscriber-count form="1"]` 
+
+Display the current number of subscribers for a given list. Pass in the form ID whos list you want to display. (also accepts list="mailchimp_list_id")
+
+If you want to use the snippet inside of your form description, you can exclude the form ID and list ID altogether, and the shortcode will reference the list associated with the displayed form.
+
+Example Form Description:
+Join the `[yikes-mailchimp-subscriber-count]` happy subscribers who receive our mailing list!
+
+which might display on the front end like:
+Join the 1,543 happy subscribers who receive our mailign list!
 
 ###	Custom Edit Form Sections API
 Since we've built out a few add-ons to extend the base functionality, we've also built out an API to allow users to rapidly define custom sections on the edit form screen. This allows you to assign additional data to your forms.

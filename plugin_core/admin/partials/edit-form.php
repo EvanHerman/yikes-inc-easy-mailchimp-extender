@@ -131,6 +131,7 @@
 											<h3 class="bg-transparent"><?php _e( 'Form Description' , 'yikes-inc-easy-mailchimp-extender' ); ?></h3>
 											<textarea name="form-description" id="form-description" class="large-text edit-form-form-description"><?php echo isset( $form['form_description'] ) ? stripslashes( esc_textarea( $form['form_description'] ) ) : ''; ?></textarea>
 											<p class="description"><?php _e( "Descriptions are optional and you may choose to display it to visitors to your site." , 'yikes-inc-easy-mailchimp-extender' ); ?></p>
+											<p class="description"><?php printf( __( 'To display the number of subscribers for the list associated with this form, use %s in the form description field above.', 'yikes-inc-easy-mailchimp-extender' ), '<code>[yikes-mailchimp-subscriber-count]</code>' ); ?><p>
 										</label>
 																				
 									</div>

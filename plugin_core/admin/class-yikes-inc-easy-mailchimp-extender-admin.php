@@ -64,6 +64,8 @@ class Yikes_Inc_Easy_Mailchimp_Forms_Admin {
 		include_once( YIKES_MC_PATH . 'admin/partials/ajax/class.ajax.php' );
 		// load up our helper class
 		add_action( 'admin_init' , array( $this , 'yikes_mailchimp_load_helper_class' ) );
+		// process the subscriber count shortcode in form descriptions
+		add_action( 'yikes-mailchimp-form-description', array( $this, 'process_subscriber_count_shortcode_in_form_descriptions' ), 10, 2 );
 		/***********************/
 		/** Create A Form **/
 		/**********************/
@@ -554,7 +556,11 @@ class Yikes_Inc_Easy_Mailchimp_Forms_Admin {
 		* Pass our imported list data, to the JS file
 		* to build the drop down list in the modal
 		*/
-		public function tinymce_yikes_easy_mc() {					
+		public function tinymce_yikes_easy_mc() {
+			// check capabilities
+			if( ! current_user_can( apply_filters( 'yikes-mailchimp-user-role-access' , 'manage_options' ) ) ) {
+				return;
+			}
 			global $wpdb;
 			$list_data = $wpdb->get_results( 'SELECT * FROM ' . $wpdb->prefix . 'yikes_easy_mc_forms', ARRAY_A );
 			$lists = array();
@@ -1444,52 +1450,78 @@ class Yikes_Inc_Easy_Mailchimp_Forms_Admin {
 			// if no active add-ons are installed,
 			// lets display our branding and add-on sidebar
 			if( get_option( 'yikes-easy-mc-active-addons' , array() ) == array() ) {
+			
+				/* On Edit Forms Page Display Upsell to Customizer */
+				$screen = get_current_screen();
+				if( isset( $screen ) && $screen->base == 'admin_page_yikes-mailchimp-edit-form' ) {
 				?>		
-				<div class="postbox yikes-easy-mc-postbox show-some-love-container">
-							
-					<!-- review us container -->
-					<h3 data-alt-text="<?php _e( 'About YIKES Inc.', 'yikes-inc-easy-mailchimp-extender' ); ?>"><?php _e( 'Show YIKES Inc. Some Love' , 'yikes-inc-easy-mailchimp-extender' ); ?></h3>
-					<div id="review-yikes-easy-mc" class="inside">
-									
-						<p>
-							<?php _e( 'Leave a review' , 'yikes-inc-easy-mailchimp-extender' ); ?>
-							<p class="star-container">
-								<a href="https://wordpress.org/support/view/plugin-reviews/yikes-inc-easy-mailchimp-extender" target="_blank">
-									<b class="dashicons dashicons-star-filled"></b>
-									<b class="dashicons dashicons-star-filled"></b>
-									<b class="dashicons dashicons-star-filled"></b>
-									<b class="dashicons dashicons-star-filled"></b>
-									<b class="dashicons dashicons-star-filled"></b>
+				 
+					<div class="postbox yikes-easy-mc-postbox show-some-love-container">
+					
+						<!-- review us container -->
+						<h3><?php _e( 'Form Customizer Add-On' , 'yikes-inc-easy-mailchimp-extender' ); ?></h3>
+						
+						<div class="inside">
+							<p class="description">
+								<?php _e( 'Quickly and easily customize every aspect of your MailChimp optin forms using our powerful customizer add-on.', 'yikes-inc-easy-mailchimp-extender' ); ?>
+							</p>
+							<hr style="margin:1em 0;" />
+							<a href="https://yikesplugins.com/plugin/form-customizer-for-easy-forms-for-mailchimp/?utm_source=edit-form-page&utm_medium=banner&utm_campaign=admin" target="_blank" title="<?php _e( 'Easy Forms for MailChimp Customizer Add-On', 'yikes-inc-easy-mailchimp-extender' ); ?>">	
+								<img src="<?php echo YIKES_MC_URL . 'includes/images/yikes-customizer-upsell-banner.jpg'; ?>" class="customizer-upsell-banner" />
+							</a>
+						</div>
+
+					</div>
+						
+				<?php } else { ?>
+				
+					<div class="postbox yikes-easy-mc-postbox show-some-love-container">
+					
+						<!-- review us container -->
+						<h3 data-alt-text="<?php _e( 'About YIKES Inc.', 'yikes-inc-easy-mailchimp-extender' ); ?>"><?php _e( 'Show YIKES Inc. Some Love' , 'yikes-inc-easy-mailchimp-extender' ); ?></h3>
+						<div id="review-yikes-easy-mc" class="inside">
+										
+							<p>
+								<?php _e( 'Leave a review' , 'yikes-inc-easy-mailchimp-extender' ); ?>
+								<p class="star-container">
+									<a href="https://wordpress.org/support/view/plugin-reviews/yikes-inc-easy-mailchimp-extender" target="_blank">
+										<b class="dashicons dashicons-star-filled"></b>
+										<b class="dashicons dashicons-star-filled"></b>
+										<b class="dashicons dashicons-star-filled"></b>
+										<b class="dashicons dashicons-star-filled"></b>
+										<b class="dashicons dashicons-star-filled"></b>
+									</a>
+								</p>
+							</p>
+										
+							<?php _e( 'Tweet about it' , 'yikes-inc-easy-mailchimp-extender' ); ?>
+							<p class="sidebar-container">
+								<a href="https://twitter.com/share" class="twitter-share-button" data-url="https://wordpress.org/plugins/yikes-inc-easy-mailchimp-extender/" data-text="I'm using the Easy Forms for MailChimp plugin by @YikesInc to grow my mailing list - it's awesome! -" data-hashtags="MailChimp">Tweet</a>
+								<script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');</script>
+							</p>
+											
+							<?php _e( 'Vote that the plugin works' , 'yikes-inc-easy-mailchimp-extender' ); ?>
+							<p class="sidebar-container">
+								<a href="https://wordpress.org/plugins/yikes-inc-easy-mailchimp-extender/" target="_blank">
+									<?php _e( 'Vote for Compatibility' , 'yikes-inc-easy-mailchimp-extender' ); ?>
 								</a>
 							</p>
-						</p>
-								
-						<?php _e( 'Tweet about it' , 'yikes-inc-easy-mailchimp-extender' ); ?>
-						<p class="sidebar-container">
-							<a href="https://twitter.com/share" class="twitter-share-button" data-url="https://wordpress.org/plugins/yikes-inc-easy-mailchimp-extender/" data-text="I'm using the Easy Forms for MailChimp plugin by @YikesInc to grow my mailing list - it's awesome! -" data-hashtags="MailChimp">Tweet</a>
-							<script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');</script>
-						</p>
-									
-						<?php _e( 'Vote that the plugin works' , 'yikes-inc-easy-mailchimp-extender' ); ?>
-						<p class="sidebar-container">
-							<a href="https://wordpress.org/plugins/yikes-inc-easy-mailchimp-extender/" target="_blank">
-								<?php _e( 'Vote for Compatibility' , 'yikes-inc-easy-mailchimp-extender' ); ?>
+						</div>
+						
+						<p class="description sidebar-footer-text"><?php printf( __( "This plugin made with %s by %s" , 'yikes-inc-easy-mailchimp-extender' ), '<span class="dashicons dashicons-heart yikes-love"></span>', '<a href="http://www.yikesinc.com" target="_blank" title="YIKES Inc.">YIKES Inc.</a>' ); ?> </p>
+						
+						<section id="about-yikes-inc" class="inside">
+							<a href="https://www.yikesinc.com" target="_blank" title="YIKES Inc.">
+								<img src="<?php echo YIKES_MC_URL . 'includes/images/About_Page/yikes-logo.png'; ?>" class="about-sidebar-yikes-logo" />
 							</a>
-						</p>
+							<p><strong>YIKES Inc.</strong> &mdash; <?php _e( 'is a web design and development company located in Philadelphia, Pennsylvania, US. YIKES specializes in custom WordPress theme and plugin development, site maintenance, eCommerce, custom-built web-based applications and more.', 'yikes-inc-easy-mailchimp-extender' ); ?></p>
+						</section>
+						
+						<p class="description sidebar-footer-text"><a href="#" class="about-yikes-inc-toggle" data-alt-text="<?php _e( 'Show YIKES Inc. Some Love', 'yikes-inc-easy-mailchimp-extender' ); ?>"><?php _e( 'About YIKES Inc.', 'yikes-inc-easy-mailchimp-extender' ); ?></a></p>
+						
 					</div>
-					
-					<p class="description sidebar-footer-text"><?php printf( __( "This plugin made with %s by %s" , 'yikes-inc-easy-mailchimp-extender' ), '<span class="dashicons dashicons-heart yikes-love"></span>', '<a href="http://www.yikesinc.com" target="_blank" title="YIKES Inc.">YIKES Inc.</a>' ); ?> </p>
-					
-					<section id="about-yikes-inc" class="inside">
-						<a href="https://www.yikesinc.com" target="_blank" title="YIKES Inc.">
-							<img src="<?php echo YIKES_MC_URL . 'includes/images/About_Page/yikes-logo.png'; ?>" class="about-sidebar-yikes-logo" />
-						</a>
-						<p><strong>YIKES Inc.</strong> &mdash; <?php _e( 'is a web design and development company located in Philadelphia, Pennsylvania, US. YIKES specializes in custom WordPress theme and plugin development, site maintenance, eCommerce, custom-built web-based applications and more.', 'yikes-inc-easy-mailchimp-extender' ); ?></p>
-					</section>
-					
-					<p class="description sidebar-footer-text"><a href="#" class="about-yikes-inc-toggle" data-alt-text="<?php _e( 'Show YIKES Inc. Some Love', 'yikes-inc-easy-mailchimp-extender' ); ?>"><?php _e( 'About YIKES Inc.', 'yikes-inc-easy-mailchimp-extender' ); ?></a></p>
-					
-				</div>
+				
+				<?php } ?>
 				
 				<div class="postbox yikes-easy-mc-postbox">
 								
@@ -2460,9 +2492,8 @@ class Yikes_Inc_Easy_Mailchimp_Forms_Admin {
 				}
 				$custom_fields = json_encode( $custom_field_array );
 			} else {
-				$custom_fields = array();
+				$custom_fields = '';
 			}
-			
 			
 			// verify our nonce
 			if( ! wp_verify_nonce( $nonce, 'update-mailchimp-form-'.$form_id ) ) {
@@ -2697,4 +2728,14 @@ class Yikes_Inc_Easy_Mailchimp_Forms_Admin {
 			// add our inline styles
 			echo $override_admin_styles;
 		}
+		
+		/*
+		*	Process [yikes-mailchimp-form-description] into the shortcode
+		*	@since 6.0.4.4
+		*/
+		public function process_subscriber_count_shortcode_in_form_descriptions( $form_description, $form_id ) {
+			$form_description = str_replace( '[yikes-mailchimp-subscriber-count]', do_shortcode( '[yikes-mailchimp-subscriber-count form="' . $form_id . '"]' ), $form_description );
+			return $form_description;
+		}
+		
 }
