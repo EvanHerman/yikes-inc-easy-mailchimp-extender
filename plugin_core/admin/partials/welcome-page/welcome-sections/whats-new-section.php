@@ -21,7 +21,7 @@
 		
 		<p><?php _e( "Check out the documentation for a complete list of the available hooks and filters.",  'yikes-inc-easy-mailchimp-extender' ); ?></p>
 
-		<p><a href="https://yikesinc.freshdesk.com/support/solutions/articles/6000043445-hooks-and-filters" target="_blank" title="<?php _e( 'Documentation | Hooks and Filters', 'yikes-inc-easy-mailchimp-extender' ); ?>"><?php _e( "Documentation | Hooks and Filters",  'yikes-inc-easy-mailchimp-extender' ); ?></a></p>
+		<p><a href="https://yikesplugins.com/support/knowledge-base/product/developer-documentation/" target="_blank" title="<?php _e( 'Documentation | Hooks and Filters', 'yikes-inc-easy-mailchimp-extender' ); ?>"><?php _e( "Documentation | Hooks and Filters",  'yikes-inc-easy-mailchimp-extender' ); ?></a></p>
 	</div>
 	
 	<div class="feature-section">
