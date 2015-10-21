@@ -1458,19 +1458,8 @@ class Yikes_Inc_Easy_Mailchimp_Forms_Admin {
 				 
 					<div class="postbox yikes-easy-mc-postbox show-some-love-container">
 					
-						<!-- review us container -->
-						<h3><?php _e( 'Form Customizer Add-On' , 'yikes-inc-easy-mailchimp-extender' ); ?></h3>
-						
-						<div class="inside">
-							<p class="description">
-								<?php _e( 'Quickly and easily customize every aspect of your MailChimp optin forms using our powerful customizer add-on.', 'yikes-inc-easy-mailchimp-extender' ); ?>
-							</p>
-							<hr style="margin:1em 0;" />
-							<a href="https://yikesplugins.com/plugin/form-customizer-for-easy-forms-for-mailchimp/?utm_source=edit-form-page&utm_medium=banner&utm_campaign=admin" target="_blank" title="<?php _e( 'Easy Forms for MailChimp Customizer Add-On', 'yikes-inc-easy-mailchimp-extender' ); ?>">	
-								<img src="<?php echo YIKES_MC_URL . 'includes/images/yikes-customizer-upsell-banner.jpg'; ?>" class="customizer-upsell-banner" />
-							</a>
-						</div>
-
+						<?php $this->gnerate_edit_forms_upsell_ad(); ?>
+					
 					</div>
 						
 				<?php } else { ?>
@@ -2738,4 +2727,51 @@ class Yikes_Inc_Easy_Mailchimp_Forms_Admin {
 			return $form_description;
 		}
 		
+		/*
+		*	Generate the sidebar advertisment on the 'Edit Form' page
+		*	@since 6.0.3
+		*/
+		public function gnerate_edit_forms_upsell_ad() {
+			/*
+			*	SimplePie strips out all query strings
+			* 	we had to implement a workaround
+			*	https://github.com/simplepie/simplepie/issues/317
+			*/
+			// Get RSS Feed(s)
+			require_once( ABSPATH . WPINC . '/class-feed.php' );
+			/* Create the SimplePie object */
+			$feed = new SimplePie(); 
+			$feed_url = esc_url( 'http://yikesplugins.com/feed/?post_type=product_ads&genre=easy-forms-for-mailchimp' );
+			/* Set the URL of the feed you're retrieving */
+			$feed->set_feed_url( $feed_url );
+			$feed->strip_htmltags(false);
+			$feed->set_item_limit( 1 ); // limit to 1
+			/* Tell SimplePie to cache the feed using WordPress' cache class */
+			$feed->set_cache_class( 'WP_Feed_Cache' );
+			/* Tell SimplePie to use the WordPress class for retrieving feed files */
+			$feed->set_file_class( 'WP_SimplePie_File' );
+			$feed->enable_cache( false ); // temporary
+			/* Tell SimplePie how long to cache the feed data in the WordPress database */
+			$feed->set_cache_duration( apply_filters( 'wp_feed_cache_transient_lifetime', 43200, $feed_url ) );
+			/* Run any other functions or filters that WordPress normally runs on feeds */
+			do_action_ref_array( 'wp_feed_options', array( $feed, $feed_url ) ); 
+			/* Initiate the SimplePie instance */
+			$feed->init(); 
+			/* Tell SimplePie to send the feed MIME headers */
+			$feed->handle_content_type(); 
+			if ( $feed->error() ) {
+				return $feed = new WP_Error( 'simplepie-error', $feed->error() );
+			}
+			foreach( $feed->get_items() as $add_on ) {
+				$add_on_desc = $add_on->get_content();
+				?>
+					<h3><?php echo $add_on->get_title(); ?></h3>
+					<div class="inside">
+					<?php
+						echo $add_on_desc;
+					?>
+					</div>
+				<?php
+			}
+		}
 }
