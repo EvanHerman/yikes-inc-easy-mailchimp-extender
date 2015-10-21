@@ -110,6 +110,7 @@ $ grunt auto_install
 - yikes-mailchimp-us-phone-pattern - Alter the regex pattern for acceptable US phone number formats. (default: [^(\([0-9]{3}\)|[0-9]{3}-)[0-9]{3}-[0-9]{4}$) (process form shortcode.php - line 295)
 - yikes-mailchimp-process-default-tag - Pass the default tag through a filter to populate with dynamic content from the current site (process_form_shortcode.php - line 256)
 - yikes-mailchimp-MERGE_TAG-label - Alter the specified field label text (affects standard fields & interest groups) (process_form_shortcode.php) 
+* yikes-mailchimp-MERGE_TAG-description - Alter the specified field description text (affects standard fields & interest groups) (process_form_shortcode.php)  (if targeting an interest group, it will be the group_id)
 - yikes-mailchimp-address-TYPE-label - Alter the field sub-label text for a specified address field (affects only standard address fields) (process_form_shortcode.php) 
 - yikes-mailchimp-form-submit-button - Alter the submit button to your liking (process_form_shortcode.php line 660) (@parameters - $submit_button, $form_id)
 - yikes-mailchimp-form-submit-button-text - Alter the submit button text value (process_form_shortcode.php line 660) (@parameters - $submit_button_text, $form_id )
