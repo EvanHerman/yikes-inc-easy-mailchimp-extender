@@ -141,11 +141,11 @@ function process_mailchimp_shortcode( $atts ) {
 		// display the form description if the user 
 		// has specified to do so
 		if( !empty( $description ) && $description == 1 ) {
-			echo '<p class="yikes-mailchimp-form-description yikes-mailchimp-form-description-'.$form_id.'">' . apply_filters( 'the_content', apply_filters( 'yikes-mailchimp-form-description', $form_description, $form_id ) ) . '</p>';
+			echo '<p class="yikes-mailchimp-form-description yikes-mailchimp-form-description-'.$form_id.'">' . apply_filters( 'yikes-mailchimp-frontend-content', apply_filters( 'yikes-mailchimp-form-description', $form_description, $form_id ) ) . '</p>';
 		}
 		
 		// Check for AJAX
-		if( ( !empty( $atts['ajax'] ) && $atts['ajax'] == 1 ) || $submission_settings['ajax'] == 1 ) {
+		if( ( ! empty( $atts['ajax'] ) && $atts['ajax'] == 1 ) || $submission_settings['ajax'] == 1 ) {
 			// enqueue our ajax script
 			wp_register_script( 'yikes-easy-mc-ajax' , YIKES_MC_URL . 'public/js/yikes-mc-ajax-forms.min.js' , array( 'jquery' ) , 'yikes-inc-easy-mailchimp-extender', false );
 			wp_localize_script( 'yikes-easy-mc-ajax' , 'object' , array( 
@@ -157,6 +157,7 @@ function process_mailchimp_shortcode( $atts ) {
 				'notifications' => json_encode( $notifications ), 
 				'form_id' => $form_id,
 				'page_data' => $page_data,
+				'interest_group_checkbox_error' => apply_filters( 'yikes-mailchimp-interest-group-checkbox-error', __( 'This field is required.', 'yikes-inc-easy-mailchimp-extender' ) ),
 			) );
 			wp_enqueue_script( 'yikes-easy-mc-ajax' );
 		}
@@ -646,15 +647,16 @@ function process_mailchimp_shortcode( $atts ) {
 						}
 						
 					} else { // loop over interest groups
-					
-						// store default choice
-						$default_choice = ( isset( $field['default_choice'] ) && ! empty( $field['default_choice'] ) ) ? ( is_array( $field['default_choice'] ) ? $field['default_choice'] : $field['default_choice'] ) : $field['default_choice'];
 						
+						
+						// store default choice
+						$default_choice = ( isset( $field['default_choice'] ) && ! empty( $field['default_choice'] ) ) ? ( is_array( $field['default_choice'] ) ? $field['default_choice'] : $field['default_choice'] ) : array();
+										
 						// if the form was submit, but failed, let's reset the post data
 						if( isset( $_POST[$field['group_id']] ) && $form_submitted != 1 ) {
-							$default_value = $default_choice;
+							$default_choice = $_POST[$field['group_id']];
 						}
-						
+												
 						// get our groups
 						$groups = ( isset( $field['groups'] ) && ! empty( $field['groups'] ) ) ? json_decode( stripslashes_deep( $field['groups'] ), true ) : array();
 												
@@ -679,13 +681,27 @@ function process_mailchimp_shortcode( $atts ) {
 									?>
 									<label for="<?php echo esc_attr( $field['group_id'] ); ?>" <?php echo implode( ' ' , $label_array ); ?>><span class="<?php echo esc_attr( $field['group_id'] ) . '-label'; ?> checkbox-parent-label"><?php echo apply_filters( 'yikes-mailchimp-'.$field['group_id'].'-label' , esc_attr( stripslashes( $field['label'] ) ) ); ?></span>
 									<?php
+									if( ! empty( $missing_required_checkbox_interest_groups ) ) {
+										if( in_array( $field['group_id'], $missing_required_checkbox_interest_groups ) ) {
+											?>
+												<p class="yikes-mailchimp-required-interest-group-error"><?php echo apply_filters( 'yikes-mailchimp-interest-group-checkbox-error', __( 'This field is required.', 'yikes-inc-easy-mailchimp-extender' ) ); ?></p>
+											<?php
+										}
+									}
 								}
 										
 										
 										foreach( $groups as $group ) {
+											/* Setup the defaults for this field - varies if the field was previously submitted */
+											if( isset( $_POST[$field['group_id']] ) && $form_submitted != 1 ) {	
+												$default_choice = $_POST[$field['group_id']];
+											} elseif( isset( $_POST['yikes-mailchimp-honeypot'] ) && $form_submitted == 1 ) {
+												$default_choice = ( isset( $field['default_choice'] ) && ! empty( $field['default_choice'] ) ) ? ( is_array( $field['default_choice'] ) ? $field['default_choice'] : $field['default_choice'] ) : array();
+											}
+																					
 											?>
 											<label for="<?php echo $field['group_id'] . '-' . $i; ?>" class="yikes-easy-mc-checkbox-label <?php echo implode( ' ' , $custom_classes ); if( $x === $count ) { ?>last-selection<?php } ?>">
-												<input type="<?php echo $type; ?>" name="<?php echo $field['group_id']; ?>[]" id="<?php echo $field['group_id'] . '-' . $i; ?>" <?php if( $field['type'] == 'checkboxes' ) { if( in_array( $i , $default_choice ) ) { echo 'checked="checked"'; } } else { checked( ( isset( $default_choice ) && is_array( $default_choice ) ) ? $default_choice[0] : $default_choice , $i ); } ?> value="<?php echo esc_attr( $group['name'] ); ?>">
+												<input <?php if( isset( $field['require'] ) && $field['require'] == 1 ) { ?> class="yikes-interest-group-required" <?php } ?> type="<?php echo $type; ?>" name="<?php echo $field['group_id']; ?>[]" id="<?php echo $field['group_id'] . '-' . $i; ?>" <?php if( $field['type'] == 'checkboxes' ) { if( ( ( isset( $_POST['yikes-mailchimp-honeypot' ] ) && $form_submitted == 1 && in_array( $i , $default_choice )) || ! isset( $_POST['yikes-mailchimp-honeypot' ] ) && $form_submitted != 1 && in_array( $i , $default_choice ) ) || ( ( $form_submitted != 1 && isset( $_POST[$field['group_id']] ) ) && in_array( esc_attr( $group['name'] ), $default_choice ) ) ) { echo 'checked="checked"'; } } else { checked( ( isset( $default_choice ) && is_array( $default_choice ) ) ? $default_choice[0] : $default_choice , $i ); } ?> value="<?php echo esc_attr( $group['name'] ); ?>">
 												<?php echo esc_attr( stripslashes( str_replace( '~' , '\'', $group['name'] ) ) ); ?>
 											</label>
 											<?php

@@ -61,7 +61,22 @@ class Yikes_Inc_Easy_Mailchimp_Extender_Public {
 		add_action( 'init' , array( $this , 'load_error_logging_class' ) , 1 );
 		// load our checkbox classes
 		add_action( 'init' , array( $this , 'load_checkbox_integration_classes' ) , 1 );
-		// Legacy support of the php snippet
+		// custom front end filter
+		add_action( 'init', array( $this, 'yikes_custom_frontend_content_filter' ) );
+	}
+	
+	/**
+	*	Create our own custom the_content(); filter to prevent plugins and such from hooking in where not wanted
+	*
+	*	@since 6.0.3
+	*/
+	public function yikes_custom_frontend_content_filter() {
+		add_filter( 'yikes-mailchimp-frontend-content', 'wptexturize' );
+		add_filter( 'yikes-mailchimp-frontend-content', 'convert_smilies' );
+		add_filter( 'yikes-mailchimp-frontend-content', 'convert_chars' );
+		add_filter( 'yikes-mailchimp-frontend-content', 'wpautop' );
+		add_filter( 'yikes-mailchimp-frontend-content', 'shortcode_unautop' );
+		add_filter( 'yikes-mailchimp-frontend-content', 'prepend_attachment' );
 	}
 		
 	/**

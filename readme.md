@@ -122,6 +122,9 @@ $ grunt auto_install
 - yikes-mailchimp-field-data - Filter form field data such as placeholder, label, etc. (@parameters - $field_array, $field, $form_id) (process_form_shortcode.php - line 258 & process_preview_form_shortcode.php - line 258)
 - yikes-mailchimp-user-subscribe-api-request - Alter the API request whenever a new user subscribed (@parameters - $api_request data, $form_id, $list_id, $email ) (process_form_shortcode.php/process_form_shortcode_ajax.php)
 - yikes-mailchimp-subscriber-count-value - Adjust the returned value for the total subscriber count of a given MailChimp mailing list as needed. (@parameters - $subscriber_count) (yikes-mailchimp-subscriber-count.php- line 80)
+- yikes-mailchimp-frontend-content - Custom content filter for this plugin to prevent others from hooking in where not wanted.
+- yikes-mailchimp-interest-group-required-top-error - Alter the top of form error message. (displays only when interest group checkbox group is set to required and left blank (non-ajax only)) (@parameters - count of missing required fields (integer))
+- yikes-mailchimp-interest-group-checkbox-error - Alter the error displayed above each required interest group checkbox group only. Effects checkbox groups only.
 
 ###### Hooks
 
