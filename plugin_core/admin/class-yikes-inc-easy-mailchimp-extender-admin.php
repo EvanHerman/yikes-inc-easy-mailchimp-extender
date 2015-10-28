@@ -56,6 +56,8 @@ class Yikes_Inc_Easy_Mailchimp_Forms_Admin {
 			// Include our MailChimp API Wrapper
 			include_once( YIKES_MC_PATH . 'includes/MailChimp/Mailchimp.php' );
 		}
+		// Include Third Party Extensions
+		include_once( YIKES_MC_PATH . 'includes/third-party-integrations/third-party-init.php' );
 		// Include our dashboard widget class
 		include_once( YIKES_MC_PATH . 'admin/partials/dashboard-widgets/class.list-activity-widget.php' );
 		// Include our front end widget class

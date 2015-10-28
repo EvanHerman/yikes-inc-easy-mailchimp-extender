@@ -88,7 +88,7 @@ function process_mailchimp_shortcode( $atts ) {
 		
 	?>
 	<!-- Easy Forms for MailChimp v<?php echo YIKES_MC_VERSION; ?> by YIKES Inc: https://yikesplugins.com/plugin/easy-forms-for-mailchimp/ -->
-	<section id="yikes-mailchimp-container" class="yikes-mailchimp-container-<?php echo $form_id . ' ' . apply_filters( 'yikes-mailchimp-form-container-class', '', $form_id ); ?>">
+	<section id="yikes-mailchimp-container-<?php echo $form_id; ?>" class="yikes-mailchimp-container <?php echo apply_filters( 'yikes-mailchimp-form-container-class', '', $form_id ); ?>">
 	<?php
 		
 		/* If the current user is logged in, and an admin...lets display our 'Edit Form' link */
