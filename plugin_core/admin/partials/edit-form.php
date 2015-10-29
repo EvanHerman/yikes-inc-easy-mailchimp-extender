@@ -179,10 +179,13 @@
 																	<!-- #poststuff -->
 																	<?php echo $this->generate_form_editor( json_decode( $form['fields'] , true ) , $form['list_id'] , $available_merge_variables , isset( $interest_groupings ) ? $interest_groupings : array() ); ?>
 																</div>
-																
+																																
 																<!-- Bulk Delete Form Fields -->
 																<a href="#" class="clear-form-fields" <?php if( isset( $form['fields'] ) && count( json_decode( $form['fields'] , true ) ) <= 0 ) { ?> style="display:none;" <?php } ?>><?php _e( 'Clear Form Fields', 'yikes-inc-easy-mailchimp-extender' ); ?></a>
 
+																<!-- Save Fields Button -->
+																<?php echo submit_button( __( 'Update Form' ) , 'primary' , '' , false , array( 'onclick' => '', 'style' => 'float:right;margin-right:12px;' ) ); ?>
+																
 																<!-- .inside -->
 															</div>
 															<!-- .postbox -->

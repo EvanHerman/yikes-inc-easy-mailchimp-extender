@@ -30,8 +30,23 @@ Feel free to use this plugin now. When the final version rolls out, you'll have 
 
 #### Documentation
 
-For full documentation, please visit [our Knowledge Base](https://yikesinc.freshdesk.com/support/solutions/6000083118).
+For full documentation, please visit [our Knowledge Base](https://yikesplugins.com/support/knowledge-base/product/easy-forms-for-mailchimp/).
 
+####### Integrations
+Easy Forms for MailChimp by YIKES integrates well with many popular third party plugins for WordPress:
+
+* WooCommerce
+* Easy Digital Downloads
+* BuddyPress
+* BbPress
+* Contact Form 7
+* Visual Composer
+
+**Languages**
+
+* Español translated by @hiwhatsup
+* Française translated by @mialevesque
+* Português do Brasil translated by @enxaqueca
 
 #### Questions?
 Have any questions? Feel free to open up an issue in the issue tracker and we'll get back to you as soon as possible.

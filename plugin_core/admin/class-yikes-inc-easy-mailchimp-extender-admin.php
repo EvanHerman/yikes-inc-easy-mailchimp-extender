@@ -56,6 +56,8 @@ class Yikes_Inc_Easy_Mailchimp_Forms_Admin {
 			// Include our MailChimp API Wrapper
 			include_once( YIKES_MC_PATH . 'includes/MailChimp/Mailchimp.php' );
 		}
+		// Include Third Party Extensions
+		include_once( YIKES_MC_PATH . 'includes/third-party-integrations/third-party-init.php' );
 		// Include our dashboard widget class
 		include_once( YIKES_MC_PATH . 'admin/partials/dashboard-widgets/class.list-activity-widget.php' );
 		// Include our front end widget class
@@ -589,7 +591,7 @@ class Yikes_Inc_Easy_Mailchimp_Forms_Admin {
 				var localized_data = {
 					'button_title' : '<?php _e( 'Easy Forms for MailChimp by Yikes Inc.', 'yikes-inc-easy-mailchimp-extender' ); ?>',
 					'popup_title' : '<?php _e( 'Easy Forms for MailChimp by Yikes Inc.', 'yikes-inc-easy-mailchimp-extender' ); ?>',
-					'list_id_label' : '<?php _e( 'MailChimp List' , 'yikes-inc-easy-mailchimp-extender' ); ?>',
+					'list_id_label' : '<?php _e( 'MailChimp Opt-In Form' , 'yikes-inc-easy-mailchimp-extender' ); ?>',
 					'show_title_label' : '<?php _e( 'Display Form Title' , 'yikes-inc-easy-mailchimp-extender' ); ?>',
 					'show_description_label' : '<?php _e( 'Display Form Description' , 'yikes-inc-easy-mailchimp-extender' ); ?>',
 					'submit_button_text_label' : '<?php _e( 'Submit Button Text' , 'yikes-inc-easy-mailchimp-extender' ); ?>',
@@ -940,7 +942,7 @@ class Yikes_Inc_Easy_Mailchimp_Forms_Admin {
 			'yikes_inc_easy_mc_general_settings_page'
 		);
 		
-		/* Register Visual Represetnation of Connection */
+		/* Register Visual Representation of Connection */
 		add_settings_field( 
 			'connection', 
 			__( 'API Connection', 'yikes-inc-easy-mailchimp-extender' ), 
@@ -1458,7 +1460,7 @@ class Yikes_Inc_Easy_Mailchimp_Forms_Admin {
 				 
 					<div class="postbox yikes-easy-mc-postbox show-some-love-container">
 					
-						<?php $this->gnerate_edit_forms_upsell_ad(); ?>
+						<?php $this->generate_edit_forms_upsell_ad(); ?>
 					
 					</div>
 						
@@ -2379,6 +2381,7 @@ class Yikes_Inc_Easy_Mailchimp_Forms_Admin {
 						if( $id == 'impressions' || $id == 'submissions' ) {
 							$value = '0';
 						}
+						
 						// add data to our array
 						$data[$id] = $value;
 					}
@@ -2386,7 +2389,7 @@ class Yikes_Inc_Easy_Mailchimp_Forms_Admin {
 				// inser our new data
 				if( $wpdb->insert(
 					$wpdb->prefix . 'yikes_easy_mc_forms',
-					$data
+					apply_filters( 'yikes-mailchimp-duplicate-form-data', $data )
 				)  === FALSE ) {
 					// redirect the user to the manage forms page, display error
 					wp_redirect( esc_url_raw( admin_url( 'admin.php?page=yikes-inc-easy-mailchimp&duplicated-form=false' ) ) );
@@ -2726,43 +2729,30 @@ class Yikes_Inc_Easy_Mailchimp_Forms_Admin {
 			$form_description = str_replace( '[yikes-mailchimp-subscriber-count]', do_shortcode( '[yikes-mailchimp-subscriber-count form="' . $form_id . '"]' ), $form_description );
 			return $form_description;
 		}
-		
+				
 		/*
 		*	Generate the sidebar advertisment on the 'Edit Form' page
 		*	@since 6.0.3
 		*/
-		public function gnerate_edit_forms_upsell_ad() {
+		public function generate_edit_forms_upsell_ad() {
 			/*
 			*	SimplePie strips out all query strings
 			* 	we had to implement a workaround
 			*	https://github.com/simplepie/simplepie/issues/317
 			*/
-			// Get RSS Feed(s)
-			require_once( ABSPATH . WPINC . '/class-feed.php' );
-			/* Create the SimplePie object */
-			$feed = new SimplePie(); 
-			$feed_url = esc_url( 'http://yikesplugins.com/feed/?post_type=product_ads&genre=easy-forms-for-mailchimp' );
-			/* Set the URL of the feed you're retrieving */
-			$feed->set_feed_url( $feed_url );
-			$feed->strip_htmltags(false);
-			$feed->set_item_limit( 1 ); // limit to 1
-			/* Tell SimplePie to cache the feed using WordPress' cache class */
-			$feed->set_cache_class( 'WP_Feed_Cache' );
-			/* Tell SimplePie to use the WordPress class for retrieving feed files */
-			$feed->set_file_class( 'WP_SimplePie_File' );
-			$feed->enable_cache( false ); // temporary
-			/* Tell SimplePie how long to cache the feed data in the WordPress database */
-			$feed->set_cache_duration( apply_filters( 'wp_feed_cache_transient_lifetime', 43200, $feed_url ) );
-			/* Run any other functions or filters that WordPress normally runs on feeds */
-			do_action_ref_array( 'wp_feed_options', array( $feed, $feed_url ) ); 
-			/* Initiate the SimplePie instance */
-			$feed->init(); 
-			/* Tell SimplePie to send the feed MIME headers */
-			$feed->handle_content_type(); 
-			if ( $feed->error() ) {
-				return $feed = new WP_Error( 'simplepie-error', $feed->error() );
+			include_once( ABSPATH . WPINC . '/feed.php' );
+			$rss = fetch_feed( esc_url( 'http://yikesplugins.com/feed/?post_type=product_ads&genre=easy-forms-for-mailchimp' ) );
+			$maxitems = 0;
+			if ( ! is_wp_error( $rss ) ) { // Checks that the object is created correctly
+				// Figure out how many total items there are, but limit it to 5. 
+				$maxitems = $rss->get_item_quantity( 1 ); 
+				// Build an array of all the items, starting with element 0 (first element).
+				$rss_items = $rss->get_items( 0, $maxitems );
+			} else {
+				return $feed = new WP_Error( 'Simple Pie RSS Error', $feed->error() );
 			}
-			foreach( $feed->get_items() as $add_on ) {
+			// loop over returned results
+			foreach ( $rss_items as $add_on ) {
 				$add_on_desc = $add_on->get_content();
 				?>
 					<h3><?php echo $add_on->get_title(); ?></h3>
