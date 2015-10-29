@@ -16,7 +16,7 @@ This is a complete re-write of the original [YIKES Inc Easy MailChimp Extender](
 
 This is the release candidate for the final release of [YIKES Inc Easy MailChimp Extender](https://wordpress.org/plugins/yikes-inc-easy-mailchimp-extender/).
 Target launch date is by the end of September 2015.
-
+ 
 Feel free to use this plugin now. When the final version rolls out, you'll have a smooth transition.
 
 
