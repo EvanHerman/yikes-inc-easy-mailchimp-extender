@@ -260,14 +260,19 @@ function process_mailchimp_shortcode( $atts ) {
 						}
 					}
 					
+					// if both hide label and hide field are checked, we gotta hide the field!
+					if( isset( $field['hide' ] ) && $field['hide'] == 1 ) {
+						if( isset( $field['hide-label' ] ) && $field['hide-label'] == 1 ) {
+							$field_array['visible'] = 'style="display:none;"';
+						}
+					}
+					
 					// filter the field array data
 					$field_array = apply_filters( 'yikes-mailchimp-field-data', $field_array, $field, $form_id );
 					
 					/* Loop Over Standard Fields (aka merge variables) */
 					if( isset( $field['merge'] ) ) {
 															
-						// print_r( $field );
-						
 						// loop over our fields by Type
 						switch ( $field['type'] ) {
 							
