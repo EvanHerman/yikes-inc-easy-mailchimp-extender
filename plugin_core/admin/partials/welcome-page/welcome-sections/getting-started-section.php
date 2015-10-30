@@ -60,7 +60,7 @@
 		<p><?php _e( "If you want immediate support, please consider purchasing an add-on or developer License. Not only will you get 1 full year of automatic updates and priority support, you will enjoy the tons of features packed into our add-ons that are not available in the free version." , 'yikes-inc-easy-mailchimp-extender' ); ?></p>
 
 		<h4><?php _e( 'Knowledge Base' , 'yikes-inc-easy-mailchimp-extender' ); ?></h4>
-		<p><?php printf( __( 'For plugin documentation, visit our <a href="%s" title="Knowledge Base" target="_blank">knowledge base</a>.' , 'yikes-inc-easy-mailchimp-extender' ), esc_url_raw( 'https://yikesinc.freshdesk.com/support/solutions' ) ); ?>
+		<p><?php printf( __( 'For plugin documentation, visit our <a href="%s" title="Knowledge Base" target="_blank">knowledge base</a>.' , 'yikes-inc-easy-mailchimp-extender' ), esc_url_raw( 'https://yikesplugins.com/support/knowledge-base/product/easy-forms-for-mailchimp/' ) ); ?>
 		
 	</div>
 	

@@ -2,7 +2,7 @@
 	/*	
 	* 	Standard Radio Input Field
 	*
-	*	For help on using, see our documentation [https://yikesinc.freshdesk.com/support/home]
+	*	For help on using, see our documentation [https://yikesplugins.com/support/knowledge-base/product/easy-forms-for-mailchimp/]
 	* 	@since 6.0
 	*/
 	$field_data = json_decode( $form_data['custom_fields'] , true ); 

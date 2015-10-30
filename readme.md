@@ -7,21 +7,46 @@ YIKES Inc. Easy Forms for MailChimp
 ![WordPress plugin](https://img.shields.io/wordpress/plugin/v/yikes-inc-easy-mailchimp-extender.svg)
 ![WordPress](https://img.shields.io/wordpress/v/yikes-inc-easy-mailchimp-extender.svg)
 
-This version (Version 6) is a complete re-write of the original [YIKES Inc Easy MailChimp Extender](https://wordpress.org/plugins/yikes-inc-easy-mailchimp-extender/) plugin.
+<strong>Latest Stable Beta Release Candidate</strong>
+
+> [Latest Stable Beta Release Download](https://cloudup.com/files/iFNHWI2TTS8/download)
+> - Last Updated October 3rd, 2015
+
+This is a complete re-write of the original [YIKES Inc Easy MailChimp Extender](https://wordpress.org/plugins/yikes-inc-easy-mailchimp-extender/) plugin.
+
+This is the release candidate for the final release of [YIKES Inc Easy MailChimp Extender](https://wordpress.org/plugins/yikes-inc-easy-mailchimp-extender/).
+Target launch date is by the end of September 2015.
+ 
+Feel free to use this plugin now. When the final version rolls out, you'll have a smooth transition.
 
 
 #### Minimum Requirements
 - WordPress 3.8+ 
 - PHP v5.3+
 
-#### Plugin Screenshots
+#### Plugin Preview Screenshots
 [Cloudup Gallery](https://cloudup.com/cyfImk387Ez)
 
 
 #### Documentation
 
-For full documentation, please visit [our Knowledge Base](https://yikesinc.freshdesk.com/support/solutions/6000083118).
+For full documentation, please visit [our Knowledge Base](https://yikesplugins.com/support/knowledge-base/product/easy-forms-for-mailchimp/).
 
+####### Integrations
+Easy Forms for MailChimp by YIKES integrates well with many popular third party plugins for WordPress:
+
+* WooCommerce
+* Easy Digital Downloads
+* BuddyPress
+* BbPress
+* Contact Form 7
+* Visual Composer
+
+**Languages**
+
+* Español translated by @hiwhatsup
+* Française translated by @mialevesque
+* Português do Brasil translated by @enxaqueca
 
 #### Questions?
 Have any questions? Feel free to open up an issue in the issue tracker and we'll get back to you as soon as possible.
@@ -86,6 +111,7 @@ $ grunt auto_install
 ##### Filters + Hooks
 
 ###### Filters
+
 - yikes-mailchimp-form-title-FORM_ID - alter the output of the form title of the specified form
 - yikes-mailchimp-form-description-FORM_ID - alter the output of the form description of the specified form
 - yikes-mailchimp-redirect-timer (ms : 1 second = 1000ms) alter the amount of time the user sees the success message before being redirected (default: 1500ms) (@parameters - $time, $form_id)
@@ -95,10 +121,11 @@ $ grunt auto_install
 - yikes-mailchimp-after-submission - catch the merge variables of all forms after they get sent over to MailChimp
 - yikes-mailchimp-after-submission-FORM_ID - catch the merge variables of the specified form after they get sent over to MailChimp
 - yikes-mailchimp-user-role-access - Alter who can access this plugin page by capability (default 'manage_options' - admins)
-- yikes-mailchimp-international-phone-pattern - Alter the regex pattern for acceptable international phone number formats. (process form shortcode.php - line 295)
-- yikes-mailchimp-us-phone-pattern - Alter the regex pattern for acceptable US phone number formats. (process form shortcode.php - line 295)
+- yikes-mailchimp-international-phone-pattern - Alter the regex pattern for acceptable international phone number formats. (default: [0-9]{1,}) (process form shortcode.php - line 295)
+- yikes-mailchimp-us-phone-pattern - Alter the regex pattern for acceptable US phone number formats. (default: [^(\([0-9]{3}\)|[0-9]{3}-)[0-9]{3}-[0-9]{4}$) (process form shortcode.php - line 295)
 - yikes-mailchimp-process-default-tag - Pass the default tag through a filter to populate with dynamic content from the current site (process_form_shortcode.php - line 256)
 - yikes-mailchimp-MERGE_TAG-label - Alter the specified field label text (affects standard fields & interest groups) (process_form_shortcode.php) 
+* yikes-mailchimp-MERGE_TAG-description - Alter the specified field description text (affects standard fields & interest groups) (process_form_shortcode.php)  (if targeting an interest group, it will be the group_id)
 - yikes-mailchimp-address-TYPE-label - Alter the field sub-label text for a specified address field (affects only standard address fields) (process_form_shortcode.php) 
 - yikes-mailchimp-form-submit-button - Alter the submit button to your liking (process_form_shortcode.php line 660) (@parameters - $submit_button, $form_id)
 - yikes-mailchimp-form-submit-button-text - Alter the submit button text value (process_form_shortcode.php line 660) (@parameters - $submit_button_text, $form_id )
@@ -108,9 +135,14 @@ $ grunt auto_install
 - yikes-mailchimp-custom-default-value-tags - Define your own custom pre-defined tags to populate the default value fields with - these tags appear in the modal - (@parameters - $pre_defined_tags_array)
 - yikes-mailchimp-parse-custom-default-value - Process your custom default merge tag into a custom value to populate the form field with - (Goes hand in hand with `yikes-mailchimp-custom-default-value-tags` filter)
 - yikes-mailchimp-field-data - Filter form field data such as placeholder, label, etc. (@parameters - $field_array, $field, $form_id) (process_form_shortcode.php - line 258 & process_preview_form_shortcode.php - line 258)
+- yikes-mailchimp-user-subscribe-api-request - Alter the API request whenever a new user subscribed (@parameters - $api_request data, $form_id, $list_id, $email ) (process_form_shortcode.php/process_form_shortcode_ajax.php)
 - yikes-mailchimp-subscriber-count-value - Adjust the returned value for the total subscriber count of a given MailChimp mailing list as needed. (@parameters - $subscriber_count) (yikes-mailchimp-subscriber-count.php- line 80)
+- yikes-mailchimp-frontend-content - Custom content filter for this plugin to prevent others from hooking in where not wanted.
+- yikes-mailchimp-interest-group-required-top-error - Alter the top of form error message. (displays only when interest group checkbox group is set to required and left blank (non-ajax only)) (@parameters - count of missing required fields (integer))
+- yikes-mailchimp-interest-group-checkbox-error - Alter the error displayed above each required interest group checkbox group only. Effects checkbox groups only.
 
 ###### Hooks
+
 - yikes-mailchimp-form-submission - do something with the user email + form data on form submission
 - yikes-mailchimp-form-submission-FORM_ID - do something with the user email + form data on form submission (specific form)
 - yikes-mailchimp-before-form - output content before all forms (@parameters - $form_id)
@@ -125,10 +157,12 @@ $ grunt auto_install
 - yikes-mailchimp-additional-form-fields - define additional fields to add below all forms (@parameter $form_data - all data associated with the given form)
 - yikes-mailchimp-custom-form-actions - add custom action links on the manage forms page (alongside Edit, Duplicate, Shortcode, Delete ) (@parameter $form_id - the id of the form)
 
+
 ###### Hooks for Extensions
 - yikes-mailchimp-menu - hook to add additional menu items inside of the "Easy MailChimp" menu item
 - yikes-mailchimp-settings-field - hook to register additional settings fields for add-ons
 - yikes-mailchimp-ADDON-SLUG-options-path - hook to load up a custom settings page
+
 
 ##### Helper Shortcodes
 

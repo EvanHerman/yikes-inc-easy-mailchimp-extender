@@ -34,6 +34,29 @@ if ( ! isset( $_POST['yikes_easy_mc_new_subscriber'] ) || ! wp_verify_nonce( $_P
 		}
 	}
 	
+	/*
+	*	Confirm that all required checkbox groups were submitted
+	*	No HTML5 validation, and don't want to use jQuery for non-ajax forms
+	*/
+	$missing_required_checkbox_interest_groups = array();
+	foreach( $fields as $merge_tag => $field_data ) {
+		if( is_numeric( $merge_tag ) ) {
+			// check if the checkbox group was set to required, if so return an error
+			if( isset( $field_data['require'] ) && $field_data['require'] == 1 ) {
+				if( $field_data['type'] == 'checkboxes' ) {
+					if( ! isset( $_POST[$merge_tag] ) ) {
+						$missing_required_checkbox_interest_groups[] = $merge_tag;
+					}
+				}
+			}
+		}
+	}
+	
+	if( ! empty( $missing_required_checkbox_interest_groups ) ) {
+		echo '<p class="yikes-easy-mc-error-message">' . apply_filters( 'yikes-mailchimp-interest-group-required-top-error', sprintf( _n( 'It looks like you forgot to fill in a required field.', 'It looks like you forgot to fill in %s required fields.', count( $missing_required_checkbox_interest_groups ), 'yikes-inc-easy-mailchimp-extender' ), count( $missing_required_checkbox_interest_groups ) ), count( $missing_required_checkbox_interest_groups ), $form_id ) . '</p>';
+		return;
+	}
+	
 	// Empty array to build up merge variables
 	$merge_variables = array();	
 	
@@ -72,7 +95,7 @@ if ( ! isset( $_POST['yikes_easy_mc_new_subscriber'] ) || ! wp_verify_nonce( $_P
 	*	and pass back an error to the user
 	*/
 	if( isset( $merge_variables['error'] ) ) {
-		echo apply_filters( 'the_content' , $merge_variables['message'] );
+		echo apply_filters( 'yikes-mailchimp-frontend-content' , $merge_variables['message'] );
 		return;
 	}
 	
