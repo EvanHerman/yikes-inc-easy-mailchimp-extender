@@ -9,16 +9,27 @@
 			parse_str( $_POST['form_data'], $data );
 			// store the form ID to use in our hooks and filters
 			$form = $_POST['form_id'];
-			// decode our submission settings
-			$submission_settings = json_decode( stripslashes( $_POST['submission_settings'] ), true );
-			// decode our optin settings
-			$optin_settings = json_decode( stripslashes( $_POST['optin_settings'] ), true );
-			// decode our error messages
-			$error_messages = json_decode( stripslashes( $_POST['error_messages'] ), true );
-			/** Submit Process **/
-			$notifications = json_decode( stripslashes( $_POST['notifications'] ), true );
-			/* Page Data */
-			$page_data = $_POST['page_data'];
+			
+			// Retreive the form data from the database instead of posting it with the form-submission
+			global $wpdb;
+			// return it as an array, so we can work with it to build our form below
+			$form_results = $wpdb->get_results( 'SELECT * FROM ' . $wpdb->prefix . 'yikes_easy_mc_forms WHERE id = ' . $form . '', ARRAY_A );
+			
+			if( $form_results ) {
+				$form_data = $form_results[0];
+				// List ID
+				$list_id = $form_data['list_id']; 
+				// decode our submission settings
+				$submission_settings = json_decode( stripslashes( $form_data['submission_settings'] ), true );
+				// decode our optin settings
+				$optin_settings = json_decode( stripslashes( $form_data['optin_settings'] ), true );
+				// decode our error messages
+				$error_messages = json_decode( stripslashes( $form_data['error_messages'] ), true );
+				/** Submit Process **/
+				$notifications = json_decode( stripslashes( $form_data['custom_notifications'] ), true );
+				/* Page Data */
+				$page_data = $_POST['page_data'];
+			}
 						
 			// Empty array to build up merge variables
 			$merge_variables = array();
@@ -107,14 +118,14 @@
 								
 				$subscribe_response = $MailChimp->call('/lists/subscribe', apply_filters( 'yikes-mailchimp-user-subscribe-api-request', array( 
 					'api_key' => $api_key,
-					'id' => $_POST['list_id'],
+					'id' => $list_id,
 					'email' => array( 'email' => sanitize_email( $data['EMAIL'] ) ),
 					'merge_vars' => $merge_variables,
 					'double_optin' => $optin_settings['optin'],
 					'update_existing' => $optin_settings['update_existing_user'],
 					'send_welcome' => $optin_settings['send_welcome_email'],
 					'replace_interests' => ( isset( $submission_settings['replace_interests'] ) ) ? $submission_settings['replace_interests'] : 1, // defaults to replace
-				), $form, $_POST['list_id'], $data['EMAIL'] ) );
+				), $form, $list_id, $data['EMAIL'] ) );
 								
 				// set the global variable to 1, to trigger a successful submission
 				$form_submitted = 1;
@@ -165,7 +176,7 @@
 						$api_key = get_option( 'yikes-mc-api-key' , '' );
 						$MailChimp = new MailChimp( $api_key );
 						try {	
-							$available_merge_variables = $MailChimp->call( 'lists/merge-vars' , array( 'apikey' => $api_key , 'id' => array( $_POST['list_id'] ) ) );
+							$available_merge_variables = $MailChimp->call( 'lists/merge-vars' , array( 'apikey' => $api_key , 'id' => array( $list_id ) ) );
 							foreach( $available_merge_variables['data'][0]['merge_vars'] as $merge_var ) {
 								if( $merge_var['tag'] == $merge_variable ) {
 									$field_name = $merge_var['name'];

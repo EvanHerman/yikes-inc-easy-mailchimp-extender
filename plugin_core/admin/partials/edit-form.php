@@ -182,9 +182,13 @@
 																																
 																<!-- Bulk Delete Form Fields -->
 																<a href="#" class="clear-form-fields" <?php if( isset( $form['fields'] ) && count( json_decode( $form['fields'] , true ) ) <= 0 ) { ?> style="display:none;" <?php } ?>><?php _e( 'Clear Form Fields', 'yikes-inc-easy-mailchimp-extender' ); ?></a>
-
+																
+																<?php 
+																	$display_none = ( isset( $form['fields'] ) && count( json_decode( $form['fields'] , true ) ) <= 0 ) ? 'display:none;' : '';
+																?>
+																
 																<!-- Save Fields Button -->
-																<?php echo submit_button( __( 'Update Form' ) , 'primary' , '' , false , array( 'onclick' => '', 'style' => 'float:right;margin-right:12px;' ) ); ?>
+																<?php echo submit_button( __( 'Update Form' ) , 'primary' , '' , false , array( 'onclick' => '', 'style' => 'float:right;margin-right:12px;'.$display_none ) ); ?>
 																
 																<!-- .inside -->
 															</div>

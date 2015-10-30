@@ -50,11 +50,11 @@ class Yikes_Inc_Easy_Mailchimp_Extender_Public {
 		}
 		// Include our Shortcode & Processing function (public folder)
 		include_once( YIKES_MC_PATH . 'public/partials/shortcodes/process_form_shortcode.php' );
-		// Process our old shortcode to alert the user that this is now depracated
-		include_once( YIKES_MC_PATH . 'public/partials/shortcodes/yikes-mailchimp-subscriber-count.php' );
+		// Process our old shortcode to alert the user that this is now deprecated
+		include_once( YIKES_MC_PATH . 'public/partials/shortcodes/process_form_shortcode_depracated.php' );
 		// Include our subscriber count shortcode
 		// @since 6.0.2.4
-		include_once( YIKES_MC_PATH . 'public/partials/shortcodes/process_form_shortcode.php' );
+		include_once( YIKES_MC_PATH . 'public/partials/shortcodes/yikes-mailchimp-subscriber-count.php' );
 		// include our ajax processing class
 		require_once( YIKES_MC_PATH . 'public/partials/ajax/class.public_ajax.php' );
 		// Include our error logging class
@@ -119,7 +119,6 @@ class Yikes_Inc_Easy_Mailchimp_Extender_Public {
 	}	
 
 }
-
 
 /*
 *	Legacy support for our PHP Snippet
