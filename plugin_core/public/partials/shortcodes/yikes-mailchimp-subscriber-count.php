@@ -10,7 +10,7 @@ function yikes_mailchimp_subscriber_count_shortcode( $attributes ) {
 	// Attributes
 	extract( shortcode_atts(
 		array(
-			'form_id' => '', // pass in a form, which will retreive the associated list ID -- takes precendence
+			'form' => '', // pass in a form, which will retreive the associated list ID -- takes precendence
 			'list' => '', // pass in a specific list ID
 		), $attributes , 'yikes-mailchimp-subscriber-count' )
 	);
