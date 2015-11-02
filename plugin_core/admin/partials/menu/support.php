@@ -17,6 +17,7 @@
 		<p><?php printf( __( 'Purchasers of our paid add-ons qualify for premium support, <a href="%s" target="_blank" title="' . __( 'check them out', 'yikes-inc-easy-mailchimp-extender' ) . '">' . __( 'check them out', 'yikes-inc-easy-mailchimp-extender' ) . '</a>!' , 'yikes-inc-easy-mailchimp-extender' ), esc_url( 'https://yikesplugins.com/' ) ); ?></p>
 	<?php } else { ?>
 		<p><?php _e( "It looks like you are one of our premium users! Fill out the form below to submit a priority support request." , 'yikes-inc-easy-mailchimp-extender' ); ?></p>
+		<p><?php _e( "If you have any problems with the form, send an email to <a href='mailto:support@yikesinc.com'>support@yikesinc.com</a> and a ticket will be created." , 'yikes-inc-easy-mailchimp-extender' ); ?></p>
 	<?php } ?>
 
 		<p><?php printf( __( 'Before submitting a support request, visit our %s.' , 'yikes-inc-easy-mailchimp-extender' ), '<a target="_blank" href="' . esc_url( 'https://yikesplugins.com/support/knowledge-base/product/easy-forms-for-mailchimp/' ) . '" title="' . __( 'Knowledge Base', 'yikes-inc-easy-mailchimp-extender' ) . '">' . __( 'knowledge base', 'yikes-inc-easy-mailchimp-extender' ) . '</a> where we have step-by-step guides and troubleshooting help.' ); ?></p>
