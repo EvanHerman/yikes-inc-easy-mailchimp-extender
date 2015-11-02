@@ -7,7 +7,7 @@ if ( ! isset( $_POST['yikes_easy_mc_new_subscriber'] ) || ! wp_verify_nonce( $_P
 	return;
 	
 } else {
-	
+
 	/* Check for Honeypot filled */
 	$honey_pot_filled = ( isset( $_POST['yikes-mailchimp-honeypot'] ) && $_POST['yikes-mailchimp-honeypot'] != '' ) ? true : false;
 	// if it was filled out, return an error...
@@ -101,17 +101,17 @@ if ( ! isset( $_POST['yikes_easy_mc_new_subscriber'] ) || ! wp_verify_nonce( $_P
 	
 	// submit the request & data, using the form settings
 	try {
-				
+		
 		$subscribe_response = $MailChimp->call('/lists/subscribe', apply_filters( 'yikes-mailchimp-user-subscribe-api-request', array( 
 			'api_key' => $api_key,
-			'id' => $list_id,
+			'id' => $_POST['yikes-mailchimp-associated-list-id'],
 			'email' => array( 'email' => sanitize_email( $_POST['EMAIL'] ) ),
 			'merge_vars' => $merge_variables,
 			'double_optin' => $optin_settings['optin'],
 			'update_existing' => $optin_settings['update_existing_user'],
 			'send_welcome' => $optin_settings['send_welcome_email'],
 			'replace_interests' => ( isset( $submission_settings['replace_interests'] ) ) ? $submission_settings['replace_interests'] : 1, // defaults to replace
-		), $form, $list_id, $_POST['EMAIL'] ) );
+		), $form, $_POST['yikes-mailchimp-associated-list-id'], $_POST['EMAIL'] ) );
 		
 		// set the global variable to 1, to trigger a successful submission
 		$form_submitted = 1;
@@ -189,7 +189,7 @@ if ( ! isset( $_POST['yikes_easy_mc_new_subscriber'] ) || ! wp_verify_nonce( $_P
 					$api_key = get_option( 'yikes-mc-api-key' , '' );
 					$MailChimp = new MailChimp( $api_key );
 					try {	
-						$available_merge_variables = $MailChimp->call( 'lists/merge-vars' , array( 'apikey' => $api_key , 'id' => array( $list_id ) ) );
+						$available_merge_variables = $MailChimp->call( 'lists/merge-vars' , array( 'apikey' => $api_key , 'id' => array( $_POST['yikes-mailchimp-associated-list-id'] ) ) );
 						foreach( $available_merge_variables['data'][0]['merge_vars'] as $merge_var ) {
 							if( $merge_var['tag'] == $merge_variable ) {
 								$field_name = $merge_var['name'];

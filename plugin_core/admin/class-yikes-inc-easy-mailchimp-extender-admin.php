@@ -589,8 +589,8 @@ class Yikes_Inc_Easy_Mailchimp_Forms_Admin {
 					'data' : '<?php echo json_encode( $lists ); ?>'
 				};
 				var localized_data = {
-					'button_title' : '<?php _e( 'Easy Forms for MailChimp by Yikes Inc.', 'yikes-inc-easy-mailchimp-extender' ); ?>',
-					'popup_title' : '<?php _e( 'Easy Forms for MailChimp by Yikes Inc.', 'yikes-inc-easy-mailchimp-extender' ); ?>',
+					'button_title' : '<?php _e( 'Easy Forms for MailChimp by YIKES', 'yikes-inc-easy-mailchimp-extender' ); ?>',
+					'popup_title' : '<?php _e( 'Easy Forms for MailChimp by YIKES', 'yikes-inc-easy-mailchimp-extender' ); ?>',
 					'list_id_label' : '<?php _e( 'MailChimp Opt-In Form' , 'yikes-inc-easy-mailchimp-extender' ); ?>',
 					'show_title_label' : '<?php _e( 'Display Form Title' , 'yikes-inc-easy-mailchimp-extender' ); ?>',
 					'show_description_label' : '<?php _e( 'Display Form Description' , 'yikes-inc-easy-mailchimp-extender' ); ?>',
@@ -1508,7 +1508,7 @@ class Yikes_Inc_Easy_Mailchimp_Forms_Admin {
 							<p><strong>YIKES Inc.</strong> &mdash; <?php _e( 'is a web design and development company located in Philadelphia, Pennsylvania, US. YIKES specializes in custom WordPress theme and plugin development, site maintenance, eCommerce, custom-built web-based applications and more.', 'yikes-inc-easy-mailchimp-extender' ); ?></p>
 						</section>
 						
-						<p class="description sidebar-footer-text"><a href="#" class="about-yikes-inc-toggle" data-alt-text="<?php _e( 'Show YIKES Inc. Some Love', 'yikes-inc-easy-mailchimp-extender' ); ?>"><?php _e( 'About YIKES Inc.', 'yikes-inc-easy-mailchimp-extender' ); ?></a></p>
+						<p class="description sidebar-footer-text"><a href="#" class="about-yikes-inc-toggle" data-alt-text="<?php _e( 'Show YIKES Some Love', 'yikes-inc-easy-mailchimp-extender' ); ?>"><?php _e( 'About YIKES', 'yikes-inc-easy-mailchimp-extender' ); ?></a></p>
 						
 					</div>
 				

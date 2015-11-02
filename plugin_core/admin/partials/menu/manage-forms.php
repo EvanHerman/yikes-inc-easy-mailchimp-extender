@@ -143,7 +143,7 @@
 													</div>
 												</td>
 												
-												<td class="column-columnname"><?php echo isset( $form['form_description'] ) ? $form['form_description'] : ''; ?></td>
+												<td class="column-columnname"><?php echo isset( $form['form_description'] ) ? str_replace( '[yikes-mailchimp-subscriber-count]', do_shortcode( '[yikes-mailchimp-subscriber-count form="' . $form['id'] . '"]' ), $form['form_description'] ) : ''; ?></td>
 												<td class="column-columnname"><?php if( isset( $list_data ) && $list_data['total'] > 0 ) { $key = $this->findMCListID( $form['list_id'] , $list_data['data'] ); if( isset( $key ) ) { echo $list_data['data'][$key]['name']; } else { echo '<strong>' . __( 'List Not Found' , 'yikes-inc-easy-mailchimp-extender' ) . '</strong>'; } } ?></td>			
 												
 												<td class="column-columnname num stat-container">
