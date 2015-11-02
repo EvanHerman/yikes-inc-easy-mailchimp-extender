@@ -156,6 +156,7 @@ $ grunt auto_install
 - yikes-mailchimp-shortcode-enqueue-scripts-styles - hook to enqueue custom scripts & styles wherever the shortcode is being used (@paremeter $form_id - pass the id of the current form)
 - yikes-mailchimp-additional-form-fields - define additional fields to add below all forms (@parameter $form_data - all data associated with the given form)
 - yikes-mailchimp-custom-form-actions - add custom action links on the manage forms page (alongside Edit, Duplicate, Shortcode, Delete ) (@parameter $form_id - the id of the form)
+- yikes-mailchimp-api-curl-request - custom action hook to disable curl verification (not recommended - see the following [KB article](https://yikesplugins.com/support/knowledge-base/i-receive-the-error-ssl-certificate-problem-unable-to-get-local-issuer-certificate-why/))
 
 
 ###### Hooks for Extensions
