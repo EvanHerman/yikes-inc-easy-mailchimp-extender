@@ -23,8 +23,11 @@
 				$submission_settings = json_decode( stripslashes( $form_data['submission_settings'] ), true );
 				// decode our optin settings
 				$optin_settings = json_decode( stripslashes( $form_data['optin_settings'] ), true );
-				// decode our error messages
-				$error_messages = json_decode( stripslashes( $form_data['error_messages'] ), true );
+				/*	Decode our error messages
+				*	Workaround for international characters (cyrillic etc) 
+				* 	See: https://wordpress.org/support/topic/custom-messages-do-not-support-cyrillic-characters?replies=11#post-7629620 
+				*/
+				$error_messages = ( get_magic_quotes_gpc() ) ? json_decode( stripslashes( $form_data['error_messages'] ), true ) : json_decode( $form_data['error_messages'], true );
 				/** Submit Process **/
 				$notifications = json_decode( stripslashes( $form_data['custom_notifications'] ), true );
 				/* Page Data */
@@ -49,8 +52,8 @@
 				return;
 			}
 	
-			// Check reCaptcha Response
-			if( get_option( 'yikes-mc-recaptcha-status' , '' ) == '1' ) {
+			// Check reCaptcha Response was submitted with the form data
+			if( isset( $data['g-recaptcha-response'] ) ) {
 				$url = esc_url_raw( 'https://www.google.com/recaptcha/api/siteverify?secret=' . get_option( 'yikes-mc-recaptcha-secret-key' , '' ) . '&response=' . $data['g-recaptcha-response'] . '&remoteip=' . $_SERVER["REMOTE_ADDR"] );
 				$response = wp_remote_get( $url );
 				$response_body = json_decode( $response['body'] , true );
@@ -71,7 +74,7 @@
 						'response' => __( "It looks like we've run into a reCaptcha error." , 'yikes-inc-easy-mailchimp-extender' ) .' '. implode( ' ', $error_messages ),
 					) );
 					exit();
-				}
+				}	
 			}
 			
 			// loop to push variables to our array

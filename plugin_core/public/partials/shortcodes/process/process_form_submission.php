@@ -17,7 +17,7 @@ if ( ! isset( $_POST['yikes_easy_mc_new_subscriber'] ) || ! wp_verify_nonce( $_P
 	}
 	
 	// Check reCaptcha Response
-	if( get_option( 'yikes-mc-recaptcha-status' , '' ) == '1' ) {
+	if( isset( $_POST['g-recaptcha-response'] ) ) {
 		$url = esc_url_raw( 'https://www.google.com/recaptcha/api/siteverify?secret=' . get_option( 'yikes-mc-recaptcha-secret-key' , '' ) . '&response=' . $_POST['g-recaptcha-response'] . '&remoteip=' . $_SERVER["REMOTE_ADDR"] );
 		$response = wp_remote_get( $url );
 		$response_body = json_decode( $response['body'] , true );
