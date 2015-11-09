@@ -92,8 +92,6 @@ function process_mailchimp_shortcode( $atts ) {
 	$fields = json_decode( $form_data['fields'] , true );
 	$styles = json_decode( stripslashes( $form_data['custom_styles'] ) , true );
 	$send_welcome = $form_data['send_welcome_email'];
-	$redirect_user = $form_data['redirect_user_on_submit'];
-	$redirect_page = $form_data['redirect_page'];
 	$submission_settings = json_decode( stripslashes( $form_data['submission_settings'] ) , true );
 	$optin_settings = json_decode( stripslashes( $form_data['optin_settings'] ) , true );
 	$error_messages = json_decode( $form_data['error_messages'] , true );	

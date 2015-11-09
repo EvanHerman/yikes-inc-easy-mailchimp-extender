@@ -63,6 +63,8 @@ class Yikes_Inc_Easy_Mailchimp_Extender_Public {
 		add_action( 'init' , array( $this , 'load_checkbox_integration_classes' ) , 1 );
 		// custom front end filter
 		add_action( 'init', array( $this, 'yikes_custom_frontend_content_filter' ) );
+		// check if the form was submit, confirm redirect setting, and re-direct in the proper way/location
+		add_action( 'template_redirect', array( $this, 'redirect_user_non_ajax_forms' ) );
 	}
 	
 	/**
@@ -117,6 +119,37 @@ class Yikes_Inc_Easy_Mailchimp_Extender_Public {
 			$error_logging = new Yikes_Inc_Easy_Mailchimp_Error_Logging;
 		}
 	}	
+	
+	/*
+	*	Proper redirect for non-ajax forms, using wp_redirect() -- not JavaScript
+	*	- Ensure the form was submit, grab the data and redirect as needed
+	*	- Processes the submission, and then redirects the users properly
+	*	@since 6.0.3.2
+	*/
+	public function redirect_user_non_ajax_forms() {
+		 // confirm the data was submitted for our forms
+		if( isset( $_POST['yikes-mailchimp-submitted-form'] ) && ( isset( $_POST['yikes-mailchimp-honeypot'] ) && empty( $_POST['yikes-mailchimp-honeypot'] ) ) ) {
+			global $wpdb, $post;
+			$page_data = $post; // store global post data
+			$form_id = (int) $_POST['yikes-mailchimp-submitted-form']; // store form id
+			$form_results = $wpdb->get_results( 'SELECT * FROM ' . $wpdb->prefix . 'yikes_easy_mc_forms WHERE id = ' . $form_id . '', ARRAY_A ); // query for our form data
+			if( $form_results ) {	
+				$form_data = $form_results[0]; // store the results
+				// lets include our form processing file -- since this get's skipped when a re-direct is setup
+				include_once( YIKES_MC_PATH . 'public/partials/shortcodes/process/process_form_submission.php' );
+				// decode our settings
+				$submission_settings = json_decode( stripslashes( $form_data['submission_settings'] ) , true );
+				// confirm the submission setting is set
+				if( $submission_settings['redirect_on_submission'] == '1' ) {
+					// grab the page
+					$redirect_page = get_permalink( (int) $form_data['redirect_page'] );
+					wp_redirect( apply_filters( 'yikes-mailchimp-redirect-url', esc_url( $redirect_page ), $form_id, $page_data ) );
+					exit;
+				}
+			}
+		}
+	}
+	
 
 }
 

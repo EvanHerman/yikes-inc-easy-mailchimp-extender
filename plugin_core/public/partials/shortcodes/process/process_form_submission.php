@@ -138,11 +138,9 @@ if ( ! isset( $_POST['yikes_easy_mc_new_subscriber'] ) || ! wp_verify_nonce( $_P
 		do_action( 'yikes-mailchimp-after-submission-'.$form , $merge_variables );
 		
 		/*
-		*	Successful form submission redirect
+		*	Non-AJAX redirects now handled in class-yikes-inc-easy-mailchimp-extender-public.php
+		*	function: redirect_user_non_ajax_forms
 		*/
-		if( $submission_settings['redirect_on_submission'] == '1' ) {
-			 echo '<script type="text/javascript">setTimeout(function() { window.location="' . apply_filters( 'yikes-mailchimp-redirect-url', get_permalink( $submission_settings['redirect_page'] ), $form, $page_data ) . '"; }, ' . apply_filters( 'yikes-mailchimp-redirect-timer' , 1500, $form ) . ');</script>';
-		}
 		
 		/*
 		*	yikes-mailchimp-form-submission
