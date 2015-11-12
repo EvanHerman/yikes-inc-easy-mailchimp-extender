@@ -101,6 +101,11 @@ function process_mailchimp_shortcode( $atts ) {
 	global $post;
 	$page_data = $post;
 	
+	// Remove the post_password from this for security
+	if( isset( $page_data->post_password ) ) {
+		unset( $page_data->post_password );
+	}
+	
 	// enqueue the form styles
 	wp_enqueue_style( 'yikes-inc-easy-mailchimp-public-styles', YIKES_MC_URL . 'public/css/yikes-inc-easy-mailchimp-extender-public.min.css' );
 	
