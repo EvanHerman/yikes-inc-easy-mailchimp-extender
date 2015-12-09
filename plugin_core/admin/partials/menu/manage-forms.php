@@ -28,14 +28,13 @@
 	<!-- Freddie Logo -->
 	<img src="<?php echo YIKES_MC_URL . 'includes/images/MailChimp_Assets/Freddie_60px.png'; ?>" alt="<?php _e( 'Freddie - MailChimp Mascot' , 'yikes-inc-easy-mailchimp-extender' ); ?>" class="yikes-mc-freddie-logo" />
 		
-	<h2>YIKES Easy Forms for MailChimp | <?php _e( 'Manage Forms' , 'yikes-inc-easy-mailchimp-extender' ) ?></h2>				
+	<h1>YIKES Easy Forms for MailChimp | <?php _e( 'Manage Forms' , 'yikes-inc-easy-mailchimp-extender' ) ?></h1>				
 		
 	<!-- Settings Page Description -->
 	<p class="yikes-easy-mc-about-text about-text"><?php _e( 'Create and manage your MailChimp opt-in forms on the following page. Select a form to make edits to it.' , 'yikes-inc-easy-mailchimp-extender' ); ?></p>
 		
-	
+	<!-- Action Notices -->
 	<?php
-	
 		// Confirm that the necessary forms table in the database exists
 		if( $wpdb->get_var("show tables like '" . $wpdb->prefix . "yikes_easy_mc_forms'") != $wpdb->prefix . "yikes_easy_mc_forms" ) {
 			wp_die( '<div class="error"><p>' . __( 'It looks like the forms table is missing. Please de-activate and re-activate the plugin to attempt to create the table. If the error persists, please get in touch with the YIKES Inc. support team.', 'yikes-inc-easy-mailchimp-extender' ) . '</p></div>' , 500 );
@@ -68,6 +67,22 @@
 			?>
 			<div class="error manage-form-admin-notice">
 				<p><?php _e( 'There was an error trying to clone your form. Please try again. If this error persists, please contact the YIKES Inc. support team.', 'yikes-inc-easy-mailchimp-extender' ); ?></p>
+			</div>
+			<?php
+		}
+		// reset form submission stats success
+		if( isset( $_REQUEST['reset-stats'] ) && $_REQUEST['reset-stats'] == 'true' ) {
+			?>
+			<div class="updated manage-form-admin-notice">
+				<p><?php _e( 'Form submission stats/rates successfully reset.', 'yikes-inc-easy-mailchimp-extender' ); ?></p>
+			</div>
+			<?php
+		}
+		// reset form submission stats error
+		if( isset( $_REQUEST['reset-stats'] ) && $_REQUEST['reset-stats'] == 'false' ) {
+			?>
+			<div class="error manage-form-admin-notice">
+				<p><?php _e( 'There was an error trying to reset the form submission stats/rates. Please try again. If this error persists, please contact the YIKES Inc. support team.', 'yikes-inc-easy-mailchimp-extender' ); ?></p>
 			</div>
 			<?php
 		}
@@ -130,6 +145,7 @@
 													<div class="row-actions">
 														<span><a href="<?php echo esc_url_raw( add_query_arg( array( 'id' => $form['id'] ) , admin_url( 'admin.php?page=yikes-mailchimp-edit-form' ) ) ); ?>"><?php _e( "Edit" , 'yikes-inc-easy-mailchimp-extender' ); ?></a> |</span>
 														<span><a href="<?php echo esc_url_raw( add_query_arg( array( 'action' => 'yikes-easy-mc-duplicate-form', 'mailchimp-form' => $form['id'] , 'nonce' => wp_create_nonce( 'duplicate-mailchimp-form-'.$form['id'] ) ) , admin_url( 'admin.php?page=yikes-inc-easy-mailchimp' ) ) ); ?>"><?php _e( "Duplicate" , 'yikes-inc-easy-mailchimp-extender' ); ?></a> |</span>
+														<span><a href="<?php echo esc_url_raw( add_query_arg( array( 'action' => 'yikes-easy-mc-reset-stats', 'mailchimp-form' => $form['id'] , 'nonce' => wp_create_nonce( 'reset-stats-mailchimp-form-'.$form['id'] ) ) , admin_url( 'admin.php?page=yikes-inc-easy-mailchimp' ) ) ); ?>"><?php _e( "Reset Stats" , 'yikes-inc-easy-mailchimp-extender' ); ?></a> |</span>
 														<span><a href="#" class="view-yikes-mc-form-shortcode" data-alt-text="<?php _e( 'Stats' , 'yikes-inc-easy-mailchimp-extender' ); ?>"><?php _e( "Shortcode" , 'yikes-inc-easy-mailchimp-extender' ); ?></a> |</span>														
 														<?php 
 															/*

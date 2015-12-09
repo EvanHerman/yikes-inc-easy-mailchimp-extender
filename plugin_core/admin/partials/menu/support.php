@@ -10,7 +10,7 @@
 
 	<div id="yikes-mailchimp-logo" class="support-page"></div>
 	
-	<h2><?php _e( 'Support' , 'yikes-inc-easy-mailchimp-extender' ); ?></h2>
+	<h1><?php _e( 'Support' , 'yikes-inc-easy-mailchimp-extender' ); ?></h1>
 	<strong><?php _e( "You've got questions? We have answers!" , 'yikes-inc-easy-mailchimp-extender' ); ?></strong>
 	<?php if( get_option( 'yikes-easy-mc-active-addons' , array() ) == array() ) { ?>
 		<p><?php _e( 'Users of the free version of YIKES Inc. Easy Forms for MailChimp are limited to two methods of support. We respond to support requests for the free version of the plugin once a week.' , 'yikes-inc-easy-mailchimp-extender' ); ?></p>
@@ -29,7 +29,7 @@
 		<div id="col-right">
 
 			<div class="col-wrap">
-				<h2><span class="github-octocat"></span><?php _e( 'Github Issue Tracker' , 'yikes-inc-easy-mailchimp-extender' ); ?></h2>
+				<h1><span class="github-octocat"></span><?php _e( 'Github Issue Tracker' , 'yikes-inc-easy-mailchimp-extender' ); ?></h1>
 				<div class="inside">
 					<p><?php _e( 'The fastest way to receive free support is to submit a new issue to our GitHub issue tracker. ', 'yikes-inc-easy-mailchimp-extender' ); ?></p>
 					<img class="support-page-logo" src="<?php echo YIKES_MC_URL; ?>includes/images/Support_Page/github-issue-screenshot.png" title="<?php esc_attr_e( 'Github Issue Tracker Screenshot' , 'yikes-inc-easy-mailchimp-extender' ); ?>" >
@@ -44,7 +44,7 @@
 		<div id="col-left">
 
 			<div class="col-wrap">
-				<h2><span class="dashicons dashicons-wordpress-alt support-page-wordpress-font"></span>&nbsp;<?php _e( 'WordPress.org Plugin Directory' , 'yikes-inc-easy-mailchimp-extender' ); ?></h2>
+				<h1><span class="dashicons dashicons-wordpress-alt support-page-wordpress-font"></span>&nbsp;<?php _e( 'WordPress.org Plugin Directory' , 'yikes-inc-easy-mailchimp-extender' ); ?></h1>
 				<div class="inside">
 					<p><?php _e( 'Use your WordPress.org username to submit support requests on the WordPress Directory support forum.', 'yikes-inc-easy-mailchimp-extender' ); ?></p>
 					<img class="support-page-logo" src="<?php echo YIKES_MC_URL; ?>includes/images/Support_Page/wordpress-issue-screenshot.png" title="<?php esc_attr_e( 'WordPress.org Issue Tracker Screenshot' , 'yikes-inc-easy-mailchimp-extender' ); ?>" >

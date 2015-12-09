@@ -74,10 +74,26 @@ function process_mailchimp_shortcode( $atts ) {
 				'expired_callback' => $expired_callback,
 			), $form );
 			// enqueue Google recaptcha JS
-			wp_register_script( 'google-recaptcha-js' , 'https://www.google.com/recaptcha/api.js?hl=' . $recaptcha_shortcode_params['language'] , array( 'jquery' ) , 'all' );
+			wp_register_script( 'google-recaptcha-js' , 'https://www.google.com/recaptcha/api.js?hl=' . $recaptcha_shortcode_params['language'] . '&onload=renderReCaptchaCallback&render=explicit', array( 'jquery' ) , 'all' );
 			wp_enqueue_script( 'google-recaptcha-js' );
 			$recaptcha_site_key = get_option( 'yikes-mc-recaptcha-site-key' , '' );
 			$recaptcha_box = '<div name="g-recaptcha" class="g-recaptcha" data-sitekey="' . $recaptcha_site_key . '" data-theme="' . $recaptcha_shortcode_params['theme'] . '" data-type="' . $recaptcha_shortcode_params['type'] . '" data-size="' . $recaptcha_shortcode_params['size'] . '" data-callback="' . $recaptcha_shortcode_params['success_callback'] . '" data-expired-callback="' . $recaptcha_shortcode_params['expired_callback'] . '"></div>';
+			
+			?>
+			<script type="text/javascript">
+				/* Script Callback to init. multiple recaptchas on a single page */
+				function renderReCaptchaCallback() {
+					var x = 1;
+					jQuery( '.g-recaptcha' ).each( function() {
+						jQuery( this ).attr( 'id', 'recaptcha-' + x );
+						grecaptcha.render( 'recaptcha-' + x, {
+							'sitekey' : '<?php echo $recaptcha_site_key; ?>',
+						});
+						x++;
+					});
+				}
+			</script>
+			<?php
 		}
 	}
 	
@@ -344,8 +360,17 @@ function process_mailchimp_shortcode( $atts ) {
 							case 'url':
 							case 'imageurl':
 								$default_value = $field['default'];	
-								
 									?>
+									
+									<script type="text/javascript">
+										function properlyFormatURLField( e ) {
+											var url_value = jQuery( e ).val();
+											if( url_value.indexOf("http://") == '-1' ) {
+												jQuery( e ).val( 'http://' + url_value );
+											}
+										}
+									</script>
+									
 									<label for="<?php echo $field['merge']; ?>" <?php echo implode( ' ' , $label_array ); ?>>
 										
 										<!-- dictate label visibility -->
@@ -355,7 +380,7 @@ function process_mailchimp_shortcode( $atts ) {
 											</span>
 										<?php } ?>
 										
-										<input <?php echo implode( ' ' , $field_array ); ?> type="url" <?php if( $field['type'] == 'url' ) { ?> title="<?php _e( 'Please enter a valid URL to the website.' , 'yikes-inc-easy-mailchimp-extender' ); ?>" <?php } else { ?> title="<?php _e( 'Please enter a valid URL to the image.' , 'yikes-inc-easy-mailchimp-extender' ); ?>" <?php } ?> value="<?php if( isset( $_POST[$field['merge']] ) && $form_submitted != 1 ) { echo $_POST[$field['merge']]; } else { echo esc_attr( $default_value ); } ?>">
+										<input <?php echo implode( ' ' , $field_array ); ?> type="url" <?php if( $field['type'] == 'url' ) { ?> title="<?php _e( 'Please enter a valid URL to the website.' , 'yikes-inc-easy-mailchimp-extender' ); ?>" <?php } else { ?> title="<?php _e( 'Please enter a valid URL to the image.' , 'yikes-inc-easy-mailchimp-extender' ); ?>" <?php } ?> value="<?php if( isset( $_POST[$field['merge']] ) && $form_submitted != 1 ) { echo $_POST[$field['merge']]; } else { echo esc_attr( $default_value ); } ?>" onblur="properlyFormatURLField(this);return false;">
 										
 										<!-- description -->
 										<?php if( isset( $field['description'] ) ) { ?><p class="form-field-description"><small><?php echo apply_filters( 'yikes-mailchimp-' . $field['merge'] . '-description', esc_attr( stripslashes( $field['description'] ) ), $form_id ); ?></small></p><?php } ?>
@@ -467,7 +492,7 @@ function process_mailchimp_shortcode( $atts ) {
 										case 'state':
 											
 											?>
-											<label for="<?php echo $field['merge']; ?>" <?php echo implode( ' ' , $label_array ); ?>>
+											<label for="<?php echo $field['merge']; ?>" <?php echo implode( ' ' , $label_array ); ?> data-attr-name="state-dropdown">
 											
 												<!-- dictate label visibility -->
 												<?php if( ! isset( $field['hide-label'] ) ) { ?>
@@ -477,7 +502,7 @@ function process_mailchimp_shortcode( $atts ) {
 												<?php } ?>
 												
 												<select <?php echo implode( ' ' , $field_array ); ?>>
-													<?php include_once( YIKES_MC_PATH . 'public/partials/shortcodes/templates/state-dropdown.php' ); ?>
+													<?php include( YIKES_MC_PATH . 'public/partials/shortcodes/templates/state-dropdown.php' ); ?>
 												</select>
 
 
@@ -489,9 +514,9 @@ function process_mailchimp_shortcode( $atts ) {
 										case 'zip':
 											
 											?>
-											<label for="<?php echo $field['merge']; ?>" <?php echo implode( ' ' , $label_array ); ?>>
+											<label for="<?php echo $field['merge']; ?>" <?php echo implode( ' ' , $label_array ); ?> data-attr-name="zip-input">
 													
-												<?php if( !isset( $field['hide-label'] ) ) { ?>
+												<?php if( ! isset( $field['hide-label'] ) ) { ?>
 													<span class="<?php echo esc_attr( $field['merge'] ) . '-label'; ?>">
 														<?php echo ucwords( apply_filters( 'yikes-mailchimp-address-'.$type.'-label' , esc_attr( $label ) ) ); ?>
 													</span>
@@ -505,8 +530,22 @@ function process_mailchimp_shortcode( $atts ) {
 										break;
 										
 										case 'country':
-											
 											?>
+											
+											<script type="text/javascript">
+												function checkCountry( e ) {
+													var country_value = jQuery( e ).val();
+													if( country_value != 'US' ) {
+														// fade out the non-US fields
+														jQuery( e ).parents( '.yikes-mailchimp-container' ).find( jQuery( 'label[data-attr-name="state-dropdown"]' ) ).fadeOut();
+														jQuery( e ).parents( '.yikes-mailchimp-container' ).find( jQuery( 'label[data-attr-name="zip-input"]' ) ).fadeOut();
+													} else {
+														jQuery( e ).parents( '.yikes-mailchimp-container' ).find( jQuery( 'label[data-attr-name="state-dropdown"]' ) ).fadeIn();
+														jQuery( e ).parents( '.yikes-mailchimp-container' ).find( jQuery( 'label[data-attr-name="zip-input"]' ) ).fadeIn();
+													}
+												}
+											</script>
+											
 											<label for="<?php echo $field['merge']; ?>" <?php echo implode( ' ' , $label_array ); ?>>
 												
 												<!-- dictate label visibility -->
@@ -516,10 +555,9 @@ function process_mailchimp_shortcode( $atts ) {
 													</span>
 												<?php } ?>
 												
-												<select <?php echo implode( ' ' , $field_array ); ?>>
-													<?php include_once( YIKES_MC_PATH . 'public/partials/shortcodes/templates/country-dropdown.php' ); ?>
+												<select <?php echo implode( ' ' , $field_array ); ?> onchange="checkCountry(this);return false;">
+													<?php include( YIKES_MC_PATH . 'public/partials/shortcodes/templates/country-dropdown.php' ); ?>
 												</select>
-												
 											</label>
 											<?php
 									

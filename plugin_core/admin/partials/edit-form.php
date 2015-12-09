@@ -92,7 +92,7 @@
 				<!-- Freddie Logo -->
 				<img src="<?php echo YIKES_MC_URL . 'includes/images/MailChimp_Assets/Freddie_60px.png'; ?>" alt="<?php __( 'Freddie - MailChimp Mascot' , 'yikes-inc-easy-mailchimp-extender' ); ?>" class="yikes-mc-freddie-logo" />
 					
-				<h2>YIKES Easy Forms for MailChimp | <?php echo __( 'Edit' , 'yikes-inc-easy-mailchimp-extender' ) . ' ' . $form['form_name']; ?></h2>		
+				<h1>YIKES Easy Forms for MailChimp | <?php echo __( 'Edit' , 'yikes-inc-easy-mailchimp-extender' ) . ' ' . $form['form_name']; ?></h1>		
 				
 				<!-- Settings Page Description -->
 				<p class="yikes-easy-mc-about-text about-text"><?php _e( 'Update this MailChimp form\'s fields, styles and settings below.' , 'yikes-inc-easy-mailchimp-extender' ); ?></p>
@@ -204,14 +204,14 @@
 																<h3 class="edit-form-title"><span><?php _e( "Form Fields &amp; Interest Groups" , 'yikes-inc-easy-mailchimp-extender' ); ?></span></h3>
 																<div class="inside">
 
-																	<h4 class="nav-tab-wrapper mv_ig_list">
+																	<h3 class="nav-tab-wrapper mv_ig_list">
 																		<a href="#" class="nav-tab nav-tab-active" alt="merge-variables"><div class="arrow-down"></div><?php _e( 'Form Fields' , 'yikes-inc-easy-mailchimp-extender' ); ?></a>
 																		<?php if( !isset( $merge_variable_error ) ) { ?>
 																			<a href="#" class="nav-tab"><?php _e( 'Interest Groups' , 'yikes-inc-easy-mailchimp-extender' ); ?></a>
 																		<?php } else { ?>
 																			<a href="#" class="nav-tab no-interest-groups-found-message" disabled="disabled" title="<?php _e( "No Interest Groups Exist" , 'yikes-inc-easy-mailchimp-extender' ); ?>"><?php _e( 'Interest Groups' , 'yikes-inc-easy-mailchimp-extender' ); ?></a>
 																		<?php } ?>
-																	</h4>
+																	</h3>
 																		
 																	<div id="container-container">
 																	

@@ -10,7 +10,7 @@
 	<!-- Freddie Logo -->
 	<img src="<?php echo YIKES_MC_URL . 'includes/images/MailChimp_Assets/Freddie_60px.png'; ?>" alt="<?php _e( 'Freddie - MailChimp Mascot' , 'yikes-inc-easy-mailchimp-extender' ); ?>" class="yikes-mc-freddie-logo" />
 		
-	<h2>YIKES Easy Forms for MailChimp | <?php echo __( 'Add-Ons' , 'yikes-inc-easy-mailchimp-extender' ); ?> &nbsp; <a href="https://yikesplugins.com/plugins/?plugins=MailChimp" target="_blank" class="button-primary coming-soon-button" title="<?php _e( 'View All Add-Ons' , 'yikes-inc-easy-mailchimp-extender' ); ?>"><?php _e( 'View All Add-Ons' , 'yikes-inc-easy-mailchimp-extender' ); ?> <span class="dashicons dashicons-external"></span></a></h2>				
+	<h1>YIKES Easy Forms for MailChimp | <?php echo __( 'Add-Ons' , 'yikes-inc-easy-mailchimp-extender' ); ?> &nbsp; <a href="https://yikesplugins.com/plugins/?plugins=MailChimp" target="_blank" class="button-primary coming-soon-button" title="<?php _e( 'View All Add-Ons' , 'yikes-inc-easy-mailchimp-extender' ); ?>"><?php _e( 'View All Add-Ons' , 'yikes-inc-easy-mailchimp-extender' ); ?> <span class="dashicons dashicons-external"></span></a></h1>				
 		
 	<!-- Addons Page Description -->
 	<p class="yikes-easy-mc-about-text about-text"><?php _e( "Below you'll find a list of add-ons available for YIKES Easy Forms for MailChimp. Each add-on extends the base functionality of the free plugin." , 'yikes-inc-easy-mailchimp-extender' ); ?></p>

@@ -32,7 +32,7 @@
 	<!-- Freddie Logo -->
 	<img src="<?php echo YIKES_MC_URL . 'includes/images/MailChimp_Assets/Freddie_60px.png'; ?>" alt="<?php _e( 'Freddie - MailChimp Mascot' , 'yikes-inc-easy-mailchimp-extender' ); ?>" class="yikes-mc-freddie-logo" />
 		
-	<h2><?php _e( 'Account Overview' , 'yikes-inc-easy-mailchimp-extender' ); echo ' | ' . $profile_info['username']; ?></h2>		
+	<h1><?php _e( 'Account Overview' , 'yikes-inc-easy-mailchimp-extender' ); echo ' | ' . $profile_info['username']; ?></h1>		
 	<!-- Account Overview Page Description -->
 	<p class="yikes-easy-mc-about-text about-text"><?php _e( "Below you'll find a brief overview of account activity as well as some account and profile info." , 'yikes-inc-easy-mailchimp-extender' ); ?></p>
 	
@@ -44,7 +44,7 @@
 					<div class="postbox yikes-easy-mc-postbox" id="chimp-chatter">
 						<div class="inside">
 
-							<h2><?php _e( 'Chimp Chatter' , 'yikes-inc-easy-mailchimp-extender' ); ?></h2>
+							<h1><?php _e( 'Chimp Chatter' , 'yikes-inc-easy-mailchimp-extender' ); ?></h1>
 							
 							<?php
 								$date_format = get_option( 'date_format' );
