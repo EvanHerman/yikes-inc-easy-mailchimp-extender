@@ -17,7 +17,7 @@ class Yikes_Inc_Easy_Mailchimp_Forms_Admin {
 	 * @access   private
 	 * @var      string    $yikes_inc_easy_mailchimp_extender    The ID of this plugin.
 	 */
-	private $yikes_inc_easy_mailchimp_extender;
+	private $yikes_inc_easy_mailchimp_extender; 
 	/**
 	 * The version of this plugin.
 	 *
