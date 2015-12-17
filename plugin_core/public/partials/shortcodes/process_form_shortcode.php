@@ -122,8 +122,13 @@ function process_mailchimp_shortcode( $atts ) {
 		unset( $page_data->post_password );
 	}
 	
+	// grab the last enqueued style, so we can use it as a dependency of our styles (for override)
+	global $wp_styles;
+	end( $wp_styles->groups );
+	$last_key = key( $wp_styles->groups );
+	
 	// enqueue the form styles
-	wp_enqueue_style( 'yikes-inc-easy-mailchimp-public-styles', YIKES_MC_URL . 'public/css/yikes-inc-easy-mailchimp-extender-public.min.css' );
+	wp_enqueue_style( 'yikes-inc-easy-mailchimp-public-styles', YIKES_MC_URL . 'public/css/yikes-inc-easy-mailchimp-extender-public.min.css', array( $last_key ) );
 	
 	// custom action hook to enqueue scripts & styles wherever the shortcode is used
 	do_action( 'yikes-mailchimp-shortcode-enqueue-scripts-styles', $form_id );
@@ -216,7 +221,7 @@ function process_mailchimp_shortcode( $atts ) {
 		if( isset( $_POST ) && !empty( $_POST ) && $submission_settings['ajax'] == 0 ) {
 			if( $_POST['yikes-mailchimp-submitted-form'] == $form_id ) { // ensure we only process the form that was submitted
 				// lets include our form processing file
-				include_once( YIKES_MC_PATH . 'public/partials/shortcodes/process/process_form_submission.php' );
+				require( YIKES_MC_PATH . 'public/partials/shortcodes/process/process_form_submission.php' );
 			}
 		}
 		
