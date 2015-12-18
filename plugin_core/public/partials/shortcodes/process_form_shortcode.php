@@ -21,7 +21,13 @@ function process_mailchimp_shortcode( $atts ) {
 			'recaptcha_expired_callback' => '', // set a custom js callback function to run after the recaptcha has expired - default none
 		), $atts , 'yikes-mailchimp' )
 	);
-		
+	
+	// set globals
+	global $form_submitted, $process_submission_response;
+	
+	// setup form submitted variable
+	$form_submitted = isset( $form_submitted ) ? $form_submitted : 0;
+	
 	/* If the user hasn't authenticated yet, lets kill off */
 	if( get_option( 'yikes-mc-api-validation' , 'invalid_api_key' ) != 'valid_api_key' ) {
 		return '<div class="invalid-api-key-error"><p>' . __( "Whoops, you're not connected to MailChimp. You need to enter a valid MailChimp API key." , 'yikes-inc-easy-mailchimp-extender' ) . '</p></div>';
@@ -102,16 +108,13 @@ function process_mailchimp_shortcode( $atts ) {
 	
 	// store our variables
 	$form_id = (int) $form_data['id']; // form id (the id of the form in the database)
-	$list_id = sanitize_key( $form_data['list_id'] ); // associated list id (users who fill out the form will be subscribed to this list)
-	$form_name = esc_attr( $form_data['form_name'] ); // form name
-	$form_description = esc_attr( stripslashes( $form_data['form_description'] ) );
-	$fields = json_decode( $form_data['fields'] , true );
-	$styles = json_decode( stripslashes( $form_data['custom_styles'] ) , true );
-	$send_welcome = $form_data['send_welcome_email'];
-	$submission_settings = json_decode( stripslashes( $form_data['submission_settings'] ) , true );
-	$optin_settings = json_decode( stripslashes( $form_data['optin_settings'] ) , true );
-	$error_messages = json_decode( $form_data['error_messages'] , true );	
-	$notifications = isset( $form_data['custom_notifications'] ) ? json_decode( stripslashes( $form_data['custom_notifications'] ) , true ) : '';
+	
+	/*
+	*	Get the stored form settings
+	* 	Helper function now in class-yikes-inc-easy-mailchimp-extender-public.php
+	*	@since 6.0.3.4
+	*/
+	$form_settings = Yikes_Inc_Easy_Mailchimp_Extender_Public::yikes_retrieve_form_settings( $form_id );
 	
 	// used in yikes-mailchimp-redirect-url filter
 	global $post;
@@ -145,9 +148,9 @@ function process_mailchimp_shortcode( $atts ) {
 		if( is_user_logged_in() ) {
 			if( current_user_can( apply_filters( 'yikes-mailchimp-user-role-access' , 'manage_options' ) ) ) {
 				$edit_form_link = '<span class="edit-link">';
-					$edit_form_link .= '<a class="post-edit-link" href="' . esc_url( admin_url( 'admin.php?page=yikes-mailchimp-edit-form&id=' . $form ) ) . '" title="' . __( 'Edit' , 'yikes-inc-easy-mailchimp-extender' ) . ' ' . ucwords( $form_name ) . '">' . __( 'Edit Form' , 'yikes-inc-easy-mailchimp-extender' ) . '</a>';
+					$edit_form_link .= '<a class="post-edit-link" href="' . esc_url( admin_url( 'admin.php?page=yikes-mailchimp-edit-form&id=' . $form ) ) . '" title="' . __( 'Edit' , 'yikes-inc-easy-mailchimp-extender' ) . ' ' . ucwords( $form_settings['form_name'] ) . '">' . __( 'Edit Form' , 'yikes-inc-easy-mailchimp-extender' ) . '</a>';
 				$edit_form_link .= '</span>';
-				$edit_form_link = apply_filters( 'yikes-mailchimp-front-end-form-action-links', $edit_form_link, $form, ucwords( $form_name ) );
+				$edit_form_link = apply_filters( 'yikes-mailchimp-front-end-form-action-links', $edit_form_link, $form, ucwords( $form_settings['form_name'] ) );
 			} else {
 				$edit_form_link = '';
 			}
@@ -156,8 +159,8 @@ function process_mailchimp_shortcode( $atts ) {
 		// ensure there is an 'email' field the user can fill out
 		// or else MailChimp throws errors at you
 			// extract our array keys
-			if( isset( $fields ) && !empty( $fields ) ) {	
-				$array_keys = array_keys( $fields );
+			if( isset( $form_settings['fields'] ) && !empty( $form_settings['fields'] ) ) {	
+				$array_keys = array_keys( $form_settings['fields'] );
 				// check for EMAIL in that array
 				if( !in_array( 'EMAIL', $array_keys ) && !in_array( 'email', $array_keys ) ) {
 					return '<p>' . __( "An email field is required for all MailChimp forms. Please add an email field to this form." , 'yikes-inc-easy-mailchimp-extender' ) . '</p><p>' . $edit_form_link . '</p>';
@@ -178,10 +181,7 @@ function process_mailchimp_shortcode( $atts ) {
 		*  check readme for usage examples
 		*/
 		do_action( 'yikes-mailchimp-before-form', $form_id );	
-		
-		// used to hide the form, keep values in the form etc.
-		$form_submitted = 0;
-		
+				
 		/*
 		*	Set a custom title using custom_title="lorem ipsum" parameter in the shortcode
 		*	- This takes precedence over the title set
@@ -192,18 +192,18 @@ function process_mailchimp_shortcode( $atts ) {
 			// display the form description if the user 
 			// has specified to do so
 			if( ! empty( $title ) && $title == 1 ) {
-				echo '<h3 class="yikes-mailchimp-form-title yikes-mailchimp-form-title-'.$form_id.'">' . apply_filters( 'yikes-mailchimp-form-title', apply_filters( 'the_title', $form_name ), $form_id ) . '</h3>';
+				echo '<h3 class="yikes-mailchimp-form-title yikes-mailchimp-form-title-'.$form_id.'">' . apply_filters( 'yikes-mailchimp-form-title', apply_filters( 'the_title', $form_settings['form_name'] ), $form_id ) . '</h3>';
 			}
 		}
 		
 		// display the form description if the user 
 		// has specified to do so
 		if( ! empty( $description ) && $description == 1 ) {
-			echo '<section class="yikes-mailchimp-form-description yikes-mailchimp-form-description-'.$form_id.'">' . apply_filters( 'yikes-mailchimp-frontend-content', apply_filters( 'yikes-mailchimp-form-description', $form_description, $form_id ) ) . '</section>';
+			echo '<section class="yikes-mailchimp-form-description yikes-mailchimp-form-description-'.$form_id.'">' . apply_filters( 'yikes-mailchimp-frontend-content', apply_filters( 'yikes-mailchimp-form-description', $form_settings['form_description'], $form_id ) ) . '</section>';
 		}
 		
 		// Check for AJAX
-		if( ( ! empty( $atts['ajax'] ) && $atts['ajax'] == 1 ) || $submission_settings['ajax'] == 1 ) {
+		if( ( ! empty( $atts['ajax'] ) && $atts['ajax'] == 1 ) || $form_settings['submission_settings']['ajax'] == 1 ) {
 			// enqueue our ajax script
 			wp_register_script( 'yikes-easy-mc-ajax' , YIKES_MC_URL . 'public/js/yikes-mc-ajax-forms.js' , array( 'jquery' ) , 'yikes-inc-easy-mailchimp-extender', false );
 			wp_localize_script( 'yikes-easy-mc-ajax' , 'object' , array( 
@@ -217,20 +217,27 @@ function process_mailchimp_shortcode( $atts ) {
 		/*
 		*	On form submission, lets include our form processing file
 		*	- processes non-ajax forms
-		*/
-		if( isset( $_POST ) && !empty( $_POST ) && $submission_settings['ajax'] == 0 ) {
+		if( isset( $_POST ) && !empty( $_POST ) && $form_settings['submission_settings']['ajax'] == 0 ) {
 			if( $_POST['yikes-mailchimp-submitted-form'] == $form_id ) { // ensure we only process the form that was submitted
 				// lets include our form processing file
 				require( YIKES_MC_PATH . 'public/partials/shortcodes/process/process_form_submission.php' );
 			}
 		}
+		*/
+		
+		/*
+		*	If a form was submitted, and the response was returned
+		*	let's display it back to the user
+		*	@since 6.0.3.4
+		*/
+		echo $process_submission_response;
 		
 		// render the form!
 		?>
-			<form id="<?php echo sanitize_title( $form_name ); ?>-<?php echo $form_id; ?>" class="yikes-easy-mc-form yikes-easy-mc-form-<?php echo $form_id; echo ' ' . apply_filters( 'yikes-mailchimp-form-class', '', $form_id ); echo ' ' . apply_filters( 'yikes-mailchimp-form-class', '', $form_id ); if( !empty( $_POST ) && $form_submitted == 1 && $submission_settings['hide_form_post_signup'] == 1 ) { echo ' yikes-easy-mc-display-none'; } ?>" action="" method="POST" data-attr-form-id="<?php echo $form_id; ?>">
+			<form id="<?php echo sanitize_title( $form_settings['form_name'] ); ?>-<?php echo $form_id; ?>" class="yikes-easy-mc-form yikes-easy-mc-form-<?php echo $form_id; echo ' ' . apply_filters( 'yikes-mailchimp-form-class', '', $form_id ); echo ' ' . apply_filters( 'yikes-mailchimp-form-class', '', $form_id ); if( !empty( $_POST ) && $form_submitted == 1 && $form_settings['submission_settings']['hide_form_post_signup'] == 1 ) { echo ' yikes-easy-mc-display-none'; } ?>" action="" method="POST" data-attr-form-id="<?php echo $form_id; ?>">
 							
 				<?php 
-				foreach( $fields as $field ) {
+				foreach( $form_settings['fields'] as $field ) {
 						// input array
 						$field_array = array();
 						// label array
@@ -931,7 +938,7 @@ function process_mailchimp_shortcode( $atts ) {
 				<input type="hidden" name="yikes-mailchimp-honeypot" id="yikes-mailchimp-honeypot" value="">
 				
 				<!-- List ID -->
-				<input type="hidden" name="yikes-mailchimp-associated-list-id" id="yikes-mailchimp-associated-list-id" value="<?php echo $list_id; ?>">
+				<input type="hidden" name="yikes-mailchimp-associated-list-id" id="yikes-mailchimp-associated-list-id" value="<?php echo $form_settings['list_id']; ?>">
 				
 				<!-- Form that is being submitted! Used to display error/success messages above the correct form -->
 				<input type="hidden" name="yikes-mailchimp-submitted-form" id="yikes-mailchimp-submitted-form" value="<?php echo $form_id; ?>">

@@ -178,4 +178,5 @@ class Yikes_Inc_Easy_Mailchimp_Extender {
 	public function get_version() {
 		return $this->version;
 	}
+	
 }

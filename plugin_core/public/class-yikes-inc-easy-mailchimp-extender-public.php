@@ -48,6 +48,11 @@ class Yikes_Inc_Easy_Mailchimp_Extender_Public {
 		if ( ! defined( 'YIKES_MC_VERSION' ) ) {
 			define( 'YIKES_MC_VERSION' , $version );
 		}
+		/*
+		*	Include our helper functions
+		*	@since 6.0.3.4
+		*/
+		include_once( YIKES_MC_PATH . 'public/helpers.php' );
 		// Include our Shortcode & Processing function (public folder)
 		include_once( YIKES_MC_PATH . 'public/partials/shortcodes/process_form_shortcode.php' );
 		// Process our old shortcode to alert the user that this is now deprecated
@@ -63,10 +68,8 @@ class Yikes_Inc_Easy_Mailchimp_Extender_Public {
 		add_action( 'init' , array( $this , 'load_checkbox_integration_classes' ) , 1 );
 		// custom front end filter
 		add_action( 'init', array( $this, 'yikes_custom_frontend_content_filter' ) );
-		
-		/* NOTE: This overwrites the global variables, and caused undefined errors on non-ajax form submissions */
-		// check if the form was submit, confirm redirect setting, and re-direct in the proper way/location
-		add_action( 'template_redirect', array( $this, 'redirect_user_non_ajax_forms' ) );
+		// Process non-ajax forms in the header
+		add_action( 'init', array( $this, 'yikes_process_non_ajax_forms' ) );
 	}
 	
 	/**
@@ -123,47 +126,62 @@ class Yikes_Inc_Easy_Mailchimp_Extender_Public {
 	}	
 	
 	/*
-	*	Proper redirect for non-ajax forms, using wp_redirect() -- not JavaScript
-	*	- Ensure the form was submit, grab the data and redirect as needed
-	*	- Processes the submission, and then redirects the users properly
-	*	@since 6.0.3.2
+	*	On form submission, lets include our form processing file
+	*	- processes non-ajax forms
+	*	@since 6.0.3.4
 	*/
-	public function redirect_user_non_ajax_forms() {
-		 // confirm the data was submitted for our forms
-		if( isset( $_POST['yikes-mailchimp-submitted-form'] ) && ( isset( $_POST['yikes-mailchimp-honeypot'] ) && empty( $_POST['yikes-mailchimp-honeypot'] ) ) ) {
-			global $wpdb, $post;
-			$page_data = $post; // store global post data
-			$form_id = (int) $_POST['yikes-mailchimp-submitted-form']; // store form id
-			$form_results = $wpdb->get_results( 'SELECT * FROM ' . $wpdb->prefix . 'yikes_easy_mc_forms WHERE id = ' . $form_id . '', ARRAY_A ); // query for our form data
-			if( $form_results ) {	
-				$form_data = $form_results[0]; // store the results
-				$submission_settings = json_decode( stripslashes( $form_data['submission_settings'] ) , true );
-				// confirm the submission setting is set
-				if( $submission_settings['redirect_on_submission'] == '1' ) {
-					// lets include our form processing file -- since this get's skipped when a re-direct is setup
+	public function yikes_process_non_ajax_forms( $form_submitted ) {
+		global $wpdb,$post;
+		$form_id = ( isset( $_POST['yikes-mailchimp-submitted-form'] ) ) ? (int) $_POST['yikes-mailchimp-submitted-form'] : false; // store form id
+		if( $form_id ) {
+			$form_settings = self::yikes_retrieve_form_settings( $form_id );
+			if( isset( $_POST ) && !empty( $_POST ) && isset( $form_id ) && $form_settings['submission_settings']['ajax'] == 0 ) {
+				if( $_POST['yikes-mailchimp-submitted-form'] == $form_id ) { // ensure we only process the form that was submitted
+					// lets include our form processing file
 					include_once( YIKES_MC_PATH . 'public/partials/shortcodes/process/process_form_submission.php' );
-					if( $form_submitted == 1 ) {
-						// decode our settings
-						$redirect_page = get_permalink( (int) $form_data['redirect_page'] );
-						wp_redirect( apply_filters( 'yikes-mailchimp-redirect-url', esc_url( $redirect_page ), $form_id, $page_data ) );
-						exit;
+					if( $form_settings['submission_settings']['redirect_on_submission'] == '1' ) {
+						if( $form_submitted == 1 ) {
+							// decode our settings
+							$redirect_page = get_permalink( (int) $form_settings['submission_settings']['redirect_page'] );
+							wp_redirect( apply_filters( 'yikes-mailchimp-redirect-url', esc_url( $redirect_page ), $form_id, $post ) );
+							exit;
+						}
 					}
 				}
 			}
 		}
 	}
 	
-
-}
-
-/*
-*	Legacy support for our PHP Snippet
-*	- this snippet existed in previous versions, and hes been preserved
-*	  to maintain backwards compatibility. The form ID needs to be updated.
-*	
-*	@since 6.0.0
-*/
-function yksemeProcessSnippet( $list=false, $submit_text ) {
-	$submit_text = ( isset( $submit_text ) ) ? 'submit="' . $submit_text . '"' : '';
-	return do_shortcode( '[yikes-mailchimp form="' . $list . '" ' . $submit_text . ']' );
+	/*
+	*	Get the given form data
+	*	@since 6.0.3.4
+	*/
+	public static function yikes_retrieve_form_settings( $form_id ) {
+		// if no form id, abort
+		if( ! $form_id ) {
+			return;
+		}
+		global $wpdb;
+		$form_results = $wpdb->get_results( 'SELECT * FROM ' . $wpdb->prefix . 'yikes_easy_mc_forms WHERE id = ' . $form_id . '', ARRAY_A ); // query for our form data
+		if( $form_results ) {
+			// empty array, to populate with form settings
+			$form_settings = array();
+			$form_data = $form_results[0]; // store the results
+			// store the settings in our array
+			$form_settings['list_id'] = sanitize_key( $form_data['list_id'] ); // associated list id (users who fill out the form will be subscribed to this list)
+			$form_settings['form_name'] = esc_attr( $form_data['form_name'] ); // form name
+			$form_settings['form_description'] = esc_attr( stripslashes( $form_data['form_description'] ) );
+			$form_settings['fields'] = json_decode( $form_data['fields'] , true );
+			$form_settings['styles'] = json_decode( stripslashes( $form_data['custom_styles'] ) , true );
+			$form_settings['send_welcome'] = $form_data['send_welcome_email'];
+			$form_settings['submission_settings'] = json_decode( stripslashes( $form_data['submission_settings'] ) , true );
+			$form_settings['optin_settings'] = json_decode( stripslashes( $form_data['optin_settings'] ) , true );
+			$form_settings['error_messages'] = json_decode( $form_data['error_messages'] , true );	
+			$form_settings['notifications'] = isset( $form_data['custom_notifications'] ) ? json_decode( stripslashes( $form_data['custom_notifications'] ) , true ) : '';
+			$form_settings['submissions'] = $form_data['submissions'];
+		}
+		// return the given form settings in an array
+		return $form_settings;
+	}
+	
 }
