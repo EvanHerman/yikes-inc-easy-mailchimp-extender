@@ -7,18 +7,6 @@ YIKES Inc. Easy Forms for MailChimp
 ![WordPress plugin](https://img.shields.io/wordpress/plugin/v/yikes-inc-easy-mailchimp-extender.svg)
 ![WordPress](https://img.shields.io/wordpress/v/yikes-inc-easy-mailchimp-extender.svg)
 
-<strong>Latest Stable Beta Release Candidate</strong>
-
-> [Latest Stable Beta Release Download](https://cloudup.com/files/iFNHWI2TTS8/download)
-> - Last Updated October 3rd, 2015
-
-This is a complete re-write of the original [YIKES Inc Easy MailChimp Extender](https://wordpress.org/plugins/yikes-inc-easy-mailchimp-extender/) plugin.
-
-This is the release candidate for the final release of [YIKES Inc Easy MailChimp Extender](https://wordpress.org/plugins/yikes-inc-easy-mailchimp-extender/).
-Target launch date is by the end of September 2015.
- 
-Feel free to use this plugin now. When the final version rolls out, you'll have a smooth transition.
-
 
 #### Minimum Requirements
 - WordPress 3.8+ 
@@ -42,11 +30,6 @@ Easy Forms for MailChimp by YIKES integrates well with many popular third party 
 * Contact Form 7
 * Visual Composer
 
-**Languages**
-
-* Español translated by @hiwhatsup
-* Française translated by @mialevesque
-* Português do Brasil translated by @enxaqueca
 
 #### Questions?
 Have any questions? Feel free to open up an issue in the issue tracker and we'll get back to you as soon as possible.
