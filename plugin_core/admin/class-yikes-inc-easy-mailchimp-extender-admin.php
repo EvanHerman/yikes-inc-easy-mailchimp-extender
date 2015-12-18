@@ -86,6 +86,12 @@ class Yikes_Inc_Easy_Mailchimp_Forms_Admin {
 		if ( isset( $_REQUEST[ 'action' ] ) && $_REQUEST[ 'action' ] == 'yikes-easy-mc-duplicate-form' ) {
 			add_action( 'init' , array( $this , 'yikes_easy_mailchimp_duplicate_form' ) );
 		}
+		/*************************************/
+		/**  Reset Form Impression Stats **/
+		/***********************************/
+		if ( isset( $_REQUEST[ 'action' ] ) && $_REQUEST[ 'action' ] == 'yikes-easy-mc-reset-stats' ) {
+			add_action( 'init' , array( $this , 'yikes_easy_mailchimp_reset_impression_stats' ) );
+		}
 		/**********************************/
 		/** 	     Update A Form 		**/
 		/********************************/
@@ -2386,7 +2392,7 @@ class Yikes_Inc_Easy_Mailchimp_Forms_Admin {
 						$data[$id] = $value;
 					}
 				}
-				// inser our new data
+				// insert our new data
 				if( $wpdb->insert(
 					$wpdb->prefix . 'yikes_easy_mc_forms',
 					apply_filters( 'yikes-mailchimp-duplicate-form-data', $data )
@@ -2399,6 +2405,37 @@ class Yikes_Inc_Easy_Mailchimp_Forms_Admin {
 				}
 				exit();
 				die();
+		}
+		
+		/* 
+		*	Reset a forms impression stats
+		*/
+		public function yikes_easy_mailchimp_reset_impression_stats() {
+			// grab & store our variables ( associated list & form name )
+			$nonce = $_REQUEST['nonce'];
+			$form_id_to_reset = $_REQUEST['mailchimp-form'];
+			// verify our nonce
+			if( ! wp_verify_nonce( $nonce, 'reset-stats-mailchimp-form-'.$form_id_to_reset ) ) {
+				wp_die( __( "We've run into an error. The security check didn't pass. Please try again." , 'yikes-inc-easy-mailchimp-extender' ) , __( "Failed nonce validation" , 'yikes-inc-easy-mailchimp-extender' ) , array( 'response' => 500 , 'back_link' => true ) );
+			}
+			global $wpdb;
+			/* Update 'Impressions/Submissions' */
+			if( $wpdb->update( 
+				$wpdb->prefix . 'yikes_easy_mc_forms',
+				array( 
+					'impressions' => 0,
+					'submissions' => 0
+				),
+				array( 'ID' => $form_id_to_reset )
+			) === FALSE ) {
+				// redirect the user to the manage forms page, display error
+				wp_redirect( esc_url_raw( admin_url( 'admin.php?page=yikes-inc-easy-mailchimp&reset-stats=false' ) ) );
+			} else {
+				// redirect the user to the manage forms page, display confirmation
+				wp_redirect( esc_url_raw( admin_url( 'admin.php?page=yikes-inc-easy-mailchimp&reset-stats=true' ) ) );
+			}
+			exit();
+			die();
 		}
 		
 		/* 

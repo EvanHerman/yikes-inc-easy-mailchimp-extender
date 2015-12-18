@@ -113,7 +113,7 @@
 				<!-- Freddie Logo -->
 				<img src="<?php echo YIKES_MC_URL . 'includes/images/MailChimp_Assets/Freddie_60px.png'; ?>" alt="<?php __( 'Freddie - MailChimp Mascot' , 'yikes-inc-easy-mailchimp-extender' ); ?>" class="yikes-mc-freddie-logo" />
 					
-				<h2>YIKES Easy Forms for MailChimp | <?php _e( 'Subscriber Details' , 'yikes-inc-easy-mailchimp-extender' ); ?></h2>				
+				<h1>YIKES Easy Forms for MailChimp | <?php _e( 'Subscriber Details' , 'yikes-inc-easy-mailchimp-extender' ); ?></h1>				
 						
 				<!-- Settings Page Description -->
 				<p class="yikes-easy-mc-about-text about-text"><?php printf( __( 'View %s subscriber details below.' , 'yikes-inc-easy-mailchimp-extender' ), $user_email ); ?></p>
