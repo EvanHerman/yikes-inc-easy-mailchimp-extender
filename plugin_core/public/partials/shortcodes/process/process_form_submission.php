@@ -1,13 +1,17 @@
 <?php
 /*
 *	Process Non-Ajax forms	
-*	@Updated for v6.0.3.4
+*	@Updated for v6.0.3.5
 */
 
 // set the global variable to 1, to trigger a successful submission
 global $form_submitted, $process_submission_response;
 
-$form_id = $_POST['yikes-mailchimp-submitted-form'];
+// confirm we have a form id to work with
+$form_id = ( ! empty( $_POST['yikes-mailchimp-submitted-form'] ) ) ? $_POST['yikes-mailchimp-submitted-form'] : false;
+if( ! $form_id ) {
+	return;
+}
 
 $form_settings = Yikes_Inc_Easy_Mailchimp_Extender_Public::yikes_retrieve_form_settings( $_POST['yikes-mailchimp-submitted-form'] );
 
