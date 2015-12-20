@@ -132,7 +132,7 @@ class Yikes_Inc_Easy_Mailchimp_Extender_Public {
 	*/
 	public function yikes_process_non_ajax_forms( $form_submitted ) {
 		global $wpdb,$post;
-		$form_id = ( isset( $_POST['yikes-mailchimp-submitted-form'] ) ) ? (int) $_POST['yikes-mailchimp-submitted-form'] : false; // store form id
+		$form_id = ( ! empty( $_POST['yikes-mailchimp-submitted-form'] ) ) ? (int) $_POST['yikes-mailchimp-submitted-form'] : false; // store form id
 		if( $form_id ) {
 			$form_settings = self::yikes_retrieve_form_settings( $form_id );
 			if( isset( $_POST ) && !empty( $_POST ) && isset( $form_id ) && $form_settings['submission_settings']['ajax'] == 0 ) {
@@ -179,9 +179,10 @@ class Yikes_Inc_Easy_Mailchimp_Extender_Public {
 			$form_settings['error_messages'] = json_decode( $form_data['error_messages'] , true );	
 			$form_settings['notifications'] = isset( $form_data['custom_notifications'] ) ? json_decode( stripslashes( $form_data['custom_notifications'] ) , true ) : '';
 			$form_settings['submissions'] = $form_data['submissions'];
+			// return the given form settings in an array
+			return $form_settings;
 		}
-		// return the given form settings in an array
-		return $form_settings;
+		return;
 	}
 	
 }
