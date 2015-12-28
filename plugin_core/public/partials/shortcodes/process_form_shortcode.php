@@ -869,7 +869,7 @@ function process_mailchimp_shortcode( $atts ) {
 										<?php } ?>
 								
 
-									?></label><?php
+									</label><?php
 									
 
 								break;
