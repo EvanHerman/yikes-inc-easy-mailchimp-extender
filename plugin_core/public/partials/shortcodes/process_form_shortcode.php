@@ -21,7 +21,7 @@ function process_mailchimp_shortcode( $atts ) {
 			'recaptcha_expired_callback' => '', // set a custom js callback function to run after the recaptcha has expired - default none
 		), $atts , 'yikes-mailchimp' )
 	);
-	
+		
 	// set globals
 	global $form_submitted, $process_submission_response;
 	
@@ -60,9 +60,16 @@ function process_mailchimp_shortcode( $atts ) {
 			if( get_option( 'yikes-mc-recaptcha-secret-key' , '' ) == '' ) {
 				return __( "Whoops! It looks like you enabled reCAPTCHA but forgot to enter the reCAPTCHA secret key!" , 'yikes-inc-easy-mailchimp-extender' ) . '<span class="edit-link yikes-easy-mc-edit-link"><a class="post-edit-link" href="' . esc_url( admin_url( 'admin.php?page=yikes-inc-easy-mailchimp-settings&section=recaptcha-settings' ) ) . '" title="' . __( 'ReCaptcha Settings' , 'yikes-inc-easy-mailchimp-extender' ) . '">' . __( 'Edit ReCaptcha Settings' , 'yikes-inc-easy-mailchimp-extender' ) . '</a></span>';
 			}
+			
+			if( ! empty( $atts['recaptcha_type'] ) ) {
+				echo 'yes';
+				echo $atts['recaptcha_type'];
+			}
+			
 			// Store the site language (to load recaptcha in a specific language)
 			$locale = get_locale();
 			$locale_split = explode( '_', $locale );
+			// Setup reCaptcha parameters
 			$lang = ( isset( $locale_split ) ? $locale_split[0] : $locale );
 			$lang = ( isset( $atts['recaptcha_lang'] ) ) ? $atts['recaptcha_lang'] : $locale_split[0];
 			$type = ( isset( $atts['recaptcha_type'] ) ) ? strtolower( $atts['recaptcha_type'] ) : 'image'; // setup recaptcha type
@@ -84,7 +91,6 @@ function process_mailchimp_shortcode( $atts ) {
 			wp_enqueue_script( 'google-recaptcha-js' );
 			$recaptcha_site_key = get_option( 'yikes-mc-recaptcha-site-key' , '' );
 			$recaptcha_box = '<div name="g-recaptcha" class="g-recaptcha" data-sitekey="' . $recaptcha_site_key . '" data-theme="' . $recaptcha_shortcode_params['theme'] . '" data-type="' . $recaptcha_shortcode_params['type'] . '" data-size="' . $recaptcha_shortcode_params['size'] . '" data-callback="' . $recaptcha_shortcode_params['success_callback'] . '" data-expired-callback="' . $recaptcha_shortcode_params['expired_callback'] . '"></div>';
-			
 			?>
 			<script type="text/javascript">
 				/* Script Callback to init. multiple recaptchas on a single page */
@@ -92,9 +98,16 @@ function process_mailchimp_shortcode( $atts ) {
 					var x = 1;
 					jQuery( '.g-recaptcha' ).each( function() {
 						jQuery( this ).attr( 'id', 'recaptcha-' + x );
-						grecaptcha.render( 'recaptcha-' + x, {
+						recaptcha_paramaters = {
 							'sitekey' : '<?php echo $recaptcha_site_key; ?>',
-						});
+							'lang' : '<?php echo $lang; ?>',
+							'type' : '<?php echo $type; ?>',
+							'theme' : '<?php echo $theme; ?>',
+							'size' : '<?php echo $size; ?>',
+							'data_callback' : '<?php echo $data_callback; ?>',
+							'expired_callback' : '<?php echo $expired_callback; ?>'
+						};
+						grecaptcha.render( 'recaptcha-' + x, recaptcha_paramaters );
 						x++;
 					});
 				}
