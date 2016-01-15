@@ -36,12 +36,6 @@ Easy Forms for MailChimp by YIKES integrates well with many popular third party 
 * Contact Form 7
 * Visual Composer
 
-**Languages**
-
-* Español translated by @hiwhatsup
-* Française translated by @mialevesque
-* Português do Brasil translated by @enxaqueca
-
 #### Questions?
 Have any questions? Feel free to open up an issue in the issue tracker and we'll get back to you as soon as possible.
 
