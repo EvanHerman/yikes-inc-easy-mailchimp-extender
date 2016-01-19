@@ -1532,6 +1532,13 @@ class Yikes_Inc_Easy_Mailchimp_Forms_Admin {
 				</div>
 				<?php
 			}
+			
+			/**
+			*	Custom action hook for our extensions to hook into
+			*	@parameter	get_current_screen()	current screen information
+			*/
+			do_action( 'yikes-mailchimp-admin-sidebar', get_current_screen() );
+			
 		}
 		
 		/*
