@@ -140,7 +140,7 @@
 			try {
 				$MailChimp = new MailChimp( get_option( 'yikes-mc-api-key' , '' ) );
 				// subscribe the user
-				$subscribe_response = $MailChimp->call( '/lists/subscribe', apply_filters( 'yikes-mailchimp-checkbox-integration-subscibe-api-request', array( 
+				$subscribe_response = $MailChimp->call( '/lists/subscribe', apply_filters( 'yikes-mailchimp-checkbox-integration-subscribe-api-request', array( 
 					'api_key' => get_option( 'yikes-mc-api-key' , '' ),
 					'id' => $checkbox_options[$type]['associated-list'],
 					'email' => array( 'email' => sanitize_email( $email ) ),
