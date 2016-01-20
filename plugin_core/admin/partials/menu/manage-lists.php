@@ -70,6 +70,13 @@
 												<td class="column-columnname"><?php echo stripslashes( $list['name'] ); ?>
 													<div class="row-actions">
 														<span><a href="<?php echo esc_url_raw( add_query_arg( array( 'list-id' => $list['id'] ) , admin_url( 'admin.php?page=yikes-mailchimp-view-list' ) ) ); ?>"><?php _e( "View" , 'yikes-inc-easy-mailchimp-extender' ); ?></a></span>
+														<?php 
+															/*
+															*	Custom action to allow users to add additional action links
+															*	to each list. We use this in our add-ons.
+															*/
+															do_action( 'yikes-mailchimp-manage-lists-actions' , $list['id'] ); 
+														?>
 													</div>
 												</td>
 												<td class="column-columnname num"><?php echo $list['stats']['member_count']; ?></td>
