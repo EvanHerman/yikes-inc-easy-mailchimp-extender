@@ -273,10 +273,16 @@
 									?><ul class="merge-variable-ul"><?php
 										echo '<li class="interest-group-count">' . sprintf( _n( '%d Field', '%d Fields', intval( count( $merge_variables ) ), 'yikes-inc-easy-mailchimp-extender' ), intval( count( $merge_variables ) ) ) . '</li>';
 										foreach( $merge_variables as $merge_variable ) {
+											// new action hook @since 6.0.3.8
 											echo '<li><span class="dashicons dashicons-marker"></span>' . $merge_variable['name'] . ' ' . do_action( 'yikes-mailchimp-list-field', $merge_variable ) . '</li>';
 										}
 									?></ul><?php
 								}
+								/**
+								*	Custom action hook for our add-ons to hook into
+								*	@since 6.0.3.8
+								*/
+								do_action( 'yikes-mailchimp-list-form-fields-metabox' );
 							?>
 							
 						</div>
@@ -301,6 +307,11 @@
 									</ul>
 									<?php
 								}
+								/**
+								*	Custom action hook for our add-ons to hook into
+								*	@since 6.0.3.8
+								*/
+								do_action( 'yikes-mailchimp-list-interest-groups-metabox' );
 							?>
 							
 						</div>
