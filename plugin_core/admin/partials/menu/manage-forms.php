@@ -141,6 +141,7 @@
 											<tr class="<?php if( $i % 2 == 0 ) { echo 'alternate'; } ?>">
 												<th class="check-column num" scope="row"><input type="checkbox" /></th>
 												<td class="column-columnname num"><span class="form-id-container"><?php echo intval( $form['id'] ); ?></span></td>
+												<td class="column-columnname">	
 													<!-- row title/link -->
 													<a href="<?php echo esc_url_raw( add_query_arg( array( 'id' => $form['id'] ) , admin_url( 'admin.php?page=yikes-mailchimp-edit-form' ) ) ); ?>" class="row-title">
 														<?php echo stripslashes( $form['form_name'] ); ?>
