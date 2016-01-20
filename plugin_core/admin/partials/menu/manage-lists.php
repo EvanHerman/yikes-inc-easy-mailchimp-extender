@@ -67,7 +67,10 @@
 												foreach( $list_data['data'] as $list ) { 
 										?>
 											<tr class="<?php if( $i % 2 == 0 ) { echo 'alternate'; } ?>">
-												<td class="column-columnname"><?php echo stripslashes( $list['name'] ); ?>
+												<td class="column-columnname">
+													<a href="<?php echo esc_url_raw( add_query_arg( array( 'list-id' => $list['id'] ) , admin_url( 'admin.php?page=yikes-mailchimp-view-list' ) ) ); ?>" class="row-title">
+														<?php echo stripslashes( $list['name'] ); ?>
+													</a>
 													<div class="row-actions">
 														<span><a href="<?php echo esc_url_raw( add_query_arg( array( 'list-id' => $list['id'] ) , admin_url( 'admin.php?page=yikes-mailchimp-view-list' ) ) ); ?>"><?php _e( "View" , 'yikes-inc-easy-mailchimp-extender' ); ?></a></span>
 														<?php 

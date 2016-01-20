@@ -156,7 +156,10 @@
 													
 										?>
 											<tr class="<?php if( $i % 2 == 0 ) { echo 'alternate'; } ?>">
-												<td class="column-columnname"><a class="user-email" href="mailto:<?php echo sanitize_email( $subscriber['email'] ); ?>"><?php echo sanitize_email( $subscriber['email'] ); ?></a>
+												<td class="column-columnname">	
+													<a class="user-email row-title" href="mailto:<?php echo sanitize_email( $subscriber['email'] ); ?>">
+														<?php echo sanitize_email( $subscriber['email'] ); ?>
+													</a>
 													<div class="row-actions">
 														<?php $view_user_info_url = esc_url_raw( add_query_arg( array( 'mailchimp-list' => $list_id , 'email-id' => $user_id ), admin_url() . 'admin.php?page=yikes-mailchimp-view-user' ) ); ?>
 														<span><a href="<?php echo $view_user_info_url; ?>"><?php _e( "View Info." , 'yikes-inc-easy-mailchimp-extender' ); ?></a> |</span>
