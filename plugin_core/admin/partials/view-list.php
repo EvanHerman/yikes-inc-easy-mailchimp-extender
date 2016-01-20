@@ -272,9 +272,9 @@
 								if( count( $merge_variables ) >= 1 ) {
 									?><ul class="merge-variable-ul"><?php
 										echo '<li class="interest-group-count">' . sprintf( _n( '%d Field', '%d Fields', intval( count( $merge_variables ) ), 'yikes-inc-easy-mailchimp-extender' ), intval( count( $merge_variables ) ) ) . '</li>';
-									foreach( $merge_variables as $merge_variable ) {
-										echo '<li><span class="dashicons dashicons-marker"></span>' . $merge_variable['name'] . '</li>';
-									}
+										foreach( $merge_variables as $merge_variable ) {
+											echo '<li><span class="dashicons dashicons-marker"></span>' . $merge_variable['name'] . ' ' . do_action( 'yikes-mailchimp-list-field', $merge_variable ) . '</li>';
+										}
 									?></ul><?php
 								}
 							?>
