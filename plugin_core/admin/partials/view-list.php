@@ -170,7 +170,7 @@
 												$i++;
 												}
 											} else { ?>
-											<tr class="no-items">
+											<tr class="no-items"> 
 												<td class="colspanchange no-current-subscriber-notice" colspan="2"><em><?php _e( 'No one is currently subscribed to this list.' , 'yikes-inc-easy-mailchimp-extender' ); ?></em></td>
 											</tr>
 										<?php } ?>
