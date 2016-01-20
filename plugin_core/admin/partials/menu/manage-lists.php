@@ -75,7 +75,7 @@
 															*	Custom action to allow users to add additional action links
 															*	to each list. We use this in our add-ons.
 															*/
-															do_action( 'yikes-mailchimp-manage-lists-actions' , $list['id'] ); 
+															do_action( 'yikes-mailchimp-manage-lists-actions' , $list ); 
 														?>
 													</div>
 												</td>
