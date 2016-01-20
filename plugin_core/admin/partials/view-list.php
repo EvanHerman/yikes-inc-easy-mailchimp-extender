@@ -171,7 +171,7 @@
 												}
 											} else { ?>
 											<tr class="no-items">
-												<td class="colspanchange no-current-subscriber-notice" colspan="3"><em><?php _e( 'No one is currently subscribed to this list.' , 'yikes-inc-easy-mailchimp-extender' ); ?></em></td>
+												<td class="colspanchange no-current-subscriber-notice" colspan="2"><em><?php _e( 'No one is currently subscribed to this list.' , 'yikes-inc-easy-mailchimp-extender' ); ?></em></td>
 											</tr>
 										<?php } ?>
 									</tbody>
@@ -289,7 +289,7 @@
 							<?php
 								if( isset( $interest_groupings ) && count( $interest_groupings ) >= 1 ) {
 									?><ul class="interest-group-ul"><?php
-										echo '<li class="interest-group-count">' . sprintf( _n( '%d Merge Variable', '%d Merge Variables', intval( count( $interest_groupings ) ), 'yikes-inc-easy-mailchimp-extender' ), intval( count( $interest_groupings ) ) ) . '</li>';
+										echo '<li class="interest-group-count">' . sprintf( _n( '%d Interest Group', '%d Interest Groups', intval( count( $interest_groupings ) ), 'yikes-inc-easy-mailchimp-extender' ), intval( count( $interest_groupings ) ) ) . '</li>';
 									foreach( $interest_groupings as $interest_group ) {
 										echo '<li><span class="dashicons dashicons-marker"></span>' . $interest_group['name'] . '<span class="interest-group-title"></span><small title="' . $interest_group['groups'][0]['subscribers'] . ' ' . __( "subscribers assigned to this group" , 'yikes-inc-easy-mailchimp-extender' ) . '">(' . $interest_group['groups'][0]['subscribers'] . ')</small></li>';
 									}
