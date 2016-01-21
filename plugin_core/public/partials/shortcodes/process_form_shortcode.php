@@ -143,8 +143,15 @@ function process_mailchimp_shortcode( $atts ) {
 	end( $wp_styles->groups );
 	$last_key = key( $wp_styles->groups );
 	
-	// enqueue the form styles
-	wp_enqueue_style( 'yikes-inc-easy-mailchimp-public-styles', YIKES_MC_URL . 'public/css/yikes-inc-easy-mailchimp-extender-public.min.css', array( $last_key ) );
+	/*	
+	*	Check for the constant to prevent styles from loading
+	*	to exclude styles from loading, add `define( 'YIKES_MAILCHIMP_EXCLUDE_STYLES', true );` to functions.php
+	*	@since 6.0.3.8
+	*/
+	if( ! defined( 'YIKES_MAILCHIMP_EXCLUDE_STYLES' ) ) {
+		// enqueue the form styles
+		wp_enqueue_style( 'yikes-inc-easy-mailchimp-public-styles', YIKES_MC_URL . 'public/css/yikes-inc-easy-mailchimp-extender-public.min.css', array( $last_key ) );
+	}
 	
 	// custom action hook to enqueue scripts & styles wherever the shortcode is used
 	do_action( 'yikes-mailchimp-shortcode-enqueue-scripts-styles', $form_id );
