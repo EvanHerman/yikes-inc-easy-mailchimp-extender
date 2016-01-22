@@ -687,7 +687,8 @@ class Yikes_Inc_Easy_Mailchimp_Forms_Admin {
 		if( get_current_screen()->base == 'admin_page_yikes-mailchimp-edit-form' ) {
 			wp_enqueue_style( 'wp-color-picker' );
 			wp_enqueue_script( 'wp-color-picker' );
-			wp_register_script( 'edit-form-js' , YIKES_MC_URL . 'admin/js/min/yikes-inc-easy-mailchimp-extender-edit-form.min.js' , array( 'jquery' ) , $this->version, false );
+			wp_enqueue_script( 'jquery.timepicker.js',YIKES_MC_URL . 'admin/js/jquery.timepicker.min.js' , array( 'jquery' ) , $this->version, false );
+			wp_register_script( 'edit-form-js' , YIKES_MC_URL . 'admin/js/min/yikes-inc-easy-mailchimp-extender-edit-form.min.js' , array( 'jquery.timepicker.js', 'jquery-ui-datepicker' ) , $this->version, false );
 			$localized_data = array(
 				'ajax_url' => esc_url_raw( admin_url( 'admin-ajax.php' ) ),
 				'no_fields_assigned' => __( 'No fields assigned to this form. Select some fields to add to this form from the right hand column.', 'yikes-inc-easy-mailchimp-extender' ),
@@ -2513,6 +2514,27 @@ class Yikes_Inc_Easy_Mailchimp_Forms_Admin {
 				)
 			);
 			
+			// Setup the new form settings array
+			// @since 6.0.3.8
+			// To Do: Combine date & time so it's a single unix timestamp
+			$form_settings = json_encode(
+				array(
+					'yikes-easy-mc-form-class-names' => trim( $_POST['yikes-easy-mc-form-class-names'] ),
+					'yikes-easy-mc-inline-form' => $_POST['yikes-easy-mc-inline-form'][0],
+					'yikes-easy-mc-submit-button-type' => $_POST['yikes-easy-mc-submit-button-type'][0],
+					'yikes-easy-mc-submit-button-text' => trim( $_POST['yikes-easy-mc-submit-button-text'] ),
+					'yikes-easy-mc-submit-button-image' => esc_url( trim( $_POST['yikes-easy-mc-submit-button-image'] ) ),
+					'yikes-easy-mc-submit-button-classes' => trim( $_POST['yikes-easy-mc-submit-button-classes'] ),
+					'yikes-easy-mc-form-schedule' => ( isset( $_POST['yikes-easy-mc-form-schedule'] ) ) ? '1' : '0',
+					'yikes-easy-mc-form-restriction-start' => strtotime( $_POST['yikes-easy-mc-form-restriction-start-date'] . ' ' . $_POST['yikes-easy-mc-form-restriction-start-time'] ),
+					'yikes-easy-mc-form-restriction-end' => strtotime( $_POST['yikes-easy-mc-form-restriction-end-date'] . ' ' . $_POST['yikes-easy-mc-form-restriction-end-time'] ),
+					'yikes-easy-mc-form-restriction-pending-message' => trim( $_POST['yikes-easy-mc-form-restriction-pending-message'] ),
+					'yikes-easy-mc-form-restriction-expired-message' => trim( $_POST['yikes-easy-mc-form-restriction-expired-message'] ),
+					'yikes-easy-mc-form-login-required' => ( isset( $_POST['yikes-easy-mc-form-login-required'] ) ) ? '1' : '0',
+					'yikes-easy-mc-form-restriction-login-message' => trim( $_POST['yikes-easy-mc-form-restriction-login-message'] ),
+				)
+			);	
+			
 			// setup and store our notification array
 			$custom_notifications = isset( $_POST['custom-notification'] ) ? stripslashes( json_encode( $_POST['custom-notification'] ) ) : '';
 			
@@ -2554,6 +2576,7 @@ class Yikes_Inc_Easy_Mailchimp_Forms_Admin {
 						'submission_settings' => $submission_settings,
 						'optin_settings' => $optin_settings,
 						'error_messages' => $error_settings,
+						'form_settings' => $form_settings,
 						'custom_notifications' => $custom_notifications,
 						'custom_fields' => $custom_fields,
 					),

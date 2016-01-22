@@ -129,6 +129,69 @@ function process_mailchimp_shortcode( $atts ) {
 	*/
 	$form_settings = Yikes_Inc_Easy_Mailchimp_Extender_Public::yikes_retrieve_form_settings( $form_id );
 	
+	$additional_form_settings = ( isset( $form_data['form_settings'] ) ) ? json_decode( $form_data['form_settings'], true ) : false;
+	// store our options from the additional form settings array
+	$form_classes = ( $additional_form_settings ) ? $additional_form_settings['yikes-easy-mc-form-class-names'] : '';
+	$inline_form = ( $additional_form_settings ) ? $additional_form_settings['yikes-easy-mc-inline-form'] : '';
+	$submit_button_type = ( $additional_form_settings ) ? $additional_form_settings['yikes-easy-mc-submit-button-type'] : 'text';
+	$submit_button_text = ( $additional_form_settings && $additional_form_settings['yikes-easy-mc-submit-button-text'] != '' ) ? $additional_form_settings['yikes-easy-mc-submit-button-text'] : __( 'Submit', 'yikes-inc-easy-mailchimp-extender' );
+	$submit_button_image = ( $additional_form_settings ) ? esc_url( $additional_form_settings['yikes-easy-mc-submit-button-image'] ) : '';
+	$submit_button_classes = ( $additional_form_settings ) ? ' ' . $additional_form_settings['yikes-easy-mc-submit-button-classes'] : '';
+	// scheuldes
+	$form_schedule_state = ( $additional_form_settings ) ? $additional_form_settings['yikes-easy-mc-form-schedule'] : false;
+	$form_schedule_start = ( $additional_form_settings ) ? $additional_form_settings['yikes-easy-mc-form-restriction-start'] : '';;
+	$form_schedule_end = ( $additional_form_settings ) ? $additional_form_settings['yikes-easy-mc-form-restriction-end'] : '';
+	$form_pending_message = ( $additional_form_settings ) ? esc_textarea( $additional_form_settings['yikes-easy-mc-form-restriction-pending-message'] ) : '';
+	$form_expired_message = ( $additional_form_settings ) ? esc_textarea( $additional_form_settings['yikes-easy-mc-form-restriction-expired-message'] ) : '';
+	// register required
+	$form_login_required = ( $additional_form_settings ) ? $additional_form_settings['yikes-easy-mc-form-login-required'] : false;
+	$form_login_message = ( $additional_form_settings ) ? esc_textarea( $additional_form_settings['yikes-easy-mc-form-restriction-login-message'] ) : '';
+	
+	/**
+	*	If login is required, abort
+	*	@since 6.0.3.8
+	*/
+	if( $form_login_required ) {
+		ob_start();
+			?>
+				<div class="yikes-mailchimp-login-required yikes-mailchimp-form-<?php echo $form_id; ?>-login-required">
+					<?php echo apply_filters( 'yikes-mailchimp-frontend-content', $form_login_message ); ?>
+				</div>
+			<?php
+		$output = ob_get_clean();
+		return $output;
+	}
+	
+	/**
+	*	Check if schedule is set for this form
+	*	@since 6.0.3.8
+	*/	
+	if( $form_schedule_state ) {
+		// store current date
+		$current_date = strtotime( current_time( 'm/d/Y g:iA' ) );
+		
+		// the form scheduled start date is in the future compared to current date
+		if( $current_date < $form_schedule_start ) {
+			echo apply_filters( 'yikes-mailchimp-frontend-content', $form_pending_message );
+			return;
+			// abort
+		}
+		
+		// The current date is beyond the end date, aka form has expired
+		if( $current_date > $form_schedule_end ) {
+			echo apply_filters( 'yikes-mailchimp-frontend-content', $form_expired_message );
+			return;
+			// abort
+		}			
+	}
+	
+	// setup the submit button text 
+	if( isset( $atts['submit'] ) ) {
+		$submit = $atts['submit'];
+	} else {
+		$submit = $submit_button_text;
+	}
+	
 	// used in yikes-mailchimp-redirect-url filter
 	global $post;
 	$page_data = $post;
@@ -254,7 +317,7 @@ function process_mailchimp_shortcode( $atts ) {
 		
 		// render the form!
 		?>
-			<form id="<?php echo sanitize_title( $form_settings['form_name'] ); ?>-<?php echo $form_id; ?>" class="yikes-easy-mc-form yikes-easy-mc-form-<?php echo $form_id; echo ' ' . apply_filters( 'yikes-mailchimp-form-class', '', $form_id ); echo ' ' . apply_filters( 'yikes-mailchimp-form-class', '', $form_id ); if( !empty( $_POST ) && $form_submitted == 1 && $form_settings['submission_settings']['hide_form_post_signup'] == 1 ) { echo ' yikes-easy-mc-display-none'; } ?>" action="" method="POST" data-attr-form-id="<?php echo $form_id; ?>">
+			<form id="<?php echo sanitize_title( $form_settings['form_name'] ); ?>-<?php echo $form_id; ?>" class="yikes-easy-mc-form yikes-easy-mc-form-<?php echo $form_id . ' '; echo $form_classes; echo ' ' . apply_filters( 'yikes-mailchimp-form-class', '', $form_id ); echo ' ' . apply_filters( 'yikes-mailchimp-form-class', '', $form_id ); if( !empty( $_POST ) && $form_submitted == 1 && $form_settings['submission_settings']['hide_form_post_signup'] == 1 ) { echo ' yikes-easy-mc-display-none'; } ?>" action="" method="POST" data-attr-form-id="<?php echo $form_id; ?>">
 							
 				<?php 
 				foreach( $form_settings['fields'] as $field ) {
@@ -947,7 +1010,7 @@ function process_mailchimp_shortcode( $atts ) {
 				}
 				if( is_user_logged_in() ) {
 					if( current_user_can( apply_filters( 'yikes-mailchimp-user-role-access' , 'manage_options' ) ) ) {
-						$admin_class = 'admin-logged-in';
+						$admin_class = ' admin-logged-in';
 					}
 				} else {
 					$admin_class = '';
@@ -964,7 +1027,7 @@ function process_mailchimp_shortcode( $atts ) {
 				<input type="hidden" name="yikes-mailchimp-submitted-form" id="yikes-mailchimp-submitted-form" value="<?php echo $form_id; ?>">
 				
 				<!-- Submit Button -->
-				<?php echo apply_filters( 'yikes-mailchimp-form-submit-button', '<button type="submit" class="' . apply_filters( 'yikes-mailchimp-form-submit-button-classes', 'yikes-easy-mc-submit-button yikes-easy-mc-submit-button-' . esc_attr( $form_data['id'] ) . ' btn btn-primary ' . $admin_class, $form_data['id'] ) . '">' .  apply_filters( 'yikes-mailchimp-form-submit-button-text', esc_attr( stripslashes( $submit ) ), $form_data['id'] ) . '</button>', $form_data['id'] ); ?>
+				<?php echo apply_filters( 'yikes-mailchimp-form-submit-button', '<button type="submit" class="' . apply_filters( 'yikes-mailchimp-form-submit-button-classes', 'yikes-easy-mc-submit-button yikes-easy-mc-submit-button-' . esc_attr( $form_data['id'] ) . ' btn btn-primary' . $submit_button_classes . $admin_class, $form_data['id'] ) . '">' .  apply_filters( 'yikes-mailchimp-form-submit-button-text', esc_attr( stripslashes( $submit ) ), $form_data['id'] ) . '</button>', $form_data['id'] ); ?>
 				<!-- Nonce Security Check -->
 				<?php wp_nonce_field( 'yikes_easy_mc_form_submit', 'yikes_easy_mc_new_subscriber' ); ?>
 			
