@@ -685,6 +685,7 @@ class Yikes_Inc_Easy_Mailchimp_Forms_Admin {
 		*	Enqueue required scripts for the form editor
 		*/
 		if( get_current_screen()->base == 'admin_page_yikes-mailchimp-edit-form' ) {
+			global $wp_locale;
 			wp_enqueue_style( 'wp-color-picker' );
 			wp_enqueue_script( 'wp-color-picker' );
 			wp_enqueue_script( 'jquery.timepicker.js',YIKES_MC_URL . 'admin/js/jquery.timepicker.min.js' , array( 'jquery' ) , $this->version, false );
@@ -693,6 +694,21 @@ class Yikes_Inc_Easy_Mailchimp_Forms_Admin {
 				'ajax_url' => esc_url_raw( admin_url( 'admin-ajax.php' ) ),
 				'no_fields_assigned' => __( 'No fields assigned to this form. Select some fields to add to this form from the right hand column.', 'yikes-inc-easy-mailchimp-extender' ),
 				'bulk_delete_alert' => __( 'Are you sure you want to delete all of the fields assigned to this form?', 'yikes-inc-easy-mailchimp-extender' ),
+				'closeText'         => __( 'Done', 'yikes-inc-easy-mailchimp-extender' ),
+				'currentText'       => __( 'Today', 'yikes-inc-easy-mailchimp-extender' ),
+				'monthNames'        => $this->yikes_jQuery_datepicker_strip_array_indices( $wp_locale->month ),
+				'monthNamesShort'   => $this->yikes_jQuery_datepicker_strip_array_indices( $wp_locale->month_abbrev ),
+				'monthStatus'       => __( 'Show a different month', 'yikes-inc-easy-mailchimp-extender' ),
+				'dayNames'          => $this->yikes_jQuery_datepicker_strip_array_indices( $wp_locale->weekday ),
+				'dayNamesShort'     => $this->yikes_jQuery_datepicker_strip_array_indices( $wp_locale->weekday_abbrev ),
+				'dayNamesMin'       => $this->yikes_jQuery_datepicker_strip_array_indices( $wp_locale->weekday_initial ),
+				// set the date format to match the WP general date settings
+				'dateFormat'        => $this->yikes_jQuery_datepicker_date_format_php_to_js( get_option( 'date_format' ) ),
+				// get the start of week from WP general setting
+				'firstDay'          => get_option( 'start_of_week' ),
+				// is Right to left language? default is false
+				'isRTL'             => $wp_locale->is_rtl(),
+				'start_date_exceeds_end_date_error' => __( 'Error: The start date and time cannot occur after the end date and time. Chosen date reverted to previous selection.', 'yikes-inc-easy-mailchimp-extender' ),
 			);
 			wp_localize_script( 'edit-form-js' , 'object' , $localized_data );
 			wp_enqueue_script( 'edit-form-js' );
@@ -702,6 +718,69 @@ class Yikes_Inc_Easy_Mailchimp_Forms_Admin {
 	
 	/** Functionality **/
 	/******************/
+	
+	
+	/**
+	*	Localization functions for jQuery ui datepicker
+	*	@since 6.0.3.8
+	*/
+		/**
+		 * Format array for the datepicker
+		 * WordPress stores the locale information in an array with a alphanumeric index, and
+		 * the datepicker wants a numerical index. This function replaces the index with a number
+		 */
+		public function yikes_jQuery_datepicker_strip_array_indices( $ArrayToStrip ) {
+			foreach( $ArrayToStrip as $objArrayItem) {
+				$NewArray[] =  $objArrayItem;
+			}
+		 
+			return( $NewArray );
+		}
+		
+		/**
+		 * Convert the php date format string to a js date format
+		 */
+		public function yikes_jQuery_datepicker_date_format_php_to_js( $sFormat ) {
+			switch( $sFormat ) {
+				//Predefined WP date formats
+				case 'F j, Y':
+				case 'j F Y':
+				case 'm/d/Y':
+					return( 'mm/dd/yy' );
+					break;
+				case 'Y/m/d':
+				case 'Y-m-d':
+					return( 'yy/mm/dd' );
+					break;
+				case 'd/m/Y':
+				default:
+					return( 'dd/mm/yy' );
+					break;
+			 }
+		}
+		
+		/**
+		 * Convert the php date format string to a js date format
+		 */
+		public function yikes_jQuery_datepicker_date_format( $site_option ) {
+			switch( $site_option ) {
+				//Predefined WP date formats
+				default:
+				case 'F j, Y':
+				case 'm/d/Y':
+					return( 'm/d/Y' );
+					break;
+				case 'Y-m-d':
+					return( 'Y/m/d' );
+					break;
+				case 'd/m/Y':
+					return( 'd/m/Y' );
+					break;
+			 }
+		}
+	/**
+	*	end Localization functions for jQuery ui datepicker
+	*/
 	
 	/**
 	*	Register our admin pages

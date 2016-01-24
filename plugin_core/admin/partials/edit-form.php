@@ -50,12 +50,12 @@
 					'yikes-easy-mc-submit-button-image' => '',
 					'yikes-easy-mc-submit-button-classes' => '',
 					'yikes-easy-mc-form-schedule' => '0',
-					'yikes-easy-mc-form-restriction-start' => '',
-					'yikes-easy-mc-form-restriction-end' => '',
-					'yikes-easy-mc-form-restriction-pending-message' => '',
-					'yikes-easy-mc-form-restriction-expired-message' => '',
+					'yikes-easy-mc-form-restriction-start' => strtotime( current_time( 'm/d/Y g:iA' ) ), // current date & time
+					'yikes-easy-mc-form-restriction-end' => strtotime( current_time( 'm/d/Y g:iA' ) ) + ( 3600 * 24 ), // current date & time + 1 day
+					'yikes-easy-mc-form-restriction-pending-message' => sprintf( __( 'Signup is not yet open, and will be available on %s. Please come back then to signup.', 'yikes-inc-easy-mailchimp-extender' ), current_time( str_replace( '-', '/', get_option( 'date_format' ) ) ) . ' ' . __( 'at', 'yikes-inc-easy-mailchimp-extender' ) . ' ' . current_time( 'g:iA' ) ) ,
+					'yikes-easy-mc-form-restriction-expired-message' => sprintf( __( 'This signup for this form ended on %s.', 'yikes-inc-easy-mailchimp-extender' ), date( str_replace( '-', '/', get_option( 'date_format' ) ), strtotime( current_time( str_replace( '-', '/', get_option( 'date_format' ) ) ) ) + ( 3600 * 24 ) ) . ' ' . __( 'at', 'yikes-inc-easy-mailchimp-extender' ) . ' ' . date( 'g:iA', strtotime( current_time( 'g:iA' ) ) + ( 3600 * 24 ) ) ) ,
 					'yikes-easy-mc-form-login-required' => '0',
-					'yikes-easy-mc-form-restriction-login-message' => '',
+					'yikes-easy-mc-form-restriction-login-message' => __( 'You need to be logged in to sign up for this mailing list.', 'yikes-inc-easy-mailchimp-extender' ),
 				);
 			}
 			
@@ -301,7 +301,7 @@
 																	<p class="edit-form-description"><?php _e( "Adjust some additional form settings below." , 'yikes-inc-easy-mailchimp-extender' ); ?></p>
 																	
 																	<!-- begin form classes section -->
-																	<strong class="section-title first"><?php _e( 'Form Classes', 'yikes-inc-easy-mailchimp-extender' ); ?></strong>
+																	<strong class="section-title first"><?php _e( 'Classes', 'yikes-inc-easy-mailchimp-extender' ); ?></strong>
 																	<section class="section-interior">
 																		
 																		<!-- form classes -->
@@ -313,7 +313,7 @@
 																	</section>
 																	<!-- end form classes section -->
 																	
-																	<!-- begin form classes section -->
+																	<!-- begin form layout section -->
 																	<strong class="section-title"><?php _e( 'Form Layout', 'yikes-inc-easy-mailchimp-extender' ); ?></strong>
 																	<section class="section-interior">
 																		
@@ -321,15 +321,15 @@
 																		<!-- inline form -->
 																		<strong><?php _e( 'Inline Form' , 'yikes-inc-easy-mailchimp-extender' ); ?></strong>
 																		<label class="inline-form-label">
-																			<input type="radio" name="yikes-easy-mc-inline-form[]" value="0" <?php checked( $form_settings['yikes-easy-mc-inline-form'], '0' ); ?> /><?php _e( 'Disable', 'yikes-inc-easy-mailchimp-extender' ); ?>
+																			<input type="radio" name="yikes-easy-mc-inline-form[]" value="1" <?php checked( $form_settings['yikes-easy-mc-inline-form'], '1' ); ?>/><?php _e( 'Enable', 'yikes-inc-easy-mailchimp-extender' ); ?>
 																		</label>
 																		<label class="inline-form-label">
-																			<input type="radio" name="yikes-easy-mc-inline-form[]" value="1" <?php checked( $form_settings['yikes-easy-mc-inline-form'], '1' ); ?>/><?php _e( 'Enable', 'yikes-inc-easy-mailchimp-extender' ); ?>
+																			<input type="radio" name="yikes-easy-mc-inline-form[]" value="0" <?php checked( $form_settings['yikes-easy-mc-inline-form'], '0' ); ?> /><?php _e( 'Disable', 'yikes-inc-easy-mailchimp-extender' ); ?>
 																		</label>
 																		<p class="description"><?php _e( 'Programatically setup this form so that all fields are on the same line.', 'yikes-inc-easy-mailchimp-extender' ); ?></p>
 																
 																	</section>
-																	<!-- end form classes section -->
+																	<!-- end form layout section -->
 																	
 																	<!-- begin submit button section -->
 																	<strong class="section-title"><?php _e( 'Submit Button', 'yikes-inc-easy-mailchimp-extender' ); ?></strong>
@@ -348,7 +348,7 @@
 																		
 																			<!-- Text submit button type -->
 																			<section class="submit-button-type-text nested-child<?php if( $form_settings['yikes-easy-mc-submit-button-type'] == 'image' ) { echo ' hidden'; } ?>">
-																				<!-- form classes -->
+																				<!-- submit button text -->
 																				<label for="yikes-easy-mc-submit-button-text"><strong><?php _e( 'Submit Button Text' , 'yikes-inc-easy-mailchimp-extender' ); ?></strong>
 																					<input type="text" class="widefat" name="yikes-easy-mc-submit-button-text" id="yikes-easy-mc-submit-button-text" value="<?php echo $form_settings['yikes-easy-mc-submit-button-text']; ?>" placeholder="<?php _e( 'Submit', 'yikes-inc-easy-mailchimp-extender' ); ?>">
 																					<p class="description"><?php printf( __( 'Set the submit button text. Leaving this blank will default to %s.', 'yikes-inc-easy-mailchimp-extender' ), '"' . __( 'Submit', 'yikes-inc-easy-mailchimp-extender' ) . '"' ); ?></p>
@@ -367,7 +367,7 @@
 																		
 																		
 																		<!-- submit button classes -->
-																		<label for="yikes-easy-mc-form-submit-button-classes"><strong><?php _e( 'Submit Button Classes' , 'yikes-inc-easy-mailchimp-extender' ); ?></strong>
+																		<label for="yikes-easy-mc-form-submit-button-classes"><strong style="float:left;"><?php _e( 'Submit Button Classes' , 'yikes-inc-easy-mailchimp-extender' ); ?></strong>
 																			<input type="text" class="widefat" name="yikes-easy-mc-submit-button-classes" id="yikes-easy-mc-submit-button-classes" value="<?php echo $form_settings['yikes-easy-mc-submit-button-classes']; ?>" placeholder="<?php _e( 'Add additional classes to this submit button.', 'yikes-inc-easy-mailchimp-extender' ); ?>" >
 																			<p class="description"><?php _e( 'Add custom classes to the submit button.', 'yikes-inc-easy-mailchimp-extender' ); ?></p>
 																		</label>
@@ -383,12 +383,13 @@
 																		<label class="inline-form-label">
 																			<input type="checkbox" onclick="toggle_nested_section( jQuery(this) );" name="yikes-easy-mc-form-schedule" value="1" <?php checked( $form_settings['yikes-easy-mc-form-schedule'], '1' ); ?>/><?php _e( 'Schedule Form', 'yikes-inc-easy-mailchimp-extender' ); ?>
 																		</label>
-																		<p class="description"><?php _e( 'Set a time period that this form should be active on your site.', 'yikes-inc-easy-mailchimp-extender' ); ?></p>
+																		<p class="description" style="margin-bottom:0;"><?php _e( 'Set a time period that this form should be active on your site. (mm/dd/yyyy)', 'yikes-inc-easy-mailchimp-extender' ); ?></p>
+																		<p class="description" style="margin: 0 0 .5em 0;"><?php _e( 'Once the end date & time have passed, users will no longer be able to signup for your mailing list.', 'yikes-inc-easy-mailchimp-extender' ); ?></p>
 																			<!-- Start Date Limitation Nested -->
 																			<section class="date-restirction-section nested-child<?php if( $form_settings['yikes-easy-mc-form-schedule'] == '0' ) { echo ' hidden'; } ?>">
 																				<!-- Start Date -->
 																				<label for="yikes-easy-mc-form-restriction-start-date"><strong><?php _e( 'Start Date' , 'yikes-inc-easy-mailchimp-extender' ); ?></strong>
-																					<input type="text" class="date-picker" name="yikes-easy-mc-form-restriction-start-date" id="yikes-easy-mc-form-restriction-start-date" value="<?php echo date( 'm/d/Y', $form_settings['yikes-easy-mc-form-restriction-start'] ); ?>" >
+																					<input type="text" class="date-picker" name="yikes-easy-mc-form-restriction-start-date" id="yikes-easy-mc-form-restriction-start-date" value="<?php echo date( $this->yikes_jQuery_datepicker_date_format( get_option( 'date_format' ) ), $form_settings['yikes-easy-mc-form-restriction-start'] ); ?>" >
 																					<?php _e( 'at', 'yikes-inc-easy-mailchimp-extender' ); ?>
 																				</label>	
 																				
@@ -401,10 +402,10 @@
 																			<!-- end Start Date Limitation Nested -->
 																			
 																			<!-- End Date Limitation Nested -->
-																			<section class="date-restirction-section nested-child<?php if( $form_settings['yikes-easy-mc-form-schedule'] == '0' ) { echo ' hidden'; } ?>">
+																			<section class="date-restirction-section nested-child<?php if( $form_settings['yikes-easy-mc-form-schedule'] == '0' ) { echo ' hidden'; } ?> last">
 																				<!-- End Date -->
 																				<label for="yikes-easy-mc-form-restriction-end-date"><strong><?php _e( 'End Date' , 'yikes-inc-easy-mailchimp-extender' ); ?></strong>
-																					<input type="text" class="date-picker" name="yikes-easy-mc-form-restriction-end-date" id="yikes-easy-mc-form-restriction-end-date" value="<?php echo date( 'm/d/Y', $form_settings['yikes-easy-mc-form-restriction-end'] ); ?>" >
+																					<input type="text" class="date-picker" name="yikes-easy-mc-form-restriction-end-date" id="yikes-easy-mc-form-restriction-end-date" value="<?php echo date( $this->yikes_jQuery_datepicker_date_format( get_option( 'date_format' ) ), $form_settings['yikes-easy-mc-form-restriction-end'] ); ?>" >
 																					<?php _e( 'at', 'yikes-inc-easy-mailchimp-extender' ); ?>
 																				</label>	
 										
@@ -416,13 +417,31 @@
 																				
 																				<!-- Form pending message -->
 																				<label for="yikes-easy-mc-form-restriction-pending-message"><strong><?php _e( 'Pending Message' , 'yikes-inc-easy-mailchimp-extender' ); ?></strong>
-																					<textarea class="yikes-easy-mc-form-restriction-pending-message" name="yikes-easy-mc-form-restriction-pending-message" id="yikes-easy-mc-form-restriction-pending-message"><?php echo esc_textarea( $form_settings['yikes-easy-mc-form-restriction-pending-message'] ); ?></textarea>
+																					<?php
+																						wp_editor(
+																							$form_settings['yikes-easy-mc-form-restriction-pending-message'],
+																							'yikes-easy-mc-form-restriction-pending-message',
+																							array(
+																								'editor_class' => 'yikes-easy-mc-form-restriction-pending-message',
+																								'editor_css' => '<style>.yikes-easy-mc-form-restriction-pending-message{ max-height: 150px; }</style>'
+																							)
+																						);
+																					?>	
 																				</label>
 																				<p class="description"><?php _e( 'Set the message that should display prior to the form being active.', 'yikes-inc-easy-mailchimp-extender' ); ?></p>
 																				
 																				<!-- form expired message -->
 																				<label for="yikes-easy-mc-form-restriction-expired-message"><strong><?php _e( 'Expired Message' , 'yikes-inc-easy-mailchimp-extender' ); ?></strong>
-																					<textarea class="yikes-easy-mc-form-restriction-expired-message" name="yikes-easy-mc-form-restriction-expired-message" id="yikes-easy-mc-form-restriction-expired-message"><?php echo esc_textarea( $form_settings['yikes-easy-mc-form-restriction-expired-message'] ); ?></textarea>
+																					<?php
+																						wp_editor(
+																							$form_settings['yikes-easy-mc-form-restriction-expired-message'],
+																							'yikes-easy-mc-form-restriction-expired-message',
+																							array(
+																								'editor_class' => 'yikes-easy-mc-form-restriction-expired-message',
+																								'editor_css' => '<style>.yikes-easy-mc-form-restriction-expired-message{ max-height: 150px; }</style>'
+																							)
+																						);
+																					?>	
 																				</label>
 																				<p class="description"><?php _e( 'Set the message that should display once the end date has passed for this form.', 'yikes-inc-easy-mailchimp-extender' ); ?></p>
 																			</section>
@@ -437,9 +456,19 @@
 																			<!-- Require Login Message -->
 																			<section class="login-restirction-section nested-child<?php if( $form_settings['yikes-easy-mc-form-login-required'] == '0' ) { echo ' hidden'; } ?>">
 																				<label for="yikes-easy-mc-form-restriction-login-message"><strong><?php _e( 'Required Login Message' , 'yikes-inc-easy-mailchimp-extender' ); ?></strong>
-																					<textarea class="yikes-easy-mc-form-restriction-login-message" name="yikes-easy-mc-form-restriction-login-message" id="yikes-easy-mc-form-restriction-login-message"><?php echo esc_textarea( $form_settings['yikes-easy-mc-form-restriction-login-message'] ); ?></textarea>
+																					<?php
+																						wp_editor(
+																							$form_settings['yikes-easy-mc-form-restriction-login-message'],
+																							'yikes-easy-mc-form-restriction-login-message',
+																							array(
+																								'editor_class' => 'yikes-easy-mc-form-restriction-login-message',
+																								'editor_css' => '<style>.yikes-easy-mc-form-restriction-login-message{ max-height: 150px; }</style>'
+																							)
+																						);
+																					?>	
 																				</label>
 																				<p class="description"><?php _e( 'Set the message that non-logged in users should see when viewing this form.', 'yikes-inc-easy-mailchimp-extender' ); ?></p>
+																				<p class="description"><?php printf( __( 'To display a login form, use %s', 'yikes-inc-easy-mailchimp-extender' ), '<code>[login-form]</code>' ); ?></p>
 																			</section>
 																			
 																	</section>
@@ -458,14 +487,14 @@
 													<div id="postbox-container-1" class="postbox-container">
 														<div class="meta-box-sortables">
 															<div class="postbox yikes-easy-mc-postbox">
-																<h3 class="edit-form-title"><span><?php _e( "Not Sure Yet" , 'yikes-inc-easy-mailchimp-extender' ); ?></span></h3>
+																<h3 class="edit-form-title"><span><?php _e( "Form Settings Explained" , 'yikes-inc-easy-mailchimp-extender' ); ?></span></h3>
 																<div class="inside">
 																	
 																	<ul>
-																		<li><strong><?php _e( 'Success Message' , 'yikes-inc-easy-mailchimp-extender' ); ?></strong> : <?php _e( 'The message displayed to the user after they have submitted the form and the data has been successfully sent to MailChimp.' , 'yikes-inc-easy-mailchimp-extender' ); ?></li>
-																		<li><strong><?php _e( 'General Error Message' , 'yikes-inc-easy-mailchimp-extender' ); ?></strong> : <?php _e( 'The message displayed to the user after a generic error has occurred.' , 'yikes-inc-easy-mailchimp-extender' ); ?></li>
-																		<li><strong><?php _e( 'Invalid Email' , 'yikes-inc-easy-mailchimp-extender' ); ?></strong> : <?php _e( 'The message displayed to the user after they have entered a non-valid email address.' , 'yikes-inc-easy-mailchimp-extender' ); ?></li>
-																		<li><strong><?php _e( 'Email Already Subscribed' , 'yikes-inc-easy-mailchimp-extender' ); ?></strong> : <?php _e( 'The message displayed to the user after they attempt to sign up for a mailing list using an email address that is already subscribed.' , 'yikes-inc-easy-mailchimp-extender' ); ?></li>
+																		<li><strong><?php _e( 'Classes' , 'yikes-inc-easy-mailchimp-extender' ); ?></strong> : <?php _e( 'Add additional classes to this form, allowing you to target it more easily for customization via CSS.' , 'yikes-inc-easy-mailchimp-extender' ); ?></li>
+																		<li><strong><?php _e( 'Form Layout' , 'yikes-inc-easy-mailchimp-extender' ); ?></strong> : <?php _e( 'Toggle the layout of this form between single column and an inline layout. The inline layout places all of your form fields and the submit button on a single line.' , 'yikes-inc-easy-mailchimp-extender' ); ?></li>
+																		<li><strong><?php _e( 'Submit Button' , 'yikes-inc-easy-mailchimp-extender' ); ?></strong> : <?php _e( 'Adjust setting specific to the submit button. Change the submit button text, or set it to a specified image. Use the "Submit Button Classes" to  assign additional classes to your submit button - ensuring it fits better into your theme.' , 'yikes-inc-easy-mailchimp-extender' ); ?></li>
+																		<li><strong><?php _e( 'Form Restrictions' , 'yikes-inc-easy-mailchimp-extender' ); ?></strong> : <?php _e( 'Adjust the restrictions for this form. Limit form visibility to a given time period, require users to be logged in to sign up or combine the two!' , 'yikes-inc-easy-mailchimp-extender' ); ?></li>
 																	</ul>
 																	
 																</div>
@@ -576,7 +605,7 @@
 						<!-- post-body-content -->
 						
 						<!-- sidebar -->
-						<div id="postbox-container-1" class="postbox-container">
+						<div id="postbox-container-1" class="postbox-container  yikes-easy-forms-sidebar">
 							<div class="meta-box-sortables">
 								<div class="postbox yikes-easy-mc-postbox">
 									<h3><span><?php _e( 'Form Settings' , 'yikes-inc-easy-mailchimp-extender' ); ?></span></h3>
