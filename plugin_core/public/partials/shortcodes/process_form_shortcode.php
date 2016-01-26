@@ -11,6 +11,7 @@ function process_mailchimp_shortcode( $atts ) {
 			'title' => '0',
 			'custom_title' => '',
 			'description' => '0', 
+			'custom_description' => '',
 			'ajax' => '',
 			'recaptcha' => '', // manually set googles recptcha state 
 			'recaptcha_lang' => '', // manually set the recaptcha language in the shortcode - also available is the yikes-mailchimp-recaptcha-language filter
@@ -309,10 +310,18 @@ function process_mailchimp_shortcode( $atts ) {
 			}
 		}
 		
-		// display the form description if the user 
-		// has specified to do so
-		if( ! empty( $description ) && $description == 1 ) {
-			echo '<section class="yikes-mailchimp-form-description yikes-mailchimp-form-description-'.$form_id.'">' . apply_filters( 'yikes-mailchimp-frontend-content', apply_filters( 'yikes-mailchimp-form-description', $form_settings['form_description'], $form_id ) ) . '</section>';
+		/*
+		*	Allow users to specify a custom description for this form, no html support
+		*	@since 6.0.3.8
+		*/
+		if( ! empty( $description ) && $description == 1 && isset( $atts['custom_description'] ) ) {
+			echo '<section class="yikes-mailchimp-form-description yikes-mailchimp-form-description-'.$form_id.'">' . apply_filters( 'yikes-mailchimp-frontend-content', apply_filters( 'yikes-mailchimp-form-description', $atts['custom_description'], $form_id ) ) . '</section>';
+		} else {
+			// display the form description if the user 
+			// has specified to do so
+			if( ! empty( $description ) && $description == 1 ) {
+				echo '<section class="yikes-mailchimp-form-description yikes-mailchimp-form-description-'.$form_id.'">' . apply_filters( 'yikes-mailchimp-frontend-content', apply_filters( 'yikes-mailchimp-form-description', $form_settings['form_description'], $form_id ) ) . '</section>';
+			}
 		}
 		
 		// Check for AJAX
