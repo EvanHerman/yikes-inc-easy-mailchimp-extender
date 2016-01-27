@@ -149,7 +149,15 @@ function process_mailchimp_shortcode( $atts ) {
 	$form_login_message = ( $additional_form_settings ) ? $additional_form_settings['yikes-easy-mc-form-restriction-login-message'] : '';
 	// store number of fields
 	$field_count = (int) count( $form_settings['fields'] );
-			
+	
+	// loop over each field, if it's set to hidden -- subtract it from the field count
+	// this throws off the layout for inline forms setup below
+	foreach( json_decode( $form_data['fields'] ) as $form_field ) {
+		if( isset( $form_field->hide ) && $form_field->hide == 1 ) {
+			$field_count--;
+		}
+	}
+	
 	/**
 	*	If login is required, abort
 	*	@since 6.0.3.8
@@ -245,6 +253,7 @@ function process_mailchimp_shortcode( $atts ) {
 			 }
 		";
 		wp_add_inline_style( 'yikes-inc-easy-mailchimp-public-styles', $inline_label_css );
+		
 	}
 	
 	// custom action hook to enqueue scripts & styles wherever the shortcode is used
@@ -715,11 +724,24 @@ function process_mailchimp_shortcode( $atts ) {
 							case 'date':
 							case 'birthday':
 							
+								global $wp_locale;
+								$site_language = get_locale();
+								$split_language = explode( '_', $site_language );
+								$language_abbrev = ( isset( $split_language[0] ) ) ? $split_language[0] : 'en'; // if the site language is not set, use english
+								
 								// bootstrap datepicker requirements
 								wp_enqueue_script( 'bootstrap-hover-dropdown' , YIKES_MC_URL . 'public/js/bootstrap-hover-dropdown.min.js' , array( 'jquery' ) );
 								wp_enqueue_script( 'bootstrap-datepicker-script' , YIKES_MC_URL . 'public/js/bootstrap-datepicker.min.js' , array( 'jquery' , 'bootstrap-hover-dropdown' ) );
 								wp_enqueue_style( 'bootstrap-datepicker-styles' , YIKES_MC_URL . 'public/css/bootstrap-datepicker3.standalone.min.css' );
 								wp_enqueue_style( 'override-datepicker-styles' , YIKES_MC_URL . 'public/css/yikes-inc-easy-mailchimp-datepicker-styles.css' , array( 'bootstrap-datepicker-styles' ) );
+								if( $language_abbrev != 'en' ) {
+									/**
+									*	Enqueue a localized version of the datepicker 
+									*	- International users
+									*	- Uses get_locale() - to get the sites language
+									*/
+									wp_enqueue_script( 'localized_text', 'https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.3.1/js/locales/bootstrap-datepicker.' . $language_abbrev . '.js', array('bootstrap-datepicker-script' ), 'all', true );
+								}
 								
 								switch ( $field['type'] ) {
 									default:
@@ -736,7 +758,7 @@ function process_mailchimp_shortcode( $atts ) {
 									<style>
 										.datepicker-dropdown {
 											width: 20%;
-											margin-top: 35px;
+											padding: .85em .5em !important;
 										}
 										<?php
 											if( wp_is_mobile() ) {
@@ -746,12 +768,25 @@ function process_mailchimp_shortcode( $atts ) {
 												}
 												<?php
 											}
+											// isntantiate our admin class to localize our calendar data
+											
+											$admin_class = new Yikes_Inc_Easy_Mailchimp_Forms_Admin( '', '' );
+											$get_date_format = $admin_class->yikes_jQuery_datepicker_date_format_php_to_js( $date_format );
 										?>
 									</style>
 									<script type="text/javascript">
 										jQuery(document).ready(function() {
 											jQuery('input[data-attr-type="<?php echo $field['type']; ?>"]').datepicker({
-												format : '<?php echo $date_format; ?>'
+												language: '<?php echo $language_abbrev; ?>',
+												format: '<?php echo apply_filters( 'yikes-mailchimp-frontend-date-picker-format', $get_date_format ); ?>',
+											}).on( 'show', function( e ) {
+												var date_picker_height = jQuery('input[data-attr-type="<?php echo $field['type']; ?>"]').css( 'height' );
+												date_picker_height = parseInt( date_picker_height.replace( 'px', '' ) ) + parseInt( 15 ) + 'px';
+												var date_picker_width = jQuery('input[data-attr-type="<?php echo $field['type']; ?>"]').css( 'width' ).replace( 'px', '' );
+												if( date_picker_width > 500 ) {
+													date_picker_width = 500;
+												}
+												jQuery( '.datepicker-dropdown' ).css( 'margin-top', date_picker_height  ).css( 'width', date_picker_width + 'px' );
 											});
 										});
 									</script>	

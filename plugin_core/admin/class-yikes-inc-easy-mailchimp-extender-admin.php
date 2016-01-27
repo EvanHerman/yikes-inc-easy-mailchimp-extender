@@ -733,7 +733,6 @@ class Yikes_Inc_Easy_Mailchimp_Forms_Admin {
 			foreach( $ArrayToStrip as $objArrayItem) {
 				$NewArray[] =  $objArrayItem;
 			}
-		 
 			return( $NewArray );
 		}
 		
@@ -746,6 +745,9 @@ class Yikes_Inc_Easy_Mailchimp_Forms_Admin {
 				case 'F j, Y':
 				case 'j F Y':
 				case 'm/d/Y':
+				case 'mm/dd/yyyy':
+				case 'MM/DD/YYYY':
+				default:
 					return( 'mm/dd/yy' );
 					break;
 				case 'Y/m/d':
@@ -753,7 +755,8 @@ class Yikes_Inc_Easy_Mailchimp_Forms_Admin {
 					return( 'yy/mm/dd' );
 					break;
 				case 'd/m/Y':
-				default:
+				case 'dd/mm/yyyy':
+				case 'DD/MM/YYYY':
 					return( 'dd/mm/yy' );
 					break;
 			 }
@@ -1745,36 +1748,6 @@ class Yikes_Inc_Easy_Mailchimp_Forms_Admin {
 										}
 										?>
 										
-										<?php 
-											/* 
-											*	Loop over field types and store necessary formats
-											*	( date, birthday - dateformat ; phone - phoneformat )
-											*/
-											switch( $field['type'] ) {
-												/* Store the date format, for properly rendering dates on the front end */
-												case 'date':
-													$date_format = ( isset( $field['date_format'] ) ) ? $field['date_format'] : 'MM/DD/YYYY';
-													?>
-														<input type="hidden" name="field[<?php echo $field['merge']; ?>][date_format]" value="<?php echo strtolower( str_replace( 'YYYY' , 'YY' , $date_format ) ); ?>" />
-													<?php
-												break;
-												
-												case 'birthday':
-													$date_format = ( isset( $field['date_format'] ) ) ? $field['date_format'] : 'MM/DD';
-													?>
-														<input type="hidden" name="field[<?php echo $field['merge']; ?>][date_format]" value="<?php echo strtolower( str_replace( 'YYYY' , 'YY' , ( isset( $field['date_format'] ) ) ? $field['date_format'] : 'MM/DD' ) ); ?>" />
-													<?php
-												break;
-												
-												/* Store the phone format, for properly regex pattern */
-												case 'phone':
-													?>
-														<input type="hidden" name="field[<?php echo $field['merge']; ?>][phone_format]" value="<?php echo $field['phone_format']; ?>" />
-													<?php
-												break;
-											}
-										?>
-										
 										<!-- Default Value -->
 										<?php switch( $field['type'] ) { 
 											default:
@@ -1921,6 +1894,7 @@ class Yikes_Inc_Easy_Mailchimp_Forms_Admin {
 											</td>
 										</tr>
 										<!-- Display Phone/Date Formats back to the user -->
+										<!-- Phone Format Initial Load -->
 										<?php 
 											switch( $field['type'] ) {												
 												/* Store the phone format, for properly regex pattern */
@@ -1937,16 +1911,19 @@ class Yikes_Inc_Easy_Mailchimp_Forms_Admin {
 																			case 'birthday':
 																				$type = __( 'Date Format' , 'yikes-inc-easy-mailchimp-extender' );
 																				$format = ( isset( $field['date_format'] ) ) ? $field['date_format'] : 'MM/DD';
+																				$format_name = 'date_format';
 																				break;
 																			
 																			case 'date':
 																				$type = __( 'Date Format' , 'yikes-inc-easy-mailchimp-extender' );
 																				$format = ( isset( $field['date_format'] ) ) ? $field['date_format'] : 'MM/DD/YYYY';
+																				$format_name = 'date_format';
 																				break;
 													
 																			case 'phone':
 																				$type = __( 'Phone Format' , 'yikes-inc-easy-mailchimp-extender' );
 																				$format = ( ( $field['phone_format'] == 'none' ) ? __( 'International', 'yikes-inc-easy-mailchimp-extender' ) : $field['phone_format'] . ' - (###) ### - ####' );
+																				$format_name = 'phone_format';
 																				break;
 																		}
 																		echo $type;
@@ -1955,6 +1932,7 @@ class Yikes_Inc_Easy_Mailchimp_Forms_Admin {
 															</td>
 															<td>
 																<strong><?php echo $format; ?></strong>
+																<input type="hidden" name="field[<?php echo $field['merge']; ?>][<?php echo $format_name; ?>]" value="<?php echo $format; ?>" />
 																<p class="description"><small>
 																	<?php printf( __( 'To change the %s please head over to <a href="%s" title="MailChimp" target="_blank">MailChimp</a>. If you alter the format, you should re-import this field.', 'yikes-inc-easy-mailchimp-extender' ), strtolower( $type ), esc_url( 'http://www.mailchimp.com' ) ); ?>
 																</small></p>

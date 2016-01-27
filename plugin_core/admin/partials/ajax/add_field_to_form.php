@@ -216,7 +216,7 @@
 							</label>
 						</td>
 						<td>
-							<input type="checkbox" class="widefat" value="1" name="field[<?php echo $merge_field_data['tag']; ?>][require]" <?php checked( $merge_field_data['req'] , 1 ); ?> <?php if( $merge_field_data['tag'] == 'EMAIL' ) {  ?> disabled="disabled" checked="checked" title="<?php echo __( 'Email is a required field.' , 'yikes-inc-easy-mailchimp-extender' ); } ?>">
+							<input type="checkbox" class="widefat" value="1" name="field[<?php echo $merge_field_data['tag']; ?>][require]" <?php checked( $merge_field_data['req'], 1 ); ?> <?php if( $merge_field_data['tag'] == 'EMAIL' ) {  ?> disabled="disabled" checked="checked" title="<?php echo __( 'Email is a required field.' , 'yikes-inc-easy-mailchimp-extender' ); } ?>">
 							<p class="description"><small><?php _e( "Require this field to be filled in before the form can be submitted.", 'yikes-inc-easy-mailchimp-extender' );?></small></p>
 						</td>
 					</tr>
@@ -228,7 +228,7 @@
 							</label>
 						</td>
 						<td>
-							<input type="checkbox" class="widefat" value="1" name="field[<?php echo $merge_field_data['tag']; ?>][hide]" <?php if( empty( $merge_field_data['show'] ) ) { echo 'checked="checked"'; } ?> <?php if( $merge_field_data['tag'] == 'EMAIL' ) {  ?> disabled="disabled" title="<?php echo __( 'Cannot toggle email field visibility.' , 'yikes-inc-easy-mailchimp-extender' ); } ?>">
+							<input type="checkbox" class="widefat" value="1" name="field[<?php echo $merge_field_data['tag']; ?>][hide]" <?php checked( $merge_field_data['public'], '' ); ?> <?php if( $merge_field_data['tag'] == 'EMAIL' ) {  ?> disabled="disabled" title="<?php echo __( 'Cannot toggle email field visibility.' , 'yikes-inc-easy-mailchimp-extender' ); } ?>">
 							<p class="description"><small><?php _e( "Hide this field from being displayed on the front end.", 'yikes-inc-easy-mailchimp-extender' );?></small></p>
 						</td>
 					</tr>
@@ -262,16 +262,19 @@
 												case 'birthday':
 													$type = __( 'Date Format' , 'yikes-inc-easy-mailchimp-extender' );
 													$format = $merge_field_data['dateformat'];
+													$format_name = 'date_format';
 													break;
 													
 												case 'date':
 													$type = __( 'Date Format' , 'yikes-inc-easy-mailchimp-extender' );
 													$format = $merge_field_data['dateformat'];
+													$format_name = 'date_format';
 													break;
 																				
 												case 'phone':
 													$type = __( 'Phone Format' , 'yikes-inc-easy-mailchimp-extender' );
 													$format = ( ( $merge_field_data['phoneformat'] == 'none' ) ? __( 'International', 'yikes-inc-easy-mailchimp-extender' ) : $merge_field_data['phoneformat'] );
+													$format_name = 'phone_format';
 													break;
 											}
 											echo $type;
@@ -280,6 +283,7 @@
 									</td>
 									<td>
 										<strong><?php echo $format; ?></strong>
+										<input type="hidden" name="field[<?php echo $merge_field_data['tag']; ?>][<?php echo $format_name; ?>]" value="<?php echo $format; ?>" />
 										<p class="description"><small>
 											<?php printf( __( 'To change the %s please head over to <a href="%s" title="MailChimp" target="_blank">MailChimp</a>. If you alter the format, you should re-import this field.', 'yikes-inc-easy-mailchimp-extender' ), strtolower( $type ), esc_url( 'http://www.mailchimp.com' ) ); ?>
 										</small></p>
