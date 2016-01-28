@@ -69,7 +69,7 @@
 					<div class="type-download">
 
 						<div class="featured-img">
-							<a href="<?php echo $permalink; ?>" title="<?php _e( 'Add-on Title' , 'yikes-inc-easy-mailchimp-extender' ); ?>" target="_blank">
+							<a href="<?php echo $permalink; ?>" title="<?php echo $add_on_title; ?>" target="_blank">
 								<?php echo $image; ?>
 							</a>		
 						</div>

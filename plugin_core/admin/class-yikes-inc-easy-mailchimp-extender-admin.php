@@ -618,7 +618,13 @@ class Yikes_Inc_Easy_Mailchimp_Forms_Admin {
 	public function yikes_easy_mc_activation_redirect() {
 		if ( get_option( 'yikes_mailchimp_activation_redirect', 'true' ) == 'true' ) {
 			update_option( 'yikes_mailchimp_activation_redirect', 'false' );
-			wp_redirect( esc_url( admin_url( 'admin.php?page=yikes-mailchimp-welcome' ) ) );    
+			/* If the user had this plugin activated prior to today, redirect to 'Whats New' */
+			if( get_option( 'yikes_easy_mailchimp_activation_date', strtotime( 'now' ) ) == strtotime( 'now' ) ) {
+				wp_redirect( esc_url( admin_url( 'admin.php?page=yikes-mailchimp-welcome' ) ) );    
+			} else { 
+				/* Else redirect the user over to the 'Getting Started' tab */
+				wp_redirect( esc_url_raw( admin_url( 'admin.php?page=yikes-mailchimp-welcome&section=whats-new' ) ) );    
+			}
 			exit();
 		}
 	}
