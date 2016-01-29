@@ -301,7 +301,7 @@
 																	<p class="edit-form-description"><?php _e( "Adjust some additional form settings below." , 'yikes-inc-easy-mailchimp-extender' ); ?></p>
 																	
 																	<!-- begin form classes section -->
-																	<strong class="section-title first"><?php _e( 'Classes', 'yikes-inc-easy-mailchimp-extender' ); ?></strong>
+																	<strong class="section-title first"><?php _e( 'Overall Form Classes', 'yikes-inc-easy-mailchimp-extender' ); ?></strong>
 																	<section class="section-interior">
 																		
 																		<!-- form classes -->
