@@ -16,6 +16,9 @@
 			<a class="nav-tab <?php echo $section == 'whats-new' ? 'nav-tab-active' : ''; ?>" href="<?php echo esc_url_raw( admin_url( add_query_arg( array( 'page' => 'yikes-mailchimp-welcome' , 'section' => 'whats-new' ), 'admin.php' ) ) ); ?>">
 				<span class="dashicons dashicons-warning"></span> <?php _e( "What's New", 'yikes-inc-easy-mailchimp-extender' ); ?>
 			</a>
+			<a class="nav-tab <?php echo $section == 'add-ons' ? 'nav-tab-active' : ''; ?>" href="<?php echo esc_url_raw( admin_url( add_query_arg( array( 'page' => 'yikes-mailchimp-welcome' , 'section' => 'add-ons' ), 'admin.php' ) ) ); ?>">
+				<span class="dashicons dashicons-admin-plugins"></span> <?php _e( "Add-Ons", 'yikes-inc-easy-mailchimp-extender' ); ?>
+			</a>
 			<a class="nav-tab <?php echo $section == 'knowledge-base' ? 'nav-tab-active' : ''; ?>" href="<?php echo esc_url_raw( admin_url( add_query_arg( array( 'page' => 'yikes-mailchimp-welcome' , 'section' => 'knowledge-base' ), 'admin.php' ) ) ); ?>">
 				<span class="dashicons dashicons-welcome-learn-more"></span> <?php _e( 'Knowledge Base', 'yikes-inc-easy-mailchimp-extender' ); ?>
 			</a>

@@ -723,25 +723,12 @@ function process_mailchimp_shortcode( $atts ) {
 								
 							case 'date':
 							case 'birthday':
-							
-								global $wp_locale;
-								$site_language = get_locale();
-								$split_language = explode( '_', $site_language );
-								$language_abbrev = ( isset( $split_language[0] ) ) ? $split_language[0] : 'en'; // if the site language is not set, use english
-								
+															
 								// bootstrap datepicker requirements
 								wp_enqueue_script( 'bootstrap-hover-dropdown' , YIKES_MC_URL . 'public/js/bootstrap-hover-dropdown.min.js' , array( 'jquery' ) );
 								wp_enqueue_script( 'bootstrap-datepicker-script' , YIKES_MC_URL . 'public/js/bootstrap-datepicker.min.js' , array( 'jquery' , 'bootstrap-hover-dropdown' ) );
 								wp_enqueue_style( 'bootstrap-datepicker-styles' , YIKES_MC_URL . 'public/css/bootstrap-datepicker3.standalone.min.css' );
 								wp_enqueue_style( 'override-datepicker-styles' , YIKES_MC_URL . 'public/css/yikes-inc-easy-mailchimp-datepicker-styles.css' , array( 'bootstrap-datepicker-styles' ) );
-								if( $language_abbrev != 'en' ) {
-									/**
-									*	Enqueue a localized version of the datepicker 
-									*	- International users
-									*	- Uses get_locale() - to get the sites language
-									*/
-									wp_enqueue_script( 'localized_text', 'https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.3.1/js/locales/bootstrap-datepicker.' . $language_abbrev . '.js', array('bootstrap-datepicker-script' ), 'all', true );
-								}
 								
 								switch ( $field['type'] ) {
 									default:
@@ -769,17 +756,40 @@ function process_mailchimp_shortcode( $atts ) {
 												<?php
 											}
 											// isntantiate our admin class to localize our calendar data
-											
+											global $wp_locale;
 											$admin_class = new Yikes_Inc_Easy_Mailchimp_Forms_Admin( '', '' );
-											$get_date_format = $admin_class->yikes_jQuery_datepicker_date_format_php_to_js( $date_format );
+											$month_names = $admin_class->yikes_jQuery_datepicker_strip_array_indices( $wp_locale->month );
+											$month_names_short = $admin_class->yikes_jQuery_datepicker_strip_array_indices( $wp_locale->month_abbrev );
+											$day_names = $admin_class->yikes_jQuery_datepicker_strip_array_indices( $wp_locale->weekday );
+											$day_names_short = $admin_class->yikes_jQuery_datepicker_strip_array_indices( $wp_locale->weekday_abbrev );
+											$day_names_min = $admin_class->yikes_jQuery_datepicker_strip_array_indices( $wp_locale->weekday_initial );
+											$date_format = $admin_class->yikes_jQuery_datepicker_date_format_php_to_js( $date_format );
+											$first_day = get_option( 'start_of_week' );
+											$isRTL = $wp_locale->is_rtl();
+											if( $isRTL ) {
+												echo 'yes it is RTL';
+											} else {
+												echo 'no its not RTL';
+											}
 										?>
 									</style>
 									<script type="text/javascript">
 										jQuery(document).ready(function() {
-											jQuery('input[data-attr-type="<?php echo $field['type']; ?>"]').datepicker({
-												language: '<?php echo $language_abbrev; ?>',
-												format: '<?php echo apply_filters( 'yikes-mailchimp-frontend-date-picker-format', $get_date_format ); ?>',
-											}).on( 'show', function( e ) {
+											jQuery.fn.datepicker.dates['en'] = {
+												months: <?php echo json_encode( $admin_class->yikes_jQuery_datepicker_strip_array_indices( $wp_locale->month ) ); ?>,
+												monthsShort: <?php echo json_encode( $month_names_short ); ?>,
+												days: <?php echo json_encode( $day_names ); ?>,
+												daysShort: <?php echo json_encode( $day_names_short ); ?>,
+												daysMin: <?php echo json_encode( $day_names_min ); ?>,
+												dateFormat: <?php echo json_encode( $date_format ); ?>,
+												firstDay: <?php echo json_encode( $first_day ); ?>,
+												format: <?php echo json_encode( $date_format ); ?>,
+												isRTL: 0,			
+												showButtonPanel: true,
+												numberOfMonths: 1,
+												today: '<?php _e( 'Today', 'yikes-inc-easy-mailchimp-extender' ); ?>'
+											};
+											jQuery('input[data-attr-type="<?php echo $field['type']; ?>"]').datepicker().on( 'show', function( e ) {
 												var date_picker_height = jQuery('input[data-attr-type="<?php echo $field['type']; ?>"]').css( 'height' );
 												date_picker_height = parseInt( date_picker_height.replace( 'px', '' ) ) + parseInt( 15 ) + 'px';
 												var date_picker_width = jQuery('input[data-attr-type="<?php echo $field['type']; ?>"]').css( 'width' ).replace( 'px', '' );

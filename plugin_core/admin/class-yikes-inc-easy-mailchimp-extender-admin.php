@@ -176,6 +176,8 @@ class Yikes_Inc_Easy_Mailchimp_Forms_Admin {
 		add_filter( 'plugin_action_links_yikes-inc-easy-mailchimp-extender/yikes-inc-easy-mailchimp-extender.php', array( $this, 'easy_forms_plugin_action_links' ) );
 		/* Alter the color scheme based on the users selection */
 		add_action( 'admin_print_scripts', array( $this, 'alter_yikes_easy_mc_color_scheme' ) );
+		// hook in and display our knowledge base articles on the support page
+		add_action( 'yikes-mailchimp-support-page', array( $this, 'hook_and_display_kb_article_RSS' ) );
 	}
 				
 		/*
@@ -2849,6 +2851,15 @@ class Yikes_Inc_Easy_Mailchimp_Forms_Admin {
 			$override_admin_styles = ob_get_clean();
 			// add our inline styles
 			echo $override_admin_styles;
+		}
+		
+		/**
+		*	Hook in and display our support page/knowledge base articles
+		*	on the support page
+		*	@since 6.0.3.8
+		*/
+		public function hook_and_display_kb_article_RSS() {
+			include_once( YIKES_MC_PATH . 'admin/partials/helpers/knowledge-base-articles-RSS.php' );
 		}
 		
 		/*
