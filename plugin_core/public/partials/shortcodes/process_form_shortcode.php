@@ -766,11 +766,6 @@ function process_mailchimp_shortcode( $atts ) {
 											$date_format = $admin_class->yikes_jQuery_datepicker_date_format_php_to_js( $date_format );
 											$first_day = get_option( 'start_of_week' );
 											$isRTL = $wp_locale->is_rtl();
-											if( $isRTL ) {
-												echo 'yes it is RTL';
-											} else {
-												echo 'no its not RTL';
-											}
 										?>
 									</style>
 									<script type="text/javascript">
