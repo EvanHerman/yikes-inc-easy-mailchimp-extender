@@ -6,7 +6,7 @@
 */
 ?>
 
-<section class="knowledge-base-articles">
+<section class="knowledge-base-articles" id="knowledge-base-articles">
 	<h1><?php _e( 'Knowledge Base Articles', 'yikes-inc-easy-mailchimp-extender' ); ?></h1>
 	<p class="description">
 		<?php printf( __( "Below you''ll find a list of some of the most popular articles from our knowledge base. If you're running into any issues, or have any questions - you may first want to check out the %s for the answer", "yikes-inc-easy-mailchimp-extender" ), '<a href="' . esc_url( 'https://yikesplugins.com/support/knowledge-base/product/easy-forms-for-mailchimp/' ) . '">' . __( 'knowledge base', 'yikes-inc-easy-mailchimp-extender' ) . '</a>' ) ?>
