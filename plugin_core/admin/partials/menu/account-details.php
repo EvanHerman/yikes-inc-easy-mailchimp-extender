@@ -41,8 +41,8 @@
 			<!-- main content -->
 			<div id="post-body-content">
 				<div class="meta-box-sortables ui-sortable">
-					<div class="postbox yikes-easy-mc-postbox" id="chimp-chatter">
-						<div class="inside">
+					<!-- <div class="postbox yikes-easy-mc-postbox" id="chimp-chatter">
+						<div class="inside"> -->
 
 							<h1><?php _e( 'Chimp Chatter' , 'yikes-inc-easy-mailchimp-extender' ); ?></h1>
 							
@@ -73,7 +73,7 @@
 									}
 									if( $x < 5 ) {
 									?>
-										<section class="chimp-chatter-container <?php echo esc_attr( $section_class ); ?>">
+										<!--- <section class="chimp-chatter-container <?php echo esc_attr( $section_class ); ?>">
 											<div class="chatter-type"><?php echo ucwords( $split_type[1] ); ?></div>
 											<p class="chatter-message description">
 												<?php echo $activity['message']; ?>
@@ -81,6 +81,18 @@
 											<p class="chatter-time">
 												<?php echo get_date_from_gmt( $activity['update_time'], 'F jS, Y h:i a' ); ?>
 											</p>
+										</section> -->
+										
+										<section class="postbox yikes-easy-mc-postbox chimp-chatter-postbox <?php echo esc_attr( $section_class ); if( $x % 2 == 0 ) { echo ' even'; } ?>">
+											<div class="inside">
+												<div class="chatter-type"><?php echo ucwords( $split_type[1] ); ?></div>
+												<p class="chatter-message description">
+													<?php echo $activity['message']; ?>
+												</p>
+												<p class="chatter-time">
+													<?php echo get_date_from_gmt( $activity['update_time'], 'F jS, Y h:i a' ); ?>
+												</p>
+											</div>
 										</section>
 									<?php
 									} else {
@@ -90,7 +102,7 @@
 											<?php
 										}
 										?>
-												<section class="chimp-chatter-container <?php echo esc_attr( $section_class ); ?>">
+												<!-- <section class="chimp-chatter-container <?php echo esc_attr( $section_class ); ?>">
 													<div class="chatter-type"><?php echo ucwords( $split_type[1] ); ?></div>
 													<p class="chatter-message description">
 														<?php echo $activity['message']; ?>
@@ -98,6 +110,18 @@
 													<p class="chatter-time">
 														<?php echo get_date_from_gmt( $activity['update_time'], 'F jS, Y h:i a' ); ?>
 													</p>
+												</section> -->
+												
+												<section class="postbox yikes-easy-mc-postbox chimp-chatter-postbox <?php echo esc_attr( $section_class ); if( $x % 2 == 0 ) { echo ' even'; } ?>">
+													<div class="inside">
+														<div class="chatter-type"><?php echo ucwords( $split_type[1] ); ?></div>
+														<p class="chatter-message description">
+															<?php echo $activity['message']; ?>
+														</p>
+														<p class="chatter-time">
+															<?php echo get_date_from_gmt( $activity['update_time'], 'F jS, Y h:i a' ); ?>
+														</p>
+													</div>
 												</section>
 										<?php
 										if( $x == $end ) {
@@ -113,9 +137,10 @@
 								<div class="chimpchatter-button-container">
 									<a href="#" onclick="jQuery(this).parents().find('#hidden-chatter').slideToggle();jQuery(this).fadeOut();return false;" class="button-primary"><?php _e( 'View All Activity' , 'yikes-inc-easy-mailchimp-extender' ); ?></a>
 								</div>
-						</div>
+						
+						<!-- </div> -->
 						<!-- .inside -->
-					</div>
+					<!-- </div> -->
 					<!-- .postbox -->
 				</div>
 				<!-- .meta-box-sortables .ui-sortable -->

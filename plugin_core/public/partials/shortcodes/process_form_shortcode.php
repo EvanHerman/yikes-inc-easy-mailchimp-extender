@@ -11,6 +11,7 @@ function process_mailchimp_shortcode( $atts ) {
 			'title' => '0',
 			'custom_title' => '',
 			'description' => '0', 
+			'custom_description' => '',
 			'ajax' => '',
 			'recaptcha' => '', // manually set googles recptcha state 
 			'recaptcha_lang' => '', // manually set the recaptcha language in the shortcode - also available is the yikes-mailchimp-recaptcha-language filter
@@ -19,6 +20,7 @@ function process_mailchimp_shortcode( $atts ) {
 			'recaptcha_size' => '', // set the recaptcha size - normal/compact - default normal
 			'recaptcha_data_callback' => '', // set a custom js callback function to run after a successful recaptcha response - default none
 			'recaptcha_expired_callback' => '', // set a custom js callback function to run after the recaptcha has expired - default none
+			'inline' => '0',
 		), $atts , 'yikes-mailchimp' )
 	);
 		
@@ -46,7 +48,7 @@ function process_mailchimp_shortcode( $atts ) {
 	if( !$form_results ) {
 		return __( "Oh no...This form doesn't exist. Head back to the manage forms page and select a different form." , 'yikes-inc-easy-mailchimp-extender' );
 	}
-
+	
 	/*
 	*	Check if the user wants to use reCAPTCHA Spam Prevention
 	*/
@@ -62,7 +64,6 @@ function process_mailchimp_shortcode( $atts ) {
 			}
 			
 			if( ! empty( $atts['recaptcha_type'] ) ) {
-				echo 'yes';
 				echo $atts['recaptcha_type'];
 			}
 			
@@ -121,13 +122,89 @@ function process_mailchimp_shortcode( $atts ) {
 	
 	// store our variables
 	$form_id = (int) $form_data['id']; // form id (the id of the form in the database)
-	
+		
 	/*
 	*	Get the stored form settings
 	* 	Helper function now in class-yikes-inc-easy-mailchimp-extender-public.php
 	*	@since 6.0.3.4
 	*/
 	$form_settings = Yikes_Inc_Easy_Mailchimp_Extender_Public::yikes_retrieve_form_settings( $form_id );
+	
+	$additional_form_settings = ( isset( $form_data['form_settings'] ) ) ? json_decode( $form_data['form_settings'], true ) : false;
+	// store our options from the additional form settings array
+	$form_classes = ( $additional_form_settings ) ? $additional_form_settings['yikes-easy-mc-form-class-names'] : '';
+	$inline_form = ( $additional_form_settings ) ? $additional_form_settings['yikes-easy-mc-inline-form'] : '';
+	$submit_button_type = ( $additional_form_settings ) ? $additional_form_settings['yikes-easy-mc-submit-button-type'] : 'text';
+	$submit_button_text = ( $additional_form_settings && $additional_form_settings['yikes-easy-mc-submit-button-text'] != '' ) ? esc_attr( $additional_form_settings['yikes-easy-mc-submit-button-text'] ) : __( 'Submit', 'yikes-inc-easy-mailchimp-extender' );
+	$submit_button_image = ( $additional_form_settings ) ? esc_url( $additional_form_settings['yikes-easy-mc-submit-button-image'] ) : '';
+	$submit_button_classes = ( $additional_form_settings ) ? ' ' . esc_attr( $additional_form_settings['yikes-easy-mc-submit-button-classes'] ) : '';
+	// scheuldes
+	$form_schedule_state = ( $additional_form_settings ) ? $additional_form_settings['yikes-easy-mc-form-schedule'] : false;
+	$form_schedule_start = ( $additional_form_settings ) ? $additional_form_settings['yikes-easy-mc-form-restriction-start'] : '';;
+	$form_schedule_end = ( $additional_form_settings ) ? $additional_form_settings['yikes-easy-mc-form-restriction-end'] : '';
+	$form_pending_message = ( $additional_form_settings ) ? $additional_form_settings['yikes-easy-mc-form-restriction-pending-message'] : '';
+	$form_expired_message = ( $additional_form_settings ) ? $additional_form_settings['yikes-easy-mc-form-restriction-expired-message'] : '';
+	// register required
+	$form_login_required = ( $additional_form_settings ) ? $additional_form_settings['yikes-easy-mc-form-login-required'] : false;
+	$form_login_message = ( $additional_form_settings ) ? $additional_form_settings['yikes-easy-mc-form-restriction-login-message'] : '';
+	// store number of fields
+	$field_count = (int) count( $form_settings['fields'] );
+	
+	// loop over each field, if it's set to hidden -- subtract it from the field count
+	// this throws off the layout for inline forms setup below
+	foreach( json_decode( $form_data['fields'] ) as $form_field ) {
+		if( isset( $form_field->hide ) && $form_field->hide == 1 ) {
+			$field_count--;
+		}
+	}
+	
+	/**
+	*	If login is required, abort
+	*	@since 6.0.3.8
+	*/
+	if( $form_login_required ) {
+		if( apply_filters( 'yikes-mailchimp-required-login-requirement', ! is_user_logged_in() ) ) {
+			ob_start();
+				?>
+					<div class="yikes-mailchimp-login-required yikes-mailchimp-form-<?php echo $form_id; ?>-login-required">
+						<?php echo apply_filters( 'yikes-mailchimp-frontend-content', $form_login_message ); ?>
+					</div>
+				<?php
+			$output = str_replace( '[login-form]', wp_login_form(), ob_get_clean() );
+			return $output;
+		}
+	}
+	
+	/**
+	*	Check if schedule is set for this form
+	*	@since 6.0.3.8
+	*/	
+	if( $form_schedule_state ) {
+		// store current date
+		$current_date = strtotime( current_time( 'm/d/Y g:iA' ) );
+		
+		// the the current date is less than the form scheduled start date
+		if( $current_date < $form_schedule_start ) {
+			echo apply_filters( 'yikes-mailchimp-frontend-content', $form_pending_message );
+			return;
+			// abort
+		}
+		
+		// The current date is past or equal to the end date, aka form has now expired
+		if( $current_date >= $form_schedule_end ) {
+			echo apply_filters( 'yikes-mailchimp-frontend-content', $form_expired_message );
+			return;
+			// abort
+		}			
+	}
+	
+	// setup the submit button text 
+	// shortcode parameter takes precedence over option
+	if( isset( $atts['submit'] ) ) {
+		$submit = $atts['submit'];
+	} else {
+		$submit = $submit_button_text;
+	}
 	
 	// used in yikes-mailchimp-redirect-url filter
 	global $post;
@@ -143,8 +220,41 @@ function process_mailchimp_shortcode( $atts ) {
 	end( $wp_styles->groups );
 	$last_key = key( $wp_styles->groups );
 	
-	// enqueue the form styles
-	wp_enqueue_style( 'yikes-inc-easy-mailchimp-public-styles', YIKES_MC_URL . 'public/css/yikes-inc-easy-mailchimp-extender-public.min.css', array( $last_key ) );
+	/*	
+	*	Check for the constant to prevent styles from loading
+	*	to exclude styles from loading, add `define( 'YIKES_MAILCHIMP_EXCLUDE_STYLES', true );` to functions.php
+	*	@since 6.0.3.8
+	*/
+	if( ! defined( 'YIKES_MAILCHIMP_EXCLUDE_STYLES' ) ) {
+		// enqueue the form styles
+		wp_enqueue_style( 'yikes-inc-easy-mailchimp-public-styles', YIKES_MC_URL . 'public/css/yikes-inc-easy-mailchimp-extender-public.min.css', array( $last_key ) );
+	}
+	
+	/**
+	*	Check for form inline parameter
+	*/
+	$form_inline = ( isset( $atts['inline'] ) && ( $atts['inline'] == 1 || $atts['inline'] == 'true' ) ) ? true : false;
+	// recheck from our form options
+	if( ! $form_inline ) {
+		$form_inline = ( isset( $additional_form_settings['yikes-easy-mc-inline-form'] ) && $additional_form_settings['yikes-easy-mc-inline-form'] == 1 ) ? true : false;
+	}
+	if( $form_inline ) {
+		$field_width = (float) ( 100 / $field_count );
+		$submit_button_width = (float) ( 20 / $field_count );
+		/*
+		*	Add inline styles after calculating the percentage etc.
+		*	@since 6.0.3.8
+		*/
+		 $inline_label_css = "
+			.yikes-easy-mc-form label.label-inline {
+				float: left;
+				width: calc( {$field_width}% - {$submit_button_width}% );
+				padding-right: 10px;
+			 }
+		";
+		wp_add_inline_style( 'yikes-inc-easy-mailchimp-public-styles', $inline_label_css );
+		
+	}
 	
 	// custom action hook to enqueue scripts & styles wherever the shortcode is used
 	do_action( 'yikes-mailchimp-shortcode-enqueue-scripts-styles', $form_id );
@@ -153,7 +263,7 @@ function process_mailchimp_shortcode( $atts ) {
 	ob_start();	
 		
 	?>
-	<!-- Easy Forms for MailChimp v<?php echo YIKES_MC_VERSION; ?> by YIKES Inc: https://yikesplugins.com/plugin/easy-forms-for-mailchimp/ -->
+	
 	<section id="yikes-mailchimp-container-<?php echo $form_id; ?>" class="yikes-mailchimp-container yikes-mailchimp-container-<?php echo $form_id; ?> <?php echo apply_filters( 'yikes-mailchimp-form-container-class', '', $form_id ); ?>">
 	<?php
 		
@@ -209,10 +319,18 @@ function process_mailchimp_shortcode( $atts ) {
 			}
 		}
 		
-		// display the form description if the user 
-		// has specified to do so
-		if( ! empty( $description ) && $description == 1 ) {
-			echo '<section class="yikes-mailchimp-form-description yikes-mailchimp-form-description-'.$form_id.'">' . apply_filters( 'yikes-mailchimp-frontend-content', apply_filters( 'yikes-mailchimp-form-description', $form_settings['form_description'], $form_id ) ) . '</section>';
+		/*
+		*	Allow users to specify a custom description for this form, no html support
+		*	@since 6.0.3.8
+		*/
+		if( ! empty( $description ) && $description == 1 && isset( $atts['custom_description'] ) ) {
+			echo '<section class="yikes-mailchimp-form-description yikes-mailchimp-form-description-'.$form_id.'">' . apply_filters( 'yikes-mailchimp-frontend-content', apply_filters( 'yikes-mailchimp-form-description', $atts['custom_description'], $form_id ) ) . '</section>';
+		} else {
+			// display the form description if the user 
+			// has specified to do so
+			if( ! empty( $description ) && $description == 1 ) {
+				echo '<section class="yikes-mailchimp-form-description yikes-mailchimp-form-description-'.$form_id.'">' . apply_filters( 'yikes-mailchimp-frontend-content', apply_filters( 'yikes-mailchimp-form-description', $form_settings['form_description'], $form_id ) ) . '</section>';
+			}
 		}
 		
 		// Check for AJAX
@@ -226,18 +344,7 @@ function process_mailchimp_shortcode( $atts ) {
 			) );
 			wp_enqueue_script( 'yikes-easy-mc-ajax' );
 		}
-		
-		/*
-		*	On form submission, lets include our form processing file
-		*	- processes non-ajax forms
-		if( isset( $_POST ) && !empty( $_POST ) && $form_settings['submission_settings']['ajax'] == 0 ) {
-			if( $_POST['yikes-mailchimp-submitted-form'] == $form_id ) { // ensure we only process the form that was submitted
-				// lets include our form processing file
-				require( YIKES_MC_PATH . 'public/partials/shortcodes/process/process_form_submission.php' );
-			}
-		}
-		*/
-		
+				
 		/*
 		*	If a form was submitted, and the response was returned
 		*	let's display it back to the user
@@ -247,7 +354,7 @@ function process_mailchimp_shortcode( $atts ) {
 		
 		// render the form!
 		?>
-			<form id="<?php echo sanitize_title( $form_settings['form_name'] ); ?>-<?php echo $form_id; ?>" class="yikes-easy-mc-form yikes-easy-mc-form-<?php echo $form_id; echo ' ' . apply_filters( 'yikes-mailchimp-form-class', '', $form_id ); echo ' ' . apply_filters( 'yikes-mailchimp-form-class', '', $form_id ); if( !empty( $_POST ) && $form_submitted == 1 && $form_settings['submission_settings']['hide_form_post_signup'] == 1 ) { echo ' yikes-easy-mc-display-none'; } ?>" action="" method="POST" data-attr-form-id="<?php echo $form_id; ?>">
+			<form id="<?php echo sanitize_title( $form_settings['form_name'] ); ?>-<?php echo $form_id; ?>" class="yikes-easy-mc-form yikes-easy-mc-form-<?php echo $form_id . ' '; if ( $form_inline )  { echo 'yikes-mailchimp-form-inline '; } echo ' ' . apply_filters( 'yikes-mailchimp-form-class', $form_classes, $form_id ); if( !empty( $_POST ) && $form_submitted == 1 && $form_settings['submission_settings']['hide_form_post_signup'] == 1 ) { echo ' yikes-easy-mc-display-none'; } ?>" action="" method="POST" data-attr-form-id="<?php echo $form_id; ?>">
 							
 				<?php 
 				foreach( $form_settings['fields'] as $field ) {
@@ -255,7 +362,8 @@ function process_mailchimp_shortcode( $atts ) {
 						$field_array = array();
 						// label array
 						$label_array = array();
-						
+						// label classes array
+						$label_class_array = array();
 						if( $field['additional-classes'] != '' ) {
 							// split custom classes at spaces
 							$custom_classes = explode( ' ' , $field['additional-classes'] );
@@ -263,42 +371,55 @@ function process_mailchimp_shortcode( $atts ) {
 							// if it's set we need to assign it to our label and remove it from the field classes
 							 // input half left
 							if( in_array( 'field-left-half' , $custom_classes ) ) {
-								$label_array['class'] = 'class="field-left-half"';
+								// $label_array['class'] = 'class="field-left-half"';
+								$label_class_array[] = 'field-left-half';
 								$key = array_search( 'field-left-half' , $custom_classes );
 								unset( $custom_classes[$key] );
 							} // input half right
 							if( in_array( 'field-right-half' , $custom_classes ) ) {
-								$label_array['class'] = 'class="field-right-half"';
+								// $label_array['class'] = 'class="field-right-half"';
+								$label_class_array[] = 'field-right-half';
 								$key = array_search( 'field-right-half' , $custom_classes );
 								unset( $custom_classes[$key] );
 							} // input thirds (1/3 width, floated left)
 							if( in_array( 'field-third' , $custom_classes ) ) {
-								$label_array['class'] = 'class="field-third"';
+								// $label_array['class'] = 'class="field-third"';
+								$label_class_array[] = 'field-third';
 								$key = array_search( 'field-third' , $custom_classes );
 								unset( $custom_classes[$key] );
 							} // 2 column radio
 							if( in_array( 'option-2-col' , $custom_classes ) ) {
-								$label_array['class'] = 'class="option-2-col"';
+								// $label_array['class'] = 'class="option-2-col"';
+								$label_class_array[] = 'option-2-col';
 								$key = array_search( 'option-2-col' , $custom_classes );
 								unset( $custom_classes[$key] );
 							} // 3 column radio
 							if( in_array( 'option-3-col' , $custom_classes ) ) {
-								$label_array['class'] = 'class="option-3-col"';
+								// $label_array['class'] = 'class="option-3-col"';
+								$label_class_array[] = 'option-3-col';
 								$key = array_search( 'option-3-col' , $custom_classes );
 								unset( $custom_classes[$key] );
 							} // 4 column radio
 							if( in_array( 'option-4-col' , $custom_classes ) ) {
-								$label_array['class'] = 'class="option-4-col"';
+								// $label_array['class'] = 'class="option-4-col"';
+								$label_class_array[] = 'option-4-col';
 								$key = array_search( 'option-4-col' , $custom_classes );
 								unset( $custom_classes[$key] );
 							} // inline radio & checkboxes etc
 							if( in_array( 'option-inline' , $custom_classes ) ) {
-								$label_array['class'] = 'class="option-inline"';
+								// $label_array['class'] = 'class="option-inline"';
+								$label_class_array[] = 'option-inline';
 								$key = array_search( 'option-inline' , $custom_classes );
 								unset( $custom_classes[$key] );
-							}
+							}							
 						} else {
 							$custom_classes = array();
+						}
+						
+						// if the form is set to inline, add the inline class to our labels
+						// since @6.0.3.8
+						if( $form_inline ) {
+							$label_class_array[] = 'label-inline';
 						}
 						
 						if( isset( $field['hide-label'] ) ) {
@@ -324,17 +445,20 @@ function process_mailchimp_shortcode( $atts ) {
 					if( $field['type'] == 'email' ) {
 						$field_array['required'] = 'required="required"';
 						$label_array['visible'] = '';
-						$label_array['required'] = 'class="' . $field['merge'] . '-label yikes-mailchimp-field-required"';
+						// $label_array['required'] = 'class="' . $field['merge'] . '-label yikes-mailchimp-field-required"';
+						$label_class_array[] = $field['merge'] . '-label';
+						$label_class_array[] = 'yikes-mailchimp-field-required';
 					} else {
-						
 						if( $tag == 'merge' ) {
 							$field_array['required'] = isset( $field['require'] ) ? 'required="required"' : '';
 							$label_array['visible'] = isset( $field['hide'] ) ? 'style="display:none;"' : '';
-							$label_array['required'] = isset( $field['require'] ) ? 'class="' . $field['merge'] . '-label yikes-mailchimp-field-required"' : 'class="' . $field['merge'] . '-label"';
+							// $label_array['required'] = isset( $field['require'] ) ? 'class="' . $field['merge'] . '-label yikes-mailchimp-field-required"' : 'class="' . $field['merge'] . '-label"';
+							$label_class_array[] = isset( $field['require'] ) ? $field['merge'] . '-label yikes-mailchimp-field-required' : $field['merge'] . '-label';
 						} else {
 							$field_array['required'] = isset( $field['require'] ) ? 'required="required"' : '';
 							$label_array['visible'] = isset( $field['hide'] ) ? 'style="display:none;"' : '';
-							$label_array['required'] = isset( $field['require'] ) ? 'class="' . $field['group_id'] . '-label yikes-mailchimp-field-required"' : 'class="' . $field['group_id'] . '-label"';
+							// $label_array['required'] = isset( $field['require'] ) ? 'class="' . $field['group_id'] . '-label yikes-mailchimp-field-required"' : 'class="' . $field['group_id'] . '-label"';
+							$label_class_array[] = isset( $field['require'] ) ? $field['group_id'] . '-label yikes-mailchimp-field-required' : $field['group_id'] . '-label';
 						}
 					}
 					
@@ -344,6 +468,8 @@ function process_mailchimp_shortcode( $atts ) {
 							$field_array['visible'] = 'style="display:none;"';
 						}
 					}
+					
+					$label_array['classes'] = 'class="' . implode( ' ', $label_class_array ) . '"';
 					
 					// filter the field array data
 					$field_array = apply_filters( 'yikes-mailchimp-field-data', $field_array, $field, $form_id );
@@ -597,7 +723,7 @@ function process_mailchimp_shortcode( $atts ) {
 								
 							case 'date':
 							case 'birthday':
-							
+															
 								// bootstrap datepicker requirements
 								wp_enqueue_script( 'bootstrap-hover-dropdown' , YIKES_MC_URL . 'public/js/bootstrap-hover-dropdown.min.js' , array( 'jquery' ) );
 								wp_enqueue_script( 'bootstrap-datepicker-script' , YIKES_MC_URL . 'public/js/bootstrap-datepicker.min.js' , array( 'jquery' , 'bootstrap-hover-dropdown' ) );
@@ -619,7 +745,7 @@ function process_mailchimp_shortcode( $atts ) {
 									<style>
 										.datepicker-dropdown {
 											width: 20%;
-											margin-top: 35px;
+											padding: .85em .5em !important;
 										}
 										<?php
 											if( wp_is_mobile() ) {
@@ -629,12 +755,43 @@ function process_mailchimp_shortcode( $atts ) {
 												}
 												<?php
 											}
+											// isntantiate our admin class to localize our calendar data
+											global $wp_locale;
+											$admin_class = new Yikes_Inc_Easy_Mailchimp_Forms_Admin( '', '' );
+											$month_names = $admin_class->yikes_jQuery_datepicker_strip_array_indices( $wp_locale->month );
+											$month_names_short = $admin_class->yikes_jQuery_datepicker_strip_array_indices( $wp_locale->month_abbrev );
+											$day_names = $admin_class->yikes_jQuery_datepicker_strip_array_indices( $wp_locale->weekday );
+											$day_names_short = $admin_class->yikes_jQuery_datepicker_strip_array_indices( $wp_locale->weekday_abbrev );
+											$day_names_min = $admin_class->yikes_jQuery_datepicker_strip_array_indices( $wp_locale->weekday_initial );
+											$date_format = $admin_class->yikes_jQuery_datepicker_date_format_php_to_js( $date_format );
+											$first_day = get_option( 'start_of_week' );
+											$isRTL = $wp_locale->is_rtl();
 										?>
 									</style>
 									<script type="text/javascript">
 										jQuery(document).ready(function() {
-											jQuery('input[data-attr-type="<?php echo $field['type']; ?>"]').datepicker({
-												format : '<?php echo $date_format; ?>'
+											jQuery.fn.datepicker.dates['en'] = {
+												months: <?php echo json_encode( $admin_class->yikes_jQuery_datepicker_strip_array_indices( $wp_locale->month ) ); ?>,
+												monthsShort: <?php echo json_encode( $month_names_short ); ?>,
+												days: <?php echo json_encode( $day_names ); ?>,
+												daysShort: <?php echo json_encode( $day_names_short ); ?>,
+												daysMin: <?php echo json_encode( $day_names_min ); ?>,
+												dateFormat: <?php echo json_encode( $date_format ); ?>,
+												firstDay: <?php echo json_encode( $first_day ); ?>,
+												format: <?php echo json_encode( $date_format ); ?>,
+												isRTL: 0,			
+												showButtonPanel: true,
+												numberOfMonths: 1,
+												today: '<?php _e( 'Today', 'yikes-inc-easy-mailchimp-extender' ); ?>'
+											};
+											jQuery('input[data-attr-type="<?php echo $field['type']; ?>"]').datepicker().on( 'show', function( e ) {
+												var date_picker_height = jQuery('input[data-attr-type="<?php echo $field['type']; ?>"]').css( 'height' );
+												date_picker_height = parseInt( date_picker_height.replace( 'px', '' ) ) + parseInt( 15 ) + 'px';
+												var date_picker_width = jQuery('input[data-attr-type="<?php echo $field['type']; ?>"]').css( 'width' ).replace( 'px', '' );
+												if( date_picker_width > 500 ) {
+													date_picker_width = 500;
+												}
+												jQuery( '.datepicker-dropdown' ).css( 'margin-top', date_picker_height  ).css( 'width', date_picker_width + 'px' );
 											});
 										});
 									</script>	
@@ -940,7 +1097,7 @@ function process_mailchimp_shortcode( $atts ) {
 				}
 				if( is_user_logged_in() ) {
 					if( current_user_can( apply_filters( 'yikes-mailchimp-user-role-access' , 'manage_options' ) ) ) {
-						$admin_class = 'admin-logged-in';
+						$admin_class = ' admin-logged-in';
 					}
 				} else {
 					$admin_class = '';
@@ -957,12 +1114,25 @@ function process_mailchimp_shortcode( $atts ) {
 				<input type="hidden" name="yikes-mailchimp-submitted-form" id="yikes-mailchimp-submitted-form" value="<?php echo $form_id; ?>">
 				
 				<!-- Submit Button -->
-				<?php echo apply_filters( 'yikes-mailchimp-form-submit-button', '<button type="submit" class="' . apply_filters( 'yikes-mailchimp-form-submit-button-classes', 'yikes-easy-mc-submit-button yikes-easy-mc-submit-button-' . esc_attr( $form_data['id'] ) . ' btn btn-primary ' . $admin_class, $form_data['id'] ) . '">' .  apply_filters( 'yikes-mailchimp-form-submit-button-text', esc_attr( stripslashes( $submit ) ), $form_data['id'] ) . '</button>', $form_data['id'] ); ?>
+				<?php 
+					if( $form_inline ) {
+						echo '<label class="empty-form-inline-label submit-button-inline-label"><span class="empty-label">&nbsp;</span>';
+					}
+					// display the image or text based button
+					if( $submit_button_type == 'text' ) {
+						echo apply_filters( 'yikes-mailchimp-form-submit-button', '<button type="submit" class="' . apply_filters( 'yikes-mailchimp-form-submit-button-classes', 'yikes-easy-mc-submit-button yikes-easy-mc-submit-button-' . esc_attr( $form_data['id'] ) . ' btn btn-primary' . $submit_button_classes . $admin_class, $form_data['id'] ) . '">' .  apply_filters( 'yikes-mailchimp-form-submit-button-text', esc_attr( stripslashes( $submit ) ), $form_data['id'] ) . '</button>', $form_data['id'] ); 
+					} else {
+						echo apply_filters( 'yikes-mailchimp-form-submit-button', '<input type="image" alt="' . apply_filters( 'yikes-mailchimp-form-submit-button-text', esc_attr( stripslashes( $submit ) ), $form_data['id'] ) . '" src="' . $submit_button_image . '" class="' . apply_filters( 'yikes-mailchimp-form-submit-button-classes', 'yikes-easy-mc-submit-button yikes-easy-mc-submit-button-image yikes-easy-mc-submit-button-' . esc_attr( $form_data['id'] ) . ' btn btn-primary' . $submit_button_classes . $admin_class, $form_data['id'] ) . '">', $form_data['id'] ); 
+					}
+					if( $form_inline ) {
+						echo '</label>';
+					}
+				?>
 				<!-- Nonce Security Check -->
 				<?php wp_nonce_field( 'yikes_easy_mc_form_submit', 'yikes_easy_mc_new_subscriber' ); ?>
 			
 			</form>
-			<!-- MailChimp Form generated using Easy Forms for MailChimp by YIKES, Inc. (https://wordpress.org/plugins/yikes-inc-easy-mailchimp-extender/) -->
+			<!-- MailChimp Form generated using Easy Forms for MailChimp v<?php echo YIKES_MC_VERSION; ?> by YIKES, Inc. (https://wordpress.org/plugins/yikes-inc-easy-mailchimp-extender/) -->
 			
 		<?php
 			/* If the current user is logged in, and an admin...lets display our 'Edit Form' link */

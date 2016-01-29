@@ -156,7 +156,10 @@
 													
 										?>
 											<tr class="<?php if( $i % 2 == 0 ) { echo 'alternate'; } ?>">
-												<td class="column-columnname"><a class="user-email" href="mailto:<?php echo sanitize_email( $subscriber['email'] ); ?>"><?php echo sanitize_email( $subscriber['email'] ); ?></a>
+												<td class="column-columnname">	
+													<a class="user-email row-title" href="mailto:<?php echo sanitize_email( $subscriber['email'] ); ?>">
+														<?php echo sanitize_email( $subscriber['email'] ); ?>
+													</a>
 													<div class="row-actions">
 														<?php $view_user_info_url = esc_url_raw( add_query_arg( array( 'mailchimp-list' => $list_id , 'email-id' => $user_id ), admin_url() . 'admin.php?page=yikes-mailchimp-view-user' ) ); ?>
 														<span><a href="<?php echo $view_user_info_url; ?>"><?php _e( "View Info." , 'yikes-inc-easy-mailchimp-extender' ); ?></a> |</span>
@@ -170,8 +173,8 @@
 												$i++;
 												}
 											} else { ?>
-											<tr class="no-items">
-												<td class="colspanchange no-current-subscriber-notice" colspan="3"><em><?php _e( 'No one is currently subscribed to this list.' , 'yikes-inc-easy-mailchimp-extender' ); ?></em></td>
+											<tr class="no-items"> 
+												<td class="colspanchange no-current-subscriber-notice" colspan="2"><em><?php _e( 'No one is currently subscribed to this list.' , 'yikes-inc-easy-mailchimp-extender' ); ?></em></td>
 											</tr>
 										<?php } ?>
 									</tbody>
@@ -272,11 +275,17 @@
 								if( count( $merge_variables ) >= 1 ) {
 									?><ul class="merge-variable-ul"><?php
 										echo '<li class="interest-group-count">' . sprintf( _n( '%d Field', '%d Fields', intval( count( $merge_variables ) ), 'yikes-inc-easy-mailchimp-extender' ), intval( count( $merge_variables ) ) ) . '</li>';
-									foreach( $merge_variables as $merge_variable ) {
-										echo '<li><span class="dashicons dashicons-marker"></span>' . $merge_variable['name'] . '</li>';
-									}
+										foreach( $merge_variables as $merge_variable ) {
+											// new action hook @since 6.0.3.8
+											echo '<li class="' . $merge_variable['tag'] . '"><span class="dashicons dashicons-marker"></span>' . $merge_variable['name'] . ' ' . do_action( 'yikes-mailchimp-list-field', $merge_variable ) . '</li>';
+										}
 									?></ul><?php
 								}
+								/**
+								*	Custom action hook for our add-ons to hook into
+								*	@since 6.0.3.8
+								*/
+								do_action( 'yikes-mailchimp-list-form-fields-metabox' );
 							?>
 							
 						</div>
@@ -289,7 +298,7 @@
 							<?php
 								if( isset( $interest_groupings ) && count( $interest_groupings ) >= 1 ) {
 									?><ul class="interest-group-ul"><?php
-										echo '<li class="interest-group-count">' . sprintf( _n( '%d Merge Variable', '%d Merge Variables', intval( count( $interest_groupings ) ), 'yikes-inc-easy-mailchimp-extender' ), intval( count( $interest_groupings ) ) ) . '</li>';
+										echo '<li class="interest-group-count">' . sprintf( _n( '%d Interest Group', '%d Interest Groups', intval( count( $interest_groupings ) ), 'yikes-inc-easy-mailchimp-extender' ), intval( count( $interest_groupings ) ) ) . '</li>';
 									foreach( $interest_groupings as $interest_group ) {
 										echo '<li><span class="dashicons dashicons-marker"></span>' . $interest_group['name'] . '<span class="interest-group-title"></span><small title="' . $interest_group['groups'][0]['subscribers'] . ' ' . __( "subscribers assigned to this group" , 'yikes-inc-easy-mailchimp-extender' ) . '">(' . $interest_group['groups'][0]['subscribers'] . ')</small></li>';
 									}
@@ -301,6 +310,11 @@
 									</ul>
 									<?php
 								}
+								/**
+								*	Custom action hook for our add-ons to hook into
+								*	@since 6.0.3.8
+								*/
+								do_action( 'yikes-mailchimp-list-interest-groups-metabox' );
 							?>
 							
 						</div>

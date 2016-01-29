@@ -62,32 +62,38 @@ class Yikes_Inc_Easy_Mailchimp_Extender_Activator {
 		// single site
 		$custom_table_name = $wpdb->prefix . 'yikes_easy_mc_forms';
 		
+		/*
+		*	Setup charset to prevent ???s saved into the database for special charset
+		*	@sinec 6.0.3.8 
+		*	Resource: http://codex.wordpress.org/Creating_Tables_with_Plugins#Creating_or_Updating_the_Table
+		*/
+		$charset_collate = $wpdb->get_charset_collate();
+		
 		// create the Yikes Inc. Easy MailChimp database table
-		if( $wpdb->get_var("show tables like '$custom_table_name'") != $custom_table_name ) {
-			$sql = "CREATE TABLE " . $custom_table_name . " (
-			`id` mediumint(9) NOT NULL AUTO_INCREMENT,
-			`list_id` TINYTEXT NOT NULL,
-			`form_name` MEDIUMTEXT NOT NULL,
-			`form_description` LONGTEXT NOT NULL,
-			`fields` LONGTEXT NOT NULL,
-			`custom_styles` MEDIUMTEXT NOT NULL,
-			`custom_template` TINYTEXT NOT NULL,
-			`send_welcome_email` INT(1) NOT NULL,
-			`redirect_user_on_submit` INT(1) NOT NULL,
-			`redirect_page` MEDIUMTEXT NOT NULL,
-			`submission_settings` LONGTEXT NOT NULL,
-			`optin_settings` LONGTEXT NOT NULL,
-			`error_messages` LONGTEXT NOT NULL,
-			`custom_notifications` LONGTEXT NOT NULL,
-			`impressions` INT NOT NULL,
-			`submissions` INT NOT NULL,
-			`custom_fields` LONGTEXT NOT NULL,
-			UNIQUE KEY id (id)
-			);";
-			require_once(ABSPATH . 'wp-admin/includes/upgrade.php');
-			dbDelta($sql);
-		}
-			
+		$sql = "CREATE TABLE " . $custom_table_name . " (
+		`id` mediumint(9) NOT NULL AUTO_INCREMENT,
+		`list_id` TINYTEXT NOT NULL,
+		`form_name` MEDIUMTEXT NOT NULL,
+		`form_description` LONGTEXT NOT NULL,
+		`fields` LONGTEXT NOT NULL,
+		`custom_styles` MEDIUMTEXT NOT NULL,
+		`custom_template` TINYTEXT NOT NULL,
+		`send_welcome_email` INT(1) NOT NULL,
+		`redirect_user_on_submit` INT(1) NOT NULL,
+		`redirect_page` MEDIUMTEXT NOT NULL,
+		`submission_settings` LONGTEXT NOT NULL,
+		`optin_settings` LONGTEXT NOT NULL,
+		`form_settings` LONGTEXT NOT NULL,
+		`error_messages` LONGTEXT NOT NULL,
+		`custom_notifications` LONGTEXT NOT NULL,
+		`impressions` INT NOT NULL,
+		`submissions` INT NOT NULL,
+		`custom_fields` LONGTEXT NOT NULL,
+		UNIQUE KEY id (id)
+		) " . $charset_collate . ";";
+		require_once(ABSPATH . 'wp-admin/includes/upgrade.php');
+		dbDelta($sql);
+		
 		// create an option for the date that the user initially activated the plugin
 		// used to display a two week notice, asking for a review or to upgrade
 		if( !get_option( 'yikes_easy_mailchimp_activation_date' ) || get_option( 'yikes_easy_mailchimp_activation_date' ) == '' ) {

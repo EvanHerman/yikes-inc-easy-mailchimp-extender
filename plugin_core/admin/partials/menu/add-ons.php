@@ -35,7 +35,7 @@
 			$feed->set_cache_class( 'WP_Feed_Cache' );
 			/* Tell SimplePie to use the WordPress class for retrieving feed files */
 			$feed->set_file_class( 'WP_SimplePie_File' );
-			$feed->enable_cache( false ); // temporary
+			$feed->enable_cache( true ); // temporary
 			/* Tell SimplePie how long to cache the feed data in the WordPress database */
 			$feed->set_cache_duration( apply_filters( 'wp_feed_cache_transient_lifetime', 43200, $feed_url ) );
 			/* Run any other functions or filters that WordPress normally runs on feeds */
@@ -69,7 +69,7 @@
 					<div class="type-download">
 
 						<div class="featured-img">
-							<a href="<?php echo $permalink; ?>" title="<?php _e( 'Add-on Title' , 'yikes-inc-easy-mailchimp-extender' ); ?>" target="_blank">
+							<a href="<?php echo $permalink; ?>" title="<?php echo $add_on_title; ?>" target="_blank">
 								<?php echo $image; ?>
 							</a>		
 						</div>

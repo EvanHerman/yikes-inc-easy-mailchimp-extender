@@ -176,6 +176,8 @@ class Yikes_Inc_Easy_Mailchimp_Forms_Admin {
 		add_filter( 'plugin_action_links_yikes-inc-easy-mailchimp-extender/yikes-inc-easy-mailchimp-extender.php', array( $this, 'easy_forms_plugin_action_links' ) );
 		/* Alter the color scheme based on the users selection */
 		add_action( 'admin_print_scripts', array( $this, 'alter_yikes_easy_mc_color_scheme' ) );
+		// hook in and display our knowledge base articles on the support page
+		add_action( 'yikes-mailchimp-support-page', array( $this, 'hook_and_display_kb_article_RSS' ) );
 	}
 				
 		/*
@@ -618,7 +620,13 @@ class Yikes_Inc_Easy_Mailchimp_Forms_Admin {
 	public function yikes_easy_mc_activation_redirect() {
 		if ( get_option( 'yikes_mailchimp_activation_redirect', 'true' ) == 'true' ) {
 			update_option( 'yikes_mailchimp_activation_redirect', 'false' );
-			wp_redirect( esc_url( admin_url( 'admin.php?page=yikes-mailchimp-welcome' ) ) );    
+			/* If the user had this plugin activated prior to today, redirect to 'Whats New' */
+			if( get_option( 'yikes_easy_mailchimp_activation_date', strtotime( 'now' ) ) == strtotime( 'now' ) ) {
+				wp_redirect( esc_url( admin_url( 'admin.php?page=yikes-mailchimp-welcome' ) ) );    
+			} else { 
+				/* Else redirect the user over to the 'Getting Started' tab */
+				wp_redirect( esc_url_raw( admin_url( 'admin.php?page=yikes-mailchimp-welcome&section=whats-new' ) ) );    
+			}
 			exit();
 		}
 	}
@@ -685,13 +693,30 @@ class Yikes_Inc_Easy_Mailchimp_Forms_Admin {
 		*	Enqueue required scripts for the form editor
 		*/
 		if( get_current_screen()->base == 'admin_page_yikes-mailchimp-edit-form' ) {
+			global $wp_locale;
 			wp_enqueue_style( 'wp-color-picker' );
 			wp_enqueue_script( 'wp-color-picker' );
-			wp_register_script( 'edit-form-js' , YIKES_MC_URL . 'admin/js/min/yikes-inc-easy-mailchimp-extender-edit-form.min.js' , array( 'jquery' ) , $this->version, false );
+			wp_enqueue_script( 'jquery.timepicker.js',YIKES_MC_URL . 'admin/js/jquery.timepicker.min.js' , array( 'jquery' ) , $this->version, false );
+			wp_register_script( 'edit-form-js' , YIKES_MC_URL . 'admin/js/min/yikes-inc-easy-mailchimp-extender-edit-form.min.js' , array( 'jquery.timepicker.js', 'jquery-ui-datepicker' ) , $this->version, false );
 			$localized_data = array(
 				'ajax_url' => esc_url_raw( admin_url( 'admin-ajax.php' ) ),
 				'no_fields_assigned' => __( 'No fields assigned to this form. Select some fields to add to this form from the right hand column.', 'yikes-inc-easy-mailchimp-extender' ),
 				'bulk_delete_alert' => __( 'Are you sure you want to delete all of the fields assigned to this form?', 'yikes-inc-easy-mailchimp-extender' ),
+				'closeText'         => __( 'Done', 'yikes-inc-easy-mailchimp-extender' ),
+				'currentText'       => __( 'Today', 'yikes-inc-easy-mailchimp-extender' ),
+				'monthNames'        => $this->yikes_jQuery_datepicker_strip_array_indices( $wp_locale->month ),
+				'monthNamesShort'   => $this->yikes_jQuery_datepicker_strip_array_indices( $wp_locale->month_abbrev ),
+				'monthStatus'       => __( 'Show a different month', 'yikes-inc-easy-mailchimp-extender' ),
+				'dayNames'          => $this->yikes_jQuery_datepicker_strip_array_indices( $wp_locale->weekday ),
+				'dayNamesShort'     => $this->yikes_jQuery_datepicker_strip_array_indices( $wp_locale->weekday_abbrev ),
+				'dayNamesMin'       => $this->yikes_jQuery_datepicker_strip_array_indices( $wp_locale->weekday_initial ),
+				// set the date format to match the WP general date settings
+				'dateFormat'        => $this->yikes_jQuery_datepicker_date_format_php_to_js( get_option( 'date_format' ) ),
+				// get the start of week from WP general setting
+				'firstDay'          => get_option( 'start_of_week' ),
+				// is Right to left language? default is false
+				'isRTL'             => $wp_locale->is_rtl(),
+				'start_date_exceeds_end_date_error' => __( 'Error: The start date and time cannot occur after the end date and time. Chosen date reverted to previous selection.', 'yikes-inc-easy-mailchimp-extender' ),
 			);
 			wp_localize_script( 'edit-form-js' , 'object' , $localized_data );
 			wp_enqueue_script( 'edit-form-js' );
@@ -701,6 +726,72 @@ class Yikes_Inc_Easy_Mailchimp_Forms_Admin {
 	
 	/** Functionality **/
 	/******************/
+	
+	
+	/**
+	*	Localization functions for jQuery ui datepicker
+	*	@since 6.0.3.8
+	*/
+		/**
+		 * Format array for the datepicker
+		 * WordPress stores the locale information in an array with a alphanumeric index, and
+		 * the datepicker wants a numerical index. This function replaces the index with a number
+		 */
+		public function yikes_jQuery_datepicker_strip_array_indices( $ArrayToStrip ) {
+			foreach( $ArrayToStrip as $objArrayItem) {
+				$NewArray[] =  $objArrayItem;
+			}
+			return( $NewArray );
+		}
+		
+		/**
+		 * Convert the php date format string to a js date format
+		 */
+		public function yikes_jQuery_datepicker_date_format_php_to_js( $sFormat ) {
+			switch( $sFormat ) {
+				//Predefined WP date formats
+				case 'F j, Y':
+				case 'j F Y':
+				case 'm/d/Y':
+				case 'mm/dd/yyyy':
+				case 'MM/DD/YYYY':
+				default:
+					return( 'mm/dd/yy' );
+					break;
+				case 'Y/m/d':
+				case 'Y-m-d':
+					return( 'yy/mm/dd' );
+					break;
+				case 'd/m/Y':
+				case 'dd/mm/yyyy':
+				case 'DD/MM/YYYY':
+					return( 'dd/mm/yy' );
+					break;
+			 }
+		}
+		
+		/**
+		 * Convert the php date format string to a js date format
+		 */
+		public function yikes_jQuery_datepicker_date_format( $site_option ) {
+			switch( $site_option ) {
+				//Predefined WP date formats
+				default:
+				case 'F j, Y':
+				case 'm/d/Y':
+					return( 'm/d/Y' );
+					break;
+				case 'Y-m-d':
+					return( 'Y/m/d' );
+					break;
+				case 'd/m/Y':
+					return( 'd/m/Y' );
+					break;
+			 }
+		}
+	/**
+	*	end Localization functions for jQuery ui datepicker
+	*/
 	
 	/**
 	*	Register our admin pages
@@ -1532,6 +1623,13 @@ class Yikes_Inc_Easy_Mailchimp_Forms_Admin {
 				</div>
 				<?php
 			}
+			
+			/**
+			*	Custom action hook for our extensions to hook into
+			*	@parameter	get_current_screen()	current screen information
+			*/
+			do_action( 'yikes-mailchimp-admin-sidebar', get_current_screen() );
+			
 		}
 		
 		/*
@@ -1656,36 +1754,6 @@ class Yikes_Inc_Easy_Mailchimp_Forms_Admin {
 										<?php
 											break;
 										}
-										?>
-										
-										<?php 
-											/* 
-											*	Loop over field types and store necessary formats
-											*	( date, birthday - dateformat ; phone - phoneformat )
-											*/
-											switch( $field['type'] ) {
-												/* Store the date format, for properly rendering dates on the front end */
-												case 'date':
-													$date_format = ( isset( $field['date_format'] ) ) ? $field['date_format'] : 'MM/DD/YYYY';
-													?>
-														<input type="hidden" name="field[<?php echo $field['merge']; ?>][date_format]" value="<?php echo strtolower( str_replace( 'YYYY' , 'YY' , $date_format ) ); ?>" />
-													<?php
-												break;
-												
-												case 'birthday':
-													$date_format = ( isset( $field['date_format'] ) ) ? $field['date_format'] : 'MM/DD';
-													?>
-														<input type="hidden" name="field[<?php echo $field['merge']; ?>][date_format]" value="<?php echo strtolower( str_replace( 'YYYY' , 'YY' , ( isset( $field['date_format'] ) ) ? $field['date_format'] : 'MM/DD' ) ); ?>" />
-													<?php
-												break;
-												
-												/* Store the phone format, for properly regex pattern */
-												case 'phone':
-													?>
-														<input type="hidden" name="field[<?php echo $field['merge']; ?>][phone_format]" value="<?php echo $field['phone_format']; ?>" />
-													<?php
-												break;
-											}
 										?>
 										
 										<!-- Default Value -->
@@ -1834,6 +1902,7 @@ class Yikes_Inc_Easy_Mailchimp_Forms_Admin {
 											</td>
 										</tr>
 										<!-- Display Phone/Date Formats back to the user -->
+										<!-- Phone Format Initial Load -->
 										<?php 
 											switch( $field['type'] ) {												
 												/* Store the phone format, for properly regex pattern */
@@ -1850,16 +1919,19 @@ class Yikes_Inc_Easy_Mailchimp_Forms_Admin {
 																			case 'birthday':
 																				$type = __( 'Date Format' , 'yikes-inc-easy-mailchimp-extender' );
 																				$format = ( isset( $field['date_format'] ) ) ? $field['date_format'] : 'MM/DD';
+																				$format_name = 'date_format';
 																				break;
 																			
 																			case 'date':
 																				$type = __( 'Date Format' , 'yikes-inc-easy-mailchimp-extender' );
 																				$format = ( isset( $field['date_format'] ) ) ? $field['date_format'] : 'MM/DD/YYYY';
+																				$format_name = 'date_format';
 																				break;
 													
 																			case 'phone':
 																				$type = __( 'Phone Format' , 'yikes-inc-easy-mailchimp-extender' );
 																				$format = ( ( $field['phone_format'] == 'none' ) ? __( 'International', 'yikes-inc-easy-mailchimp-extender' ) : $field['phone_format'] . ' - (###) ### - ####' );
+																				$format_name = 'phone_format';
 																				break;
 																		}
 																		echo $type;
@@ -1868,6 +1940,7 @@ class Yikes_Inc_Easy_Mailchimp_Forms_Admin {
 															</td>
 															<td>
 																<strong><?php echo $format; ?></strong>
+																<input type="hidden" name="field[<?php echo $field['merge']; ?>][<?php echo $format_name; ?>]" value="<?php echo $format; ?>" />
 																<p class="description"><small>
 																	<?php printf( __( 'To change the %s please head over to <a href="%s" title="MailChimp" target="_blank">MailChimp</a>. If you alter the format, you should re-import this field.', 'yikes-inc-easy-mailchimp-extender' ), strtolower( $type ), esc_url( 'http://www.mailchimp.com' ) ); ?>
 																</small></p>
@@ -2506,6 +2579,27 @@ class Yikes_Inc_Easy_Mailchimp_Forms_Admin {
 				)
 			);
 			
+			// Setup the new form settings array
+			// @since 6.0.3.8
+			// To Do: Combine date & time so it's a single unix timestamp
+			$form_settings = json_encode(
+				array(
+					'yikes-easy-mc-form-class-names' => trim( $_POST['yikes-easy-mc-form-class-names'] ),
+					'yikes-easy-mc-inline-form' => $_POST['yikes-easy-mc-inline-form'][0],
+					'yikes-easy-mc-submit-button-type' => $_POST['yikes-easy-mc-submit-button-type'][0],
+					'yikes-easy-mc-submit-button-text' => trim( $_POST['yikes-easy-mc-submit-button-text'] ),
+					'yikes-easy-mc-submit-button-image' => esc_url( trim( $_POST['yikes-easy-mc-submit-button-image'] ) ),
+					'yikes-easy-mc-submit-button-classes' => trim( $_POST['yikes-easy-mc-submit-button-classes'] ),
+					'yikes-easy-mc-form-schedule' => ( isset( $_POST['yikes-easy-mc-form-schedule'] ) ) ? '1' : '0',
+					'yikes-easy-mc-form-restriction-start' => strtotime( $_POST['yikes-easy-mc-form-restriction-start-date'] . ' ' . $_POST['yikes-easy-mc-form-restriction-start-time'] ),
+					'yikes-easy-mc-form-restriction-end' => strtotime( $_POST['yikes-easy-mc-form-restriction-end-date'] . ' ' . $_POST['yikes-easy-mc-form-restriction-end-time'] ),
+					'yikes-easy-mc-form-restriction-pending-message' => trim( $_POST['yikes-easy-mc-form-restriction-pending-message'] ),
+					'yikes-easy-mc-form-restriction-expired-message' => trim( $_POST['yikes-easy-mc-form-restriction-expired-message'] ),
+					'yikes-easy-mc-form-login-required' => ( isset( $_POST['yikes-easy-mc-form-login-required'] ) ) ? '1' : '0',
+					'yikes-easy-mc-form-restriction-login-message' => trim( $_POST['yikes-easy-mc-form-restriction-login-message'] ),
+				)
+			);	
+			
 			// setup and store our notification array
 			$custom_notifications = isset( $_POST['custom-notification'] ) ? stripslashes( json_encode( $_POST['custom-notification'] ) ) : '';
 			
@@ -2547,6 +2641,7 @@ class Yikes_Inc_Easy_Mailchimp_Forms_Admin {
 						'submission_settings' => $submission_settings,
 						'optin_settings' => $optin_settings,
 						'error_messages' => $error_settings,
+						'form_settings' => $form_settings,
 						'custom_notifications' => $custom_notifications,
 						'custom_fields' => $custom_fields,
 					),
@@ -2756,6 +2851,15 @@ class Yikes_Inc_Easy_Mailchimp_Forms_Admin {
 			$override_admin_styles = ob_get_clean();
 			// add our inline styles
 			echo $override_admin_styles;
+		}
+		
+		/**
+		*	Hook in and display our support page/knowledge base articles
+		*	on the support page
+		*	@since 6.0.3.8
+		*/
+		public function hook_and_display_kb_article_RSS() {
+			include_once( YIKES_MC_PATH . 'admin/partials/helpers/knowledge-base-articles-RSS.php' );
 		}
 		
 		/*

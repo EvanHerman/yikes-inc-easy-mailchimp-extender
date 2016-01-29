@@ -11,13 +11,19 @@
 		?>
 		<h2 class="nav-tab-wrapper welcome-page-tabs">
 			<a class="nav-tab <?php echo $section == 'getting-started' ? 'nav-tab-active' : ''; ?>" href="<?php echo esc_url_raw( admin_url( add_query_arg( array( 'page' => 'yikes-mailchimp-welcome' , 'section' => 'getting-started' ), 'admin.php' ) ) ); ?>">
-				<?php _e( 'Getting Started', 'edd' ); ?>
+				<span class="dashicons dashicons-admin-home"></span> <?php _e( 'Getting Started', 'yikes-inc-easy-mailchimp-extender' ); ?>
 			</a>
 			<a class="nav-tab <?php echo $section == 'whats-new' ? 'nav-tab-active' : ''; ?>" href="<?php echo esc_url_raw( admin_url( add_query_arg( array( 'page' => 'yikes-mailchimp-welcome' , 'section' => 'whats-new' ), 'admin.php' ) ) ); ?>">
-				<?php _e( "What's New", 'edd' ); ?>
+				<span class="dashicons dashicons-warning"></span> <?php _e( "What's New", 'yikes-inc-easy-mailchimp-extender' ); ?>
+			</a>
+			<a class="nav-tab <?php echo $section == 'add-ons' ? 'nav-tab-active' : ''; ?>" href="<?php echo esc_url_raw( admin_url( add_query_arg( array( 'page' => 'yikes-mailchimp-welcome' , 'section' => 'add-ons' ), 'admin.php' ) ) ); ?>">
+				<span class="dashicons dashicons-admin-plugins"></span> <?php _e( "Add-Ons", 'yikes-inc-easy-mailchimp-extender' ); ?>
+			</a>
+			<a class="nav-tab <?php echo $section == 'knowledge-base' ? 'nav-tab-active' : ''; ?>" href="<?php echo esc_url_raw( admin_url( add_query_arg( array( 'page' => 'yikes-mailchimp-welcome' , 'section' => 'knowledge-base' ), 'admin.php' ) ) ); ?>">
+				<span class="dashicons dashicons-welcome-learn-more"></span> <?php _e( 'Knowledge Base', 'yikes-inc-easy-mailchimp-extender' ); ?>
 			</a>
 			<a class="nav-tab <?php echo $section == 'credits' ? 'nav-tab-active' : ''; ?>" href="<?php echo esc_url_raw( admin_url( add_query_arg( array( 'page' => 'yikes-mailchimp-welcome' , 'section' => 'credits' ), 'admin.php' ) ) ); ?>">
-				<?php _e( 'Credits', 'edd' ); ?>
+				<span class="dashicons dashicons-arrow-left-alt2"></span><?php _e( 'Credits', 'yikes-inc-easy-mailchimp-extender' ); ?><span class="dashicons dashicons-arrow-right-alt2"></span>
 			</a>
 		</h2>
 		<?php
@@ -42,7 +48,15 @@
 		</h2>		
 		
 		<p class="about-text">
-			<?php echo sprintf( __( 'Thank you for updating to the latest version! Easy Forms for MailChimp by YIKES %s is ready to help take your mailing lists to the next level!' , 'yikes-inc-easy-mailchimp-extender' ) , $this->version ); ?>
+			<?php 
+				// check if this is a fresh install
+				if( get_option( 'yikes_easy_mailchimp_activation_date', strtotime( 'now' ) ) == strtotime( 'now' ) ) {
+					echo sprintf( __( 'Welcome to the most powerful MailChimp integration for WordPress. Easy Forms for MailChimp by YIKES v%s is ready to help take your mailing lists to the next level!' , 'yikes-inc-easy-mailchimp-extender' ) , $this->version ); 
+				} else {
+					// else thank you for updating :)
+					echo sprintf( __( 'Thank you for updating to the latest version! Easy Forms for MailChimp by YIKES v%s is ready to help take your mailing lists to the next level!' , 'yikes-inc-easy-mailchimp-extender' ) , $this->version ); 
+				}
+			?>
 		</p>
 		
 		<?php

@@ -141,7 +141,11 @@
 											<tr class="<?php if( $i % 2 == 0 ) { echo 'alternate'; } ?>">
 												<th class="check-column num" scope="row"><input type="checkbox" /></th>
 												<td class="column-columnname num"><span class="form-id-container"><?php echo intval( $form['id'] ); ?></span></td>
-												<td class="column-columnname"><?php echo stripslashes( $form['form_name'] ); ?>
+												<td class="column-columnname">	
+													<!-- row title/link -->
+													<a href="<?php echo esc_url_raw( add_query_arg( array( 'id' => $form['id'] ) , admin_url( 'admin.php?page=yikes-mailchimp-edit-form' ) ) ); ?>" class="row-title">
+														<?php echo stripslashes( $form['form_name'] ); ?>
+													</a>
 													<div class="row-actions">
 														<span><a href="<?php echo esc_url_raw( add_query_arg( array( 'id' => $form['id'] ) , admin_url( 'admin.php?page=yikes-mailchimp-edit-form' ) ) ); ?>"><?php _e( "Edit" , 'yikes-inc-easy-mailchimp-extender' ); ?></a> |</span>
 														<span><a href="<?php echo esc_url_raw( add_query_arg( array( 'action' => 'yikes-easy-mc-duplicate-form', 'mailchimp-form' => $form['id'] , 'nonce' => wp_create_nonce( 'duplicate-mailchimp-form-'.$form['id'] ) ) , admin_url( 'admin.php?page=yikes-inc-easy-mailchimp' ) ) ); ?>"><?php _e( "Duplicate" , 'yikes-inc-easy-mailchimp-extender' ); ?></a> |</span>
