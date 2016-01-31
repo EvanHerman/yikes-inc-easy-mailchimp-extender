@@ -79,6 +79,18 @@ if ( ! isset( $_POST['yikes_easy_mc_new_subscriber'] ) || ! wp_verify_nonce( $_P
 	// loop to push variables to our array
 	foreach ( $_POST as $merge_tag => $value ) {
 		if( $merge_tag != 'yikes_easy_mc_new_subscriber' && $merge_tag != '_wp_http_referer' ) {
+			// check if the current iteration has a 'date_format' key set
+			// (aka - date/birthday fields)
+			if( isset( $form_settings['fields'][$merge_tag]['date_format'] ) ) {
+				// check if EU date format
+				if( $form_settings['fields'][$merge_tag]['date_format'] == 'DD/MM/YYYY' ) {
+					// convert '/' to '.' and to UNIX timestamp
+					$value = date( 'Y-m-d', strtotime( str_replace( '/', '.', $value ) ) );
+				} else {
+					// convert to UNIX timestamp
+					$value = date( 'Y-m-d', strtotime( $value ) );
+				}
+			}
 			if( is_numeric( $merge_tag ) ) { // this is is an interest group!
 				$merge_variables['groupings'][] = array( 'id' => $merge_tag , 'groups' => ( is_array( $value ) ) ? $value : array( $value ) );
 			} else { // or else it's just a standard merge variable

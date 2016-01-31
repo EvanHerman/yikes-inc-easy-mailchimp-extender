@@ -1,6 +1,6 @@
 <?php 
 	// enqueue add-ons css
-	wp_enqueue_style( 'yikes-inc-easy-mailchimp-extender-addons-styles', YIKES_MC_URL . 'admin/css/yikes-inc-easy-mailchimp-extender-addons.min.css', array(), '6.0.3.8', 'all' );
+	wp_enqueue_style( 'yikes-inc-easy-mailchimp-extender-addons-styles', YIKES_MC_URL . 'admin/css/yikes-inc-easy-mailchimp-extender-addons.min.css', array(), '6.0.3.9', 'all' );
 ?>
 <!-- we're just overriding the header size here -->
 <style>
