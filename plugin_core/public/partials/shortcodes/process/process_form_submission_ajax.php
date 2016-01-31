@@ -23,6 +23,8 @@
 				$submission_settings = json_decode( stripslashes( $form_data['submission_settings'] ), true );
 				// decode our optin settings
 				$optin_settings = json_decode( stripslashes( $form_data['optin_settings'] ), true );
+				// decode our fields
+				$form_fields = json_decode( stripslashes( $form_data['fields'] ), true );
 				/*	Decode our error messages
 				*	Workaround for international characters (cyrillic etc) 
 				* 	See: https://wordpress.org/support/topic/custom-messages-do-not-support-cyrillic-characters?replies=11#post-7629620 
@@ -76,10 +78,22 @@
 					exit();
 				}	
 			}
-			
+						
 			// loop to push variables to our array
 			foreach ( $data as $merge_tag => $value ) {
-				if( $merge_tag != 'yikes_easy_mc_new_subscriber' && $merge_tag != '_wp_http_referer' ) {
+				if( $merge_tag != 'yikes_easy_mc_new_subscriber' && $merge_tag != '_wp_http_referer' ) {	
+					// check if the current iteration has a 'date_format' key set
+					// (aka - date/birthday fields)
+					if( isset( $form_fields[$merge_tag]['date_format'] ) ) {
+						// check if EU date format
+						if( $form_fields[$merge_tag]['date_format'] == 'DD/MM/YYYY' ) {
+							// convert '/' to '.' and to UNIX timestamp
+							$value = date( 'Y-m-d', strtotime( str_replace( '/', '.', $value ) ) );
+						} else {
+							// convert to UNIX timestamp
+							$value = date( 'Y-m-d', strtotime( $value ) );
+						}
+					}
 					if( is_numeric( $merge_tag ) ) { // this is is an interest group!
 						$merge_variables['groupings'][] = array( 'id' => $merge_tag , 'groups' => ( is_array( $value ) ) ? $value : array( $value ) );
 					} else { // or else it's just a standard merge variable

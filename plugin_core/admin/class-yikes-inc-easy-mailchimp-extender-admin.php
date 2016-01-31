@@ -765,7 +765,7 @@ class Yikes_Inc_Easy_Mailchimp_Forms_Admin {
 				case 'd/m/Y':
 				case 'dd/mm/yyyy':
 				case 'DD/MM/YYYY':
-					return( 'dd/mm/yy' );
+					return( 'dd/mm/yyyy' );
 					break;
 			 }
 		}
