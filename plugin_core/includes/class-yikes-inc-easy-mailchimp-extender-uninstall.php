@@ -71,6 +71,7 @@ class Yikes_Inc_Easy_Mailchimp_Extender_Uninstaller {
 		delete_option( 'yikes-mc-recaptcha-site-key' );
 		delete_option( 'yikes-mc-recaptcha-secret-key' );
 		delete_option( 'yikes-mc-error-messages' );
+		delete_option( 'yikes_mc_database_version' ); // delete the database verison
 		delete_option( 'yikes_mailchimp_activation_redirect' ); /* delete the activation re-direct */
 	}
 	

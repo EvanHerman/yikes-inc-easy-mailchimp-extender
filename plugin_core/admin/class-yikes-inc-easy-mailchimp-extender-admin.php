@@ -180,7 +180,7 @@ class Yikes_Inc_Easy_Mailchimp_Forms_Admin {
 		add_action( 'yikes-mailchimp-support-page', array( $this, 'hook_and_display_kb_article_RSS' ) );
 		// ensure that the upgrade went smoothly, else we have to let the user know we need to upgrade the database
 		// after upgrading f rom 6.0.3.7 users need to upgrade the database as well
-		add_action( 'admin_notices', array( $this, 'check_version_number_and_database' ) );
+		add_action( 'plugins_loaded', array( $this, 'check_yikes_mc_table_version' ) );
 	}
 				
 		/*
@@ -2869,14 +2869,13 @@ class Yikes_Inc_Easy_Mailchimp_Forms_Admin {
 		*	Check the users version number, and display a notice to upgrade the databse if needed
 		*	@since 6.0.4
 		*/
-		public function check_version_number_and_database() {
-			if( $this->version > '6.0.3.7' ) {
-				$screen = get_current_screen();
-				if( isset( $screen ) && $screen->base == 'plugins' ) {
-					require_once YIKES_MC_PATH . 'includes/class-yikes-inc-easy-mailchimp-extender-activator.php';
-					global $wpdb;
-					Yikes_Inc_Easy_Mailchimp_Extender_Activator::_activate_yikes_easy_mailchimp( $wpdb );
-				}
+		public function check_yikes_mc_table_version() {
+			if( get_option( 'yikes_mc_database_version', '0.00' ) < '1.0' ) {
+				require_once YIKES_MC_PATH . 'includes/class-yikes-inc-easy-mailchimp-extender-activator.php';
+				global $wpdb;
+				Yikes_Inc_Easy_Mailchimp_Extender_Activator::_activate_yikes_easy_mailchimp( $wpdb );
+				// update the database option
+				update_option( 'yikes_mc_database_version', '1.0' );
 			}
 		}
 		
