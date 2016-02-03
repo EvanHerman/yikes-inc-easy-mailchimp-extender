@@ -845,7 +845,7 @@ function process_mailchimp_shortcode( $atts ) {
 										<select <?php echo implode( ' ' , $field_array ); ?>>
 											<?php 	
 												// decode for looping
-												$choices = json_decode( stripslashes( $field['choices'] ) , true );
+												$choices = json_decode( $field['choices'], true );
 												foreach( $choices as $choice ) {
 													?><option value="<?php echo $choice; ?>" <?php selected( $default_value , $x ); ?>><?php echo esc_attr( stripslashes( $choice ) ); ?></option><?php
 													$x++;
@@ -1012,7 +1012,7 @@ function process_mailchimp_shortcode( $atts ) {
 	
 									?>
 	
-									<label for="<?php echo esc_attr( $field['group_id'] ); ?>" <?php echo implode( ' ' , $label_array ); ?>>
+									<label for="<?php echo esc_attr( $field['group_id'] ); ?>" <?php echo implode( ' ' , $label_array ); ?>>	
 										<!-- dictate label visibility -->
 										<?php if( ! isset( $field['hide-label'] ) ) { ?>
 											<span class="<?php echo esc_attr( $field['group_id'] ) . '-label'; ?>">
