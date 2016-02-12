@@ -1097,9 +1097,7 @@ function process_mailchimp_shortcode( $atts ) {
 					echo $recaptcha_box;
 				}
 				if( is_user_logged_in() ) {
-					if( current_user_can( apply_filters( 'yikes-mailchimp-user-role-access' , 'manage_options' ) ) ) {
-						$admin_class = ' admin-logged-in';
-					}
+					$admin_class = ( current_user_can( apply_filters( 'yikes-mailchimp-user-role-access' , 'manage_options' ) ) ) ? ' admin-logged-in' : '';
 				} else {
 					$admin_class = '';
 				}
