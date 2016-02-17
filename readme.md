@@ -133,6 +133,9 @@ $ grunt auto_install
 - yikes-mailchimp-recaptcha-parameters - Alter any of the possible reCaptcha shortcode parameters (process_form_shortcode.php line 68) (parameters: $recaptcha_parameter_array, $form_id)
 - yikes-mailchimp-checkbox-integration-subscribe-api-request - Filter the API request sent to MailChimp. (parameters: @type - the integration type (ie: comment, contact_form_7 etc.)
 - yikes-mailchimp-frontend-date-picker-format - Alter the date format. For additional help, see the [knowledge base](https://yikesplugins.com/support/knowledge-base/how-do-i-change-the-frontend-date-picker-format/).
+- yikes-mailchimp-preloader - Filter allowing users to setup a custom preloader image. 
+- yikes-mailchimp-update-email-subject - Filter the subject line for the email that is generated and sent when a user needs to update their subscription info.
+- yikes-mailchimp-update-email-content - Filter the content of the email that is generated and sent when a user needs to update their subscription info. 
 
 ###### Hooks
 
