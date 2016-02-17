@@ -327,6 +327,7 @@
 																			<input type="radio" name="yikes-easy-mc-inline-form[]" value="0" <?php checked( $form_settings['yikes-easy-mc-inline-form'], '0' ); ?> /><?php _e( 'Disable', 'yikes-inc-easy-mailchimp-extender' ); ?>
 																		</label>
 																		<p class="description"><?php _e( 'Programatically setup this form so that all fields are on the same line.', 'yikes-inc-easy-mailchimp-extender' ); ?></p>
+																		<p class="description"><?php printf( __( 'If you are having issues with your theme not displaying the inline form properly, please see the following %s.', 'yikes-inc-easy-mailchimp-extender' ), '<a href="https://yikesplugins.com/support/knowledge-base/my-form-fields-are-not-fully-inline-after-enabling-the-inline-form-option-how-come/" target="_blank">' . __( 'knowledge base article', 'yikes-inc-easy-mailchimp-extender' ) . '</a>' ); ?></p>
 																
 																	</section>
 																	<!-- end form layout section -->

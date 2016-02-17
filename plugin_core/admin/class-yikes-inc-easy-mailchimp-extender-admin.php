@@ -1709,8 +1709,11 @@ class Yikes_Inc_Easy_Mailchimp_Forms_Admin {
 								<input type="hidden" name="field[<?php echo $field['merge']; ?>][merge]" value="<?php echo $field['merge']; ?>" />
 								<input type="hidden" class="field-<?php echo $field['merge']; ?>-position position-input" name="field[<?php echo $field['merge']; ?>][position]" value="<?php echo $i++; ?>" />
 								
-								<?php if ( $field['type'] == 'radio' || $field['type'] == 'dropdown' || $field['type'] == 'select' ) { ?>
-									<input type="hidden" name="field[<?php echo $field['merge']; ?>][choices]" value='<?php echo stripslashes( $field['choices'] ); ?>' />			
+								<?php if ( $field['type'] == 'radio' || $field['type'] == 'dropdown' || $field['type'] == 'select' ) { 
+									$choices = json_decode( $field['choices'] , true );
+								?>
+									
+									<input type="hidden" name="field[<?php echo $field['merge']; ?>][choices]" value='<?php echo esc_attr( json_encode( $choices ) ); ?>' />			
 								<?php } ?>
 								
 								<!-- Single or Double Optin -->
@@ -1821,8 +1824,8 @@ class Yikes_Inc_Easy_Mailchimp_Forms_Admin {
 													</td>
 													<td>
 														<select type="default" name="field[<?php echo $field['merge']; ?>][default_choice]">
-															<?php foreach( json_decode( stripslashes( $field['choices'] ) , true ) as $choice => $value ) { ?>
-																<option value="<?php echo $choice; ?>" <?php selected( $field['default_choice'] , $choice ); ?>><?php echo stripslashes( $value ); ?></option>
+															<?php foreach( json_decode( $field['choices'], true ) as $choice => $value ) { ?>
+																<option value="<?php echo $choice; ?>" <?php selected( $field['default_choice'] , $choice ); ?>><?php echo $value; ?></option>
 															<?php } ?>
 														</select>
 														<p class="description"><small><?php _e( "Which option should be selected by default?", 'yikes-inc-easy-mailchimp-extender' );?></small></p>
@@ -2054,7 +2057,7 @@ class Yikes_Inc_Easy_Mailchimp_Forms_Admin {
 													</td>
 													<td>
 														<select type="default" name="field[<?php echo $field['group_id']; ?>][default_choice]">
-															<?php $i = 0; foreach( json_decode( stripslashes( $field['groups'] ) , true ) as  $group ) { ?>
+															<?php $i = 0; foreach( json_decode( stripslashes_deep( $field['groups'] ) , true ) as  $group ) { ?>
 																<option value="<?php echo $i; ?>" <?php selected( $field['default_choice'] , $i ); ?>><?php echo stripslashes( $group['name'] ); ?></option>
 															<?php $i++; } ?>
 														</select>
@@ -2533,7 +2536,9 @@ class Yikes_Inc_Easy_Mailchimp_Forms_Admin {
 			if( isset( $_POST['custom-styles'] ) ) {
 				$custom_styles = $_POST['custom-styles'];
 			}
-			$assigned_fields = isset( $_POST['field'] ) ? json_encode( $_POST['field'] ) : '';
+			
+			// stripslashes_deep on save, to prevent foreign languages from added excessive backslashes
+			$assigned_fields = isset( $_POST['field'] ) ? json_encode( stripslashes_deep( $_POST['field'] ) ) : '';
 			
 			// setup our custom styles serialized array
 			if( isset( $custom_styles ) ) {

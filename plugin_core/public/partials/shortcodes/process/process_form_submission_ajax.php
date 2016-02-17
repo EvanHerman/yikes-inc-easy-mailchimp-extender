@@ -139,7 +139,8 @@
 					'email' => array( 'email' => sanitize_email( $data['EMAIL'] ) ),
 					'merge_vars' => $merge_variables,
 					'double_optin' => $optin_settings['optin'],
-					'update_existing' => $optin_settings['update_existing_user'],
+					// 'update_existing' => $optin_settings['update_existing_user'],
+					'update_existing' => 0,
 					'send_welcome' => $optin_settings['send_welcome_email'],
 					'replace_interests' => ( isset( $submission_settings['replace_interests'] ) ) ? $submission_settings['replace_interests'] : 1, // defaults to replace
 				), $form, $list_id, $data['EMAIL'] ) );
@@ -210,7 +211,8 @@
 					if ( strpos( $error_response, 'should include an email' ) !== false ) {  // include a valid email please
 						wp_send_json( array( 'hide' => '0', 'error' => $error , 'response' => !empty( $error_messages['invalid-email'] ) ? $error_messages['invalid-email'] :  __( 'Please enter a valid email address.' , 'yikes-inc-easy-mailchimp-extender' ) ) );
 					} else if ( strpos( $error_response, 'already subscribed' ) !== false ) { // user already subscribed
-						wp_send_json( array( 'hide' => '0', 'error' => $error , 'response' => !empty( $error_messages['already-subscribed'] ) ? $error_messages['already-subscribed'] : __( "It looks like you're already subscribed to this list." , 'yikes-inc-easy-mailchimp-extender' ) ) );
+						$update_account_details_link = ( $optin_settings['update_existing_user'] == 1 ) ? apply_filters( 'yikes-easy-mailchimp-update-existing-subscriber-text', sprintf( __( 'To update your profile, please %s.', 'yikes-inc-easy-mailchimp-extender' ), '<a class="send-update-email" data-list-id="' . $list_id . '" data-user-email="' . sanitize_email( $data['EMAIL'] ) . '" href="#">' . __( 'click here', 'yikes-inc-easy-mailchimp-extender' ) . '</a>' ), '<a class="send-update-email" data-list-id="' . $list_id . '" data-user-email="' . sanitize_email( $data['EMAIL'] ) . '" href="#">' . __( 'click here', 'yikes-inc-easy-mailchimp-extender' ) . '</a>' ) : false;
+						wp_send_json( array( 'hide' => '0', 'error' => $error , 'response' => !empty( $error_messages['already-subscribed'] ) ? $error_messages['already-subscribed'] : __( "It looks like you're already subscribed to this list." , 'yikes-inc-easy-mailchimp-extender' ), 'security_response' => $update_account_details_link ) );
 					} else { // general error
 						wp_send_json( array( 'hide' => '0', 'error' => $error , 'response' => !empty( $error_messages['general-error'] ) ? $error_messages['general-error'] : __( "Whoops, something went wrong! Please try again." , 'yikes-inc-easy-mailchimp-extender' ) ) );
 					}

@@ -55,16 +55,15 @@ class Yikes_Inc_Easy_Mailchimp_Extender {
 	 * Define the core functionality of the plugin.
 	 *
 	 * Set the plugin name and the plugin version that can be used throughout the plugin.
-	 * Load the dependencies, define the locale, and set the hooks for the admin area and
+	 * Load the dependencies, and set the hooks for the admin area and
 	 * the public-facing side of the site.
 	 *
 	 * @since    1.0.0
 	 */
 	public function __construct() {
 		$this->yikes_inc_easy_mailchimp_extender = 'yikes-inc-easy-mailchimp-extender';
-		$this->version = '6.0.4';
+		$this->version = '6.0.4.1';
 		$this->load_dependencies();
-		$this->set_locale();
 		$this->define_admin_hooks();
 		$this->define_public_hooks();
 	}
@@ -91,11 +90,6 @@ class Yikes_Inc_Easy_Mailchimp_Extender {
 		 */
 		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'includes/class-yikes-inc-easy-mailchimp-extender-loader.php';
 		/**
-		 * The class responsible for defining internationalization functionality
-		 * of the plugin.
-		 */
-		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'includes/class-yikes-inc-easy-mailchimp-extender-i18n.php';
-		/**
 		 * The class responsible for defining all actions that occur in the admin area.
 		 */
 		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'admin/class-yikes-inc-easy-mailchimp-extender-admin.php';
@@ -105,20 +99,6 @@ class Yikes_Inc_Easy_Mailchimp_Extender {
 		 */
 		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'public/class-yikes-inc-easy-mailchimp-extender-public.php';
 		$this->loader = new Yikes_Inc_Easy_Mailchimp_Extender_Loader();
-	}
-	/**
-	 * Define the locale for this plugin for internationalization.
-	 *
-	 * Uses the Yikes_Inc_Easy_Mailchimp_Extender_i18n class in order to set the domain and to register the hook
-	 * with WordPress.
-	 *
-	 * @since    1.0.0
-	 * @access   private
-	 */
-	private function set_locale() {
-		$plugin_i18n = new Yikes_Inc_Easy_Mailchimp_Extender_i18n();
-		$plugin_i18n->set_domain( $this->get_yikes_inc_easy_mailchimp_extender() );
-		$this->loader->add_action( 'plugins_loaded', $plugin_i18n, 'load_plugin_textdomain' );
 	}
 	/**
 	 * Register all of the hooks related to the admin area functionality

@@ -120,17 +120,6 @@ module.exports = function(grunt) {
 			  src: [ 'admin/css/*.css' , 'public/css/*.css' ]
 			}
 		},
-		  
-		// make POT file
-		makepot: {
-	        target: {
-	            options: {
-	                domainPath: '/languages/',    // Where to save the POT file.
-	                potFilename: 'yikes-inc-easy-mailchimp-extender.pot',   // Name of the POT file.
-	                type: 'wp-plugin',  // Type of project
-	            }
-	        }
-	    },
 		
 		auto_install: { 
 			local: {}

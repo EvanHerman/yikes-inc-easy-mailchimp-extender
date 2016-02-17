@@ -341,6 +341,7 @@ function process_mailchimp_shortcode( $atts ) {
 				'ajax_url' => esc_url( admin_url( 'admin-ajax.php' ) ),
 				'page_data' => $page_data,
 				'interest_group_checkbox_error' => apply_filters( 'yikes-mailchimp-interest-group-checkbox-error', __( 'This field is required.', 'yikes-inc-easy-mailchimp-extender' ), $form_id ),
+				'preloader_url' => apply_filters( 'yikes-mailchimp-preloader', esc_url_raw( admin_url( 'images/wpspin_light.gif' ) ) ),
 			) );
 			wp_enqueue_script( 'yikes-easy-mc-ajax' );
 		}
@@ -845,7 +846,7 @@ function process_mailchimp_shortcode( $atts ) {
 										<select <?php echo implode( ' ' , $field_array ); ?>>
 											<?php 	
 												// decode for looping
-												$choices = json_decode( stripslashes( $field['choices'] ) , true );
+												$choices = json_decode( $field['choices'], true );
 												foreach( $choices as $choice ) {
 													?><option value="<?php echo $choice; ?>" <?php selected( $default_value , $x ); ?>><?php echo esc_attr( stripslashes( $choice ) ); ?></option><?php
 													$x++;
@@ -1012,7 +1013,7 @@ function process_mailchimp_shortcode( $atts ) {
 	
 									?>
 	
-									<label for="<?php echo esc_attr( $field['group_id'] ); ?>" <?php echo implode( ' ' , $label_array ); ?>>
+									<label for="<?php echo esc_attr( $field['group_id'] ); ?>" <?php echo implode( ' ' , $label_array ); ?>>	
 										<!-- dictate label visibility -->
 										<?php if( ! isset( $field['hide-label'] ) ) { ?>
 											<span class="<?php echo esc_attr( $field['group_id'] ) . '-label'; ?>">
@@ -1096,9 +1097,7 @@ function process_mailchimp_shortcode( $atts ) {
 					echo $recaptcha_box;
 				}
 				if( is_user_logged_in() ) {
-					if( current_user_can( apply_filters( 'yikes-mailchimp-user-role-access' , 'manage_options' ) ) ) {
-						$admin_class = ' admin-logged-in';
-					}
+					$admin_class = ( current_user_can( apply_filters( 'yikes-mailchimp-user-role-access' , 'manage_options' ) ) ) ? ' admin-logged-in' : '';
 				} else {
 					$admin_class = '';
 				}

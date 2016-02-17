@@ -7,6 +7,12 @@ YIKES Inc. Easy Forms for MailChimp
 ![WordPress plugin](https://img.shields.io/wordpress/plugin/v/yikes-inc-easy-mailchimp-extender.svg)
 ![WordPress](https://img.shields.io/wordpress/v/yikes-inc-easy-mailchimp-extender.svg)
 
+<strong>Latest Stable Beta Release Candidate</strong>
+
+This is the development repo for the [YIKES Inc Easy MailChimp Extender](https://wordpress.org/plugins/yikes-inc-easy-mailchimp-extender/) plugin where we work on new features and bug fixes.
+
+Feel free to beta test this plugin now, but remember, it's not a stable release.
+
 
 #### Minimum Requirements
 - WordPress 3.8+ 
@@ -29,7 +35,6 @@ Easy Forms for MailChimp by YIKES integrates well with many popular third party 
 * BbPress
 * Contact Form 7
 * Visual Composer
-
 
 #### Questions?
 Have any questions? Feel free to open up an issue in the issue tracker and we'll get back to you as soon as possible.
@@ -108,7 +113,7 @@ $ grunt auto_install
 - yikes-mailchimp-us-phone-pattern - Alter the regex pattern for acceptable US phone number formats. (default: [^(\([0-9]{3}\)|[0-9]{3}-)[0-9]{3}-[0-9]{4}$) (process form shortcode.php - line 295)
 - yikes-mailchimp-process-default-tag - Pass the default tag through a filter to populate with dynamic content from the current site (process_form_shortcode.php - line 256)
 - yikes-mailchimp-MERGE_TAG-label - Alter the specified field label text (affects standard fields & interest groups) (process_form_shortcode.php) 
-* yikes-mailchimp-MERGE_TAG-description - Alter the specified field description text (affects standard fields & interest groups) (process_form_shortcode.php)  (if targeting an interest group, it will be the group_id)
+- yikes-mailchimp-MERGE_TAG-description - Alter the specified field description text (affects standard fields & interest groups) (process_form_shortcode.php)  (if targeting an interest group, it will be the group_id)
 - yikes-mailchimp-address-TYPE-label - Alter the field sub-label text for a specified address field (affects only standard address fields) (process_form_shortcode.php) 
 - yikes-mailchimp-form-submit-button - Alter the submit button to your liking (process_form_shortcode.php line 660) (@parameters - $submit_button, $form_id)
 - yikes-mailchimp-form-submit-button-text - Alter the submit button text value (process_form_shortcode.php line 660) (@parameters - $submit_button_text, $form_id )
@@ -128,6 +133,9 @@ $ grunt auto_install
 - yikes-mailchimp-recaptcha-parameters - Alter any of the possible reCaptcha shortcode parameters (process_form_shortcode.php line 68) (parameters: $recaptcha_parameter_array, $form_id)
 - yikes-mailchimp-checkbox-integration-subscribe-api-request - Filter the API request sent to MailChimp. (parameters: @type - the integration type (ie: comment, contact_form_7 etc.)
 - yikes-mailchimp-frontend-date-picker-format - Alter the date format. For additional help, see the [knowledge base](https://yikesplugins.com/support/knowledge-base/how-do-i-change-the-frontend-date-picker-format/).
+- yikes-mailchimp-preloader - Filter allowing users to setup a custom preloader image. 
+- yikes-mailchimp-update-email-subject - Filter the subject line for the email that is generated and sent when a user needs to update their subscription info.
+- yikes-mailchimp-update-email-content - Filter the content of the email that is generated and sent when a user needs to update their subscription info. 
 
 ###### Hooks
 
@@ -148,8 +156,8 @@ $ grunt auto_install
 - yikes-mailchimp-list-form-fields-metabox - action hook allowing additional content to be added to the 'Form Fields' metabox on the view list page.
 - yikes-mailchimp-list-interest-groups-metabox - action hook allowing users to add additional content inside of the interest groups metabox on the view list page. 
 
-
 ###### Hooks for Extensions
+
 - yikes-mailchimp-menu - hook to add additional menu items inside of the "Easy MailChimp" menu item
 - yikes-mailchimp-settings-field - hook to register additional settings fields for add-ons
 - yikes-mailchimp-ADDON-SLUG-options-path - hook to load up a custom settings page

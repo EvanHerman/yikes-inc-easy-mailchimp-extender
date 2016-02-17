@@ -3,13 +3,12 @@
  *		Plugin Name:       Easy Forms for MailChimp by YIKES
  *		Plugin URI:        http://www.yikesinc.com/services/yikes-inc-easy-mailchimp-extender/
  * 		Description:       YIKES Easy Forms for MailChimp links your site to MailChimp and allows you to generate and display mailing list opt-in forms anywhere on your site with ease.
- * 		Version:           6.0.4
+ * 		Version:           6.0.4.1
  * 		Author:            YIKES
  * 		Author URI:        http://www.yikesinc.com/
  * 		License:           GPL-3.0+
  * 		License URI:       http://www.gnu.org/licenses/gpl-3.0.txt
  * 		Text Domain:       yikes-inc-easy-mailchimp-extender
- * 		Domain Path:       /languages
  *
  * 		YIKES Easy Forms for MailChimp is free software: you can redistribute it and/or modify
  * 		it under the terms of the GNU General Public License as published by

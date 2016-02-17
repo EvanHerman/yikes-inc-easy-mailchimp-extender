@@ -28,7 +28,8 @@
 			<input type="hidden" class="field-<?php echo $merge_field_data['tag']; ?>-position position-input" name="field[<?php echo $merge_field_data['tag']; ?>][position]" value="" />
 			
 			<?php if ( $form_data_array['field_type'] == 'radio' || $form_data_array['field_type'] == 'dropdown' ) { ?>
-				<input type="hidden" name="field[<?php echo $merge_field_data['tag']; ?>][choices]" value='<?php echo json_encode( stripslashes_deep( $merge_field_data['choices'] ) ); ?>' />
+				<?php $choices = ( isset( $merge_field_data['choices'] ) ) ? esc_attr( json_encode( $merge_field_data['choices'] ) ) : ''; ?>
+				<input type="hidden" name="field[<?php echo $merge_field_data['tag']; ?>][choices]" value='<?php echo $choices; ?>' />
 			<?php } ?>
 				
 			<table class="form-table form-field-container">
