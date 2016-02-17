@@ -64,7 +64,6 @@ class Yikes_Inc_Easy_Mailchimp_Extender {
 		$this->yikes_inc_easy_mailchimp_extender = 'yikes-inc-easy-mailchimp-extender';
 		$this->version = '6.0.4.1';
 		$this->load_dependencies();
-		$this->set_locale();
 		$this->define_admin_hooks();
 		$this->define_public_hooks();
 	}
@@ -105,20 +104,6 @@ class Yikes_Inc_Easy_Mailchimp_Extender {
 		 */
 		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'public/class-yikes-inc-easy-mailchimp-extender-public.php';
 		$this->loader = new Yikes_Inc_Easy_Mailchimp_Extender_Loader();
-	}
-	/**
-	 * Define the locale for this plugin for internationalization.
-	 *
-	 * Uses the Yikes_Inc_Easy_Mailchimp_Extender_i18n class in order to set the domain and to register the hook
-	 * with WordPress.
-	 *
-	 * @since    1.0.0
-	 * @access   private
-	 */
-	private function set_locale() {
-		$plugin_i18n = new Yikes_Inc_Easy_Mailchimp_Extender_i18n();
-		$plugin_i18n->set_domain( $this->get_yikes_inc_easy_mailchimp_extender() );
-		$this->loader->add_action( 'plugins_loaded', $plugin_i18n, 'load_plugin_textdomain' );
 	}
 	/**
 	 * Register all of the hooks related to the admin area functionality
