@@ -128,8 +128,13 @@
 				} 
 				// print_r($account_details);	
 			} catch( Exception $e ) {
-				$errorMessage = '<span class="error">' . __( 'Error sending update profile email. Please contact the site administrator.' , 'yikes-inc-easy-mailchimp-extender' ) . '</span>';
-				echo $errorMessage;
+				$errorMessage = sprintf( __( 'Error sending update profile email. <strong>Error:</strong> %s. Please contact the site administrator.' , 'yikes-inc-easy-mailchimp-extender' ), $e->getMessage() );
+				wp_send_json_error(
+					array(
+						'response_text' => '<span class="yikes-easy-mc-error-message">&#10005; ' . $errorMessage . '</span>',
+					)
+				);
+				exit;
 			}
 		} // end sendUpdateProfileEmail();
 							
