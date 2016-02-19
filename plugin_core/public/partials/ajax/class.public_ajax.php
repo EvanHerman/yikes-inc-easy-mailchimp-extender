@@ -114,14 +114,14 @@
 				if ( wp_mail( $user_email, apply_filters( 'yikes-mailchimp-update-email-subject', $subject ), apply_filters( 'yikes-mailchimp-update-email-content', $email_content ), $headers ) ) {
 					wp_send_json_success(
 						array(
-							'response_text' => '<span class="yikes-easy-mc-success-message">' . sprintf( __( '%s Update email successfully sent. Please check your inbox for the message.' , 'yikes-inc-easy-mailchimp-extender' ), '&#10004;' ) . '</span>',
+							'response_text' => '<div class="yikes-easy-mc-success-message">' . sprintf( __( '%s Update email successfully sent. Please check your inbox for the message.' , 'yikes-inc-easy-mailchimp-extender' ), '&#10004;' ) . '</div>',
 						)
 					);
 					exit;
 				} else {
 					wp_send_json_error(
 						array(
-							'response_text' => '<span class="yikes-easy-mc-error-message">' . sprintf( __( '%s Email failed to send. Please contact the site administrator.' , 'yikes-inc-easy-mailchimp-extender' ), '&#10005;' ) . '</span>',
+							'response_text' => '<div class="yikes-easy-mc-error-message">' . sprintf( __( '%s Email failed to send. Please contact the site administrator.' , 'yikes-inc-easy-mailchimp-extender' ), '&#10005;' ) . '</div>',
 						)
 					);
 					exit;
@@ -131,7 +131,7 @@
 				$errorMessage = sprintf( __( 'Error sending update profile email. <strong>Error:</strong> %s. Please contact the site administrator.' , 'yikes-inc-easy-mailchimp-extender' ), $e->getMessage() );
 				wp_send_json_error(
 					array(
-						'response_text' => '<span class="yikes-easy-mc-error-message">&#10005; ' . $errorMessage . '</span>',
+						'response_text' => '<div class="yikes-easy-mc-error-message">&#10005; ' . $errorMessage . '</div>',
 					)
 				);
 				exit;
