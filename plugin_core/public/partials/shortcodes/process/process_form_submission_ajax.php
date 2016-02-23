@@ -176,7 +176,7 @@
 					array( 
 						'hide' => $submission_settings['hide_form_post_signup'], 
 						'error' => $error, 
-						'response' => ! empty( $error_messages['success'] ) ? $error_messages['success'] : $default_success_response, 
+						'response' => apply_filters( 'yikes-mailchimp-success-response', ( ! empty( $error_messages['success'] ) ? $error_messages['success'] : $default_success_response ), $form, $merge_variables ), 
 						'redirection' => isset( $redirection ) ? '1' : '0', 
 						'redirect' => isset( $redirect ) ? $redirect : '',
 					) 

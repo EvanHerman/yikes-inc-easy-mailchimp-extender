@@ -149,11 +149,11 @@ if ( ! isset( $_POST['yikes_easy_mc_new_subscriber'] ) || ! wp_verify_nonce( $_P
 			
 		// Display the success message
 		if( ! empty( $form_settings['error_messages']['success'] ) ) {
-			$process_submission_response = '<p class="yikes-easy-mc-success-message">' . stripslashes( esc_html( $form_settings['error_messages']['success'] ) ) . '</p>';
+			$process_submission_response = '<p class="yikes-easy-mc-success-message">' . apply_filters( 'yikes-mailchimp-success-response', stripslashes( esc_html( $form_settings['error_messages']['success'] ) ), $form_id, $merge_variables ) . '</p>';
 			// echo stripslashes( esc_html( $error_messages['success'] ) );
 		} else {
 			$default_success_response = ( $form_settings['optin_settings']['optin'] == 1 ) ? __( "Thank you for subscribing! Check your email for the confirmation message." , 'yikes-inc-easy-mailchimp-extender' ) : __( "Thank you for subscribing!" , 'yikes-inc-easy-mailchimp-extender' );
-			$process_submission_response = '<p class="yikes-easy-mc-success-message">' . $default_success_response . '</p>';
+			$process_submission_response = '<p class="yikes-easy-mc-success-message">' . apply_filters( 'yikes-mailchimp-success-response', $default_success_response, $form_id, $merge_variables ) . '</p>';
 			// echo $default_success_response;
 		}
 		
