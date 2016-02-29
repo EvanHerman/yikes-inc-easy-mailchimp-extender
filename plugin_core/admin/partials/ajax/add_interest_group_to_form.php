@@ -104,7 +104,7 @@
 										<?php $i = 0; foreach( $merge_field_data['groups'] as $interest_group ) { 
 												$pre_selected = !empty( $merge_field_data['default_choice'] ) ? $merge_field_data['default_choice'] : '0';
 										?>
-											<option value="<?php echo $i; ?>" <?php selected( $pre_selected , $i ); ?>><?php echo stripslashes( $interest_group['name'] ); ?></option>
+											<option value="<?php echo $i; ?>" <?php selected( $pre_selected , $i ); ?>><?php echo $interest_group['name']; ?></option>
 										<?php $i++; } ?>
 									</select>
 									<p class="description"><small><?php _e( "Which option should be selected by default?", 'yikes-inc-easy-mailchimp-extender' );?></small></p>
