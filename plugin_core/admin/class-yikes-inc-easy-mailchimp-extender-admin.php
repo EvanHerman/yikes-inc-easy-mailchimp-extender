@@ -1710,9 +1710,8 @@ class Yikes_Inc_Easy_Mailchimp_Forms_Admin {
 								<input type="hidden" class="field-<?php echo $field['merge']; ?>-position position-input" name="field[<?php echo $field['merge']; ?>][position]" value="<?php echo $i++; ?>" />
 								
 								<?php if ( $field['type'] == 'radio' || $field['type'] == 'dropdown' || $field['type'] == 'select' ) { 
-									$choices = json_decode( $field['choices'] , true );
+									$choices = json_decode( $field['choices'], true );
 								?>
-									
 									<input type="hidden" name="field[<?php echo $field['merge']; ?>][choices]" value='<?php echo esc_attr( json_encode( $choices ) ); ?>' />			
 								<?php } ?>
 								
@@ -1753,7 +1752,7 @@ class Yikes_Inc_Easy_Mailchimp_Forms_Admin {
 												</label>
 											</td>
 											<td>
-												<input type="text" class="widefat" name="field[<?php echo $field['merge']; ?>][placeholder]" value="<?php echo isset( $field['placeholder'] ) ? stripslashes( wp_strip_all_tags( $field['placeholder'] ) ) : '' ; ?>" />
+												<input type="text" class="widefat" name="field[<?php echo $field['merge']; ?>][placeholder]" value="<?php echo isset( $field['placeholder'] ) ? $field['placeholder'] : '' ; ?>" />
 												<p class="description"><small><?php _e( "Assign a placeholder value to this field.", 'yikes-inc-easy-mailchimp-extender' );?></small></p>
 											</td>
 										</tr>
@@ -1800,11 +1799,11 @@ class Yikes_Inc_Easy_Mailchimp_Forms_Admin {
 														</label>
 													</td>
 													<td>
-														<?php if( ! isset( $field['default_choice'] ) || empty( $field['default_choice'] ) ) { $decode = json_decode( stripslashes_deep( $field['choices'] ) , true ); $field['default_choice'] = $decode[0]; }
+														<?php if( ! isset( $field['default_choice'] ) || empty( $field['default_choice'] ) ) { $decode = json_decode( $field['choices'], true ); $field['default_choice'] = $decode[0]; }
 														$x = 0;
-														foreach( json_decode( stripslashes( $field['choices'] ) , true ) as $choice => $value ) { ?>
+														foreach( json_decode( $field['choices'], true ) as $choice => $value ) { ?>
 															<label for="<?php echo $field['merge'].'-'.$x; ?>">	
-																<input id="<?php echo $field['merge'].'-'.$x; ?>" type="radio" name="field[<?php echo $field['merge']; ?>][default_choice]" value="<?php echo $value; ?>" <?php checked( $field['default_choice'] , $value ); ?>><?php echo $value; ?>&nbsp;
+																<input id="<?php echo $field['merge'].'-'.$x; ?>" type="radio" name="field[<?php echo $field['merge']; ?>][default_choice]" value="<?php echo $x; ?>" <?php checked( $field['default_choice'], $x ); ?>><?php echo $value; ?>&nbsp;
 															</label>
 														<?php $x++; } ?>
 														<p class="description"><small><?php _e( "Select the option that should be selected by default.", 'yikes-inc-easy-mailchimp-extender' );?></small></p>
@@ -2005,7 +2004,7 @@ class Yikes_Inc_Easy_Mailchimp_Forms_Admin {
 								<input type="hidden" name="field[<?php echo $field['group_id']; ?>][label]" value="<?php echo $field['label']; ?>" />
 								<input type="hidden" name="field[<?php echo $field['group_id']; ?>][type]" value="<?php echo $field['type']; ?>" />
 								<input type="hidden" name="field[<?php echo $field['group_id']; ?>][group_id]" value="<?php echo $field['group_id']; ?>" />
-								<input type="hidden" name="field[<?php echo $field['group_id']; ?>][groups]" value='<?php echo stripslashes( $field['groups'] ); ?>' />			
+								<input type="hidden" name="field[<?php echo $field['group_id']; ?>][groups]" value='<?php echo esc_attr( json_encode( json_decode( $field['groups'], true ) ) ); ?>' />			
 								
 								<!-- Single or Double Optin -->
 								<p class="type-container"><!-- necessary to prevent skipping on slideToggle(); -->
@@ -2032,7 +2031,7 @@ class Yikes_Inc_Easy_Mailchimp_Forms_Admin {
 																if( !isset( $field['default_choice'] ) ) { $field['default_choice'] = array(); }
 															}
 														$i = 0; 
-														foreach( json_decode( stripslashes( $field['groups'] ) , true ) as $group ) { ?>
+														foreach( json_decode( $field['groups'], true ) as $group ) { ?>
 															<label for="<?php echo $field['group_id'].'-'.$i; ?>">
 																<input id="<?php echo $field['group_id'].'-'.$i; ?>" type="<?php if( $field['type'] == 'radio' || $field['type'] == 'hidden' ) { ?>radio<?php } else if( $field['type'] == 'checkboxes' ) { ?>checkbox<?php } ?>" name="field[<?php echo $field['group_id']; ?>][default_choice]<?php if( $field['type'] == 'checkboxes' ) {echo '[]';}?>" value="<?php echo $i; ?>" <?php if( $field['type'] == 'radio' || $field['type'] == 'hidden' ) { checked( $field['default_choice'][0] , $i ); } else if( $field['type'] == 'checkboxes' ) { if( in_array( $i , $field['default_choice'] ) ) { echo 'checked="checked"'; } }?>><?php echo stripslashes( str_replace( '~' , '\'' , $group['name'] ) ); ?>&nbsp;
 															</label>
