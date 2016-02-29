@@ -64,6 +64,9 @@
 					$error_messages = array(); // empty array to store error messages
 					if( isset( $response_body['error-codes'] ) ) {	
 						foreach( $response_body['error-codes'] as $error_code ) {
+							if( $error_code == 'missing-input-response' ) {
+								$error_code = __( 'Please check the reCAPTCHA field.', 'yikes-inc-easy-mailchimp-extender' );
+							}
 							$error_messages[] = __( 'Error', 'yikes-inc-easy-mailchimp-extender' ) . ': ' . $error_code;
 						}
 					} else {
@@ -73,7 +76,7 @@
 					wp_send_json( array( 
 						'hide' => '0', 
 						'error' => $error ,
-						'response' => __( "It looks like we've run into a reCaptcha error." , 'yikes-inc-easy-mailchimp-extender' ) .' '. implode( ' ', $error_messages ),
+						'response' => apply_filters( 'yikes-mailchimp-recaptcha-required-error', implode( ' ', $error_messages ) ),
 					) );
 					exit();
 				}	

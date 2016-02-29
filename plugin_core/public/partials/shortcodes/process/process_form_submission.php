@@ -38,14 +38,18 @@ if ( ! isset( $_POST['yikes_easy_mc_new_subscriber'] ) || ! wp_verify_nonce( $_P
 		$url = esc_url_raw( 'https://www.google.com/recaptcha/api/siteverify?secret=' . get_option( 'yikes-mc-recaptcha-secret-key' , '' ) . '&response=' . $_POST['g-recaptcha-response'] . '&remoteip=' . $_SERVER["REMOTE_ADDR"] );
 		$response = wp_remote_get( $url );
 		$response_body = json_decode( $response['body'] , true );
+		
 		// if we've hit an error, lets return the error!
 		if( $response_body['success'] != 1 ) {
 			$recaptcha_error = array(); // empty array to store error messages
-			foreach( $response_body['erorr-codes'] as $error_code ) {
+			foreach( $response_body['error-codes'] as $error_code ) {
+				if( $error_code == 'missing-input-response' ) {
+					$error_code = __( 'Please check the reCAPTCHA field.', 'yikes-inc-easy-mailchimp-extender' );
+				}
 				$recaptcha_error[] = $error_code;
 			}
-			$process_submission_response = "<p>" . __( "It looks like we've run into a reCaptcha error. Please refresh the page and try again." , "yikes-inc-easy-mailchimp-extender" ) . "</p>";
-			$process_submission_response .= "<p>" . __( 'Errors' , 'yikes-inc-easy-mailchimp-extender' ) . ': ' . implode( ' ' , $recaptcha_error ) . "</p>";
+			$process_submission_response .= "<p class='yikes-easy-mc-error-message'>" . apply_filters( 'yikes-mailchimp-recaptcha-required-error', __( 'Error' , 'yikes-inc-easy-mailchimp-extender' )  . ': ' . implode( ' ' , $recaptcha_error ) ) . "</p>";
+			return;
 		}
 	}
 	
@@ -69,7 +73,6 @@ if ( ! isset( $_POST['yikes_easy_mc_new_subscriber'] ) || ! wp_verify_nonce( $_P
 	
 	if( ! empty( $missing_required_checkbox_interest_groups ) ) {
 		$process_submission_response = '<p class="yikes-easy-mc-error-message">' . apply_filters( 'yikes-mailchimp-interest-group-required-top-error', sprintf( _n( 'It looks like you forgot to fill in a required field.', 'It looks like you forgot to fill in %s required fields.', count( $missing_required_checkbox_interest_groups ), 'yikes-inc-easy-mailchimp-extender' ), count( $missing_required_checkbox_interest_groups ) ), count( $missing_required_checkbox_interest_groups ), $form_id ) . '</p>';
-		// echo '<p class="yikes-easy-mc-error-message">' . apply_filters( 'yikes-mailchimp-interest-group-required-top-error', sprintf( _n( 'It looks like you forgot to fill in a required field.', 'It looks like you forgot to fill in %s required fields.', count( $missing_required_checkbox_interest_groups ), 'yikes-inc-easy-mailchimp-extender' ), count( $missing_required_checkbox_interest_groups ) ), count( $missing_required_checkbox_interest_groups ), $form_id ) . '</p>';
 		return;
 	}
 	

@@ -136,6 +136,9 @@ $ grunt auto_install
 - yikes-mailchimp-preloader - Filter allowing users to setup a custom preloader image. 
 - yikes-mailchimp-update-email-subject - Filter the subject line for the email that is generated and sent when a user needs to update their subscription info.
 - yikes-mailchimp-update-email-content - Filter the content of the email that is generated and sent when a user needs to update their subscription info. 
+* yikes-mailchimp-success-response - Alter the success response text (@parameters: $response_text, $form_id, $submitted_form_variables)
+* yikes-mailchimp-default-country-value - Alter the default country selected in the country dropdown.
+* yikes-mailchimp-recaptcha-required-error - Filter the error displayed back to the user when an error occurs during the reCAPTCHA submission process. (@parameters: $error_text)
 
 ###### Hooks
 
