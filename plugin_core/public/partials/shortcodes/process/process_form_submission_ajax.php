@@ -142,8 +142,7 @@
 					'email' => array( 'email' => sanitize_email( $data['EMAIL'] ) ),
 					'merge_vars' => $merge_variables,
 					'double_optin' => $optin_settings['optin'],
-					// 'update_existing' => $optin_settings['update_existing_user'],
-					'update_existing' => 0,
+					'update_existing' => $optin_settings['update_existing_user'],
 					'send_welcome' => $optin_settings['send_welcome_email'],
 					'replace_interests' => ( isset( $submission_settings['replace_interests'] ) ) ? $submission_settings['replace_interests'] : 1, // defaults to replace
 				), $form, $list_id, $data['EMAIL'] ) );
