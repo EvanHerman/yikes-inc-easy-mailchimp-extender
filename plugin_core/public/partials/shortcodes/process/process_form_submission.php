@@ -140,8 +140,7 @@ if ( ! isset( $_POST['yikes_easy_mc_new_subscriber'] ) || ! wp_verify_nonce( $_P
 			'email' => array( 'email' => sanitize_email( $_POST['EMAIL'] ) ),
 			'merge_vars' => $merge_variables,
 			'double_optin' => $form_settings['optin_settings']['optin'],
-			// 'update_existing' => $form_settings['optin_settings']['update_existing_user'],
-			'update_existing' => 0,
+			'update_existing' => $form_settings['optin_settings']['update_existing_user'],
 			'send_welcome' => $form_settings['optin_settings']['send_welcome_email'],
 			'replace_interests' => ( isset( $form_settings['submission_settings']['replace_interests'] ) ) ? $form_settings['submission_settings']['replace_interests'] : 1, // defaults to replace
 		), $form_id, $_POST['yikes-mailchimp-associated-list-id'], $_POST['EMAIL'] ) );
