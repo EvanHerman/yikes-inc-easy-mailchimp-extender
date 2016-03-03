@@ -1,7 +1,20 @@
 <!--
 	General Settings Options Template
-	-- yea
 -->
+<?php 
+	/* Get and Store Option Values */
+	if( get_option( 'yikes-mc-api-validation', 'invalid_api_key' ) == 'valid_api_key' ) {
+		$api_connection = '<span id="connection-container" class="api-connected" title="' . __( "Your site is currently connected to the MailChimp API" , "yikes-inc-easy-mailchimp-extender" ) . '"><span class="dashicons dashicons-yes yikes-mc-api-connected"></span> ' . __( "Connected" , 'yikes-inc-easy-mailchimp-extender' ) . '</span>';
+		$api_error_response = '';
+	} else {
+		$api_connection = '<span id="connection-container" class="api-not-connected"><span class="dashicons dashicons-no-alt yikes-mc-api-not-connected"></span>  ' . __( "Not Connected" , 'yikes-inc-easy-mailchimp-extender' ) . '</span>';
+		if( get_option( 'yikes-mc-api-invalid-key-response' , '' ) != '' ) {	
+			$api_error_response = '<p><small><i class="dashicons dashicons-no-alt"></i> ' . get_option( 'yikes-mc-api-invalid-key-response' , '' ) . '</small></p>';
+		} else {
+			$api_error_response = '';
+		}
+	}
+?>
 <h3><span><?php _e( 'General Settings' , 'yikes-inc-easy-mailchimp-extender' ); ?></span><?php echo $api_connection; ?></h3>
 <div class="inside">
 									

@@ -121,24 +121,27 @@
 		*	and return the index ( used to find the list name assigned to a form )
 		*	- http://stackoverflow.com/questions/6661530/php-multi-dimensional-array-search
 		*/
-		public function findMCListIndex( $id, $array , $tag ) {
+		public function findMCListIndex( $id, $array, $tag ) {
 			if( $tag == 'tag' ) {
-				foreach ( $array as $key => $val ) {
-					   if ( $val['tag'] === $id ) {
-						   return $key;
-					   }
-				   }
+				foreach ( $array as $object ) {
+					foreach( $object as $key => $val ) {
+						if ( $val->tag === $id ) {
+							return $key;
+						}
+					}
+				}
 			   return null;
 			} else {
-				foreach ( $array as $key => $val ) {
-				   if ( $val['id'] == $id ) {
-					   return $key;
-				   }
-			   }
-			return null;
+				foreach ( $array as $object ) {
+				   foreach( $object as $key => $val ) {
+						if ( $val->id == $id ) {
+						   return $key;
+					   }
+					}
+				}
+				return null;
 			}
-	  	} // end
-					
+	  	} // end		
 	} // end class
 	
 	new YIKES_Inc_Easy_MailChimp_Process_Ajax;

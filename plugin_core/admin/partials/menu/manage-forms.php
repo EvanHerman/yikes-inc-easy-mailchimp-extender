@@ -13,10 +13,10 @@
 	if( $this->is_user_mc_api_valid_form( false ) == 'valid' ) {
 		/// Check for a transient, if not - set one up for one hour
 		if ( false === ( $list_data = get_transient( 'yikes-easy-mailchimp-list-data' ) ) ) {
-			// initialize MailChimp Class
-			$MailChimp = new MailChimp( get_option( 'yikes-mc-api-key' , '' ) );
+			// initialize MailChimp API
+			$MailChimp = new YIKES_MAILCHIMP_API( get_option( 'yikes-mc-api-key' , '' ) );
 			// retreive our list data
-			$list_data = $MailChimp->call( 'lists/list' , array( 'apikey' => get_option( 'yikes-mc-api-key' , '' ), 'limit' => 100 ) );
+			$list_data = $MailChimp->call( 'lists' );
 			// set our transient
 			set_transient( 'yikes-easy-mailchimp-list-data', $list_data, 1 * HOUR_IN_SECONDS );
 		}
@@ -164,7 +164,7 @@
 												</td>
 												
 												<td class="column-columnname"><?php echo isset( $form['form_description'] ) ? str_replace( '[yikes-mailchimp-subscriber-count]', do_shortcode( '[yikes-mailchimp-subscriber-count form="' . $form['id'] . '"]' ), $form['form_description'] ) : ''; ?></td>
-												<td class="column-columnname"><?php if( isset( $list_data ) && $list_data['total'] > 0 ) { $key = $this->findMCListID( $form['list_id'] , $list_data['data'] ); if( isset( $key ) ) { echo $list_data['data'][$key]['name']; } else { echo '<strong>' . __( 'List Not Found' , 'yikes-inc-easy-mailchimp-extender' ) . '</strong>'; } } ?></td>			
+												<td class="column-columnname"><?php if( isset( $list_data ) && $list_data->total_items > 0 ) { $key = $this->findMCListID( $form['list_id'], $list_data->lists ); if( isset( $key ) ) { echo $list_data->lists->$key->name; } else { echo '<strong>' . __( 'List Not Found' , 'yikes-inc-easy-mailchimp-extender' ) . '</strong>'; } } ?></td>			
 												
 												<td class="column-columnname num stat-container">
 													<?php
@@ -228,9 +228,7 @@
 						
 						<div class="postbox yikes-easy-mc-postbox">
 																		
-							<?php 
-								$this->generate_manage_forms_sidebar( $list_data['data'] ); 
-							?>
+							<?php $this->generate_manage_forms_sidebar( $list_data->lists ); ?>
 														
 						</div> <!-- .postbox -->
 						

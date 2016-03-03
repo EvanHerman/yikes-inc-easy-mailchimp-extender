@@ -51,6 +51,8 @@ class Yikes_Inc_Easy_Mailchimp_Forms_Admin {
 		add_action( 'admin_init', array( $this , 'yikes_easy_mc_settings_init' ) );
 		// plugin redirect on activation
 		add_action( 'admin_init' , array( $this , 'yikes_easy_mc_activation_redirect' ) );
+		// Filter the fields array, and populate with an 'Email' field (since API v3)
+		add_filter( 'yikes-mailchimp-email-field-filter', array( $this, 'push_email_field_to_field_array' ), 10, 2 );
 		// ensure the MailChimp class wasn't previously declared in another plugin
 		if( ! class_exists( 'Mailchimp' ) ) {
 			// Include our MailChimp API Wrapper
@@ -1150,23 +1152,9 @@ class Yikes_Inc_Easy_Mailchimp_Forms_Admin {
 	function yikes_mc_validate_api_key( $input ) {
 		$old = get_option( 'yikes-mc-api-key' , '' );
 		$api_key = trim( $input );
-		// only re-run the API request if our API key has changed
-		if( $old != $api_key ) {
-			// initialize MailChimp Class
-			try {
-				$MailChimp = new MailChimp( $api_key );
-				// retreive our list data
-				$validate_api_key_response = $MailChimp->call( 'helper/ping' , array( 'apikey' => $api_key ) );
-				update_option( 'yikes-mc-api-validation' , 'valid_api_key' );
-			} catch ( Exception $e ) {
-				// log to our error log
-				require_once YIKES_MC_PATH . 'includes/error_log/class-yikes-inc-easy-mailchimp-error-logging.php';
-				$error_logging = new Yikes_Inc_Easy_Mailchimp_Error_Logging();
-				$error_logging->yikes_easy_mailchimp_write_to_error_log( $e->getMessage() , __( "Connecting to MailChimp" , 'yikes-inc-easy-mailchimp-extender' ) , __( "Settings Page/General Settings" , 'yikes-inc-easy-mailchimp-extender' ) );
-				update_option( 'yikes-mc-api-invalid-key-response' , $e->getMessage() );
-				update_option( 'yikes-mc-api-validation' , 'invalid_api_key' );
-			}	
-		}
+		// initialize MailChimp Class
+		$MailChimp = new YIKES_MAILCHIMP_API( $api_key );
+		$MailChimp->is_connected();
 		// returned the api key
 		return $api_key;
 	}
@@ -1452,10 +1440,10 @@ class Yikes_Inc_Easy_Mailchimp_Forms_Admin {
 						<label for="associated-list"><strong><?php _e( 'Associated List' , 'yikes-inc-easy-mailchimp-extender' ); ?></strong>
 							<select name="associated-list" id="associated-list" class=" input-field" <?php $this->is_user_mc_api_valid_form( true ); if( isset( $lists ) && empty( $lists ) ) { echo 'disabled="disabled"'; } ?>>
 								<?php
-									if( isset( $lists ) && !empty( $lists ) ) {
+									if( isset( $lists ) && ! empty( $lists ) ) {
 										foreach( $lists as $mailing_list ) {
 											?>
-												<option value="<?php echo $mailing_list['id']; ?>"><?php echo stripslashes( $mailing_list['name'] ) . ' (' . $mailing_list['stats']['member_count'] . ') '; ?></option>
+												<option value="<?php echo $mailing_list->id; ?>"><?php echo stripslashes( $mailing_list->name ) . ' (' . $mailing_list->stats->member_count . ') '; ?></option>
 											<?php
 										}
 									} else {
@@ -1661,17 +1649,17 @@ class Yikes_Inc_Easy_Mailchimp_Forms_Admin {
 				$available_interest_groups = array();
 				
 				$assigned_fields= array();
-				
+
 				// loop over merge variables
-				if( ! empty( $merge_variables['data'][0]['merge_vars'] ) ) {
-					foreach( $merge_variables['data'][0]['merge_vars'] as $merge_tag ) {
-						$available_merge_variables[] = $merge_tag['tag'];
+				if( ! empty( $merge_variables->merge_fields ) ) {
+					foreach( $merge_variables->merge_fields as $merge_tag ) {
+						$available_merge_variables[] = $merge_tag->tag;
 					}
 				}
-				
+	
 				// loop over interest groups
-				foreach( $interest_groups as $interest_group ) {
-					$available_interest_groups[] = $interest_group['id'];
+				foreach( $interest_groups->categories as $interest_group ) {
+					$available_interest_groups[] = $interest_group->id;
 				}
 				
 				// build our assigned fields
@@ -1681,7 +1669,7 @@ class Yikes_Inc_Easy_Mailchimp_Forms_Admin {
 				
 				$merged_fields = array_merge( $available_merge_variables , $available_interest_groups );
 				$excluded_fields = array_diff( $assigned_fields , $merged_fields );
-				
+							
 				$i = 1;
 				foreach( $form_fields as $field ) {
 					
@@ -2241,30 +2229,32 @@ class Yikes_Inc_Easy_Mailchimp_Forms_Admin {
 		*	-
 		* @parameters - $list_id - pass in the list ID to retreive merge variables from
 		*/
-		public function build_available_merge_vars( $form_fields , $available_merge_variables ) {
+		public function build_available_merge_vars( $form_fields, $available_merge_variables, $field_count ) {
 			$fields_assigned_to_form = array();
 			if( !empty( $form_fields ) ) {
 				foreach( $form_fields as $assigned_field ) {
-					// print_r( $assigned_field) ;
 					// switch between merge variables and interest groups
 					if( isset( $assigned_field['merge'] ) ) {
 						$fields_assigned_to_form[] = $assigned_field['merge'];
 					}
 				}
 			}
-			if( !empty( $available_merge_variables['data'][0] ) ) {	
+			if( $field_count > 0 ) {
 				?><ul id="available-fields"><?php
-				foreach( $available_merge_variables['data'][0]['merge_vars'] as $merge_var ) {
-					if( in_array( $merge_var['tag'] , $fields_assigned_to_form ) ) {
-						?>
-							<li class="available-form-field not-available" alt="<?php echo $merge_var['tag']; ?>" data-attr-field-type="<?php echo $merge_var['field_type']; ?>" data-attr-field-name="<?php echo $merge_var['name']; ?>" data-attr-form-id="<?php echo $available_merge_variables['data'][0]['id']; ?>" title="<?php _e( 'Already assigned to your form' , 'yikes-inc-easy-mailchimp-extender' ); ?>" disabled="disabled"><?php echo stripslashes( $merge_var['name'] ); if( $merge_var['req'] == '1' ) { echo ' <span class="field-required" title="' . __( 'required field' , 'yikes-inc-easy-mailchimp-extender' ) . '">*</span>'; } ?> <small class="field-type-text"><?php echo $merge_var['field_type']; ?></small></li>
-						<?php
-					} else {
-						?>
-							<li class="available-form-field" alt="<?php echo $merge_var['tag']; ?>" data-attr-field-type="<?php echo $merge_var['field_type']; ?>" data-attr-field-name="<?php echo $merge_var['name']; ?>" data-attr-form-id="<?php echo $available_merge_variables['data'][0]['id']; ?>"><?php echo stripslashes( $merge_var['name'] ); if( $merge_var['req'] == '1' ) { echo ' <span class="field-required" title="' . __( 'required field' , 'yikes-inc-easy-mailchimp-extender' ) . '">*</span>'; } ?> <small class="field-type-text"><?php echo $merge_var['field_type']; ?></small></li>
-						<?php
+					/* MailChimp API v3 no longer provides an Email field -- now required to be hardcoded */
+					?>
+					<?php
+					foreach( $available_merge_variables as $merge_var ) {
+						if( in_array( $merge_var->tag, $fields_assigned_to_form ) ) {
+							?>
+								<li class="available-form-field not-available" alt="<?php echo $merge_var->tag; ?>" data-attr-field-type="<?php echo $merge_var->type; ?>" data-attr-field-name="<?php echo $merge_var->name; ?>" data-attr-form-id="<?php echo $merge_var->list_id; ?>" title="<?php _e( 'Already assigned to your form' , 'yikes-inc-easy-mailchimp-extender' ); ?>" disabled="disabled"><?php echo stripslashes( $merge_var->name ); if( $merge_var->required == '1' ) { echo ' <span class="field-required" title="' . __( 'required field' , 'yikes-inc-easy-mailchimp-extender' ) . '">*</span>'; } ?> <small class="field-type-text"><?php echo $merge_var->type; ?></small></li>
+							<?php
+						} else {
+							?>
+								<li class="available-form-field" alt="<?php echo $merge_var->tag; ?>" data-attr-field-type="<?php echo $merge_var->type; ?>" data-attr-field-name="<?php echo $merge_var->name; ?>" data-attr-form-id="<?php echo $merge_var->list_id; ?>"><?php echo stripslashes( $merge_var->name ); if( $merge_var->required == '1' ) { echo ' <span class="field-required" title="' . __( 'required field' , 'yikes-inc-easy-mailchimp-extender' ) . '">*</span>'; } ?> <small class="field-type-text"><?php echo $merge_var->type; ?></small></li>
+							<?php
+						}
 					}
-				}
 				?></ul>
 				<a href="#" class="add-field-to-editor button-secondary yikes-easy-mc-hidden" style="display:none;"><small><span class="dashicons dashicons-arrow-left-alt add-to-form-builder-arrow"></span> <?php _e( 'Add to Form Builder' , 'yikes-inc-easy-mailchimp-extender' ); ?></small></a>
 				<?php
@@ -2280,23 +2270,23 @@ class Yikes_Inc_Easy_Mailchimp_Forms_Admin {
 		*/
 		public function build_available_interest_groups( $form_fields , $available_interest_groups , $list_id ) {
 			$fields_assigned_to_form = array();
-			if( !empty( $form_fields ) ) {
+			if( ! empty( $form_fields ) ) {
 					foreach( $form_fields as $assigned_interest_group ) {
 					if( isset( $assigned_interest_group['group_id'] ) ) {
 						$fields_assigned_to_form[] = $assigned_interest_group['group_id'];
 					}
 				}
 			}
-			if( !empty( $available_interest_groups) ) {	
+			if( $available_interest_groups->total_items > 0 ) {	
 				?><ul id="available-interest-groups"><?php
-				foreach( $available_interest_groups as $interest_group ) {
-					if( in_array( $interest_group['id'] , $fields_assigned_to_form ) ) {
+				foreach( $available_interest_groups->categories as $interest_group ) {
+					if( in_array( $interest_group->id , $fields_assigned_to_form ) ) {
 						?>
-							<li class="available-interest-group not-available" alt="<?php echo $interest_group['id']; ?>" data-attr-field-name="<?php echo stripslashes( $interest_group['name'] ); ?>" data-attr-field-type="<?php echo $interest_group['form_field']; ?>" data-attr-form-id="<?php echo $list_id; ?>" title="<?php _e( 'Already assigned to your form' , 'yikes-inc-easy-mailchimp-extender' ); ?>" disabled="disabled"><?php echo stripslashes( $interest_group['name'] ); ?> <small class="field-type-text"><?php echo $interest_group['form_field']; ?></small></li>
+							<li class="available-interest-group not-available" alt="<?php echo $interest_group->id; ?>" data-attr-field-name="<?php echo stripslashes( $interest_group->title ); ?>" data-attr-field-type="<?php echo $interest_group->type; ?>" data-attr-form-id="<?php echo $list_id; ?>" title="<?php _e( 'Already assigned to your form' , 'yikes-inc-easy-mailchimp-extender' ); ?>" disabled="disabled"><?php echo stripslashes( $interest_group->title ); ?> <small class="field-type-text"><?php echo $interest_group->type; ?></small></li>
 						<?php
 					} else {
 						?>
-							<li class="available-interest-group" alt="<?php echo $interest_group['id']; ?>" data-attr-field-name="<?php echo stripslashes( $interest_group['name'] ); ?>" data-attr-field-type="<?php echo $interest_group['form_field']; ?>" data-attr-form-id="<?php echo $list_id; ?>"><?php echo stripslashes( $interest_group['name'] ); ?> <small class="field-type-text"><?php echo $interest_group['form_field']; ?></small></li>
+							<li class="available-interest-group" alt="<?php echo $interest_group->id; ?>" data-attr-field-name="<?php echo stripslashes( $interest_group->title ); ?>" data-attr-field-type="<?php echo $interest_group->type; ?>" data-attr-form-id="<?php echo $list_id; ?>"><?php echo stripslashes( $interest_group->title ); ?> <small class="field-type-text"><?php echo $interest_group->type; ?></small></li>
 						<?php
 					}
 				}
@@ -2304,6 +2294,32 @@ class Yikes_Inc_Easy_Mailchimp_Forms_Admin {
 				<a href="#" class="add-interest-group-to-editor button-secondary yikes-easy-mc-hidden" style="display:none;"><small><span class="dashicons dashicons-arrow-left-alt add-to-form-builder-arrow"></span> <?php _e( 'Add to Form Builder' , 'yikes-inc-easy-mailchimp-extender' ); ?></small></a>
 				<?php
 			}
+		}
+		
+		/**
+		*	Prepend an 'Email' field to the merge variable fields array
+		*	- MailChimp API v3 seems to excxlude the email field
+		*	@since 6.0.5
+		*/
+		public function push_email_field_to_field_array( $field_array, $list_id ) {
+			// get the length of the array, to dictate the index of the new email
+			$object_length = ( is_object( $field_array ) ) ? count( $field_array->merge_fields ) : count( $field_array );
+			$email_merge_var = new stdClass;
+			$email_merge_var->merge_id = (int) ( $object_length + 2 );
+			$email_merge_var->tag = 'EMAIL';
+			$email_merge_var->name = 'Email Address';
+			$email_merge_var->type = 'email';
+			$email_merge_var->list_id = $list_id;
+			$email_merge_var->required = 1;
+			$email_merge_var->public = 1;
+			if( is_object( $field_array ) ) {
+				array_unshift( $field_array->merge_fields, $email_merge_var );
+				array_values( $field_array->merge_fields );
+			} else {
+				array_unshift( $field_array, $email_merge_var );
+				array_values( $field_array );
+			}
+			return $field_array;
 		}
 		
 		/* 
