@@ -65,7 +65,7 @@ class YIKES_MAILCHIMP_API {
 			return false;
 		}
 
-		add_settings_error( 'mc4wp-api', 'mc4wp-api-error', $message, 'error' );
+		add_settings_error( 'yikes-mailchimp-api', 'yikes-mailchimp-api-error', $message, 'error' );
 		return true;
 	}
 
@@ -75,7 +75,7 @@ class YIKES_MAILCHIMP_API {
 	 * @return bool
 	 */
 	private function show_connection_error( $message ) {
-		$message .= '<br /><br />' . sprintf( '<a href="%s">' . __( 'Read more about common connectivity issues.', 'mailchimp-for-wp' ) . '</a>', 'https://mc4wp.com/kb/solving-connectivity-issues/#utm_source=wp-plugin&utm_medium=mailchimp-for-wp&utm_campaign=settings-notice' );
+		$message .= '<br /><br />' . sprintf( '<a href="%s">' . __( 'Read more about common connectivity issues.', 'yikes-inc-easy-mailchimp-extender' ) . '</a>', 'https://www.yikesplugins.com' );
 		return $this->show_error( $message );
 	}
 
