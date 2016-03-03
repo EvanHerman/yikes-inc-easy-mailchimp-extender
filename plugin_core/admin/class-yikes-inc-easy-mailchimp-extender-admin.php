@@ -1667,8 +1667,8 @@ class Yikes_Inc_Easy_Mailchimp_Forms_Admin {
 					$assigned_fields[] = $field;
 				}
 				
-				$merged_fields = array_merge( $available_merge_variables , $available_interest_groups );
-				$excluded_fields = array_diff( $assigned_fields , $merged_fields );
+				$merged_fields = array_merge( $available_merge_variables, $available_interest_groups );
+				$excluded_fields = array_diff( $assigned_fields, $merged_fields );
 							
 				$i = 1;
 				foreach( $form_fields as $field ) {
@@ -1687,7 +1687,7 @@ class Yikes_Inc_Easy_Mailchimp_Forms_Admin {
 							<!-- expansion section -->
 							<div class="yikes-mc-settings-expansion-section">
 								
-								<?php if( in_array( $field['merge'] , $excluded_fields ) ) { ?>
+								<?php if( in_array( $field['merge'], $excluded_fields ) ) { ?>
 									<p class="yikes-mc-warning-message"><?php _e( "This field no longer exists in this list. Delete this field from the form to prevent issues on your website." , 'yikes-inc-easy-mailchimp-extender' ); ?></p>
 								<?php } ?>
 								

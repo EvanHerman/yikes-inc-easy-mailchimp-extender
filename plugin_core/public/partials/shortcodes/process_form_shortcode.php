@@ -23,7 +23,7 @@ function process_mailchimp_shortcode( $atts ) {
 			'inline' => '0',
 		), $atts , 'yikes-mailchimp' )
 	);
-		
+	
 	// set globals
 	global $form_submitted, $process_submission_response;
 	

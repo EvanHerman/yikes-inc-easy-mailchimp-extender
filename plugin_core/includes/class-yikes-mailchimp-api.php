@@ -87,8 +87,7 @@ class YIKES_MAILCHIMP_API {
 	 * @return boolean
 	 */
 	public function is_connected() {
-		$result = $this->call( 'helper/ping' );
-
+		$result = $this->call( '/' );
 		if( is_object( $result ) ) {
 			// Msg key set? All good then!
 			if( ! empty( $result->account_id ) ) {
@@ -108,37 +107,55 @@ class YIKES_MAILCHIMP_API {
 
 	/**
 	 * Sends a subscription request to the MailChimp API
-	 *
-	 * @param string $list_id The list id to subscribe to
-	 * @param string $email The email address to subscribe
-	 * @param array $merge_vars Array of extra merge variables
-	 * @param string $email_type The email type to send to this email address. Possible values are `html` and `text`.
-	 * @param boolean $double_optin Should this email be confirmed via double opt-in?
-	 * @param boolean $update_existing Update information if this email is already on list?
-	 * @param boolean $replace_interests Replace interest groupings, only if update_existing is true.
-	 * @param boolean $send_welcome Send a welcome e-mail, only if double_optin is false.
-	 *
-	 * @return boolean|string True if success, 'error' if error
+	*
+	*	@param $merge_vars
 	 */
-	public function subscribe($list_id, $email, array $merge_vars = array(), $email_type = 'html', $double_optin = true, $update_existing = false, $replace_interests = true, $send_welcome = false ) {
-		$data = array(
-			'id' => $list_id,
-			'email' => array( 'email' => $email),
-			'merge_vars' => $merge_vars,
-			'email_type' => $email_type,
-			'double_optin' => $double_optin,
-			'update_existing' => $update_existing,
-			'replace_interests' => $replace_interests,
-			'send_welcome' => $send_welcome
+	public function subscribe( $list_id, $merge_vars = array() ) {
+		// if no merge vars, abort
+		if( empty( $merge_vars ) ) {
+			return false;
+		}
+		
+		$this->empty_last_response();
+		
+		// do not make request when no api key was provided.
+		if( empty( $this->api_key ) ) {
+			return false;
+		}
+		
+		$endpoint = 'lists/' . $list_id . '/members';
+		
+		$url = $this->api_url . $endpoint;
+		$request_args = array(
+			'timeout' => 10,
+			'headers' => $this->get_headers(),
+			'method' => 'POST',
+			'body' => json_encode( $merge_vars )
 		);
-
-		$response = $this->call( 'lists/subscribe', $data );
-
-		if( is_object( $response ) && isset( $response->email ) ) {
-			return true;
+	
+		$response = wp_remote_request( $url, $request_args );	
+		
+		try {
+			$response = $this->parse_response( $response );;
+		} catch( Exception $e ) {
+			$this->error_message = $e->getMessage();
+			$this->show_connection_error( $e->getMessage() );
+			return false;
 		}
 
-		return false;
+		// store response
+		$this->last_response = $response;
+		
+		// store error (if any)
+		if( is_object( $response ) ) {
+			if( ! empty( $response->status ) && $response->status != 200 ) {
+				echo $response->detail;
+				return false;
+			}
+			if( ! empty( $response->status ) && $response->status == 200 ) {
+				return true;
+			}
+		}
 	}
 
 	/**
@@ -429,14 +446,14 @@ class YIKES_MAILCHIMP_API {
 			'headers' => $this->get_headers(),
 		);
 	
-		$response = wp_remote_get( $this->api_url . $method, $request_args );	
+		$response = wp_remote_get( $url, $request_args );	
 		
 		try {
 			$response = $this->parse_response( $response );
 		} catch( Exception $e ) {
 			$this->error_message = $e->getMessage();
 			$this->show_connection_error( $e->getMessage() );
-			if( $method == 'helper/ping' ) {
+			if( $method == '/' ) { // used to validate api key
 				update_option( 'yikes-mc-api-invalid-key-response' , $e->getMessage() );
 				update_option( 'yikes-mc-api-validation', 'invalid_api_key' );
 			}

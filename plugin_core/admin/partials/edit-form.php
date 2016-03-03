@@ -201,7 +201,7 @@
 																<p id="edit-form-description" class="description"><?php _e( 'Select fields from the right to add to this form, you can click a field to reveal advanced options, or drag it to re-arrange its position in the form.' , 'yikes-inc-easy-mailchimp-extender' );?></p>
 																<div id="form-builder-container" class="inside">
 																	<!-- #poststuff -->
-																	<?php echo $this->generate_form_editor( json_decode( $form['fields'] , true ) , $form['list_id'] , $available_merge_variables, isset( $interest_groupings ) ? $interest_groupings : array() ); ?>
+																	<?php echo $this->generate_form_editor( json_decode( $form['fields'] , true ), $form['list_id'], apply_filters( 'yikes-mailchimp-email-field-filter', $available_merge_variables, $form['list_id'] ), isset( $interest_groupings ) ? $interest_groupings : array() ); ?>
 																</div>
 																																
 																<!-- Bulk Delete Form Fields -->
