@@ -106,11 +106,9 @@ if ( ! isset( $_POST['yikes_easy_mc_new_subscriber'] ) || ! wp_verify_nonce( $_P
 	$merge_variables['optin_time'] = current_time( 'Y-m-d H:i:s', 1 );
 	
 	// Submit our form data
-	// $api_key = get_option( 'yikes-mc-api-key' , '' );
+	$api_key = get_option( 'yikes-mc-api-key' , '' );
 	// initialize MailChimp API
-	// $MailChimp = new MailChimp( $api_key );
-	// initialize MailChimp API
-	$MailChimp = new YIKES_MAILCHIMP_API( get_option( 'yikes-mc-api-key' , '' ) );
+	$MailChimp = new MailChimp( $api_key );
 	
 	/*
 	*	yikes-mailchimp-before-submission
@@ -134,23 +132,20 @@ if ( ! isset( $_POST['yikes_easy_mc_new_subscriber'] ) || ! wp_verify_nonce( $_P
 	}
 	
 	// submit the request & data, using the form settings
-	// try {
+	try {
 		
-		// working subscribe. Interest group not working yet.
-		// need to figure out all of our additional parameters (Single optin/double optin, send welcome etc.)
-		$subscribe_response = $MailChimp->subscribe( $_POST['yikes-mailchimp-associated-list-id'], apply_filters( 'yikes-mailchimp-user-subscribe-api-request', array( 
-			'status' => 'subscribed',
-			'email_address' => sanitize_email( $_POST['EMAIL'] ),
-			'merge_fields' => $merge_variables,
+		$subscribe_response = $MailChimp->call('/lists/subscribe', apply_filters( 'yikes-mailchimp-user-subscribe-api-request', array( 
+			'api_key' => $api_key,
+			'id' => $_POST['yikes-mailchimp-associated-list-id'],
+			'email' => array( 'email' => sanitize_email( $_POST['EMAIL'] ) ),
+			'merge_vars' => $merge_variables,
+			'double_optin' => $form_settings['optin_settings']['optin'],
+			'update_existing' => $form_settings['optin_settings']['update_existing_user'],
+			'send_welcome' => $form_settings['optin_settings']['send_welcome_email'],
+			'replace_interests' => ( isset( $form_settings['submission_settings']['replace_interests'] ) ) ? $form_settings['submission_settings']['replace_interests'] : 1, // defaults to replace
 		), $form_id, $_POST['yikes-mailchimp-associated-list-id'], $_POST['EMAIL'] ) );
 		
 
-		// this is preventing any success/error messages from displaying
-		// need to setup our API class file properly --
-		if( ! $subscribe_response ) {
-			return false;
-		}
-		
 		// setup our submission response		
 		$form_submitted = 1;
 			
@@ -211,7 +206,7 @@ if ( ! isset( $_POST['yikes_easy_mc_new_subscriber'] ) || ! wp_verify_nonce( $_P
 				), 
 				array( '%d' ) 
 			);
-	/* } catch ( Exception $error ) { // Something went wrong...
+	} catch ( Exception $error ) { // Something went wrong...
 		global $process_submission_response;
 		$error_response = $error->getMessage();
 		if( get_option( 'yikes-mailchimp-debug-status' , '' ) == '1' ) {
@@ -269,7 +264,7 @@ if ( ! isset( $_POST['yikes_easy_mc_new_subscriber'] ) || ! wp_verify_nonce( $_P
 				}
 			}
 		}
-	} */
+	}	
 	
 }
 ?>

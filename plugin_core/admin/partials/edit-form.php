@@ -59,22 +59,22 @@
 				);
 			}
 			
-			
-			// initialize MailChimp API
-			$MailChimp = new YIKES_MAILCHIMP_API( get_option( 'yikes-mc-api-key' , '' ) );
-			
 			// Check for a transient, if not - set one up for one hour
 			if ( false === ( $list_data = get_transient( 'yikes-easy-mailchimp-list-data' ) ) ) {
+				// initialize MailChimp Class
+				$MailChimp = new MailChimp( get_option( 'yikes-mc-api-key' , '' ) );
 				// retreive our list data
-				$list_data = $MailChimp->call( 'lists' );
+				$list_data = $MailChimp->call( 'lists/list' , array( 'apikey' => get_option( 'yikes-mc-api-key' , '' ), 'limit' => 100 ) );
 				// set our transient
 				set_transient( 'yikes-easy-mailchimp-list-data', $list_data, 1 * HOUR_IN_SECONDS );
 			}
 			
 			// get the list data
 			try {
+				$api_key = get_option( 'yikes-mc-api-key' , '' );
+				$MailChimp = new MailChimp( $api_key );
 				// retreive our list data
-				$available_merge_variables = $MailChimp->call( 'lists/' . $form['list_id'] . '/merge-fields' );
+				$available_merge_variables = $MailChimp->call( 'lists/merge-vars' , array( 'apikey' => $api_key , 'id' => array( $form['list_id'] ) ) );
 			} catch ( Exception $e ) {
 				$merge_variable_error = '<p class="description error-descripion">' . __( 'Error' , 'yikes-inc-easy-mailchimp-extender' ) . ' : ' . $e->getMessage() . '.</p>';
 				wp_die( __( "Uh Oh...It looks like we ran into an error! Please reload the page and try again. If the error persists, please contact the YIKES Inc. support team.", 'yikes-inc-easy-mailchimp-extender' ) , 500 );
@@ -82,7 +82,7 @@
 			
 			// get the interest group data
 			try {
-				$interest_groupings = $MailChimp->call( 'lists/' . $form['list_id'] . '/interest-categories' );
+				$interest_groupings = $MailChimp->call( 'lists/interest-groupings' , array( 'apikey' => $api_key , 'id' => $form['list_id'] ) );
 				$no_interest_groupings = '<p class="description error-descripion">' . __( 'No Interest Groups Found' , 'yikes-inc-easy-mailchimp-extender' ) . '.</p>';
 			} catch( Exception $error ) {
 				$no_interest_groupings = '<p class="description error-descripion">' . $error->getMessage() . '.</p>';
@@ -201,7 +201,7 @@
 																<p id="edit-form-description" class="description"><?php _e( 'Select fields from the right to add to this form, you can click a field to reveal advanced options, or drag it to re-arrange its position in the form.' , 'yikes-inc-easy-mailchimp-extender' );?></p>
 																<div id="form-builder-container" class="inside">
 																	<!-- #poststuff -->
-																	<?php echo $this->generate_form_editor( json_decode( $form['fields'] , true ), $form['list_id'], apply_filters( 'yikes-mailchimp-email-field-filter', $available_merge_variables, $form['list_id'] ), isset( $interest_groupings ) ? $interest_groupings : array() ); ?>
+																	<?php echo $this->generate_form_editor( json_decode( $form['fields'] , true ) , $form['list_id'] , $available_merge_variables , isset( $interest_groupings ) ? $interest_groupings : array() ); ?>
 																</div>
 																																
 																<!-- Bulk Delete Form Fields -->
@@ -245,9 +245,7 @@
 																					// build a list of available merge variables,
 																					// but exclude the ones already assigned to the form
 																					echo '<p class="description">' . __( "Select a field below to add to the form builder." , 'yikes-inc-easy-mailchimp-extender' ) . '</p>';
-																					// pass the merge variable array field through our filter, to append an 'Email' field. (since API v3)
-																					$this->build_available_merge_vars( json_decode( $form['fields'] , true ), apply_filters( 'yikes-mailchimp-email-field-filter', $available_merge_variables->merge_fields, $form['list_id'] ), $available_merge_variables->total_items );
-																					// $this->build_available_merge_vars( json_decode( $form['fields'] , true ), $available_merge_variables );
+																					$this->build_available_merge_vars( json_decode( $form['fields'] , true ) , $available_merge_variables );
 																				} else {
 																					echo $merge_variable_error;
 																				}
@@ -256,11 +254,12 @@
 																		
 																		<div id="interest-groups-container" class="list-container">
 																			<?php
-																				if( isset( $interest_groupings ) && $interest_groupings->total_items > 0 ) {
+																				if( isset( $interest_groupings ) && count( $interest_groupings ) >= 1 ) {
 																					// build a list of available merge variables,
 																					// but exclude the ones already assigned to the form
 																					echo '<p class="description">' . __( "Select an interest group below to add to the form builder." , 'yikes-inc-easy-mailchimp-extender' ) . '</p>';
-																					$this->build_available_interest_groups( json_decode( $form['fields'], true ), $interest_groupings, $form['list_id'] );
+																					// $this->build_available_merge_vars( json_decode( $form['fields'] , true ) , $available_merge_variables );
+																					$this->build_available_interest_groups( json_decode( $form['fields'] , true ) , $interest_groupings , $form['list_id'] );
 																				} else {
 																					echo $no_interest_groupings;
 																				}
@@ -636,12 +635,12 @@
 										<div class="yikes-mc-settings-expansion-section">
 											<!-- Associated List -->
 											<p class="form-field-container"><!-- necessary to prevent skipping on slideToggle(); --><label for="associated-list"><strong><?php _e( 'Associated List' , 'yikes-inc-easy-mailchimp-extender' ); ?></strong>
-												<select name="associated-list" id="associated-list" <?php if( empty( $list_data->lists ) || $list_data->total_items == 0 ) { echo 'disabled="disabled"'; } ?>>
+												<select name="associated-list" id="associated-list" <?php if( empty( $list_data['data'] ) ) { echo 'disabled="disabled"'; } ?>>
 													<?php
-													if( ! empty( $list_data->lists ) && $list_data->total_items > 0 ) {
-														foreach( $list_data->lists as $mailing_list ) {
+													if( !empty( $list_data['data'] ) ) {
+														foreach( $list_data['data'] as $mailing_list ) {
 															?>
-																<option <?php selected( $form['list_id'] , $mailing_list->id ); ?> value="<?php echo $mailing_list->id; ?>"><?php echo stripslashes( $mailing_list->name ) . ' (' . $mailing_list->stats->member_count . ') '; ?></option>
+																<option <?php selected( $form['list_id'] , $mailing_list['id'] ); ?> value="<?php echo $mailing_list['id']; ?>"><?php echo stripslashes( $mailing_list['name'] ) . ' (' . $mailing_list['stats']['member_count'] . ') '; ?></option>
 															<?php
 														}
 													} else {
@@ -651,7 +650,7 @@
 													}
 													?>
 												</select>
-												<?php if( !empty( $list_data->lists ) ) { ?>
+												<?php if( !empty( $list_data['data'] ) ) { ?>
 													<p class="description">
 														<?php _e( "Users who sign up via this form will be added to the list selected above." , 'yikes-inc-easy-mailchimp-extender' ); ?>
 													</p>

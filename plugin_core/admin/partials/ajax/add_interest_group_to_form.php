@@ -1,16 +1,23 @@
 <?php
-	// lets run an ajax request to get all of our field data, to either prepopulate, or build our default selection arrays etc.	
-	// initialize MailChimp API
-	$MailChimp = new YIKES_MAILCHIMP_API( get_option( 'yikes-mc-api-key' , '' ) );
-	// retreive our list data
-	$available_interest_groups = $MailChimp->call( 'lists/' . $form_data_array['list_id'] . '/interest-categories' );
-	// find and return the location of this merge field in the array
-	$index = $this->findMCListIndex( $form_data_array['group_id'], $available_interest_groups->categories, 'id' );
-	// store it and use it to pre-populate field data (only on initial add to form)
-	$interest_group_data = $available_interest_groups->categories[$index];
-	
-	// get the interest group options
-	$interest_group_options = $MailChimp->call( 'lists/' . $form_data_array['list_id'] . '/interest-categories/' . $form_data_array['group_id'] . '/interests' );	
+	// lets run an ajax request to get all of our field data, to either prepopulate
+	// or build our default selection arrays etc.
+	$api_key = get_option( 'yikes-mc-api-key' , '' );
+	$MailChimp = new MailChimp( $api_key );
+	// get the interest group data
+	try {
+		$interest_groupings = $MailChimp->call( 'lists/interest-groupings' , array( 'apikey' => $api_key , 'id' => $form_data_array['list_id'] ) );
+		if( $interest_groupings ) {
+			// find and return the location of this merge field in the array
+			$index = $this->findMCListIndex( $form_data_array['group_id'] , $interest_groupings , 'id' );
+			// check for our index...
+			if( isset( $index) ) {
+				// store it and use it to pre-populate field data (only on initial add to form)
+				$merge_field_data = $interest_groupings[$index];
+			}
+		}	
+	} catch( Exception $error ) {
+		$no_interest_groupings = $error->getMessage();
+	}
 ?>
 <section class="draggable" id="<?php echo $form_data_array['group_id']; ?>">
 	<!-- top -->
@@ -27,7 +34,7 @@
 			<input type="hidden" name="field[<?php echo $form_data_array['group_id']; ?>][label]" value="<?php echo $form_data_array['field_name']; ?>" />
 			<input type="hidden" name="field[<?php echo $form_data_array['group_id']; ?>][type]" value="<?php echo $form_data_array['field_type']; ?>" />
 			<input type="hidden" name="field[<?php echo $form_data_array['group_id']; ?>][group_id]" value="<?php echo $form_data_array['group_id']; ?>" />
-			<input type="hidden" name="field[<?php echo $form_data_array['group_id']; ?>][groups]" value='<?php echo str_replace( '\'' , '~' , json_encode( $interest_group_options->interests ) ); ?>' />
+			<input type="hidden" name="field[<?php echo $form_data_array['group_id']; ?>][groups]" value='<?php echo str_replace( '\'' , '~' , json_encode( $merge_field_data['groups'] ) ); ?>' />
 	
 				
 			<table class="form-table form-field-container">
@@ -45,10 +52,10 @@
 									</label>
 								</td>
 								<td>
-									<?php $i = 0; foreach( $interest_group_options->interests as $interest_group ) { 
+									<?php $i = 0; foreach( $merge_field_data['groups'] as $interest_group ) { 
 											$pre_selected = !empty( $merge_field_data['default_choice'] ) ? $merge_field_data['default_choice'] : '0';
 									?>
-										<input type="radio" name="field[<?php echo $form_data_array['group_id']; ?>][default_choice][]" value="<?php echo $i; ?>" <?php checked( $pre_selected , $i ); ?>><?php echo stripslashes( $interest_group->name ); ?>
+										<input type="radio" name="field[<?php echo $form_data_array['group_id']; ?>][default_choice][]" value="<?php echo $i; ?>" <?php checked( $pre_selected , $i ); ?>><?php echo stripslashes( $interest_group['name'] ); ?>
 									<?php 
 										$i++;
 										} 
@@ -69,10 +76,10 @@
 									</label>
 								</td>
 								<td>
-									<?php $i = 0; foreach( $interest_group_options->interests as $interest_group ) { 
+									<?php $i = 0; foreach( $merge_field_data['groups'] as $interest_group ) { 
 											$pre_selected = !empty( $merge_field_data['default_choice'] ) ? $merge_field_data['default_choice'] : '0';
 									?>
-										<input type="checkbox" name="field[<?php echo $form_data_array['group_id']; ?>][default_choice][]" value="<?php echo $i; ?>" <?php checked( $pre_selected , $i ); ?>><?php echo stripslashes( $interest_group->name ); ?>
+										<input type="checkbox" name="field[<?php echo $form_data_array['group_id']; ?>][default_choice][]" value="<?php echo $i; ?>" <?php checked( $pre_selected , $i ); ?>><?php echo stripslashes( $interest_group['name'] ); ?>
 									<?php 
 										$i++;
 										} 
@@ -94,10 +101,10 @@
 								</td>
 								<td>
 									<select type="default" name="field[<?php echo $form_data_array['group_id']; ?>][default_choice]">
-										<?php $i = 0; foreach( $interest_group_options->interests as $interest_group ) { 
+										<?php $i = 0; foreach( $merge_field_data['groups'] as $interest_group ) { 
 												$pre_selected = !empty( $merge_field_data['default_choice'] ) ? $merge_field_data['default_choice'] : '0';
 										?>
-											<option value="<?php echo $i; ?>" <?php selected( $pre_selected , $i ); ?>><?php echo $interest_group->name; ?></option>
+											<option value="<?php echo $i; ?>" <?php selected( $pre_selected , $i ); ?>><?php echo $interest_group['name']; ?></option>
 										<?php $i++; } ?>
 									</select>
 									<p class="description"><small><?php _e( "Which option should be selected by default?", 'yikes-inc-easy-mailchimp-extender' );?></small></p>
