@@ -496,9 +496,9 @@ class Yikes_Inc_Easy_Mailchimp_Forms_Admin {
 				$nobugurl = esc_url_raw( add_query_arg( 'yikes_easy_mc_icons_nobug', '1', admin_url() ) );
 				global $current_user;
 				get_currentuserinfo();
-				if ( '' != $current_user->user_firstname ) {
+				if ( isset( $current_user->user_firstname ) && '' != $current_user->user_firstname ) {
 					$review_message = '<div id="yikes-mailchimp-logo"></div>';
-						$review_message .= sprintf( __( "Hi, %s, you've been using %s for 2 weeks now. We hope you're enjoying the features included with the free version. If so, please consider leaving us a review. Reviews provide us with feedback to grow and improve the plugin. If you're really enjoying the plugin, consider buying an add-on or developer license for some really awesome features and premium support." , 'yikes-inc-easy-mailchimp-extender' ) . "<span class='button-container'> <a href='%s' target='_blank' class='button-secondary'><span class='dashicons dashicons-star-filled'></span>" . __( "Leave A Review" , 'yikes-inc-easy-mailchimp-extender' ) . "</a> <a href='%s' class='button-secondary'><span class='dashicons dashicons-upload'></span>" . __( "View Addons" , 'yikes-inc-easy-mailchimp-extender' ) . "</a> <a href='%s' class='button-secondary'><span class='dashicons dashicons-no-alt'></span>" . __( "Dismiss" , 'yikes-inc-easy-mailchimp-extender' ) . "</a> </span>",  $current_user->user_firstname, '<strong>Easy Forms for MailChimp by YIKES Inc.</strong>', $reviewurl, $addons_url, $nobugurl );
+						$review_message .= sprintf( __( "Hi, %s, you've been using %s for 2 weeks now. We hope you're enjoying the features included with the free version. If so, please consider leaving us a review. Reviews provide us with feedback to grow and improve the plugin. If you're really enjoying the plugin, consider buying an add-on or developer license for some really awesome features and premium support." , 'yikes-inc-easy-mailchimp-extender' ) . "<span class='button-container'> <a href='%s' target='_blank' class='button-secondary'><span class='dashicons dashicons-star-filled'></span>" . __( "Leave A Review" , 'yikes-inc-easy-mailchimp-extender' ) . "</a> <a href='%s' class='button-secondary'><span class='dashicons dashicons-upload'></span>" . __( "View Addons" , 'yikes-inc-easy-mailchimp-extender' ) . "</a> <a href='%s' class='button-secondary'><span class='dashicons dashicons-no-alt'></span>" . __( "Dismiss" , 'yikes-inc-easy-mailchimp-extender' ) . "</a> </span>", $current_user->user_firstname, '<strong>Easy Forms for MailChimp by YIKES Inc.</strong>', $reviewurl, $addons_url, $nobugurl );
 					$review_message .= '';
 				} else {
 					$review_message = '<div id="yikes-mailchimp-logo"></div>';
@@ -1144,28 +1144,41 @@ class Yikes_Inc_Easy_Mailchimp_Forms_Admin {
 	}
 	
 	/** 
-	*	Options Sanitation & Validation
+	*	Options Sanitization & Validation
 	*	@since complete re-write
 	**/
 	function yikes_mc_validate_api_key( $input ) {
-		$old = get_option( 'yikes-mc-api-key' , '' );
+		if( $input == '' ) {
+			return;
+		}	
 		$api_key = trim( $input );
-		// only re-run the API request if our API key has changed
-		if( $old != $api_key ) {
-			// initialize MailChimp Class
-			try {
-				$MailChimp = new MailChimp( $api_key );
-				// retreive our list data
-				$validate_api_key_response = $MailChimp->call( 'helper/ping' , array( 'apikey' => $api_key ) );
+		$dash_position = strpos( trim( $input ), '-' );
+		if( $dash_position !== false ) {
+			$api_endpoint = 'https://' . substr( $api_key, $dash_position + 1 ) . '.api.mailchimp.com/2.0/helper/ping.json';
+		} else {
+			update_option( 'yikes-mc-api-invalid-key-response', __( 'Your API key appears to be invalid.', 'yikes-inc-easy-mailchimp-extender' ) );
+			update_option( 'yikes-mc-api-validation' , 'invalid_api_key' );
+			return $api_key;
+		}
+		$request_args = array(
+			'body' => 	array(
+				'apikey' => $api_key,
+			),
+			'timeout' => 10,
+			'sslverify' => apply_filters( 'yikes-mailchimp-sslverify', true ),
+		);
+		$api_key_response = wp_remote_post( $api_endpoint, $request_args );
+		if( ! is_wp_error( $api_key_response ) ) {
+			$body = json_decode( wp_remote_retrieve_body( $api_key_response ), true );
+			if( isset( $body['msg'] ) && $body['msg'] == "Everything's Chimpy!" ) {
 				update_option( 'yikes-mc-api-validation' , 'valid_api_key' );
-			} catch ( Exception $e ) {
-				// log to our error log
-				require_once YIKES_MC_PATH . 'includes/error_log/class-yikes-inc-easy-mailchimp-error-logging.php';
-				$error_logging = new Yikes_Inc_Easy_Mailchimp_Error_Logging();
-				$error_logging->yikes_easy_mailchimp_write_to_error_log( $e->getMessage() , __( "Connecting to MailChimp" , 'yikes-inc-easy-mailchimp-extender' ) , __( "Settings Page/General Settings" , 'yikes-inc-easy-mailchimp-extender' ) );
-				update_option( 'yikes-mc-api-invalid-key-response' , $e->getMessage() );
-				update_option( 'yikes-mc-api-validation' , 'invalid_api_key' );
-			}	
+			}
+		}  else {
+			require_once YIKES_MC_PATH . 'includes/error_log/class-yikes-inc-easy-mailchimp-error-logging.php';
+			$error_logging = new Yikes_Inc_Easy_Mailchimp_Error_Logging();
+			$error_logging->yikes_easy_mailchimp_write_to_error_log( $api_key_response->get_error_message() , __( "Connecting to MailChimp" , 'yikes-inc-easy-mailchimp-extender' ) , __( "Settings Page/General Settings" , 'yikes-inc-easy-mailchimp-extender' ) );
+			update_option( 'yikes-mc-api-invalid-key-response' , $api_key_response->get_error_message() );
+			update_option( 'yikes-mc-api-validation' , 'invalid_api_key' );
 		}
 		// returned the api key
 		return $api_key;
@@ -1503,17 +1516,17 @@ class Yikes_Inc_Easy_Mailchimp_Forms_Admin {
 		*	Generate a dropdown of post and pages
 		*	so the user can send the user to on form submission
 		*/
-		public function generate_page_redirect_dropdown( $redirect, $redirect_page ) {
+		public function generate_page_redirect_dropdown( $redirect, $redirect_page, $custom_redirect_url ) {
 				$post_types = get_post_types();
 				?>
 				<label id="redirect-user-to-selection-label" for="redirect-user-to-selection" class="<?php if( $redirect == '0' ) { echo 'yikes-easy-mc-hidden'; } ?>">
 					<?php _e( "Select A Page or Post" , 'yikes-inc-easy-mailchimp-extender' ); ?>
-					<select id="redirect-user-to-selection" name="redirect-user-to-selection">
+					<select id="redirect-user-to-selection" name="redirect-user-to-selection" onchange="shouldWeDisplayCustomURL( this );return;">
 				<?php
 					// loop over registered post types, and query!
 						foreach( $post_types as $registered_post_type ) {
 							// exclude a few built in custom post types
-							if( !in_array( $registered_post_type , array( 'attachment' , 'revision' , 'nav_menu_item' ) ) ) {
+							if( ! in_array( $registered_post_type , array( 'attachment' , 'revision' , 'nav_menu_item' ) ) ) {
 								// run our query, to retreive the posts
 								$pages = get_posts( array(
 									'order' => 'ASC',
@@ -1531,6 +1544,7 @@ class Yikes_Inc_Easy_Mailchimp_Forms_Admin {
 											?><option <?php selected( $redirect_page , $page->ID ); ?> value="<?php echo $page->ID; ?>"><?php echo $page->post_title; ?></option><?php
 										}
 									?>
+									<option <?php selected( $redirect_page, 'custom_url' ); ?> value="custom_url"><?php echo __( 'Custom URL', 'yikes-inc-easy-mailchimp-extender' ); ?></option>
 									</optgroup>
 									<?php
 								}
@@ -1538,6 +1552,12 @@ class Yikes_Inc_Easy_Mailchimp_Forms_Admin {
 						}
 					?>
 					</select>
+					
+					<label name="custom-redirect-url" class="custom_redirect_url_label" <?php if( ! isset( $redirect_page ) || $redirect_page != 'custom_url' ) { echo 'style="display:none;"'; } ?>>
+						<?php _e( "Enter Custom URL" , 'yikes-inc-easy-mailchimp-extender' ); ?>
+						<input type="text" class="widefat custom-redirect-url" name="custom-redirect-url" value="<?php echo $custom_redirect_url; ?>" />
+					</label>
+					
 				</label>
 			<?php
 		}
@@ -2562,6 +2582,7 @@ class Yikes_Inc_Easy_Mailchimp_Forms_Admin {
 					'ajax' => $_POST['form-ajax-submission'],
 					'redirect_on_submission' => $_POST['redirect-user-on-submission'],
 					'redirect_page' => $_POST['redirect-user-to-selection'],
+					'custom_redirect_url' => esc_url( $_POST['custom-redirect-url'] ),
 					'hide_form_post_signup' => $_POST['hide-form-post-signup'],
 					'replace_interests' => $_POST['replace-interest-groups'],
 				)

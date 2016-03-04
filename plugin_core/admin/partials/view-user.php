@@ -324,6 +324,5 @@
 		$city = $geocode_response_body['results'][0]['address_components'][2]['short_name'];
 		$state = $geocode_response_body['results'][0]['address_components'][5]['short_name'];
 		$country = $geocode_response_body['results'][0]['address_components'][6]['short_name'];
-		$link = '<a href="http://maps.google.com/maps?q=' . $latitude . ',' . $longitude . '" target="_blank" title="' . __( 'View Google Map', 'yikes-inc-easy-mailchimp-extender' ) . '">' . $city . ', ' . $state . ', ' . $country . '</a>&nbsp;<span class="flag-icon flag-icon-' . strtolower( $country ) . '"></span>';
-		return $link;
+		return $link = '<a href="http://maps.google.com/maps?q=' . $latitude . ',' . $longitude . '" target="_blank" title="' . __( 'View Google Map', 'yikes-inc-easy-mailchimp-extender' ) . '">' . $city . ', ' . $state . ', ' . $country . '</a>&nbsp;<span class="flag-icon flag-icon-' . strtolower( $country ) . '"></span>';
 	}

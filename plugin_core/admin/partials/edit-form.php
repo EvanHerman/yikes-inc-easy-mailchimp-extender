@@ -741,7 +741,7 @@
 													<label for="redirect-user"><input type="radio" id="redirect-user" onclick="togglePageRedirection( this );" name="redirect-user-on-submission" value="1" <?php checked( $submission_settings['redirect_on_submission'] , '1' ); ?>><?php _e( 'Yes' , 'yikes-inc-easy-mailchimp-extender' ); ?></label>
 													&nbsp;<label for="do-not-redirect-user"><input type="radio" id="do-not-redirect-user" onclick="togglePageRedirection( this );" name="redirect-user-on-submission" value="0" <?php checked( $submission_settings['redirect_on_submission'] , '0' ); ?>><?php _e( 'No' , 'yikes-inc-easy-mailchimp-extender' ); ?></label>
 												</span>
-												<?php $this->generate_page_redirect_dropdown( $submission_settings['redirect_on_submission'] , $submission_settings['redirect_page'] ); ?>
+												<?php $this->generate_page_redirect_dropdown( $submission_settings['redirect_on_submission'] , $submission_settings['redirect_page'], ( isset( $submission_settings['custom_redirect_url'] ) ) ? esc_url( $submission_settings['custom_redirect_url'] ) : '' ); ?>
 												<p class="description"><?php _e( "When the user signs up would you like to redirect them to another page?" , 'yikes-inc-easy-mailchimp-extender' ); ?></p>
 											</label></p>
 											
