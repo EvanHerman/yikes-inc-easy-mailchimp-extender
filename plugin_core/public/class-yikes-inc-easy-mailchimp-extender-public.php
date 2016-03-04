@@ -142,7 +142,7 @@ class Yikes_Inc_Easy_Mailchimp_Extender_Public {
 					if( $form_settings['submission_settings']['redirect_on_submission'] == '1' ) {
 						if( $form_submitted == 1 ) {
 							// decode our settings
-							$redirect_page = get_permalink( (int) $form_settings['submission_settings']['redirect_page'] );
+							$redirect_page = ( 'custom_url' != $form_settings['submission_settings']['redirect_page'] ) ? get_permalink( (int) $form_settings['submission_settings']['redirect_page'] ) : $form_settings['submission_settings']['custom_redirect_url'];
 							wp_redirect( apply_filters( 'yikes-mailchimp-redirect-url', esc_url( $redirect_page ), $form_id, $post ) );
 							exit;
 						}

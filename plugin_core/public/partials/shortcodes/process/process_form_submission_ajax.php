@@ -154,7 +154,8 @@
 				*/
 				if( $submission_settings['redirect_on_submission'] == '1' ) {
 					$redirection = '1';
-					$redirect = '<script type="text/javascript">setTimeout(function() { window.location="' . apply_filters( 'yikes-mailchimp-redirect-url', get_permalink( $submission_settings['redirect_page'] ), $form, $page_data ) . '"; }, ' . apply_filters( 'yikes-mailchimp-redirect-timer', 1500 ) . ');</script>';
+					$redirect_url = ( 'custom_url' != $submission_settings['redirect_page'] ) ? get_permalink( $submission_settings['redirect_page'] ) : $submission_settings['custom_redirect_url'];
+					$redirect = '<script type="text/javascript">setTimeout(function() { window.location="' . apply_filters( 'yikes-mailchimp-redirect-url', esc_url( $redirect_url ), $form, $page_data ) . '"; }, ' . apply_filters( 'yikes-mailchimp-redirect-timer', 1500 ) . ');</script>';
 				}
 				
 				/*
