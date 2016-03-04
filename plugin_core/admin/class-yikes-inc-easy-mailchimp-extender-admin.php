@@ -1148,24 +1148,37 @@ class Yikes_Inc_Easy_Mailchimp_Forms_Admin {
 	*	@since complete re-write
 	**/
 	function yikes_mc_validate_api_key( $input ) {
-		$old = get_option( 'yikes-mc-api-key' , '' );
+		if( $input == '' ) {
+			return;
+		}	
 		$api_key = trim( $input );
-		// only re-run the API request if our API key has changed
-		if( $old != $api_key ) {
-			// initialize MailChimp Class
-			try {
-				$MailChimp = new MailChimp( $api_key );
-				// retreive our list data
-				$validate_api_key_response = $MailChimp->call( 'helper/ping' , array( 'apikey' => $api_key ) );
+		$dash_position = strpos( trim( $input ), '-' );
+		if( $dash_position !== false ) {
+			$api_endpoint = 'https://' . substr( $api_key, $dash_position + 1 ) . '.api.mailchimp.com/2.0/helper/ping.json';
+		} else {
+			update_option( 'yikes-mc-api-invalid-key-response', __( 'Your API key appears to be invalid.', 'yikes-inc-easy-mailchimp-extender' ) );
+			update_option( 'yikes-mc-api-validation' , 'invalid_api_key' );
+			return $api_key;
+		}
+		$request_args = array(
+			'body' => 	array(
+				'apikey' => $api_key,
+			),
+			'timeout' => 10,
+			'sslverify' => apply_filters( 'yikes-mailchimp-sslverify', true ),
+		);
+		$api_key_response = wp_remote_post( $api_endpoint, $request_args );
+		if( ! is_wp_error( $api_key_response ) ) {
+			$body = json_decode( wp_remote_retrieve_body( $api_key_response ), true );
+			if( isset( $body['msg'] ) && $body['msg'] == "Everything's Chimpy!" ) {
 				update_option( 'yikes-mc-api-validation' , 'valid_api_key' );
-			} catch ( Exception $e ) {
-				// log to our error log
-				require_once YIKES_MC_PATH . 'includes/error_log/class-yikes-inc-easy-mailchimp-error-logging.php';
-				$error_logging = new Yikes_Inc_Easy_Mailchimp_Error_Logging();
-				$error_logging->yikes_easy_mailchimp_write_to_error_log( $e->getMessage() , __( "Connecting to MailChimp" , 'yikes-inc-easy-mailchimp-extender' ) , __( "Settings Page/General Settings" , 'yikes-inc-easy-mailchimp-extender' ) );
-				update_option( 'yikes-mc-api-invalid-key-response' , $e->getMessage() );
-				update_option( 'yikes-mc-api-validation' , 'invalid_api_key' );
-			}	
+			}
+		}  else {
+			require_once YIKES_MC_PATH . 'includes/error_log/class-yikes-inc-easy-mailchimp-error-logging.php';
+			$error_logging = new Yikes_Inc_Easy_Mailchimp_Error_Logging();
+			$error_logging->yikes_easy_mailchimp_write_to_error_log( $api_key_response->get_error_message() , __( "Connecting to MailChimp" , 'yikes-inc-easy-mailchimp-extender' ) , __( "Settings Page/General Settings" , 'yikes-inc-easy-mailchimp-extender' ) );
+			update_option( 'yikes-mc-api-invalid-key-response' , $api_key_response->get_error_message() );
+			update_option( 'yikes-mc-api-validation' , 'invalid_api_key' );
 		}
 		// returned the api key
 		return $api_key;
