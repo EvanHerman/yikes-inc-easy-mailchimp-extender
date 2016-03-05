@@ -156,6 +156,7 @@ if( isset( $merge_variables['error'] ) ) {
 	$subscribe_response = json_decode( wp_remote_retrieve_body( $subscribe_response ), true );
 					
 	if( isset( $subscribe_response['error'] ) ) {
+		$update_account_details_link = '';
 		$error = 1;
 		switch( $subscribe_response['code'] ) {		
 			// user already subscribed
@@ -178,7 +179,7 @@ if( isset( $merge_variables['error'] ) ) {
 					$merge_variables = wp_remote_post( $api_endpoint, array( 
 						'body' => array( 
 							'apikey' => $api_key, 
-							'id' => array( $_POST['yikes-mailchimp-associated-list-id'] ) ,
+							'id' => array( $list_id ) ,
 						),
 						'timeout' => 10,
 						'sslverify' => apply_filters( 'yikes-mailchimp-sslverify', true ),

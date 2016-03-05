@@ -153,6 +153,7 @@ if ( ! isset( $_POST['yikes_easy_mc_new_subscriber'] ) || ! wp_verify_nonce( $_P
 		
 		// check for any errors
 		if( isset( $subscribe_response['error'] ) ) {
+			$update_account_details_link = '';
 			switch( $subscribe_response['code'] ) {
 				// user already subscribed
 				case '214':
