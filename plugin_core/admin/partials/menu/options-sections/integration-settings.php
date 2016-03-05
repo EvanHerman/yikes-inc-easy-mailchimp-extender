@@ -84,10 +84,20 @@
 		if( $this->is_user_mc_api_valid_form( false ) == 'valid' ) {
 			/// Check for a transient, if not - set one up for one hour
 			if ( false === ( $list_data = get_transient( 'yikes-easy-mailchimp-list-data' ) ) ) {
-				// initialize MailChimp Class
-				$MailChimp = new MailChimp( get_option( 'yikes-mc-api-key' , '' ) );
-				// retreive our list data
-				$list_data = $MailChimp->call( 'lists/list' , array( 'apikey' => get_option( 'yikes-mc-api-key' , '' ), 'limit' => 100 ) );
+				$api_key = trim( get_option( 'yikes-mc-api-key' , '' ) );
+				$dash_position = strpos( $api_key, '-' );
+				if( $dash_position !== false ) {
+					$api_endpoint = 'https://' . substr( $api_key, $dash_position + 1 ) . '.api.mailchimp.com/2.0/lists/list.json';
+				}
+				$list_data = wp_remote_post( $api_endpoint, array( 
+					'body' => array( 
+						'apikey' => $api_key, 
+						'limit' => 100
+					),
+					'timeout' => 10,
+					'sslverify' => apply_filters( 'yikes-mailchimp-sslverify', true )
+				) );
+				$list_data = json_decode( wp_remote_retrieve_body( $list_data ), true );				
 				// set our transient
 				set_transient( 'yikes-easy-mailchimp-list-data', $list_data, 1 * HOUR_IN_SECONDS );
 			}
@@ -106,7 +116,7 @@
 <div class="inside">
 		
 	<p>
-		<?php _e( 'Select which plugins or features Easy Forms for MailChimp by Yikes Inc. should integrate with. Depending on which plugins or features you choose to integrate with, an optin checkbox will be generated. For example, the comment form checkbox will generate a checkbox below the standard WordPress comment form to add any new commenters to a pre-determined MailChimp mailing list.' , 'yikes-inc-easy-mailchimp-extender' ); ?>
+		<?php _e( 'Select which plugins or features Easy Forms for MailChimp by Yikes Inc. should integrate with. Depending on which plugins or features you choose to integrate with, an opt-in checkbox will be generated. For example, the comment form checkbox will generate a checkbox below the standard WordPress comment form to add any new commenters to a pre-determined MailChimp mailing list.' , 'yikes-inc-easy-mailchimp-extender' ); ?>
 	</p>
 		
 	<!-- Settings Form -->

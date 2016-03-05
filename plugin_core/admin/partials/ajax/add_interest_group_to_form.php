@@ -1,20 +1,29 @@
 <?php
-	// lets run an ajax request to get all of our field data, to either prepopulate
-	// or build our default selection arrays etc.
-	$api_key = get_option( 'yikes-mc-api-key' , '' );
-	$MailChimp = new MailChimp( $api_key );
+	$api_key = trim( get_option( 'yikes-mc-api-key' , '' ) );
+	$dash_position = strpos( $api_key, '-' );
+	if( $dash_position !== false ) {
+		$api_endpoint = 'https://' . substr( $api_key, $dash_position + 1 ) . '.api.mailchimp.com/2.0/lists/interest-groupings.json';
+	}
 	// get the interest group data
 	try {
-		$interest_groupings = $MailChimp->call( 'lists/interest-groupings' , array( 'apikey' => $api_key , 'id' => $form_data_array['list_id'] ) );
-		if( $interest_groupings ) {
+		$interest_groupings = wp_remote_post( $api_endpoint, array( 
+			'body' => array( 
+				'apikey' => $api_key, 
+				'id' => $form_data_array['list_id'] 
+			),
+			'timeout' => 10,
+			'sslverify' => apply_filters( 'yikes-mailchimp-sslverify', true ) 
+		) );
+		$interest_groupings_body = json_decode( wp_remote_retrieve_body( $interest_groupings ), true );
+		if( $interest_groupings_body ) {
 			// find and return the location of this merge field in the array
-			$index = $this->findMCListIndex( $form_data_array['group_id'] , $interest_groupings , 'id' );
+			$index = $this->findMCListIndex( $form_data_array['group_id'], $interest_groupings_body, 'id' );
 			// check for our index...
 			if( isset( $index) ) {
 				// store it and use it to pre-populate field data (only on initial add to form)
-				$merge_field_data = $interest_groupings[$index];
+				$merge_field_data = $interest_groupings_body[$index];
 			}
-		}	
+		}			
 	} catch( Exception $error ) {
 		$no_interest_groupings = $error->getMessage();
 	}
@@ -28,7 +37,7 @@
 	<!-- expansion section -->
 	<div class="yikes-mc-settings-expansion-section">
 					
-		<!-- Single or Double Optin -->
+		<!-- Single or Double Opt-in -->
 		<p class="type-container"><!-- necessary to prevent skipping on slideToggle(); -->
 			<!-- store the label -->
 			<input type="hidden" name="field[<?php echo $form_data_array['group_id']; ?>][label]" value="<?php echo $form_data_array['field_name']; ?>" />

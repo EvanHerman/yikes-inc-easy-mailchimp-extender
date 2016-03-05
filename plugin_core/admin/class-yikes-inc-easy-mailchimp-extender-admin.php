@@ -51,11 +51,6 @@ class Yikes_Inc_Easy_Mailchimp_Forms_Admin {
 		add_action( 'admin_init', array( $this , 'yikes_easy_mc_settings_init' ) );
 		// plugin redirect on activation
 		add_action( 'admin_init' , array( $this , 'yikes_easy_mc_activation_redirect' ) );
-		// ensure the MailChimp class wasn't previously declared in another plugin
-		if( ! class_exists( 'Mailchimp' ) ) {
-			// Include our MailChimp API Wrapper
-			include_once( YIKES_MC_PATH . 'includes/MailChimp/Mailchimp.php' );
-		}
 		// Include Third Party Extensions
 		include_once( YIKES_MC_PATH . 'includes/third-party-integrations/third-party-init.php' );
 		// Include our dashboard widget class
@@ -139,7 +134,7 @@ class Yikes_Inc_Easy_Mailchimp_Forms_Admin {
 			add_action( 'init' , array( $this , 'yikes_easy_mailchimp_clear_error_log' ) );
 		}
 		/*********************************************/
-		/** 		Export MailChimp Optin Forms   **/
+		/** 		Export MailChimp Opt-in Forms   **/
 		/*******************************************/
 		if ( isset( $_REQUEST[ 'action' ] ) && $_REQUEST[ 'action' ] == 'yikes-easy-mc-export-forms' ) {
 			add_action( 'init' , array( $this , 'yikes_easy_mailchimp_export_forms' ) );
@@ -1087,7 +1082,7 @@ class Yikes_Inc_Easy_Mailchimp_Forms_Admin {
 			register_setting( 'yikes_inc_easy_mc_recaptcha_settings_page' , 'yikes-mc-recaptcha-site-key' );
 			register_setting( 'yikes_inc_easy_mc_recaptcha_settings_page' , 'yikes-mc-recaptcha-secret-key' );
 		
-			/* Register reCaptcha Settings Section */
+			/* Register reCAPTCHA Settings Section */
 			add_settings_section(
 				'yikes_easy_mc_settings_recpatcha_section',
 				'', 
@@ -1097,14 +1092,14 @@ class Yikes_Inc_Easy_Mailchimp_Forms_Admin {
 			
 			add_settings_field( 
 				'yikes-mc-recaptcha-site-key', 
-				__( 'Enter reCaptcha Site Key', 'yikes-inc-easy-mailchimp-extender' ), 
+				__( 'Enter reCAPTCHA Site Key', 'yikes-inc-easy-mailchimp-extender' ), 
 				'',  // callback + validation inside of admin/partials/menu/options.php
 				'yikes_easy_mc_settings_recpatcha_section'
 			);
 			
 			add_settings_field( 
 				'yikes-mc-recaptcha-secret-key', 
-				__( 'Enter reCaptcha Secret Key', 'yikes-inc-easy-mailchimp-extender' ), 
+				__( 'Enter reCAPTCHA Secret Key', 'yikes-inc-easy-mailchimp-extender' ), 
 				'',  // callback + validation inside of admin/partials/menu/options.php
 				'yikes_easy_mc_settings_recpatcha_section'
 			);
@@ -1735,7 +1730,7 @@ class Yikes_Inc_Easy_Mailchimp_Forms_Admin {
 									<input type="hidden" name="field[<?php echo $field['merge']; ?>][choices]" value='<?php echo esc_attr( json_encode( $choices ) ); ?>' />			
 								<?php } ?>
 								
-								<!-- Single or Double Optin -->
+								<!-- Single or Double Opt-in -->
 								<p class="type-container"><!-- necessary to prevent skipping on slideToggle(); -->
 									
 									<table class="form-table form-field-container">
@@ -2026,7 +2021,7 @@ class Yikes_Inc_Easy_Mailchimp_Forms_Admin {
 								<input type="hidden" name="field[<?php echo $field['group_id']; ?>][group_id]" value="<?php echo $field['group_id']; ?>" />
 								<input type="hidden" name="field[<?php echo $field['group_id']; ?>][groups]" value='<?php echo esc_attr( json_encode( json_decode( $field['groups'], true ) ) ); ?>' />			
 								
-								<!-- Single or Double Optin -->
+								<!-- Single or Double Opt-in -->
 								<p class="type-container"><!-- necessary to prevent skipping on slideToggle(); -->
 									
 									<table class="form-table form-field-container">
@@ -2348,7 +2343,7 @@ class Yikes_Inc_Easy_Mailchimp_Forms_Admin {
 						'hide_form_post_signup' => 0
 					)
 				);
-				// setup our default optin settings serialized array
+				// setup our default opt-in settings serialized array
 				$optin_settings = json_encode(
 					array(
 						'optin' => 1,
@@ -2588,7 +2583,7 @@ class Yikes_Inc_Easy_Mailchimp_Forms_Admin {
 				)
 			);
 			
-			// setup our optin settings serialized array
+			// setup our opt-in settings serialized array
 			$optin_settings = json_encode(
 				array(
 					'optin' => $_POST['single-double-optin'],
@@ -2685,7 +2680,7 @@ class Yikes_Inc_Easy_Mailchimp_Forms_Admin {
 						'%s',	// redirect user
 						'%s',	// redirect page
 						'%s',	// submission
-						'%s',	// optin
+						'%s',	// opt-in
 						'%s', // error
 						'%s', // custom notifications
 						'%s', // custom fields
@@ -2714,14 +2709,31 @@ class Yikes_Inc_Easy_Mailchimp_Forms_Admin {
 			// only re-run the API request if our API key has changed
 			// initialize MailChimp Class
 			try {
-				$MailChimp = new MailChimp( get_option( 'yikes-mc-api-key' , '' ) );
-				// retreive our list data
-				$unsubscribe_user = $MailChimp->call( 'lists/unsubscribe' , array( 'apikey' => get_option( 'yikes-mc-api-key' , '' ), 'id' => $list_id, 'email' => array( 'leid' => $email_id ), 'send_goodbye' => false, 'send_notify' => false ) );
-				wp_redirect( esc_url_raw( admin_url( 'admin.php?page=yikes-mailchimp-view-list&list-id=' . $list_id . '&user-unsubscribed=true' ) ) );
+				$api_key = trim( get_option( 'yikes-mc-api-key' , '' ) );
+				$dash_position = strpos( $api_key, '-' );
+				if( $dash_position !== false ) {
+					$api_endpoint = 'https://' . substr( $api_key, $dash_position + 1 ) . '.api.mailchimp.com/2.0/lists/unsubscribe.json';
+				}
+				$response = wp_remote_post( $api_endpoint, array( 
+					'body' => array( 
+						'apikey' => $api_key, 
+						'id' => $list_id, 
+						'email' => array( 'leid' => $email_id ), 
+						'send_goodbye' => false, 
+						'send_notify' => false 
+					),
+					'timeout' => 10,
+					'sslverify' => apply_filters( 'yikes-mailchimp-sslverify', true )
+				) );
+				if( ! is_wp_error( $response ) ) {
+					wp_redirect( esc_url_raw( admin_url( 'admin.php?page=yikes-mailchimp-view-list&list-id=' . $list_id . '&user-unsubscribed=true' ) ) );
+					exit;					
+				}
 			} catch ( Exception $e ) {
 				// an error was encountered.
 				// advanced debug should return the exception
 				wp_redirect( esc_url_raw( admin_url( 'admin.php?page=yikes-mailchimp-view-list&list-id=' . $list_id . '&user-unsubscribed=false' ) ) );
+				exit;
 			}	
 		}
 		
@@ -2792,17 +2804,29 @@ class Yikes_Inc_Easy_Mailchimp_Forms_Admin {
 				return array();
 			}
 			try {
-				$MailChimp = new MailChimp( $api_key );
-				// retreive our list data
-				$mailchimp_lists = $MailChimp->call( 'lists/list' , array( 'apikey' => $api_key ) );
-				$mail_chimp_list_ids = array();
-				if( $mailchimp_lists ) {
-					foreach( $mailchimp_lists['data'] as $list ) {
-						$mail_chimp_list_ids[] = $list['id'];
-					}
-					return $mail_chimp_list_ids;
-				} else {
-					return array();
+				$dash_position = strpos( $api_key, '-' );
+				if( $dash_position !== false ) {
+					$api_endpoint = 'https://' . substr( $api_key, $dash_position + 1 ) . '.api.mailchimp.com/2.0/lists/list.json';
+				}
+				$mailchimp_lists = wp_remote_post( $api_endpoint, array( 
+					'body' => array( 
+						'apikey' => $api_key,
+						'limit' => 100
+					),
+					'timeout' => 10,
+					'sslverify' => apply_filters( 'yikes-mailchimp-sslverify', true )
+				) );
+				if( ! is_wp_error( $mailchimp_lists ) ) {
+					$list_data = json_decode( wp_remote_retrieve_body( $mailchimp_lists ), true );
+					$mail_chimp_list_ids = array();
+					if( $mailchimp_lists ) {
+						foreach( $list_data as $list ) {
+							$mail_chimp_list_ids[] = $list['id'];
+						}
+						return $mail_chimp_list_ids;
+					} else {
+						return array();
+					}				
 				}
 			} catch ( Exception $e ) {
 				// log to our error log

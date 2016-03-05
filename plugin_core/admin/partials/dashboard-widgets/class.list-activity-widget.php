@@ -60,16 +60,26 @@
 				// Get our list data!
 				// Check for a transient, if not - set one up for one hour
 				if ( false === ( $list_data = get_transient( 'yikes-easy-mailchimp-list-data' ) ) ) {
-					// initialize MailChimp Class
-					$MailChimp = new MailChimp( get_option( 'yikes-mc-api-key' , '' ) );
-					// retreive our list data
-					$list_data = $MailChimp->call( 'lists/list' , array( 'apikey' => get_option( 'yikes-mc-api-key' , '' ), 'limit' => 100 ) );
+					$api_key = trim( get_option( 'yikes-mc-api-key' , '' ) );
+					$dash_position = strpos( $api_key, '-' );
+					if( $dash_position !== false ) {
+						$api_endpoint = 'https://' . substr( $api_key, $dash_position + 1 ) . '.api.mailchimp.com/2.0/lists/list.json';
+					}
+					$list_data = wp_remote_post( $api_endpoint, array( 
+						'body' => array( 
+							'apikey' => $api_key, 
+							'limit' => 100
+						),
+						'timeout' => 10,
+						'sslverify' => apply_filters( 'yikes-mailchimp-sslverify', true )
+					) );
+					$list_data = json_decode( wp_remote_retrieve_body( $list_data ), true );
 					// set our transient
 					set_transient( 'yikes-easy-mailchimp-list-data', $list_data, 1 * HOUR_IN_SECONDS );
 				}
 			?>					
 				<!-- Dropdown to Change the list -->
-				<?php if( !empty( $list_data['data'] ) ) {
+				<?php if( ! empty( $list_data['data'] ) ) {
 					?><section class="inside-widget yikes-dashboard-widget-section">
 							<strong class="select-list-title"><?php _e( 'Select a list' , 'yikes-inc-easy-mailchimp-extender' ) ?>:</strong>
 							<select id="yikes-easy-mc-dashboard-change-list" class="widefat">
@@ -102,15 +112,24 @@
 		function account_activity_dashboard_widget() {
 				// Get our list data!
 				// Check for a transient, if not - set one up for one hour
-				if ( false === ( $account_activity = get_transient( 'yikes-easy-mailchimp-account-activity' ) ) ) {	
-					// initialize MailChimp Class
-					$MailChimp = new MailChimp( get_option( 'yikes-mc-api-key' , '' ) );
-					// retreive our list data
-					$account_activity = $MailChimp->call('/helper/chimp-chatter', array( 'api_key' => get_option( 'yikes-mc-api-key' , '' ) ) );
+				if ( false === ( $account_activity = get_transient( 'yikes-easy-mailchimp-account-activity' ) ) ) {		
+					$api_key = trim( get_option( 'yikes-mc-api-key' , '' ) );
+					$dash_position = strpos( $api_key, '-' );
+					if( $dash_position !== false ) {
+						$api_endpoint = 'https://' . substr( $api_key, $dash_position + 1 ) . '.api.mailchimp.com/2.0/helper/chimp-chatter.json';
+					}
+					$account_activity = wp_remote_post( $api_endpoint, array( 
+						'body' => array( 
+							'apikey' => $api_key
+						),
+						'timeout' => 10,
+						'sslverify' => apply_filters( 'yikes-mailchimp-sslverify', true )
+					) );
+					$account_activity = json_decode( wp_remote_retrieve_body( $account_activity ), true );
 					// set our transient for one hour
 					set_transient( 'yikes-easy-mailchimp-account-activity', $account_activity, 1 * HOUR_IN_SECONDS );
 				}
-				if( !empty( $account_activity ) ) {
+				if( ! empty( $account_activity ) ) {
 					include_once( YIKES_MC_PATH . 'admin/partials/dashboard-widgets/templates/account-activity-template.php' ); 
 				}
 		} 

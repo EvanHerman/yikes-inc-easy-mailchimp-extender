@@ -70,7 +70,7 @@ function process_mailchimp_shortcode( $atts ) {
 			// Store the site language (to load recaptcha in a specific language)
 			$locale = get_locale();
 			$locale_split = explode( '_', $locale );
-			// Setup reCaptcha parameters
+			// Setup reCAPTCHA parameters
 			$lang = ( isset( $locale_split ) ? $locale_split[0] : $locale );
 			$lang = ( isset( $atts['recaptcha_lang'] ) ) ? $atts['recaptcha_lang'] : $locale_split[0];
 			$type = ( isset( $atts['recaptcha_type'] ) ) ? strtolower( $atts['recaptcha_type'] ) : 'image'; // setup recaptcha type
@@ -253,7 +253,6 @@ function process_mailchimp_shortcode( $atts ) {
 			 }
 		";
 		wp_add_inline_style( 'yikes-inc-easy-mailchimp-public-styles', $inline_label_css );
-		
 	}
 	
 	// custom action hook to enqueue scripts & styles wherever the shortcode is used
@@ -1110,7 +1109,7 @@ function process_mailchimp_shortcode( $atts ) {
 				
 				do_action( 'yikes-mailchimp-additional-form-fields', $form_data );	
 				
-				/* if we've enabled reCaptcha protection */
+				/* if we've enabled reCAPTCHA protection */
 				if( isset( $recaptcha_box ) ) {
 					echo $recaptcha_box;
 				}

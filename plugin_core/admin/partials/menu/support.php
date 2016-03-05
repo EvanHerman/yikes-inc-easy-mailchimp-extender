@@ -33,7 +33,7 @@
 				<div class="inside">
 					<p><?php _e( 'The fastest way to receive free support is to submit a new issue to our GitHub issue tracker. ', 'yikes-inc-easy-mailchimp-extender' ); ?></p>
 					<img class="support-page-logo" src="<?php echo YIKES_MC_URL; ?>includes/images/Support_Page/github-issue-screenshot.png" title="<?php esc_attr_e( 'Github Issue Tracker Screenshot' , 'yikes-inc-easy-mailchimp-extender' ); ?>" >
-					<a href="https://github.com/yikesinc/yikes-inc-easy-mailchimp-extender/issues" target="_blank" class="button-secondary support-page-button"><?php _e( 'Submit New Github.org Issue', 'yikes-inc-easy-mailchimp-extender' ); ?></a>
+					<a href="https://github.com/yikesinc/yikes-inc-easy-mailchimp-extender/issues" target="_blank" class="button-secondary support-page-button"><?php _e( 'Submit New github.org Issue', 'yikes-inc-easy-mailchimp-extender' ); ?></a>
 				</div>
 			</div>
 			<!-- /col-wrap -->

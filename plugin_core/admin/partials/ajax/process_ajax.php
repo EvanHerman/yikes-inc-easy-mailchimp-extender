@@ -8,14 +8,24 @@
 	*	@since 6.0.0
 	*	Author: Yikes Inc. | https://www.yikesinc.com
 	*/
-	$api_key = get_option( 'yikes-mc-api-key' , '' );
-	$MailChimp = new MailChimp( $api_key );
-	// retreive our list data
-	$available_merge_variables = $MailChimp->call( 'lists/merge-vars' , array( 'apikey' => $api_key , 'id' => array( $form_data_array['list_id'] ) ) );
+	$api_key = trim( get_option( 'yikes-mc-api-key' , '' ) );
+	$dash_position = strpos( $api_key, '-' );
+	if( $dash_position !== false ) {
+		$api_endpoint = 'https://' . substr( $api_key, $dash_position + 1 ) . '.api.mailchimp.com/2.0/lists/merge-vars.json';
+	}
+	$available_merge_variables = wp_remote_post( $api_endpoint, array( 
+		'body' => array( 
+			'apikey' => $api_key, 
+			'id' => array( $form_data_array['list_id'] ),
+		),
+		'timeout' => 10,
+		'sslverify' => apply_filters( 'yikes-mailchimp-sslverify', true ) 
+	) );
+	$body = json_decode( wp_remote_retrieve_body( $available_merge_variables ), true );
 	// find and return the location of this merge field in the array
-	$index = $this->findMCListIndex( $form_data_array['merge_tag'] , $available_merge_variables['data'][0]['merge_vars'] , 'tag' );
+	$index = $this->findMCListIndex( $form_data_array['merge_tag'] , $body['data'][0]['merge_vars'], 'tag' );
 	// store it and use it to pre-populate field data (only on initial add to form)
-	$merge_field_data = $available_merge_variables['data'][0]['merge_vars'][$index];
+	$merge_field_data = $body['data'][0]['merge_vars'][$index];
 ?>
 <section class="draggable" id="<?php echo $form_data_array['field_name']; ?>">
 	<!-- top -->
@@ -26,7 +36,7 @@
 	<!-- expansion section -->
 	<div class="yikes-mc-settings-expansion-section">
 					
-		<!-- Single or Double Optin -->
+		<!-- Single or Double Opt-in -->
 		<p class="type-container form-field-container"><!-- necessary to prevent skipping on slideToggle(); -->
 			<!-- store the label -->
 			<input type="hidden" name="field[<?php echo $merge_field_data['tag']; ?>][label]" value="<?php echo $form_data_array['field_name']; ?>" />

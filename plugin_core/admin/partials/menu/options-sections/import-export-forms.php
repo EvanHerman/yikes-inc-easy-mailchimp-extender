@@ -56,7 +56,7 @@
 									
 		<p><strong><?php _e( "Import" , 'yikes-inc-easy-mailchimp-extender' ); ?></strong></p>
 		<p class="description">
-			<?php _e( "Select the Easy Forms for MailChimp export file you would like to import. You can use this field to import your optin forms or settings. " , "yikes-inc-easy-mailchimp-extender" ); ?>
+			<?php _e( "Select the Easy Forms for MailChimp export file you would like to import. You can use this field to import your opt-in forms or settings. " , "yikes-inc-easy-mailchimp-extender" ); ?>
 		</p>
 		
 		<label>

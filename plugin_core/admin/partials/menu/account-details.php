@@ -1,26 +1,53 @@
 <?php 
 	// lets confirm the user has a valid API key stored
 	if( $this->is_user_mc_api_valid_form( false ) == 'valid' ) {
-		// storethe API key
-		$api_key = get_option( 'yikes-mc-api-key' , '' );
-		// initialize MailChimp API
-		$MailChimp = new MailChimp( $api_key );
+		// store the API key
+		$api_key = trim( get_option( 'yikes-mc-api-key' , '' ) );
+		$dash_position = strpos( $api_key, '-' );
 		/// Check for a transients, if not - set them up
 		if ( false === ( $profile_info = get_transient( 'yikes-easy-mailchimp-profile-data' ) ) ) {
-			// retreive our list data
-			$profile_info = $MailChimp->call('/users/profile', array( 'api_key' => $api_key ) );
+			if( $dash_position !== false ) {
+				$api_endpoint = 'https://' . substr( $api_key, $dash_position + 1 ) . '.api.mailchimp.com/2.0/users/profile.json';
+			}
+			$profile_info = wp_remote_post( $api_endpoint, array( 
+				'body' => array( 
+					'apikey' => $api_key
+				),
+				'timeout' => 10,
+				'sslverify' => apply_filters( 'yikes-mailchimp-sslverify', true )
+			) );
+			$profile_info = json_decode( wp_remote_retrieve_body( $profile_info ), true );
 			// set our transient for one week
 			set_transient( 'yikes-easy-mailchimp-profile-data', $profile_info, 1 * WEEK_IN_SECONDS );
 		}
 		if ( false === ( $account_details = get_transient( 'yikes-easy-mailchimp-account-data' ) ) ) {
-			// retreive our list data
-			$account_details = $MailChimp->call('/helper/account-details', array( 'api_key' => $api_key ) );
+			if( $dash_position !== false ) {
+				$api_endpoint = 'https://' . substr( $api_key, $dash_position + 1 ) . '.api.mailchimp.com/2.0/helper/account-details.json';
+			}
+			$account_details = wp_remote_post( $api_endpoint, array( 
+				'body' => array( 
+					'apikey' => $api_key
+				),
+				'timeout' => 10,
+				'sslverify' => apply_filters( 'yikes-mailchimp-sslverify', true )
+			) );
+			$account_details = json_decode( wp_remote_retrieve_body( $account_details ), true );
 			// set our transient for one hour
 			set_transient( 'yikes-easy-mailchimp-account-data', $account_details, 1 * HOUR_IN_SECONDS );
 		}		
 		if ( false === ( $account_activity = get_transient( 'yikes-easy-mailchimp-account-activity' ) ) ) {
 			// retreive our list data
-			$account_activity = $MailChimp->call('/helper/chimp-chatter', array( 'api_key' => $api_key ) );
+			if( $dash_position !== false ) {
+				$api_endpoint = 'https://' . substr( $api_key, $dash_position + 1 ) . '.api.mailchimp.com/2.0/helper/chimp-chatter.json';
+			}
+			$account_activity = wp_remote_post( $api_endpoint, array( 
+				'body' => array( 
+					'apikey' => $api_key
+				),
+				'timeout' => 10,
+				'sslverify' => apply_filters( 'yikes-mailchimp-sslverify', true )
+			) );
+			$account_activity = json_decode( wp_remote_retrieve_body( $account_activity ), true );
 			// set our transient for one hour
 			set_transient( 'yikes-easy-mailchimp-account-activity', $account_activity, 1 * HOUR_IN_SECONDS );
 		}
