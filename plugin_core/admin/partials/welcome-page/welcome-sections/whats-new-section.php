@@ -8,7 +8,7 @@
 		
 		<img src="<?php echo YIKES_MC_URL . 'includes/images/Welcome_Page/inline-form-frontend.png'; ?>" style="margin-top:2em;padding-bottom: 2em;" alt="<?php _e( 'New Form Settings', 'yikes-inc-easy-mailchimp-extender' ); ?>" class="yikes-easy-mc-feature-image yikes-easy-mc-whats-new-section-image">
 		
-		<p><?php _e( "In version 6.0.3.8 of Easy Forms for MailChimp by YIKES we've added an additional layer of customization. You now have a whole new set of options to tweak on the edit form page - allowing an additional depth of customization.'", 'yikes-inc-easy-mailchimp-extender' ); ?></p>
+		<p><?php _e( "In version 6.0.3.8 of Easy Forms for MailChimp by YIKES we've added an additional layer of customization. You now have a whole new set of options to tweak on the edit form page - allowing an additional depth of customization.", 'yikes-inc-easy-mailchimp-extender' ); ?></p>
 		<hr />
 		<ul class="new-feature-list">
 			<li><?php _e( 'Additional Form Classes', 'yikes-inc-easy-mailchimp-extender' ); ?></li>

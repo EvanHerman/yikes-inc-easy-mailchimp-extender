@@ -59,22 +59,41 @@
 				);
 			}
 			
+			$api_key = trim( get_option( 'yikes-mc-api-key' , '' ) );
+			$dash_position = strpos( $api_key, '-' );
+				
 			// Check for a transient, if not - set one up for one hour
 			if ( false === ( $list_data = get_transient( 'yikes-easy-mailchimp-list-data' ) ) ) {
-				// initialize MailChimp Class
-				$MailChimp = new MailChimp( get_option( 'yikes-mc-api-key' , '' ) );
-				// retreive our list data
-				$list_data = $MailChimp->call( 'lists/list' , array( 'apikey' => get_option( 'yikes-mc-api-key' , '' ), 'limit' => 100 ) );
+				if( $dash_position !== false ) {
+					$api_endpoint = 'https://' . substr( $api_key, $dash_position + 1 ) . '.api.mailchimp.com/2.0/lists/list.json';
+				}
+				$list_data = wp_remote_post( $api_endpoint, array( 
+					'body' => array( 
+						'apikey' => $api_key, 
+						'limit' => 100
+					),
+					'timeout' => 10,
+					'sslverify' => apply_filters( 'yikes-mailchimp-sslverify', true )
+				) );
+				$list_data = json_decode( wp_remote_retrieve_body( $list_data ), true );				
 				// set our transient
 				set_transient( 'yikes-easy-mailchimp-list-data', $list_data, 1 * HOUR_IN_SECONDS );
 			}
 			
 			// get the list data
 			try {
-				$api_key = get_option( 'yikes-mc-api-key' , '' );
-				$MailChimp = new MailChimp( $api_key );
-				// retreive our list data
-				$available_merge_variables = $MailChimp->call( 'lists/merge-vars' , array( 'apikey' => $api_key , 'id' => array( $form['list_id'] ) ) );
+				if( $dash_position !== false ) {
+					$api_endpoint = 'https://' . substr( $api_key, $dash_position + 1 ) . '.api.mailchimp.com/2.0/lists/merge-vars.json';
+				}
+				$available_merge_variables = wp_remote_post( $api_endpoint, array( 
+					'body' => array( 
+						'apikey' => $api_key, 
+						'id' => array( $form['list_id'] ),
+					),
+					'timeout' => 10,
+					'sslverify' => apply_filters( 'yikes-mailchimp-sslverify', true )
+				) );
+				$available_merge_variables = json_decode( wp_remote_retrieve_body( $available_merge_variables ), true );
 			} catch ( Exception $e ) {
 				$merge_variable_error = '<p class="description error-descripion">' . __( 'Error' , 'yikes-inc-easy-mailchimp-extender' ) . ' : ' . $e->getMessage() . '.</p>';
 				wp_die( __( "Uh Oh...It looks like we ran into an error! Please reload the page and try again. If the error persists, please contact the YIKES Inc. support team.", 'yikes-inc-easy-mailchimp-extender' ) , 500 );
@@ -82,7 +101,18 @@
 			
 			// get the interest group data
 			try {
-				$interest_groupings = $MailChimp->call( 'lists/interest-groupings' , array( 'apikey' => $api_key , 'id' => $form['list_id'] ) );
+				if( $dash_position !== false ) {
+					$api_endpoint = 'https://' . substr( $api_key, $dash_position + 1 ) . '.api.mailchimp.com/2.0/lists/interest-groupings.json';
+				}
+				$interest_groupings = wp_remote_post( $api_endpoint, array( 
+					'body' => array( 
+						'apikey' => $api_key, 
+						'id' => $form['list_id'] 
+					),
+					'timeout' => 10,
+					'sslverify' => apply_filters( 'yikes-mailchimp-sslverify', true ) 
+				) );
+				$interest_groupings = json_decode( wp_remote_retrieve_body( $interest_groupings ), true );
 				$no_interest_groupings = '<p class="description error-descripion">' . __( 'No Interest Groups Found' , 'yikes-inc-easy-mailchimp-extender' ) . '.</p>';
 			} catch( Exception $error ) {
 				$no_interest_groupings = '<p class="description error-descripion">' . $error->getMessage() . '.</p>';
@@ -452,7 +482,7 @@
 																			<label class="inline-form-label">
 																				<input type="checkbox" onclick="toggle_nested_section( jQuery(this) );" name="yikes-easy-mc-form-login-required" value="1" <?php checked( $form_settings['yikes-easy-mc-form-login-required'], '1' ); ?> /><?php _e( 'Require Login', 'yikes-inc-easy-mailchimp-extender' ); ?>
 																			</label>
-																			<p class="description"><?php _e( 'Require users to be logged in before they can view and submit this optin form.', 'yikes-inc-easy-mailchimp-extender' ); ?></p>
+																			<p class="description"><?php _e( 'Require users to be logged in before they can view and submit this opt-in form.', 'yikes-inc-easy-mailchimp-extender' ); ?></p>
 																			
 																			<!-- Require Login Message -->
 																			<section class="login-restirction-section nested-child<?php if( $form_settings['yikes-easy-mc-form-login-required'] == '0' ) { echo ' hidden'; } ?>">
@@ -635,7 +665,7 @@
 										<div class="yikes-mc-settings-expansion-section">
 											<!-- Associated List -->
 											<p class="form-field-container"><!-- necessary to prevent skipping on slideToggle(); --><label for="associated-list"><strong><?php _e( 'Associated List' , 'yikes-inc-easy-mailchimp-extender' ); ?></strong>
-												<select name="associated-list" id="associated-list" <?php if( empty( $list_data['data'] ) ) { echo 'disabled="disabled"'; } ?>>
+												<select name="associated-list" id="associated-list" <?php if( empty( $list_data['data'] ) ) { echo 'disabled="disabled"'; } ?> onchange="jQuery('.view-list-link').attr( 'href', '<?php echo esc_url( admin_url( 'admin.php?page=yikes-mailchimp-view-list&list-id=' ) ); ?>' + jQuery( this ).val() );">
 													<?php
 													if( !empty( $list_data['data'] ) ) {
 														foreach( $list_data['data'] as $mailing_list ) {
@@ -651,6 +681,9 @@
 													?>
 												</select>
 												<?php if( !empty( $list_data['data'] ) ) { ?>
+													<p class="description view-list">
+														<a href="<?php echo esc_url( admin_url( 'admin.php?page=yikes-mailchimp-view-list&list-id=' . $form['list_id'] ) ); ?>" class="view-list-link"><?php _e( 'View List', 'yikes-inc-easy-mailchimp-extender' ); ?></a>
+													</p>
 													<p class="description">
 														<?php _e( "Users who sign up via this form will be added to the list selected above." , 'yikes-inc-easy-mailchimp-extender' ); ?>
 													</p>
@@ -663,11 +696,11 @@
 										</div>
 										
 										<a href="#" class="expansion-section-title settings-sidebar">
-											<span class="dashicons dashicons-plus"></span><?php _e( 'Optin Settings' , 'yikes-inc-easy-mailchimp-extender' ); ?>
+											<span class="dashicons dashicons-plus"></span><?php _e( 'Opt-in Settings' , 'yikes-inc-easy-mailchimp-extender' ); ?>
 										</a>
 										<div class="yikes-mc-settings-expansion-section">
 											
-											<!-- Single or Double Optin -->
+											<!-- Single or Double Opt-in -->
 											<?php
 												if( !isset( $optin_settings['optin'] ) ) {
 													$optin_settings['optin'] = '1';
@@ -692,7 +725,7 @@
 													<label for="send-welcome"><input id="send-welcome" type="radio" name="send-welcome-email" value="1" <?php checked( $optin_settings['send_welcome_email'] , '1' ); ?>><?php _e( 'Yes' , 'yikes-inc-easy-mailchimp-extender' ); ?></label>
 													&nbsp;<label for="do-not-send-welcome"><input id="do-not-send-welcome" type="radio" name="send-welcome-email" value="0" <?php checked( $optin_settings['send_welcome_email'] , '0' ); ?>><?php _e( 'No' , 'yikes-inc-easy-mailchimp-extender' ); ?></label>
 												</span>
-												<p class="description"><?php _e( "When the user signs up, should they receive the default welcome email?" , 'yikes-inc-easy-mailchimp-extender' ); ?></p>
+												<p class="description"><?php _e( "When a user signs up, should they receive the default welcome email?" , 'yikes-inc-easy-mailchimp-extender' ); ?></p>
 											</label></p>
 											
 											<!-- Update Existing Users -->
@@ -706,7 +739,7 @@
 													<label for="update-user"><input type="radio" id="update-user" name="update-existing-user" value="1" <?php checked( $optin_settings['update_existing_user'] , '1' ); ?>><?php _e( 'Yes' , 'yikes-inc-easy-mailchimp-extender' ); ?></label>
 													&nbsp;<label for="do-not-update-user"><input type="radio" id="do-not-update-user"  name="update-existing-user" value="0" <?php checked( $optin_settings['update_existing_user'] , '0' ); ?>><?php _e( 'No' , 'yikes-inc-easy-mailchimp-extender' ); ?></label>
 												</span>
-												<p class="description"><?php printf( __( "Update an existing subscriber's info when they attempt to re-subscribe instead of displaying an %s message." , "yikes-inc-easy-mailchimp-extender" ), '<em>"already subscribed"</em>' ); ?></p>
+												<p class="description"><?php printf( __( "Display an update link when a user is already subscribed to the list, allowing them to generate an email where they can update their subscribtion info - instead of displaying a <em>%s</em> message." , "yikes-inc-easy-mailchimp-extender" ), __( '"user already subscribed"', 'yikes-inc-easy-mailchimp-extender' ) ); ?></p>
 											</label></p>
 												
 										</div>

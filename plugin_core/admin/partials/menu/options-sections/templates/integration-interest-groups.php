@@ -11,8 +11,8 @@ $integration_options = get_option( 'optin-checkbox-init' , '' );
 /*
 * Confirm the interest groups is an array and not empty or else bail
 */
-if( ! is_array( $interest_groupings ) || empty( $interest_groupings ) ) {
-	echo '<p class="description no-interest-groupings-enabled-message">' . $interest_groupings . '</p>';
+if( isset( $interest_groupings['error'] ) ) {
+	echo '<p class="description no-interest-groupings-enabled-message">' . $interest_groupings['error'] . '</p>';
 	return;
 }
 

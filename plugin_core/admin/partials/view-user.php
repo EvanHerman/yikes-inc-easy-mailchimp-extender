@@ -16,34 +16,41 @@
 	}
 	
 	// run our API call, to get list data..
-	$MailChimp = new Mailchimp( get_option( 'yikes-mc-api-key' , '' ) );
-	$api_key = get_option( 'yikes-mc-api-key' , '' );
-	// get this lists data
-	try {
-		$user_data = $MailChimp->call( 'lists/member-info' , array( 'apikey' => $api_key, 'id' => $list_id, 'emails' => array( array( 'leid' => $email_id ) ) ) );
-	} catch (Exception $e) {
-		echo '<h4>Error</h4>';
-		echo __( 'We encountered an error:', 'yikes-inc-easy-mailchimp-extender' ) .  ' ' . $e->getMessage() . ".\n";
-		return;
-	}
+	$api_key = trim( get_option( 'yikes-mc-api-key' , '' ) );
+	$dash_position = strpos( $api_key, '-' );
 	
+	// get this lists data
+	if( $dash_position !== false ) {
+		$api_endpoint = 'https://' . substr( $api_key, $dash_position + 1 ) . '.api.mailchimp.com/2.0/lists/member-info.json';
+	}
+	$user_data = wp_remote_post( $api_endpoint, array( 
+		'body' => array( 
+			'apikey' => $api_key, 
+			'id' => $list_id, 
+			'emails' => array( 
+				array( 'leid' => $email_id )
+			),
+		),
+		'timeout' => 10,
+		'sslverify' => apply_filters( 'yikes-mailchimp-sslverify', true ),
+	) );
+	$user_data = json_decode( wp_remote_retrieve_body( $user_data ), true );	
+		
 	/*
 	*	Check for MailChimp returned errors
 	*/
-	if( isset( $user_data ) && $user_data['error_count'] >= 1 ) {
+	if( isset( $user_data['error'] ) ) {
 		echo '<h4>Error</h4>';
-		echo $user_data['errors'][0]['error'] . '.';
+		echo $user_data['error'] . '.';
 		return;
-	}
-	
-	
+	}	
 	
 	if( isset( $user_data['data'][0] ) ) {
 		// reset our data so we can easily use it
 		$user_data = $user_data['data'][0];
 		
 		$other_lists = ( isset( $user_data['lists'] ) && ! empty( $user_data['lists'] ) ) ? $user_data['lists'] : array();
-		$merge_variables = ( $user_data['merges'] && ! empty( $user_data['merges'] ) ) ? $user_data['merges'] : array();
+		$merge_data_array = ( $user_data['merges'] && ! empty( $user_data['merges'] ) ) ? $user_data['merges'] : array();
 		
 		// print_r( $user_data );
 		
@@ -56,8 +63,20 @@
 		if( isset( $other_lists ) && count( $other_lists ) >= 1 ) {
 			foreach( $other_lists as $list ) {
 				if( $list['status'] == 'subscribed' ) {	
-					// get the list by name
-					$list_data = $MailChimp->call( 'lists/list' , array( 'apikey' => $api_key, 'filters' => array( 'list_id' => $list['id'] ) ) );
+					if( $dash_position !== false ) {
+						$api_endpoint = 'https://' . substr( $api_key, $dash_position + 1 ) . '.api.mailchimp.com/2.0/lists/list.json';
+					}
+					$list_data = wp_remote_post( $api_endpoint, array( 
+						'body' => array( 
+							'apikey' => $api_key, 
+							'filters' => array(
+								'list_id' => $list['id'] 
+							) 
+						),
+						'timeout' => 10,
+						'sslverify' => apply_filters( 'yikes-mailchimp-sslverify', true )
+					) );
+					$list_data = json_decode( wp_remote_retrieve_body( $list_data ), true );	
 					if( $list_data && isset( $list_data['data'][0] ) ) {
 						$additional_lists[$list_data['data'][0]['id']] = $list_data['data'][0]['name'];
 					}
@@ -66,12 +85,24 @@
 		}
 		
 		/* Build the array of merge variables => value */
-		if( isset( $merge_variables ) && count( $merge_variables ) >= 1 ) {
-			$merge_variables = $MailChimp->call( 'lists/merge-vars' , array( 'apikey' => $api_key, 'id' => array( $list_id ) ) );
+		if( isset( $merge_data_array ) && count( $merge_data_array ) >= 1 ) {
+			if( $dash_position !== false ) {
+				$api_endpoint = 'https://' . substr( $api_key, $dash_position + 1 ) . '.api.mailchimp.com/2.0/lists/merge-vars.json';
+			}
+			$merge_variables = wp_remote_post( $api_endpoint, array( 
+				'body' => array( 
+					'apikey' => $api_key, 
+					'id' => array( $list_id ),
+				),
+				'timeout' => 10,
+				'sslverify' => apply_filters( 'yikes-mailchimp-sslverify', true )
+			) );
+			$merge_variables = json_decode( wp_remote_retrieve_body( $merge_variables ), true );
+			// loop and display
 			if( $merge_variables ) {
 				foreach( $merge_variables['data'][0]['merge_vars'] as $merge_variable ) {
 					if( $merge_variable['tag'] != 'EMAIL' ) {					
-						$merge_variable_fields[$merge_variable['name']] = ( isset( $merge_variables[$merge_variable['tag']] ) ) ? $merge_variables[$merge_variable['tag']] : '';
+						$merge_variable_fields[$merge_variable['name']] = ( isset( $merge_data_array[$merge_variable['tag']] ) ) ? $merge_data_array[$merge_variable['tag']] : '';
 					}
 				}
 			}

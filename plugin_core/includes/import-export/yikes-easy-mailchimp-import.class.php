@@ -70,7 +70,7 @@ class Yikes_Inc_Easy_MailChimp_Import_Class {
 											'%s',	// redirect user
 											'%s',	// redirect page
 											'%s',	// submission
-											'%s',	// optin
+											'%s',	// opt-in
 											'%s', // error
 											'%s', // custom notifications
 											'%d',	// impressions #

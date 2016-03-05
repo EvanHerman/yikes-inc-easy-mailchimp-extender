@@ -3,19 +3,27 @@
 	if( $this->is_user_mc_api_valid_form( false ) == 'valid' ) {
 		/// Check for a transient, if not - set one up for one hour
 		if ( false === ( $list_data = get_transient( 'yikes-easy-mailchimp-list-data' ) ) ) {
-			// initialize MailChimp Class
-			$MailChimp = new MailChimp( get_option( 'yikes-mc-api-key' , '' ) );
-			// retreive our list data
-			$list_data = $MailChimp->call( 'lists/list' , array( 'apikey' => get_option( 'yikes-mc-api-key' , '' ), 'limit' => 100 ) );
+			$api_key = trim( get_option( 'yikes-mc-api-key' , '' ) );
+			$dash_position = strpos( $api_key, '-' );
+			if( $dash_position !== false ) {
+				$api_endpoint = 'https://' . substr( $api_key, $dash_position + 1 ) . '.api.mailchimp.com/2.0/lists/list.json';
+			}
+			$list_data = wp_remote_post( $api_endpoint, array( 
+				'body' => array( 
+					'apikey' => $api_key, 
+					'limit' => 100
+				),
+				'timeout' => 10,
+				'sslverify' => apply_filters( 'yikes-mailchimp-sslverify', true )
+			) );
+			$list_data = json_decode( wp_remote_retrieve_body( $list_data ), true );				
 			// set our transient
 			set_transient( 'yikes-easy-mailchimp-list-data', $list_data, 1 * HOUR_IN_SECONDS );
 		}
 	} else {
 		wp_die( __( 'It looks like you need to re-validate your MailChimp API key before you can continue.' , 'yikes-inc-easy-mailchimp-extender' ) , 500 );
 	}
-	
-	// print_r($list_data);
-	
+		
 	wp_register_script( 'yikes-easy-mc-manage-forms-script', YIKES_MC_URL . 'admin/js/yikes-inc-easy-mailchimp-manage-forms.js', array( 'jquery' ), $this->version, false );
 	$localized_data = array(
 		'ajax_url' => esc_url_raw( admin_url( 'admin-ajax.php' ) ),

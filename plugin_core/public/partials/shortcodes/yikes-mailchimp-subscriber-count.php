@@ -57,16 +57,25 @@ function yikes_mailchimp_subscriber_count_shortcode( $attributes ) {
 	try {
 	
 		// get the api key
-		$api_key = get_option( 'yikes-mc-api-key' , '' );
-		// initialize the MailChimp class
-		$MailChimp = new MailChimp( $api_key );		
+		$api_key = trim( get_option( 'yikes-mc-api-key' , '' ) );
+		$dash_position = strpos( $api_key, '-' );
+		if( $dash_position !== false ) {
+			$api_endpoint = 'https://' . substr( $api_key, $dash_position + 1 ) . '.api.mailchimp.com/2.0/lists/list.json';
+		}
+		
 		// run the request
-		$subscriber_count_response = $MailChimp->call( '/lists/list', apply_filters( 'yikes-mailchimp-user-subscriber-count-api-request', array( 
-			'api_key' => $api_key,
-			'filters' => array(
-				'list_id' => $list_id,
-			),
-		), $list_id ) );
+		$subscriber_count_response = wp_remote_post( $api_endpoint, array( 
+			'body' => apply_filters( 'yikes-mailchimp-user-subscriber-count-api-request', array( 
+				'apikey' => $api_key,
+				'filters' => array(
+					'list_id' => $list_id,
+				),
+			), $list_id ),
+			'timeout' => 10,
+			'sslverify' => apply_filters( 'yikes-mailchimp-sslverify', true )
+		) );
+		
+		$subscriber_count_response = json_decode( wp_remote_retrieve_body( $subscriber_count_response ), true );
 		
 		// if more than one list is returned, something went wrong - bail
 		if( $subscriber_count_response['total'] != 1 ) {
@@ -75,7 +84,7 @@ function yikes_mailchimp_subscriber_count_shortcode( $attributes ) {
 			} 
 			return;
 		}
-		
+				
 		/* type cast the returned value as an integer */
 		echo (int) apply_filters( 'yikes-mailchimp-subscriber-count-value', $subscriber_count_response['data'][0]['stats']['member_count'] );
 		

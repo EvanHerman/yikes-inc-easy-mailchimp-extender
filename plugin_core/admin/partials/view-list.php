@@ -1,22 +1,54 @@
 <?php
 	if( isset( $_REQUEST['list-id'] ) ) {	
 		$list_id = sanitize_key( $_REQUEST['list-id'] );
-		// run our API call, to get list data..
-		$MailChimp	= new Mailchimp( get_option( 'yikes-mc-api-key' , '' ) );
-		$api_key = get_option( 'yikes-mc-api-key' , '' );
-		// get this lists data
-		$list_data = $MailChimp->call( 'lists/list' , array( 'apikey' => $api_key, 'filters' => array( 'list_id' => $list_id ) ) );
+		$api_key = trim( get_option( 'yikes-mc-api-key' , '' ) );		
+		$dash_position = strpos( $api_key, '-' );
+		if( $dash_position !== false ) {
+			$api_endpoint = 'https://' . substr( $api_key, $dash_position + 1 ) . '.api.mailchimp.com/2.0/lists/list.json';
+		}
+		$list_data = wp_remote_post( $api_endpoint, array( 
+			'body' => array( 
+				'apikey' => $api_key, 
+				'filters' => array( 'list_id' => $list_id ),
+			),
+			'timeout' => 10,
+			'sslverify' => apply_filters( 'yikes-mailchimp-sslverify', true ),
+		) );
+		$list_data = json_decode( wp_remote_retrieve_body( $list_data ), true );	
+		
 		// reset our data so we can easily use it
 		$list_data = $list_data['data'][0];
 		
-		// get the merge_variables
-		$merge_variables = $MailChimp->call( 'lists/merge-vars' , array( 'apikey' => $api_key , 'id' => array( $list_id ) ) );
+		if( $dash_position !== false ) {
+			$api_endpoint = 'https://' . substr( $api_key, $dash_position + 1 ) . '.api.mailchimp.com/2.0/lists/merge-vars.json';
+		}
+		$merge_variables = wp_remote_post( $api_endpoint, array( 
+			'body' => array( 
+				'apikey' => $api_key, 
+				'id' => array( $list_id ) ,
+			),
+			'timeout' => 10,
+			'sslverify' => apply_filters( 'yikes-mailchimp-sslverify', true ),
+		) );
+		$merge_variables = json_decode( wp_remote_retrieve_body( $merge_variables ), true );
 		// re-store our data
 		$merge_variables = $merge_variables['data'][0]['merge_vars'];
 		
 		// get the interest group data
 		try {
-			$interest_groupings = $MailChimp->call( 'lists/interest-groupings' , array( 'apikey' => $api_key , 'id' => $list_id , 'counts' => true ) );
+			if( $dash_position !== false ) {
+				$api_endpoint = 'https://' . substr( $api_key, $dash_position + 1 ) . '.api.mailchimp.com/2.0/lists/interest-groupings.json';
+			}
+			$interest_groupings = wp_remote_post( $api_endpoint, array( 
+				'body' => array( 
+					'apikey' => $api_key, 
+					'id' => $list_id, 
+					'counts' => true 
+				),
+				'timeout' => 10,
+				'sslverify' => apply_filters( 'yikes-mailchimp-sslverify', true ),
+			) );
+			$interest_groupings = json_decode( wp_remote_retrieve_body( $interest_groupings ), true );
 		} catch( Exception $error ) {
 			$no_interest_groupings = $error->getMessage();
 		}
@@ -24,7 +56,18 @@
 		$no_segments = __( 'No segments set up for this list.' , 'yikes-inc-easy-mailchimp-extender' );
 		// get the segment data
 		try {
-			$segments = $MailChimp->call( 'lists/segments' , array( 'apikey' => $api_key , 'id' => $list_id , 'type' => 'saved' ) );
+			if( $dash_position !== false ) {
+				$api_endpoint = 'https://' . substr( $api_key, $dash_position + 1 ) . '.api.mailchimp.com/2.0/lists/segments.json';
+			}
+			$segments = wp_remote_post( $api_endpoint, array( 
+				'body' => array( 
+					'apikey' => $api_key, 
+					'id' => $list_id, 
+					'type' => 'saved' 
+				),
+				'timeout' => 10,
+				'sslverify' => apply_filters( 'yikes-mailchimp-sslverify', true ),
+			) );
 		} catch( Exception $segment_error ) {
 			$no_segments = $error->getMessage();
 		}
@@ -50,8 +93,12 @@
 		}
 		
 		// get all subscribed members
-		$subscribers_list = $MailChimp->call('lists/members', 
-			array(
+		if( $dash_position !== false ) {
+			$api_endpoint = 'https://' . substr( $api_key, $dash_position + 1 ) . '.api.mailchimp.com/2.0/lists/members.json';
+		}
+		$subscribers_list = wp_remote_post( $api_endpoint, array( 
+			'body' => array(
+				'apikey' => $api_key,
 				'id'	=>	$list_id,
 				'opts'	=>	array(			
 					'start' => $paged,
@@ -59,8 +106,11 @@
 					'sort_field'	=>	$column,
 					'sort_dir'	=>	$sort_dir
 				)	
-			)	
-		);
+			),
+			'timeout' => 10,
+			'sslverify' => apply_filters( 'yikes-mailchimp-sslverify', true ),
+		) );
+		$subscribers_list = json_decode( wp_remote_retrieve_body( $subscribers_list ), true );	
 		
 		$total_pages = ceil( $subscribers_list['total'] / $limit );
 		if( $total_pages == 0 ) {
@@ -164,7 +214,7 @@
 														<?php $view_user_info_url = esc_url_raw( add_query_arg( array( 'mailchimp-list' => $list_id , 'email-id' => $user_id ), admin_url() . 'admin.php?page=yikes-mailchimp-view-user' ) ); ?>
 														<span><a href="<?php echo $view_user_info_url; ?>"><?php _e( "View Info." , 'yikes-inc-easy-mailchimp-extender' ); ?></a> |</span>
 														<?php $url = esc_url_raw( add_query_arg( array( 'action' => 'yikes-easy-mc-unsubscribe-user', 'mailchimp-list' => $list_id , 'nonce' => wp_create_nonce( 'unsubscribe-user-'.$user_id ), 'email_id' => $user_id ) ) ); ?>
-														<span><a href="<?php echo $url; ?>" onclick="return confirm('<?php _e( "Are you sure you want to unsubscribe" , 'yikes-inc-easy-mailchimp-extender' ); ?> ' + jQuery(this).parents('.row-actions').parent().find('.user-email').text() + ' <?php _e( 'from this mailing list?' , 'yikes-inc-easy-mailchimp-extender' ); ?>');" class="yikes-delete-subscriber"><?php _e( "Unsubscribe" , 'yikes-inc-easy-mailchimp-extender' ); ?></a>													
+														<span><a href="<?php echo $url; ?>" onclick="return confirm('<?php printf( __( "Are you sure you want to unsubscribe %s from this mailing list?" , 'yikes-inc-easy-mailchimp-extender' ), sanitize_email( $subscriber['email'] ) ); ?>');" class="yikes-delete-subscriber"><?php _e( "Unsubscribe" , 'yikes-inc-easy-mailchimp-extender' ); ?></a>													
 													</div>
 												</td>
 												<td class="column-columnname num"><?php echo $user_email_client_icon; ?></td>

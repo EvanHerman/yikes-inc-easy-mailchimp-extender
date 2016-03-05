@@ -40,12 +40,21 @@
 		// is displayed on the dashboard
 		public function get_new_list_data() {
 			$list_id = $_POST['list_id'];
-			$api_key = get_option( 'yikes-mc-api-key' , '' );
-			// initialize MailChimp Class
-			$MailChimp = new MailChimp( $api_key );
-			// retreive our list data
-			$list_data = $MailChimp->call( 'lists/list' , array( 'apikey' => $api_key, 'filters' => array( 'list_id' => $list_id ) ) );
-			if( !empty( $list_data['data'] ) ) {
+			$api_key = trim( get_option( 'yikes-mc-api-key' , '' ) );
+			$dash_position = strpos( $api_key, '-' );
+			if( $dash_position !== false ) {
+				$api_endpoint = 'https://' . substr( $api_key, $dash_position + 1 ) . '.api.mailchimp.com/2.0/lists/list.json';
+			}
+			$list_data = wp_remote_post( $api_endpoint, array( 
+				'body' => array( 
+					'apikey' => $api_key, 
+					'filters' => array( 'list_id' => $list_id )
+				),
+				'timeout' => 10,
+				'sslverify' => apply_filters( 'yikes-mailchimp-sslverify', true )
+			) );
+			$list_data = json_decode( wp_remote_retrieve_body( $list_data ), true );
+			if( ! empty( $list_data['data'][0] ) ) {
 				include_once( YIKES_MC_PATH . 'admin/partials/dashboard-widgets/templates/stats-list-template.php' );
 			}
 			exit();
@@ -53,7 +62,7 @@
 		}
 		
 		// Process our AJAX request,
-		// whent the user switches lists in the integration settings page
+		// when the user switches lists in the integration settings page
 		// we want to return the interest groups associated with this list,
 		// to allow users to pre-check anything they want to assign users appropriately
 		/* note: this function is called statically from the integration settings page */
@@ -64,15 +73,25 @@
 			if( ! $integration_type ) {	
 				$integration_type = $_POST['integration'];
 			}
-			$api_key = get_option( 'yikes-mc-api-key' , '' );
+			$api_key = trim( get_option( 'yikes-mc-api-key' , '' ) );
 			// setup/check our transients
 			if ( WP_DEBUG ||  false === ( $interest_groupings = get_transient( $list_id . '_interest_group' ) ) ) {
 			  // It wasn't there, so regenerate the data and save the transient
-				try {
-					// initialize MailChimp Class
-					$MailChimp = new MailChimp( $api_key );
-					// retreive our interest group data
-				    $interest_groupings = $MailChimp->call( 'lists/interest-groupings' , array( 'apikey' => $api_key , 'id' => $list_id , 'counts' => false ) );
+				try {			
+					$dash_position = strpos( $api_key, '-' );
+					if( $dash_position !== false ) {
+						$api_endpoint = 'https://' . substr( $api_key, $dash_position + 1 ) . '.api.mailchimp.com/2.0/lists/interest-groupings.json';
+					}
+					$interest_groupings = wp_remote_post( $api_endpoint, array( 
+						'body' => array( 
+							'apikey' => $api_key, 
+							'id' => $list_id, 
+							'counts' => false 
+						),
+						'timeout' => 10,
+						'sslverify' => apply_filters( 'yikes-mailchimp-sslverify', true )
+					) );
+					$interest_groupings = json_decode( wp_remote_retrieve_body( $interest_groupings ), true );
 				} catch( Exception $error ) {
 					$interest_groupings = $error->getMessage();
 				}
@@ -121,9 +140,9 @@
 		*	and return the index ( used to find the list name assigned to a form )
 		*	- http://stackoverflow.com/questions/6661530/php-multi-dimensional-array-search
 		*/
-		public function findMCListIndex( $id, $array , $tag ) {
+		public function findMCListIndex( $id, $array, $tag ) {
 			if( $tag == 'tag' ) {
-				foreach ( $array as $key => $val ) {
+				foreach( $array as $key => $val ) {
 					   if ( $val['tag'] === $id ) {
 						   return $key;
 					   }

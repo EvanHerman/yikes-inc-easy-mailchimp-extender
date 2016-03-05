@@ -30,13 +30,21 @@
 				$current_user = wp_get_current_user();
 				$email = $current_user->user_email;
 				try {
-					$MailChimp = new MailChimp( get_option( 'yikes-mc-api-key' , '' ) );
-					// subscribe the user
-					$already_subscribed = $MailChimp->call('/lists/member-info', array( 
-						'api_key' => get_option( 'yikes-mc-api-key' , '' ),
-						'id' => $checkbox_options[$integration_type]['associated-list'],
-						'emails' => array( array( 'email' => sanitize_email( $email ) ) ),
+					$api_key = trim( get_option( 'yikes-mc-api-key' , '' ) );
+					$dash_position = strpos( $api_key, '-' );
+					if( $dash_position !== false ) {
+						$api_endpoint = 'https://' . substr( $api_key, $dash_position + 1 ) . '.api.mailchimp.com/2.0/lists/member-info.json';
+					}
+					$already_subscribed = wp_remote_post( $api_endpoint, array( 
+						'body' => array( 
+							'apikey' => $api_key, 
+							'id' => $checkbox_options[$integration_type]['associated-list'],
+							'emails' => array( array( 'email' => sanitize_email( $email ) ) )
+						),
+						'timeout' => 10,
+						'sslverify' => apply_filters( 'yikes-mailchimp-sslverify', true )
 					) );
+					$already_subscribed = json_decode( wp_remote_retrieve_body( $already_subscribed ), true );	
 					return $already_subscribed['success_count'];
 				} catch ( Exception $error ) {
 					return $error->getMessage();
@@ -59,13 +67,21 @@
 			// first check if the user is logged in
 			$checkbox_options = get_option( 'optin-checkbox-init' , '' );
 			try {
-				$MailChimp = new MailChimp( get_option( 'yikes-mc-api-key' , '' ) );
-				// subscribe the user
-				$already_subscribed = $MailChimp->call('/lists/member-info', array( 
-					'api_key' => get_option( 'yikes-mc-api-key' , '' ),
-					'id' => $checkbox_options[$integration_type]['associated-list'],
-					'emails' => array( array( 'email' => sanitize_email( $email ) ) ),
+				$api_key = trim( get_option( 'yikes-mc-api-key' , '' ) );
+				$dash_position = strpos( $api_key, '-' );
+				if( $dash_position !== false ) {
+					$api_endpoint = 'https://' . substr( $api_key, $dash_position + 1 ) . '.api.mailchimp.com/2.0/lists/member-info.json';
+				}
+				$already_subscribed = wp_remote_post( $api_endpoint, array( 
+					'body' => array( 
+						'apikey' => $api_key, 
+						'id' => $checkbox_options[$integration_type]['associated-list'],
+						'emails' => array( array( 'email' => sanitize_email( $email ) ) )
+					),
+					'timeout' => 10,
+					'sslverify' => apply_filters( 'yikes-mailchimp-sslverify', true )
 				) );
+				$already_subscribed = json_decode( wp_remote_retrieve_body( $already_subscribed ), true );	
 				return $already_subscribed['success_count'];
 			} catch ( Exception $error ) {
 				return $error->getMessage();
@@ -138,17 +154,24 @@
 			}
 			// initialize MailChimp API
 			try {
-				$MailChimp = new MailChimp( get_option( 'yikes-mc-api-key' , '' ) );
-				// subscribe the user
-				$subscribe_response = $MailChimp->call( '/lists/subscribe', apply_filters( 'yikes-mailchimp-checkbox-integration-subscribe-api-request', array( 
-					'api_key' => get_option( 'yikes-mc-api-key' , '' ),
-					'id' => $checkbox_options[$type]['associated-list'],
-					'email' => array( 'email' => sanitize_email( $email ) ),
-					'merge_vars' => apply_filters( 'yikes-mailchimp-checkbox-integration-merge-variables', $merge_vars, $type ), // filter merge variables
-					'double_optin' => 1,
-					'update_existing' => $update,
-					'send_welcome' => 1
-				), $type ) );
+				$api_key = trim( get_option( 'yikes-mc-api-key' , '' ) );
+				$dash_position = strpos( $api_key, '-' );
+				if( $dash_position !== false ) {
+					$api_endpoint = 'https://' . substr( $api_key, $dash_position + 1 ) . '.api.mailchimp.com/2.0/lists/subscribe.json';
+				}
+				$subscribe_response = wp_remote_post( $api_endpoint, array( 
+					'body' => apply_filters( 'yikes-mailchimp-checkbox-integration-subscribe-api-request', array( 
+						'api_key' => get_option( 'yikes-mc-api-key' , '' ),
+						'id' => $checkbox_options[$type]['associated-list'],
+						'email' => array( 'email' => sanitize_email( $email ) ),
+						'merge_vars' => apply_filters( 'yikes-mailchimp-checkbox-integration-merge-variables', $merge_vars, $type ), // filter merge variables
+						'double_optin' => 1,
+						'update_existing' => $update,
+						'send_welcome' => 1
+					), $type ),
+					'timeout' => 10,
+					'sslverify' => apply_filters( 'yikes-mailchimp-sslverify', true )
+				) );
 			} catch( Exception $e ) { 
 				$e->getMessage();
 			}
