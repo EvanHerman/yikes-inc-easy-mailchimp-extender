@@ -35,23 +35,22 @@
 		$merge_variables = $merge_variables['data'][0]['merge_vars'];
 		
 		// get the interest group data
-		try {
-			if( $dash_position !== false ) {
-				$api_endpoint = 'https://' . substr( $api_key, $dash_position + 1 ) . '.api.mailchimp.com/2.0/lists/interest-groupings.json';
-			}
-			$interest_groupings = wp_remote_post( $api_endpoint, array( 
-				'body' => array( 
-					'apikey' => $api_key, 
-					'id' => $list_id, 
-					'counts' => true 
-				),
-				'timeout' => 10,
-				'sslverify' => apply_filters( 'yikes-mailchimp-sslverify', true ),
-			) );
-			$interest_groupings = json_decode( wp_remote_retrieve_body( $interest_groupings ), true );
-		} catch( Exception $error ) {
-			$no_interest_groupings = $error->getMessage();
+		if( $dash_position !== false ) {
+			$api_endpoint = 'https://' . substr( $api_key, $dash_position + 1 ) . '.api.mailchimp.com/2.0/lists/interest-groupings.json';
 		}
+		$interest_groupings = wp_remote_post( $api_endpoint, array( 
+			'body' => array( 
+				'apikey' => $api_key, 
+				'id' => $list_id, 
+				'counts' => true 
+			),
+			'timeout' => 10,
+			'sslverify' => apply_filters( 'yikes-mailchimp-sslverify', true ),
+		) );
+		$interest_groupings = json_decode( wp_remote_retrieve_body( $interest_groupings ), true );
+	
+		$no_interest_groupings = '<p class="description">' . __( 'Interest groups are not enabled for this list.', 'yikes-inc-easy-mailchimp-extender' ) . '</p>';
+		
 		
 		$no_segments = __( 'No segments set up for this list.' , 'yikes-inc-easy-mailchimp-extender' );
 		// get the segment data
@@ -346,7 +345,7 @@
 							
 							<h3><?php _e( 'Interest Groups Overview' , 'yikes-inc-easy-mailchimp-extender' ); ?></h3>
 							<?php
-								if( isset( $interest_groupings ) && count( $interest_groupings ) >= 1 ) {
+								if( isset( $interest_groupings ) && ! isset( $interest_groupings['error'] ) ) {
 									?><ul class="interest-group-ul"><?php
 										echo '<li class="interest-group-count">' . sprintf( _n( '%d Interest Group', '%d Interest Groups', intval( count( $interest_groupings ) ), 'yikes-inc-easy-mailchimp-extender' ), intval( count( $interest_groupings ) ) ) . '</li>';
 									foreach( $interest_groupings as $interest_group ) {
@@ -356,7 +355,7 @@
 								} else {
 									?>
 									<ul class="interest-group-ul">
-										<li><?php echo $no_interest_groupings . '.'; ?></li>
+										<li><?php echo $no_interest_groupings; ?></li>
 									</ul>
 									<?php
 								}
