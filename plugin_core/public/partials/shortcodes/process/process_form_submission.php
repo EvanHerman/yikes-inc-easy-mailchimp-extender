@@ -207,6 +207,14 @@ if ( ! isset( $_POST['yikes_easy_mc_new_subscriber'] ) || ! wp_verify_nonce( $_P
 					// generic error
 					$process_submission_response = '<p class="yikes-easy-mc-error-message">' .  str_replace( ' and cannot be imported', '', str_replace( 'List_RoleEmailMember:', '', $subscribe_response['error'] ) ) . '</p>';
 					break;
+				// invalid email (or no email at all)
+				case '-100':
+					if( ! empty( $form_settings['error_messages']['invalid-email'] ) ) {
+						$process_submission_response = '<p class="yikes-easy-mc-error-message">' . $form_settings['error_messages']['invalid-email'] . '</p>';
+					} else {
+						$process_submission_response = '<p class="yikes-easy-mc-error-message">' .  $subscribe_response['error'] . '</p>';
+					}					
+					break;
 				default:
 					// generic error
 					if( ! empty( $form_settings['error_messages']['general-error'] ) ) {

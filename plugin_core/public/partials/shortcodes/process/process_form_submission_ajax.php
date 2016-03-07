@@ -203,6 +203,10 @@ if( isset( $merge_variables['error'] ) ) {
 				// generic error
 				$error_response = str_replace( ' and cannot be imported', '', str_replace( 'List_RoleEmailMember:', '', $subscribe_response['error'] ) );	
 				break;
+			// invalid email (or no email at all)
+				case '-100':
+					$error_response = ( ! empty( $error_messages['invalid-email'] ) ) ? $error_messages['invalid-email'] : $subscribe_response['error'];			
+					break;
 			default:
 				$error_response = ( ! empty( $error_messages['general-error'] ) ) ? $error_messages['general-error'] : $subscribe_response['error'];
 				break;

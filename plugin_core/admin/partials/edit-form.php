@@ -284,14 +284,14 @@
 																		
 																		<div id="interest-groups-container" class="list-container">
 																			<?php
-																				if( isset( $interest_groupings ) && count( $interest_groupings ) >= 1 ) {
+																				if( isset( $interest_groupings ) && ! isset( $interest_groupings['error'] ) ) {
 																					// build a list of available merge variables,
 																					// but exclude the ones already assigned to the form
 																					echo '<p class="description">' . __( "Select an interest group below to add to the form builder." , 'yikes-inc-easy-mailchimp-extender' ) . '</p>';
 																					// $this->build_available_merge_vars( json_decode( $form['fields'] , true ) , $available_merge_variables );
 																					$this->build_available_interest_groups( json_decode( $form['fields'] , true ) , $interest_groupings , $form['list_id'] );
 																				} else {
-																					echo $no_interest_groupings;
+																					echo '<p class="description">' . $interest_groupings['error'] . '</p>';
 																				}
 																			?>
 																		</div>

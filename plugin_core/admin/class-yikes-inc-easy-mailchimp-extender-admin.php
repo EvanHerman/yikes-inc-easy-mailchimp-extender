@@ -1685,8 +1685,10 @@ class Yikes_Inc_Easy_Mailchimp_Forms_Admin {
 				}
 				
 				// loop over interest groups
-				foreach( $interest_groups as $interest_group ) {
-					$available_interest_groups[] = $interest_group['id'];
+				if( ! empty( $interest_groups ) && ! isset( $interest_groups['error'] ) ) {
+					foreach( $interest_groups as $interest_group ) {
+						$available_interest_groups[] = $interest_group['id'];
+					}
 				}
 				
 				// build our assigned fields
