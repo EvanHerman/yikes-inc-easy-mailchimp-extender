@@ -223,11 +223,7 @@ if ( ! isset( $_POST['yikes_easy_mc_new_subscriber'] ) || ! wp_verify_nonce( $_P
 					break;
 				// invalid email (or no email at all)
 				case '-100':
-					if( ! empty( $form_settings['error_messages']['invalid-email'] ) ) {
-						$process_submission_response = '<p class="yikes-easy-mc-error-message">' . $form_settings['error_messages']['invalid-email'] . '</p>';
-					} else {
-						$process_submission_response = '<p class="yikes-easy-mc-error-message">' .  $subscribe_response['error'] . '</p>';
-					}					
+					$process_submission_response = ( ! empty( $form_settings['error_messages']['invalid-email'] ) ) ? '<p class="yikes-easy-mc-error-message">' . $form_settings['error_messages']['invalid-email'] . '</p>' : '<p class="yikes-easy-mc-error-message">' . __( 'Please provide a valid email address.', 'yikes-inc-easy-mailchimp-extender' ) . '</p>';			
 					break;
 				default:
 					// generic error
