@@ -150,11 +150,14 @@ function process_mailchimp_shortcode( $atts ) {
 	// store number of fields
 	$field_count = (int) count( $form_settings['fields'] );
 	
-	// loop over each field, if it's set to hidden -- subtract it from the field count
-	// this throws off the layout for inline forms setup below
-	foreach( json_decode( $form_data['fields'] ) as $form_field ) {
-		if( isset( $form_field->hide ) && $form_field->hide == 1 ) {
-			$field_count--;
+	// confirm we actually have fields, before looping
+	if( isset( $form_data['fields'] ) && ! empty( $form_data['fields'] ) ) {
+		// loop over each field, if it's set to hidden -- subtract it from the field count
+		// this throws off the layout for inline forms setup below
+		foreach( json_decode( $form_data['fields'] ) as $form_field ) {
+			if( isset( $form_field->hide ) && $form_field->hide == 1 ) {
+				$field_count--;
+			}
 		}
 	}
 	
@@ -281,7 +284,7 @@ function process_mailchimp_shortcode( $atts ) {
 		// ensure there is an 'email' field the user can fill out
 		// or else MailChimp throws errors at you
 			// extract our array keys
-			if( isset( $form_settings['fields'] ) && !empty( $form_settings['fields'] ) ) {	
+			if( isset( $form_settings['fields'] ) && ! empty( $form_settings['fields'] ) ) {	
 				$array_keys = array_keys( $form_settings['fields'] );
 				// check for EMAIL in that array
 				if( !in_array( 'EMAIL', $array_keys ) && !in_array( 'email', $array_keys ) ) {

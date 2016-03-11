@@ -75,48 +75,65 @@
 					'timeout' => 10,
 					'sslverify' => apply_filters( 'yikes-mailchimp-sslverify', true )
 				) );
-				$list_data = json_decode( wp_remote_retrieve_body( $list_data ), true );				
+				$list_data = json_decode( wp_remote_retrieve_body( $list_data ), true );	
+				if( isset( $list_data['error'] ) ) {	
+					if( WP_DEBUG || get_option( 'yikes-mailchimp-debug-status' , '' ) == '1' ) {
+						require_once YIKES_MC_PATH . 'includes/error_log/class-yikes-inc-easy-mailchimp-error-logging.php';
+						$error_logging = new Yikes_Inc_Easy_Mailchimp_Error_Logging();
+						$error_logging->yikes_easy_mailchimp_write_to_error_log( $list_data['error'], __( "Get Account Lists" , 'yikes-inc-easy-mailchimp-extender' ), "Edit Form Page" );
+					}
+					return;
+				}				
 				// set our transient
 				set_transient( 'yikes-easy-mailchimp-list-data', $list_data, 1 * HOUR_IN_SECONDS );
 			}
 			
 			// get the list data
-			try {
-				if( $dash_position !== false ) {
-					$api_endpoint = 'https://' . substr( $api_key, $dash_position + 1 ) . '.api.mailchimp.com/2.0/lists/merge-vars.json';
+			if( $dash_position !== false ) {
+				$api_endpoint = 'https://' . substr( $api_key, $dash_position + 1 ) . '.api.mailchimp.com/2.0/lists/merge-vars.json';
+			}
+			$available_merge_variables = wp_remote_post( $api_endpoint, array( 
+				'body' => array( 
+					'apikey' => $api_key, 
+					'id' => array( $form['list_id'] ),
+				),
+				'timeout' => 10,
+				'sslverify' => apply_filters( 'yikes-mailchimp-sslverify', true )
+			) );
+			$available_merge_variables = json_decode( wp_remote_retrieve_body( $available_merge_variables ), true );
+			if( isset( $available_merge_variables['error'] ) ) {	
+				if( WP_DEBUG || get_option( 'yikes-mailchimp-debug-status' , '' ) == '1' ) {
+					require_once YIKES_MC_PATH . 'includes/error_log/class-yikes-inc-easy-mailchimp-error-logging.php';
+					$error_logging = new Yikes_Inc_Easy_Mailchimp_Error_Logging();
+					$error_logging->yikes_easy_mailchimp_write_to_error_log( $available_merge_variables['error'], __( "Get Merge Variables" , 'yikes-inc-easy-mailchimp-extender' ), "Edit Form Page" );
 				}
-				$available_merge_variables = wp_remote_post( $api_endpoint, array( 
-					'body' => array( 
-						'apikey' => $api_key, 
-						'id' => array( $form['list_id'] ),
-					),
-					'timeout' => 10,
-					'sslverify' => apply_filters( 'yikes-mailchimp-sslverify', true )
-				) );
-				$available_merge_variables = json_decode( wp_remote_retrieve_body( $available_merge_variables ), true );
-			} catch ( Exception $e ) {
-				$merge_variable_error = '<p class="description error-descripion">' . __( 'Error' , 'yikes-inc-easy-mailchimp-extender' ) . ' : ' . $e->getMessage() . '.</p>';
-				wp_die( __( "Uh Oh...It looks like we ran into an error! Please reload the page and try again. If the error persists, please contact the YIKES Inc. support team.", 'yikes-inc-easy-mailchimp-extender' ) , 500 );
+				return;
 			}
 			
 			// get the interest group data
-			try {
-				if( $dash_position !== false ) {
-					$api_endpoint = 'https://' . substr( $api_key, $dash_position + 1 ) . '.api.mailchimp.com/2.0/lists/interest-groupings.json';
-				}
-				$interest_groupings = wp_remote_post( $api_endpoint, array( 
-					'body' => array( 
-						'apikey' => $api_key, 
-						'id' => $form['list_id'] 
-					),
-					'timeout' => 10,
-					'sslverify' => apply_filters( 'yikes-mailchimp-sslverify', true ) 
-				) );
-				$interest_groupings = json_decode( wp_remote_retrieve_body( $interest_groupings ), true );
-				$no_interest_groupings = '<p class="description error-descripion">' . __( 'No Interest Groups Found' , 'yikes-inc-easy-mailchimp-extender' ) . '.</p>';
-			} catch( Exception $error ) {
-				$no_interest_groupings = '<p class="description error-descripion">' . $error->getMessage() . '.</p>';
+			if( $dash_position !== false ) {
+				$api_endpoint = 'https://' . substr( $api_key, $dash_position + 1 ) . '.api.mailchimp.com/2.0/lists/interest-groupings.json';
 			}
+			$interest_groupings = wp_remote_post( $api_endpoint, array( 
+				'body' => array( 
+					'apikey' => $api_key, 
+					'id' => $form['list_id'] 
+				),
+				'timeout' => 10,
+				'sslverify' => apply_filters( 'yikes-mailchimp-sslverify', true ) 
+			) );
+			$interest_groupings = json_decode( wp_remote_retrieve_body( $interest_groupings ), true );
+			$no_interest_groupings = '<p class="description error-descripion">' . __( 'No Interest Groups Found' , 'yikes-inc-easy-mailchimp-extender' ) . '.</p>';
+			if( isset( $interest_groupings['error'] ) ) {	
+				if( WP_DEBUG || get_option( 'yikes-mailchimp-debug-status' , '' ) == '1' ) {
+					require_once YIKES_MC_PATH . 'includes/error_log/class-yikes-inc-easy-mailchimp-error-logging.php';
+					$error_logging = new Yikes_Inc_Easy_Mailchimp_Error_Logging();
+					$error_logging->yikes_easy_mailchimp_write_to_error_log( $interest_groupings['error'], __( "Get Interest Groups" , 'yikes-inc-easy-mailchimp-extender' ), "Edit Form Page" );
+					return;
+				}
+			}
+			
+			
 		} else {
 			wp_die( __( 'Oh No!' , 'yikes-inc-easy-mailchimp-extender' ) , __( 'Error' , 'yikes-inc-easy-mailchimp-extender' ) );
 		}

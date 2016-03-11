@@ -92,6 +92,13 @@
 				'sslverify' => apply_filters( 'yikes-mailchimp-sslverify', true )
 			) );
 			$list_details = json_decode( wp_remote_retrieve_body( $list_details ), true );
+			if( isset( $list_details['error'] ) ) {	
+				if( WP_DEBUG || get_option( 'yikes-mailchimp-debug-status' , '' ) == '1' ) {
+					require_once YIKES_MC_PATH . 'includes/error_log/class-yikes-inc-easy-mailchimp-error-logging.php';
+					$error_logging = new Yikes_Inc_Easy_Mailchimp_Error_Logging();
+					$error_logging->yikes_easy_mailchimp_write_to_error_log( $list_details['error'], __( "Send Update Profile Email - Get Account Lists" , 'yikes-inc-easy-mailchimp-extender' ), "class.public_ajax.php" );
+				}
+			}		
 			
 			// account details api call
 			if( $dash_position !== false ) {
@@ -105,6 +112,13 @@
 				'sslverify' => apply_filters( 'yikes-mailchimp-sslverify', true )
 			) );
 			$account_details = json_decode( wp_remote_retrieve_body( $account_details ), true );
+			if( isset( $account_details['error'] ) ) {	
+				if( WP_DEBUG || get_option( 'yikes-mailchimp-debug-status' , '' ) == '1' ) {
+					require_once YIKES_MC_PATH . 'includes/error_log/class-yikes-inc-easy-mailchimp-error-logging.php';
+					$error_logging = new Yikes_Inc_Easy_Mailchimp_Error_Logging();
+					$error_logging->yikes_easy_mailchimp_write_to_error_log( $account_details['error'], __( "Send Update Profile Email - Get Account Details" , 'yikes-inc-easy-mailchimp-extender' ), "class.public_ajax.php" );
+				}
+			}	
 			
 			// subscriber details api call
 			if( $dash_position !== false ) {
@@ -122,6 +136,13 @@
 				'sslverify' => apply_filters( 'yikes-mailchimp-sslverify', true )
 			) );
 			$subscriber_account_details = json_decode( wp_remote_retrieve_body( $subscriber_account_details ), true );
+			if( isset( $subscriber_account_details['error'] ) ) {	
+				if( WP_DEBUG || get_option( 'yikes-mailchimp-debug-status' , '' ) == '1' ) {
+					require_once YIKES_MC_PATH . 'includes/error_log/class-yikes-inc-easy-mailchimp-error-logging.php';
+					$error_logging = new Yikes_Inc_Easy_Mailchimp_Error_Logging();
+					$error_logging->yikes_easy_mailchimp_write_to_error_log( $subscriber_account_details['error'], __( "Send Update Profile Email - Get Member Info." , 'yikes-inc-easy-mailchimp-extender' ), "class.public_ajax.php" );
+				}
+			}	
 			
 			// check for errors in any of the calls
 			if( isset( $list_details['error'] ) || isset( $account_details['error'] ) || isset( $subscriber_account_details['error'] ) ) {

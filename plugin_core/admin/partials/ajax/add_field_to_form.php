@@ -15,6 +15,19 @@
 		'sslverify' => apply_filters( 'yikes-mailchimp-sslverify', true )
 	) );
 	$body = json_decode( wp_remote_retrieve_body( $available_merge_variables ), true );
+	if( isset( $body['error'] ) ) {
+		if( WP_DEBUG || get_option( 'yikes-mailchimp-debug-status' , '' ) == '1' ) {
+			require_once YIKES_MC_PATH . 'includes/error_log/class-yikes-inc-easy-mailchimp-error-logging.php';
+			$error_logging = new Yikes_Inc_Easy_Mailchimp_Error_Logging();
+			$error_logging->yikes_easy_mailchimp_write_to_error_log( $body['error'], __( "Get Merge Variables" , 'yikes-inc-easy-mailchimp-extender' ) , __( "Add Field to Form" , 'yikes-inc-easy-mailchimp-extender' ) );
+		}
+		?>
+			<section class="draggable" id="error-container">
+				<p><span class="dashicons dashicons-no-alt"></span> <?php printf( __( 'Error: %s', 'yikes-inc-easy-mailchimp-extender' ), $body['error'] ); ?></p>
+			</section>
+		<?php 
+		return;
+	}
 	// find and return the location of this merge field in the array
 	$index = $this->findMCListIndex( $form_data_array['merge_tag'] , $body['data'][0]['merge_vars'], 'tag' );
 	// store it and use it to pre-populate field data (only on initial add to form)

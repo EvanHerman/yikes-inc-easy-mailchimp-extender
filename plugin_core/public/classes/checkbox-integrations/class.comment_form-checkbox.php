@@ -41,7 +41,7 @@
 		 *
 		 *	@since 6.0.0
 		**/
-		public function subscribe_from_comment( $comment_id , $comment_approvided ) {	
+		public function subscribe_from_comment( $comment_id , $comment_approved ) {	
 			// was sign-up checkbox checked?
 			if ( $this->was_checkbox_checked( $this->type ) === false ) {
 				return false;
@@ -54,15 +54,11 @@
 			$comment_data = get_comment( $comment_id );
 			// create merge variable array
 			$merge_vars = array(
-				'NAME' => $comment->comment_author,
-				'OPTIN_IP' => $comment->comment_author_IP,
+				'NAME' => $comment_data->comment_author,
+				'OPTIN_IP' => $comment_data->comment_author_IP,
 			);
 			// subscribe the user 
-			try{
-				$this->subscribe_user_integration( sanitize_email( $comment_data->comment_author_email ) , $this->type , $merge_vars );
-			} catch( Exception $e ) {
-				return $e->getMessage();
-			}
+			$this->subscribe_user_integration( sanitize_email( $comment_data->comment_author_email ) , $this->type , $merge_vars );
 		}
 		
 	}

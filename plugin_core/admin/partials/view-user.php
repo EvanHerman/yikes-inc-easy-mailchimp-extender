@@ -35,6 +35,14 @@
 		'sslverify' => apply_filters( 'yikes-mailchimp-sslverify', true ),
 	) );
 	$user_data = json_decode( wp_remote_retrieve_body( $user_data ), true );	
+	
+	if( isset( $user_data['error'] ) ) {	
+		if( WP_DEBUG || get_option( 'yikes-mailchimp-debug-status' , '' ) == '1' ) {
+			require_once YIKES_MC_PATH . 'includes/error_log/class-yikes-inc-easy-mailchimp-error-logging.php';
+			$error_logging = new Yikes_Inc_Easy_Mailchimp_Error_Logging();
+			$error_logging->yikes_easy_mailchimp_write_to_error_log( $user_data['error'], __( "Get Member Info" , 'yikes-inc-easy-mailchimp-extender' ), "View User Page" );
+		}
+	}
 		
 	/*
 	*	Check for MailChimp returned errors
@@ -77,6 +85,13 @@
 						'sslverify' => apply_filters( 'yikes-mailchimp-sslverify', true )
 					) );
 					$list_data = json_decode( wp_remote_retrieve_body( $list_data ), true );	
+					if( isset( $list_data['error'] ) ) {	
+						if( WP_DEBUG || get_option( 'yikes-mailchimp-debug-status' , '' ) == '1' ) {
+							require_once YIKES_MC_PATH . 'includes/error_log/class-yikes-inc-easy-mailchimp-error-logging.php';
+							$error_logging = new Yikes_Inc_Easy_Mailchimp_Error_Logging();
+							$error_logging->yikes_easy_mailchimp_write_to_error_log( $list_data['error'], __( "Get Account Lists" , 'yikes-inc-easy-mailchimp-extender' ), "View User Page" );
+						}
+					}
 					if( $list_data && isset( $list_data['data'][0] ) ) {
 						$additional_lists[$list_data['data'][0]['id']] = $list_data['data'][0]['name'];
 					}
@@ -98,6 +113,13 @@
 				'sslverify' => apply_filters( 'yikes-mailchimp-sslverify', true )
 			) );
 			$merge_variables = json_decode( wp_remote_retrieve_body( $merge_variables ), true );
+			if( isset( $merge_variables['error'] ) ) {	
+				if( WP_DEBUG || get_option( 'yikes-mailchimp-debug-status' , '' ) == '1' ) {
+					require_once YIKES_MC_PATH . 'includes/error_log/class-yikes-inc-easy-mailchimp-error-logging.php';
+					$error_logging = new Yikes_Inc_Easy_Mailchimp_Error_Logging();
+					$error_logging->yikes_easy_mailchimp_write_to_error_log( $merge_variables['error'], __( "Get Merge Variables" , 'yikes-inc-easy-mailchimp-extender' ), "View User Page" );
+				}
+			}
 			// loop and display
 			if( $merge_variables ) {
 				foreach( $merge_variables['data'][0]['merge_vars'] as $merge_variable ) {
