@@ -5,28 +5,38 @@
 		$api_endpoint = 'https://' . substr( $api_key, $dash_position + 1 ) . '.api.mailchimp.com/2.0/lists/interest-groupings.json';
 	}
 	// get the interest group data
-	try {
-		$interest_groupings = wp_remote_post( $api_endpoint, array( 
-			'body' => array( 
-				'apikey' => $api_key, 
-				'id' => $form_data_array['list_id'] 
-			),
-			'timeout' => 10,
-			'sslverify' => apply_filters( 'yikes-mailchimp-sslverify', true ) 
-		) );
-		$interest_groupings_body = json_decode( wp_remote_retrieve_body( $interest_groupings ), true );
-		if( $interest_groupings_body ) {
-			// find and return the location of this merge field in the array
-			$index = $this->findMCListIndex( $form_data_array['group_id'], $interest_groupings_body, 'id' );
-			// check for our index...
-			if( isset( $index) ) {
-				// store it and use it to pre-populate field data (only on initial add to form)
-				$merge_field_data = $interest_groupings_body[$index];
+	$interest_groupings = wp_remote_post( $api_endpoint, array( 
+		'body' => array( 
+			'apikey' => $api_key, 
+			'id' => $form_data_array['list_id'] 
+		),
+		'timeout' => 10,
+		'sslverify' => apply_filters( 'yikes-mailchimp-sslverify', true ) 
+	) );
+	$interest_groupings_body = json_decode( wp_remote_retrieve_body( $interest_groupings ), true );
+	if( ! is_wp_error( $interest_groupings_body ) ) {
+		if( isset( $interest_groupings_body['error'] ) ) {
+			if( WP_DEBUG || get_option( 'yikes-mailchimp-debug-status' , '' ) == '1' ) {
+				require_once YIKES_MC_PATH . 'includes/error_log/class-yikes-inc-easy-mailchimp-error-logging.php';
+				$error_logging = new Yikes_Inc_Easy_Mailchimp_Error_Logging();
+				$error_logging->yikes_easy_mailchimp_write_to_error_log( $interest_groupings_body['error'], __( "Get Interest Groups" , 'yikes-inc-easy-mailchimp-extender' ) , __( "Add Interest Group to Form" , 'yikes-inc-easy-mailchimp-extender' ) );
 			}
-		}			
-	} catch( Exception $error ) {
-		$no_interest_groupings = $error->getMessage();
-	}
+			?>
+			<section class="draggable" id="error-container">
+				<p><span class="dashicons dashicons-no-alt"></span> <?php printf( __( 'Error: %s', 'yikes-inc-easy-mailchimp-extender' ), $interest_groupings_body['error'] ); ?></p>
+			</section>
+			<?php 
+			return;
+		}
+		// find and return the location of this merge field in the array
+		$index = $this->findMCListIndex( $form_data_array['group_id'], $interest_groupings_body, 'id' );
+		// check for our index...
+		if( isset( $index) ) {
+			// store it and use it to pre-populate field data (only on initial add to form)
+			$merge_field_data = $interest_groupings_body[$index];
+		}
+	}			
+
 ?>
 <section class="draggable" id="<?php echo $form_data_array['group_id']; ?>">
 	<!-- top -->

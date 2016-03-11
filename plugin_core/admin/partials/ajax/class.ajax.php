@@ -54,6 +54,13 @@
 				'sslverify' => apply_filters( 'yikes-mailchimp-sslverify', true )
 			) );
 			$list_data = json_decode( wp_remote_retrieve_body( $list_data ), true );
+			if( isset( $list_data['error'] ) ) {
+				if( WP_DEBUG || get_option( 'yikes-mailchimp-debug-status' , '' ) == '1' ) {
+					require_once YIKES_MC_PATH . 'includes/error_log/class-yikes-inc-easy-mailchimp-error-logging.php';
+					$error_logging = new Yikes_Inc_Easy_Mailchimp_Error_Logging();
+					$error_logging->yikes_easy_mailchimp_write_to_error_log( $list_data['error'], __( "Get Account Lists" , 'yikes-inc-easy-mailchimp-extender' ) , __( "MailChimp Widget" , 'yikes-inc-easy-mailchimp-extender' ) );
+				}
+			}
 			if( ! empty( $list_data['data'][0] ) ) {
 				include_once( YIKES_MC_PATH . 'admin/partials/dashboard-widgets/templates/stats-list-template.php' );
 			}
@@ -76,24 +83,28 @@
 			$api_key = trim( get_option( 'yikes-mc-api-key' , '' ) );
 			// setup/check our transients
 			if ( WP_DEBUG ||  false === ( $interest_groupings = get_transient( $list_id . '_interest_group' ) ) ) {
-			  // It wasn't there, so regenerate the data and save the transient
-				try {			
-					$dash_position = strpos( $api_key, '-' );
-					if( $dash_position !== false ) {
-						$api_endpoint = 'https://' . substr( $api_key, $dash_position + 1 ) . '.api.mailchimp.com/2.0/lists/interest-groupings.json';
+			  // It wasn't there, so regenerate the data and save the transient		
+				$dash_position = strpos( $api_key, '-' );
+				if( $dash_position !== false ) {
+					$api_endpoint = 'https://' . substr( $api_key, $dash_position + 1 ) . '.api.mailchimp.com/2.0/lists/interest-groupings.json';
+				}
+				$interest_groupings = wp_remote_post( $api_endpoint, array( 
+					'body' => array( 
+						'apikey' => $api_key, 
+						'id' => $list_id, 
+						'counts' => false 
+					),
+					'timeout' => 10,
+					'sslverify' => apply_filters( 'yikes-mailchimp-sslverify', true )
+				) );
+				$interest_groupings = json_decode( wp_remote_retrieve_body( $interest_groupings ), true );
+				if( isset( $interest_groupings['error'] ) ) {
+					if( get_option( 'yikes-mailchimp-debug-status' , '' ) == '1' ) {
+						require_once YIKES_MC_PATH . 'includes/error_log/class-yikes-inc-easy-mailchimp-error-logging.php';
+						$error_logging = new Yikes_Inc_Easy_Mailchimp_Error_Logging();
+						$error_logging->yikes_easy_mailchimp_write_to_error_log( $interest_groupings['error'], __( "Get Interest Groups" , 'yikes-inc-easy-mailchimp-extender' ), "class.ajax.php" );
 					}
-					$interest_groupings = wp_remote_post( $api_endpoint, array( 
-						'body' => array( 
-							'apikey' => $api_key, 
-							'id' => $list_id, 
-							'counts' => false 
-						),
-						'timeout' => 10,
-						'sslverify' => apply_filters( 'yikes-mailchimp-sslverify', true )
-					) );
-					$interest_groupings = json_decode( wp_remote_retrieve_body( $interest_groupings ), true );
-				} catch( Exception $error ) {
-					$interest_groupings = $error->getMessage();
+					return;
 				}
 				// set the transient for 2 hours
 				set_transient( $list_id . '_interest_group', $interest_groupings, 2 * HOUR_IN_SECONDS );

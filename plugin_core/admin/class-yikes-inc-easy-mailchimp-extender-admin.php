@@ -2705,38 +2705,40 @@ class Yikes_Inc_Easy_Mailchimp_Forms_Admin {
 			$list_id = $_REQUEST['mailchimp-list'];
 			$email_id = $_REQUEST['email_id'];
 			// verify our nonce
-			if( !wp_verify_nonce( $nonce, 'unsubscribe-user-' . $email_id ) ) {
+			if( ! wp_verify_nonce( $nonce, 'unsubscribe-user-' . $email_id ) ) {
 				wp_die( __( "We've run into an error. The security check didn't pass. Please try again." , 'yikes-inc-easy-mailchimp-extender' ) , __( "Failed nonce validation" , 'yikes-inc-easy-mailchimp-extender' ) , array( 'response' => 500 , 'back_link' => true ) );
 			}
 			// only re-run the API request if our API key has changed
 			// initialize MailChimp Class
-			try {
-				$api_key = trim( get_option( 'yikes-mc-api-key' , '' ) );
-				$dash_position = strpos( $api_key, '-' );
-				if( $dash_position !== false ) {
-					$api_endpoint = 'https://' . substr( $api_key, $dash_position + 1 ) . '.api.mailchimp.com/2.0/lists/unsubscribe.json';
+			$api_key = trim( get_option( 'yikes-mc-api-key' , '' ) );
+			$dash_position = strpos( $api_key, '-' );
+			if( $dash_position !== false ) {
+				$api_endpoint = 'https://' . substr( $api_key, $dash_position + 1 ) . '.api.mailchimp.com/2.0/lists/unsubscribe.json';
+			}
+			$response = wp_remote_post( $api_endpoint, array( 
+				'body' => array( 
+					'apikey' => $api_key, 
+					'id' => $list_id, 
+					'email' => array( 'leid' => $email_id ), 
+					'send_goodbye' => false, 
+					'send_notify' => false 
+				),
+				'timeout' => 10,
+				'sslverify' => apply_filters( 'yikes-mailchimp-sslverify', true )
+			) );
+			if( ! is_wp_error( $response ) ) {
+				$response_body = json_decode( wp_remote_retrieve_body( $response ), true );
+				if( isset( $response_body['error'] ) ) {
+					if( WP_DEBUG || get_option( 'yikes-mailchimp-debug-status' , '' ) == '1' ) {
+						require_once YIKES_MC_PATH . 'includes/error_log/class-yikes-inc-easy-mailchimp-error-logging.php';
+						$error_logging = new Yikes_Inc_Easy_Mailchimp_Error_Logging();
+						$error_logging->yikes_easy_mailchimp_write_to_error_log( $response_body['error'], __( "Unsubscribe User" , 'yikes-inc-easy-mailchimp-extender' ) , __( "Manage List Page" , 'yikes-inc-easy-mailchimp-extender' ) );
+					}
 				}
-				$response = wp_remote_post( $api_endpoint, array( 
-					'body' => array( 
-						'apikey' => $api_key, 
-						'id' => $list_id, 
-						'email' => array( 'leid' => $email_id ), 
-						'send_goodbye' => false, 
-						'send_notify' => false 
-					),
-					'timeout' => 10,
-					'sslverify' => apply_filters( 'yikes-mailchimp-sslverify', true )
-				) );
-				if( ! is_wp_error( $response ) ) {
-					wp_redirect( esc_url_raw( admin_url( 'admin.php?page=yikes-mailchimp-view-list&list-id=' . $list_id . '&user-unsubscribed=true' ) ) );
-					exit;					
-				}
-			} catch ( Exception $e ) {
-				// an error was encountered.
-				// advanced debug should return the exception
-				wp_redirect( esc_url_raw( admin_url( 'admin.php?page=yikes-mailchimp-view-list&list-id=' . $list_id . '&user-unsubscribed=false' ) ) );
-				exit;
-			}	
+				wp_redirect( esc_url_raw( admin_url( 'admin.php?page=yikes-mailchimp-view-list&list-id=' . $list_id . '&user-unsubscribed=true' ) ) );
+				exit;					
+			}
+
 		}
 		
 		public function yikes_easy_mailchimp_create_missing_error_log() {
@@ -2805,37 +2807,37 @@ class Yikes_Inc_Easy_Mailchimp_Forms_Admin {
 				// if no api key is set/site is not connected, return an empty array
 				return array();
 			}
-			try {
-				$dash_position = strpos( $api_key, '-' );
-				if( $dash_position !== false ) {
-					$api_endpoint = 'https://' . substr( $api_key, $dash_position + 1 ) . '.api.mailchimp.com/2.0/lists/list.json';
+			$dash_position = strpos( $api_key, '-' );
+			if( $dash_position !== false ) {
+				$api_endpoint = 'https://' . substr( $api_key, $dash_position + 1 ) . '.api.mailchimp.com/2.0/lists/list.json';
+			}
+			$mailchimp_lists = wp_remote_post( $api_endpoint, array( 
+				'body' => array( 
+					'apikey' => $api_key,
+					'limit' => 100
+				),
+				'timeout' => 10,
+				'sslverify' => apply_filters( 'yikes-mailchimp-sslverify', true )
+			) );
+			if( ! is_wp_error( $mailchimp_lists ) ) {
+				$list_data = json_decode( wp_remote_retrieve_body( $mailchimp_lists ), true );
+				if( isset( $list_data['error'] ) ) {
+					if( WP_DEBUG || get_option( 'yikes-mailchimp-debug-status' , '' ) == '1' ) {
+						require_once YIKES_MC_PATH . 'includes/error_log/class-yikes-inc-easy-mailchimp-error-logging.php';
+						$error_logging = new Yikes_Inc_Easy_Mailchimp_Error_Logging();
+						$error_logging->yikes_easy_mailchimp_write_to_error_log( $list_data['error'], __( "Get List IDs" , 'yikes-inc-easy-mailchimp-extender' ) , __( "Clear API Cache" , 'yikes-inc-easy-mailchimp-extender' ) );
+					}
 				}
-				$mailchimp_lists = wp_remote_post( $api_endpoint, array( 
-					'body' => array( 
-						'apikey' => $api_key,
-						'limit' => 100
-					),
-					'timeout' => 10,
-					'sslverify' => apply_filters( 'yikes-mailchimp-sslverify', true )
-				) );
-				if( ! is_wp_error( $mailchimp_lists ) ) {
-					$list_data = json_decode( wp_remote_retrieve_body( $mailchimp_lists ), true );
-					$mail_chimp_list_ids = array();
-					if( $mailchimp_lists ) {
-						foreach( $list_data as $list ) {
-							$mail_chimp_list_ids[] = $list['id'];
-						}
-						return $mail_chimp_list_ids;
-					} else {
-						return array();
-					}				
-				}
-			} catch ( Exception $e ) {
-				// log to our error log
-				require_once YIKES_MC_PATH . 'includes/error_log/class-yikes-inc-easy-mailchimp-error-logging.php';
-				$error_logging = new Yikes_Inc_Easy_Mailchimp_Error_Logging();
-				$error_logging->yikes_easy_mailchimp_write_to_error_log( $e->getMessage() , __( "Retreiving List Data" , 'yikes-inc-easy-mailchimp-extender' ) , __( "Delete MailChimp Site Cache" , 'yikes-inc-easy-mailchimp-extender' ) );
-			}	
+				$mail_chimp_list_ids = array();
+				if( $mailchimp_lists ) {
+					foreach( $list_data as $list ) {
+						$mail_chimp_list_ids[] = $list['id'];
+					}
+					return $mail_chimp_list_ids;
+				} else {
+					return array();
+				}				
+			}
 			return;
 		}
 		
