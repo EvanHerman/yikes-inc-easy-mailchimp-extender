@@ -217,7 +217,7 @@ if( isset( $merge_variables['error'] ) ) {
 				break;
 			// invalid email (or no email at all)
 				case '-100':
-					$error_response = ( ! empty( $error_messages['invalid-email'] ) ) ? $error_messages['invalid-email'] : $subscribe_response['error'];			
+					$error_response = ( ! empty( $error_messages['invalid-email'] ) ) ? $error_messages['invalid-email'] : __( 'Please provide a valid email address.', 'yikes-inc-easy-mailchimp-extender' );			
 					break;
 			default:
 				$error_response = ( ! empty( $error_messages['general-error'] ) ) ? $error_messages['general-error'] : $subscribe_response['error'];
