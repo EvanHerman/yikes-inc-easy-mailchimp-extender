@@ -192,10 +192,12 @@ if( isset( $merge_variables['error'] ) ) {
 						'sslverify' => apply_filters( 'yikes-mailchimp-sslverify', true ),
 					) );
 					$merge_variables = json_decode( wp_remote_retrieve_body( $merge_variables ), true );
-					if( WP_DEBUG || get_option( 'yikes-mailchimp-debug-status' , '' ) == '1' ) {
-						require_once YIKES_MC_PATH . 'includes/error_log/class-yikes-inc-easy-mailchimp-error-logging.php';
-						$error_logging = new Yikes_Inc_Easy_Mailchimp_Error_Logging();
-						$error_logging->yikes_easy_mailchimp_write_to_error_log( $merge_variables['error'], __( "Get Merge Variables" , 'yikes-inc-easy-mailchimp-extender' ), "process_form_submission_ajax.php" );
+					if( is_wp_error( $merge_variables ) || isset( $merge_variables['error'] ) ) {
+						if( WP_DEBUG || get_option( 'yikes-mailchimp-debug-status' , '' ) == '1' ) {
+							require_once YIKES_MC_PATH . 'includes/error_log/class-yikes-inc-easy-mailchimp-error-logging.php';
+							$error_logging = new Yikes_Inc_Easy_Mailchimp_Error_Logging();
+							$error_logging->yikes_easy_mailchimp_write_to_error_log( $merge_variables['error'], __( "Get Merge Variables" , 'yikes-inc-easy-mailchimp-extender' ), "process_form_submission_ajax.php" );
+						}
 					}
 					// re-store our data
 					$merge_variables = $merge_variables['data'][0]['merge_vars'];
