@@ -23,10 +23,10 @@
 					$error_logging = new Yikes_Inc_Easy_Mailchimp_Error_Logging();
 					$error_logging->yikes_easy_mailchimp_write_to_error_log( $list_data['error'], __( "Get Account Lists" , 'yikes-inc-easy-mailchimp-extender' ), "Manage Lists Page" );
 				}
-				return;
+			} else {
+				// set our transient
+				set_transient( 'yikes-easy-mailchimp-list-data', $list_data, 1 * HOUR_IN_SECONDS );
 			}
-			// set our transient
-			set_transient( 'yikes-easy-mailchimp-list-data', $list_data, 1 * HOUR_IN_SECONDS );
 		}
 	}
 ?>

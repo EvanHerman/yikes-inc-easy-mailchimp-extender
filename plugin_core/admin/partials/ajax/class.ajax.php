@@ -104,10 +104,10 @@
 						$error_logging = new Yikes_Inc_Easy_Mailchimp_Error_Logging();
 						$error_logging->yikes_easy_mailchimp_write_to_error_log( $interest_groupings['error'], __( "Get Interest Groups" , 'yikes-inc-easy-mailchimp-extender' ), "class.ajax.php" );
 					}
-					return;
+				} else {
+					// set the transient for 2 hours
+					set_transient( $list_id . '_interest_group', $interest_groupings, 2 * HOUR_IN_SECONDS );
 				}
-				// set the transient for 2 hours
-				set_transient( $list_id . '_interest_group', $interest_groupings, 2 * HOUR_IN_SECONDS );
 			}
 			if( isset( $interest_groupings ) && ! empty( $interest_groupings ) ) {
 				require( YIKES_MC_PATH . 'admin/partials/menu/options-sections/templates/integration-interest-groups.php' );

@@ -80,9 +80,10 @@
 							$error_logging = new Yikes_Inc_Easy_Mailchimp_Error_Logging();
 							$error_logging->yikes_easy_mailchimp_write_to_error_log( $list_data['error'], __( "Get Account Lists" , 'yikes-inc-easy-mailchimp-extender' ), "Dashboard Activity Widget" );
 						}
+					} else {
+						// set our transient
+						set_transient( 'yikes-easy-mailchimp-list-data', $list_data, 1 * HOUR_IN_SECONDS );
 					}
-					// set our transient
-					set_transient( 'yikes-easy-mailchimp-list-data', $list_data, 1 * HOUR_IN_SECONDS );
 				}
 			?>					
 				<!-- Dropdown to Change the list -->
@@ -139,10 +140,10 @@
 							$error_logging = new Yikes_Inc_Easy_Mailchimp_Error_Logging();
 							$error_logging->yikes_easy_mailchimp_write_to_error_log( $account_activity['error'], __( "Get Account Activity" , 'yikes-inc-easy-mailchimp-extender' ), "Dashboard Activity Widget" );
 						}
-						return;
+					} else {
+						// set our transient for one hour
+						set_transient( 'yikes-easy-mailchimp-account-activity', $account_activity, 1 * HOUR_IN_SECONDS );
 					}
-					// set our transient for one hour
-					set_transient( 'yikes-easy-mailchimp-account-activity', $account_activity, 1 * HOUR_IN_SECONDS );
 				}
 				if( ! empty( $account_activity ) ) {
 					include_once( YIKES_MC_PATH . 'admin/partials/dashboard-widgets/templates/account-activity-template.php' ); 

@@ -24,9 +24,10 @@
 					$error_logging->yikes_easy_mailchimp_write_to_error_log( $profile_info['error'], __( "Get Profile Info." , 'yikes-inc-easy-mailchimp-extender' ), "Account Details Page" );
 				}
 				return;
+			} else {
+				// set our transient for one week
+				set_transient( 'yikes-easy-mailchimp-profile-data', $profile_info, 1 * WEEK_IN_SECONDS );
 			}
-			// set our transient for one week
-			set_transient( 'yikes-easy-mailchimp-profile-data', $profile_info, 1 * WEEK_IN_SECONDS );
 		}
 		if ( false === ( $account_details = get_transient( 'yikes-easy-mailchimp-account-data' ) ) ) {
 			if( $dash_position !== false ) {
@@ -46,10 +47,10 @@
 					$error_logging = new Yikes_Inc_Easy_Mailchimp_Error_Logging();
 					$error_logging->yikes_easy_mailchimp_write_to_error_log( $account_details['error'], __( "Get Account Details" , 'yikes-inc-easy-mailchimp-extender' ), "Account Details Page" );
 				}
-				return;
+			} else {
+				// set our transient for one hour
+				set_transient( 'yikes-easy-mailchimp-account-data', $account_details, 1 * HOUR_IN_SECONDS );
 			}
-			// set our transient for one hour
-			set_transient( 'yikes-easy-mailchimp-account-data', $account_details, 1 * HOUR_IN_SECONDS );
 		}		
 		if ( false === ( $account_activity = get_transient( 'yikes-easy-mailchimp-account-activity' ) ) ) {
 			// retreive our list data
@@ -70,10 +71,10 @@
 					$error_logging = new Yikes_Inc_Easy_Mailchimp_Error_Logging();
 					$error_logging->yikes_easy_mailchimp_write_to_error_log( $account_activity['error'], __( "Get Chimp Chatter" , 'yikes-inc-easy-mailchimp-extender' ), "Account Details Page" );
 				}
-				return;
+			} else {
+				// set our transient for one hour
+				set_transient( 'yikes-easy-mailchimp-account-activity', $account_activity, 1 * HOUR_IN_SECONDS );
 			}
-			// set our transient for one hour
-			set_transient( 'yikes-easy-mailchimp-account-activity', $account_activity, 1 * HOUR_IN_SECONDS );
 		}
 	} else {
 		wp_die( __( 'It looks like you need to re-validate your MailChimp API key before you can continue.' , 'yikes-inc-easy-mailchimp-extender' ) , 500 );
