@@ -1,6 +1,6 @@
 <?php
 /*
-*	Process Non-Ajax forms	
+*	Process Non-Ajax forms
 *	@Updated for v6.0.3.5
 */
 
@@ -17,26 +17,26 @@ $form_settings = Yikes_Inc_Easy_Mailchimp_Extender_Public::yikes_retrieve_form_s
 
 // Process our form submissions (non ajax forms)
 if ( ! isset( $_POST['yikes_easy_mc_new_subscriber'] ) || ! wp_verify_nonce( $_POST['yikes_easy_mc_new_subscriber'], 'yikes_easy_mc_form_submit' ) ) {
-   
+
     $process_submission_response = '<p><small class="form_submission_error">' . __( "Error : Sorry, the nonce security check didn't pass. Please reload the page and try again. You may want to try clearing your browser cache as a last attempt." , 'yikes-inc-easy-mailchimp-extender' ) . '</small></p>';
 	return;
-	
+
 } else {
 
 	/* Check for Honeypot filled */
 	$honey_pot_filled = ( isset( $_POST['yikes-mailchimp-honeypot'] ) && $_POST['yikes-mailchimp-honeypot'] != '' ) ? true : false;
 	// if it was filled out, return an error...
-	if( $honey_pot_filled ) {
+	if ( $honey_pot_filled ) {
 		$process_submission_response = '<p><small class="form_submission_error">' . __( "Error: It looks like the honeypot was filled out and the form was not properly be submitted." , 'yikes-inc-easy-mailchimp-extender' ) . '</small></p>';
 		return;
 	}
-	
+
 	// Check reCAPTCHA Response
 	if( isset( $_POST['g-recaptcha-response'] ) ) {
 		$url = esc_url_raw( 'https://www.google.com/recaptcha/api/siteverify?secret=' . get_option( 'yikes-mc-recaptcha-secret-key' , '' ) . '&response=' . $_POST['g-recaptcha-response'] . '&remoteip=' . $_SERVER["REMOTE_ADDR"] );
 		$response = wp_remote_get( $url );
 		$response_body = json_decode( $response['body'] , true );
-		
+
 		// if we've hit an error, lets return the error!
 		if( $response_body['success'] != 1 ) {
 			$recaptcha_error = array(); // empty array to store error messages
@@ -50,7 +50,7 @@ if ( ! isset( $_POST['yikes_easy_mc_new_subscriber'] ) || ! wp_verify_nonce( $_P
 			return;
 		}
 	}
-	
+
 	/*
 	*	Confirm that all required checkbox groups were submitted
 	*	No HTML5 validation, and don't want to use jQuery for non-ajax forms
@@ -68,15 +68,15 @@ if ( ! isset( $_POST['yikes_easy_mc_new_subscriber'] ) || ! wp_verify_nonce( $_P
 			}
 		}
 	}
-	
+
 	if( ! empty( $missing_required_checkbox_interest_groups ) ) {
 		$process_submission_response = '<p class="yikes-easy-mc-error-message">' . apply_filters( 'yikes-mailchimp-interest-group-required-top-error', sprintf( _n( 'It looks like you forgot to fill in a required field.', 'It looks like you forgot to fill in %s required fields.', count( $missing_required_checkbox_interest_groups ), 'yikes-inc-easy-mailchimp-extender' ), count( $missing_required_checkbox_interest_groups ) ), count( $missing_required_checkbox_interest_groups ), $form_id ) . '</p>';
 		return;
 	}
-	
+
 	// Empty array to build up merge variables
-	$merge_variables = array();	
-	
+	$merge_variables = array();
+
 	// loop to push variables to our array
 	foreach ( $_POST as $merge_tag => $value ) {
 		if( $merge_tag != 'yikes_easy_mc_new_subscriber' && $merge_tag != '_wp_http_referer' ) {
@@ -99,30 +99,41 @@ if ( ! isset( $_POST['yikes_easy_mc_new_subscriber'] ) || ! wp_verify_nonce( $_P
 			}
 		}
 	}
-	
+
 	// store the opt-in time
 	$merge_variables['optin_time'] = current_time( 'Y-m-d H:i:s', 1 );
-	
+
 	// Submit our form data
 	$api_key = trim( get_option( 'yikes-mc-api-key' , '' ) );
 	$dash_position = strpos( $api_key, '-' );
-	
+
 	// setup the end point
 	if( $dash_position !== false ) {
 		$api_endpoint = 'https://' . substr( $api_key, $dash_position + 1 ) . '.api.mailchimp.com/2.0/lists/subscribe.json';
 	}
-	
+
 	/*
 	*	yikes-mailchimp-before-submission
-	*	
+	*
 	*	Catch the merge variables before they get sent over to MailChimp
 	*	param @merge_variables - user submitted form data
 	*	optional @form - the ID of the form to filter
 	*	@since 6.0.0
 	*/
 	$merge_variables = apply_filters( 'yikes-mailchimp-before-submission' , $merge_variables );
-	$merge_variables = apply_filters( 'yikes-mailchimp-before-submission-'.$form_id , $merge_variables );
-	
+	$merge_variables = apply_filters( 'yikes-mailchimp-before-submission-' . $form_id , $merge_variables );
+
+	/*
+	*	yikes-mailchimp-before-submission
+	*
+	*	Catch the merge variables before they've been sent over to MailChimp
+	*	param @merge_variables - user submitted form data
+	* 	optional @form - the ID of the form to filter
+	*	@since 6.0.0
+	*/
+	do_action( 'yikes-mailchimp-before-submission' , $merge_variables );
+	do_action( 'yikes-mailchimp-before-submission-' . $form_id , $merge_variables );
+
 	/*
 	*	Allow users to check for submit value
 	*	and pass back an error to the user
@@ -131,11 +142,11 @@ if ( ! isset( $_POST['yikes_easy_mc_new_subscriber'] ) || ! wp_verify_nonce( $_P
 		$process_submission_response = apply_filters( 'yikes-mailchimp-frontend-content' , $merge_variables['message'] );
 		return;
 	}
-	
-	// submit the request & data, using the form settings		
+
+	// submit the request & data, using the form settings
 		// subscribe the user
-		$subscribe_response = wp_remote_post( $api_endpoint, array( 
-			'body' => apply_filters( 'yikes-mailchimp-user-subscribe-api-request', array( 
+		$subscribe_response = wp_remote_post( $api_endpoint, array(
+			'body' => apply_filters( 'yikes-mailchimp-user-subscribe-api-request', array(
 				'apikey' => $api_key,
 				'id' => $_POST['yikes-mailchimp-associated-list-id'],
 				'email' => array( 'email' => sanitize_email( $_POST['EMAIL'] ) ),
@@ -148,18 +159,18 @@ if ( ! isset( $_POST['yikes_easy_mc_new_subscriber'] ) || ! wp_verify_nonce( $_P
 			'timeout' => 10,
 			'sslverify' => apply_filters( 'yikes-mailchimp-sslverify', true )
 		) );
-		
+
 		$subscribe_response = json_decode( wp_remote_retrieve_body( $subscribe_response ), true );
-				
+
 		// check for any errors
 		if( isset( $subscribe_response['error'] ) ) {
-		
+
 			if( WP_DEBUG || get_option( 'yikes-mailchimp-debug-status' , '' ) == '1' ) {
 				require_once YIKES_MC_PATH . 'includes/error_log/class-yikes-inc-easy-mailchimp-error-logging.php';
 				$error_logging = new Yikes_Inc_Easy_Mailchimp_Error_Logging();
 				$error_logging->yikes_easy_mailchimp_write_to_error_log( $subscribe_response['error'], __( "Subscribe New User" , 'yikes-inc-easy-mailchimp-extender' ), "process_form_submission.php" );
 			}
-		
+
 			$update_account_details_link = '';
 			switch( $subscribe_response['code'] ) {
 				// user already subscribed
@@ -182,21 +193,21 @@ if ( ! isset( $_POST['yikes_easy_mc_new_subscriber'] ) || ! wp_verify_nonce( $_P
 				// missing a required field
 				case '250':
 						// get all merge variables in array, loop and str_replace error code with field name
-						$api_key = trim( get_option( 'yikes-mc-api-key' , '' ) );		
+						$api_key = trim( get_option( 'yikes-mc-api-key' , '' ) );
 						$dash_position = strpos( $api_key, '-' );
 						if( $dash_position !== false ) {
 							$api_endpoint = 'https://' . substr( $api_key, $dash_position + 1 ) . '.api.mailchimp.com/2.0/lists/merge-vars.json';
 						}
-						$merge_variables = wp_remote_post( $api_endpoint, array( 
-							'body' => array( 
-								'apikey' => $api_key, 
+						$merge_variables = wp_remote_post( $api_endpoint, array(
+							'body' => array(
+								'apikey' => $api_key,
 								'id' => array( $_POST['yikes-mailchimp-associated-list-id'] ) ,
 							),
 							'timeout' => 10,
 							'sslverify' => apply_filters( 'yikes-mailchimp-sslverify', true ),
 						) );
 						$merge_variables = json_decode( wp_remote_retrieve_body( $merge_variables ), true );
-						if( isset( $merge_variables['error'] ) ) {		
+						if( isset( $merge_variables['error'] ) ) {
 							if( WP_DEBUG || get_option( 'yikes-mailchimp-debug-status' , '' ) == '1' ) {
 								require_once YIKES_MC_PATH . 'includes/error_log/class-yikes-inc-easy-mailchimp-error-logging.php';
 								$error_logging = new Yikes_Inc_Easy_Mailchimp_Error_Logging();
@@ -223,7 +234,7 @@ if ( ! isset( $_POST['yikes_easy_mc_new_subscriber'] ) || ! wp_verify_nonce( $_P
 					break;
 				// invalid email (or no email at all)
 				case '-100':
-					$process_submission_response = ( ! empty( $form_settings['error_messages']['invalid-email'] ) ) ? '<p class="yikes-easy-mc-error-message">' . $form_settings['error_messages']['invalid-email'] . '</p>' : '<p class="yikes-easy-mc-error-message">' . __( 'Please provide a valid email address.', 'yikes-inc-easy-mailchimp-extender' ) . '</p>';			
+					$process_submission_response = ( ! empty( $form_settings['error_messages']['invalid-email'] ) ) ? '<p class="yikes-easy-mc-error-message">' . $form_settings['error_messages']['invalid-email'] . '</p>' : '<p class="yikes-easy-mc-error-message">' . __( 'Please provide a valid email address.', 'yikes-inc-easy-mailchimp-extender' ) . '</p>';
 					break;
 				default:
 					// generic error
@@ -236,39 +247,50 @@ if ( ! isset( $_POST['yikes_easy_mc_new_subscriber'] ) || ! wp_verify_nonce( $_P
 			}
 			return;
 		}
-		
-		// setup our submission response		
+
+		// setup our submission response
 		$form_submitted = 1;
-			
+
 		// Display the success message
 		if( ! empty( $form_settings['error_messages']['success'] ) ) {
 			$process_submission_response = '<p class="yikes-easy-mc-success-message">' . apply_filters( 'yikes-mailchimp-success-response', stripslashes( esc_html( $form_settings['error_messages']['success'] ) ), $form_id, $merge_variables ) . '</p>';
 			// echo stripslashes( esc_html( $error_messages['success'] ) );
 		} else {
-			$default_success_response = ( $form_settings['optin_settings']['optin'] == 1 ) ? __( "Thank you for subscribing! Check your email for the confirmation message." , 'yikes-inc-easy-mailchimp-extender' ) : __( "Thank you for subscribing!" , 'yikes-inc-easy-mailchimp-extender' );
+			$default_success_response = ( 1 === $form_settings['optin_settings']['optin'] ) ? __( 'Thank you for subscribing! Check your email for the confirmation message.' , 'yikes-inc-easy-mailchimp-extender' ) : __( 'Thank you for subscribing!' , 'yikes-inc-easy-mailchimp-extender' );
 			$process_submission_response = '<p class="yikes-easy-mc-success-message">' . apply_filters( 'yikes-mailchimp-success-response', $default_success_response, $form_id, $merge_variables ) . '</p>';
 			// echo $default_success_response;
 		}
-		
+
 		/*
 		*	yikes-mailchimp-after-submission
-		*	
+		*
 		*	Catch the merge variables after they've been sent over to MailChimp
 		*	param @merge_variables - user submitted form data
 		* 	optional @form - the ID of the form to filter
 		*	@since 6.0.0
 		*/
 		do_action( 'yikes-mailchimp-after-submission' , $merge_variables );
-		do_action( 'yikes-mailchimp-after-submission-'.$form_id , $merge_variables );
-		
+		do_action( 'yikes-mailchimp-after-submission-' . $form_id , $merge_variables );
+
+		/*
+		*	yikes-mailchimp-after-submission
+		*
+		*	Catch the merge variables after they've been sent over to MailChimp
+		*	param @merge_variables - user submitted form data
+		* 	optional @form - the ID of the form to filter
+		*	@since 6.0.0
+		*/
+		do_action( 'yikes-mailchimp-after-submission', $merge_variables );
+		do_action( 'yikes-mailchimp-after-submission-' . $form_id, $merge_variables );
+
 		/*
 		*	Non-AJAX redirects now handled in class-yikes-inc-easy-mailchimp-extender-public.php
 		*	function: redirect_user_non_ajax_forms
 		*/
-		
+
 		/*
 		*	yikes-mailchimp-form-submission
-		*	
+		*
 		*	Do something with the email address, merge variables,
 		*	form ID or notifications
 		*	@$_POST['EMAIL'] - users email address
@@ -279,24 +301,24 @@ if ( ! isset( $_POST['yikes_easy_mc_new_subscriber'] ) || ! wp_verify_nonce( $_P
 		*/
 		do_action( 'yikes-mailchimp-form-submission' , $_POST['EMAIL'] , $merge_variables , $form_id , $form_settings['notifications'] );
 		do_action( 'yikes-mailchimp-form-submission-' . $form_id , $_POST['EMAIL'] , $merge_variables , $form_id , $form_settings['notifications'] );
-		
+
 		/*
 		*	Increase the submission count for this form
 		*	on a successful submission
 		*	@since 6.0.0
 		*/
 		$form_settings['submissions']++;
-		$wpdb->update( 
+		$wpdb->update(
 			$wpdb->prefix . 'yikes_easy_mc_forms',
-			array( 
+			array(
 				'submissions' => $form_settings['submissions'],
 			),
-			array( 'ID' => $form_id ), 
+			array( 'ID' => $form_id ),
 			array(
 				'%d',	// send welcome email
-			), 
-			array( '%d' ) 
-		);	
-	
+			),
+			array( '%d' )
+		);
+
 }
 ?>

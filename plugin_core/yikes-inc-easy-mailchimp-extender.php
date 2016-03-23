@@ -3,7 +3,7 @@
  *		Plugin Name:       Easy Forms for MailChimp by YIKES
  *		Plugin URI:        http://www.yikesinc.com/services/yikes-inc-easy-mailchimp-extender/
  * 		Description:       YIKES Easy Forms for MailChimp links your site to MailChimp and allows you to generate and display mailing list opt-in forms anywhere on your site with ease.
- * 		Version:           6.0.5.3
+ * 		Version:           6.0.5.4
  * 		Author:            YIKES
  * 		Author URI:        http://www.yikesinc.com/
  * 		License:           GPL-3.0+
@@ -30,7 +30,7 @@
  *		- Richard Stallman
  *
 **/
- 
+
 // 	If accessed directly, abort
 if ( ! defined( 'WPINC' ) ) {
 	die;
@@ -65,12 +65,12 @@ if ( ! defined( 'YIKES_MC_URL' ) ) {
  * 	already exist, and defining default options.
  *
  * 	@since 6.0.0
-  *	@return void
+ *	@return void
  */
 register_activation_hook( __FILE__, 'activate_yikes_inc_easy_mailchimp_extender' );
 function activate_yikes_inc_easy_mailchimp_extender( $network_wide ) {
 	require_once YIKES_MC_PATH . 'includes/class-yikes-inc-easy-mailchimp-extender-activator.php';
-    add_option( 'yikes_mailchimp_activation_redirect', 'true' );
+	add_option( 'yikes_mailchimp_activation_redirect', 'true' );
 	Yikes_Inc_Easy_Mailchimp_Extender_Activator::activate( $network_wide );
 }
 
@@ -82,9 +82,9 @@ function activate_yikes_inc_easy_mailchimp_extender( $network_wide ) {
  *	and carries out the deletion of MailChimp transients, plugin options and MailChimp form tables.
  *
  * @since 6.0.0
-  *	@return void
+ *	@return void
  */
-register_deactivation_hook( __FILE__, 'deactivate_yikes_inc_easy_mailchimp_extender' ); 
+register_deactivation_hook( __FILE__, 'deactivate_yikes_inc_easy_mailchimp_extender' );
 function deactivate_yikes_inc_easy_mailchimp_extender() {
 	// delete the activation re-driect option
 	update_option( 'yikes_mailchimp_activation_redirect', 'true' );
@@ -98,9 +98,9 @@ function deactivate_yikes_inc_easy_mailchimp_extender() {
  *	and carries out the deletion of MailChimp transients, plugin options and MailChimp form tables.
  *
  * @since 6.0.0
-  *	@return void
+ *	@return void
  */
-register_uninstall_hook( __FILE__, 'uninstall_yikes_inc_easy_mailchimp_extender' ); 
+register_uninstall_hook( __FILE__, 'uninstall_yikes_inc_easy_mailchimp_extender' );
 function uninstall_yikes_inc_easy_mailchimp_extender() {
 	require_once YIKES_MC_PATH . 'includes/class-yikes-inc-easy-mailchimp-extender-uninstall.php';
 	Yikes_Inc_Easy_Mailchimp_Extender_Uninstaller::uninstall();
@@ -111,21 +111,20 @@ function uninstall_yikes_inc_easy_mailchimp_extender() {
  *
  *	If a new blog is created on a mutli-site network
  *	we should run our activation hook to create the necessary form table
- * 
+ *
  * 	@since 6.0.0
-  *	@return void
+ *	@return void
  */
- add_action( 'wpmu_new_blog', 'yikes_easy_mailchimp_new_network_site', 10, 6); 
- function yikes_easy_mailchimp_new_network_site($blog_id, $user_id, $domain, $path, $site_id, $meta ) {
-    global $wpdb;
-	global $switched;
-    if ( is_plugin_active_for_network( 'yikes-inc-easy-mailchimp-extender/yikes-inc-easy-mailchimp-extender.php' ) ) {
+add_action( 'wpmu_new_blog', 'yikes_easy_mailchimp_new_network_site', 10, 6 );
+function yikes_easy_mailchimp_new_network_site( $blog_id, $user_id, $domain, $path, $site_id, $meta ) {
+	global $wpdb, $switched;
+	if ( is_plugin_active_for_network( 'yikes-inc-easy-mailchimp-extender/yikes-inc-easy-mailchimp-extender.php' ) ) {
 		require_once YIKES_MC_PATH . 'includes/class-yikes-inc-easy-mailchimp-extender-activator.php';
-        $old_blog = $wpdb->blogid;
-        switch_to_blog($blog_id);
-        Yikes_Inc_Easy_Mailchimp_Extender_Activator::activate( $networkwide=null );
-        switch_to_blog($old_blog);
-    }
+		$old_blog = $wpdb->blogid;
+		switch_to_blog( $blog_id );
+		Yikes_Inc_Easy_Mailchimp_Extender_Activator::activate( $networkwide = null );
+		switch_to_blog( $old_blog );
+	}
 }
 
 /**
