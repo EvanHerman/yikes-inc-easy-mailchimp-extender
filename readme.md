@@ -1,5 +1,4 @@
 [![Build Status](https://travis-ci.org/yikesinc/yikes-inc-easy-mailchimp-extender.svg?branch=staging)](https://travis-ci.org/yikesinc/yikes-inc-easy-mailchimp-extender)
-
 [![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/yikesinc/yikes-inc-easy-mailchimp-extender/badges/quality-score.png?b=staging)](https://scrutinizer-ci.com/g/yikesinc/yikes-inc-easy-mailchimp-extender/?branch=staging)
 [![Scrutinizer](https://img.shields.io/scrutinizer/g/filp/whoops.svg?style=flat-square)](https://img.shields.io/scrutinizer/g/yikesinc/yikes-inc-easy-mailchimp-extender.svg)
 [![Code Coverage](https://scrutinizer-ci.com/g/yikesinc/yikes-inc-easy-mailchimp-extender/badges/coverage.png?b=staging)](https://scrutinizer-ci.com/g/yikesinc/yikes-inc-easy-mailchimp-extender/?branch=staging)
