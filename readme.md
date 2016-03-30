@@ -1,6 +1,9 @@
+[![Build Status](https://travis-ci.org/yikesinc/yikes-inc-easy-mailchimp-extender.svg?branch=staging)](https://travis-ci.org/yikesinc/yikes-inc-easy-mailchimp-extender)
+[![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/yikesinc/yikes-inc-easy-mailchimp-extender/badges/quality-score.png?b=staging)](https://scrutinizer-ci.com/g/yikesinc/yikes-inc-easy-mailchimp-extender/?branch=staging)
+[![Code Coverage](https://scrutinizer-ci.com/g/yikesinc/yikes-inc-easy-mailchimp-extender/badges/coverage.png?b=staging)](https://scrutinizer-ci.com/g/yikesinc/yikes-inc-easy-mailchimp-extender/?branch=staging)
+[![Build Status](https://scrutinizer-ci.com/g/yikesinc/yikes-inc-easy-mailchimp-extender/badges/build.png?b=staging)](https://scrutinizer-ci.com/g/yikesinc/yikes-inc-easy-mailchimp-extender/build-status/staging)
 YIKES Inc. Easy Forms for MailChimp
 =====================
-
 [![WordPress](https://img.shields.io/wordpress/plugin/dt/yikes-inc-easy-mailchimp-extender.svg)]()
 ![Rating](https://img.shields.io/wordpress/plugin/r/yikes-inc-easy-mailchimp-extender.svg)
 [![License](https://poser.pugx.org/yikesinc/yikes-inc-easy-mailchimp-extender/license)](https://packagist.org/packages/yikesinc/yikes-inc-easy-mailchimp-extender)
@@ -15,7 +18,7 @@ Feel free to beta test this plugin now, but remember, it's not a stable release.
 
 
 #### Minimum Requirements
-- WordPress 3.8+ 
+- WordPress 3.8+
 - PHP v5.3+
 
 #### Plugin Preview Screenshots
@@ -40,12 +43,10 @@ Easy Forms for MailChimp by YIKES integrates well with many popular third party 
 Have any questions? Feel free to open up an issue in the issue tracker and we'll get back to you as soon as possible.
 
 <hr />
- 
+
 #### Grunt.js
 
 To develop with grunt place Gruntfile.js file inside the plugin root during development (/wp-content/yikes-inc-easy-mailchimp-extender/). The paths inside Gruntfile.js are setup relative to the plugin root, so placing it anywhere else without changing the paths will cause an error.
-
-To install the required dependencies we've included an [auto_install](https://www.npmjs.com/package/grunt-auto-install) tasks to make your life easier. 
 
 First, make sure you install the latest version of Grunt to the local project directory.
 
@@ -54,25 +55,14 @@ $ npm install -g grunt -cli
 ```
 
 ```bash
-$ npm install grunt
+$ npm install -g grunt
 ```
 
-Then install autoprefixer-core and the auto_install plugins using:
+Finally, run the [install](https://www.npmjs.com/package/grunt-auto-install) task to install the required dependencies.
 
 ```bash
-$ npm install autoprefixer-core --save-dev
+$ npm install
 ```
-
-```bash
-$ npm install grunt-auto-install --save-dev
-```
-
-Finally, run the [auto_install](https://www.npmjs.com/package/grunt-auto-install) task to install the required dependencies.
-
-```bash
-$ grunt auto_install
-```
-
 
 ##### Shortcode
 
@@ -90,7 +80,7 @@ $ grunt auto_install
 - field-left-half / field-right-half - assign this class to place the field in the left/right column of a 2 column form layout.
 
 ###### 3 Column Layout
-- field-left-third / field-right-third - assign this class to place the field in the left/right most column of a 3 column form layout. 
+- field-left-third / field-right-third - assign this class to place the field in the left/right most column of a 3 column form layout.
 
 ###### 2/3/4 Colum Radio Buttons
 - option-2/3/4-col - split the radio or checkbox options into 2, 3 or 4 columns
@@ -112,9 +102,9 @@ $ grunt auto_install
 - yikes-mailchimp-international-phone-pattern - Alter the regex pattern for acceptable international phone number formats. (default: [0-9]{1,}) (process form shortcode.php - line 295)
 - yikes-mailchimp-us-phone-pattern - Alter the regex pattern for acceptable US phone number formats. (default: [^(\([0-9]{3}\)|[0-9]{3}-)[0-9]{3}-[0-9]{4}$) (process form shortcode.php - line 295)
 - yikes-mailchimp-process-default-tag - Pass the default tag through a filter to populate with dynamic content from the current site (process_form_shortcode.php - line 256)
-- yikes-mailchimp-MERGE_TAG-label - Alter the specified field label text (affects standard fields & interest groups) (process_form_shortcode.php) 
+- yikes-mailchimp-MERGE_TAG-label - Alter the specified field label text (affects standard fields & interest groups) (process_form_shortcode.php)
 - yikes-mailchimp-MERGE_TAG-description - Alter the specified field description text (affects standard fields & interest groups) (process_form_shortcode.php)  (if targeting an interest group, it will be the group_id)
-- yikes-mailchimp-address-TYPE-label - Alter the field sub-label text for a specified address field (affects only standard address fields) (process_form_shortcode.php) 
+- yikes-mailchimp-address-TYPE-label - Alter the field sub-label text for a specified address field (affects only standard address fields) (process_form_shortcode.php)
 - yikes-mailchimp-form-submit-button - Alter the submit button to your liking (process_form_shortcode.php line 660) (@parameters - $submit_button, $form_id)
 - yikes-mailchimp-form-submit-button-text - Alter the submit button text value (process_form_shortcode.php line 660) (@parameters - $submit_button_text, $form_id )
 - yikes-mailchimp-form-submit-button-classes - Add additional classes to the submit button for further styling (process_form_shortcode.php line 660) (@parameters - $classes, $form_id )
@@ -133,9 +123,9 @@ $ grunt auto_install
 - yikes-mailchimp-recaptcha-parameters - Alter any of the possible reCaptcha shortcode parameters (process_form_shortcode.php line 68) (parameters: $recaptcha_parameter_array, $form_id)
 - yikes-mailchimp-checkbox-integration-subscribe-api-request - Filter the API request sent to MailChimp. (parameters: @type - the integration type (ie: comment, contact_form_7 etc.)
 - yikes-mailchimp-frontend-date-picker-format - Alter the date format. For additional help, see the [knowledge base](https://yikesplugins.com/support/knowledge-base/how-do-i-change-the-frontend-date-picker-format/).
-- yikes-mailchimp-preloader - Filter allowing users to setup a custom preloader image. 
+- yikes-mailchimp-preloader - Filter allowing users to setup a custom preloader image.
 - yikes-mailchimp-update-email-subject - Filter the subject line for the email that is generated and sent when a user needs to update their subscription info.
-- yikes-mailchimp-update-email-content - Filter the content of the email that is generated and sent when a user needs to update their subscription info. 
+- yikes-mailchimp-update-email-content - Filter the content of the email that is generated and sent when a user needs to update their subscription info.
 
 ###### Hooks
 
@@ -148,13 +138,13 @@ $ grunt auto_install
 - yikes-mailchimp-support-page - output custom content on the support page (used to add our support form for premium users)
 - yikes-mailchimp-edit-form-section-links - add additional links to the edit form page next to 'Custom Messages'
 - yikes-mailchimp-edit-form-sections - add custom section to the edit form page
-- yikes-mailchimp-edit-form-notice - hook to display a custom notice on the edit form page 
+- yikes-mailchimp-edit-form-notice - hook to display a custom notice on the edit form page
 - yikes-mailchimp-shortcode-enqueue-scripts-styles - hook to enqueue custom scripts & styles wherever the shortcode is being used (@paremeter $form_id - pass the id of the current form)
 - yikes-mailchimp-additional-form-fields - define additional fields to add below all forms (@parameter $form_data - all data associated with the given form)
 - yikes-mailchimp-custom-form-actions - add custom action links on the manage forms page (alongside Edit, Duplicate, Shortcode, Delete ) (@parameter $form_id - the id of the form)
 - yikes-mailchimp-api-curl-request - custom action hook to disable curl verification (not recommended - see the following [KB article](https://yikesplugins.com/support/knowledge-base/i-receive-the-error-ssl-certificate-problem-unable-to-get-local-issuer-certificate-why/))
 - yikes-mailchimp-list-form-fields-metabox - action hook allowing additional content to be added to the 'Form Fields' metabox on the view list page.
-- yikes-mailchimp-list-interest-groups-metabox - action hook allowing users to add additional content inside of the interest groups metabox on the view list page. 
+- yikes-mailchimp-list-interest-groups-metabox - action hook allowing users to add additional content inside of the interest groups metabox on the view list page.
 
 ###### Hooks for Extensions
 
@@ -166,7 +156,7 @@ $ grunt auto_install
 ##### Helper Shortcodes
 
 <strong>Display current number of subscribers</strong>
-`[yikes-mailchimp-subscriber-count form="1"]` 
+`[yikes-mailchimp-subscriber-count form="1"]`
 
 Display the current number of subscribers for a given list. Pass in the form ID whos list you want to display. (also accepts list="mailchimp_list_id")
 
@@ -200,7 +190,7 @@ public function add_custom_section_link() {
 		'text' => 'Custom Section', // the text that will display in the link
 		'icon' => 'admin-appearance' // dashicon icon class
 	) );
-		
+
 	// creating a new link on the edit form page
 	Yikes_Inc_Easy_Mailchimp_Extender_Helper::add_edit_form_section_link( array(
 		'id' => 'custom-section-2', // section id
@@ -208,7 +198,7 @@ public function add_custom_section_link() {
 		'icon' => 'admin-appearance' // dashicon icon class
 	) );
 }
-	
+
 /* Add custom section associated with link created above */
 public static function render_custom_section() {
 	// defining a new section, associated with the link above
