@@ -113,3 +113,4 @@ coding_style:
                 opening: end-of-line
                 catch_on_new_line: false
                 finally_on_new_line: false
+ 
