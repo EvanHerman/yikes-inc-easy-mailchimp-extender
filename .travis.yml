@@ -1,7 +1,5 @@
 language: php
-
 sudo: false
-
 php:
 - 5.3
 - 5.4
@@ -9,7 +7,6 @@ php:
 - 5.6
 - 7.0
 - hhvm
-
 env:
 - WP_VERSION=latest WP_MULTISITE=0
 - WP_VERSION=4.4 WP_MULTISITE=0
@@ -18,27 +15,24 @@ env:
 - WP_VERSION=4.1 WP_MULTISITE=0
 - WP_VERSION=4.0 WP_MULTISITE=0
 - WP_VERSION=3.9 WP_MULTISITE=0
-
 matrix:
   include:
-    - php: 5.3
-      env: WP_VERSION=latest WP_MULTISITE=1
+  - php: 5.3
+    env: WP_VERSION=latest WP_MULTISITE=1
   exclude:
-    - php: hhvm
-      env: WP_VERSION=3.9.2 WP_MULTISITE=0
-    - php: hhvm
-      env: WP_VERSION=4.0 WP_MULTISITE=0
-
+  - php: hhvm
+    env: WP_VERSION=3.9.2 WP_MULTISITE=0
+  - php: hhvm
+    env: WP_VERSION=4.0 WP_MULTISITE=0
 notifications:
   email:
     on_success: change
     on_failure: change
-
+  slack:
+    secure: Vl+EtMXcpx8JowBmLNrWhAyvebu/VF7hXVFX5BFMl/6vA5GBE6hnw3vI/TlB6PAso4Mv6yMVY4xUzzBYWow3ClwaTCYNlCTxQEUon2H7FIqGV3Wrir28zxGcSAX7VHGf3w6acHP7LnPIQrIctRjKqcbYVbjR36ha9gJgUU/OUeI=
 script: phpunit --coverage-clover=coverage.clover
-
 before_script:
-    - bash bin/install-wp-tests.sh wordpress_test root '' localhost $WP_VERSION
-
+- bash bin/install-wp-tests.sh wordpress_test root '' localhost $WP_VERSION
 after_script:
-    - wget https://scrutinizer-ci.com/ocular.phar
-    - php ocular.phar code-coverage:upload --format=php-clover coverage.clover
+- wget https://scrutinizer-ci.com/ocular.phar
+- php ocular.phar code-coverage:upload --format=php-clover coverage.clover
