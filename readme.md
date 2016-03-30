@@ -48,8 +48,6 @@ Have any questions? Feel free to open up an issue in the issue tracker and we'll
 
 To develop with grunt place Gruntfile.js file inside the plugin root during development (/wp-content/yikes-inc-easy-mailchimp-extender/). The paths inside Gruntfile.js are setup relative to the plugin root, so placing it anywhere else without changing the paths will cause an error.
 
-To install the required dependencies we've included an [auto_install](https://www.npmjs.com/package/grunt-auto-install) tasks to make your life easier.
-
 First, make sure you install the latest version of Grunt to the local project directory.
 
 ```bash
@@ -57,25 +55,14 @@ $ npm install -g grunt -cli
 ```
 
 ```bash
-$ npm install grunt
+$ npm install -g grunt
 ```
 
-Then install autoprefixer-core and the auto_install plugins using:
+Finally, run the [install](https://www.npmjs.com/package/grunt-auto-install) task to install the required dependencies.
 
 ```bash
-$ npm install autoprefixer-core --save-dev
+$ npm install
 ```
-
-```bash
-$ npm install grunt-auto-install --save-dev
-```
-
-Finally, run the [auto_install](https://www.npmjs.com/package/grunt-auto-install) task to install the required dependencies.
-
-```bash
-$ grunt auto_install
-```
-
 
 ##### Shortcode
 

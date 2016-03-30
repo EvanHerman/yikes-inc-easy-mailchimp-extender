@@ -120,8 +120,15 @@ if ( ! isset( $_POST['yikes_easy_mc_new_subscriber'] ) || ! wp_verify_nonce( $_P
 	*	optional @form - the ID of the form to filter
 	*	@since 6.0.0
 	*/
-	$merge_variables = apply_filters( 'yikes-mailchimp-before-submission' , $merge_variables );
-	$merge_variables = apply_filters( 'yikes-mailchimp-before-submission-' . $form_id , $merge_variables );
+	$merge_variables = apply_filters( 'yikes-mailchimp-before-submission', $merge_variables );
+	$merge_variables = apply_filters( 'yikes-mailchimp-before-submission-' . $form_id, $merge_variables );
+
+	/**
+	* Action hooks fired before API request
+	* @since 6.0.5.5
+	*/
+	do_action( 'yikes-mailchimp-before-submission', $merge_variables );
+	do_action( 'yikes-mailchimp-before-submission-' . $form_id, $merge_variables );
 
 	/*
 	*	yikes-mailchimp-before-submission
