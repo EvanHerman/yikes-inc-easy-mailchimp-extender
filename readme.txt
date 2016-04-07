@@ -229,7 +229,7 @@ Below you'll find a complete list of the hooks and filters available in Easy For
 == Changelog ==
 
 = Easy Forms for MailChimp 6.0.5.5 - April 5th, 2016 =
-* Fixed icompatability with the avada theme options page.
+* Fixed incompatibility with the avada theme options page.
 * Removed the admin dashboard widgets for non-admins. Note: To alter, use the `yikes-mailchimp-user-role-access` filter.
 
 = Easy Forms for MailChimp 6.0.5.4 - March 30th, 2016 =
