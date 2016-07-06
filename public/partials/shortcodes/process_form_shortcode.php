@@ -489,8 +489,8 @@ function process_mailchimp_shortcode( $atts ) {
 							case 'number':
 
 								// pass our default value through our filter to parse dynamic data by tag (used solely for 'text' type)
-								$default_value = esc_attr( apply_filters( 'yikes-mailchimp-process-default-tag' , $field['default'] ) );
-
+								$default_value = ( isset( $field['default'] ) ? esc_attr( $field['default'] ) : '' );
+								$default_value = apply_filters( 'yikes-mailchimp-process-default-tag', $default_value );
 									?>
 									<label for="<?php echo $field['merge']; ?>" <?php echo implode( ' ' , $label_array ); ?>>
 
@@ -519,7 +519,7 @@ function process_mailchimp_shortcode( $atts ) {
 
 							case 'url':
 							case 'imageurl':
-								$default_value = $field['default'];
+								$default_value = ( isset( $field['default'] ) ) ? $field['default'] : '';
 									?>
 
 									<script type="text/javascript">
@@ -557,7 +557,7 @@ function process_mailchimp_shortcode( $atts ) {
 							break;
 
 							case 'phone':
-								$default_value = $field['default'];
+								$default_value = ( isset( $field['default'] ) ? esc_attr( $field['default'] ) : '' );
 								$phone_format = $field['phone_format'];
 								?>
 									<script type="text/javascript">
@@ -594,7 +594,7 @@ function process_mailchimp_shortcode( $atts ) {
 							break;
 
 							case 'zip':
-								$default_value = $field['default'];
+								$default_value = ( isset( $field['default'] ) ? esc_attr( $field['default'] ) : '' );
 
 									?>
 									<label for="<?php echo $field['merge']; ?>" <?php echo implode( ' ' , $label_array ); ?>>
@@ -847,7 +847,7 @@ function process_mailchimp_shortcode( $atts ) {
 									</script>
 								<?php
 
-								$default_value = ( isset( $field_default ) ? esc_attr( $field['default'] ) : '' );
+								$default_value = ( isset( $field['default'] ) ? esc_attr( $field['default'] ) : '' );
 								// store empty number for looping
 								$x = 0;
 
@@ -861,7 +861,7 @@ function process_mailchimp_shortcode( $atts ) {
 											</span>
 										<?php } ?>
 
-										<input <?php echo implode( ' ' , $field_array ); ?> type="text" <?php if( $field['type'] == 'date' ) { ?> data-attr-type="date" <?php } else { ?> data-attr-type="birthday" <?php } ?> placeholder="<?php echo esc_attr( $field['placeholder'] ); ?>" value="<?php if( isset( $_POST[$field['merge']] ) && $form_submitted != 1 ) { echo $_POST[$field['merge']]; } else { echo esc_attr( $field['default'] ); } ?>">
+										<input <?php echo implode( ' ' , $field_array ); ?> type="text" <?php if( $field['type'] == 'date' ) { ?> data-attr-type="date" <?php } else { ?> data-attr-type="birthday" <?php } ?> placeholder="<?php echo esc_attr( $field['placeholder'] ); ?>" value="<?php if( isset( $_POST[$field['merge']] ) && $form_submitted != 1 ) { echo $_POST[$field['merge']]; } else { echo esc_attr( $default_value ); } ?>">
 
 										<!-- description -->
 										<?php if( isset( $field['description'] ) && trim( $field['description'] ) != '' ) { ?>
