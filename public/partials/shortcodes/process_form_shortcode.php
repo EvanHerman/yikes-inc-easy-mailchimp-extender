@@ -1085,7 +1085,7 @@ function process_mailchimp_shortcode( $atts ) {
 											?>
 											<label for="<?php echo $field['group_id'] . '-' . $i; ?>" class="yikes-easy-mc-checkbox-label <?php echo implode( ' ' , $custom_classes ); if( $x === $count ) { ?> last-selection<?php } ?>" style="display:none;">
 												<input type="radio" name="<?php echo $field['group_id']; ?>[]" id="<?php echo $field['group_id'] . '-' . $i; ?>" <?php if( $field['type'] == 'checkboxes' ) { if( in_array( $i , $default_choice ) ) { echo 'checked="checked"'; } } else { checked( ( isset( $default_choice ) && is_array( $default_choice ) ) ? $default_choice[0] : $default_choice , $i ); } ?> value="<?php echo esc_attr( $group['name'] ); ?>">
-												<?php echo esc_attr( stripslashes( str_replace( '~' , '\'', $group['name'] ) ) ); ?>
+												<?php echo esc_attr( stripslashes( str_replace( '' , '\'', $group['name'] ) ) ); ?>
 											</label>
 											<?php
 											$i++;
