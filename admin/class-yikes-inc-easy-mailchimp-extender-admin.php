@@ -1480,16 +1480,27 @@ class Yikes_Inc_Easy_Mailchimp_Forms_Admin {
 									}
 								?>
 							</select>
+
 							<?php
-								if( isset( $lists ) && empty( $lists ) ) {
-									if( get_option( 'yikes-mc-api-validation' , 'invalid_api_key' ) != 'invalid_api_key' ) {
-										?>
-											<p class="description">
-												<?php printf( __( 'Head over to <a href="http://www.MailChimp.com" title="%s">MailChimp</a> to create a new list.', 'yikes-inc-easy-mailchimp-extender' ) , __( 'Create a list' , 'yikes-inc-easy-mailchimp-extender' ) ); ?>
-											</p>
-										<?php
-									}
+							if ( isset( $_GET['transient-cleared'] ) ) {
+								if ( 'true' === $_GET['transient-cleared'] ) {
+									?>
+									<div class="yikes-list-refreshed-notice">
+										<p><?php esc_attr_e( 'MailChimp list data has been succesfully refreshed.', 'yikes-inc-easy-mailchimp-extender' ); ?></p>
+									</div>
+									<?php
 								}
+							}
+
+							if( isset( $lists ) && empty( $lists ) ) {
+								if( get_option( 'yikes-mc-api-validation' , 'invalid_api_key' ) != 'invalid_api_key' ) {
+									?>
+										<p class="description">
+											<?php printf( __( 'Head over to <a href="http://www.MailChimp.com" title="%s">MailChimp</a> to create a new list.', 'yikes-inc-easy-mailchimp-extender' ) , __( 'Create a list' , 'yikes-inc-easy-mailchimp-extender' ) ); ?>
+										</p>
+									<?php
+								}
+							}
 							?>
 						</label>
 						<?php
@@ -1503,6 +1514,17 @@ class Yikes_Inc_Easy_Mailchimp_Forms_Admin {
 							}
 						?>
 					</form>
+
+					<!-- Clear API CACHE -->
+					<?php
+					if( isset( $lists ) && ! empty( $lists ) ) {
+						if ( false !== get_transient( 'yikes-easy-mailchimp-list-data' ) ) { ?>
+							<form action="<?php echo esc_url_raw( add_query_arg( array( 'action' => 'yikes-easy-mc-clear-transient-data' , 'nonce' => wp_create_nonce( 'clear-mc-transient-data' ) ) ) ); ?>" method="post">
+								<input type="submit" class="button-secondary clear-mailchimp-api-cache" value="<?php _e( 'Refresh Lists' , 'yikes-inc-easy-mailchimp-extender' ); ?>" />
+							</form>
+						<?php }
+					}
+					?>
 				</div> <!-- .inside -->
 			<?php
 		}
@@ -2766,6 +2788,7 @@ class Yikes_Inc_Easy_Mailchimp_Forms_Admin {
 		*	Probably Move these to its own file,
 		*/
 		public function yikes_easy_mailchimp_clear_transient_data() {
+			$referer = wp_get_referer();
 			// grab & store our variables ( associated list & form name )
 			$nonce = $_REQUEST['nonce'];
 			// verify our nonce
@@ -2789,8 +2812,14 @@ class Yikes_Inc_Easy_Mailchimp_Forms_Admin {
 			delete_transient( 'yikes-easy-mailchimp-account-data' );
 			// Delete list account data
 			delete_transient( 'yikes-easy-mailchimp-profile-data' );
+			// if the request came from the settings page, redirect to the settings page
+			if ( $referer && ( strpos( $referer, 'yikes-inc-easy-mailchimp-settings' ) > 0 ) ) {
+				wp_redirect( esc_url_raw( admin_url( 'admin.php?page=yikes-inc-easy-mailchimp-settings&section=api-cache-settings&transient-cleared=true' ) ) );
+			} else {
+				// else redirect to the manage forms page
+				wp_redirect( esc_url_raw( admin_url( 'admin.php?page=yikes-inc-easy-mailchimp&transient-cleared=true' ) ) );
+			}
 			// redirect the user to the manage forms page, display confirmation
-			wp_redirect( esc_url_raw( admin_url( 'admin.php?page=yikes-inc-easy-mailchimp-settings&section=api-cache-settings&transient-cleared=true' ) ) );
 			exit;
 		}
 
