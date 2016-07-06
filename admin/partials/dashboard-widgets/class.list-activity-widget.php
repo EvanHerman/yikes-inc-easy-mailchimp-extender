@@ -38,7 +38,7 @@
 		 */
 		function yks_mc_add_chimp_chatter_dashboard_widget() {
 			// If the current user is not an admin, abort
-			if ( apply_filters( 'yikes-mailchimp-user-role-access', current_user_can( 'manage_options' ) ) ) {
+			if ( current_user_can( apply_filters( 'yikes-mailchimp-admin-widget-capability', apply_filters( 'yikes-mailchimp-user-role-access', 'manage_options' ) ) ) ) {
 				/* List Stats Dashboard Widget */
 				wp_add_dashboard_widget(
 					 'yikes_easy_mc_list_stats_widget',         // Widget slug.
