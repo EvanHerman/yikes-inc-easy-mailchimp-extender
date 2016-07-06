@@ -126,20 +126,11 @@ if ( ! isset( $_POST['yikes_easy_mc_new_subscriber'] ) || ! wp_verify_nonce( $_P
 	/**
 	* Action hooks fired before API request
 	* @since 6.0.5.5
+	* @param $merge_variables 	array 	Array of merge variable to use
+	* @param $form_id						integer	The form ID to target (eg: 1, 2 etc.)
 	*/
 	do_action( 'yikes-mailchimp-before-submission', $merge_variables );
 	do_action( 'yikes-mailchimp-before-submission-' . $form_id, $merge_variables );
-
-	/*
-	*	yikes-mailchimp-before-submission
-	*
-	*	Catch the merge variables before they've been sent over to MailChimp
-	*	param @merge_variables - user submitted form data
-	* 	optional @form - the ID of the form to filter
-	*	@since 6.0.0
-	*/
-	do_action( 'yikes-mailchimp-before-submission' , $merge_variables );
-	do_action( 'yikes-mailchimp-before-submission-' . $form_id , $merge_variables );
 
 	/*
 	*	Allow users to check for submit value
@@ -278,17 +269,6 @@ if ( ! isset( $_POST['yikes_easy_mc_new_subscriber'] ) || ! wp_verify_nonce( $_P
 		*/
 		do_action( 'yikes-mailchimp-after-submission' , $merge_variables );
 		do_action( 'yikes-mailchimp-after-submission-' . $form_id , $merge_variables );
-
-		/*
-		*	yikes-mailchimp-after-submission
-		*
-		*	Catch the merge variables after they've been sent over to MailChimp
-		*	param @merge_variables - user submitted form data
-		* 	optional @form - the ID of the form to filter
-		*	@since 6.0.0
-		*/
-		do_action( 'yikes-mailchimp-after-submission', $merge_variables );
-		do_action( 'yikes-mailchimp-after-submission-' . $form_id, $merge_variables );
 
 		/*
 		*	Non-AJAX redirects now handled in class-yikes-inc-easy-mailchimp-extender-public.php
