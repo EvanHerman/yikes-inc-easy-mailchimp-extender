@@ -586,7 +586,7 @@ function process_mailchimp_shortcode( $atts ) {
 										<?php if( isset( $field['description'] ) && trim( $field['description'] ) != '' ) { ?>
 											<p class="form-field-description">
 												<small>
-													<?php echo apply_filters( 'yikes-mailchimp-' . $field['merge'] . '-description', stripslashes( $field['description'] ), $form_id ); ?>
+													<?php echo apply_filters( 'yikes-mailchimp-' . esc_attr( $field['merge'] ) . '-description', stripslashes( $field['description'] ), $form_id ); ?>
 												</small>
 											</p>
 										<?php } ?>
