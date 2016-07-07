@@ -344,6 +344,7 @@ function process_mailchimp_shortcode( $atts ) {
 				'page_data' => $page_data,
 				'interest_group_checkbox_error' => apply_filters( 'yikes-mailchimp-interest-group-checkbox-error', __( 'This field is required.', 'yikes-inc-easy-mailchimp-extender' ), $form_id ),
 				'preloader_url' => apply_filters( 'yikes-mailchimp-preloader', esc_url_raw( admin_url( 'images/wpspin_light.gif' ) ) ),
+				'loading_dots' => apply_filters( 'yikes-mailchimp-loading-dots', YIKES_MC_URL . 'includes/images/loading-dots.gif' ),
 			) );
 			wp_enqueue_script( 'yikes-easy-mc-ajax' );
 		}
