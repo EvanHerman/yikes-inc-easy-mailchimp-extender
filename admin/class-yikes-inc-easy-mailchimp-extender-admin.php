@@ -1641,19 +1641,17 @@ class Yikes_Inc_Easy_Mailchimp_Forms_Admin {
 
 					</div>
 
-				<?php } ?>
+					<div class="postbox yikes-easy-mc-postbox">
 
-				<div class="postbox yikes-easy-mc-postbox">
+						<!-- review us container -->
+						<h3><?php _e( 'Easy Forms for MailChimp Add-Ons' , 'yikes-inc-easy-mailchimp-extender' ); ?></h3>
+						<div id="review-yikes-easy-mc" class="inside">
+							<p><?php _e( "Check out available add-ons for some seriously enhanced features." , 'yikes-inc-easy-mailchimp-extender' ); ?></p>
+							<p><a class="button-secondary" href="<?php echo esc_url_raw( admin_url( 'admin.php?page=yikes-inc-easy-mailchimp-addons' ) ); ?>" title="<?php _e( 'View Add-Ons' , 'yikes-inc-easy-mailchimp-extender' ); ?>"><?php _e( 'View Add-Ons' , 'yikes-inc-easy-mailchimp-extender' ); ?></a></p>
+						</div>
 
-					<!-- review us container -->
-					<h3><?php _e( 'Easy Forms for MailChimp Add-Ons' , 'yikes-inc-easy-mailchimp-extender' ); ?></h3>
-					<div id="review-yikes-easy-mc" class="inside">
-						<p><?php _e( "Check out available add-ons for some seriously enhanced features." , 'yikes-inc-easy-mailchimp-extender' ); ?></p>
-						<p><a class="button-secondary" href="<?php echo esc_url_raw( admin_url( 'admin.php?page=yikes-inc-easy-mailchimp-addons' ) ); ?>" title="<?php _e( 'View Add-Ons' , 'yikes-inc-easy-mailchimp-extender' ); ?>"><?php _e( 'View Add-Ons' , 'yikes-inc-easy-mailchimp-extender' ); ?></a></p>
 					</div>
-
-				</div>
-				<?php
+				<?php }
 			}
 
 			/**
@@ -2967,34 +2965,16 @@ class Yikes_Inc_Easy_Mailchimp_Forms_Admin {
 		*	@since 6.0.3
 		*/
 		public function generate_edit_forms_upsell_ad() {
-			/*
-			*	SimplePie strips out all query strings
-			* 	we had to implement a workaround
-			*	https://github.com/simplepie/simplepie/issues/317
-			*/
-			include_once( ABSPATH . WPINC . '/feed.php' );
-			$rss = fetch_feed( esc_url( 'http://yikesplugins.com/feed/?post_type=product_ads&genre=easy-forms-for-mailchimp' ) );
-			$maxitems = 0;
-			if ( ! is_wp_error( $rss ) ) { // Checks that the object is created correctly
-				// Figure out how many total items there are, but limit it to 1.
-				$maxitems = $rss->get_item_quantity( 1 );
-				// Build an array of all the items, starting with element 0 (first element).
-				$rss_items = $rss->get_items( 0, $maxitems );
-			} else {
-				return $feed = new WP_Error( 'Simple Pie RSS Error', $feed->error() );
+			$upsell_ads = glob( YIKES_MC_PATH . 'includes/upsells/*.php' );
+			if ( $upsell_ads && ! empty( $upsell_ads ) ) {
+				$ad_count = absint( count( $upsell_ads ) - 1 );
+				$ad = $upsell_ads[ mt_rand( 0, $ad_count ) ];
+				ob_start();
+				include_once( $ad );
+				$ad_content = ob_get_contents();
+				ob_get_clean();
 			}
-			// loop over returned results
-			foreach ( $rss_items as $add_on ) {
-				$add_on_desc = $add_on->get_content();
-				?>
-					<h3><?php echo $add_on->get_title(); ?></h3>
-					<div class="inside">
-					<?php
-						echo $add_on_desc;
-					?>
-					</div>
-				<?php
-			}
+			echo wp_kses_post( $ad_content );
 		}
 
 }
