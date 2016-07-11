@@ -2372,7 +2372,8 @@ class Yikes_Inc_Easy_Mailchimp_Forms_Admin {
 						'success' => '',
 						'general-error' => '',
 						'invalid-email' => '',
-						'email-already-subscribed' => ''
+						'email-already-subscribed' => '',
+						'update-link' => '',
 					)
 				);
 				/* End default values */
@@ -2615,6 +2616,7 @@ class Yikes_Inc_Easy_Mailchimp_Forms_Admin {
 					'general-error' => trim( $_POST['yikes-easy-mc-general-error-message'] ) ? trim( stripslashes( $_POST['yikes-easy-mc-general-error-message'] ) ) : '',
 					'invalid-email' => trim( $_POST['yikes-easy-mc-invalid-email-message'] ) ? trim( stripslashes( $_POST['yikes-easy-mc-invalid-email-message'] ) ) : '',
 					'already-subscribed' => trim( $_POST['yikes-easy-mc-user-subscribed-message'] ) ? trim( stripslashes( $_POST['yikes-easy-mc-user-subscribed-message'] ) ) : '',
+					'update-link' => trim( $_POST['yikes-easy-mc-user-update-link'] ) ? trim( stripslashes( $_POST['yikes-easy-mc-user-update-link'] ) ) : '',
 				)
 			);
 

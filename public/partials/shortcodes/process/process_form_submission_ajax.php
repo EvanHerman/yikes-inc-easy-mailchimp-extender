@@ -190,7 +190,8 @@ if ( isset( $optin_settings['update_existing_user'] ) && 1 === absint( $optin_se
 		switch( $subscribe_response['code'] ) {
 			// user already subscribed
 			case '214':
-				$update_account_details_link = ( 1 === absint( $optin_settings['update_existing_user'] ) && 1 === absint( $optin_settings['send_update_email'] ) ) ? apply_filters( 'yikes-easy-mailchimp-update-existing-subscriber-text', sprintf( __( ' To update your MailChimp profile, please %s.', 'yikes-inc-easy-mailchimp-extender' ), '<a class="send-update-email" data-list-id="' . $list_id . '" data-user-email="' . sanitize_email( $data['EMAIL'] ) . '" href="#">' . __( 'click to send yourself an update link', 'yikes-inc-easy-mailchimp-extender' ) . '</a>' ) ) : false;
+				$custom_already_subscribed_text = apply_filters( 'yikes-easy-mailchimp-update-existing-subscriber-text', sprintf( __( ' To update your MailChimp profile, please %s.', 'yikes-inc-easy-mailchimp-extender' ), '<a class="send-update-email" data-list-id="' . $list_id . '" data-user-email="' . sanitize_email( $data['EMAIL'] ) . '" href="#">' . __( 'click to send yourself an update link', 'yikes-inc-easy-mailchimp-extender' ) . '</a>' ), $form, '<a class="send-update-email" data-list-id="' . $_POST['yikes-mailchimp-associated-list-id'] . '" data-user-email="' . sanitize_email( $_POST['EMAIL'] ) . '" href="#">' . __( 'click to send yourself an update link', 'yikes-inc-easy-mailchimp-extender' ) . '</a>' );
+				$update_account_details_link = ( 1 === absint( $optin_settings['update_existing_user'] ) && 1 === absint( $optin_settings['send_update_email'] ) ) ? $custom_already_subscribed_text : false;
 				if( ! empty( $error_messages['already-subscribed'] ) ) {
 					$error_response = $error_messages['already-subscribed'] . ' ' . $update_account_details_link;
 				} else {
