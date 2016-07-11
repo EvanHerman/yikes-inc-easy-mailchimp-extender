@@ -228,9 +228,21 @@ Below you'll find a complete list of the hooks and filters available in Easy For
 
 == Changelog ==
 
-= Easy Forms for MailChimp 6.1 - July xxth, 2016
+= Easy Forms for MailChimp 6.1 - July 11th, 2016
+* Sanitized section request on the options page properly.
+* Fixed the apostraphes converted to tildes.
+* Added the missing space in the form field classes when labels were hidden.
+* Added preloaders to the submit button and the form overlay. Lowered opacity during AJAX processing.
+* Fixed the 'Duplicate' form function.
+* Repaired phone number validation on the phone form fields.
+* Properly hide descriptions when they are not set. (Markup should no longer be generated)
+* Added a 'Clear API Cache' link below the associated list dropdown during form creation.
+* Swapped out `get_currentuserinfo()` for the correct, newer, functions.
+* Repaired undefined variable on the 'Birthday/Date' form fields, when no default was set.
+* Users can now bulk add fields to forms, instead of having to do it one at a time.
+* Removed any dependency to the RSS feeds served from https://www.yikesplugins.com, which could potentially cause issues if the servers are ever down.
+* Refactored the database creation function, and swapped out the field types - to support older versions of PHP (<v5.3).
 * Added new filter to allow users to alter who can view/access the admin dashboard widgets - `yikes-mailchimp-admin-widget-capability`
-* Minor security patch.
 
 = Easy Forms for MailChimp 6.0.5.5 - April 5th, 2016 =
 * Fixed incompatibility with the avada theme options page.
@@ -620,6 +632,23 @@ We have added brand new functionality, allowing users to easily customize forms 
 
 
 == Upgrade Notice ==
+
+= Easy Forms for MailChimp 6.1 - July 11th, 2016
+
+* Sanitized section request on the options page properly.
+* Fixed the apostraphes converted to tildes.
+* Added the missing space in the form field classes when labels were hidden.
+* Added preloaders to the submit button and the form overlay. Lowered opacity during AJAX processing.
+* Fixed the 'Duplicate' form function.
+* Repaired phone number validation on the phone form fields.
+* Properly hide descriptions when they are not set. (Markup should no longer be generated)
+* Added a 'Clear API Cache' link below the associated list dropdown during form creation.
+* Swapped out `get_currentuserinfo()` for the correct, newer, functions.
+* Repaired undefined variable on the 'Birthday/Date' form fields, when no default was set.
+* Users can now bulk add fields to forms, instead of having to do it one at a time.
+* Removed any dependency to the RSS feeds served from https://www.yikesplugins.com, which could potentially cause issues if the servers are ever down.
+* Refactored the database creation function, and swapped out the field types - to support older versions of PHP (<v5.3).
+* Added new filter to allow users to alter who can view/access the admin dashboard widgets - `yikes-mailchimp-admin-widget-capability`
 
 = Easy Forms for MailChimp 6.0.5.5 - April 5th, 2016 =
 

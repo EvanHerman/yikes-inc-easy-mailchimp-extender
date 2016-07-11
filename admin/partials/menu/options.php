@@ -129,7 +129,7 @@
 									if ( 0 === validate_file( 'admin/partials/menu/options-sections/' . $_REQUEST['section'] . '.php', $acceptable_files ) ) {
 										include YIKES_MC_PATH . 'admin/partials/menu/options-sections/' . $_REQUEST['section'] . '.php';
 									} else {
-										wp_die( esc_attr_e( 'Invalid file. If this error persists, please contact support.', 'yikes-inc-easy-mailchimp' ) );
+										wp_die( esc_attr__( 'Invalid file. If this error persists, please contact support.', 'yikes-inc-easy-mailchimp' ) );
 									}
 								}
 							}
