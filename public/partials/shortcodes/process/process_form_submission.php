@@ -198,7 +198,7 @@ if ( ! isset( $_POST['yikes_easy_mc_new_subscriber'] ) || ! wp_verify_nonce( $_P
 						) );
 					}
 					if( ! empty( $form_settings['error_messages']['already-subscribed'] ) ) {
-						$process_submission_response = '<p class="yikes-easy-mc-error-message">' . $form_settings['error_messages']['already-subscribed'] . ' ' . $update_account_details_link . '</p>';
+						$process_submission_response = '<p class="yikes-easy-mc-error-message">' . apply_filters( 'yikes-easy-mailchimp-user-already-subscribed-text', $form_settings['error_messages']['already-subscribed'], $form_id, $_POST['EMAIL'] ) . ' ' . $update_account_details_link . '</p>';
 					} else {
 						$process_submission_response = '<p class="yikes-easy-mc-error-message">' . $subscribe_response['error'] . ' ' . $update_account_details_link . '</p>';
 					}

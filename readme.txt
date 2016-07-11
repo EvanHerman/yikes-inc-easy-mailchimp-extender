@@ -206,6 +206,7 @@ Below you'll find a complete list of the hooks and filters available in Easy For
 * yikes-mailchimp-default-country-value - Alter the default country selected in the country dropdown.
 * yikes-mailchimp-recaptcha-required-error - Filter the error displayed back to the user when an error occurs during the reCAPTCHA submission process. (@parameters: $error_text)
 * yikes-mailchimp-sslverify - Toggle sslverify on/off when attempting to validate your API key with the MailChimp API servers.
+* yikes-mailchimp-user-already-subscribed-error - Filter the 'xxx@example.com' is already subscribed to the list. (@parameters - $response, $form_id, $user_email)
 
 **Actions**
 
@@ -243,6 +244,9 @@ Below you'll find a complete list of the hooks and filters available in Easy For
 * Removed any dependency to the RSS feeds served from https://www.yikesplugins.com, which could potentially cause issues if the servers are ever down.
 * Refactored the database creation function, and swapped out the field types - to support older versions of PHP (<v5.3).
 * Added new filter to allow users to alter who can view/access the admin dashboard widgets - `yikes-mailchimp-admin-widget-capability`
+* Added a new filter (`yikes-mailchimp-user-already-subscribed-error`) allowing the 'already subscribed' error message to be filtered.
+* Added a new template tag (`[email]`) which can be used in the already subscribed response, to display the user entered email back in the response.
+* Added a new template tag (`[link][/link]`) which can be used to wrap text in the 'update profile' link, allowing users to create a custom response & link.
 
 = Easy Forms for MailChimp 6.0.5.5 - April 5th, 2016 =
 * Fixed incompatibility with the avada theme options page.
@@ -649,6 +653,9 @@ We have added brand new functionality, allowing users to easily customize forms 
 * Removed any dependency to the RSS feeds served from https://www.yikesplugins.com, which could potentially cause issues if the servers are ever down.
 * Refactored the database creation function, and swapped out the field types - to support older versions of PHP (<v5.3).
 * Added new filter to allow users to alter who can view/access the admin dashboard widgets - `yikes-mailchimp-admin-widget-capability`
+* Added a new filter (`yikes-mailchimp-user-already-subscribed-error`) allowing the 'already subscribed' error message to be filtered.
+* Added a new template tag (`[email]`) which can be used in the already subscribed response, to display the user entered email back in the response.
+* Added a new template tag (`[link][/link]`) which can be used to wrap text in the 'update profile' link, allowing users to create a custom response & link.
 
 = Easy Forms for MailChimp 6.0.5.5 - April 5th, 2016 =
 

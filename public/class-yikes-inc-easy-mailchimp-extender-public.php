@@ -72,6 +72,8 @@ class Yikes_Inc_Easy_Mailchimp_Extender_Public {
 		add_action( 'init', array( $this, 'yikes_process_non_ajax_forms' ) );
 		// Filter the user already subscribed response with a custom message
 		add_filter( 'yikes-easy-mailchimp-update-existing-subscriber-text', array( $this, 'yikes_custom_already_subscribed_response' ), 10, 3 );
+		// Filter the user already subscribed response with a custom message
+		add_filter( 'yikes-easy-mailchimp-user-already-subscribed-text', array( $this, 'yikes_custom_already_subscribed_text' ), 10, 3 );
 	}
 
 	/**
@@ -187,6 +189,14 @@ class Yikes_Inc_Easy_Mailchimp_Extender_Public {
 		return;
 	}
 
+	/**
+	 * Filter the unsubscribed response, allowing users to customize it
+	 * Users can wrap text to create a custom update link, by wrapping text in [link]xxx[/link].
+	 * @param  string   $response_text The default response.
+	 * @param  int      $form_id       The form ID to retreive options from.
+	 * @param  string   $link          The update profile link, when clicked this sends the user an email.
+	 * @return string                  The final output for the update existing subscriber.
+	 */
 	public function yikes_custom_already_subscribed_response( $response_text, $form_id, $link ) {
 		// if no form id found, abort
 		if ( ! $form_id ) {
@@ -209,6 +219,31 @@ class Yikes_Inc_Easy_Mailchimp_Extender_Public {
 				// Replace the link text, with our custom link text
 				$response_text = str_replace( $link_text, $custom_link_text, $response_text );
 			}
+		}
+		// Return our new string
+		return $response_text;
+	}
+
+	/**
+	 * Alter the beginning of the user already subscribed string
+	 * Allowing users to use the email in the response, by adding [email] to the text
+	 *
+	 * @since 6.1
+	 */
+	public function yikes_custom_already_subscribed_text( $response_text, $form_id, $email ) {
+		// if no form id found, abort
+		if ( ! $form_id ) {
+			return;
+		}
+		// retreive our form settings
+		$form_settings = $form_settings = Yikes_Inc_Easy_Mailchimp_Extender_Public::yikes_retrieve_form_settings( $form_id );
+		// if none, abort
+		if ( ! $form_settings ) {
+			return;
+		}
+		// trim trailing period
+		if ( isset( $form_settings['error_messages']['already-subscribed'] ) && ! empty( $form_settings['error_messages']['already-subscribed'] ) ) {
+			$response_text = str_replace( '[email]', $email, $form_settings['error_messages']['already-subscribed'] );
 		}
 		// Return our new string
 		return $response_text;
