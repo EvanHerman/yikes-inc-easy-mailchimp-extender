@@ -230,6 +230,7 @@ Below you'll find a complete list of the hooks and filters available in Easy For
 
 = Easy Forms for MailChimp 6.1 - July xxth, 2016
 * Added new filter to allow users to alter who can view/access the admin dashboard widgets - `yikes-mailchimp-admin-widget-capability`
+* Minor security patch.
 
 = Easy Forms for MailChimp 6.0.5.5 - April 5th, 2016 =
 * Fixed incompatibility with the avada theme options page.

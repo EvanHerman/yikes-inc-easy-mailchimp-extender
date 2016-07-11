@@ -115,7 +115,22 @@
 								if( isset( $_REQUEST['addon'] ) && $_REQUEST['addon'] == 'true' ) {
 									include apply_filters( 'yikes-mailchimp-'.$_REQUEST['section'].'-options-path' , '' );
 								} else {
-									include YIKES_MC_PATH . 'admin/partials/menu/options-sections/' . $_REQUEST['section'] . '.php';
+									// White list a set of files that are allowed to be included here
+									$file_base = 'admin/partials/menu/options-sections/';
+									$acceptable_files = array(
+										$file_base . 'api-cache-settings.php',
+										$file_base . 'debug-settings.php',
+										$file_base . 'general-settings.php',
+										$file_base . 'import-export-forms.php',
+										$file_base . 'integration-settings.php',
+										$file_base . 'recaptcha-settings.php',
+									);
+									// Ensure the included file is allowed and whitelisted above, before including it
+									if ( 0 === validate_file( 'admin/partials/menu/options-sections/' . $_REQUEST['section'] . '.php', $acceptable_files ) ) {
+										include YIKES_MC_PATH . 'admin/partials/menu/options-sections/' . $_REQUEST['section'] . '.php';
+									} else {
+										wp_die( esc_attr_e( 'Invalid file. If this error persists, please contact support.', 'yikes-inc-easy-mailchimp' ) );
+									}
 								}
 							}
 							?>
