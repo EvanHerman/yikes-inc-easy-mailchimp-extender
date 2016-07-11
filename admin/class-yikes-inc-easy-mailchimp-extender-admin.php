@@ -2362,6 +2362,7 @@ class Yikes_Inc_Easy_Mailchimp_Forms_Admin {
 					array(
 						'optin' => 1,
 						'update_existing_user' => 1,
+						'send_update_email' => 1,
 						'send_welcome_email' => 1,
 					)
 				);
@@ -2602,6 +2603,7 @@ class Yikes_Inc_Easy_Mailchimp_Forms_Admin {
 				array(
 					'optin' => $_POST['single-double-optin'],
 					'update_existing_user' => $_POST['update-existing-user'],
+					'send_update_email' => $_POST['update-existing-email'],
 					'send_welcome_email' => $_POST['send-welcome-email'],
 				)
 			);
@@ -2883,7 +2885,7 @@ class Yikes_Inc_Easy_Mailchimp_Forms_Admin {
 			// get the current set color scheme for the logged in user
 			$current_color_scheme = get_user_option( 'admin_color' );
 			// switch over each color scheme, and set our variable
-			switch( $current_color_scheme ) {
+			switch ( $current_color_scheme ) {
 				default:
 				case 'fresh': // default blue (defined by this plugin)
 					$main_color = '#00a0d2';
@@ -2934,7 +2936,8 @@ class Yikes_Inc_Easy_Mailchimp_Forms_Admin {
 		*	@since 6.0.3.8
 		*/
 		public function hook_and_display_kb_article_RSS() {
-			include_once( YIKES_MC_PATH . 'admin/partials/helpers/knowledge-base-articles-RSS.php' );
+			// include_once( YIKES_MC_PATH . 'admin/partials/helpers/knowledge-base-articles-RSS.php' );
+			include_once( YIKES_MC_PATH . 'admin/partials/helpers/knowledge-base-article-links.php' );
 		}
 
 		/**

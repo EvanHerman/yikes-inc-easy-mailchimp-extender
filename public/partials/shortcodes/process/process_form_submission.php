@@ -141,6 +141,20 @@ if ( ! isset( $_POST['yikes_easy_mc_new_subscriber'] ) || ! wp_verify_nonce( $_P
 		return;
 	}
 
+	/**
+	 * Setup whether or not we should update the user, or display the error with email generation
+	 * @since 6.1
+	 */
+	if ( isset( $form_settings['optin_settings']['update_existing_user'] ) && 1 === absint( $form_settings['optin_settings']['update_existing_user'] ) ) {
+		$update_existing_user = 1;
+		// Should we send the update email
+		if ( isset( $form_settings['optin_settings']['send_update_email'] ) && 1 === absint( $form_settings['optin_settings']['send_update_email'] ) ) {
+			$update_existing_user = 0;
+		}
+	} else {
+		$update_existing_user = 0;
+	}
+
 	// submit the request & data, using the form settings
 		// subscribe the user
 		$subscribe_response = wp_remote_post( $api_endpoint, array(
@@ -150,7 +164,7 @@ if ( ! isset( $_POST['yikes_easy_mc_new_subscriber'] ) || ! wp_verify_nonce( $_P
 				'email' => array( 'email' => sanitize_email( $_POST['EMAIL'] ) ),
 				'merge_vars' => $merge_variables,
 				'double_optin' => $form_settings['optin_settings']['optin'],
-				'update_existing' => 0, // always set to 0 (when 0, users cannot update. when 1, users can click a link to send an email where they can then update their details)
+				'update_existing' => $update_existing_user, // Decide if we should update the user or not
 				'send_welcome' => $form_settings['optin_settings']['send_welcome_email'],
 				'replace_interests' => ( isset( $form_settings['submission_settings']['replace_interests'] ) ) ? $form_settings['submission_settings']['replace_interests'] : 1, // defaults to replace
 			), $form_id, $_POST['yikes-mailchimp-associated-list-id'], $_POST['EMAIL'] ),
@@ -173,7 +187,7 @@ if ( ! isset( $_POST['yikes_easy_mc_new_subscriber'] ) || ! wp_verify_nonce( $_P
 			switch( $subscribe_response['code'] ) {
 				// user already subscribed
 				case '214':
-					$update_account_details_link = ( $form_settings['optin_settings']['update_existing_user'] == 1 ) ? apply_filters( 'yikes-easy-mailchimp-update-existing-subscriber-text', sprintf( __( ' To update your MailChimp profile, please %s.', 'yikes-inc-easy-mailchimp-extender' ), '<a class="send-update-email" data-list-id="' . $_POST['yikes-mailchimp-associated-list-id'] . '" data-user-email="' . sanitize_email( $_POST['EMAIL'] ) . '" href="#">' . __( 'click to send yourself an update link', 'yikes-inc-easy-mailchimp-extender' ) . '</a>' ), '<a class="send-update-email" data-list-id="' . $_POST['yikes-mailchimp-associated-list-id'] . '" data-user-email="' . sanitize_email( $_POST['EMAIL'] ) . '" href="#">' . __( 'click to send yourself an update link', 'yikes-inc-easy-mailchimp-extender' ) . '</a>' ) : false;
+					$update_account_details_link = ( 1 === absint( $form_settings['optin_settings']['update_existing_user'] ) && 1 === absint( $form_settings['optin_settings']['send_update_email'] ) ) ? apply_filters( 'yikes-easy-mailchimp-update-existing-subscriber-text', sprintf( __( ' To update your MailChimp profile, please %s.', 'yikes-inc-easy-mailchimp-extender' ), '<a class="send-update-email" data-list-id="' . $_POST['yikes-mailchimp-associated-list-id'] . '" data-user-email="' . sanitize_email( $_POST['EMAIL'] ) . '" href="#">' . __( 'click to send yourself an update link', 'yikes-inc-easy-mailchimp-extender' ) . '</a>' ), '<a class="send-update-email" data-list-id="' . $_POST['yikes-mailchimp-associated-list-id'] . '" data-user-email="' . sanitize_email( $_POST['EMAIL'] ) . '" href="#">' . __( 'click to send yourself an update link', 'yikes-inc-easy-mailchimp-extender' ) . '</a>' ) : false;
 					if( $update_account_details_link ) {
 						// if update account details is set, we need to include our script to send out the update email
 						wp_enqueue_script( 'update-existing-subscriber.js', YIKES_MC_URL . 'public/js/yikes-update-existing-subscriber.js' , array( 'jquery' ), 'all' );
