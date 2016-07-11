@@ -99,6 +99,7 @@ $ npm install
 - yikes-mailchimp-after-submission - catch the merge variables of all forms after they get sent over to MailChimp
 - yikes-mailchimp-after-submission-FORM_ID - catch the merge variables of the specified form after they get sent over to MailChimp
 - yikes-mailchimp-user-role-access - Alter who can access this plugin page by capability (default 'manage_options' - admins)
+- yikes-mailchimp-admin-widget-capability - Set the minimum user capability for users who can see/access dashboard widgets (Note: you can also use the `yikes-mailchimp-user-role-access` filter)
 - yikes-mailchimp-international-phone-pattern - Alter the regex pattern for acceptable international phone number formats. (default: [0-9]{1,}) (process form shortcode.php - line 295)
 - yikes-mailchimp-us-phone-pattern - Alter the regex pattern for acceptable US phone number formats. (default: [^(\([0-9]{3}\)|[0-9]{3}-)[0-9]{3}-[0-9]{4}$) (process form shortcode.php - line 295)
 - yikes-mailchimp-process-default-tag - Pass the default tag through a filter to populate with dynamic content from the current site (process_form_shortcode.php - line 256)
@@ -126,6 +127,7 @@ $ npm install
 - yikes-mailchimp-preloader - Filter allowing users to setup a custom preloader image.
 - yikes-mailchimp-update-email-subject - Filter the subject line for the email that is generated and sent when a user needs to update their subscription info.
 - yikes-mailchimp-update-email-content - Filter the content of the email that is generated and sent when a user needs to update their subscription info.
+- yikes-mailchimp-user-already-subscribed-error - Filter the 'xxx@example.com' is already subscribed to the list. (@parameters - $response, $form_id, $user_email)
 
 ###### Hooks
 

@@ -489,16 +489,8 @@ class Yikes_Inc_Easy_Mailchimp_Forms_Admin {
 				$reviewurl = 'https://wordpress.org/support/view/plugin-reviews/yikes-inc-easy-mailchimp-extender';
 				$addons_url = esc_url( admin_url( 'admin.php?page=yikes-inc-easy-mailchimp-addons' ) );
 				$nobugurl = esc_url_raw( add_query_arg( 'yikes_easy_mc_icons_nobug', '1', admin_url() ) );
-				global $current_user;
-				get_currentuserinfo();
-				if ( isset( $current_user->user_firstname ) && '' != $current_user->user_firstname ) {
-					$review_message = '<div id="yikes-mailchimp-logo"></div>';
-						$review_message .= sprintf( __( "Hi, %s, you've been using %s for 2 weeks now. We hope you're enjoying the features included with the free version. If so, please consider leaving us a review. Reviews provide us with feedback to grow and improve the plugin. If you're really enjoying the plugin, consider buying an add-on or developer license for some really awesome features and premium support." , 'yikes-inc-easy-mailchimp-extender' ) . "<span class='button-container'> <a href='%s' target='_blank' class='button-secondary'><span class='dashicons dashicons-star-filled'></span>" . __( "Leave A Review" , 'yikes-inc-easy-mailchimp-extender' ) . "</a> <a href='%s' class='button-secondary'><span class='dashicons dashicons-upload'></span>" . __( "View Addons" , 'yikes-inc-easy-mailchimp-extender' ) . "</a> <a href='%s' class='button-secondary'><span class='dashicons dashicons-no-alt'></span>" . __( "Dismiss" , 'yikes-inc-easy-mailchimp-extender' ) . "</a> </span>", $current_user->user_firstname, '<strong>Easy Forms for MailChimp by YIKES Inc.</strong>', $reviewurl, $addons_url, $nobugurl );
-					$review_message .= '';
-				} else {
-					$review_message = '<div id="yikes-mailchimp-logo"></div>';
-					$review_message .= sprintf( __( "It looks like you've been using %s for 2 weeks now. We hope you're enjoying the features included with the free version. If so, please consider leaving us a review. Reviews only help to catch other users attention as well as provide us with feedback to grow and improve upon. If you're really enjoying the plugin, consider buying an add-on or developer license for some really awesome features and premium support." , 'yikes-inc-easy-mailchimp-extender' ) . "<span class='button-container'> <a href='%s' target='_blank' class='button-secondary'><span class='dashicons dashicons-star-filled'></span>" . __( "Leave A Review" , 'yikes-inc-easy-mailchimp-extender' ) . "</a> <a href='%s' class='button-secondary'><span class='dashicons dashicons-upload'></span>" . __( "View Addons" , 'yikes-inc-easy-mailchimp-extender' ) . "</a> <a href='%s' class='button-secondary'><span class='dashicons dashicons-no-alt'></span>" . __( "Dismiss" , 'yikes-inc-easy-mailchimp-extender' ) . "</a> </span>", '<strong>Easy Forms for MailChimp by YIKES Inc.</strong>', $reviewurl, $addons_url, $nobugurl ) . '';
-				}
+				$review_message = '<div id="yikes-mailchimp-logo"></div>';
+				$review_message .= sprintf( __( "It looks like you've been using %s for 2 weeks now. We hope you're enjoying the features included with the free version. If so, please consider leaving us a review. Reviews only help to catch other users attention as well as provide us with feedback to grow and improve upon. If you're really enjoying the plugin, consider buying an add-on or developer license for some really awesome features and premium support." , 'yikes-inc-easy-mailchimp-extender' ) . "<span class='button-container'> <a href='%s' target='_blank' class='button-secondary'><span class='dashicons dashicons-star-filled'></span>" . __( "Leave A Review" , 'yikes-inc-easy-mailchimp-extender' ) . "</a> <a href='%s' class='button-secondary'><span class='dashicons dashicons-upload'></span>" . __( "View Addons" , 'yikes-inc-easy-mailchimp-extender' ) . "</a> <a href='%s' class='button-secondary'><span class='dashicons dashicons-no-alt'></span>" . __( "Dismiss" , 'yikes-inc-easy-mailchimp-extender' ) . "</a> </span>", '<strong>Easy Forms for MailChimp by YIKES Inc.</strong>', $reviewurl, $addons_url, $nobugurl ) . '';
 				?>
 					<div id="review-yikes-easy-mailchimp-notice">
 						<?php echo $review_message; ?>
@@ -1480,16 +1472,27 @@ class Yikes_Inc_Easy_Mailchimp_Forms_Admin {
 									}
 								?>
 							</select>
+
 							<?php
-								if( isset( $lists ) && empty( $lists ) ) {
-									if( get_option( 'yikes-mc-api-validation' , 'invalid_api_key' ) != 'invalid_api_key' ) {
-										?>
-											<p class="description">
-												<?php printf( __( 'Head over to <a href="http://www.MailChimp.com" title="%s">MailChimp</a> to create a new list.', 'yikes-inc-easy-mailchimp-extender' ) , __( 'Create a list' , 'yikes-inc-easy-mailchimp-extender' ) ); ?>
-											</p>
-										<?php
-									}
+							if ( isset( $_GET['transient-cleared'] ) ) {
+								if ( 'true' === $_GET['transient-cleared'] ) {
+									?>
+									<div class="yikes-list-refreshed-notice">
+										<p><?php esc_attr_e( 'MailChimp list data has been succesfully refreshed.', 'yikes-inc-easy-mailchimp-extender' ); ?></p>
+									</div>
+									<?php
 								}
+							}
+
+							if( isset( $lists ) && empty( $lists ) ) {
+								if( get_option( 'yikes-mc-api-validation' , 'invalid_api_key' ) != 'invalid_api_key' ) {
+									?>
+										<p class="description">
+											<?php printf( __( 'Head over to <a href="http://www.MailChimp.com" title="%s">MailChimp</a> to create a new list.', 'yikes-inc-easy-mailchimp-extender' ) , __( 'Create a list' , 'yikes-inc-easy-mailchimp-extender' ) ); ?>
+										</p>
+									<?php
+								}
+							}
 							?>
 						</label>
 						<?php
@@ -1503,6 +1506,17 @@ class Yikes_Inc_Easy_Mailchimp_Forms_Admin {
 							}
 						?>
 					</form>
+
+					<!-- Clear API CACHE -->
+					<?php
+					if( isset( $lists ) && ! empty( $lists ) ) {
+						if ( false !== get_transient( 'yikes-easy-mailchimp-list-data' ) ) { ?>
+							<form action="<?php echo esc_url_raw( add_query_arg( array( 'action' => 'yikes-easy-mc-clear-transient-data' , 'nonce' => wp_create_nonce( 'clear-mc-transient-data' ) ) ) ); ?>" method="post">
+								<input type="submit" class="button-secondary clear-mailchimp-api-cache" value="<?php _e( 'Refresh Lists' , 'yikes-inc-easy-mailchimp-extender' ); ?>" />
+							</form>
+						<?php }
+					}
+					?>
 				</div> <!-- .inside -->
 			<?php
 		}
@@ -1627,19 +1641,17 @@ class Yikes_Inc_Easy_Mailchimp_Forms_Admin {
 
 					</div>
 
-				<?php } ?>
+					<div class="postbox yikes-easy-mc-postbox">
 
-				<div class="postbox yikes-easy-mc-postbox">
+						<!-- review us container -->
+						<h3><?php _e( 'Easy Forms for MailChimp Add-Ons' , 'yikes-inc-easy-mailchimp-extender' ); ?></h3>
+						<div id="review-yikes-easy-mc" class="inside">
+							<p><?php _e( "Check out available add-ons for some seriously enhanced features." , 'yikes-inc-easy-mailchimp-extender' ); ?></p>
+							<p><a class="button-secondary" href="<?php echo esc_url_raw( admin_url( 'admin.php?page=yikes-inc-easy-mailchimp-addons' ) ); ?>" title="<?php _e( 'View Add-Ons' , 'yikes-inc-easy-mailchimp-extender' ); ?>"><?php _e( 'View Add-Ons' , 'yikes-inc-easy-mailchimp-extender' ); ?></a></p>
+						</div>
 
-					<!-- review us container -->
-					<h3><?php _e( 'Easy Forms for MailChimp Add-Ons' , 'yikes-inc-easy-mailchimp-extender' ); ?></h3>
-					<div id="review-yikes-easy-mc" class="inside">
-						<p><?php _e( "Check out available add-ons for some seriously enhanced features." , 'yikes-inc-easy-mailchimp-extender' ); ?></p>
-						<p><a class="button-secondary" href="<?php echo esc_url_raw( admin_url( 'admin.php?page=yikes-inc-easy-mailchimp-addons' ) ); ?>" title="<?php _e( 'View Add-Ons' , 'yikes-inc-easy-mailchimp-extender' ); ?>"><?php _e( 'View Add-Ons' , 'yikes-inc-easy-mailchimp-extender' ); ?></a></p>
 					</div>
-
-				</div>
-				<?php
+				<?php }
 			}
 
 			/**
@@ -2050,7 +2062,7 @@ class Yikes_Inc_Easy_Mailchimp_Forms_Admin {
 														$i = 0;
 														foreach( json_decode( $field['groups'], true ) as $group ) { ?>
 															<label for="<?php echo $field['group_id'].'-'.$i; ?>">
-																<input id="<?php echo $field['group_id'].'-'.$i; ?>" type="<?php if( $field['type'] == 'radio' || $field['type'] == 'hidden' ) { ?>radio<?php } else if( $field['type'] == 'checkboxes' ) { ?>checkbox<?php } ?>" name="field[<?php echo $field['group_id']; ?>][default_choice]<?php if( $field['type'] == 'checkboxes' ) {echo '[]';}?>" value="<?php echo $i; ?>" <?php if( $field['type'] == 'radio' || $field['type'] == 'hidden' ) { checked( $field['default_choice'][0] , $i ); } else if( $field['type'] == 'checkboxes' ) { if( in_array( $i , $field['default_choice'] ) ) { echo 'checked="checked"'; } }?>><?php echo stripslashes( str_replace( '~' , '\'' , $group['name'] ) ); ?>&nbsp;
+																<input id="<?php echo $field['group_id'].'-'.$i; ?>" type="<?php if( $field['type'] == 'radio' || $field['type'] == 'hidden' ) { ?>radio<?php } else if( $field['type'] == 'checkboxes' ) { ?>checkbox<?php } ?>" name="field[<?php echo $field['group_id']; ?>][default_choice]<?php if( $field['type'] == 'checkboxes' ) {echo '[]';}?>" value="<?php echo $i; ?>" <?php if( $field['type'] == 'radio' || $field['type'] == 'hidden' ) { checked( $field['default_choice'][0] , $i ); } else if( $field['type'] == 'checkboxes' ) { if( in_array( $i , $field['default_choice'] ) ) { echo 'checked="checked"'; } }?>><?php echo stripslashes( str_replace( '' , '\'' , $group['name'] ) ); ?>&nbsp;
 															</label>
 														<?php
 															$i++;
@@ -2350,6 +2362,7 @@ class Yikes_Inc_Easy_Mailchimp_Forms_Admin {
 					array(
 						'optin' => 1,
 						'update_existing_user' => 1,
+						'send_update_email' => 1,
 						'send_welcome_email' => 1,
 					)
 				);
@@ -2359,7 +2372,8 @@ class Yikes_Inc_Easy_Mailchimp_Forms_Admin {
 						'success' => '',
 						'general-error' => '',
 						'invalid-email' => '',
-						'email-already-subscribed' => ''
+						'email-already-subscribed' => '',
+						'update-link' => '',
 					)
 				);
 				/* End default values */
@@ -2590,6 +2604,7 @@ class Yikes_Inc_Easy_Mailchimp_Forms_Admin {
 				array(
 					'optin' => $_POST['single-double-optin'],
 					'update_existing_user' => $_POST['update-existing-user'],
+					'send_update_email' => $_POST['update-existing-email'],
 					'send_welcome_email' => $_POST['send-welcome-email'],
 				)
 			);
@@ -2601,6 +2616,7 @@ class Yikes_Inc_Easy_Mailchimp_Forms_Admin {
 					'general-error' => trim( $_POST['yikes-easy-mc-general-error-message'] ) ? trim( stripslashes( $_POST['yikes-easy-mc-general-error-message'] ) ) : '',
 					'invalid-email' => trim( $_POST['yikes-easy-mc-invalid-email-message'] ) ? trim( stripslashes( $_POST['yikes-easy-mc-invalid-email-message'] ) ) : '',
 					'already-subscribed' => trim( $_POST['yikes-easy-mc-user-subscribed-message'] ) ? trim( stripslashes( $_POST['yikes-easy-mc-user-subscribed-message'] ) ) : '',
+					'update-link' => trim( $_POST['yikes-easy-mc-user-update-link'] ) ? trim( stripslashes( $_POST['yikes-easy-mc-user-update-link'] ) ) : '',
 				)
 			);
 
@@ -2766,6 +2782,7 @@ class Yikes_Inc_Easy_Mailchimp_Forms_Admin {
 		*	Probably Move these to its own file,
 		*/
 		public function yikes_easy_mailchimp_clear_transient_data() {
+			$referer = wp_get_referer();
 			// grab & store our variables ( associated list & form name )
 			$nonce = $_REQUEST['nonce'];
 			// verify our nonce
@@ -2789,8 +2806,14 @@ class Yikes_Inc_Easy_Mailchimp_Forms_Admin {
 			delete_transient( 'yikes-easy-mailchimp-account-data' );
 			// Delete list account data
 			delete_transient( 'yikes-easy-mailchimp-profile-data' );
+			// if the request came from the settings page, redirect to the settings page
+			if ( $referer && ( strpos( $referer, 'yikes-inc-easy-mailchimp-settings' ) > 0 ) ) {
+				wp_redirect( esc_url_raw( admin_url( 'admin.php?page=yikes-inc-easy-mailchimp-settings&section=api-cache-settings&transient-cleared=true' ) ) );
+			} else {
+				// else redirect to the manage forms page
+				wp_redirect( esc_url_raw( admin_url( 'admin.php?page=yikes-inc-easy-mailchimp&transient-cleared=true' ) ) );
+			}
 			// redirect the user to the manage forms page, display confirmation
-			wp_redirect( esc_url_raw( admin_url( 'admin.php?page=yikes-inc-easy-mailchimp-settings&section=api-cache-settings&transient-cleared=true' ) ) );
 			exit;
 		}
 
@@ -2864,7 +2887,7 @@ class Yikes_Inc_Easy_Mailchimp_Forms_Admin {
 			// get the current set color scheme for the logged in user
 			$current_color_scheme = get_user_option( 'admin_color' );
 			// switch over each color scheme, and set our variable
-			switch( $current_color_scheme ) {
+			switch ( $current_color_scheme ) {
 				default:
 				case 'fresh': // default blue (defined by this plugin)
 					$main_color = '#00a0d2';
@@ -2915,7 +2938,8 @@ class Yikes_Inc_Easy_Mailchimp_Forms_Admin {
 		*	@since 6.0.3.8
 		*/
 		public function hook_and_display_kb_article_RSS() {
-			include_once( YIKES_MC_PATH . 'admin/partials/helpers/knowledge-base-articles-RSS.php' );
+			// include_once( YIKES_MC_PATH . 'admin/partials/helpers/knowledge-base-articles-RSS.php' );
+			include_once( YIKES_MC_PATH . 'admin/partials/helpers/knowledge-base-article-links.php' );
 		}
 
 		/**
@@ -2946,34 +2970,16 @@ class Yikes_Inc_Easy_Mailchimp_Forms_Admin {
 		*	@since 6.0.3
 		*/
 		public function generate_edit_forms_upsell_ad() {
-			/*
-			*	SimplePie strips out all query strings
-			* 	we had to implement a workaround
-			*	https://github.com/simplepie/simplepie/issues/317
-			*/
-			include_once( ABSPATH . WPINC . '/feed.php' );
-			$rss = fetch_feed( esc_url( 'http://yikesplugins.com/feed/?post_type=product_ads&genre=easy-forms-for-mailchimp' ) );
-			$maxitems = 0;
-			if ( ! is_wp_error( $rss ) ) { // Checks that the object is created correctly
-				// Figure out how many total items there are, but limit it to 1.
-				$maxitems = $rss->get_item_quantity( 1 );
-				// Build an array of all the items, starting with element 0 (first element).
-				$rss_items = $rss->get_items( 0, $maxitems );
-			} else {
-				return $feed = new WP_Error( 'Simple Pie RSS Error', $feed->error() );
+			$upsell_ads = glob( YIKES_MC_PATH . 'includes/upsells/*.php' );
+			if ( $upsell_ads && ! empty( $upsell_ads ) ) {
+				$ad_count = absint( count( $upsell_ads ) - 1 );
+				$ad = $upsell_ads[ mt_rand( 0, $ad_count ) ];
+				ob_start();
+				include_once( $ad );
+				$ad_content = ob_get_contents();
+				ob_get_clean();
 			}
-			// loop over returned results
-			foreach ( $rss_items as $add_on ) {
-				$add_on_desc = $add_on->get_content();
-				?>
-					<h3><?php echo $add_on->get_title(); ?></h3>
-					<div class="inside">
-					<?php
-						echo $add_on_desc;
-					?>
-					</div>
-				<?php
-			}
+			echo wp_kses_post( $ad_content );
 		}
 
 }

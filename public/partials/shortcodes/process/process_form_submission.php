@@ -126,20 +126,11 @@ if ( ! isset( $_POST['yikes_easy_mc_new_subscriber'] ) || ! wp_verify_nonce( $_P
 	/**
 	* Action hooks fired before API request
 	* @since 6.0.5.5
+	* @param $merge_variables 	array 	Array of merge variable to use
+	* @param $form_id						integer	The form ID to target (eg: 1, 2 etc.)
 	*/
 	do_action( 'yikes-mailchimp-before-submission', $merge_variables );
 	do_action( 'yikes-mailchimp-before-submission-' . $form_id, $merge_variables );
-
-	/*
-	*	yikes-mailchimp-before-submission
-	*
-	*	Catch the merge variables before they've been sent over to MailChimp
-	*	param @merge_variables - user submitted form data
-	* 	optional @form - the ID of the form to filter
-	*	@since 6.0.0
-	*/
-	do_action( 'yikes-mailchimp-before-submission' , $merge_variables );
-	do_action( 'yikes-mailchimp-before-submission-' . $form_id , $merge_variables );
 
 	/*
 	*	Allow users to check for submit value
@@ -148,6 +139,20 @@ if ( ! isset( $_POST['yikes_easy_mc_new_subscriber'] ) || ! wp_verify_nonce( $_P
 	if( isset( $merge_variables['error'] ) ) {
 		$process_submission_response = apply_filters( 'yikes-mailchimp-frontend-content' , $merge_variables['message'] );
 		return;
+	}
+
+	/**
+	 * Setup whether or not we should update the user, or display the error with email generation
+	 * @since 6.1
+	 */
+	if ( isset( $form_settings['optin_settings']['update_existing_user'] ) && 1 === absint( $form_settings['optin_settings']['update_existing_user'] ) ) {
+		$update_existing_user = 1;
+		// Should we send the update email
+		if ( isset( $form_settings['optin_settings']['send_update_email'] ) && 1 === absint( $form_settings['optin_settings']['send_update_email'] ) ) {
+			$update_existing_user = 0;
+		}
+	} else {
+		$update_existing_user = 0;
 	}
 
 	// submit the request & data, using the form settings
@@ -159,7 +164,7 @@ if ( ! isset( $_POST['yikes_easy_mc_new_subscriber'] ) || ! wp_verify_nonce( $_P
 				'email' => array( 'email' => sanitize_email( $_POST['EMAIL'] ) ),
 				'merge_vars' => $merge_variables,
 				'double_optin' => $form_settings['optin_settings']['optin'],
-				'update_existing' => 0, // always set to 0 (when 0, users cannot update. when 1, users can click a link to send an email where they can then update their details)
+				'update_existing' => $update_existing_user, // Decide if we should update the user or not
 				'send_welcome' => $form_settings['optin_settings']['send_welcome_email'],
 				'replace_interests' => ( isset( $form_settings['submission_settings']['replace_interests'] ) ) ? $form_settings['submission_settings']['replace_interests'] : 1, // defaults to replace
 			), $form_id, $_POST['yikes-mailchimp-associated-list-id'], $_POST['EMAIL'] ),
@@ -182,7 +187,8 @@ if ( ! isset( $_POST['yikes_easy_mc_new_subscriber'] ) || ! wp_verify_nonce( $_P
 			switch( $subscribe_response['code'] ) {
 				// user already subscribed
 				case '214':
-					$update_account_details_link = ( $form_settings['optin_settings']['update_existing_user'] == 1 ) ? apply_filters( 'yikes-easy-mailchimp-update-existing-subscriber-text', sprintf( __( ' To update your MailChimp profile, please %s.', 'yikes-inc-easy-mailchimp-extender' ), '<a class="send-update-email" data-list-id="' . $_POST['yikes-mailchimp-associated-list-id'] . '" data-user-email="' . sanitize_email( $_POST['EMAIL'] ) . '" href="#">' . __( 'click to send yourself an update link', 'yikes-inc-easy-mailchimp-extender' ) . '</a>' ), '<a class="send-update-email" data-list-id="' . $_POST['yikes-mailchimp-associated-list-id'] . '" data-user-email="' . sanitize_email( $_POST['EMAIL'] ) . '" href="#">' . __( 'click to send yourself an update link', 'yikes-inc-easy-mailchimp-extender' ) . '</a>' ) : false;
+					$custom_already_subscribed_text = apply_filters( 'yikes-easy-mailchimp-update-existing-subscriber-text', sprintf( __( ' To update your MailChimp profile, please %s.', 'yikes-inc-easy-mailchimp-extender' ), '<a class="send-update-email" data-list-id="' . $_POST['yikes-mailchimp-associated-list-id'] . '" data-user-email="' . sanitize_email( $_POST['EMAIL'] ) . '" href="#">' . __( 'click to send yourself an update link', 'yikes-inc-easy-mailchimp-extender' ) . '</a>' ), $form_id, '<a class="send-update-email" data-list-id="' . $_POST['yikes-mailchimp-associated-list-id'] . '" data-user-email="' . sanitize_email( $_POST['EMAIL'] ) . '" href="#">' . __( 'click to send yourself an update link', 'yikes-inc-easy-mailchimp-extender' ) . '</a>' );
+					$update_account_details_link = ( 1 === absint( $form_settings['optin_settings']['update_existing_user'] ) && 1 === absint( $form_settings['optin_settings']['send_update_email'] ) ) ? $custom_already_subscribed_text : false;
 					if( $update_account_details_link ) {
 						// if update account details is set, we need to include our script to send out the update email
 						wp_enqueue_script( 'update-existing-subscriber.js', YIKES_MC_URL . 'public/js/yikes-update-existing-subscriber.js' , array( 'jquery' ), 'all' );
@@ -192,7 +198,7 @@ if ( ! isset( $_POST['yikes_easy_mc_new_subscriber'] ) || ! wp_verify_nonce( $_P
 						) );
 					}
 					if( ! empty( $form_settings['error_messages']['already-subscribed'] ) ) {
-						$process_submission_response = '<p class="yikes-easy-mc-error-message">' . $form_settings['error_messages']['already-subscribed'] . ' ' . $update_account_details_link . '</p>';
+						$process_submission_response = '<p class="yikes-easy-mc-error-message">' . apply_filters( 'yikes-easy-mailchimp-user-already-subscribed-text', $form_settings['error_messages']['already-subscribed'], $form_id, $_POST['EMAIL'] ) . ' ' . $update_account_details_link . '</p>';
 					} else {
 						$process_submission_response = '<p class="yikes-easy-mc-error-message">' . $subscribe_response['error'] . ' ' . $update_account_details_link . '</p>';
 					}
@@ -278,17 +284,6 @@ if ( ! isset( $_POST['yikes_easy_mc_new_subscriber'] ) || ! wp_verify_nonce( $_P
 		*/
 		do_action( 'yikes-mailchimp-after-submission' , $merge_variables );
 		do_action( 'yikes-mailchimp-after-submission-' . $form_id , $merge_variables );
-
-		/*
-		*	yikes-mailchimp-after-submission
-		*
-		*	Catch the merge variables after they've been sent over to MailChimp
-		*	param @merge_variables - user submitted form data
-		* 	optional @form - the ID of the form to filter
-		*	@since 6.0.0
-		*/
-		do_action( 'yikes-mailchimp-after-submission', $merge_variables );
-		do_action( 'yikes-mailchimp-after-submission-' . $form_id, $merge_variables );
 
 		/*
 		*	Non-AJAX redirects now handled in class-yikes-inc-easy-mailchimp-extender-public.php

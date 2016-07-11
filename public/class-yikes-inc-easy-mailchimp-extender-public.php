@@ -41,7 +41,7 @@ class Yikes_Inc_Easy_Mailchimp_Extender_Public {
 	public function __construct( $yikes_inc_easy_mailchimp_extender, $version ) {
 		$this->yikes_inc_easy_mailchimp_extender = $yikes_inc_easy_mailchimp_extender;
 		$this->version = $version;
-		/** 
+		/**
 		 * 	Define version of this plugin
 		 * 	@since 6.0.0
 		 */
@@ -70,8 +70,12 @@ class Yikes_Inc_Easy_Mailchimp_Extender_Public {
 		add_action( 'init', array( $this, 'yikes_custom_frontend_content_filter' ) );
 		// Process non-ajax forms in the header
 		add_action( 'init', array( $this, 'yikes_process_non_ajax_forms' ) );
+		// Filter the user already subscribed response with a custom message
+		add_filter( 'yikes-easy-mailchimp-update-existing-subscriber-text', array( $this, 'yikes_custom_already_subscribed_response' ), 10, 3 );
+		// Filter the user already subscribed response with a custom message
+		add_filter( 'yikes-easy-mailchimp-user-already-subscribed-text', array( $this, 'yikes_custom_already_subscribed_text' ), 10, 3 );
 	}
-	
+
 	/**
 	*	Create our own custom the_content(); filter to prevent plugins and such from hooking in where not wanted
 	*
@@ -85,7 +89,7 @@ class Yikes_Inc_Easy_Mailchimp_Extender_Public {
 		add_filter( 'yikes-mailchimp-frontend-content', 'shortcode_unautop' );
 		add_filter( 'yikes-mailchimp-frontend-content', 'prepend_attachment' );
 	}
-		
+
 	/**
 	 *	Load our checkbox integrations
 	 *
@@ -101,7 +105,7 @@ class Yikes_Inc_Easy_Mailchimp_Extender_Public {
 			// load our mail integrations class
 			require_once YIKES_MC_PATH . 'public/classes/checkbox-integrations.php';
 			// loop over selected classes and load them up!
-			foreach( $integrations as $integration => $value ) {	
+			foreach( $integrations as $integration => $value ) {
 				if( isset( $value['value'] ) && $value['value'] == 'on' ) {
 					// load our class extensions
 					require_once YIKES_MC_PATH . 'public/classes/checkbox-integrations/class.'.$integration.'-checkbox.php';
@@ -109,7 +113,7 @@ class Yikes_Inc_Easy_Mailchimp_Extender_Public {
 			}
 		}
 	}
-	
+
 	/**
 	 * Error logging class
 	 *
@@ -123,8 +127,8 @@ class Yikes_Inc_Easy_Mailchimp_Extender_Public {
 			require_once YIKES_MC_PATH . 'includes/error_log/class-yikes-inc-easy-mailchimp-error-logging.php';
 			$error_logging = new Yikes_Inc_Easy_Mailchimp_Error_Logging;
 		}
-	}	
-	
+	}
+
 	/*
 	*	On form submission, lets include our form processing file
 	*	- processes non-ajax forms
@@ -151,7 +155,7 @@ class Yikes_Inc_Easy_Mailchimp_Extender_Public {
 			}
 		}
 	}
-	
+
 	/*
 	*	Get the given form data
 	*	@since 6.0.3.4
@@ -176,7 +180,7 @@ class Yikes_Inc_Easy_Mailchimp_Extender_Public {
 			$form_settings['send_welcome'] = $form_data['send_welcome_email'];
 			$form_settings['submission_settings'] = json_decode( stripslashes( $form_data['submission_settings'] ) , true );
 			$form_settings['optin_settings'] = json_decode( stripslashes( $form_data['optin_settings'] ) , true );
-			$form_settings['error_messages'] = json_decode( $form_data['error_messages'] , true );	
+			$form_settings['error_messages'] = json_decode( $form_data['error_messages'] , true );
 			$form_settings['notifications'] = isset( $form_data['custom_notifications'] ) ? json_decode( stripslashes( $form_data['custom_notifications'] ) , true ) : '';
 			$form_settings['submissions'] = $form_data['submissions'];
 			// return the given form settings in an array
@@ -184,5 +188,64 @@ class Yikes_Inc_Easy_Mailchimp_Extender_Public {
 		}
 		return;
 	}
-	
+
+	/**
+	 * Filter the unsubscribed response, allowing users to customize it
+	 * Users can wrap text to create a custom update link, by wrapping text in [link]xxx[/link].
+	 * @param  string   $response_text The default response.
+	 * @param  int      $form_id       The form ID to retreive options from.
+	 * @param  string   $link          The update profile link, when clicked this sends the user an email.
+	 * @return string                  The final output for the update existing subscriber.
+	 */
+	public function yikes_custom_already_subscribed_response( $response_text, $form_id, $link ) {
+		// if no form id found, abort
+		if ( ! $form_id ) {
+			return;
+		}
+		// retreive our form settings
+		$form_settings = $form_settings = Yikes_Inc_Easy_Mailchimp_Extender_Public::yikes_retrieve_form_settings( $form_id );
+		// if none, abort
+		if ( ! $form_settings ) {
+			return;
+		}
+		// trim trailing period
+		if ( isset( $form_settings['error_messages']['update-link'] ) && ! empty( $form_settings['error_messages']['update-link'] ) ) {
+			$response_text = $form_settings['error_messages']['update-link'];
+			// extract the link text
+			preg_match( '/\[link].*?\[\/link\]/', $response_text, $link_text );
+			if ( $link_text && ! empty( $link_text ) ) {
+				// Extract the custom link text ([link]*[/link])
+				$custom_link_text = str_replace( '[/link]', '', str_replace( '[link]', '', str_replace( 'click to send yourself an update link', $link_text[0], $link ) ) );
+				// Replace the link text, with our custom link text
+				$response_text = str_replace( $link_text, $custom_link_text, $response_text );
+			}
+		}
+		// Return our new string
+		return $response_text;
+	}
+
+	/**
+	 * Alter the beginning of the user already subscribed string
+	 * Allowing users to use the email in the response, by adding [email] to the text
+	 *
+	 * @since 6.1
+	 */
+	public function yikes_custom_already_subscribed_text( $response_text, $form_id, $email ) {
+		// if no form id found, abort
+		if ( ! $form_id ) {
+			return;
+		}
+		// retreive our form settings
+		$form_settings = $form_settings = Yikes_Inc_Easy_Mailchimp_Extender_Public::yikes_retrieve_form_settings( $form_id );
+		// if none, abort
+		if ( ! $form_settings ) {
+			return;
+		}
+		// trim trailing period
+		if ( isset( $form_settings['error_messages']['already-subscribed'] ) && ! empty( $form_settings['error_messages']['already-subscribed'] ) ) {
+			$response_text = str_replace( '[email]', $email, $form_settings['error_messages']['already-subscribed'] );
+		}
+		// Return our new string
+		return $response_text;
+	}
 }
