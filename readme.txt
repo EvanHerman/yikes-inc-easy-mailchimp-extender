@@ -637,7 +637,7 @@ We have added brand new functionality, allowing users to easily customize forms 
 
 == Upgrade Notice ==
 
-= Easy Forms for MailChimp 6.1 - July 11th, 2016
+= Easy Forms for MailChimp 6.1 - July 11th, 2016 =
 
 * Sanitized section request on the options page properly.
 * Fixed the apostraphes converted to tildes.
