@@ -289,7 +289,7 @@
 																				if( ! isset( $merge_variable_error ) ) {
 																					// build a list of available merge variables,
 																					// but exclude the ones already assigned to the form
-																					echo '<p class="description">' . __( "Select a field below to add to the form builder." , 'yikes-inc-easy-mailchimp-extender' ) . '</p>';
+																					echo '<p class="description">' . __( "Select the fields below to add to the form builder." , 'yikes-inc-easy-mailchimp-extender' ) . '</p>';
 																					$this->build_available_merge_vars( json_decode( $form['fields'] , true ) , $available_merge_variables );
 																				} else {
 																					echo $merge_variable_error;
@@ -775,7 +775,7 @@
 													<label for="update-email"><input type="radio" id="update-email" name="update-existing-email" value="1" <?php checked( $send_update_email , '1' ); ?>><?php _e( 'Yes' , 'yikes-inc-easy-mailchimp-extender' ); ?></label>
 													&nbsp;<label for="do-not-update-email"><input type="radio" id="do-not-update-email"  name="update-existing-email" value="0" <?php checked( $send_update_email , '0' ); ?>><?php _e( 'No' , 'yikes-inc-easy-mailchimp-extender' ); ?></label>
 												</span>
-												<em><?php printf( __( "Send an email to the user granting their permission to upate their profile infomation. Otherwise, an existing subscriber filling out this form, will have their profile information updated without any further interaction." , "yikes-inc-easy-mailchimp-extender" ), __( '"user already subscribed"', 'yikes-inc-easy-mailchimp-extender' ) ); ?></em>
+												<em><?php printf( __( "Send an email to the user granting their permission to update their profile information. Otherwise, an existing subscriber filling out this form, will have their profile information updated without any further interaction." , "yikes-inc-easy-mailchimp-extender" ), __( '"user already subscribed"', 'yikes-inc-easy-mailchimp-extender' ) ); ?></em>
 											</label></p>
 
 										</div>
