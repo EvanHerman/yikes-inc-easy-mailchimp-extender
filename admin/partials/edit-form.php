@@ -759,7 +759,7 @@
 													<label for="update-user"><input type="radio" id="update-user" onchange="toggleUpdateEmailContainer(this);return false;" name="update-existing-user" value="1" <?php checked( $optin_settings['update_existing_user'] , '1' ); ?>><?php _e( 'Yes' , 'yikes-inc-easy-mailchimp-extender' ); ?></label>
 													&nbsp;<label for="do-not-update-user"><input type="radio" onchange="toggleUpdateEmailContainer(this);return false;" id="do-not-update-user"  name="update-existing-user" value="0" <?php checked( $optin_settings['update_existing_user'] , '0' ); ?>><?php _e( 'No' , 'yikes-inc-easy-mailchimp-extender' ); ?></label>
 												</span>
-												<p class="description"><?php printf( __( "Display an update link when a user is already subscribed to the list, allowing them to generate an email where they can update their subscribtion info - instead of displaying a %s message." , "yikes-inc-easy-mailchimp-extender" ), __( '"user already subscribed"', 'yikes-inc-easy-mailchimp-extender' ) ); ?></p>
+												<p class="description"><?php printf( __( "Update an existing subscriber's profile information instead of displaying a %s message." , "yikes-inc-easy-mailchimp-extender" ), __( '"user already subscribed"', 'yikes-inc-easy-mailchimp-extender' ) ); ?></p>
 											</label></p>
 
 											<!--
@@ -775,7 +775,7 @@
 													<label for="update-email"><input type="radio" id="update-email" name="update-existing-email" value="1" <?php checked( $send_update_email , '1' ); ?>><?php _e( 'Yes' , 'yikes-inc-easy-mailchimp-extender' ); ?></label>
 													&nbsp;<label for="do-not-update-email"><input type="radio" id="do-not-update-email"  name="update-existing-email" value="0" <?php checked( $send_update_email , '0' ); ?>><?php _e( 'No' , 'yikes-inc-easy-mailchimp-extender' ); ?></label>
 												</span>
-												<em><?php printf( __( "Send an email allowing the user to update their profile, securely. Otherwise, when an existing subscriber re-subscribes to this form, their profile information will be updated without any further interaction." , "yikes-inc-easy-mailchimp-extender" ), __( '"user already subscribed"', 'yikes-inc-easy-mailchimp-extender' ) ); ?></em>
+												<em><?php printf( __( "Send an email to the user granting their permission to upate their profile infomation. Otherwise, an existing subscriber filling out this form, will have their profile information updated without any further interaction." , "yikes-inc-easy-mailchimp-extender" ), __( '"user already subscribed"', 'yikes-inc-easy-mailchimp-extender' ) ); ?></em>
 											</label></p>
 
 										</div>

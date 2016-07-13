@@ -23,8 +23,8 @@
  * 		You should have received a copy of the GNU General Public License
  *		along with Easy Forms for MailChimp. If not, see <http://www.gnu.org/licenses/>.
  *
- *		We at Yikes Inc. embrace the open source philosophy on a daily basis. We donate company time back to the WordPress project,
- *		and constantly strive to improve the WordPress project and community as a whole. We eat, sleep and breath WordPress.
+ *		We at YIKES Inc. embrace the open source philosophy on a daily basis. We donate company time back to the WordPress project,
+ *		and constantly strive to improve the WordPress project and community as a whole. We eat, sleep and breathe WordPress.
  *
  *		"'Free software' is a matter of liberty, not price. To understand the concept, you should think of 'free' as in 'free speech,' not as in 'free beer'."
  *		- Richard Stallman
