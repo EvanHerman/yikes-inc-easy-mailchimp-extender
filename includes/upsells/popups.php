@@ -15,7 +15,9 @@ $ad_description = esc_attr__( 'Effortlessly generate popups to capture user atte
 <div class="inside">
 	<!-- Ad Image -->
 	<?php if ( $ad_image ) { ?>
-		<img src="<?php echo esc_attr( $ad_image ); ?>" title="<?php echo esc_attr( $ad_title ); ?>" />
+		<a href="<?php echo esc_attr( $ad_permalink ); ?>">
+			<img src="<?php echo esc_attr( $ad_image ); ?>" title="<?php echo esc_attr( $ad_title ); ?>" />
+		</a>
 	<?php } ?>
 
 	<!-- Ad Description -->
