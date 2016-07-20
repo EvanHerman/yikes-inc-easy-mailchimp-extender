@@ -657,7 +657,7 @@ function process_mailchimp_shortcode( $atts ) {
 
 
 											?>
-											<label for="<?php echo $field['merge']; ?>" <?php echo implode( ' ' , $label_array ); ?>>
+											<label for="<?php echo $field['merge']; ?>" data-attr-name="<?php echo esc_attr( $type ); ?>-field" <?php echo implode( ' ' , $label_array ); ?>>
 
 												<!-- dictate label visibility -->
 												<?php if( ! isset( $field['hide-label'] ) ) { ?>
@@ -745,7 +745,7 @@ function process_mailchimp_shortcode( $atts ) {
 												$default_country = apply_filters( 'yikes-mailchimp-default-country-value', 'US' );
 											?>
 
-											<label for="<?php echo $field['merge']; ?>" <?php echo implode( ' ' , $label_array ); ?>>
+											<label for="<?php echo $field['merge']; ?>" data-attr-name="<?php echo esc_attr( $type ); ?>-field" <?php echo implode( ' ' , $label_array ); ?>>
 
 												<!-- dictate label visibility -->
 												<?php if( !isset( $field['hide-label'] ) ) { ?>
