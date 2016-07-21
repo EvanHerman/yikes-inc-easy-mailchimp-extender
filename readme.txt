@@ -4,7 +4,7 @@ Donate link: https://yikesplugins.com/?utm_source=wp_plugin_repo&utm_medium=dona
 Tags: MailChimp, MailChimp forms, MailChimp lists, opt-in forms, sign up form, MailChimp, email, forms, mailing lists, marketing, newsletter, sign up
 Requires at least: 4.0
 Tested up to: 4.5
-Stable tag: 6.1.1
+Stable tag: 6.1.2
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -134,6 +134,12 @@ You'll want to make sure that your database collation is set properly. The best 
 = I'm having trouble upgrading to version 6, what do I do? =
 We want our users to have as smooth a transition as possible so we created [Guides to Updating](https://yikesplugins.com/support/knowledge-base/product/installation-easy-forms-for-mailchimp/?utm_source=wp_plugin_repo&utm_medium=link&utm_campaign=easy_forms_for_mailchimp). Please check them out if you are experiencing problems.
 
+= Can I define my API key using a PHP constant, inside of wp-config.php? =
+Yes! Since version 6.1.2 of Easy Forms for MailChimp we have enabled the ability to define a PHP constant inside of wp-config.php to be used throughout the plugin. The constant name you'll want to use is `YIKES_MC_API_KEY`. Once you've defined your constant, you'll want to head into the options page and save your settings for the changes to take hold.
+
+Example:
+`define( 'YIKES_MC_API_KEY', '12345679-us2' );`
+
 == Screenshots ==
 
 1. General Form Settings - Enter your MailChimp API key to connect your site to your MailChimp account
@@ -228,6 +234,11 @@ Below you'll find a complete list of the hooks and filters available in Easy For
 * yikes-mailchimp-list-interest-groups-metabox - action hook allowing users to add additional content inside of the interest groups metabox on the view list page.
 
 == Changelog ==
+
+= Easy Forms for MailChimp 6.1.2 - July 21st, 2016 =
+* Fixed incorrect date format on date picker for birthday fields (Front end).
+* Ensure that hidden fields don't become visible when forms are submitted (.fadeTo() bug)
+* Built in support for defining a constant for your API keys in wp-config.php (`YIKES_MC_API_KEY` see FAQ)
 
 = Easy Forms for MailChimp 6.1.1 - July 20th, 2016 =
 * Added helper classes to the address fields to allow for easier targeting (Supports zip lookup extension).
@@ -639,6 +650,12 @@ We have added brand new functionality, allowing users to easily customize forms 
 
 
 == Upgrade Notice ==
+
+= Easy Forms for MailChimp 6.1.2 - July 21st, 2016 =
+
+* Fixed incorrect date format on date picker for birthday fields (Front end).
+* Ensure that hidden fields don't become visible when forms are submitted (.fadeTo() bug)
+* Built in support for defining a constant for your API keys in wp-config.php (`YIKES_MC_API_KEY` see FAQ)
 
 = Easy Forms for MailChimp 6.1.1 - July 20th, 2016 =
 

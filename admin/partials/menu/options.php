@@ -5,7 +5,7 @@
 */
 
 	/* Get and Store Option Values */
-	if( get_option( 'yikes-mc-api-validation' , 'invalid_api_key' ) == 'valid_api_key' ) {
+	if( get_option( 'yikes-mc-api-validation' , 'invalid_api_key' ) === 'valid_api_key' ) {
 		$api_connection = '<span id="connection-container" class="api-connected" title="' . __( "Your site is currently connected to the MailChimp API" , "yikes-inc-easy-mailchimp-extender" ) . '"><span class="dashicons dashicons-yes yikes-mc-api-connected"></span> ' . __( "Connected" , 'yikes-inc-easy-mailchimp-extender' ) . '</span>';
 		$api_error_response = '';
 	} else {

@@ -701,7 +701,7 @@ class Yikes_Inc_Easy_Mailchimp_Forms_Admin {
 				'dayNamesShort'     => $this->yikes_jQuery_datepicker_strip_array_indices( $wp_locale->weekday_abbrev ),
 				'dayNamesMin'       => $this->yikes_jQuery_datepicker_strip_array_indices( $wp_locale->weekday_initial ),
 				// set the date format to match the WP general date settings
-				'dateFormat'        => $this->yikes_jQuery_datepicker_date_format_php_to_js( get_option( 'date_format' ) ),
+				'dateFormat'        => $this->yikes_jQuery_datepicker_date_format_php_to_js( get_option( 'date_format' ), 'date' ),
 				// get the start of week from WP general setting
 				'firstDay'          => get_option( 'start_of_week' ),
 				// is Right to left language? default is false
@@ -737,27 +737,56 @@ class Yikes_Inc_Easy_Mailchimp_Forms_Admin {
 		/**
 		 * Convert the php date format string to a js date format
 		 */
-		public function yikes_jQuery_datepicker_date_format_php_to_js( $sFormat ) {
-			switch( $sFormat ) {
-				//Predefined WP date formats
-				case 'F j, Y':
-				case 'j F Y':
-				case 'm/d/Y':
-				case 'mm/dd/yyyy':
-				case 'MM/DD/YYYY':
-				default:
-					return( 'mm/dd/yy' );
-					break;
-				case 'Y/m/d':
-				case 'Y-m-d':
-					return( 'yy/mm/dd' );
-					break;
-				case 'd/m/Y':
-				case 'dd/mm/yyyy':
-				case 'DD/MM/YYYY':
-					return( 'dd/mm/yyyy' );
-					break;
-			 }
+		public function yikes_jQuery_datepicker_date_format_php_to_js( $sFormat, $type ) {
+			switch ( $type ) {
+					default:
+					case 'date':
+						// Standard Date Fields
+						switch ( $sFormat ) {
+							//Predefined WP date formats
+							case 'F j, Y':
+							case 'j F Y':
+							case 'm/d/Y':
+							case 'mm/dd/yyyy':
+							case 'MM/DD/YYYY':
+							default:
+								return( 'mm/dd/yy' );
+								break;
+							case 'Y/m/d':
+							case 'Y-m-d':
+								return( 'yy/mm/dd' );
+								break;
+							case 'd/m/Y':
+							case 'dd/mm/yyyy':
+							case 'DD/MM/YYYY':
+								return( 'dd/mm/yyyy' );
+								break;
+						 }
+						break;
+					// Birthday Fields
+					case 'birthday':
+						switch ( $sFormat ) {
+							//Predefined WP date formats
+							case 'F j, Y':
+							case 'j F Y':
+							case 'm/d/Y':
+							case 'mm/dd/yyyy':
+							case 'MM/DD/YYYY':
+							default:
+								return( 'mm/dd' );
+								break;
+							case 'Y/m/d':
+							case 'Y-m-d':
+								return( 'mm/dd' );
+								break;
+							case 'd/m/Y':
+							case 'dd/mm/yyyy':
+							case 'DD/MM/YYYY':
+								return( 'dd/mm' );
+								break;
+						 }
+						break;
+			}
 		}
 
 		/**
@@ -1135,7 +1164,8 @@ class Yikes_Inc_Easy_Mailchimp_Forms_Admin {
 	*	@since complete re-write
 	**/
 	function yikes_mc_validate_api_key( $input ) {
-		if( $input == '' ) {
+		if( $input === '' ) {
+			update_option( 'yikes-mc-api-validation' , 'invalid_api_key' );
 			return;
 		}
 		$api_key = trim( $input );
@@ -2726,7 +2756,7 @@ class Yikes_Inc_Easy_Mailchimp_Forms_Admin {
 			}
 			// only re-run the API request if our API key has changed
 			// initialize MailChimp Class
-			$api_key = trim( get_option( 'yikes-mc-api-key' , '' ) );
+			$api_key = yikes_get_mc_api_key();
 			$dash_position = strpos( $api_key, '-' );
 			if( $dash_position !== false ) {
 				$api_endpoint = 'https://' . substr( $api_key, $dash_position + 1 ) . '.api.mailchimp.com/2.0/lists/unsubscribe.json';
@@ -2825,7 +2855,7 @@ class Yikes_Inc_Easy_Mailchimp_Forms_Admin {
 		*	@return 	$list_id_array - array of list id's to loop over
 		*/
 		public function get_mailchimp_list_ids_on_account() {
-			$api_key = trim( get_option( 'yikes-mc-api-key' , '' ) );
+			$api_key = yikes_get_mc_api_key();
 			if( ! $api_key ) {
 				// if no api key is set/site is not connected, return an empty array
 				return array();

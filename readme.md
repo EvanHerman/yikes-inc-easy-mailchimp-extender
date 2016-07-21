@@ -74,6 +74,13 @@ $ npm install
 - title - display the title above the form (1 or 0) *(optional - defaults to 0)*
 - description - display the description above the form (1 or 0) *(optional - defaults to 0)*
 
+##### API Key Constant
+
+- A few users requested the ability to store their API key in a PHP constant, inside of wp-config.php. With version 6.1.2, users can now define a new constant inside of wp-config.php, `YIKES_MC_API_KEY`, and assign the API key there, which will then be used throughout the plugin. <em>Note: When you define the constant, you'll still need to head into the settings page and update the plugin options.</em>
+
+Example:
+`define( 'YIKES_MC_API_KEY', '12345679-us2' );`
+
 ##### CSS Ready Classes
 
 ###### 2 Column Layout

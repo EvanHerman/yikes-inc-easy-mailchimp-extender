@@ -104,7 +104,7 @@ if ( ! isset( $_POST['yikes_easy_mc_new_subscriber'] ) || ! wp_verify_nonce( $_P
 	$merge_variables['optin_time'] = current_time( 'Y-m-d H:i:s', 1 );
 
 	// Submit our form data
-	$api_key = trim( get_option( 'yikes-mc-api-key' , '' ) );
+	$api_key = yikes_get_mc_api_key();
 	$dash_position = strpos( $api_key, '-' );
 
 	// setup the end point
@@ -206,7 +206,7 @@ if ( ! isset( $_POST['yikes_easy_mc_new_subscriber'] ) || ! wp_verify_nonce( $_P
 				// missing a required field
 				case '250':
 						// get all merge variables in array, loop and str_replace error code with field name
-						$api_key = trim( get_option( 'yikes-mc-api-key' , '' ) );
+						$api_key = yikes_get_mc_api_key();
 						$dash_position = strpos( $api_key, '-' );
 						if( $dash_position !== false ) {
 							$api_endpoint = 'https://' . substr( $api_key, $dash_position + 1 ) . '.api.mailchimp.com/2.0/lists/merge-vars.json';

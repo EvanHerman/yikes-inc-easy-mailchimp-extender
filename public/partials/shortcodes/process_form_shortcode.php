@@ -24,6 +24,8 @@ function process_mailchimp_shortcode( $atts ) {
 		), $atts , 'yikes-mailchimp' )
 	);
 
+	echo yikes_get_mc_api_key();
+
 	// set globals
 	global $form_submitted, $process_submission_response;
 
@@ -790,7 +792,7 @@ function process_mailchimp_shortcode( $atts ) {
 										break;
 
 									case 'birthday':
-										$date_format = ( isset( $field['date_format'] ) ) ? $field['date_format'] : 'mm/dd';
+										$date_format = ( isset( $field['date_format'] ) ) ? strtolower( $field['date_format'] ) : 'mm/dd';
 										break;
 								}
 								// initialize the datepicker
@@ -816,7 +818,7 @@ function process_mailchimp_shortcode( $atts ) {
 											$day_names = $admin_class->yikes_jQuery_datepicker_strip_array_indices( $wp_locale->weekday );
 											$day_names_short = $admin_class->yikes_jQuery_datepicker_strip_array_indices( $wp_locale->weekday_abbrev );
 											$day_names_min = $admin_class->yikes_jQuery_datepicker_strip_array_indices( $wp_locale->weekday_initial );
-											$date_format = $admin_class->yikes_jQuery_datepicker_date_format_php_to_js( $date_format );
+											$date_format = $admin_class->yikes_jQuery_datepicker_date_format_php_to_js( $date_format, $field['type'] );
 											$first_day = get_option( 'start_of_week' );
 											$isRTL = $wp_locale->is_rtl();
 										?>
@@ -864,7 +866,7 @@ function process_mailchimp_shortcode( $atts ) {
 											</span>
 										<?php } ?>
 
-										<input <?php echo implode( ' ' , $field_array ); ?> type="text" <?php if( $field['type'] == 'date' ) { ?> data-attr-type="date" <?php } else { ?> data-attr-type="birthday" <?php } ?> placeholder="<?php echo esc_attr( $field['placeholder'] ); ?>" value="<?php if( isset( $_POST[$field['merge']] ) && $form_submitted != 1 ) { echo $_POST[$field['merge']]; } else { echo esc_attr( $default_value ); } ?>">
+										<input <?php echo implode( ' ' , $field_array ); ?> type="text" <?php if( $field['type'] == 'date' ) { ?> data-attr-type="date" <?php } else { ?> data-attr-type="birthday" <?php } ?> value="<?php if( isset( $_POST[$field['merge']] ) && $form_submitted != 1 ) { echo $_POST[$field['merge']]; } else { echo esc_attr( $default_value ); } ?>">
 
 										<!-- description -->
 										<?php if( isset( $field['description'] ) && trim( $field['description'] ) != '' ) { ?>

@@ -9,11 +9,11 @@
  * @package WordPress
  * @subpackage Component
 */
-		
+
 	// enqueue jquery qtip for our tooltip
 	wp_enqueue_script( 'jquery-qtip-tooltip', YIKES_MC_URL . 'admin/js/min/jquery.qtip.min.js' , array( 'jquery' ) );
 	wp_enqueue_style( 'jquery-qtip-style',  YIKES_MC_URL . 'admin/css/jquery.qtip.min.css' );
-	
+
 	?>
 	<script>
 		jQuery( document ).ready( function() {
@@ -22,7 +22,7 @@
 				 jQuery(this).qtip({
 					 content: {
 						 text: jQuery(this).next('.tooltiptext'),
-						 style: { 
+						 style: {
 							def: false
 						 }
 					 }
@@ -34,14 +34,14 @@
 		});
 	</script>
 	<?php
-	
+
 	// active plugins array
 	// defaults: comments / registration
 	$active_plugins = array(
 		'comment_form' => __( 'WordPress Comment Form', 'yikes-inc-easy-mailchimp-extender' ),
 		'registration_form' => __( 'WordPress Registration Form', 'yikes-inc-easy-mailchimp-extender' )
 	);
-	
+
 	$class_descriptions = array(
 		'comment_form' => '<img class="tooltip-integration-banner" src="' . YIKES_MC_URL . 'includes/images/Checkbox_Integration_Logos/wordpress-banner-logo.png" title="' . __( 'WordPress' , 'yikes-inc-easy-mailchimp-extender' ) . '">' . __( 'Enabling the WordPress core comment form opt-in checkbox will display a checkbox to your current users when leaving a comment (if they are not currently subscribed).' , 'yikes-inc-easy-mailchimp-extender' ),
 		'registration_form' => '<img class="tooltip-integration-banner" src="' . YIKES_MC_URL . 'includes/images/Checkbox_Integration_Logos/wordpress-banner-logo.png" title="' . __( 'WordPress' , 'yikes-inc-easy-mailchimp-extender' ) . '">' . __( 'Enabling the WordPress core registration form opt-in checkbox will display a checkbox to new users when registering for your site.' , 'yikes-inc-easy-mailchimp-extender' ),
@@ -51,7 +51,7 @@
 		'bbpress_forms' => '<img class="tooltip-integration-banner" src="' . YIKES_MC_URL . 'includes/images/Checkbox_Integration_Logos/bbpress-banner.png" title="' . __( 'bbPress' , 'yikes-inc-easy-mailchimp-extender' ) . '">' . __( 'Enabling the bbPress opt-in enables users who register to use the forums on your site to be automatically added to the mailing list of your choice.' , 'yikes-inc-easy-mailchimp-extender' ),
 		'contact_form_7' => '<img class="tooltip-integration-banner" src="' . YIKES_MC_URL . 'includes/images/Checkbox_Integration_Logos/cf7-banner.png" title="' . __( 'Contact Form 7' , 'yikes-inc-easy-mailchimp-extender' ) . '">' . __( 'Once the Contact Form 7 integration is active you can use our custom shortcode [yikes_mailchimp_checkbox] in your contact forms to subscribe users to a pre-selected list.' , 'yikes-inc-easy-mailchimp-extender' ),
 	);
-		
+
 	// Easy Digital Downloads
 	if( class_exists( 'Easy_Digital_Downloads' ) ) {
 		$active_plugins['easy_digital_downloads_checkout_form'] = __( 'Easy Digital Downloads Checkout', 'yikes-inc-easy-mailchimp-extender' );
@@ -72,9 +72,9 @@
 	if( is_plugin_active( 'contact-form-7/wp-contact-form-7.php' ) ) {
 		$active_plugins['contact_form_7'] = __( 'Contact Form 7', 'yikes-inc-easy-mailchimp-extender' );
 	}
-	
+
 	// store our checkbox options
-	$options = get_option( 'optin-checkbox-init' , '' );	
+	$options = get_option( 'optin-checkbox-init' , '' );
 ?>
 <h3><span><?php _e( 'Integration Settings' , 'yikes-inc-easy-mailchimp-extender' ); ?></span></h3>
 
@@ -84,21 +84,21 @@
 		if( $this->is_user_mc_api_valid_form( false ) == 'valid' ) {
 			/// Check for a transient, if not - set one up for one hour
 			if ( false === ( $list_data = get_transient( 'yikes-easy-mailchimp-list-data' ) ) ) {
-				$api_key = trim( get_option( 'yikes-mc-api-key' , '' ) );
+				$api_key = yikes_get_mc_api_key();
 				$dash_position = strpos( $api_key, '-' );
 				if( $dash_position !== false ) {
 					$api_endpoint = 'https://' . substr( $api_key, $dash_position + 1 ) . '.api.mailchimp.com/2.0/lists/list.json';
 				}
-				$list_data = wp_remote_post( $api_endpoint, array( 
-					'body' => array( 
-						'apikey' => $api_key, 
+				$list_data = wp_remote_post( $api_endpoint, array(
+					'body' => array(
+						'apikey' => $api_key,
 						'limit' => 100
 					),
 					'timeout' => 10,
 					'sslverify' => apply_filters( 'yikes-mailchimp-sslverify', true )
 				) );
 				$list_data = json_decode( wp_remote_retrieve_body( $list_data ), true );
-				if( isset( $list_data['error'] ) ) {	
+				if( isset( $list_data['error'] ) ) {
 					if( WP_DEBUG || get_option( 'yikes-mailchimp-debug-status' , '' ) == '1' ) {
 						require_once YIKES_MC_PATH . 'includes/error_log/class-yikes-inc-easy-mailchimp-error-logging.php';
 						$error_logging = new Yikes_Inc_Easy_Mailchimp_Error_Logging();
@@ -120,22 +120,22 @@
 			return;
 		}
 	?>
-	
+
 <div class="inside">
-		
+
 	<p>
 		<?php _e( 'Select which plugins or features Easy Forms for MailChimp by Yikes Inc. should integrate with. Depending on which plugins or features you choose to integrate with, an opt-in checkbox will be generated. For example, the comment form checkbox will generate a checkbox below the standard WordPress comment form to add any new commenters to a pre-determined MailChimp mailing list.' , 'yikes-inc-easy-mailchimp-extender' ); ?>
 	</p>
-		
+
 	<!-- Settings Form -->
-	<form action='options.php' method='post' id="checkbox-settings-form">		
-	
+	<form action='options.php' method='post' id="checkbox-settings-form">
+
 	<?php settings_fields( 'yikes_inc_easy_mc_checkbox_settings_page' ); ?>
-	
+
 	<ul>
-		<?php 
-			if( !empty( $active_plugins ) ) { 
-				
+		<?php
+			if( !empty( $active_plugins ) ) {
+
 				foreach( $active_plugins as $class => $value ) {
 					// echo  $class;
 					$checked = isset( $options[$class]['value'] ) ? 'checked="checked"' : '';
@@ -184,10 +184,10 @@
 										<option value="false" <?php selected( $precheck_checkbox , 'false' ); ?>><?php _e( 'No' , 'yikes-inc-easy-mailchimp-extender' ); ?></option>
 									</select>
 								</label>
-								
+
 								<!-- Interest Group -- precheck/pre-select -->
 								<div class="interest-groups-container">
-									<?php 	
+									<?php
 										if ( $selected_list != '-' && get_transient( $selected_list . '_interest_group' ) ) {
 											$interest_groupings = get_transient( $selected_list . '_interest_group' );
 											$integration_type = $class;
@@ -195,11 +195,11 @@
 										} else if( $selected_list != '-' && $list_interest_groups ) {
 											$list_id = $options[$class]['associated-list'];
 											$integration_type = $class;
-											YIKES_Inc_Easy_MailChimp_Process_Ajax::check_list_for_interest_groups( $list_id, $integration_type, true ); 
+											YIKES_Inc_Easy_MailChimp_Process_Ajax::check_list_for_interest_groups( $list_id, $integration_type, true );
 										}
 									?>
 								</div>
-								
+
 							</p>
 							<br />
 						</li>
@@ -214,9 +214,9 @@
 			}
 		?>
 	</ul>
-	
-												
+
+
 	<?php submit_button(); ?>
-									
+
 	</form>
 </div> <!-- .inside -->

@@ -1,23 +1,23 @@
-<?php 
+<?php
 	// lets confirm the user has a valid API key stored
 	if( $this->is_user_mc_api_valid_form( false ) == 'valid' ) {
 		// store the API key
-		$api_key = trim( get_option( 'yikes-mc-api-key' , '' ) );
+		$api_key = yikes_get_mc_api_key();
 		$dash_position = strpos( $api_key, '-' );
 		/// Check for a transients, if not - set them up
 		if ( false === ( $profile_info = get_transient( 'yikes-easy-mailchimp-profile-data' ) ) ) {
 			if( $dash_position !== false ) {
 				$api_endpoint = 'https://' . substr( $api_key, $dash_position + 1 ) . '.api.mailchimp.com/2.0/users/profile.json';
 			}
-			$profile_info = wp_remote_post( $api_endpoint, array( 
-				'body' => array( 
+			$profile_info = wp_remote_post( $api_endpoint, array(
+				'body' => array(
 					'apikey' => $api_key
 				),
 				'timeout' => 10,
 				'sslverify' => apply_filters( 'yikes-mailchimp-sslverify', true )
 			) );
 			$profile_info = json_decode( wp_remote_retrieve_body( $profile_info ), true );
-			if( isset( $profile_info['error'] ) ) {	
+			if( isset( $profile_info['error'] ) ) {
 				if( WP_DEBUG || get_option( 'yikes-mailchimp-debug-status' , '' ) == '1' ) {
 					require_once YIKES_MC_PATH . 'includes/error_log/class-yikes-inc-easy-mailchimp-error-logging.php';
 					$error_logging = new Yikes_Inc_Easy_Mailchimp_Error_Logging();
@@ -33,15 +33,15 @@
 			if( $dash_position !== false ) {
 				$api_endpoint = 'https://' . substr( $api_key, $dash_position + 1 ) . '.api.mailchimp.com/2.0/helper/account-details.json';
 			}
-			$account_details = wp_remote_post( $api_endpoint, array( 
-				'body' => array( 
+			$account_details = wp_remote_post( $api_endpoint, array(
+				'body' => array(
 					'apikey' => $api_key
 				),
 				'timeout' => 10,
 				'sslverify' => apply_filters( 'yikes-mailchimp-sslverify', true )
 			) );
 			$account_details = json_decode( wp_remote_retrieve_body( $account_details ), true );
-			if( isset( $account_details['error'] ) ) {	
+			if( isset( $account_details['error'] ) ) {
 				if( WP_DEBUG || get_option( 'yikes-mailchimp-debug-status' , '' ) == '1' ) {
 					require_once YIKES_MC_PATH . 'includes/error_log/class-yikes-inc-easy-mailchimp-error-logging.php';
 					$error_logging = new Yikes_Inc_Easy_Mailchimp_Error_Logging();
@@ -51,21 +51,21 @@
 				// set our transient for one hour
 				set_transient( 'yikes-easy-mailchimp-account-data', $account_details, 1 * HOUR_IN_SECONDS );
 			}
-		}		
+		}
 		if ( false === ( $account_activity = get_transient( 'yikes-easy-mailchimp-account-activity' ) ) ) {
 			// retreive our list data
 			if( $dash_position !== false ) {
 				$api_endpoint = 'https://' . substr( $api_key, $dash_position + 1 ) . '.api.mailchimp.com/2.0/helper/chimp-chatter.json';
 			}
-			$account_activity = wp_remote_post( $api_endpoint, array( 
-				'body' => array( 
+			$account_activity = wp_remote_post( $api_endpoint, array(
+				'body' => array(
 					'apikey' => $api_key
 				),
 				'timeout' => 10,
 				'sslverify' => apply_filters( 'yikes-mailchimp-sslverify', true )
 			) );
 			$account_activity = json_decode( wp_remote_retrieve_body( $account_activity ), true );
-			if( isset( $account_activity['error'] ) ) {	
+			if( isset( $account_activity['error'] ) ) {
 				if( WP_DEBUG || get_option( 'yikes-mailchimp-debug-status' , '' ) == '1' ) {
 					require_once YIKES_MC_PATH . 'includes/error_log/class-yikes-inc-easy-mailchimp-error-logging.php';
 					$error_logging = new Yikes_Inc_Easy_Mailchimp_Error_Logging();
@@ -83,11 +83,11 @@
 <div class="wrap" id="account-details">
 	<!-- Freddie Logo -->
 	<img src="<?php echo YIKES_MC_URL . 'includes/images/MailChimp_Assets/Freddie_60px.png'; ?>" alt="<?php _e( 'Freddie - MailChimp Mascot' , 'yikes-inc-easy-mailchimp-extender' ); ?>" class="yikes-mc-freddie-logo" />
-		
-	<h1><?php _e( 'Account Overview' , 'yikes-inc-easy-mailchimp-extender' ); echo ' | ' . $profile_info['username']; ?></h1>		
+
+	<h1><?php _e( 'Account Overview' , 'yikes-inc-easy-mailchimp-extender' ); echo ' | ' . $profile_info['username']; ?></h1>
 	<!-- Account Overview Page Description -->
 	<p class="yikes-easy-mc-about-text about-text"><?php _e( "Below you'll find a brief overview of account activity as well as some account and profile info." , 'yikes-inc-easy-mailchimp-extender' ); ?></p>
-	
+
 	<div id="poststuff">
 		<div id="post-body" class="metabox-holder columns-2">
 			<!-- main content -->
@@ -97,7 +97,7 @@
 						<div class="inside"> -->
 
 							<h1><?php _e( 'Chimp Chatter' , 'yikes-inc-easy-mailchimp-extender' ); ?></h1>
-							
+
 							<?php
 								$date_format = get_option( 'date_format' );
 								$time_format = get_option( 'time_format' );
@@ -114,11 +114,11 @@
 										case 'lists:import':
 											$section_class = 'chimp-chatter-positive';
 											break;
-										
+
 										case 'lists:unsubscribes':
 											$section_class = 'chimp-chatter-negative';
 											break;
-										
+
 										case 'campaigns:inbox-inspections':
 											$section_class = 'chimp-chatter-neutral';
 											break;
@@ -134,7 +134,7 @@
 												<?php echo get_date_from_gmt( $activity['update_time'], 'F jS, Y h:i a' ); ?>
 											</p>
 										</section> -->
-										
+
 										<section class="postbox yikes-easy-mc-postbox chimp-chatter-postbox <?php echo esc_attr( $section_class ); if( $x % 2 == 0 ) { echo ' even'; } ?>">
 											<div class="inside">
 												<div class="chatter-type"><?php echo ucwords( $split_type[1] ); ?></div>
@@ -148,7 +148,7 @@
 										</section>
 									<?php
 									} else {
-										if( $x == 7 ) {	
+										if( $x == 7 ) {
 											?>
 												<div id="hidden-chatter" class="yikes-easy-mc-hidden">
 											<?php
@@ -163,7 +163,7 @@
 														<?php echo get_date_from_gmt( $activity['update_time'], 'F jS, Y h:i a' ); ?>
 													</p>
 												</section> -->
-												
+
 												<section class="postbox yikes-easy-mc-postbox chimp-chatter-postbox <?php echo esc_attr( $section_class ); if( $x % 2 == 0 ) { echo ' even'; } ?>">
 													<div class="inside">
 														<div class="chatter-type"><?php echo ucwords( $split_type[1] ); ?></div>
@@ -185,11 +185,11 @@
 									$x++;
 								}
 								?>
-								
+
 								<div class="chimpchatter-button-container">
 									<a href="#" onclick="jQuery(this).parents().find('#hidden-chatter').slideToggle();jQuery(this).fadeOut();return false;" class="button-primary"><?php _e( 'View All Activity' , 'yikes-inc-easy-mailchimp-extender' ); ?></a>
 								</div>
-						
+
 						<!-- </div> -->
 						<!-- .inside -->
 					<!-- </div> -->
@@ -199,30 +199,30 @@
 			</div>
 			<!-- post-body-content -->
 			<!-- sidebar -->
-			
-			
-			
+
+
+
 			<div id="postbox-container-1" class="postbox-container">
 				<div class="meta-box-sortables">
-				
+
 					<div class="postbox yikes-easy-mc-postbox">
 						<div class="inside">
-							
+
 							<a href="https://us3.admin.mailchimp.com/" title="<?php _e( 'MailChimp Site' , 'yikes-inc-easy-mailchimp-extender' ); ?>" target="_blank">
 								<img src="<?php echo YIKES_MC_URL . 'includes/images/Welcome_Page/mailchimp-logo.png'; ?>" title="<?php _e( 'MailChimp Site' , 'yikes-inc-easy-mailchimp-extender' ); ?>" class="chimp-chatter-mailchimp-logo">
 							</a>
-							
+
 						</div>
 						<!-- .inside -->
 					</div>
-				
+
 					<div class="postbox yikes-easy-mc-postbox chimp-chatter-sidebar">
 						<div class="inside">
-							
+
 							<h2 class="account-status"><?php if( $account_details['has_activated'] == 1 ) { ?><div class="circle-account-active" title="<?php _e( "Account Active" , 'yikes-inc-easy-mailchimp-extender' ); ?>"></div><?php } else { ?><div class="circle-account-inactive" title="<?php _e( "Account Inactive" , 'yikes-inc-easy-mailchimp-extender' ); ?>"></div><?php } echo $profile_info['name']; ?> <small>(<?php echo $profile_info['role']; ?>)</small></h2>
-							
+
 							<img class="mailchimp-avatar" src="<?php echo esc_url_raw( $profile_info['avatar'] ); ?>" title="<?php echo $profile_info['username'] . ' ' . __( "MailChimp avatar" , 'yikes-inc-easy-mailchimp-extender' ); ?>">
-							
+
 							<table class="form-table" id="account-details-table">
 								<tr valign="top">
 									<td scope="row">
@@ -275,16 +275,16 @@
 									<td><a href="#" onclick="jQuery(this).hide().next().fadeIn('fast');return false;" class="button-secondary"><?php _e( 'View Link', 'yikes-inc-easy-mailchimp-extender' ); ?></a><input type="text" class="widefat mailchimp-affiliate-link" readonly value="<?php echo esc_url_raw( $account_details['affiliate_link'] ); ?>" onclick="jQuery(this).select();return false;"></td>
 								</tr>
 							</table>
-							
+
 						</div>
 						<!-- .inside -->
 					</div>
 					<!-- .postbox -->
 					<?php
 						// Generate Show Some Love!
-						$this->generate_show_some_love_container(); 
+						$this->generate_show_some_love_container();
 					?>
-					
+
 				</div>
 				<!-- .meta-box-sortables -->
 			</div>

@@ -3,7 +3,7 @@
  *		Plugin Name:       Easy Forms for MailChimp by YIKES
  *		Plugin URI:        http://www.yikesinc.com/services/yikes-inc-easy-mailchimp-extender/
  * 		Description:       YIKES Easy Forms for MailChimp links your site to MailChimp and allows you to generate and display mailing list opt-in forms anywhere on your site with ease.
- * 		Version:           6.1.1
+ * 		Version:           6.1.2
  * 		Author:            YIKES
  * 		Author URI:        http://www.yikesinc.com/
  * 		License:           GPL-3.0+
@@ -144,6 +144,18 @@ function run_yikes_inc_easy_mailchimp_extender() {
 	$plugin->run();
 }
 run_yikes_inc_easy_mailchimp_extender();
+
+/**
+ * Helper function to return our API key
+ * Support the use of a PHP constant
+ * @return string MailChimp API key from the PHP constant, or the options
+ */
+function yikes_get_mc_api_key() {
+	if ( defined( 'YIKES_MC_API_KEY' ) ) {
+		return trim( YIKES_MC_API_KEY );
+	}
+	return trim( get_option( 'yikes-mc-api-key', '' ) );
+}
 
 add_action( 'plugins_loaded', 'yikes_mailchimp_plugin_textdomain' );
 function yikes_mailchimp_plugin_textdomain() {
