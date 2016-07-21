@@ -701,7 +701,7 @@ class Yikes_Inc_Easy_Mailchimp_Forms_Admin {
 				'dayNamesShort'     => $this->yikes_jQuery_datepicker_strip_array_indices( $wp_locale->weekday_abbrev ),
 				'dayNamesMin'       => $this->yikes_jQuery_datepicker_strip_array_indices( $wp_locale->weekday_initial ),
 				// set the date format to match the WP general date settings
-				'dateFormat'        => $this->yikes_jQuery_datepicker_date_format_php_to_js( get_option( 'date_format' ) ),
+				'dateFormat'        => $this->yikes_jQuery_datepicker_date_format_php_to_js( get_option( 'date_format' ), 'date' ),
 				// get the start of week from WP general setting
 				'firstDay'          => get_option( 'start_of_week' ),
 				// is Right to left language? default is false
@@ -737,27 +737,56 @@ class Yikes_Inc_Easy_Mailchimp_Forms_Admin {
 		/**
 		 * Convert the php date format string to a js date format
 		 */
-		public function yikes_jQuery_datepicker_date_format_php_to_js( $sFormat ) {
-			switch( $sFormat ) {
-				//Predefined WP date formats
-				case 'F j, Y':
-				case 'j F Y':
-				case 'm/d/Y':
-				case 'mm/dd/yyyy':
-				case 'MM/DD/YYYY':
-				default:
-					return( 'mm/dd/yy' );
-					break;
-				case 'Y/m/d':
-				case 'Y-m-d':
-					return( 'yy/mm/dd' );
-					break;
-				case 'd/m/Y':
-				case 'dd/mm/yyyy':
-				case 'DD/MM/YYYY':
-					return( 'dd/mm/yyyy' );
-					break;
-			 }
+		public function yikes_jQuery_datepicker_date_format_php_to_js( $sFormat, $type ) {
+			switch ( $type ) {
+					default:
+					case 'date':
+						// Standard Date Fields
+						switch ( $sFormat ) {
+							//Predefined WP date formats
+							case 'F j, Y':
+							case 'j F Y':
+							case 'm/d/Y':
+							case 'mm/dd/yyyy':
+							case 'MM/DD/YYYY':
+							default:
+								return( 'mm/dd/yy' );
+								break;
+							case 'Y/m/d':
+							case 'Y-m-d':
+								return( 'yy/mm/dd' );
+								break;
+							case 'd/m/Y':
+							case 'dd/mm/yyyy':
+							case 'DD/MM/YYYY':
+								return( 'dd/mm/yyyy' );
+								break;
+						 }
+						break;
+					// Birthday Fields
+					case 'birthday':
+						switch ( $sFormat ) {
+							//Predefined WP date formats
+							case 'F j, Y':
+							case 'j F Y':
+							case 'm/d/Y':
+							case 'mm/dd/yyyy':
+							case 'MM/DD/YYYY':
+							default:
+								return( 'mm/dd' );
+								break;
+							case 'Y/m/d':
+							case 'Y-m-d':
+								return( 'mm/dd' );
+								break;
+							case 'd/m/Y':
+							case 'dd/mm/yyyy':
+							case 'DD/MM/YYYY':
+								return( 'dd/mm' );
+								break;
+						 }
+						break;
+			}
 		}
 
 		/**
