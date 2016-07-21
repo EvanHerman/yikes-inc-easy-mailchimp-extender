@@ -3,21 +3,21 @@
 	if( $this->is_user_mc_api_valid_form( false ) == 'valid' ) {
 		/// Check for a transient, if not - set one up for one hour
 		if ( false === ( $list_data = get_transient( 'yikes-easy-mailchimp-list-data' ) ) ) {
-			$api_key = trim( get_option( 'yikes-mc-api-key' , '' ) );
+			$api_key = yikes_get_mc_api_key();
 			$dash_position = strpos( $api_key, '-' );
 			if( $dash_position !== false ) {
 				$api_endpoint = 'https://' . substr( $api_key, $dash_position + 1 ) . '.api.mailchimp.com/2.0/lists/list.json';
 			}
-			$list_data = wp_remote_post( $api_endpoint, array( 
-				'body' => array( 
-					'apikey' => $api_key, 
+			$list_data = wp_remote_post( $api_endpoint, array(
+				'body' => array(
+					'apikey' => $api_key,
 					'limit' => 100
 				),
 				'timeout' => 10,
 				'sslverify' => apply_filters( 'yikes-mailchimp-sslverify', true )
 			) );
-			$list_data = json_decode( wp_remote_retrieve_body( $list_data ), true );			
-			if( isset( $list_data['error'] ) ) {	
+			$list_data = json_decode( wp_remote_retrieve_body( $list_data ), true );
+			if( isset( $list_data['error'] ) ) {
 				if( WP_DEBUG || get_option( 'yikes-mailchimp-debug-status' , '' ) == '1' ) {
 					require_once YIKES_MC_PATH . 'includes/error_log/class-yikes-inc-easy-mailchimp-error-logging.php';
 					$error_logging = new Yikes_Inc_Easy_Mailchimp_Error_Logging();
@@ -33,33 +33,33 @@
 <div class="wrap">
 	<!-- Freddie Logo -->
 	<img src="<?php echo YIKES_MC_URL . 'includes/images/MailChimp_Assets/Freddie_60px.png'; ?>" alt="<?php __( 'Freddie - MailChimp Mascot' , 'yikes-inc-easy-mailchimp-extender' ); ?>" class="yikes-mc-freddie-logo" />
-		
-	<h1>YIKES Easy Forms for MailChimp | <?php _e( 'Manage Mailing Lists' , 'yikes-inc-easy-mailchimp-extender' ); ?></h1>				
-			
+
+	<h1>YIKES Easy Forms for MailChimp | <?php _e( 'Manage Mailing Lists' , 'yikes-inc-easy-mailchimp-extender' ); ?></h1>
+
 	<!-- Settings Page Description -->
 	<p class="yikes-easy-mc-about-text about-text"><?php _e( 'Make edits to your MailChimp lists on the following page. Select a list to make edits to it.' , 'yikes-inc-easy-mailchimp-extender' ); ?></p>
-		
+
 	<?php
 		/* If the user hasn't authenticated yet, lets kill off */
 		if( get_option( 'yikes-mc-api-validation' , 'invalid_api_key' ) != 'valid_api_key' ) {
 			wp_die( '<div class="error"><p>' . sprintf( __( 'You need to connect to MailChimp before you can start creating forms. Head over to the <a href="%s" title="Settings Page">Settings Page</a> and enter your API key.', 'yikes-inc-easy-mailchimp-extender' ), esc_url_raw( admin_url( 'admin.php?page=yikes-inc-easy-mailchimp-settings' ) ) ) . '</p></div>' , 500 );
 		}
-	?>	
-		
+	?>
+
 	<!-- entire body content -->
 		<div id="poststuff">
-	
+
 			<div id="post-body" class="metabox-holder columns-2">
-			
+
 				<!-- main content -->
 				<div id="post-body-content">
-					
+
 					<div class="meta-box-sortables ui-sortable">
-						
+
 						<div class="postbox yikes-easy-mc-postbox">
-														
+
 								<table class="wp-list-table widefat fixed posts" cellspacing="0" id="yikes-easy-mc-manage-forms-table">
-		
+
 									<!-- TABLE HEAD -->
 									<thead>
 										<tr>
@@ -68,7 +68,7 @@
 										</tr>
 									</thead>
 									<!-- end header -->
-									
+
 									<!-- FOOTER -->
 									<tfoot>
 										<tr>
@@ -77,12 +77,12 @@
 										</tr>
 									</tfoot>
 									<!-- end footer -->
-									
+
 									<!-- TABLE BODY -->
 									<tbody>
-										<?php if( $list_data['total'] > 0 ) { 
+										<?php if( $list_data['total'] > 0 ) {
 												$i = 1;
-												foreach( $list_data['data'] as $list ) { 
+												foreach( $list_data['data'] as $list ) {
 										?>
 											<tr class="<?php if( $i % 2 == 0 ) { echo 'alternate'; } ?>">
 												<td class="column-columnname">
@@ -91,18 +91,18 @@
 													</a>
 													<div class="row-actions">
 														<span><a href="<?php echo esc_url_raw( add_query_arg( array( 'list-id' => $list['id'] ) , admin_url( 'admin.php?page=yikes-mailchimp-view-list' ) ) ); ?>"><?php _e( "View" , 'yikes-inc-easy-mailchimp-extender' ); ?></a></span>
-														<?php 
+														<?php
 															/*
 															*	Custom action to allow users to add additional action links
 															*	to each list. We use this in our add-ons.
 															*/
-															do_action( 'yikes-mailchimp-manage-lists-actions', $list ); 
+															do_action( 'yikes-mailchimp-manage-lists-actions', $list );
 														?>
 													</div>
 												</td>
 												<td class="column-columnname num"><?php echo $list['stats']['member_count']; ?></td>
 											</tr>
-										<?php 	
+										<?php
 												$i++;
 												}
 											} else { ?>
@@ -111,31 +111,31 @@
 											</tr>
 										<?php } ?>
 									</tbody>
-								</table> 
+								</table>
 								<!-- end table -->
-														
+
 						</div> <!-- .postbox -->
-						
+
 					</div> <!-- .meta-box-sortables .ui-sortable -->
-					
+
 				</div> <!-- post-body-content -->
-				
+
 				<!-- sidebar -->
 				<div id="postbox-container-1" class="postbox-container">
-													
+
 					<div class="meta-box-sortables">
-						
-						<?php 
+
+						<?php
 							// display, show some love container
-							$this->generate_show_some_love_container(); 
+							$this->generate_show_some_love_container();
 						?>
-						
+
 					</div> <!-- .meta-box-sortables -->
-					
+
 				</div> <!-- #postbox-container-1 .postbox-container -->
-				
+
 			</div> <!-- #post-body .metabox-holder .columns-2 -->
-			
+
 			<br class="clear">
 		</div> <!-- #poststuff -->
 </div>

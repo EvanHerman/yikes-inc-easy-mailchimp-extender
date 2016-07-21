@@ -1,6 +1,6 @@
 <?php
 	/*
-	* 	Hidden container section / content	
+	* 	Hidden container section / content
 	*
 	*	Lets run an ajax request to get all of our field data, to either pre-populate
 	*	or build our default selection arrays etc.
@@ -8,21 +8,21 @@
 	*	@since 6.0.0
 	*	Author: Yikes Inc. | https://www.yikesinc.com
 	*/
-	$api_key = trim( get_option( 'yikes-mc-api-key' , '' ) );
+	$api_key = yikes_get_mc_api_key();
 	$dash_position = strpos( $api_key, '-' );
 	if( $dash_position !== false ) {
 		$api_endpoint = 'https://' . substr( $api_key, $dash_position + 1 ) . '.api.mailchimp.com/2.0/lists/merge-vars.json';
 	}
-	$available_merge_variables = wp_remote_post( $api_endpoint, array( 
-		'body' => array( 
-			'apikey' => $api_key, 
+	$available_merge_variables = wp_remote_post( $api_endpoint, array(
+		'body' => array(
+			'apikey' => $api_key,
 			'id' => array( $form_data_array['list_id'] ),
 		),
 		'timeout' => 10,
-		'sslverify' => apply_filters( 'yikes-mailchimp-sslverify', true ) 
+		'sslverify' => apply_filters( 'yikes-mailchimp-sslverify', true )
 	) );
 	$body = json_decode( wp_remote_retrieve_body( $available_merge_variables ), true );
-	if( isset( $body['error'] ) ) {	
+	if( isset( $body['error'] ) ) {
 		if( WP_DEBUG || get_option( 'yikes-mailchimp-debug-status' , '' ) == '1' ) {
 			require_once YIKES_MC_PATH . 'includes/error_log/class-yikes-inc-easy-mailchimp-error-logging.php';
 			$error_logging = new Yikes_Inc_Easy_Mailchimp_Error_Logging();
@@ -42,7 +42,7 @@
 	</a>
 	<!-- expansion section -->
 	<div class="yikes-mc-settings-expansion-section">
-					
+
 		<!-- Single or Double Opt-in -->
 		<p class="type-container form-field-container"><!-- necessary to prevent skipping on slideToggle(); -->
 			<!-- store the label -->
@@ -50,11 +50,11 @@
 			<input type="hidden" name="field[<?php echo $merge_field_data['tag']; ?>][type]" value="<?php echo $form_data_array['field_type']; ?>" />
 			<input type="hidden" name="field[<?php echo $merge_field_data['tag']; ?>][merge]" value="<?php echo $merge_field_data['tag']; ?>" />
 			<input type="hidden" class="field-<?php echo $merge_field_data['tag']; ?>-position position-input" name="field[<?php echo $merge_field_data['tag']; ?>][position]" value="" />
-			
+
 			<?php if ( $form_data_array['field_type'] == 'radio' || $form_data_array['field_type'] == 'dropdown' ) { ?>
 				<input type="hidden" name="field[<?php echo $merge_field_data['tag']; ?>][choices]" value='<?php echo stripslashes( json_encode( $merge_field_data['choices'] ) ); ?>' />
 			<?php } ?>
-				
+
 			<table class="form-table form-field-container">
 				<!-- Placeholder -->
 				<tr valign="top">
@@ -69,8 +69,8 @@
 					</td>
 				</tr>
 				<!-- Default Value -->
-				<?php switch( $form_data_array['field_type'] ) { 
-						
+				<?php switch( $form_data_array['field_type'] ) {
+
 						default:
 						case 'text':
 						?>
@@ -85,9 +85,9 @@
 								<p class="description"><small><?php _e( "Assign a default value to populate this field with on initial page load.", 'yikes-inc-easy-mailchimp-extender' );?></small></p>
 							</td>
 							</tr>
-						<?php 
+						<?php
 							break;
-									
+
 						case 'radio':
 						?>
 							<tr valign="top">
@@ -97,7 +97,7 @@
 									</label>
 								</td>
 								<td>
-									<?php foreach( $merge_field_data['choices'] as $choice => $value ) { 
+									<?php foreach( $merge_field_data['choices'] as $choice => $value ) {
 											$pre_selected = !empty( $merge_field_data['default_choice'] ) ? $merge_field_data['default_choice'] : '0';
 									?>
 										<input type="radio" name="field[<?php echo $merge_field_data['tag']; ?>][default_choice]" value="<?php echo $choice; ?>" <?php checked( $pre_selected , $choice ); ?>><?php echo stripslashes( $value ); ?>
@@ -105,10 +105,10 @@
 									<p class="description"><small><?php _e( "Select the option that should be selected by default.", 'yikes-inc-easy-mailchimp-extender' );?></small></p>
 								</td>
 							</tr>
-											
+
 							<?php
 							break;
-									
+
 						case 'dropdown':
 							?>
 							<tr valign="top">
@@ -119,7 +119,7 @@
 								</td>
 								<td>
 									<select type="default" name="field[<?php echo $merge_field_data['tag']; ?>][default_choice]">
-										<?php foreach( $merge_field_data['choices'] as $choice => $value ) { 
+										<?php foreach( $merge_field_data['choices'] as $choice => $value ) {
 												$pre_selected = !empty( $merge_field_data['default_choice'] ) ? $merge_field_data['default_choice'] : '0';
 										?>
 											<option value="<?php echo $choice; ?>" <?php selected( $pre_selected , $choice ); ?>><?php echo stripslashes( $value ); ?></option>
@@ -128,13 +128,13 @@
 									<p class="description"><small><?php _e( "Which option should be selected by default?", 'yikes-inc-easy-mailchimp-extender' );?></small></p>
 								</td>
 							</tr>
-									
+
 						<?php
 							break;
 						?>
-									
+
 					<?php } // end switch field type ?>
-					
+
 				<!-- Additional Classes -->
 				<tr valign="top">
 					<td scope="row">
@@ -184,7 +184,7 @@
 						</td>
 					</tr>
 			</table>
-		</p>		
-												
+		</p>
+
 	</div>
 </section>

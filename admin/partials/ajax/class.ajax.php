@@ -1,16 +1,16 @@
 <?php
 	/*
 	* 	Main Ajax handler
-	* 	
+	*
 	* 	Handles many of the ajax functionality on the admin side (ie. Adding new field to form, updating fields, grabbing list data etc.)
-	*	
+	*
 	*	@since 6.0.0
 	*	Author: Yikes Inc. | https://www.yikesinc.com
 	*/
 	class YIKES_Inc_Easy_MailChimp_Process_Ajax
 	{
 
-		public function __construct() {				
+		public function __construct() {
 			// ajax send merge variable to form builder
 			add_action( 'wp_ajax_add_field_to_form', array( $this , 'send_field_to_form' ), 10 );
 			// ajax send interest group to form builder
@@ -22,8 +22,8 @@
 			// Add a new notification to a form
 			add_action( 'wp_ajax_add_notification_to_form', array( $this , 'add_notification_to_form' ), 10 , 1 );
 		}
-		
-		/* 
+
+		/*
 		*	Assign a new notification to the form
 		*	- return a single container
 		*/
@@ -34,20 +34,20 @@
 			exit();
 			wp_die();
 		}
-		
+
 		// Process our AJAX request,
 		// when the user wants to switch which form data
 		// is displayed on the dashboard
 		public function get_new_list_data() {
 			$list_id = $_POST['list_id'];
-			$api_key = trim( get_option( 'yikes-mc-api-key' , '' ) );
+			$api_key = yikes_get_mc_api_key();
 			$dash_position = strpos( $api_key, '-' );
 			if( $dash_position !== false ) {
 				$api_endpoint = 'https://' . substr( $api_key, $dash_position + 1 ) . '.api.mailchimp.com/2.0/lists/list.json';
 			}
-			$list_data = wp_remote_post( $api_endpoint, array( 
-				'body' => array( 
-					'apikey' => $api_key, 
+			$list_data = wp_remote_post( $api_endpoint, array(
+				'body' => array(
+					'apikey' => $api_key,
 					'filters' => array( 'list_id' => $list_id )
 				),
 				'timeout' => 10,
@@ -67,32 +67,32 @@
 			exit();
 			wp_die();
 		}
-		
+
 		// Process our AJAX request,
 		// when the user switches lists in the integration settings page
 		// we want to return the interest groups associated with this list,
 		// to allow users to pre-check anything they want to assign users appropriately
 		/* note: this function is called statically from the integration settings page */
 		public static function check_list_for_interest_groups( $list_id='', $integration_type='', $load=false ) {
-			if( ! $list_id ) { 	
+			if( ! $list_id ) {
 				$list_id = $_POST['list_id'];
 			}
-			if( ! $integration_type ) {	
+			if( ! $integration_type ) {
 				$integration_type = $_POST['integration'];
 			}
-			$api_key = trim( get_option( 'yikes-mc-api-key' , '' ) );
+			$api_key = yikes_get_mc_api_key();
 			// setup/check our transients
 			if ( WP_DEBUG ||  false === ( $interest_groupings = get_transient( $list_id . '_interest_group' ) ) ) {
-			  // It wasn't there, so regenerate the data and save the transient		
+			  // It wasn't there, so regenerate the data and save the transient
 				$dash_position = strpos( $api_key, '-' );
 				if( $dash_position !== false ) {
 					$api_endpoint = 'https://' . substr( $api_key, $dash_position + 1 ) . '.api.mailchimp.com/2.0/lists/interest-groupings.json';
 				}
-				$interest_groupings = wp_remote_post( $api_endpoint, array( 
-					'body' => array( 
-						'apikey' => $api_key, 
-						'id' => $list_id, 
-						'counts' => false 
+				$interest_groupings = wp_remote_post( $api_endpoint, array(
+					'body' => array(
+						'apikey' => $api_key,
+						'id' => $list_id,
+						'counts' => false
 					),
 					'timeout' => 10,
 					'sslverify' => apply_filters( 'yikes-mailchimp-sslverify', true )
@@ -118,7 +118,7 @@
 				wp_die();
 			}
 		}
-		
+
 		// Process our Ajax Request
 		// send a field to our form
 		public function send_field_to_form() {
@@ -132,7 +132,7 @@
 			exit();
 			wp_die();
 		}
-		
+
 		// send interest group to our form
 		public function send_interest_group_to_form() {
 			$form_data_array = array(
@@ -145,7 +145,7 @@
 			exit();
 			wp_die();
 		}
-	
+
 		/*
 		*	Search through multi dimensional array
 		*	and return the index ( used to find the list name assigned to a form )
@@ -168,8 +168,8 @@
 			return null;
 			}
 	  	} // end
-					
+
 	} // end class
-	
+
 	new YIKES_Inc_Easy_MailChimp_Process_Ajax;
 ?>

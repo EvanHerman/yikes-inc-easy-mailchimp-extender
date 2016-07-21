@@ -7,7 +7,7 @@
 
 		// Construction
 		public function __construct() {
-			if( get_option( 'yikes-mc-api-key' , '' ) != '' && get_option( 'yikes-mc-api-validation' , 'invalid_api_key' ) == 'valid_api_key' ) {
+			if( yikes_get_mc_api_key() != '' && get_option( 'yikes-mc-api-validation' , 'invalid_api_key' ) == 'valid_api_key' ) {
 				// hook in and display our list stats dashboard widget
 				add_action( 'wp_dashboard_setup', array( $this , 'yks_mc_add_chimp_chatter_dashboard_widget' ) , 10 );
 			}
@@ -61,7 +61,7 @@
 				// Get our list data!
 				// Check for a transient, if not - set one up for one hour
 				if ( false === ( $list_data = get_transient( 'yikes-easy-mailchimp-list-data' ) ) ) {
-					$api_key = trim( get_option( 'yikes-mc-api-key' , '' ) );
+					$api_key = yikes_get_mc_api_key();
 					$dash_position = strpos( $api_key, '-' );
 					if( $dash_position !== false ) {
 						$api_endpoint = 'https://' . substr( $api_key, $dash_position + 1 ) . '.api.mailchimp.com/2.0/lists/list.json';
@@ -122,7 +122,7 @@
 				// Get our list data!
 				// Check for a transient, if not - set one up for one hour
 				if ( false === ( $account_activity = get_transient( 'yikes-easy-mailchimp-account-activity' ) ) ) {
-					$api_key = trim( get_option( 'yikes-mc-api-key' , '' ) );
+					$api_key = yikes_get_mc_api_key();
 					$dash_position = strpos( $api_key, '-' );
 					if( $dash_position !== false ) {
 						$api_endpoint = 'https://' . substr( $api_key, $dash_position + 1 ) . '.api.mailchimp.com/2.0/helper/chimp-chatter.json';

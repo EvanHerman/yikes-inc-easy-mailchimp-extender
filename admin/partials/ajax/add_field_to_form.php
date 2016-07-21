@@ -1,14 +1,14 @@
 <?php
 	// lets run an ajax request to get all of our field data, to either prepopulate
 	// or build our default selection arrays etc.
-	$api_key = trim( get_option( 'yikes-mc-api-key' , '' ) );
+	$api_key = yikes_get_mc_api_key();
 	$dash_position = strpos( $api_key, '-' );
 	if( $dash_position !== false ) {
 		$api_endpoint = 'https://' . substr( $api_key, $dash_position + 1 ) . '.api.mailchimp.com/2.0/lists/merge-vars.json';
 	}
-	$available_merge_variables = wp_remote_post( $api_endpoint, array( 
-		'body' => array( 
-			'apikey' => $api_key, 
+	$available_merge_variables = wp_remote_post( $api_endpoint, array(
+		'body' => array(
+			'apikey' => $api_key,
 			'id' => array( $form_data_array['list_id'] ),
 		),
 		'timeout' => 10,
@@ -25,7 +25,7 @@
 			<section class="draggable" id="error-container">
 				<p><span class="dashicons dashicons-no-alt"></span> <?php printf( __( 'Error: %s', 'yikes-inc-easy-mailchimp-extender' ), $body['error'] ); ?></p>
 			</section>
-		<?php 
+		<?php
 		return;
 	}
 	// find and return the location of this merge field in the array
@@ -41,7 +41,7 @@
 	</a>
 	<!-- expansion section -->
 	<div class="yikes-mc-settings-expansion-section">
-					
+
 		<!-- Single or Double Opt-in -->
 		<p class="type-container form-field-container"><!-- necessary to prevent skipping on slideToggle(); -->
 			<!-- store the label -->
@@ -49,14 +49,14 @@
 			<input type="hidden" name="field[<?php echo $merge_field_data['tag']; ?>][type]" value="<?php echo $form_data_array['field_type']; ?>" />
 			<input type="hidden" name="field[<?php echo $merge_field_data['tag']; ?>][merge]" value="<?php echo $merge_field_data['tag']; ?>" />
 			<input type="hidden" class="field-<?php echo $merge_field_data['tag']; ?>-position position-input" name="field[<?php echo $merge_field_data['tag']; ?>][position]" value="" />
-			
+
 			<?php if ( $form_data_array['field_type'] == 'radio' || $form_data_array['field_type'] == 'dropdown' ) { ?>
 				<?php $choices = ( isset( $merge_field_data['choices'] ) ) ? esc_attr( json_encode( $merge_field_data['choices'] ) ) : ''; ?>
 				<input type="hidden" name="field[<?php echo $merge_field_data['tag']; ?>][choices]" value='<?php echo $choices; ?>' />
 			<?php } ?>
-				
+
 			<table class="form-table form-field-container">
-			
+
 					<!-- Merge Tag -->
 					<tr valign="top">
 						<td scope="row">
@@ -70,10 +70,10 @@
 					</tr>
 
 			<?php switch( $form_data_array['field_type'] ) {
-					
+
 					default:
 						break;
-						
+
 					case 'text':
 					case 'number':
 					case 'url':
@@ -87,7 +87,7 @@
 					<tr valign="top">
 						<td scope="row">
 							<label for="placeholder">
-								<?php _e( 'Placeholder' , 'yikes-inc-easy-mailchimp-extender' ); ?> 
+								<?php _e( 'Placeholder' , 'yikes-inc-easy-mailchimp-extender' ); ?>
 							</label>
 						</td>
 						<td>
@@ -95,14 +95,14 @@
 							<p class="description"><small><?php _e( "Assign a placeholder value to this field.", 'yikes-inc-easy-mailchimp-extender' );?></small></p>
 						</td>
 					</tr>
-			
-			<?php 
-					/* 
+
+			<?php
+					/*
 					*	Loop over field types and store necessary formats
 					*	( date, birthday - dateformat ; phone - phoneformat )
 					*/
 					switch( $form_data_array['field_type'] ) {
-												
+
 						/* Store the date format, for properly rendering dates on the front end */
 						case 'date':
 							$date_format = ( isset( $merge_field_data['dateformat'] ) ) ? $merge_field_data['dateformat'] : 'MM/DD/YYYY';
@@ -110,14 +110,14 @@
 								<input type="hidden" name="field[<?php echo $merge_field_data['tag']; ?>][date_format]" value="<?php echo strtolower( $merge_field_data['dateformat'] ); ?>" />
 							<?php
 						break;
-						
+
 						case 'birthday':
 							$date_format = ( isset( $merge_field_data['dateformat'] ) ) ? $merge_field_data['dateformat'] : 'MM/DD';
 							?>
 								<input type="hidden" name="field[<?php echo $merge_field_data['tag']; ?>][date_format]" value="<?php echo strtolower( $date_format ); ?>" />
 							<?php
 						break;
-						
+
 						/* Store the phone format, for properly regex pattern */
 						case 'phone':
 							?>
@@ -125,15 +125,15 @@
 							<?php
 						break;
 					}
-					
+
 					break;
-					
+
 				}
 			?>
-			
+
 				<!-- Default Value -->
-				<?php switch( $form_data_array['field_type'] ) { 
-						
+				<?php switch( $form_data_array['field_type'] ) {
+
 						default:
 						case 'text':
 						?>
@@ -146,8 +146,8 @@
 							<td>
 								<input type="text" class="widefat" name="field[<?php echo $merge_field_data['tag']; ?>][default]" <?php if( $form_data_array['field_type'] != 'url' ) { ?> value="<?php echo isset( $merge_field_data['default'] ) ? stripslashes( wp_strip_all_tags( $merge_field_data['default'] ) ) : ''; ?>" <?php } else { ?> value="<?php echo isset( $merge_field_data['default'] ) ? stripslashes( wp_strip_all_tags( esc_url_raw( $merge_field_data['default'] ) ) ) : ''; } ?>" />
 								<p class="description"><small><?php _e( "Assign a default value to populate this field with on initial page load.", 'yikes-inc-easy-mailchimp-extender' );?></small></p>
-								<?php 
-								switch( $form_data_array['field_type'] ) { 
+								<?php
+								switch( $form_data_array['field_type'] ) {
 									case 'text':
 										?>
 											<p><small class="pre-defined-tag-link"><a href="#TB_inline?width=600&height=550&inlineId=pre-defined-tag-container" class="thickbox" onclick="storeGlobalClicked( jQuery( this ) );"><?php _e( 'View Pre-Defined Tags' , 'yikes-inc-easy-mailchimp-extender' ); ?></a></small></p>
@@ -156,9 +156,9 @@
 								} ?>
 							</td>
 							</tr>
-						<?php 
+						<?php
 							break;
-																		
+
 						case 'radio':
 						?>
 							<tr valign="top">
@@ -168,9 +168,9 @@
 									</label>
 								</td>
 								<td>
-									<?php 
+									<?php
 										$x = 0;
-										foreach( $merge_field_data['choices'] as $choice => $value ) { 
+										foreach( $merge_field_data['choices'] as $choice => $value ) {
 											$pre_selected = !empty( $merge_field_data['default_choice'] ) ? $merge_field_data['default_choice'] : '0';
 									?>
 										<label>
@@ -180,10 +180,10 @@
 									<p class="description"><small><?php _e( "Select the option that should be selected by default.", 'yikes-inc-easy-mailchimp-extender' );?></small></p>
 								</td>
 							</tr>
-											
+
 							<?php
 							break;
-									
+
 						case 'dropdown':
 							?>
 							<tr valign="top">
@@ -194,7 +194,7 @@
 								</td>
 								<td>
 									<select type="default" name="field[<?php echo $merge_field_data['tag']; ?>][default_choice]">
-										<?php foreach( $merge_field_data['choices'] as $choice => $value ) { 
+										<?php foreach( $merge_field_data['choices'] as $choice => $value ) {
 												$pre_selected = ! empty( $merge_field_data['default_choice'] ) ? $merge_field_data['default_choice'] : '0';
 										?>
 											<option value="<?php echo $choice; ?>" <?php selected( $pre_selected , $choice ); ?>><?php echo stripslashes( $value ); ?></option>
@@ -203,13 +203,13 @@
 									<p class="description"><small><?php _e( "Which option should be selected by default?", 'yikes-inc-easy-mailchimp-extender' );?></small></p>
 								</td>
 							</tr>
-									
+
 						<?php
 							break;
 						?>
-									
+
 					<?php } // end switch field type ?>
-				
+
 				<!-- Field Description -->
 				<tr valign="top">
 					<td scope="row">
@@ -271,9 +271,9 @@
 						</td>
 					</tr>
 					<!-- Display Phone/Date Formats back to the user -->
-					<?php 
+					<?php
 						switch( $form_data_array['field_type'] ) {
-							
+
 							/* Store the phone format, for properly regex pattern */
 							case 'phone':
 							case 'birthday':
@@ -281,8 +281,8 @@
 							?>
 								<tr valign="top">
 									<td scope="row">
-										<label for="placeholder">		
-										<?php 
+										<label for="placeholder">
+										<?php
 											switch( $form_data_array['field_type'] ) {
 												default:
 												case 'birthday':
@@ -290,13 +290,13 @@
 													$format = $merge_field_data['dateformat'];
 													$format_name = 'date_format';
 													break;
-													
+
 												case 'date':
 													$type = __( 'Date Format' , 'yikes-inc-easy-mailchimp-extender' );
 													$format = $merge_field_data['dateformat'];
 													$format_name = 'date_format';
 													break;
-																				
+
 												case 'phone':
 													$type = __( 'Phone Format' , 'yikes-inc-easy-mailchimp-extender' );
 													$format = ( ( $merge_field_data['phoneformat'] == 'none' ) ? __( 'International', 'yikes-inc-easy-mailchimp-extender' ) : $merge_field_data['phoneformat'] );
@@ -336,7 +336,7 @@
 						</td>
 					</tr>
 			</table>
-		</p>		
-												
+		</p>
+
 	</div>
 </section>

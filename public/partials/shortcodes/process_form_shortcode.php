@@ -24,6 +24,8 @@ function process_mailchimp_shortcode( $atts ) {
 		), $atts , 'yikes-mailchimp' )
 	);
 
+	echo yikes_get_mc_api_key();
+
 	// set globals
 	global $form_submitted, $process_submission_response;
 

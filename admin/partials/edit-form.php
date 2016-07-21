@@ -59,7 +59,7 @@
 				);
 			}
 
-			$api_key = trim( get_option( 'yikes-mc-api-key' , '' ) );
+			$api_key = yikes_get_mc_api_key();
 			$dash_position = strpos( $api_key, '-' );
 
 			// Check for a transient, if not - set one up for one hour

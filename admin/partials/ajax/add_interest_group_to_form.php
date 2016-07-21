@@ -1,17 +1,17 @@
 <?php
-	$api_key = trim( get_option( 'yikes-mc-api-key' , '' ) );
+	$api_key = yikes_get_mc_api_key();
 	$dash_position = strpos( $api_key, '-' );
 	if( $dash_position !== false ) {
 		$api_endpoint = 'https://' . substr( $api_key, $dash_position + 1 ) . '.api.mailchimp.com/2.0/lists/interest-groupings.json';
 	}
 	// get the interest group data
-	$interest_groupings = wp_remote_post( $api_endpoint, array( 
-		'body' => array( 
-			'apikey' => $api_key, 
-			'id' => $form_data_array['list_id'] 
+	$interest_groupings = wp_remote_post( $api_endpoint, array(
+		'body' => array(
+			'apikey' => $api_key,
+			'id' => $form_data_array['list_id']
 		),
 		'timeout' => 10,
-		'sslverify' => apply_filters( 'yikes-mailchimp-sslverify', true ) 
+		'sslverify' => apply_filters( 'yikes-mailchimp-sslverify', true )
 	) );
 	$interest_groupings_body = json_decode( wp_remote_retrieve_body( $interest_groupings ), true );
 	if( ! is_wp_error( $interest_groupings_body ) ) {
@@ -25,7 +25,7 @@
 			<section class="draggable" id="error-container">
 				<p><span class="dashicons dashicons-no-alt"></span> <?php printf( __( 'Error: %s', 'yikes-inc-easy-mailchimp-extender' ), $interest_groupings_body['error'] ); ?></p>
 			</section>
-			<?php 
+			<?php
 			return;
 		}
 		// find and return the location of this merge field in the array
@@ -35,7 +35,7 @@
 			// store it and use it to pre-populate field data (only on initial add to form)
 			$merge_field_data = $interest_groupings_body[$index];
 		}
-	}			
+	}
 
 ?>
 <section class="draggable" id="<?php echo $form_data_array['group_id']; ?>">
@@ -46,7 +46,7 @@
 	</a>
 	<!-- expansion section -->
 	<div class="yikes-mc-settings-expansion-section">
-					
+
 		<!-- Single or Double Opt-in -->
 		<p class="type-container"><!-- necessary to prevent skipping on slideToggle(); -->
 			<!-- store the label -->
@@ -54,13 +54,13 @@
 			<input type="hidden" name="field[<?php echo $form_data_array['group_id']; ?>][type]" value="<?php echo $form_data_array['field_type']; ?>" />
 			<input type="hidden" name="field[<?php echo $form_data_array['group_id']; ?>][group_id]" value="<?php echo $form_data_array['group_id']; ?>" />
 			<input type="hidden" name="field[<?php echo $form_data_array['group_id']; ?>][groups]" value='<?php echo str_replace( '\'' , '~' , json_encode( $merge_field_data['groups'] ) ); ?>' />
-	
-				
+
+
 			<table class="form-table form-field-container">
-			
+
 				<!-- Default Value -->
-				<?php switch( $form_data_array['field_type'] ) { 
-						
+				<?php switch( $form_data_array['field_type'] ) {
+
 						default:
 						case 'radio':
 						?>
@@ -71,21 +71,21 @@
 									</label>
 								</td>
 								<td>
-									<?php $i = 0; foreach( $merge_field_data['groups'] as $interest_group ) { 
+									<?php $i = 0; foreach( $merge_field_data['groups'] as $interest_group ) {
 											$pre_selected = !empty( $merge_field_data['default_choice'] ) ? $merge_field_data['default_choice'] : '0';
 									?>
 										<input type="radio" name="field[<?php echo $form_data_array['group_id']; ?>][default_choice][]" value="<?php echo $i; ?>" <?php checked( $pre_selected , $i ); ?>><?php echo stripslashes( $interest_group['name'] ); ?>
-									<?php 
+									<?php
 										$i++;
-										} 
+										}
 									?>
 									<p class="description"><small><?php _e( "Select the option that should be selected by default.", 'yikes-inc-easy-mailchimp-extender' );?></small></p>
 								</td>
 							</tr>
-											
+
 							<?php
 							break;
-						
+
 						case 'checkboxes':
 						?>
 							<tr valign="top">
@@ -95,21 +95,21 @@
 									</label>
 								</td>
 								<td>
-									<?php $i = 0; foreach( $merge_field_data['groups'] as $interest_group ) { 
+									<?php $i = 0; foreach( $merge_field_data['groups'] as $interest_group ) {
 											$pre_selected = !empty( $merge_field_data['default_choice'] ) ? $merge_field_data['default_choice'] : '0';
 									?>
 										<input type="checkbox" name="field[<?php echo $form_data_array['group_id']; ?>][default_choice][]" value="<?php echo $i; ?>" <?php checked( $pre_selected , $i ); ?>><?php echo stripslashes( $interest_group['name'] ); ?>
-									<?php 
+									<?php
 										$i++;
-										} 
+										}
 									?>
 									<p class="description"><small><?php _e( "Select the option that should be selected by default.", 'yikes-inc-easy-mailchimp-extender' );?></small></p>
 								</td>
 							</tr>
-											
+
 							<?php
 							break;
-									
+
 						case 'dropdown':
 							?>
 							<tr valign="top">
@@ -120,7 +120,7 @@
 								</td>
 								<td>
 									<select type="default" name="field[<?php echo $form_data_array['group_id']; ?>][default_choice]">
-										<?php $i = 0; foreach( $merge_field_data['groups'] as $interest_group ) { 
+										<?php $i = 0; foreach( $merge_field_data['groups'] as $interest_group ) {
 												$pre_selected = !empty( $merge_field_data['default_choice'] ) ? $merge_field_data['default_choice'] : '0';
 										?>
 											<option value="<?php echo $i; ?>" <?php selected( $pre_selected , $i ); ?>><?php echo $interest_group['name']; ?></option>
@@ -129,13 +129,13 @@
 									<p class="description"><small><?php _e( "Which option should be selected by default?", 'yikes-inc-easy-mailchimp-extender' );?></small></p>
 								</td>
 							</tr>
-									
+
 						<?php
 							break;
 						?>
-									
+
 					<?php } // end switch field type ?>
-				
+
 				<!-- Field Description -->
 				<tr valign="top">
 					<td scope="row">
@@ -148,7 +148,7 @@
 						<p class="description"><small><?php _e( "Enter the description for the form field. This will be displayed to the user and provide some direction on how the field should be filled out or selected.", 'yikes-inc-easy-mailchimp-extender' );?></small></p>
 					</td>
 				</tr>
-				
+
 				<!-- Additional Classes -->
 				<tr valign="top">
 					<td scope="row">
@@ -210,7 +210,7 @@
 						</td>
 					</tr>
 			</table>
-		</p>		
-												
+		</p>
+
 	</div>
 </section>

@@ -71,7 +71,7 @@
 			$user_email = $_POST['user_email'];
 			$list_id = $_POST['list_id'];
 
-			$api_key = trim( get_option( 'yikes-mc-api-key' , '' ) );
+			$api_key = yikes_get_mc_api_key();
 			$dash_position = strpos( $api_key, '-' );
 			$explode_key = explode( '-' , $api_key );
 			$data_center = $explode_key[1];

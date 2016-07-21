@@ -145,6 +145,18 @@ function run_yikes_inc_easy_mailchimp_extender() {
 }
 run_yikes_inc_easy_mailchimp_extender();
 
+/**
+ * Helper function to return our API key
+ * Support the use of a PHP constant
+ * @return string MailChimp API key from the PHP constant, or the options
+ */
+function yikes_get_mc_api_key() {
+	if ( defined( 'YIKES_MC_API_KEY' ) ) {
+		return trim( YIKES_MC_API_KEY );
+	}
+	return trim( get_option( 'yikes-mc-api-key', '' ) );
+}
+
 add_action( 'plugins_loaded', 'yikes_mailchimp_plugin_textdomain' );
 function yikes_mailchimp_plugin_textdomain() {
 	load_plugin_textdomain( 'yikes-inc-easy-mailchimp-extender', false, plugin_basename( dirname( __FILE__ ) ) . '/languages' );

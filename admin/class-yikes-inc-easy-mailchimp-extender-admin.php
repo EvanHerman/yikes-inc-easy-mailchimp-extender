@@ -1164,7 +1164,8 @@ class Yikes_Inc_Easy_Mailchimp_Forms_Admin {
 	*	@since complete re-write
 	**/
 	function yikes_mc_validate_api_key( $input ) {
-		if( $input == '' ) {
+		if( $input === '' ) {
+			update_option( 'yikes-mc-api-validation' , 'invalid_api_key' );
 			return;
 		}
 		$api_key = trim( $input );
@@ -2755,7 +2756,7 @@ class Yikes_Inc_Easy_Mailchimp_Forms_Admin {
 			}
 			// only re-run the API request if our API key has changed
 			// initialize MailChimp Class
-			$api_key = trim( get_option( 'yikes-mc-api-key' , '' ) );
+			$api_key = yikes_get_mc_api_key();
 			$dash_position = strpos( $api_key, '-' );
 			if( $dash_position !== false ) {
 				$api_endpoint = 'https://' . substr( $api_key, $dash_position + 1 ) . '.api.mailchimp.com/2.0/lists/unsubscribe.json';
@@ -2854,7 +2855,7 @@ class Yikes_Inc_Easy_Mailchimp_Forms_Admin {
 		*	@return 	$list_id_array - array of list id's to loop over
 		*/
 		public function get_mailchimp_list_ids_on_account() {
-			$api_key = trim( get_option( 'yikes-mc-api-key' , '' ) );
+			$api_key = yikes_get_mc_api_key();
 			if( ! $api_key ) {
 				// if no api key is set/site is not connected, return an empty array
 				return array();
