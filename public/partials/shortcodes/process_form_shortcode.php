@@ -241,6 +241,39 @@ function process_mailchimp_shortcode( $atts ) {
 	if( ! $form_inline ) {
 		$form_inline = ( isset( $additional_form_settings['yikes-easy-mc-inline-form'] ) && $additional_form_settings['yikes-easy-mc-inline-form'] == 1 ) ? true : false;
 	}
+
+	/* If the current user is logged in, and an admin...lets display our 'Edit Form' link */
+	if( is_user_logged_in() ) {
+		if( current_user_can( apply_filters( 'yikes-mailchimp-user-role-access' , 'manage_options' ) ) ) {
+			$edit_form_link = '<span class="edit-link">';
+				$edit_form_link .= '<a class="post-edit-link" href="' . esc_url( admin_url( 'admin.php?page=yikes-mailchimp-edit-form&id=' . $form ) ) . '" title="' . __( 'Edit' , 'yikes-inc-easy-mailchimp-extender' ) . ' ' . ucwords( $form_settings['form_name'] ) . '">' . __( 'Edit Form' , 'yikes-inc-easy-mailchimp-extender' ) . '</a>';
+			$edit_form_link .= '</span>';
+			$edit_form_link = apply_filters( 'yikes-mailchimp-front-end-form-action-links', $edit_form_link, $form, ucwords( $form_settings['form_name'] ) );
+		} else {
+			$edit_form_link = '';
+		}
+	}
+
+	// ensure there is an 'email' field the user can fill out
+	// or else MailChimp throws errors at you
+	// extract our array keys
+	if( isset( $form_settings['fields'] ) && ! empty( $form_settings['fields'] ) ) {
+		$array_keys = array_keys( $form_settings['fields'] );
+		// check for EMAIL in that array
+		if( !in_array( 'EMAIL', $array_keys ) && !in_array( 'email', $array_keys ) ) {
+			return '<p>' . __( "An email field is required for all MailChimp forms. Please add an email field to this form." , 'yikes-inc-easy-mailchimp-extender' ) . '</p><p>' . $edit_form_link . '</p>';
+		}
+	} else {
+		$error = '<p>' . __( "Whoops, it looks like you forgot to assign fields to this form." , 'yikes-inc-easy-mailchimp-extender' ) . '</p>';
+		if( is_user_logged_in() ) {
+			if( current_user_can( apply_filters( 'yikes-mailchimp-user-role-access' , 'manage_options' ) ) ) {
+				return $error . $edit_form_link;
+			}
+		} else {
+			return $error;
+		}
+	}
+
 	if( $form_inline ) {
 		$field_width = (float) ( 100 / $field_count );
 		$submit_button_width = (float) ( 20 / $field_count );
@@ -268,39 +301,6 @@ function process_mailchimp_shortcode( $atts ) {
 
 	<section id="yikes-mailchimp-container-<?php echo $form_id; ?>" class="yikes-mailchimp-container yikes-mailchimp-container-<?php echo $form_id; ?> <?php echo apply_filters( 'yikes-mailchimp-form-container-class', '', $form_id ); ?>">
 	<?php
-
-		/* If the current user is logged in, and an admin...lets display our 'Edit Form' link */
-		if( is_user_logged_in() ) {
-			if( current_user_can( apply_filters( 'yikes-mailchimp-user-role-access' , 'manage_options' ) ) ) {
-				$edit_form_link = '<span class="edit-link">';
-					$edit_form_link .= '<a class="post-edit-link" href="' . esc_url( admin_url( 'admin.php?page=yikes-mailchimp-edit-form&id=' . $form ) ) . '" title="' . __( 'Edit' , 'yikes-inc-easy-mailchimp-extender' ) . ' ' . ucwords( $form_settings['form_name'] ) . '">' . __( 'Edit Form' , 'yikes-inc-easy-mailchimp-extender' ) . '</a>';
-				$edit_form_link .= '</span>';
-				$edit_form_link = apply_filters( 'yikes-mailchimp-front-end-form-action-links', $edit_form_link, $form, ucwords( $form_settings['form_name'] ) );
-			} else {
-				$edit_form_link = '';
-			}
-		}
-
-		// ensure there is an 'email' field the user can fill out
-		// or else MailChimp throws errors at you
-			// extract our array keys
-			if( isset( $form_settings['fields'] ) && ! empty( $form_settings['fields'] ) ) {
-				$array_keys = array_keys( $form_settings['fields'] );
-				// check for EMAIL in that array
-				if( !in_array( 'EMAIL', $array_keys ) && !in_array( 'email', $array_keys ) ) {
-					return '<p>' . __( "An email field is required for all MailChimp forms. Please add an email field to this form." , 'yikes-inc-easy-mailchimp-extender' ) . '</p><p>' . $edit_form_link . '</p>';
-				}
-			} else {
-				$error = '<p>' . __( "Whoops, it looks like you forgot to assign fields to this form." , 'yikes-inc-easy-mailchimp-extender' ) . '</p>';
-				if( is_user_logged_in() ) {
-					if( current_user_can( apply_filters( 'yikes-mailchimp-user-role-access' , 'manage_options' ) ) ) {
-						return $error . $edit_form_link;
-					}
-				} else {
-					return $error;
-				}
-			}
-
 		/*
 		*  pre-form action hooks
 		*  check readme for usage examples
@@ -361,6 +361,10 @@ function process_mailchimp_shortcode( $atts ) {
 			<form id="<?php echo sanitize_title( $form_settings['form_name'] ); ?>-<?php echo $form_id; ?>" class="yikes-easy-mc-form yikes-easy-mc-form-<?php echo $form_id . ' '; if ( $form_inline )  { echo 'yikes-mailchimp-form-inline '; } echo ' ' . apply_filters( 'yikes-mailchimp-form-class', $form_classes, $form_id ); if( !empty( $_POST ) && $form_submitted == 1 && $form_settings['submission_settings']['hide_form_post_signup'] == 1 ) { echo ' yikes-easy-mc-display-none'; } ?>" action="" method="POST" data-attr-form-id="<?php echo $form_id; ?>">
 
 				<?php
+				// Set a default constant for hidden fields
+				$hidden_label_count = 0;
+
+				// Loop over our form fields
 				foreach( $form_settings['fields'] as $field ) {
 						// input array
 						$field_array = array();
@@ -427,7 +431,8 @@ function process_mailchimp_shortcode( $atts ) {
 						}
 
 						if( isset( $field['hide-label'] ) ) {
-							if( $field['hide-label'] == 1 ) {
+							if( absint( $field['hide-label'] ) === 1 ) {
+								$hidden_label_count++;
 								$custom_classes[] = 'field-no-label';
 							}
 						}
@@ -1167,7 +1172,13 @@ function process_mailchimp_shortcode( $atts ) {
 				<!-- Submit Button -->
 				<?php
 					if( $form_inline ) {
-						echo '<label class="empty-form-inline-label submit-button-inline-label"><span class="empty-label">&nbsp;</span>';
+						$submit_button_label_classes = array( 'empty-label' );
+						// If the number of fields, is equal to the hidden label count, add our class
+						// eg: All field labels are set to hidden.
+						if ( absint( $field_count ) === absint( $hidden_label_count ) ) {
+							$submit_button_label_classes[] = 'labels-hidden';
+						}
+						echo '<label class="empty-form-inline-label submit-button-inline-label"><span class="' . implode( ' ', $submit_button_label_classes ) . '">&nbsp;</span>';
 					}
 					// display the image or text based button
 					if( $submit_button_type == 'text' ) {
