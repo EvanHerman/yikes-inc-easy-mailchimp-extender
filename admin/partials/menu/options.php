@@ -76,7 +76,7 @@
 				} else if( isset( $_GET['error_log_created'] ) && $_GET['error_log_created'] == 'false' ) {
 					?>
 					<div class="error">
-						<p><?php _e( urldecode( $_GET['error_message'] ) , 'yikes-inc-easy-mailchimp-extender' ); ?></p>
+						<p><?php echo esc_attr( urldecode( $_GET['error_message'] ) , 'yikes-inc-easy-mailchimp-extender' ); ?></p>
 					</div>
 					<?php
 				}

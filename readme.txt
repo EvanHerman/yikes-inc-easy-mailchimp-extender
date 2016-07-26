@@ -4,7 +4,7 @@ Donate link: https://yikesplugins.com/?utm_source=wp_plugin_repo&utm_medium=dona
 Tags: MailChimp, MailChimp forms, MailChimp lists, opt-in forms, sign up form, MailChimp, email, forms, mailing lists, marketing, newsletter, sign up
 Requires at least: 4.0
 Tested up to: 4.5
-Stable tag: 6.1.2
+Stable tag: 6.1.3
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -234,6 +234,10 @@ Below you'll find a complete list of the hooks and filters available in Easy For
 * yikes-mailchimp-list-interest-groups-metabox - action hook allowing users to add additional content inside of the interest groups metabox on the view list page.
 
 == Changelog ==
+
+= Easy Forms for MailChimp 6.1.3 - July 26th, 2016 =
+* Minor security patch - Thanks goes to the Wordfence Research Team for locating and disclosing the issue.
+* Cleared API/Account transient data when API key has changed.
 
 = Easy Forms for MailChimp 6.1.2 - July 21st, 2016 =
 * Fixed incorrect date format on date picker for birthday fields (Front end).

@@ -41,13 +41,6 @@ class Yikes_Inc_Easy_Mailchimp_Extender_Public {
 	public function __construct( $yikes_inc_easy_mailchimp_extender, $version ) {
 		$this->yikes_inc_easy_mailchimp_extender = $yikes_inc_easy_mailchimp_extender;
 		$this->version = $version;
-		/**
-		 * 	Define version of this plugin
-		 * 	@since 6.0.0
-		 */
-		if ( ! defined( 'YIKES_MC_VERSION' ) ) {
-			define( 'YIKES_MC_VERSION' , $version );
-		}
 		/*
 		*	Include our helper functions
 		*	@since 6.0.3.4

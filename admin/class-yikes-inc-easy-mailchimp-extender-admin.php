@@ -1189,6 +1189,8 @@ class Yikes_Inc_Easy_Mailchimp_Forms_Admin {
 			$body = json_decode( wp_remote_retrieve_body( $api_key_response ), true );
 			if( isset( $body['msg'] ) && $body['msg'] == "Everything's Chimpy!" ) {
 				update_option( 'yikes-mc-api-validation' , 'valid_api_key' );
+				// Clear the API key transient data
+				$this->delete_yikes_mailchimp_transients();
 			}
 		}  else {
 			require_once YIKES_MC_PATH . 'includes/error_log/class-yikes-inc-easy-mailchimp-error-logging.php';
@@ -3010,6 +3012,24 @@ class Yikes_Inc_Easy_Mailchimp_Forms_Admin {
 				ob_get_clean();
 			}
 			echo wp_kses_post( $ad_content );
+		}
+
+		/***
+		 * Helper function to clear out transients stored by this plugin
+		 *
+		 * Mainly used when the API key is altered, changed or removed.
+		 * @since 6.1.3
+		 */
+		public function delete_yikes_mailchimp_transients() {
+			/* Clear All Transient Data */
+			// Delete list data transient data
+			delete_transient( 'yikes-easy-mailchimp-list-data' );
+			// Delete list account data transient data
+			delete_transient( 'yikes-easy-mailchimp-account-data' );
+			// Delete profile data transient data
+			delete_transient( 'yikes-easy-mailchimp-profile-data' );
+			// Delete account activity transient data
+			delete_transient( 'yikes-easy-mailchimp-account-activity' );
 		}
 
 }
