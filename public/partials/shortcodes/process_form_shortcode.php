@@ -361,13 +361,15 @@ function process_mailchimp_shortcode( $atts ) {
 			<form id="<?php echo sanitize_title( $form_settings['form_name'] ); ?>-<?php echo $form_id; ?>" class="yikes-easy-mc-form yikes-easy-mc-form-<?php echo $form_id . ' '; if ( $form_inline )  { echo 'yikes-mailchimp-form-inline '; } echo ' ' . apply_filters( 'yikes-mailchimp-form-class', $form_classes, $form_id ); if( !empty( $_POST ) && $form_submitted == 1 && $form_settings['submission_settings']['hide_form_post_signup'] == 1 ) { echo ' yikes-easy-mc-display-none'; } ?>" action="" method="POST" data-attr-form-id="<?php echo $form_id; ?>">
 
 				<?php
+				// Set a default constant for hidden fields
+				$hidden_label_count = 0;
+
+				// Loop over our form fields
 				foreach( $form_settings['fields'] as $field ) {
 						// input array
 						$field_array = array();
 						// label array
 						$label_array = array();
-						// Set a default constant for hidden fields
-						$hidden_label = false;
 						// label classes array
 						$label_class_array = array();
 						if( $field['additional-classes'] != '' ) {
@@ -429,8 +431,8 @@ function process_mailchimp_shortcode( $atts ) {
 						}
 
 						if( isset( $field['hide-label'] ) ) {
-							if( $field['hide-label'] == 1 ) {
-								$hidden_label = true;
+							if( absint( $field['hide-label'] ) === 1 ) {
+								$hidden_label_count++;
 								$custom_classes[] = 'field-no-label';
 							}
 						}
@@ -1171,7 +1173,9 @@ function process_mailchimp_shortcode( $atts ) {
 				<?php
 					if( $form_inline ) {
 						$submit_button_label_classes = array( 'empty-label' );
-						if ( $hidden_label ) {
+						// If the number of fields, is equal to the hidden label count, add our class
+						// eg: All field labels are set to hidden.
+						if ( absint( $field_count ) === absint( $hidden_label_count ) ) {
 							$submit_button_label_classes[] = 'labels-hidden';
 						}
 						echo '<label class="empty-form-inline-label submit-button-inline-label"><span class="' . implode( ' ', $submit_button_label_classes ) . '">&nbsp;</span>';
