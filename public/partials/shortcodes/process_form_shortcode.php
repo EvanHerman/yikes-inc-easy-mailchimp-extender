@@ -1174,7 +1174,7 @@ function process_mailchimp_shortcode( $atts ) {
 						if ( $hidden_label ) {
 							$submit_button_label_classes[] = 'labels-hidden';
 						}
-						echo '<label class="empty-form-inline-label submit-button-inline-label"><span class="' . explode( ' ', $submit_button_label_classes ) . '">&nbsp;</span>';
+						echo '<label class="empty-form-inline-label submit-button-inline-label"><span class="' . implode( ' ', $submit_button_label_classes ) . '">&nbsp;</span>';
 					}
 					// display the image or text based button
 					if( $submit_button_type == 'text' ) {
