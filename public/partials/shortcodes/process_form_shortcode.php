@@ -366,6 +366,8 @@ function process_mailchimp_shortcode( $atts ) {
 						$field_array = array();
 						// label array
 						$label_array = array();
+						// Set a default constant for hidden fields
+						$hidden_label = false;
 						// label classes array
 						$label_class_array = array();
 						if( $field['additional-classes'] != '' ) {
@@ -428,6 +430,7 @@ function process_mailchimp_shortcode( $atts ) {
 
 						if( isset( $field['hide-label'] ) ) {
 							if( $field['hide-label'] == 1 ) {
+								$hidden_label = true;
 								$custom_classes[] = 'field-no-label';
 							}
 						}
@@ -1167,7 +1170,11 @@ function process_mailchimp_shortcode( $atts ) {
 				<!-- Submit Button -->
 				<?php
 					if( $form_inline ) {
-						echo '<label class="empty-form-inline-label submit-button-inline-label"><span class="empty-label labels-hidden">&nbsp;</span>';
+						$submit_button_label_classes = array( 'empty-label' );
+						if ( $hidden_label ) {
+							$submit_button_label_classes[] = 'labels-hidden';
+						}
+						echo '<label class="empty-form-inline-label submit-button-inline-label"><span class="' . explode( ' ', $submit_button_label_classes ) . '">&nbsp;</span>';
 					}
 					// display the image or text based button
 					if( $submit_button_type == 'text' ) {
