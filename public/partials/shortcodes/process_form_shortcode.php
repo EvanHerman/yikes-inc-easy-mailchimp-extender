@@ -241,6 +241,39 @@ function process_mailchimp_shortcode( $atts ) {
 	if( ! $form_inline ) {
 		$form_inline = ( isset( $additional_form_settings['yikes-easy-mc-inline-form'] ) && $additional_form_settings['yikes-easy-mc-inline-form'] == 1 ) ? true : false;
 	}
+
+	/* If the current user is logged in, and an admin...lets display our 'Edit Form' link */
+	if( is_user_logged_in() ) {
+		if( current_user_can( apply_filters( 'yikes-mailchimp-user-role-access' , 'manage_options' ) ) ) {
+			$edit_form_link = '<span class="edit-link">';
+				$edit_form_link .= '<a class="post-edit-link" href="' . esc_url( admin_url( 'admin.php?page=yikes-mailchimp-edit-form&id=' . $form ) ) . '" title="' . __( 'Edit' , 'yikes-inc-easy-mailchimp-extender' ) . ' ' . ucwords( $form_settings['form_name'] ) . '">' . __( 'Edit Form' , 'yikes-inc-easy-mailchimp-extender' ) . '</a>';
+			$edit_form_link .= '</span>';
+			$edit_form_link = apply_filters( 'yikes-mailchimp-front-end-form-action-links', $edit_form_link, $form, ucwords( $form_settings['form_name'] ) );
+		} else {
+			$edit_form_link = '';
+		}
+	}
+
+	// ensure there is an 'email' field the user can fill out
+	// or else MailChimp throws errors at you
+	// extract our array keys
+	if( isset( $form_settings['fields'] ) && ! empty( $form_settings['fields'] ) ) {
+		$array_keys = array_keys( $form_settings['fields'] );
+		// check for EMAIL in that array
+		if( !in_array( 'EMAIL', $array_keys ) && !in_array( 'email', $array_keys ) ) {
+			return '<p>' . __( "An email field is required for all MailChimp forms. Please add an email field to this form." , 'yikes-inc-easy-mailchimp-extender' ) . '</p><p>' . $edit_form_link . '</p>';
+		}
+	} else {
+		$error = '<p>' . __( "Whoops, it looks like you forgot to assign fields to this form." , 'yikes-inc-easy-mailchimp-extender' ) . '</p>';
+		if( is_user_logged_in() ) {
+			if( current_user_can( apply_filters( 'yikes-mailchimp-user-role-access' , 'manage_options' ) ) ) {
+				return $error . $edit_form_link;
+			}
+		} else {
+			return $error;
+		}
+	}
+
 	if( $form_inline ) {
 		$field_width = (float) ( 100 / $field_count );
 		$submit_button_width = (float) ( 20 / $field_count );
@@ -268,39 +301,6 @@ function process_mailchimp_shortcode( $atts ) {
 
 	<section id="yikes-mailchimp-container-<?php echo $form_id; ?>" class="yikes-mailchimp-container yikes-mailchimp-container-<?php echo $form_id; ?> <?php echo apply_filters( 'yikes-mailchimp-form-container-class', '', $form_id ); ?>">
 	<?php
-
-		/* If the current user is logged in, and an admin...lets display our 'Edit Form' link */
-		if( is_user_logged_in() ) {
-			if( current_user_can( apply_filters( 'yikes-mailchimp-user-role-access' , 'manage_options' ) ) ) {
-				$edit_form_link = '<span class="edit-link">';
-					$edit_form_link .= '<a class="post-edit-link" href="' . esc_url( admin_url( 'admin.php?page=yikes-mailchimp-edit-form&id=' . $form ) ) . '" title="' . __( 'Edit' , 'yikes-inc-easy-mailchimp-extender' ) . ' ' . ucwords( $form_settings['form_name'] ) . '">' . __( 'Edit Form' , 'yikes-inc-easy-mailchimp-extender' ) . '</a>';
-				$edit_form_link .= '</span>';
-				$edit_form_link = apply_filters( 'yikes-mailchimp-front-end-form-action-links', $edit_form_link, $form, ucwords( $form_settings['form_name'] ) );
-			} else {
-				$edit_form_link = '';
-			}
-		}
-
-		// ensure there is an 'email' field the user can fill out
-		// or else MailChimp throws errors at you
-			// extract our array keys
-			if( isset( $form_settings['fields'] ) && ! empty( $form_settings['fields'] ) ) {
-				$array_keys = array_keys( $form_settings['fields'] );
-				// check for EMAIL in that array
-				if( !in_array( 'EMAIL', $array_keys ) && !in_array( 'email', $array_keys ) ) {
-					return '<p>' . __( "An email field is required for all MailChimp forms. Please add an email field to this form." , 'yikes-inc-easy-mailchimp-extender' ) . '</p><p>' . $edit_form_link . '</p>';
-				}
-			} else {
-				$error = '<p>' . __( "Whoops, it looks like you forgot to assign fields to this form." , 'yikes-inc-easy-mailchimp-extender' ) . '</p>';
-				if( is_user_logged_in() ) {
-					if( current_user_can( apply_filters( 'yikes-mailchimp-user-role-access' , 'manage_options' ) ) ) {
-						return $error . $edit_form_link;
-					}
-				} else {
-					return $error;
-				}
-			}
-
 		/*
 		*  pre-form action hooks
 		*  check readme for usage examples
