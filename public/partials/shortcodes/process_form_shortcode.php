@@ -1167,7 +1167,7 @@ function process_mailchimp_shortcode( $atts ) {
 				<!-- Submit Button -->
 				<?php
 					if( $form_inline ) {
-						echo '<label class="empty-form-inline-label submit-button-inline-label"><span class="empty-label">&nbsp;</span>';
+						echo '<label class="empty-form-inline-label submit-button-inline-label"><span class="empty-label labels-hidden">&nbsp;</span>';
 					}
 					// display the image or text based button
 					if( $submit_button_type == 'text' ) {
