@@ -238,6 +238,8 @@ Below you'll find a complete list of the hooks and filters available in Easy For
 = Easy Forms for MailChimp 6.1.3 - July 26th, 2016 =
 * Minor security patch - Thanks goes to the Wordfence Research Team for locating and disclosing the issue.
 * Cleared API/Account transient data when API key has changed.
+* Refactored our shortcode function to abort early, when no fields are present (inline or not).
+* Added `labels-hidden` class to the submit button `<span></span>` element so we can better style inline forms when <strong>all</strong> labels are hidden.
 
 = Easy Forms for MailChimp 6.1.2 - July 21st, 2016 =
 * Fixed incorrect date format on date picker for birthday fields (Front end).
@@ -654,6 +656,13 @@ We have added brand new functionality, allowing users to easily customize forms 
 
 
 == Upgrade Notice ==
+
+= Easy Forms for MailChimp 6.1.3 - July 26th, 2016 =
+
+* Minor security patch - Thanks goes to the Wordfence Research Team for locating and disclosing the issue.
+* Cleared API/Account transient data when API key has changed.
+* Refactored our shortcode function to abort early, when no fields are present (inline or not).
+* Added `labels-hidden` class to the submit button `<span></span>` element so we can better style inline forms when <strong>all</strong> labels are hidden.
 
 = Easy Forms for MailChimp 6.1.2 - July 21st, 2016 =
 
