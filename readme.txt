@@ -4,7 +4,7 @@ Donate link: https://yikesplugins.com/?utm_source=wp_plugin_repo&utm_medium=dona
 Tags: MailChimp, MailChimp forms, MailChimp lists, opt-in forms, sign up form, MailChimp, email, forms, mailing lists, marketing, newsletter, sign up
 Requires at least: 4.0
 Tested up to: 4.5
-Stable tag: 6.1.3
+Stable tag: 6.1.4
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 

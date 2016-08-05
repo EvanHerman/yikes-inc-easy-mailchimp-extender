@@ -379,23 +379,6 @@ class Yikes_Inc_Easy_Mailchimp_Forms_Admin {
 
 			$yikes_plugin_support_url = 'https://yikesplugins.com';
 
-			if( $license != 'plugin-core' ) {
-				$split_license = explode( '|', $license );
-				// first let's check that the license key is actually active
-				$is_license_key_active = wp_remote_post( esc_url( $yikes_plugin_support_url ), array(
-					'action' => 'check_license',
-					'product_name' => urlencode( str_replace( '-', '', $split_license[1] ) . 'for Easy MailChimp' ),
-					'license' => $split_license[0],
-				) );
-
-				$response_body =  wp_remote_retrieve_body( $is_license_key_active );
-				if( $response_body ) {
-					if( $response_body->status != 'valid' ) {
-						wp_die( 'Invalid License Key...' );
-					}
-				}
-			}
-
 			// Call the custom API.
 			$response = wp_remote_post( esc_url( $yikes_plugin_support_url ), array(
 				'timeout'   => 30,

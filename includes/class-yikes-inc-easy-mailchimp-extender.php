@@ -62,7 +62,7 @@ class Yikes_Inc_Easy_Mailchimp_Extender {
 	 */
 	public function __construct() {
 		$this->yikes_inc_easy_mailchimp_extender = 'yikes-inc-easy-mailchimp-extender';
-		$this->version = '6.1.2';
+		$this->version = YIKES_MC_VERSION;
 		$this->load_dependencies();
 		$this->define_admin_hooks();
 		$this->define_public_hooks();
