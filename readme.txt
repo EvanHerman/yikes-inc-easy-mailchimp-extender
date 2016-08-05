@@ -4,7 +4,7 @@ Donate link: https://yikesplugins.com/?utm_source=wp_plugin_repo&utm_medium=dona
 Tags: MailChimp, MailChimp forms, MailChimp lists, opt-in forms, sign up form, MailChimp, email, forms, mailing lists, marketing, newsletter, sign up
 Requires at least: 4.0
 Tested up to: 4.5
-Stable tag: 6.1.3
+Stable tag: 6.1.4
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -696,7 +696,7 @@ We have added brand new functionality, allowing users to easily customize forms 
 
 = Easy Forms for MailChimp 6.0.5.5 - April 5th, 2016 =
 
-* Fixed icompatability with the avada theme options page.
+* Fixed incompatibility with the avada theme options page.
 * Removed the admin dashboard widgets for non-admins. Note: To alter, use the `yikes-mailchimp-user-role-access` filter.
 
 = Easy Forms for MailChimp 6.0.5.4 - March 30th, 2016 =
