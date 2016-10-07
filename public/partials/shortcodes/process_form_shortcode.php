@@ -4,25 +4,24 @@
 function process_mailchimp_shortcode( $atts ) {
 
 	// Attributes
-	extract( shortcode_atts(
+	$atts = shortcode_atts(
 		array(
-			'form' => '',
-			'submit' => 'Submit',
-			'title' => '0',
-			'custom_title' => '',
-			'description' => '0',
-			'custom_description' => '',
-			'ajax' => '',
-			'recaptcha' => '', // manually set googles recptcha state
-			'recaptcha_lang' => '', // manually set the recaptcha language in the shortcode - also available is the yikes-mailchimp-recaptcha-language filter
-			'recaptcha_type' => '', // manually set the recaptcha type - audio/image - default image
-			'recaptcha_theme' => '', // manually set the recaptcha theme - light/dark - default light
-			'recaptcha_size' => '', // set the recaptcha size - normal/compact - default normal
-			'recaptcha_data_callback' => '', // set a custom js callback function to run after a successful recaptcha response - default none
+			'form'                       => '',
+			'submit'                     => 'Submit',
+			'title'                      => '0',
+			'custom_title'               => '',
+			'description'                => '0',
+			'custom_description'         => '',
+			'ajax'                       => '',
+			'recaptcha'                  => '', // manually set googles recptcha state
+			'recaptcha_lang'             => '', // manually set the recaptcha language in the shortcode - also available is the yikes-mailchimp-recaptcha-language filter
+			'recaptcha_type'             => '', // manually set the recaptcha type - audio/image - default image
+			'recaptcha_theme'            => '', // manually set the recaptcha theme - light/dark - default light
+			'recaptcha_size'             => '', // set the recaptcha size - normal/compact - default normal
+			'recaptcha_data_callback'    => '', // set a custom js callback function to run after a successful recaptcha response - default none
 			'recaptcha_expired_callback' => '', // set a custom js callback function to run after the recaptcha has expired - default none
-			'inline' => '0',
-		), $atts , 'yikes-mailchimp' )
-	);
+			'inline'                     => '0',
+		), $atts, 'yikes-mailchimp' );
 
 	// set globals
 	global $form_submitted, $process_submission_response;
@@ -36,13 +35,13 @@ function process_mailchimp_shortcode( $atts ) {
 	}
 
 	// if the user forgot to specify a form ID, lets kill of and warn them.
-	if( ! $form ) {
+	if( ! $atts['form'] ) {
 		return __( 'Whoops, it looks like you forgot to specify a form to display.', 'yikes-inc-easy-mailchimp-extender' );
 	}
 
 	global $wpdb;
 	// return it as an array, so we can work with it to build our form below
-	$form_results = $wpdb->get_results( 'SELECT * FROM ' . $wpdb->prefix . 'yikes_easy_mc_forms WHERE id = ' . $form . '', ARRAY_A );
+	$form_results = $wpdb->get_results( 'SELECT * FROM ' . $wpdb->prefix . 'yikes_easy_mc_forms WHERE id = ' . $atts['form'] . '', ARRAY_A );
 
 	// confirm we have some results, or return an error
 	if( !$form_results ) {
@@ -86,7 +85,7 @@ function process_mailchimp_shortcode( $atts ) {
 				'size' => $size,
 				'success_callback' => $data_callback,
 				'expired_callback' => $expired_callback,
-			), $form );
+			), $atts['form'] );
 			// enqueue Google recaptcha JS
 			wp_register_script( 'google-recaptcha-js' , 'https://www.google.com/recaptcha/api.js?hl=' . $recaptcha_shortcode_params['language'] . '&onload=renderReCaptchaCallback&render=explicit', array( 'jquery' ) , 'all' );
 			wp_enqueue_script( 'google-recaptcha-js' );
@@ -246,9 +245,9 @@ function process_mailchimp_shortcode( $atts ) {
 	if( is_user_logged_in() ) {
 		if( current_user_can( apply_filters( 'yikes-mailchimp-user-role-access' , 'manage_options' ) ) ) {
 			$edit_form_link = '<span class="edit-link">';
-				$edit_form_link .= '<a class="post-edit-link" href="' . esc_url( admin_url( 'admin.php?page=yikes-mailchimp-edit-form&id=' . $form ) ) . '" title="' . __( 'Edit' , 'yikes-inc-easy-mailchimp-extender' ) . ' ' . ucwords( $form_settings['form_name'] ) . '">' . __( 'Edit Form' , 'yikes-inc-easy-mailchimp-extender' ) . '</a>';
+			$edit_form_link .= '<a class="post-edit-link" href="' . esc_url( admin_url( 'admin.php?page=yikes-mailchimp-edit-form&id=' . $atts['form'] ) ) . '" title="' . __( 'Edit' , 'yikes-inc-easy-mailchimp-extender' ) . ' ' . ucwords( $form_settings['form_name'] ) . '">' . __( 'Edit Form' , 'yikes-inc-easy-mailchimp-extender' ) . '</a>';
 			$edit_form_link .= '</span>';
-			$edit_form_link = apply_filters( 'yikes-mailchimp-front-end-form-action-links', $edit_form_link, $form, ucwords( $form_settings['form_name'] ) );
+			$edit_form_link = apply_filters( 'yikes-mailchimp-front-end-form-action-links', $edit_form_link, $atts['form'], ucwords( $form_settings['form_name'] ) );
 		} else {
 			$edit_form_link = '';
 		}
@@ -257,6 +256,7 @@ function process_mailchimp_shortcode( $atts ) {
 	// ensure there is an 'email' field the user can fill out
 	// or else MailChimp throws errors at you
 	// extract our array keys
+	// @todo Remove array_keys() and in_array() usage here.
 	if( isset( $form_settings['fields'] ) && ! empty( $form_settings['fields'] ) ) {
 		$array_keys = array_keys( $form_settings['fields'] );
 		// check for EMAIL in that array
@@ -311,12 +311,12 @@ function process_mailchimp_shortcode( $atts ) {
 		*	Set a custom title using custom_title="lorem ipsum" parameter in the shortcode
 		*	- This takes precedence over the title set
 		*/
-		if( ! empty( $title ) && $title == 1 && isset( $atts['custom_title'] ) ) {
+		if( ! empty( $atts['title'] ) && $atts['title'] == 1 && isset( $atts['custom_title'] ) ) {
 			echo '<h3 class="yikes-mailchimp-form-title yikes-mailchimp-form-title-'.$form_id.'">' . apply_filters( 'yikes-mailchimp-form-title', apply_filters( 'the_title', $atts['custom_title'] ), $form_id ) . '</h3>';
 		} else {
 			// display the form description if the user
 			// has specified to do so
-			if( ! empty( $title ) && $title == 1 ) {
+			if( ! empty( $atts['title'] ) && $atts['title'] == 1 ) {
 				echo '<h3 class="yikes-mailchimp-form-title yikes-mailchimp-form-title-'.$form_id.'">' . apply_filters( 'yikes-mailchimp-form-title', apply_filters( 'the_title', $form_settings['form_name'] ), $form_id ) . '</h3>';
 			}
 		}
@@ -325,12 +325,12 @@ function process_mailchimp_shortcode( $atts ) {
 		*	Allow users to specify a custom description for this form, no html support
 		*	@since 6.0.3.8
 		*/
-		if( ! empty( $description ) && $description == 1 && isset( $atts['custom_description'] ) ) {
+		if( ! empty( $atts['description'] ) && $atts['description'] == 1 && isset( $atts['custom_description'] ) ) {
 			echo '<section class="yikes-mailchimp-form-description yikes-mailchimp-form-description-'.$form_id.'">' . apply_filters( 'yikes-mailchimp-frontend-content', apply_filters( 'yikes-mailchimp-form-description', $atts['custom_description'], $form_id ) ) . '</section>';
 		} else {
 			// display the form description if the user
 			// has specified to do so
-			if( ! empty( $description ) && $description == 1 ) {
+			if( ! empty( $atts['description'] ) && $atts['description'] == 1 ) {
 				echo '<section class="yikes-mailchimp-form-description yikes-mailchimp-form-description-'.$form_id.'">' . apply_filters( 'yikes-mailchimp-frontend-content', apply_filters( 'yikes-mailchimp-form-description', $form_settings['form_description'], $form_id ) ) . '</section>';
 			}
 		}
@@ -1221,7 +1221,7 @@ function process_mailchimp_shortcode( $atts ) {
 					array(
 						'impressions' => $form_data['impressions'],
 					),
-					array( 'ID' => $form ),
+					array( 'ID' => $atts['form'] ),
 					array(
 						'%d',	// send welcome email
 					),
