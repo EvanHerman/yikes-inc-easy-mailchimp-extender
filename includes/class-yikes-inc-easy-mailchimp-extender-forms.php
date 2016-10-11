@@ -43,7 +43,7 @@ class Yikes_Inc_Easy_MailChimp_Extender_Forms implements Yikes_Inc_Easy_MailChim
 	 * @return array Form IDs.
 	 */
 	public function get_form_ids() {
-		return $this->wpdb->get_col( "SELECT `id` from {$this->prefixed_table_name}" );
+		return $this->wpdb->get_col( "SELECT `id` FROM {$this->prefixed_table_name}" );
 	}
 
 	/**
