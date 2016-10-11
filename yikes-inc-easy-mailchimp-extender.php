@@ -141,9 +141,28 @@ function yikes_easy_mailchimp_new_network_site( $blog_id, $user_id, $domain, $pa
 }
 
 /**
- * The base plugin class
- * admin-specific hooks, filters and all functionality
+ * Retrieve the forms interface that we should be using.
+ *
+ * By default this will use the new Options interface, but this can be
+ * overridden by a constant, YIKES_MC_CUSTOM_DB.
+ *
+ * @author Jeremy Pry
+ * @return Yikes_Inc_Easy_MailChimp_Extender_Form_Interface
  */
+function yikes_easy_mailchimp_extender_get_form_interface() {
+	static $interface = null;
+
+	if ( null === $interface ) {
+		if ( defined( 'YIKES_MC_CUSTOM_DB' ) ) {
+			global $wpdb;
+			$interface = new Yikes_Inc_Easy_MailChimp_Extender_Forms( $wpdb );
+		} else {
+			$interface = new Yikes_Inc_Easy_MailChimp_Extender_Option_Forms();
+		}
+	}
+
+	return $interface;
+}
 
 /**
  * 	Begins execution of the plugin.
@@ -151,11 +170,17 @@ function yikes_easy_mailchimp_new_network_site( $blog_id, $user_id, $domain, $pa
  * 	@since 6.0.0
  *	@return Yikes_Inc_Easy_Mailchimp_Extender
  */
-function run_yikes_inc_easy_mailchimp_extender() {
-	$plugin = new Yikes_Inc_Easy_Mailchimp_Extender();
-	$plugin->run();
+function yikes_inc_easy_mailchimp_extender() {
+	static $plugin = null;
+
+	if ( null === $plugin ) {
+		$plugin = new Yikes_Inc_Easy_Mailchimp_Extender( yikes_easy_mailchimp_extender_get_form_interface() );
+		$plugin->run();
+	}
+
+	return $plugin;
 }
-run_yikes_inc_easy_mailchimp_extender();
+yikes_inc_easy_mailchimp_extender()->run();
 
 /**
  * Helper function to return our API key
@@ -166,6 +191,7 @@ function yikes_get_mc_api_key() {
 	if ( defined( 'YIKES_MC_API_KEY' ) ) {
 		return trim( YIKES_MC_API_KEY );
 	}
+
 	return trim( get_option( 'yikes-mc-api-key', '' ) );
 }
 
