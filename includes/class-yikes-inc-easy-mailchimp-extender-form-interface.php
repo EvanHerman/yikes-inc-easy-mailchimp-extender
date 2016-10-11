@@ -78,4 +78,14 @@ interface Yikes_Inc_Easy_MailChimp_Extender_Form_Interface {
 	 * @return array All form data, indexed by form ID.
 	 */
 	public function get_all_forms();
+
+	/**
+	 * Import forms in bulk.
+	 *
+	 * @author Jeremy Pry
+	 *
+	 * @param array $form_data        Array of form data, indexed by form ID.
+	 * @param bool  $replace_existing Whether to replace existing forms.
+	 */
+	public function import_forms( $form_data, $replace_existing );
 }

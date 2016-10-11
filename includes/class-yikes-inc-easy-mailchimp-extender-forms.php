@@ -341,4 +341,32 @@ class Yikes_Inc_Easy_MailChimp_Extender_Forms implements Yikes_Inc_Easy_MailChim
 
 		return $return_data;
 	}
+
+	/**
+	 * Import forms in bulk.
+	 *
+	 * @author Jeremy Pry
+	 *
+	 * @param array $form_data        Array of form data, indexed by form ID.
+	 * @param bool  $replace_existing Whether to replace existing forms.
+	 */
+	public function import_forms( $form_data, $replace_existing ) {
+		foreach ( $form_data as $id => $data ) {
+			$existing = $this->get_form( $id );
+
+			if ( ! $replace_existing && ! empty( $existing ) ) {
+				continue;
+			}
+
+			$data['id'] = $id;
+			$_form_data = $this->prepare_data_for_db( $data );
+			$formats    = $this->get_format_array( $_form_data );
+
+			$this->wpdb->replace(
+				$this->prefixed_table_name,
+				$_form_data,
+				$formats
+			);
+		}
+	}
 }

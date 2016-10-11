@@ -134,4 +134,23 @@ class Yikes_Inc_Easy_MailChimp_Extender_Option_Forms implements Yikes_Inc_Easy_M
 	public function get_option_name() {
 		return $this->option;
 	}
+
+	/**
+	 * Import forms in bulk.
+	 *
+	 * @author Jeremy Pry
+	 *
+	 * @param array $form_data        Array of form data, indexed by form ID.
+	 * @param bool  $replace_existing Whether to replace existing forms.
+	 */
+	public function import_forms( $form_data, $replace_existing ) {
+		$existing = $replace_existing ? array() : get_option( $this->option, array() );
+		$new_data = array();
+
+		foreach ( $form_data as $id => $data ) {
+			$new_data[ $id ] = isset( $existing[ $id ] ) ? $existing[ $id ] : $data;
+		}
+
+		update_option( $this->option, $new_data );
+	}
 }
