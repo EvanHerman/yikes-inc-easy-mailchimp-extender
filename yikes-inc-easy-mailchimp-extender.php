@@ -66,6 +66,9 @@ if ( ! defined( 'YIKES_MC_URL' ) ) {
 	define( 'YIKES_MC_URL' , plugin_dir_url( __FILE__ ) );
 }
 
+// Include our autoloader
+require_once( dirname( __FILE__ ) . '/class-loader.php' );
+
 /**
  *	activate_yikes_inc_easy_mailchimp_extender();
  * 	Fires during activation.
