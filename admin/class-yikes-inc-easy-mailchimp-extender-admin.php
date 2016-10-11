@@ -2963,4 +2963,13 @@ class Yikes_Inc_Easy_Mailchimp_Forms_Admin {
 			delete_transient( 'yikes-easy-mailchimp-account-activity' );
 		}
 
+
+	/**
+	 * Register the Opt-in widget.
+	 *
+	 * @author Jeremy Pry
+	 */
+	public function register_optin_widget() {
+		register_widget( 'Yikes_Inc_Easy_Mailchimp_Extender_Widget' );
+	}
 }
