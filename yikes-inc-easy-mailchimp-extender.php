@@ -144,7 +144,6 @@ function yikes_easy_mailchimp_new_network_site( $blog_id, $user_id, $domain, $pa
  * The base plugin class
  * admin-specific hooks, filters and all functionality
  */
-require plugin_dir_path( __FILE__ ) . 'includes/class-yikes-inc-easy-mailchimp-extender.php';
 
 /**
  * 	Begins execution of the plugin.

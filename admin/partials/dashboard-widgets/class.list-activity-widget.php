@@ -152,5 +152,3 @@
 		}
 
 	} // end class
-	new YIKES_Inc_Easy_MailChimp_Dashboard_Widgets();
-?>

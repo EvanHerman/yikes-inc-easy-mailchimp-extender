@@ -166,5 +166,3 @@
 
 	} // end class
 
-	new YIKES_Inc_Easy_MailChimp_Process_Ajax;
-?>

@@ -52,13 +52,17 @@ class Yikes_Inc_Easy_Mailchimp_Forms_Admin {
 		// plugin redirect on activation
 		add_action( 'admin_init' , array( $this , 'yikes_easy_mc_activation_redirect' ) );
 		// Include Third Party Extensions
-		include_once( YIKES_MC_PATH . 'includes/third-party-integrations/third-party-init.php' );
+		new YIKES_MailChimp_ThirdParty_Integrations();
+
 		// Include our dashboard widget class
-		include_once( YIKES_MC_PATH . 'admin/partials/dashboard-widgets/class.list-activity-widget.php' );
+		new YIKES_Inc_Easy_MailChimp_Dashboard_Widgets();
+
 		// Include our front end widget class
-		include_once( YIKES_MC_PATH . 'admin/partials/front-end-widgets/front-end-widget-form.php' );
+		add_action( 'widgets_init', array( $this, 'register_optin_widget' ) );
+
 		// Include our ajax processing class
-		include_once( YIKES_MC_PATH . 'admin/partials/ajax/class.ajax.php' );
+		new YIKES_Inc_Easy_MailChimp_Process_Ajax();
+
 		// load up our helper class
 		add_action( 'admin_init' , array( $this , 'yikes_mailchimp_load_helper_class' ) );
 		// process the subscriber count shortcode in form descriptions

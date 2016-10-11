@@ -152,9 +152,4 @@ class Yikes_Inc_Easy_Mailchimp_Extender_Widget extends WP_Widget {
 		return $instance;
 	}
 	
-} // Class Yikes_Inc_Easy_Mailchimp_Extender_Widget ends here
-// Register and load the widget
-function yikes_mailchimp_register_optin_widget() {
-	register_widget( 'Yikes_Inc_Easy_Mailchimp_Extender_Widget' );
 }
-add_action( 'widgets_init', 'yikes_mailchimp_register_optin_widget' );

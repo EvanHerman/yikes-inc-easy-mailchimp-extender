@@ -107,4 +107,3 @@ class YIKES_MailChimp_Visual_Composer_Extension {
 	}
 	
 }
-new YIKES_MailChimp_Visual_Composer_Extension;
