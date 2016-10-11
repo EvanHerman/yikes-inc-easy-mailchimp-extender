@@ -417,7 +417,7 @@ class Yikes_Inc_Easy_Mailchimp_Forms_Admin {
 
 			// catch the error
 			if( is_wp_error( $response ) ) {
-				wp_die( $create_ticket_request->getMessage() );
+				wp_die( $response->getMessage() );
 				return;
 			}
 
@@ -2388,7 +2388,7 @@ class Yikes_Inc_Easy_Mailchimp_Forms_Admin {
 		public function yikes_easy_mailchimp_create_form() {
 			$nonce = $_REQUEST['nonce'];
 			if( ! wp_verify_nonce( $nonce, 'create_mailchimp_form' ) ) {
-				die( __( "We've run into an error. The security check didn't pass. Please try again." , 'yikes-inc-easy-mailchimp-extender' ) );
+				wp_die( __( "We've run into an error. The security check didn't pass. Please try again." , 'yikes-inc-easy-mailchimp-extender' ) );
 			}
 			global $wpdb;
 				/* Default values */
