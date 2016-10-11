@@ -1,6 +1,6 @@
 <?php
-	class YIKES_Inc_Easy_MailChimp_Public_Ajax
-	{
+
+class YIKES_Inc_Easy_MailChimp_Public_Ajax {
 
 		/**
 		 * Thetext domain of this plugin
@@ -31,7 +31,6 @@
 			// include our ajax processing file
 			include_once( YIKES_MC_PATH . 'public/partials/shortcodes/process/process_form_submission_ajax.php' );
 			exit();
-			wp_die();
 		}
 
 		/*
@@ -60,7 +59,6 @@
 					array( '%d' )
 				);
 			exit();
-			wp_die();
 		}
 
 		/*
@@ -196,8 +194,9 @@
 				exit;
 			}
 
-		} // end sendUpdateProfileEmail();
+		}
 
-	} // end class
-	new YIKES_Inc_Easy_MailChimp_Public_Ajax();
-?>
+}
+
+new YIKES_Inc_Easy_MailChimp_Public_Ajax();
+
