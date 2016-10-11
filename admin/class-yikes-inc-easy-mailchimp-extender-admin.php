@@ -37,20 +37,29 @@ class Yikes_Inc_Easy_Mailchimp_Forms_Admin {
 
 		$this->yikes_inc_easy_mailchimp_extender = $yikes_inc_easy_mailchimp_extender;
 		$this->version = $version;
+	}
+
+	/**
+	 * Our admin hooks.
+	 *
+	 * @author Jeremy Pry
+	 */
+	public function hooks() {
 		// check for old plugin options and migrate if exist
-		add_action( 'admin_menu' , array( $this , 'register_admin_pages' ) , 11 );
+		add_action( 'admin_menu', array( $this, 'register_admin_pages' ), 11 );
 		// check for old plugin options and migrate if exist
-		add_action( 'admin_init' , array( $this , 'check_for_old_yks_mc_options' ) );
+		add_action( 'admin_init', array( $this, 'check_for_old_yks_mc_options' ) );
 		// Ajax function to update new options...
-		add_action( 'wp_ajax_migrate_old_plugin_settings', array( $this , 'migrate_archived_options' ) );
+		add_action( 'wp_ajax_migrate_old_plugin_settings', array( $this, 'migrate_archived_options' ) );
 		// Ajax function to migrate our forms
-		add_action( 'wp_ajax_migrate_prevoious_forms', array( $this , 'migrate_previously_setup_forms' ) );
+		add_action( 'wp_ajax_migrate_prevoious_forms', array( $this, 'migrate_previously_setup_forms' ) );
 		// fix menu icon spacing
-		add_action( 'admin_head' , array( $this , 'fix_menu_icon_spacing' ) );
+		add_action( 'admin_head', array( $this, 'fix_menu_icon_spacing' ) );
 		// register our plugin settings
-		add_action( 'admin_init', array( $this , 'yikes_easy_mc_settings_init' ) );
+		add_action( 'admin_init', array( $this, 'yikes_easy_mc_settings_init' ) );
 		// plugin redirect on activation
-		add_action( 'admin_init' , array( $this , 'yikes_easy_mc_activation_redirect' ) );
+		add_action( 'admin_init', array( $this, 'yikes_easy_mc_activation_redirect' ) );
+
 		// Include Third Party Extensions
 		new YIKES_MailChimp_ThirdParty_Integrations();
 
@@ -64,111 +73,111 @@ class Yikes_Inc_Easy_Mailchimp_Forms_Admin {
 		new YIKES_Inc_Easy_MailChimp_Process_Ajax();
 
 		// load up our helper class
-		add_action( 'admin_init' , array( $this , 'yikes_mailchimp_load_helper_class' ) );
+		add_action( 'admin_init', array( $this, 'yikes_mailchimp_load_helper_class' ) );
 		// process the subscriber count shortcode in form descriptions
 		add_action( 'yikes-mailchimp-form-description', array( $this, 'process_subscriber_count_shortcode_in_form_descriptions' ), 10, 2 );
 		/***********************/
 		/** Create A Form **/
 		/**********************/
-		if ( isset( $_REQUEST[ 'action' ] ) && $_REQUEST[ 'action' ] == 'yikes-easy-mc-create-form' ) {
-			add_action( 'init' , array( $this , 'yikes_easy_mailchimp_create_form' ) );
+		if ( isset( $_REQUEST['action'] ) && $_REQUEST['action'] == 'yikes-easy-mc-create-form' ) {
+			add_action( 'init', array( $this, 'yikes_easy_mailchimp_create_form' ) );
 		}
 		/***********************/
 		/** Delete A Form **/
 		/**********************/
-		if ( isset( $_REQUEST[ 'action' ] ) && $_REQUEST[ 'action' ] == 'yikes-easy-mc-delete-form' ) {
-			add_action( 'init' , array( $this , 'yikes_easy_mailchimp_delete_form' ) );
+		if ( isset( $_REQUEST['action'] ) && $_REQUEST['action'] == 'yikes-easy-mc-delete-form' ) {
+			add_action( 'init', array( $this, 'yikes_easy_mailchimp_delete_form' ) );
 		}
 		/**********************************/
-		/** Duplicate/Clone A Form 	**/
+		/** Duplicate/Clone A Form    **/
 		/********************************/
-		if ( isset( $_REQUEST[ 'action' ] ) && $_REQUEST[ 'action' ] == 'yikes-easy-mc-duplicate-form' ) {
-			add_action( 'init' , array( $this , 'yikes_easy_mailchimp_duplicate_form' ) );
+		if ( isset( $_REQUEST['action'] ) && $_REQUEST['action'] == 'yikes-easy-mc-duplicate-form' ) {
+			add_action( 'init', array( $this, 'yikes_easy_mailchimp_duplicate_form' ) );
 		}
 		/*************************************/
 		/**  Reset Form Impression Stats **/
 		/***********************************/
-		if ( isset( $_REQUEST[ 'action' ] ) && $_REQUEST[ 'action' ] == 'yikes-easy-mc-reset-stats' ) {
-			add_action( 'init' , array( $this , 'yikes_easy_mailchimp_reset_impression_stats' ) );
+		if ( isset( $_REQUEST['action'] ) && $_REQUEST['action'] == 'yikes-easy-mc-reset-stats' ) {
+			add_action( 'init', array( $this, 'yikes_easy_mailchimp_reset_impression_stats' ) );
 		}
 		/**********************************/
-		/** 	     Update A Form 		**/
+		/**         Update A Form        **/
 		/********************************/
-		if ( isset( $_REQUEST[ 'action' ] ) && $_REQUEST[ 'action' ] == 'yikes-easy-mc-update-form' ) {
-			add_action( 'init' , array( $this , 'yikes_easy_mailchimp_update_form' ) );
+		if ( isset( $_REQUEST['action'] ) && $_REQUEST['action'] == 'yikes-easy-mc-update-form' ) {
+			add_action( 'init', array( $this, 'yikes_easy_mailchimp_update_form' ) );
 		}
 		/**************************************************/
-		/** 	 Clear Store MailChimp Transient Data   **/
+		/**     Clear Store MailChimp Transient Data   **/
 		/*************************************************/
-		if ( isset( $_REQUEST[ 'action' ] ) && $_REQUEST[ 'action' ] == 'yikes-easy-mc-clear-transient-data' ) {
-			add_action( 'init' , array( $this , 'yikes_easy_mailchimp_clear_transient_data' ) );
+		if ( isset( $_REQUEST['action'] ) && $_REQUEST['action'] == 'yikes-easy-mc-clear-transient-data' ) {
+			add_action( 'init', array( $this, 'yikes_easy_mailchimp_clear_transient_data' ) );
 		}
 		/*******************************************/
-		/** Remove a user from a mailing list 	 **/
+		/** Remove a user from a mailing list     **/
 		/*****************************************/
-		if ( isset( $_REQUEST[ 'action' ] ) && $_REQUEST[ 'action' ] == 'yikes-easy-mc-unsubscribe-user' ) {
-			add_action( 'init' , array( $this , 'yikes_easy_mailchimp_unsubscribe_user' ) );
+		if ( isset( $_REQUEST['action'] ) && $_REQUEST['action'] == 'yikes-easy-mc-unsubscribe-user' ) {
+			add_action( 'init', array( $this, 'yikes_easy_mailchimp_unsubscribe_user' ) );
 		}
 		/*******************************************/
-		/** 	Create misisng error log file  **/
+		/**    Create misisng error log file  **/
 		/*****************************************/
-		if ( isset( $_REQUEST[ 'action' ] ) && $_REQUEST[ 'action' ] == 'yikes-easy-mc-create-error-log' ) {
-			add_action( 'init' , array( $this , 'yikes_easy_mailchimp_create_missing_error_log' ) );
+		if ( isset( $_REQUEST['action'] ) && $_REQUEST['action'] == 'yikes-easy-mc-create-error-log' ) {
+			add_action( 'init', array( $this, 'yikes_easy_mailchimp_create_missing_error_log' ) );
 		}
 		/*******************************************/
-		/**   TinyMCE Initialization Functions	 **/
+		/**   TinyMCE Initialization Functions     **/
 		/*****************************************/
-		add_action( 'admin_head' , array( $this, 'add_tinyMCE_buttons' ) );
+		add_action( 'admin_head', array( $this, 'add_tinyMCE_buttons' ) );
 		// pass our lists data to tinyMCE button for use
-		foreach ( array('post.php','post-new.php') as $hook ) {
+		foreach ( array( 'post.php', 'post-new.php' ) as $hook ) {
 			add_action( "admin_head-$hook", array( $this, 'tinymce_yikes_easy_mc' ) );
 		}
 		// display an admin notice for users on PHP < 5.3
-		if( phpversion() < '5.3' ) {
+		if ( phpversion() < '5.3' ) {
 			add_action( "admin_notices", array( $this, 'display_php_warning' ), 999 );
 		}
 		// two week , dismissable notification - check the users plugin installation date
-		add_action( 'admin_init', array( $this , 'yikes_easy_mailchimp_check_installation_date' ) );
+		add_action( 'admin_init', array( $this, 'yikes_easy_mailchimp_check_installation_date' ) );
 		// dismissable notice admin side
-		add_action( 'admin_init', array( $this , 'yikes_easy_mailchimp_stop_bugging_me' ), 5 );
+		add_action( 'admin_init', array( $this, 'yikes_easy_mailchimp_stop_bugging_me' ), 5 );
 		/**************************************************/
-		/** 	 	Clear MailChimp Error Log Data 	    **/
+		/**        Clear MailChimp Error Log Data        **/
 		/*************************************************/
-		if ( isset( $_REQUEST[ 'action' ] ) && $_REQUEST[ 'action' ] == 'yikes-easy-mc-clear-error-log' ) {
-			add_action( 'init' , array( $this , 'yikes_easy_mailchimp_clear_error_log' ) );
+		if ( isset( $_REQUEST['action'] ) && $_REQUEST['action'] == 'yikes-easy-mc-clear-error-log' ) {
+			add_action( 'init', array( $this, 'yikes_easy_mailchimp_clear_error_log' ) );
 		}
 		/*********************************************/
-		/** 		Export MailChimp Opt-in Forms   **/
+		/**        Export MailChimp Opt-in Forms   **/
 		/*******************************************/
-		if ( isset( $_REQUEST[ 'action' ] ) && $_REQUEST[ 'action' ] == 'yikes-easy-mc-export-forms' ) {
-			add_action( 'init' , array( $this , 'yikes_easy_mailchimp_export_forms' ) );
+		if ( isset( $_REQUEST['action'] ) && $_REQUEST['action'] == 'yikes-easy-mc-export-forms' ) {
+			add_action( 'init', array( $this, 'yikes_easy_mailchimp_export_forms' ) );
 		}
 		/*********************************************/
-		/** 				Export Plugin Settings    	   **/
+		/**                Export Plugin Settings           **/
 		/*******************************************/
-		if ( isset( $_REQUEST[ 'action' ] ) && $_REQUEST[ 'action' ] == 'yikes-easy-mc-export-settings' ) {
-			add_action( 'init' , array( $this , 'yikes_easy_mailchimp_export_plugin_settings' ) );
+		if ( isset( $_REQUEST['action'] ) && $_REQUEST['action'] == 'yikes-easy-mc-export-settings' ) {
+			add_action( 'init', array( $this, 'yikes_easy_mailchimp_export_plugin_settings' ) );
 		}
 		/*******************************************/
-		/** 		Import Class Inclusion	   **/
+		/**        Import Class Inclusion       **/
 		/*****************************************/
-		if ( isset( $_REQUEST[ 'action' ] ) && $_REQUEST[ 'action' ] == 'yikes-easy-mc-import-forms' ) {
-			add_action( 'init' , array( $this , 'yikes_easy_mailchimp_import_forms' ) );
+		if ( isset( $_REQUEST['action'] ) && $_REQUEST['action'] == 'yikes-easy-mc-import-forms' ) {
+			add_action( 'init', array( $this, 'yikes_easy_mailchimp_import_forms' ) );
 		}
 		/*******************************************/
-		/** 	Premium Support Request     **/
+		/**    Premium Support Request     **/
 		/*****************************************/
-		if ( isset( $_POST[ 'submit-premium-support-request' ] ) ) {
-			add_action( 'init' , array( $this , 'yikes_easy_mailchimp_premium_support_request' ) );
+		if ( isset( $_POST['submit-premium-support-request'] ) ) {
+			add_action( 'init', array( $this, 'yikes_easy_mailchimp_premium_support_request' ) );
 		}
 		/****************************************/
-		/**	Dismiss Options Migrations		**/
+		/**    Dismiss Options Migrations        **/
 		/****************************************/
-		if( isset( $_REQUEST['dismiss_migration_nonce'] ) ) {
-			add_action( 'init' , array( $this , 'yikes_easy_mailchimp_dismiss_option_migrate' ) );
+		if ( isset( $_REQUEST['dismiss_migration_nonce'] ) ) {
+			add_action( 'init', array( $this, 'yikes_easy_mailchimp_dismiss_option_migrate' ) );
 		}
 		/** Parse default value into usable dynamic data **/
-		add_filter( 'yikes-mailchimp-process-default-tag' , array( $this , 'parse_mailchimp_default_tag' ) );
+		add_filter( 'yikes-mailchimp-process-default-tag', array( $this, 'parse_mailchimp_default_tag' ) );
 		/** Add a disclaimer to ensure that we let people know we are not endorsed/backed by MailChimp at all **/
 		add_filter( 'admin_footer_text', array( $this, 'yikes_easy_forms_admin_disclaimer' ) );
 		/** Add custom plugin action links **/
