@@ -815,7 +815,7 @@ function process_mailchimp_shortcode( $atts ) {
 											}
 											// isntantiate our admin class to localize our calendar data
 											global $wp_locale;
-											$admin_class = new Yikes_Inc_Easy_Mailchimp_Forms_Admin( '', '' );
+											$admin_class = new Yikes_Inc_Easy_Mailchimp_Forms_Admin( '', '', yikes_easy_mailchimp_extender_get_form_interface() );
 											$admin_class->hooks();
 											$month_names = $admin_class->yikes_jQuery_datepicker_strip_array_indices( $wp_locale->month );
 											$month_names_short = $admin_class->yikes_jQuery_datepicker_strip_array_indices( $wp_locale->month_abbrev );
