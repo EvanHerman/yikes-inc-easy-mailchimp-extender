@@ -205,6 +205,9 @@ class Yikes_Inc_Easy_Mailchimp_Forms_Admin {
 		// ensure that the upgrade went smoothly, else we have to let the user know we need to upgrade the database
 		// after upgrading f rom 6.0.3.7 users need to upgrade the database as well
 		add_action( 'plugins_loaded', array( $this, 'check_yikes_mc_table_version' ) );
+
+		// Run a check to see if we need to convert the custom DB table to options.
+		add_action( 'plugins_loaded', array( $this, 'check_db_version' ) );
 	}
 
 		/*
@@ -2963,6 +2966,43 @@ class Yikes_Inc_Easy_Mailchimp_Forms_Admin {
 			delete_transient( 'yikes-easy-mailchimp-account-activity' );
 		}
 
+	/**
+	 * Perform a DB version check to see if we need to migrate our forms.
+	 *
+	 * @author Jeremy Pry
+	 */
+	public function check_db_version() {
+		$option = get_option( 'yikes_easy_mailchimp_extender_version', '0.0.0' );
+		if ( version_compare( $option, '6.2.0', '<' ) ) {
+			$this->convert_db_to_option();
+			update_option( 'yikes_easy_mailchimp_extender_version', YIKES_MC_VERSION );
+		}
+	}
+
+	/**
+	 * Handle the conversion from custom table to WP Options.
+	 *
+	 * @author Jeremy Pry
+	 */
+	public function convert_db_to_option() {
+		/** @var wpdb */
+		global $wpdb;
+
+		$db_interface     = new Yikes_Inc_Easy_MailChimp_Extender_Forms( $wpdb );
+		$option_interface = new Yikes_Inc_Easy_MailChimp_Extender_Option_Forms();
+		$form_option      = array();
+		$form_ids = $db_interface->get_form_ids();
+
+		if ( empty( $form_ids ) ) {
+			return;
+		}
+
+		foreach ( $form_ids as $form_id ) {
+			$form_option[ $form_id ] = $db_interface->get_form( $form_id );
+		}
+
+		$option_interface->import_forms( $form_option, true );
+	}
 
 	/**
 	 * Register the Opt-in widget.
