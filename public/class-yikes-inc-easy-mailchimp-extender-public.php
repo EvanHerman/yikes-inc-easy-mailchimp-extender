@@ -228,12 +228,14 @@ class Yikes_Inc_Easy_Mailchimp_Extender_Public {
 		if ( ! $form_id ) {
 			return;
 		}
+
 		// retreive our form settings
-		$form_settings = $form_settings = Yikes_Inc_Easy_Mailchimp_Extender_Public::yikes_retrieve_form_settings( $form_id );
+		$form_settings = $form_settings = self::yikes_retrieve_form_settings( $form_id );
 		// if none, abort
 		if ( ! $form_settings ) {
 			return;
 		}
+
 		// trim trailing period
 		if ( isset( $form_settings['error_messages']['already-subscribed'] ) && ! empty( $form_settings['error_messages']['already-subscribed'] ) ) {
 			$response_text = str_replace( '[email]', $email, $form_settings['error_messages']['already-subscribed'] );
