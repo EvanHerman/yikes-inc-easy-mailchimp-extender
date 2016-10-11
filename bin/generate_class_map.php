@@ -34,4 +34,4 @@ foreach ( $raw_map as $class => $path ) {
 }
 
 // Save the map to the correct file.
-file_put_contents( $plugin_root_dir . '/class-map.php', sprintf( "<?php\n\nreturn %s;", var_export( $map, true ) ) );
+file_put_contents( $plugin_root_dir . '/class-map.php', sprintf( "<?php\n\nreturn %s;\n", var_export( $map, true ) ) );
