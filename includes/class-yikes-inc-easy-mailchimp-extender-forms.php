@@ -270,6 +270,7 @@ class Yikes_Inc_Easy_MailChimp_Extender_Forms implements Yikes_Inc_Easy_MailChim
 				case 'redirect_page':
 				case 'submissions':
 				case 'impressions':
+				case 'id':
 					$value = intval( $value );
 					break;
 
@@ -314,6 +315,7 @@ class Yikes_Inc_Easy_MailChimp_Extender_Forms implements Yikes_Inc_Easy_MailChim
 				case 'submissions':
 				case 'redirect_user_on_submit':
 				case 'redirect_page':
+				case 'id':
 					$formats[] = '%d';
 					break;
 
