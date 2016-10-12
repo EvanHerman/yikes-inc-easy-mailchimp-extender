@@ -97,7 +97,13 @@ class Yikes_Inc_Easy_MailChimp_Extender_Option_Forms implements Yikes_Inc_Easy_M
 		$all_forms            = $this->get_all_forms();
 		$all_forms[ $new_id ] = $form_data;
 
-		return update_option( $this->option, $all_forms );
+		$result = update_option( $this->option, $all_forms );
+
+		if ( false === $result ) {
+			return $result;
+		}
+
+		return $new_id;
 	}
 
 	/**

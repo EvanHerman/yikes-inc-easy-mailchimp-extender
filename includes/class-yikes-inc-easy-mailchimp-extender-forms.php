@@ -151,11 +151,17 @@ class Yikes_Inc_Easy_MailChimp_Extender_Forms implements Yikes_Inc_Easy_MailChim
 		$save_data = $this->prepare_data_for_db( $form_data );
 		$formats   = $this->get_format_array( $save_data );
 
-		return $this->wpdb->insert(
+		$result = $this->wpdb->insert(
 			$this->prefixed_table_name,
 			$save_data,
 			$formats
 		);
+
+		if ( false === $result ) {
+			return $result;
+		}
+
+		return $this->wpdb->insert_id;
 	}
 
 	/**
