@@ -2002,7 +2002,7 @@ class Yikes_Inc_Easy_Mailchimp_Forms_Admin {
 
 																			case 'phone':
 																				$type = __( 'Phone Format' , 'yikes-inc-easy-mailchimp-extender' );
-																				$format = ( ( $field['phone_format'] == 'none' ) ? __( 'International', 'yikes-inc-easy-mailchimp-extender' ) : $field['phone_format'] . ' - (###) ### - ####' );
+																				$format = isset( $field['phone_format'] ) ? $field['phone_format'] : __( 'International', 'yikes-inc-easy-mailchimp-extender' );
 																				$format_name = 'phone_format';
 																				break;
 																		}
