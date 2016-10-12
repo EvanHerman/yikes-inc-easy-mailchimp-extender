@@ -149,7 +149,15 @@ function yikes_easy_mailchimp_extender_get_form_interface() {
 	static $interface = null;
 
 	if ( null === $interface ) {
-		if ( defined( 'YIKES_MC_CUSTOM_DB' ) ) {
+
+		/**
+		 * Filter whether we should use the custom database table instead of the Options API
+		 *
+		 * @param bool $use_custom_db True to use the custom database table, false to use the Options API.
+		 */
+		$use_custom_db = apply_filters( 'yikes_easy_mailchimp_extender_use_custom_db', defined( 'YIKES_EMCE_CUSTOM_DB' ) && YIKES_EMCE_CUSTOM_DB );
+
+		if ( $use_custom_db ) {
 			global $wpdb;
 			$interface = new Yikes_Inc_Easy_MailChimp_Extender_Forms( $wpdb );
 		} else {
