@@ -54,7 +54,7 @@ class Yikes_Inc_Easy_MailChimp_Extender_Option_Forms implements Yikes_Inc_Easy_M
 			return false;
 		}
 
-		$all_forms[ $form_id ] = array_merge_recursive( $all_forms[ $form_id ], $data );
+		$all_forms[ $form_id ] = $this->deep_parse_args( $data, $all_forms[ $form_id ] );
 
 		return update_option( $this->option, $all_forms );
 	}
@@ -158,5 +158,32 @@ class Yikes_Inc_Easy_MailChimp_Extender_Option_Forms implements Yikes_Inc_Easy_M
 		}
 
 		update_option( $this->option, $new_data );
+	}
+
+	/**
+	 * Handle parsing multidimensional arrays of args.
+	 *
+	 * @author Jeremy Pry
+	 *
+	 * @param array $args     The arguments to parse.
+	 * @param array $defaults The defaults to combine with the regular arguments.
+	 *
+	 * @return array The parsed arguments.
+	 */
+	protected function deep_parse_args( $args, $defaults ) {
+		foreach ( $args as $key => $value ) {
+			// If we don't have a corresponding default, just continue.
+			if ( ! isset( $defaults[ $key ] ) ) {
+				continue;
+			}
+
+			// For arrays, do another round of parsing args.
+			if ( is_array( $value ) ) {
+				$args[ $key ] = $this->deep_parse_args( $value, $defaults[ $key ] );
+			}
+		}
+
+		// Now we're ready for the regular wp_parse_args() function
+		return wp_parse_args( $args, $defaults );
 	}
 }
