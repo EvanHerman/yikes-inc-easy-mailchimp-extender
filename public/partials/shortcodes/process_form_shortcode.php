@@ -39,8 +39,10 @@ function process_mailchimp_shortcode( $atts ) {
 		return __( 'Whoops, it looks like you forgot to specify a form to display.', 'yikes-inc-easy-mailchimp-extender' );
 	}
 
+	// store our variables
+	$form_id = (int) $atts['form']; // form id (the id of the form in the database)
 	$interface = yikes_easy_mailchimp_extender_get_form_interface();
-	$form_data = $interface->get_form( $atts['form'] );
+	$form_data = $interface->get_form( $form_id );
 
 	// confirm we have some results, or return an error
 	if ( empty( $form_data ) ) {
@@ -116,17 +118,6 @@ function process_mailchimp_shortcode( $atts ) {
 	}
 
 	// place our results into a seperate variable for easy looping
-
-	// store our variables
-	$form_id = (int) $atts['form']; // form id (the id of the form in the database)
-
-	/*
-	*	Get the stored form settings
-	* 	Helper function now in class-yikes-inc-easy-mailchimp-extender-public.php
-	*	@since 6.0.3.4
-	*/
-	$form_settings = Yikes_Inc_Easy_Mailchimp_Extender_Public::yikes_retrieve_form_settings( $form_id );
-
 	$additional_form_settings = ( isset( $form_data['form_settings'] ) ) ? $form_data['form_settings'] : false;
 	// store our options from the additional form settings array
 	$form_classes = ( $additional_form_settings ) ? $additional_form_settings['yikes-easy-mc-form-class-names'] : '';
@@ -135,20 +126,23 @@ function process_mailchimp_shortcode( $atts ) {
 	$submit_button_text = ( $additional_form_settings && $additional_form_settings['yikes-easy-mc-submit-button-text'] != '' ) ? esc_attr( $additional_form_settings['yikes-easy-mc-submit-button-text'] ) : __( 'Submit', 'yikes-inc-easy-mailchimp-extender' );
 	$submit_button_image = ( $additional_form_settings ) ? esc_url( $additional_form_settings['yikes-easy-mc-submit-button-image'] ) : '';
 	$submit_button_classes = ( $additional_form_settings ) ? ' ' . esc_attr( $additional_form_settings['yikes-easy-mc-submit-button-classes'] ) : '';
+
 	// scheuldes
 	$form_schedule_state = ( $additional_form_settings ) ? $additional_form_settings['yikes-easy-mc-form-schedule'] : false;
 	$form_schedule_start = ( $additional_form_settings ) ? $additional_form_settings['yikes-easy-mc-form-restriction-start'] : '';;
 	$form_schedule_end = ( $additional_form_settings ) ? $additional_form_settings['yikes-easy-mc-form-restriction-end'] : '';
 	$form_pending_message = ( $additional_form_settings ) ? $additional_form_settings['yikes-easy-mc-form-restriction-pending-message'] : '';
 	$form_expired_message = ( $additional_form_settings ) ? $additional_form_settings['yikes-easy-mc-form-restriction-expired-message'] : '';
+
 	// register required
 	$form_login_required = ( $additional_form_settings ) ? $additional_form_settings['yikes-easy-mc-form-login-required'] : false;
 	$form_login_message = ( $additional_form_settings ) ? $additional_form_settings['yikes-easy-mc-form-restriction-login-message'] : '';
+
 	// store number of fields
-	$field_count = (int) count( $form_settings['fields'] );
+	$field_count = (int) count( $form_data['fields'] );
 
 	// confirm we actually have fields, before looping
-	if( isset( $form_data['fields'] ) && ! empty( $form_data['fields'] ) ) {
+	if ( isset( $form_data['fields'] ) && ! empty( $form_data['fields'] ) ) {
 		// loop over each field, if it's set to hidden -- subtract it from the field count
 		// this throws off the layout for inline forms setup below
 		foreach ( $form_data['fields'] as $form_field ) {
@@ -243,9 +237,9 @@ function process_mailchimp_shortcode( $atts ) {
 	if( is_user_logged_in() ) {
 		if( current_user_can( apply_filters( 'yikes-mailchimp-user-role-access' , 'manage_options' ) ) ) {
 			$edit_form_link = '<span class="edit-link">';
-			$edit_form_link .= '<a class="post-edit-link" href="' . esc_url( admin_url( 'admin.php?page=yikes-mailchimp-edit-form&id=' . $atts['form'] ) ) . '" title="' . __( 'Edit' , 'yikes-inc-easy-mailchimp-extender' ) . ' ' . ucwords( $form_settings['form_name'] ) . '">' . __( 'Edit Form' , 'yikes-inc-easy-mailchimp-extender' ) . '</a>';
+			$edit_form_link .= '<a class="post-edit-link" href="' . esc_url( admin_url( 'admin.php?page=yikes-mailchimp-edit-form&id=' . $atts['form'] ) ) . '" title="' . __( 'Edit' , 'yikes-inc-easy-mailchimp-extender' ) . ' ' . ucwords( $form_data['form_name'] ) . '">' . __( 'Edit Form' , 'yikes-inc-easy-mailchimp-extender' ) . '</a>';
 			$edit_form_link .= '</span>';
-			$edit_form_link = apply_filters( 'yikes-mailchimp-front-end-form-action-links', $edit_form_link, $atts['form'], ucwords( $form_settings['form_name'] ) );
+			$edit_form_link = apply_filters( 'yikes-mailchimp-front-end-form-action-links', $edit_form_link, $atts['form'], ucwords( $form_data['form_name'] ) );
 		} else {
 			$edit_form_link = '';
 		}
@@ -255,8 +249,8 @@ function process_mailchimp_shortcode( $atts ) {
 	// or else MailChimp throws errors at you
 	// extract our array keys
 	// @todo Remove array_keys() and in_array() usage here.
-	if( isset( $form_settings['fields'] ) && ! empty( $form_settings['fields'] ) ) {
-		$array_keys = array_keys( $form_settings['fields'] );
+	if( isset( $form_data['fields'] ) && ! empty( $form_data['fields'] ) ) {
+		$array_keys = array_keys( $form_data['fields'] );
 		// check for EMAIL in that array
 		if( !in_array( 'EMAIL', $array_keys ) && !in_array( 'email', $array_keys ) ) {
 			return '<p>' . __( "An email field is required for all MailChimp forms. Please add an email field to this form." , 'yikes-inc-easy-mailchimp-extender' ) . '</p><p>' . $edit_form_link . '</p>';
@@ -315,7 +309,7 @@ function process_mailchimp_shortcode( $atts ) {
 			// display the form description if the user
 			// has specified to do so
 			if( ! empty( $atts['title'] ) && $atts['title'] == 1 ) {
-				echo '<h3 class="yikes-mailchimp-form-title yikes-mailchimp-form-title-'.$form_id.'">' . apply_filters( 'yikes-mailchimp-form-title', apply_filters( 'the_title', $form_settings['form_name'] ), $form_id ) . '</h3>';
+				echo '<h3 class="yikes-mailchimp-form-title yikes-mailchimp-form-title-'.$form_id.'">' . apply_filters( 'yikes-mailchimp-form-title', apply_filters( 'the_title', $form_data['form_name'] ), $form_id ) . '</h3>';
 			}
 		}
 
@@ -329,12 +323,12 @@ function process_mailchimp_shortcode( $atts ) {
 			// display the form description if the user
 			// has specified to do so
 			if( ! empty( $atts['description'] ) && $atts['description'] == 1 ) {
-				echo '<section class="yikes-mailchimp-form-description yikes-mailchimp-form-description-'.$form_id.'">' . apply_filters( 'yikes-mailchimp-frontend-content', apply_filters( 'yikes-mailchimp-form-description', $form_settings['form_description'], $form_id ) ) . '</section>';
+				echo '<section class="yikes-mailchimp-form-description yikes-mailchimp-form-description-'.$form_id.'">' . apply_filters( 'yikes-mailchimp-frontend-content', apply_filters( 'yikes-mailchimp-form-description', $form_data['form_description'], $form_id ) ) . '</section>';
 			}
 		}
 
 		// Check for AJAX
-		if( ( ! empty( $atts['ajax'] ) && $atts['ajax'] == 1 ) || $form_settings['submission_settings']['ajax'] == 1 ) {
+		if( ( ! empty( $atts['ajax'] ) && $atts['ajax'] == 1 ) || $form_data['submission_settings']['ajax'] == 1 ) {
 			// enqueue our ajax script
 			wp_register_script( 'yikes-easy-mc-ajax' , YIKES_MC_URL . 'public/js/yikes-mc-ajax-forms.min.js' , array( 'jquery' ) , 'yikes-inc-easy-mailchimp-extender', false );
 			wp_localize_script( 'yikes-easy-mc-ajax' , 'object' , array(
@@ -356,14 +350,14 @@ function process_mailchimp_shortcode( $atts ) {
 
 		// render the form!
 		?>
-			<form id="<?php echo sanitize_title( $form_settings['form_name'] ); ?>-<?php echo $form_id; ?>" class="yikes-easy-mc-form yikes-easy-mc-form-<?php echo $form_id . ' '; if ( $form_inline )  { echo 'yikes-mailchimp-form-inline '; } echo ' ' . apply_filters( 'yikes-mailchimp-form-class', $form_classes, $form_id ); if( !empty( $_POST ) && $form_submitted == 1 && $form_settings['submission_settings']['hide_form_post_signup'] == 1 ) { echo ' yikes-easy-mc-display-none'; } ?>" action="" method="POST" data-attr-form-id="<?php echo $form_id; ?>">
+			<form id="<?php echo sanitize_title( $form_data['form_name'] ); ?>-<?php echo $form_id; ?>" class="yikes-easy-mc-form yikes-easy-mc-form-<?php echo $form_id . ' '; if ( $form_inline )  { echo 'yikes-mailchimp-form-inline '; } echo ' ' . apply_filters( 'yikes-mailchimp-form-class', $form_classes, $form_id ); if( !empty( $_POST ) && $form_submitted == 1 && $form_data['submission_settings']['hide_form_post_signup'] == 1 ) { echo ' yikes-easy-mc-display-none'; } ?>" action="" method="POST" data-attr-form-id="<?php echo $form_id; ?>">
 
 				<?php
 				// Set a default constant for hidden fields
 				$hidden_label_count = 0;
 
 				// Loop over our form fields
-				foreach( $form_settings['fields'] as $field ) {
+				foreach( $form_data['fields'] as $field ) {
 						// input array
 						$field_array = array();
 						// label array
@@ -1163,7 +1157,7 @@ function process_mailchimp_shortcode( $atts ) {
 				<input type="hidden" name="yikes-mailchimp-honeypot" id="yikes-mailchimp-honeypot" value="">
 
 				<!-- List ID -->
-				<input type="hidden" name="yikes-mailchimp-associated-list-id" id="yikes-mailchimp-associated-list-id" value="<?php echo $form_settings['list_id']; ?>">
+				<input type="hidden" name="yikes-mailchimp-associated-list-id" id="yikes-mailchimp-associated-list-id" value="<?php echo $form_data['list_id']; ?>">
 
 				<!-- Form that is being submitted! Used to display error/success messages above the correct form -->
 				<input type="hidden" name="yikes-mailchimp-submitted-form" id="yikes-mailchimp-submitted-form" value="<?php echo $form_id; ?>">
