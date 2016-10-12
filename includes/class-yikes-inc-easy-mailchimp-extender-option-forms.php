@@ -54,7 +54,7 @@ class Yikes_Inc_Easy_MailChimp_Extender_Option_Forms implements Yikes_Inc_Easy_M
 			return false;
 		}
 
-		$all_forms[ $form_id ] = $this->deep_parse_args( $data, $all_forms[ $form_id ] );
+		$all_forms[ $form_id ] = array_merge( $all_forms[ $form_id ], $data );
 
 		return update_option( $this->option, $all_forms );
 	}
