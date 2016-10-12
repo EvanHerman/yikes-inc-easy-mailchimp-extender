@@ -2,117 +2,115 @@
 
 class Yikes_Inc_Easy_MailChimp_Export_Class {
 
-	/*
-	*	Export our forms
-	*	@parameters
-	*	@table_name 	the name of the table to export
-	*	@form_ids 		array of form ID's to export ie: array( 1,4,5,6 ) (user can select specific forms)
-	*	@file_name 	the name of the exported file
-	*/
-	public static function yikes_mailchimp_form_export( $table_name, $form_ids , $file_name ) {
-		global $wpdb;
-		$wpdb->show_errors();
-		if( is_array( $form_ids ) ) {
-			$results = $wpdb->get_results( 'SELECT * FROM ' . $wpdb->prefix . $table_name . ' where ID in (' . implode( ', ' , $form_ids ) . ')' );
-		} else {
-			$results = $wpdb->get_results( 'SELECT * FROM ' . $wpdb->prefix . $table_name );
+	/**
+	 * Export our forms.
+	 *
+	 * @param string $file_name
+	 * @param array  $form_ids
+	 */
+	public static function yikes_mailchimp_form_export( $file_name, $form_ids ) {
+		$interface = yikes_easy_mailchimp_extender_get_form_interface();
+
+		$form_ids = empty( $form_ids ) ? $interface->get_form_ids() : (array) $form_ids;
+		$results  = array();
+		foreach ( $form_ids as $form_id ) {
+			$results[ $form_id ] = $interface->get_form( $form_id );
 		}
 
 		// Process report request
-		if (! $results) {
-			$Error = $wpdb->print_error();
-			die("The following error was found: $Error");
-		} else {
-			// Set header row values
-			$output_filename = $file_name . '-'. date( 'm-d-Y' )  . '.csv';
-			$output_handle = @fopen( 'php://output', 'w' );
+		$output_filename = $file_name . '-' . date( 'm-d-Y' ) . '.csv';
+		$output_handle   = @fopen( 'php://output', 'w' );
 
-			header( 'Cache-Control: must-revalidate, post-check=0, pre-check=0' );
-			header( 'Content-Description: File Transfer' );
-			header( 'Content-type: text/csv' );
-			header( 'Content-Disposition: attachment; filename=' . $output_filename );
-			header( 'Expires: 0' );
-			header( 'Pragma: public' );
+		header( 'Cache-Control: must-revalidate, post-check=0, pre-check=0' );
+		header( 'Content-Description: File Transfer' );
+		header( 'Content-type: text/csv' );
+		header( 'Content-Disposition: attachment; filename=' . $output_filename );
+		header( 'Expires: 0' );
+		header( 'Pragma: public' );
 
-			$first = true;
-			// Parse results to csv format
-			foreach ($results as $row) {
+		// Parse results to csv format
+		$first = true;
+		foreach ( $results as $row ) {
 
-			  // Add table headers
-			  if($first){
-				 $titles = array();
-				 foreach($row as $key=>$val){
+			// Add table headers
+			if ( $first ) {
+				$titles = array();
+				foreach ( $row as $key => $val ) {
 					$titles[] = $key;
-				 }
-				 fputcsv($output_handle, $titles);
-				 $first = false;
-			  }
-
-			   $leadArray = (array) $row; // Cast the Object to an array
-			   // Add row to file
-			   fputcsv( $output_handle, $leadArray );
+				}
+				fputcsv( $output_handle, $titles );
+				$first = false;
 			}
 
-			// Close output file stream
-			fclose( $output_handle );
-			die();
+			// Possibly convert arrays to JSON.
+			foreach ( $row as $key => &$value ) {
+				if ( ! is_array( $value ) ) {
+					continue;
+				}
+
+				$value = json_encode( $value );
+			}
+
+			// Add row to file
+			fputcsv( $output_handle, $row );
 		}
+
+		// Close output file stream
+		fclose( $output_handle );
+		die();
 	}
 
-	/*
-	*	Export our plugin settings
-	*	@parameters
-	*	@file_name 	the name of the exported file
-	*/
+	/**
+	 * Export our plugin settings
+	 *
+	 * @param string $file_name The name of the file to create.
+	 */
 	public static function yikes_mailchimp_settings_export( $file_name ) {
 
 		// get an array of all of our plugin settings (on the settings pages), to loop over
-		$plugin_settings = array();
-		$plugin_settings['yikes-mc-api-key'] = yikes_get_mc_api_key(); // api key
-		$plugin_settings['yikes-mc-api-validation'] = get_option( 'yikes-mc-api-validation' , 'invalid_api_key' ); // api key validation
-		$plugin_settings['optin-checkbox-init'] = get_option( 'optin-checkbox-init', '' ); // checkbox settings
-		$plugin_settings['yikes-mc-recaptcha-status'] = get_option( 'yikes-mc-recaptcha-status' , '' ); // recaptcha status
-		$plugin_settings['yikes-mc-recaptcha-site-key'] = get_option( 'yikes-mc-recaptcha-site-key', '' ); // recaptcha site key
-		$plugin_settings['yikes-mc-recaptcha-secret-key'] = get_option( 'yikes-mc-recaptcha-secret-key', '' ); // recaptcha secret key
-		$plugin_settings['yikes-mailchimp-debug-status'] = get_option( 'yikes-mailchimp-debug-status' , '' ); // debug settings
-		$titles = array();
+		$plugin_settings = array(
+			'yikes-mc-api-key'              => yikes_get_mc_api_key(),
+			'yikes-mc-api-validation'       => get_option( 'yikes-mc-api-validation', 'invalid_api_key' ),
+			'optin-checkbox-init'           => get_option( 'optin-checkbox-init', '' ),
+			'yikes-mc-recaptcha-status'     => get_option( 'yikes-mc-recaptcha-status', '' ),
+			'yikes-mc-recaptcha-site-key'   => get_option( 'yikes-mc-recaptcha-site-key', '' ),
+			'yikes-mc-recaptcha-secret-key' => get_option( 'yikes-mc-recaptcha-secret-key', '' ),
+			'yikes-mailchimp-debug-status'  => get_option( 'yikes-mailchimp-debug-status', '' ),
+		);
+
+		$titles  = array();
 		$content = array();
-		foreach ($plugin_settings as $option_name => $option_value ) {
+		foreach ( $plugin_settings as $option_name => $option_value ) {
 			$titles[] = $option_name;
 		}
-		// Process report request
-		if (! $plugin_settings) {
-			$Error = $wpdb->print_error();
-			die("The following error was found: $Error");
-		} else {
-			// Set header row values
-			$output_filename = $file_name . '-'. date( 'm-d-Y' )  . '.csv';
-			$output_handle = @fopen( 'php://output', 'w' );
 
-			header( 'Cache-Control: must-revalidate, post-check=0, pre-check=0' );
-			header( 'Content-Description: File Transfer' );
-			header( 'Content-type: text/csv' );
-			header( 'Content-Disposition: attachment; filename=' . $output_filename );
-			header( 'Expires: 0' );
-			header( 'Pragma: public' );
+		// Generate the output file.
+		$output_filename = $file_name . '-' . date( 'm-d-Y' ) . '.csv';
+		$output_handle   = @fopen( 'php://output', 'w' );
 
-			$first = true;
-			// Parse results to csv format
-			foreach ($plugin_settings as $option_name => $option_value ) {
+		header( 'Cache-Control: must-revalidate, post-check=0, pre-check=0' );
+		header( 'Content-Description: File Transfer' );
+		header( 'Content-type: text/csv' );
+		header( 'Content-Disposition: attachment; filename=' . $output_filename );
+		header( 'Expires: 0' );
+		header( 'Pragma: public' );
+
+		// Parse results to csv format
+		$first = true;
+		foreach ( $plugin_settings as $option_name => $option_value ) {
 
 			// Add table headers
-			  if( $first ) {
-				 fputcsv($output_handle, $titles);
-				 $first = false;
-			  }
-			  $content[] = $option_value;
-
+			if ( $first ) {
+				fputcsv( $output_handle, $titles );
+				$first = false;
 			}
-			fputcsv( $output_handle, $content );
-			// Close output file stream
-			fclose( $output_handle );
-			die();
-		}
-	}
+			$content[] = $option_value;
 
+		}
+		fputcsv( $output_handle, $content );
+
+		// Close output file stream
+		fclose( $output_handle );
+		die();
+	}
 }

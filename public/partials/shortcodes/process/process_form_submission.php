@@ -309,18 +309,8 @@ if ( ! isset( $_POST['yikes_easy_mc_new_subscriber'] ) || ! wp_verify_nonce( $_P
 		*	on a successful submission
 		*	@since 6.0.0
 		*/
-		$form_settings['submissions']++;
-		$wpdb->update(
-			$wpdb->prefix . 'yikes_easy_mc_forms',
-			array(
-				'submissions' => $form_settings['submissions'],
-			),
-			array( 'ID' => $form_id ),
-			array(
-				'%d',	// send welcome email
-			),
-			array( '%d' )
-		);
-
+		$interface = yikes_easy_mailchimp_extender_get_form_interface();
+		$submissions = $form_settings['submissions'] + 1;
+		$interface->update_form_field( $form_id, 'submissions', $submissions );
 }
 ?>

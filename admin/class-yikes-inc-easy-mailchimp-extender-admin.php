@@ -315,18 +315,15 @@ class Yikes_Inc_Easy_Mailchimp_Forms_Admin {
 			// grab our nonce
 			$nonce = $_REQUEST['nonce'];
 			// grab the forms
-			$forms = isset( $_REQUEST['export_forms'] ) ? $_REQUEST['export_forms'] : 'all';
+			$forms = isset( $_REQUEST['export_forms'] ) ? $_REQUEST['export_forms'] : array();
 			// validate nonce
 			if( ! wp_verify_nonce( $nonce, 'export-forms' ) ) {
 				wp_die( __( "We've run into an error. The security check didn't pass. Please try again." , 'yikes-inc-easy-mailchimp-extender' ) , __( "Failed nonce validation" , 'yikes-inc-easy-mailchimp-extender' ) , array( 'response' => 500 , 'back_link' => true ) );
 			}
-			// include the export class
-			if( ! class_exists( 'Yikes_Inc_Easy_MailChimp_Export_Class' ) ) {
-				include_once( YIKES_MC_PATH . 'includes/import-export/yikes-easy-mailchimp-export.class.php' );
-			}
+
 			// run the export function
 			// parameters: ( $table_name, $form_ids, $file_name )
-			Yikes_Inc_Easy_MailChimp_Export_Class::yikes_mailchimp_form_export( 'yikes_easy_mc_forms' , $forms, 'Yikes-Inc-Easy-MailChimp-Forms-Export' );
+			Yikes_Inc_Easy_MailChimp_Export_Class::yikes_mailchimp_form_export('Yikes-Inc-Easy-MailChimp-Forms-Export', $forms );
 			// re-direct the user back to the page
 			wp_redirect( esc_url_raw( admin_url( 'admin.php?page=yikes-inc-easy-mailchimp-settings&section=import-export-forms' ) ) );
 			die();
@@ -345,10 +342,7 @@ class Yikes_Inc_Easy_Mailchimp_Forms_Admin {
 			if( ! wp_verify_nonce( $nonce, 'export-settings' ) ) {
 				wp_die( __( "We've run into an error. The security check didn't pass. Please try again." , 'yikes-inc-easy-mailchimp-extender' ) , __( "Failed nonce validation" , 'yikes-inc-easy-mailchimp-extender' ) , array( 'response' => 500 , 'back_link' => true ) );
 			}
-			// include the export class
-			if( ! class_exists( 'Yikes_Inc_Easy_MailChimp_Export_Class' ) ) {
-				include_once( YIKES_MC_PATH . 'includes/import-export/yikes-easy-mailchimp-export.class.php' );
-			}
+
 			// run the export function
 			// parameters: ( $table_name, $form_ids, $file_name )
 			Yikes_Inc_Easy_MailChimp_Export_Class::yikes_mailchimp_settings_export( 'Yikes-Inc-Easy-MailChimp-Settings-Export' );
@@ -576,16 +570,16 @@ class Yikes_Inc_Easy_Mailchimp_Forms_Admin {
 			if( ! current_user_can( apply_filters( 'yikes-mailchimp-user-role-access' , 'manage_options' ) ) ) {
 				return;
 			}
-			global $wpdb;
-			$list_data = $wpdb->get_results( 'SELECT * FROM ' . $wpdb->prefix . 'yikes_easy_mc_forms', ARRAY_A );
+
+			$list_data = $this->form_interface->get_all_forms();
 			$lists = array();
 			$i = 0;
 			if( !empty( $list_data ) ) {
 				// build an array to pass to our javascript
-				foreach( $list_data as $form ) {
+				foreach( $list_data as $id => $form ) {
 						$lists[$i] = array(
 							'text' => urlencode( $form['form_name'] ),
-							'value' => $form['id']
+							'value' => $id,
 						);
 						$i++;
 				}
@@ -1386,27 +1380,24 @@ class Yikes_Inc_Easy_Mailchimp_Forms_Admin {
 				$redirect_page = isset( $new_options['page_id_'.$list_id] ) ? $new_options['page_id_'.$list_id] : '';
 
 				/* Insert Forms Function  */
-				$wpdb->insert(
-					$wpdb->prefix . 'yikes_easy_mc_forms',
-					array(
-						'list_id' => $list_id,
-						'form_name' => $form_name,
-						'form_description' => '',
-						'fields' => json_encode( $fields ),
-						'custom_styles' => $custom_styles,
-						'custom_template' => $custom_template,
-						'send_welcome_email' => $send_welcome_email,
-						'redirect_user_on_submit' => $redirect_user_on_submit,
-						'redirect_page' => $redirect_page,
-						'submission_settings' => '',
-						'optin_settings' => '',
-						'error_messages' => '',
-						'custom_notifications' => '',
-						'impressions' => '0',
-						'submissions' => '0',
-						'custom_fields' => '',
-					)
-				);
+				$this->form_interface->create_form( array(
+					'list_id'                 => $list_id,
+					'form_name'               => $form_name,
+					'form_description'        => '',
+					'fields'                  => json_encode( $fields ),
+					'custom_styles'           => $custom_styles,
+					'custom_template'         => $custom_template,
+					'send_welcome_email'      => $send_welcome_email,
+					'redirect_user_on_submit' => $redirect_user_on_submit,
+					'redirect_page'           => $redirect_page,
+					'submission_settings'     => '',
+					'optin_settings'          => '',
+					'error_messages'          => '',
+					'custom_notifications'    => '',
+					'impressions'             => '0',
+					'submissions'             => '0',
+					'custom_fields'           => '',
+				) );
 			}
 			if( $done == 'done' ) {
 				wp_send_json( array( 'form_name' => $form_name, 'completed_import' => true ) );

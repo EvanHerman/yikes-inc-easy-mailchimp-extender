@@ -92,18 +92,19 @@ class YIKES_MailChimp_Visual_Composer_Extension {
 	*	@since 6.0.3
 	*/
 	public function yikes_mailchimp_retreive_user_created_forms() {
-		global $wpdb;
-		$list_data = $wpdb->get_results( 'SELECT * FROM ' . $wpdb->prefix . 'yikes_easy_mc_forms', ARRAY_A );
+		$interface = yikes_easy_mailchimp_extender_get_form_interface();
+		$all_forms = $interface->get_all_forms();
+
 		$lists = array();
-		if( !empty( $list_data ) ) {	
+		if ( ! empty( $all_forms ) ) {
 			// build an array to pass to our javascript
-			foreach( $list_data as $form ) {
-				$lists[$form['form_name']] = $form['id'];
+			foreach ( $all_forms as $id => $form ) {
+				$lists[ $form['form_name'] ] = $id;
 			}
 		} else {
-			$lists[__( 'Please Import Some MailChimp Lists' , 'yikes-inc-easy-mailchimp-extender' )] = '-';
+			$lists[ __( 'Please Import Some MailChimp Lists', 'yikes-inc-easy-mailchimp-extender' ) ] = '-';
 		}
+
 		return $lists;
 	}
-	
 }

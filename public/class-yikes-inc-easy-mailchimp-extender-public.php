@@ -149,37 +149,31 @@ class Yikes_Inc_Easy_Mailchimp_Extender_Public {
 		}
 	}
 
-	/*
-	*	Get the given form data
-	*	@since 6.0.3.4
-	*/
+	/**
+	 * Get the given form data.
+	 *
+	 * This is a wrapper for the form interface get_form() method. It is recommended to use
+	 * that method directly instead of this function.
+	 *
+	 * @author Jeremy Pry
+	 * @deprecated
+	 *
+	 * @since 6.2.0 Use the new form interface.
+	 * @since 6.0.3.4
+	 *
+	 * @param int $form_id The form ID to retrieve.
+	 *
+	 * @return array
+	 */
 	public static function yikes_retrieve_form_settings( $form_id ) {
 		// if no form id, abort
 		if( ! $form_id ) {
-			return;
+			return array();
 		}
-		global $wpdb;
-		$form_results = $wpdb->get_results( 'SELECT * FROM ' . $wpdb->prefix . 'yikes_easy_mc_forms WHERE id = ' . $form_id . '', ARRAY_A ); // query for our form data
-		if( $form_results ) {
-			// empty array, to populate with form settings
-			$form_settings = array();
-			$form_data = $form_results[0]; // store the results
-			// store the settings in our array
-			$form_settings['list_id'] = sanitize_key( $form_data['list_id'] ); // associated list id (users who fill out the form will be subscribed to this list)
-			$form_settings['form_name'] = esc_attr( $form_data['form_name'] ); // form name
-			$form_settings['form_description'] = esc_attr( stripslashes( $form_data['form_description'] ) );
-			$form_settings['fields'] = json_decode( $form_data['fields'] , true );
-			$form_settings['styles'] = json_decode( stripslashes( $form_data['custom_styles'] ) , true );
-			$form_settings['send_welcome'] = $form_data['send_welcome_email'];
-			$form_settings['submission_settings'] = json_decode( stripslashes( $form_data['submission_settings'] ) , true );
-			$form_settings['optin_settings'] = json_decode( stripslashes( $form_data['optin_settings'] ) , true );
-			$form_settings['error_messages'] = json_decode( $form_data['error_messages'] , true );
-			$form_settings['notifications'] = isset( $form_data['custom_notifications'] ) ? json_decode( stripslashes( $form_data['custom_notifications'] ) , true ) : '';
-			$form_settings['submissions'] = $form_data['submissions'];
-			// return the given form settings in an array
-			return $form_settings;
-		}
-		return;
+
+		$interface = yikes_easy_mailchimp_extender_get_form_interface();
+
+		return $interface->get_form( $form_id );
 	}
 
 	/**

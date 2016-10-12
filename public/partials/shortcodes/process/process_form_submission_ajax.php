@@ -9,28 +9,29 @@ parse_str( $_POST['form_data'], $data );
 // store the form ID to use in our hooks and filters
 $form = $_POST['form_id'];
 
-// Retreive the form data from the database instead of posting it with the form-submission
-global $wpdb;
-// return it as an array, so we can work with it to build our form below
-$form_results = $wpdb->get_results( 'SELECT * FROM ' . $wpdb->prefix . 'yikes_easy_mc_forms WHERE id = ' . $form . '', ARRAY_A );
+$interface = yikes_easy_mailchimp_extender_get_form_interface();
+$form_data = $interface->get_form( $form );
 
-if( $form_results ) {
-	$form_data = $form_results[0];
+if( $form_data ) {
 	// List ID
 	$list_id = $form_data['list_id'];
+
 	// decode our submission settings
-	$submission_settings = json_decode( stripslashes( $form_data['submission_settings'] ), true );
+	$submission_settings = $form_data['submission_settings'];
+
 	// decode our optin settings
-	$optin_settings = json_decode( stripslashes( $form_data['optin_settings'] ), true );
+	$optin_settings = $form_data['optin_settings'];
+
 	// decode our fields
-	$form_fields = json_decode( stripslashes( $form_data['fields'] ), true );
+	$form_fields = $form_data['fields'];
+
 	/*	Decode our error messages
 	*	Workaround for international characters (cyrillic etc)
 	* 	See: https://wordpress.org/support/topic/custom-messages-do-not-support-cyrillic-characters?replies=11#post-7629620
 	*/
-	$error_messages = ( get_magic_quotes_gpc() ) ? json_decode( stripslashes( $form_data['error_messages'] ), true ) : json_decode( $form_data['error_messages'], true );
+	$error_messages = $form_data['error_messages'];
 	/** Submit Process **/
-	$notifications = json_decode( stripslashes( $form_data['custom_notifications'] ), true );
+	$notifications = isset( $form_data['custom_notifications'] ) ? $form_data['custom_notifications'] : array();
 	/* Page Data */
 	$page_data = $_POST['page_data'];
 }

@@ -35,18 +35,18 @@ function yikes_mailchimp_subscriber_count_shortcode( $attributes ) {
 	}
 
 	/* if a form ID and a list ID were passed in, use the form ID */
-	if( ( $form ) || ( $form && $list_id ) ) {
-		global $wpdb;
-		// return it as an array, so we can work with it to build our form below
-		$form_results = $wpdb->get_results( 'SELECT * FROM ' . $wpdb->prefix . 'yikes_easy_mc_forms WHERE id = ' . $form . '', ARRAY_A );
+	if ( ( $form ) || ( $form && $list_id ) ) {
+		$interface = yikes_easy_mailchimp_extender_get_form_interface();
+		$form_data = $interface->get_form( $form );
+
 		// confirm we have some results, or return an error
-		if( ! $form_results ) {
+		if( ! $form_data ) {
 			if( WP_DEBUG ) {
 				return __( "Oh no...This form doesn't exist. Head back to the manage forms page and select a different form." , 'yikes-inc-easy-mailchimp-extender' );
 			}
 			return;
 		}
-		$form_data = $form_results[0];
+
 		$list_id = sanitize_key( $form_data['list_id'] ); // associated list id (users who fill out the form will be subscribed to this list)
 	}
 

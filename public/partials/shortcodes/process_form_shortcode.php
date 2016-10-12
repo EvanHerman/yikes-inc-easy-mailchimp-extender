@@ -39,12 +39,11 @@ function process_mailchimp_shortcode( $atts ) {
 		return __( 'Whoops, it looks like you forgot to specify a form to display.', 'yikes-inc-easy-mailchimp-extender' );
 	}
 
-	global $wpdb;
-	// return it as an array, so we can work with it to build our form below
-	$form_results = $wpdb->get_results( 'SELECT * FROM ' . $wpdb->prefix . 'yikes_easy_mc_forms WHERE id = ' . $atts['form'] . '', ARRAY_A );
+	$interface = yikes_easy_mailchimp_extender_get_form_interface();
+	$form_data = $interface->get_form( $atts['form'] );
 
 	// confirm we have some results, or return an error
-	if( !$form_results ) {
+	if ( empty( $form_data ) ) {
 		return __( "Oh no...This form doesn't exist. Head back to the manage forms page and select a different form." , 'yikes-inc-easy-mailchimp-extender' );
 	}
 
@@ -117,10 +116,9 @@ function process_mailchimp_shortcode( $atts ) {
 	}
 
 	// place our results into a seperate variable for easy looping
-	$form_data = $form_results[0];
 
 	// store our variables
-	$form_id = (int) $form_data['id']; // form id (the id of the form in the database)
+	$form_id = (int) $atts['form']; // form id (the id of the form in the database)
 
 	/*
 	*	Get the stored form settings
@@ -1215,19 +1213,9 @@ function process_mailchimp_shortcode( $atts ) {
 		*	Update the impressions count
 		*	for non-admins
 		*/
-		if( !current_user_can( 'manage_options' ) ) {
-			$form_data['impressions']++;
-			$wpdb->update(
-				$wpdb->prefix . 'yikes_easy_mc_forms',
-					array(
-						'impressions' => $form_data['impressions'],
-					),
-					array( 'ID' => $atts['form'] ),
-					array(
-						'%d',	// send welcome email
-					),
-					array( '%d' )
-				);
+		if ( ! current_user_can( 'manage_options' ) ) {
+			$impressions = $form_data['impressions'] + 1;
+			$interface->update_form_field( $form_id, 'impressions', $impressions );
 		}
 
 	?>

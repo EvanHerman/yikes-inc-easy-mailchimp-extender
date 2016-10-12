@@ -33,31 +33,23 @@ class YIKES_Inc_Easy_MailChimp_Public_Ajax {
 		exit();
 	}
 
-	/*
-	*	Increase the submission count for a given
-	*	$form_id - id of the form to increase submission count by 1
-	*/
+	/**
+	 * Increase the submission count for a given form.
+	 */
 	public function increase_submission_count() {
-		// store our posted form ID
-		$form_id = $_POST['form_id'];
-		global $wpdb;
-		// query the form
-		$form_results = $wpdb->get_results( 'SELECT * FROM ' . $wpdb->prefix . 'yikes_easy_mc_forms WHERE id = ' . $form_id . '', ARRAY_A );
-		$form_data = $form_results[0];
-		// increase the submission
-		$form_data['submissions']++;
-		// update the value in the database
-		$wpdb->update(
-			$wpdb->prefix . 'yikes_easy_mc_forms',
-				array(
-					'submissions' => $form_data['submissions'],
-				),
-				array( 'ID' => $form_id ),
-				array(
-					'%d',
-				),
-				array( '%d' )
-			);
+		$form_id   = intval( $_POST['form_id'] );
+		$interface = yikes_easy_mailchimp_extender_get_form_interface();
+		$form      = $interface->get_form( $form_id );
+
+		// If we don't have a form to update, just bail.
+		if ( empty( $form ) ) {
+			exit();
+		}
+
+		// Update the form.
+		$submission_count = isset( $form['submissions'] ) ? $form['submissions'] + 1 : 1;
+		$interface->update_form_field( $form_id, 'submissions', $submission_count );
+
 		exit();
 	}
 
