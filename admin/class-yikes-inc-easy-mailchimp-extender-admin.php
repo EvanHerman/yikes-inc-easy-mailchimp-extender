@@ -2432,18 +2432,17 @@ class Yikes_Inc_Easy_Mailchimp_Forms_Admin {
 			) );
 
 			// if an error occurs during the form creation process
-			if ( $result == '0' ) {
+			if ( false == $result ) {
 				// write it to the error log
 				// if the form was not created successfully
 				if( get_option( 'yikes-mailchimp-debug-status' , '' ) == '1' ) {
-					require_once YIKES_MC_PATH . 'includes/error_log/class-yikes-inc-easy-mailchimp-error-logging.php';
 					$error_logging = new Yikes_Inc_Easy_Mailchimp_Error_Logging();
-					$error_logging->yikes_easy_mailchimp_write_to_error_log( $wpdb->last_error , __( "Creating a new form" , 'yikes-inc-easy-mailchimp-extender' ) , __( "Forms" , 'yikes-inc-easy-mailchimp-extender' ) );
+					$error_logging->yikes_easy_mailchimp_write_to_error_log( __( 'Error creating a new form', 'yikes-inc-easy-mailchimp-extender') , __( "Creating a new form" , 'yikes-inc-easy-mailchimp-extender' ) , __( "Forms" , 'yikes-inc-easy-mailchimp-extender' ) );
 				}
-				wp_redirect( esc_url_raw( admin_url( 'admin.php?page=yikes-mailchimp-edit-form&sql_error='.urlencode( $wpdb->last_error ) ) ) );
+				wp_redirect( esc_url_raw( admin_url( 'admin.php?page=yikes-mailchimp-edit-form&sql_error=' . urlencode( __( 'Error creating a new form', 'yikes-inc-easy-mailchimp-extender' ) ) ) ) );
 			} else {
 				// redirect the user to the new form edit page
-				wp_redirect( esc_url_raw( admin_url( 'admin.php?page=yikes-mailchimp-edit-form&id='.$wpdb->insert_id ) ) );
+				wp_redirect( esc_url_raw( admin_url( 'admin.php?page=yikes-mailchimp-edit-form&id=' . $result) ) );
 			}
 			exit();
 		}
