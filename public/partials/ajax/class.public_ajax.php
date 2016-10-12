@@ -187,6 +187,3 @@ class YIKES_Inc_Easy_MailChimp_Public_Ajax {
 		}
 	}
 }
-
-new YIKES_Inc_Easy_MailChimp_Public_Ajax();
-
