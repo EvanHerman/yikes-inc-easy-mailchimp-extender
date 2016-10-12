@@ -11,7 +11,7 @@ class YIKES_MailChimp_Visual_Composer_Extension {
 	*/
 	function __construct() {
 		add_action( 'admin_init', array( $this, 'extend_visual_composer' ) );
-		add_shortcode_param( 'yikes_mailchimp_logo', array( $this, 'yikes_mailchimp_logo_vc_section' ) );
+		vc_add_shortcode_param( 'yikes_mailchimp_logo', array( $this, 'yikes_mailchimp_logo_vc_section' ) );
 	}
 	
 	/**
