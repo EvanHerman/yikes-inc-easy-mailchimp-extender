@@ -10,6 +10,7 @@
  * @author     YIKES Inc. <info@yikesinc.com>
  */
 class Yikes_Inc_Easy_Mailchimp_Forms_Admin {
+
 	/**
 	 * The ID of this plugin.
 	 *
@@ -18,6 +19,7 @@ class Yikes_Inc_Easy_Mailchimp_Forms_Admin {
 	 * @var      string    $yikes_inc_easy_mailchimp_extender    The ID of this plugin.
 	 */
 	private $yikes_inc_easy_mailchimp_extender;
+
 	/**
 	 * The version of this plugin.
 	 *
@@ -26,145 +28,172 @@ class Yikes_Inc_Easy_Mailchimp_Forms_Admin {
 	 * @var      string    $version    The current version of this plugin.
 	 */
 	private $version;
+
+	/**
+	 * Our form interface instance.
+	 *
+	 * @var Yikes_Inc_Easy_MailChimp_Extender_Form_Interface
+	 */
+	private $form_interface;
+
 	/**
 	 * Initialize the class and set its properties.
 	 *
 	 * @since    1.0.0
-	 * @param      string    $yikes_inc_easy_mailchimp_extender       The name of this plugin.
-	 * @param      string    $version    The version of this plugin.
+	 *
+	 * @param string                                           $yikes_inc_easy_mailchimp_extender The name of this plugin.
+	 * @param string                                           $version                           The version of this plugin.
+	 * @param Yikes_Inc_Easy_MailChimp_Extender_Form_Interface $form_interface
 	 */
-	public function __construct( $yikes_inc_easy_mailchimp_extender, $version ) {
-
+	public function __construct(
+		$yikes_inc_easy_mailchimp_extender,
+		$version,
+		Yikes_Inc_Easy_MailChimp_Extender_Form_Interface $form_interface
+	) {
 		$this->yikes_inc_easy_mailchimp_extender = $yikes_inc_easy_mailchimp_extender;
 		$this->version = $version;
+		$this->form_interface = $form_interface;
+	}
+
+	/**
+	 * Our admin hooks.
+	 *
+	 * @author Jeremy Pry
+	 */
+	public function hooks() {
 		// check for old plugin options and migrate if exist
-		add_action( 'admin_menu' , array( $this , 'register_admin_pages' ) , 11 );
+		add_action( 'admin_menu', array( $this, 'register_admin_pages' ), 11 );
 		// check for old plugin options and migrate if exist
-		add_action( 'admin_init' , array( $this , 'check_for_old_yks_mc_options' ) );
+		add_action( 'admin_init', array( $this, 'check_for_old_yks_mc_options' ) );
 		// Ajax function to update new options...
-		add_action( 'wp_ajax_migrate_old_plugin_settings', array( $this , 'migrate_archived_options' ) );
+		add_action( 'wp_ajax_migrate_old_plugin_settings', array( $this, 'migrate_archived_options' ) );
 		// Ajax function to migrate our forms
-		add_action( 'wp_ajax_migrate_prevoious_forms', array( $this , 'migrate_previously_setup_forms' ) );
+		add_action( 'wp_ajax_migrate_prevoious_forms', array( $this, 'migrate_previously_setup_forms' ) );
 		// fix menu icon spacing
-		add_action( 'admin_head' , array( $this , 'fix_menu_icon_spacing' ) );
+		add_action( 'admin_head', array( $this, 'fix_menu_icon_spacing' ) );
 		// register our plugin settings
-		add_action( 'admin_init', array( $this , 'yikes_easy_mc_settings_init' ) );
+		add_action( 'admin_init', array( $this, 'yikes_easy_mc_settings_init' ) );
 		// plugin redirect on activation
-		add_action( 'admin_init' , array( $this , 'yikes_easy_mc_activation_redirect' ) );
+		add_action( 'admin_init', array( $this, 'yikes_easy_mc_activation_redirect' ) );
+
 		// Include Third Party Extensions
-		include_once( YIKES_MC_PATH . 'includes/third-party-integrations/third-party-init.php' );
+		new YIKES_MailChimp_ThirdParty_Integrations();
+
 		// Include our dashboard widget class
-		include_once( YIKES_MC_PATH . 'admin/partials/dashboard-widgets/class.list-activity-widget.php' );
+		new YIKES_Inc_Easy_MailChimp_Dashboard_Widgets();
+
 		// Include our front end widget class
-		include_once( YIKES_MC_PATH . 'admin/partials/front-end-widgets/front-end-widget-form.php' );
+		add_action( 'widgets_init', array( $this, 'register_optin_widget' ) );
+
 		// Include our ajax processing class
-		include_once( YIKES_MC_PATH . 'admin/partials/ajax/class.ajax.php' );
+		new YIKES_Inc_Easy_MailChimp_Process_Ajax();
+
 		// load up our helper class
-		add_action( 'admin_init' , array( $this , 'yikes_mailchimp_load_helper_class' ) );
+		add_action( 'admin_init', array( $this, 'yikes_mailchimp_load_helper_class' ) );
 		// process the subscriber count shortcode in form descriptions
 		add_action( 'yikes-mailchimp-form-description', array( $this, 'process_subscriber_count_shortcode_in_form_descriptions' ), 10, 2 );
 		/***********************/
 		/** Create A Form **/
 		/**********************/
-		if ( isset( $_REQUEST[ 'action' ] ) && $_REQUEST[ 'action' ] == 'yikes-easy-mc-create-form' ) {
-			add_action( 'init' , array( $this , 'yikes_easy_mailchimp_create_form' ) );
+		if ( isset( $_REQUEST['action'] ) && $_REQUEST['action'] == 'yikes-easy-mc-create-form' ) {
+			add_action( 'init', array( $this, 'yikes_easy_mailchimp_create_form' ) );
 		}
 		/***********************/
 		/** Delete A Form **/
 		/**********************/
-		if ( isset( $_REQUEST[ 'action' ] ) && $_REQUEST[ 'action' ] == 'yikes-easy-mc-delete-form' ) {
-			add_action( 'init' , array( $this , 'yikes_easy_mailchimp_delete_form' ) );
+		if ( isset( $_REQUEST['action'] ) && $_REQUEST['action'] == 'yikes-easy-mc-delete-form' ) {
+			add_action( 'init', array( $this, 'yikes_easy_mailchimp_delete_form' ) );
 		}
 		/**********************************/
-		/** Duplicate/Clone A Form 	**/
+		/** Duplicate/Clone A Form    **/
 		/********************************/
-		if ( isset( $_REQUEST[ 'action' ] ) && $_REQUEST[ 'action' ] == 'yikes-easy-mc-duplicate-form' ) {
-			add_action( 'init' , array( $this , 'yikes_easy_mailchimp_duplicate_form' ) );
+		if ( isset( $_REQUEST['action'] ) && $_REQUEST['action'] == 'yikes-easy-mc-duplicate-form' ) {
+			add_action( 'init', array( $this, 'yikes_easy_mailchimp_duplicate_form' ) );
 		}
 		/*************************************/
 		/**  Reset Form Impression Stats **/
 		/***********************************/
-		if ( isset( $_REQUEST[ 'action' ] ) && $_REQUEST[ 'action' ] == 'yikes-easy-mc-reset-stats' ) {
-			add_action( 'init' , array( $this , 'yikes_easy_mailchimp_reset_impression_stats' ) );
+		if ( isset( $_REQUEST['action'] ) && $_REQUEST['action'] == 'yikes-easy-mc-reset-stats' ) {
+			add_action( 'init', array( $this, 'yikes_easy_mailchimp_reset_impression_stats' ) );
 		}
 		/**********************************/
-		/** 	     Update A Form 		**/
+		/**         Update A Form        **/
 		/********************************/
-		if ( isset( $_REQUEST[ 'action' ] ) && $_REQUEST[ 'action' ] == 'yikes-easy-mc-update-form' ) {
-			add_action( 'init' , array( $this , 'yikes_easy_mailchimp_update_form' ) );
+		if ( isset( $_REQUEST['action'] ) && $_REQUEST['action'] == 'yikes-easy-mc-update-form' ) {
+			add_action( 'init', array( $this, 'yikes_easy_mailchimp_update_form' ) );
 		}
 		/**************************************************/
-		/** 	 Clear Store MailChimp Transient Data   **/
+		/**     Clear Store MailChimp Transient Data   **/
 		/*************************************************/
-		if ( isset( $_REQUEST[ 'action' ] ) && $_REQUEST[ 'action' ] == 'yikes-easy-mc-clear-transient-data' ) {
-			add_action( 'init' , array( $this , 'yikes_easy_mailchimp_clear_transient_data' ) );
+		if ( isset( $_REQUEST['action'] ) && $_REQUEST['action'] == 'yikes-easy-mc-clear-transient-data' ) {
+			add_action( 'init', array( $this, 'yikes_easy_mailchimp_clear_transient_data' ) );
 		}
 		/*******************************************/
-		/** Remove a user from a mailing list 	 **/
+		/** Remove a user from a mailing list     **/
 		/*****************************************/
-		if ( isset( $_REQUEST[ 'action' ] ) && $_REQUEST[ 'action' ] == 'yikes-easy-mc-unsubscribe-user' ) {
-			add_action( 'init' , array( $this , 'yikes_easy_mailchimp_unsubscribe_user' ) );
+		if ( isset( $_REQUEST['action'] ) && $_REQUEST['action'] == 'yikes-easy-mc-unsubscribe-user' ) {
+			add_action( 'init', array( $this, 'yikes_easy_mailchimp_unsubscribe_user' ) );
 		}
 		/*******************************************/
-		/** 	Create misisng error log file  **/
+		/**    Create misisng error log file  **/
 		/*****************************************/
-		if ( isset( $_REQUEST[ 'action' ] ) && $_REQUEST[ 'action' ] == 'yikes-easy-mc-create-error-log' ) {
-			add_action( 'init' , array( $this , 'yikes_easy_mailchimp_create_missing_error_log' ) );
+		if ( isset( $_REQUEST['action'] ) && $_REQUEST['action'] == 'yikes-easy-mc-create-error-log' ) {
+			add_action( 'init', array( $this, 'yikes_easy_mailchimp_create_missing_error_log' ) );
 		}
 		/*******************************************/
-		/**   TinyMCE Initialization Functions	 **/
+		/**   TinyMCE Initialization Functions     **/
 		/*****************************************/
-		add_action( 'admin_head' , array( $this, 'add_tinyMCE_buttons' ) );
+		add_action( 'admin_head', array( $this, 'add_tinyMCE_buttons' ) );
 		// pass our lists data to tinyMCE button for use
-		foreach ( array('post.php','post-new.php') as $hook ) {
+		foreach ( array( 'post.php', 'post-new.php' ) as $hook ) {
 			add_action( "admin_head-$hook", array( $this, 'tinymce_yikes_easy_mc' ) );
 		}
 		// display an admin notice for users on PHP < 5.3
-		if( phpversion() < '5.3' ) {
+		if ( phpversion() < '5.3' ) {
 			add_action( "admin_notices", array( $this, 'display_php_warning' ), 999 );
 		}
 		// two week , dismissable notification - check the users plugin installation date
-		add_action( 'admin_init', array( $this , 'yikes_easy_mailchimp_check_installation_date' ) );
+		add_action( 'admin_init', array( $this, 'yikes_easy_mailchimp_check_installation_date' ) );
 		// dismissable notice admin side
-		add_action( 'admin_init', array( $this , 'yikes_easy_mailchimp_stop_bugging_me' ), 5 );
+		add_action( 'admin_init', array( $this, 'yikes_easy_mailchimp_stop_bugging_me' ), 5 );
 		/**************************************************/
-		/** 	 	Clear MailChimp Error Log Data 	    **/
+		/**        Clear MailChimp Error Log Data        **/
 		/*************************************************/
-		if ( isset( $_REQUEST[ 'action' ] ) && $_REQUEST[ 'action' ] == 'yikes-easy-mc-clear-error-log' ) {
-			add_action( 'init' , array( $this , 'yikes_easy_mailchimp_clear_error_log' ) );
+		if ( isset( $_REQUEST['action'] ) && $_REQUEST['action'] == 'yikes-easy-mc-clear-error-log' ) {
+			add_action( 'init', array( $this, 'yikes_easy_mailchimp_clear_error_log' ) );
 		}
 		/*********************************************/
-		/** 		Export MailChimp Opt-in Forms   **/
+		/**        Export MailChimp Opt-in Forms   **/
 		/*******************************************/
-		if ( isset( $_REQUEST[ 'action' ] ) && $_REQUEST[ 'action' ] == 'yikes-easy-mc-export-forms' ) {
-			add_action( 'init' , array( $this , 'yikes_easy_mailchimp_export_forms' ) );
+		if ( isset( $_REQUEST['action'] ) && $_REQUEST['action'] == 'yikes-easy-mc-export-forms' ) {
+			add_action( 'init', array( $this, 'yikes_easy_mailchimp_export_forms' ) );
 		}
 		/*********************************************/
-		/** 				Export Plugin Settings    	   **/
+		/**                Export Plugin Settings           **/
 		/*******************************************/
-		if ( isset( $_REQUEST[ 'action' ] ) && $_REQUEST[ 'action' ] == 'yikes-easy-mc-export-settings' ) {
-			add_action( 'init' , array( $this , 'yikes_easy_mailchimp_export_plugin_settings' ) );
+		if ( isset( $_REQUEST['action'] ) && $_REQUEST['action'] == 'yikes-easy-mc-export-settings' ) {
+			add_action( 'init', array( $this, 'yikes_easy_mailchimp_export_plugin_settings' ) );
 		}
 		/*******************************************/
-		/** 		Import Class Inclusion	   **/
+		/**        Import Class Inclusion       **/
 		/*****************************************/
-		if ( isset( $_REQUEST[ 'action' ] ) && $_REQUEST[ 'action' ] == 'yikes-easy-mc-import-forms' ) {
-			add_action( 'init' , array( $this , 'yikes_easy_mailchimp_import_forms' ) );
+		if ( isset( $_REQUEST['action'] ) && $_REQUEST['action'] == 'yikes-easy-mc-import-forms' ) {
+			add_action( 'init', array( $this, 'yikes_easy_mailchimp_import_forms' ) );
 		}
 		/*******************************************/
-		/** 	Premium Support Request     **/
+		/**    Premium Support Request     **/
 		/*****************************************/
-		if ( isset( $_POST[ 'submit-premium-support-request' ] ) ) {
-			add_action( 'init' , array( $this , 'yikes_easy_mailchimp_premium_support_request' ) );
+		if ( isset( $_POST['submit-premium-support-request'] ) ) {
+			add_action( 'init', array( $this, 'yikes_easy_mailchimp_premium_support_request' ) );
 		}
 		/****************************************/
-		/**	Dismiss Options Migrations		**/
+		/**    Dismiss Options Migrations        **/
 		/****************************************/
-		if( isset( $_REQUEST['dismiss_migration_nonce'] ) ) {
-			add_action( 'init' , array( $this , 'yikes_easy_mailchimp_dismiss_option_migrate' ) );
+		if ( isset( $_REQUEST['dismiss_migration_nonce'] ) ) {
+			add_action( 'init', array( $this, 'yikes_easy_mailchimp_dismiss_option_migrate' ) );
 		}
 		/** Parse default value into usable dynamic data **/
-		add_filter( 'yikes-mailchimp-process-default-tag' , array( $this , 'parse_mailchimp_default_tag' ) );
+		add_filter( 'yikes-mailchimp-process-default-tag', array( $this, 'parse_mailchimp_default_tag' ) );
 		/** Add a disclaimer to ensure that we let people know we are not endorsed/backed by MailChimp at all **/
 		add_filter( 'admin_footer_text', array( $this, 'yikes_easy_forms_admin_disclaimer' ) );
 		/** Add custom plugin action links **/
@@ -176,6 +205,9 @@ class Yikes_Inc_Easy_Mailchimp_Forms_Admin {
 		// ensure that the upgrade went smoothly, else we have to let the user know we need to upgrade the database
 		// after upgrading f rom 6.0.3.7 users need to upgrade the database as well
 		add_action( 'plugins_loaded', array( $this, 'check_yikes_mc_table_version' ) );
+
+		// Run a check to see if we need to convert the custom DB table to options.
+		add_action( 'plugins_loaded', array( $this, 'check_db_version' ) );
 	}
 
 		/*
@@ -283,18 +315,15 @@ class Yikes_Inc_Easy_Mailchimp_Forms_Admin {
 			// grab our nonce
 			$nonce = $_REQUEST['nonce'];
 			// grab the forms
-			$forms = isset( $_REQUEST['export_forms'] ) ? $_REQUEST['export_forms'] : 'all';
+			$forms = isset( $_REQUEST['export_forms'] ) ? $_REQUEST['export_forms'] : array();
 			// validate nonce
 			if( ! wp_verify_nonce( $nonce, 'export-forms' ) ) {
 				wp_die( __( "We've run into an error. The security check didn't pass. Please try again." , 'yikes-inc-easy-mailchimp-extender' ) , __( "Failed nonce validation" , 'yikes-inc-easy-mailchimp-extender' ) , array( 'response' => 500 , 'back_link' => true ) );
 			}
-			// include the export class
-			if( ! class_exists( 'Yikes_Inc_Easy_MailChimp_Export_Class' ) ) {
-				include_once( YIKES_MC_PATH . 'includes/import-export/yikes-easy-mailchimp-export.class.php' );
-			}
+
 			// run the export function
 			// parameters: ( $table_name, $form_ids, $file_name )
-			Yikes_Inc_Easy_MailChimp_Export_Class::yikes_mailchimp_form_export( 'yikes_easy_mc_forms' , $forms, 'Yikes-Inc-Easy-MailChimp-Forms-Export' );
+			Yikes_Inc_Easy_MailChimp_Export_Class::yikes_mailchimp_form_export('Yikes-Inc-Easy-MailChimp-Forms-Export', $forms );
 			// re-direct the user back to the page
 			wp_redirect( esc_url_raw( admin_url( 'admin.php?page=yikes-inc-easy-mailchimp-settings&section=import-export-forms' ) ) );
 			die();
@@ -313,10 +342,7 @@ class Yikes_Inc_Easy_Mailchimp_Forms_Admin {
 			if( ! wp_verify_nonce( $nonce, 'export-settings' ) ) {
 				wp_die( __( "We've run into an error. The security check didn't pass. Please try again." , 'yikes-inc-easy-mailchimp-extender' ) , __( "Failed nonce validation" , 'yikes-inc-easy-mailchimp-extender' ) , array( 'response' => 500 , 'back_link' => true ) );
 			}
-			// include the export class
-			if( ! class_exists( 'Yikes_Inc_Easy_MailChimp_Export_Class' ) ) {
-				include_once( YIKES_MC_PATH . 'includes/import-export/yikes-easy-mailchimp-export.class.php' );
-			}
+
 			// run the export function
 			// parameters: ( $table_name, $form_ids, $file_name )
 			Yikes_Inc_Easy_MailChimp_Export_Class::yikes_mailchimp_settings_export( 'Yikes-Inc-Easy-MailChimp-Settings-Export' );
@@ -388,7 +414,7 @@ class Yikes_Inc_Easy_Mailchimp_Forms_Admin {
 
 			// catch the error
 			if( is_wp_error( $response ) ) {
-				wp_die( $create_ticket_request->getMessage() );
+				wp_die( $response->getMessage() );
 				return;
 			}
 
@@ -544,16 +570,16 @@ class Yikes_Inc_Easy_Mailchimp_Forms_Admin {
 			if( ! current_user_can( apply_filters( 'yikes-mailchimp-user-role-access' , 'manage_options' ) ) ) {
 				return;
 			}
-			global $wpdb;
-			$list_data = $wpdb->get_results( 'SELECT * FROM ' . $wpdb->prefix . 'yikes_easy_mc_forms', ARRAY_A );
+
+			$list_data = $this->form_interface->get_all_forms();
 			$lists = array();
 			$i = 0;
 			if( !empty( $list_data ) ) {
 				// build an array to pass to our javascript
-				foreach( $list_data as $form ) {
+				foreach( $list_data as $id => $form ) {
 						$lists[$i] = array(
 							'text' => urlencode( $form['form_name'] ),
-							'value' => $form['id']
+							'value' => $id,
 						);
 						$i++;
 				}
@@ -1347,34 +1373,31 @@ class Yikes_Inc_Easy_Mailchimp_Forms_Admin {
 				$form_name = $new_options['name'];
 				$fields = $new_options['fields']; // our fields array
 
-				$custom_styles = isset( $new_options['custom_styles'] ) ? json_encode( $new_options['custom_styles'] ) : '0'; // store as an array with all of our styles
-				$custom_template = isset( $new_options['custom_template'] ) ? json_encode( $new_options['custom_template'] ) : '0'; // store template data as an array ( active , template used )
+				$custom_styles = isset( $new_options['custom_styles'] ) ? $new_options['custom_styles']: '0'; // store as an array with all of our styles
+				$custom_template = isset( $new_options['custom_template'] ) ? $new_options['custom_template'] : '0'; // store template data as an array ( active , template used )
 				$send_welcome_email = isset( $new_options['yks_mailchimp_send_welcome_'.$list_id] ) ? '0' : '1';
 				$redirect_user_on_submit = isset( $new_options['yks_mailchimp_redirect_'.$list_id] ) ? '1' : '0';
 				$redirect_page = isset( $new_options['page_id_'.$list_id] ) ? $new_options['page_id_'.$list_id] : '';
 
 				/* Insert Forms Function  */
-				$wpdb->insert(
-					$wpdb->prefix . 'yikes_easy_mc_forms',
-					array(
-						'list_id' => $list_id,
-						'form_name' => $form_name,
-						'form_description' => '',
-						'fields' => json_encode( $fields ),
-						'custom_styles' => $custom_styles,
-						'custom_template' => $custom_template,
-						'send_welcome_email' => $send_welcome_email,
-						'redirect_user_on_submit' => $redirect_user_on_submit,
-						'redirect_page' => $redirect_page,
-						'submission_settings' => '',
-						'optin_settings' => '',
-						'error_messages' => '',
-						'custom_notifications' => '',
-						'impressions' => '0',
-						'submissions' => '0',
-						'custom_fields' => '',
-					)
-				);
+				$this->form_interface->create_form( array(
+					'list_id'                 => $list_id,
+					'form_name'               => $form_name,
+					'form_description'        => '',
+					'fields'                  => $fields,
+					'custom_styles'           => $custom_styles,
+					'custom_template'         => $custom_template,
+					'send_welcome_email'      => $send_welcome_email,
+					'redirect_user_on_submit' => $redirect_user_on_submit,
+					'redirect_page'           => $redirect_page,
+					'submission_settings'     => '',
+					'optin_settings'          => '',
+					'error_messages'          => '',
+					'custom_notifications'    => '',
+					'impressions'             => '0',
+					'submissions'             => '0',
+					'custom_fields'           => '',
+				) );
 			}
 			if( $done == 'done' ) {
 				wp_send_json( array( 'form_name' => $form_name, 'completed_import' => true ) );
@@ -2359,96 +2382,69 @@ class Yikes_Inc_Easy_Mailchimp_Forms_Admin {
 		public function yikes_easy_mailchimp_create_form() {
 			$nonce = $_REQUEST['nonce'];
 			if( ! wp_verify_nonce( $nonce, 'create_mailchimp_form' ) ) {
-				die( __( "We've run into an error. The security check didn't pass. Please try again." , 'yikes-inc-easy-mailchimp-extender' ) );
+				wp_die( __( "We've run into an error. The security check didn't pass. Please try again." , 'yikes-inc-easy-mailchimp-extender' ) );
 			}
-			global $wpdb;
-				/* Default values */
-				// setup our default submission settings serialized array
-				$submission_settings = json_encode(
-					array(
-						'ajax' => 1,
-						'redirect_on_submission' => 0,
-						'redirect_page' => 1,
-						'hide_form_post_signup' => 0
-					)
-				);
-				// setup our default opt-in settings serialized array
-				$optin_settings = json_encode(
-					array(
-						'optin' => 1,
-						'update_existing_user' => 1,
-						'send_update_email' => 1,
-						'send_welcome_email' => 1,
-					)
-				);
-				// setup our default error message array
-				$error_settings= json_encode(
-					array(
-						'success' => '',
-						'general-error' => '',
-						'invalid-email' => '',
-						'email-already-subscribed' => '',
-						'update-link' => '',
-					)
-				);
-				/* End default values */
-				/* Working Insert Function */
-				$wpdb->insert(
-					$wpdb->prefix . 'yikes_easy_mc_forms',
-					array(
-						'list_id' => $_POST['associated-list'],
-						'form_name' => stripslashes( $_POST['form-name'] ),
-						'form_description' => stripslashes( $_POST['form-description'] ),
-						'fields' => '',
-						'custom_styles' => 0,
-						'custom_template' => 0,
-						'send_welcome_email' => 1,
-						'redirect_user_on_submit' => 0,
-						'redirect_page' => '',
-						'submission_settings' => $submission_settings,
-						'optin_settings' => $optin_settings,
-						'error_messages' => $error_settings,
-						'custom_notifications' => '',
-						'impressions' => 0,
-						'submissions' => 0,
-						'custom_fields' => '',
-					),
-					array(
-						'%s', // list id
-						'%s', // form name
-						'%s', // form description
-						'%s', // fields
-						'%s', // custom styles
-						'%d',	// custom template
-						'%d',	// send welcome email
-						'%s',	// redirect user
-						'%s',	// redirect page
-						'%s',	// submission
-						'%s',	// optin
-						'%s', // error
-						'%s', // custom notifications
-						'%d',	// impressions #
-						'%d',	// submissions #
-						'%s', // custom fields
-					)
-				);
+
+			/* Default values */
+			// setup our default submission settings serialized array
+			$submission_settings = array(
+				'ajax'                   => 1,
+				'redirect_on_submission' => 0,
+				'redirect_page'          => 1,
+				'hide_form_post_signup'  => 0,
+			);
+			// setup our default opt-in settings serialized array
+			$optin_settings = array(
+				'optin'                => 1,
+				'update_existing_user' => 1,
+				'send_update_email'    => 1,
+				'send_welcome_email'   => 1,
+
+			);
+			// setup our default error message array
+			$error_settings = array(
+				'success'                  => '',
+				'general-error'            => '',
+				'invalid-email'            => '',
+				'email-already-subscribed' => '',
+				'update-link'              => '',
+
+			);
+			/* End default values */
+
+			$result = $this->form_interface->create_form( array(
+				'list_id'                 => $_POST['associated-list'],
+				'form_name'               => stripslashes( $_POST['form-name'] ),
+				'form_description'        => stripslashes( $_POST['form-description'] ),
+				'fields'                  => '',
+				'custom_styles'           => 0,
+				'custom_template'         => 0,
+				'send_welcome_email'      => 1,
+				'redirect_user_on_submit' => 0,
+				'redirect_page'           => '',
+				'submission_settings'     => $submission_settings,
+				'optin_settings'          => $optin_settings,
+				'error_messages'          => $error_settings,
+				'custom_notifications'    => '',
+				'impressions'             => 0,
+				'submissions'             => 0,
+				'custom_fields'           => '',
+			) );
 
 			// if an error occurs during the form creation process
-			if( $wpdb->insert_id == '0' ) {
+			if ( false == $result ) {
 				// write it to the error log
 				// if the form was not created successfully
 				if( get_option( 'yikes-mailchimp-debug-status' , '' ) == '1' ) {
-					require_once YIKES_MC_PATH . 'includes/error_log/class-yikes-inc-easy-mailchimp-error-logging.php';
 					$error_logging = new Yikes_Inc_Easy_Mailchimp_Error_Logging();
-					$error_logging->yikes_easy_mailchimp_write_to_error_log( $wpdb->last_error , __( "Creating a new form" , 'yikes-inc-easy-mailchimp-extender' ) , __( "Forms" , 'yikes-inc-easy-mailchimp-extender' ) );
+					$error_logging->yikes_easy_mailchimp_write_to_error_log( __( 'Error creating a new form', 'yikes-inc-easy-mailchimp-extender') , __( "Creating a new form" , 'yikes-inc-easy-mailchimp-extender' ) , __( "Forms" , 'yikes-inc-easy-mailchimp-extender' ) );
 				}
-				wp_redirect( esc_url_raw( admin_url( 'admin.php?page=yikes-mailchimp-edit-form&sql_error='.urlencode( $wpdb->last_error ) ) ) );
+				wp_redirect( esc_url_raw( admin_url( 'admin.php?page=yikes-mailchimp-edit-form&sql_error=' . urlencode( __( 'Error creating a new form', 'yikes-inc-easy-mailchimp-extender' ) ) ) ) );
 			} else {
 				// redirect the user to the new form edit page
-				wp_redirect( esc_url_raw( admin_url( 'admin.php?page=yikes-mailchimp-edit-form&id='.$wpdb->insert_id ) ) );
+				wp_redirect( esc_url_raw( admin_url( 'admin.php?page=yikes-mailchimp-edit-form&id=' . $result) ) );
 			}
 			exit();
-			die();
 		}
 
 		/*
@@ -2465,21 +2461,12 @@ class Yikes_Inc_Easy_Mailchimp_Forms_Admin {
 			if( ! wp_verify_nonce( $nonce, 'delete-mailchimp-form-'.$post_id_to_delete ) ) {
 				wp_die( __( "We've run into an error. The security check didn't pass. Please try again." , 'yikes-inc-easy-mailchimp-extender' ) , __( "Failed nonce validation" , 'yikes-inc-easy-mailchimp-extender' ) , array( 'response' => 500 , 'back_link' => true ) );
 			}
-			global $wpdb;
-				/* Working Insert Function */
-				$wpdb->delete(
-					$wpdb->prefix . 'yikes_easy_mc_forms',
-					array(
-						'id' => $post_id_to_delete
-					),
-					array(
-						'%d',
-					)
-				);
+
+			$this->form_interface->delete_form( $post_id_to_delete );
+
 			// redirect the user to the manage forms page, display confirmation
 			wp_redirect( esc_url_raw( admin_url( 'admin.php?page=yikes-inc-easy-mailchimp&deleted-form=true' ) ) );
 			exit();
-			die();
 		}
 
 		/*
@@ -2494,41 +2481,26 @@ class Yikes_Inc_Easy_Mailchimp_Forms_Admin {
 			if( ! wp_verify_nonce( $nonce, 'duplicate-mailchimp-form-'.$post_id_to_clone ) ) {
 				wp_die( __( "We've run into an error. The security check didn't pass. Please try again." , 'yikes-inc-easy-mailchimp-extender' ) , __( "Failed nonce validation" , 'yikes-inc-easy-mailchimp-extender' ) , array( 'response' => 500 , 'back_link' => true ) );
 			}
-			global $wpdb;
-				/* Working Insert Function */
-				$form_data = $wpdb->get_row("SELECT * FROM " . $wpdb->prefix . "yikes_easy_mc_forms WHERE id = ".$post_id_to_clone."");
-				// create empty array to populate with row data
-				$data = array();
-				// build a data array to duplicate
-				foreach( $form_data as $id => $value ) {
-					// skip the ID field this is unique
-					if( $id != 'id' ) {
-						// append -Copy- to our new form
-						if( $id == 'form_name' ) {
-							$value = $value . ' - Copy -';
-						}
-						// reset the impressions and submissions back to 0
-						if( $id == 'impressions' || $id == 'submissions' ) {
-							$value = '0';
-						}
 
-						// add data to our array
-						$data[$id] = $value;
-					}
-				}
-				// insert our new data
-				if( $wpdb->insert(
-					$wpdb->prefix . 'yikes_easy_mc_forms',
-					apply_filters( 'yikes-mailchimp-duplicate-form-data', $data )
-				)  === FALSE ) {
-					// redirect the user to the manage forms page, display error
-					wp_redirect( esc_url_raw( admin_url( 'admin.php?page=yikes-inc-easy-mailchimp&duplicated-form=false' ) ) );
-				} else {
-					// redirect the user to the manage forms page, display confirmation
-					wp_redirect( esc_url_raw( admin_url( 'admin.php?page=yikes-inc-easy-mailchimp&duplicated-form=true' ) ) );
-				}
-				exit();
-				die();
+			// Get the current form data.
+			$form_data = $this->form_interface->get_form( $post_id_to_clone );
+
+			// Update some of the data before duplication
+			$form_data['form_name'] .= ' - Copy - ';
+			$form_data['impressions'] = $form_data['submissions'] = 0;
+
+			// Create the new form, and handle the result.
+			$result = $this->form_interface->create_form( $form_data );
+
+			if ( false === $result ) {
+				// redirect the user to the manage forms page, display error
+				wp_redirect( esc_url_raw( admin_url( 'admin.php?page=yikes-inc-easy-mailchimp&duplicated-form=false' ) ) );
+			} else {
+				// redirect the user to the manage forms page, display confirmation
+				wp_redirect( esc_url_raw( admin_url( 'admin.php?page=yikes-inc-easy-mailchimp&duplicated-form=true' ) ) );
+			}
+
+			exit();
 		}
 
 		/*
@@ -2542,24 +2514,24 @@ class Yikes_Inc_Easy_Mailchimp_Forms_Admin {
 			if( ! wp_verify_nonce( $nonce, 'reset-stats-mailchimp-form-'.$form_id_to_reset ) ) {
 				wp_die( __( "We've run into an error. The security check didn't pass. Please try again." , 'yikes-inc-easy-mailchimp-extender' ) , __( "Failed nonce validation" , 'yikes-inc-easy-mailchimp-extender' ) , array( 'response' => 500 , 'back_link' => true ) );
 			}
-			global $wpdb;
-			/* Update 'Impressions/Submissions' */
-			if( $wpdb->update(
-				$wpdb->prefix . 'yikes_easy_mc_forms',
+
+			$result = $this->form_interface->update_form(
+				$form_id_to_reset,
 				array(
 					'impressions' => 0,
 					'submissions' => 0
-				),
-				array( 'ID' => $form_id_to_reset )
-			) === FALSE ) {
+				)
+			);
+
+			if ( false === $result ) {
 				// redirect the user to the manage forms page, display error
 				wp_redirect( esc_url_raw( admin_url( 'admin.php?page=yikes-inc-easy-mailchimp&reset-stats=false' ) ) );
 			} else {
 				// redirect the user to the manage forms page, display confirmation
 				wp_redirect( esc_url_raw( admin_url( 'admin.php?page=yikes-inc-easy-mailchimp&reset-stats=true' ) ) );
 			}
+
 			exit();
-			die();
 		}
 
 		/*
@@ -2571,163 +2543,111 @@ class Yikes_Inc_Easy_Mailchimp_Forms_Admin {
 			$nonce = $_REQUEST['nonce'];
 			$form_id = $_REQUEST['id'];
 
-			// store our values!
-			$list_id = $_POST['associated-list'];
-			$form_name = stripslashes( $_POST['form-name'] );
-			$form_description = sanitize_text_field( stripslashes( $_POST['form-description'] ) );
-			$send_welcome_email = $_POST['send-welcome-email'];
-			$redirect_user_on_submit = $_POST['redirect-user-on-submission'];
-			$redirect_page = $_POST['redirect-user-to-selection'];
-			if( isset( $_POST['custom-styles'] ) ) {
-				$custom_styles = $_POST['custom-styles'];
+			// verify our nonce
+			if ( ! wp_verify_nonce( $nonce, 'update-mailchimp-form-' . $form_id ) ) {
+				wp_die(
+					__( "We've run into an error. The security check didn't pass. Please try again.", 'yikes-inc-easy-mailchimp-extender' ),
+					__( "Failed nonce validation", 'yikes-inc-easy-mailchimp-extender' ),
+					array(
+						'response'  => 500,
+						'back_link' => true,
+				) );
 			}
+
+			// store our values!
+			$list_id                 = $_POST['associated-list'];
+			$form_name               = stripslashes( $_POST['form-name'] );
+			$form_description        = sanitize_text_field( stripslashes( $_POST['form-description'] ) );
+			$send_welcome_email      = $_POST['send-welcome-email'];
+			$redirect_user_on_submit = $_POST['redirect-user-on-submission'];
+			$redirect_page           = $_POST['redirect-user-to-selection'];
 
 			// stripslashes_deep on save, to prevent foreign languages from added excessive backslashes
-			$assigned_fields = isset( $_POST['field'] ) ? json_encode( stripslashes_deep( $_POST['field'] ) ) : '';
-
-			// setup our custom styles serialized array
-			if( isset( $custom_styles ) ) {
-				$custom_styles = json_encode( array(
-					'active' => $_POST['custom-styles'],
-					'background_color' => $_POST['form-background-color'],
-					'font_color' => $_POST['form-font-color'],
-					'submit_button_color' => $_POST['form-submit-button-color'],
-					'submit_button_text_color' => $_POST['form-submit-button-text-color'],
-					'form_padding' => $_POST['form-padding'],
-					'form_width' => $_POST['form-width'],
-					'form_alignment' => $_POST['form-alignment'],
-					'label_visible' => $_POST['label-visible']
-				) );
-			} else {
-				$custom_styles = 0;
-			}
+			$assigned_fields = isset( $_POST['field'] ) ? stripslashes_deep( $_POST['field'] ): array();
 
 			// setup our submission settings serialized array
-			$submission_settings = json_encode(
-				array(
-					'ajax' => $_POST['form-ajax-submission'],
-					'redirect_on_submission' => $_POST['redirect-user-on-submission'],
-					'redirect_page' => $_POST['redirect-user-to-selection'],
-					'custom_redirect_url' => esc_url( $_POST['custom-redirect-url'] ),
-					'hide_form_post_signup' => $_POST['hide-form-post-signup'],
-					'replace_interests' => $_POST['replace-interest-groups'],
-				)
+			$submission_settings = array(
+				'ajax'                   => $_POST['form-ajax-submission'],
+				'redirect_on_submission' => $_POST['redirect-user-on-submission'],
+				'redirect_page'          => $_POST['redirect-user-to-selection'],
+				'custom_redirect_url'    => esc_url( $_POST['custom-redirect-url'] ),
+				'hide_form_post_signup'  => $_POST['hide-form-post-signup'],
+				'replace_interests'      => $_POST['replace-interest-groups'],
 			);
 
 			// setup our opt-in settings serialized array
-			$optin_settings = json_encode(
-				array(
-					'optin' => $_POST['single-double-optin'],
-					'update_existing_user' => $_POST['update-existing-user'],
-					'send_update_email' => $_POST['update-existing-email'],
-					'send_welcome_email' => $_POST['send-welcome-email'],
-				)
+			$optin_settings = array(
+				'optin'                => $_POST['single-double-optin'],
+				'update_existing_user' => $_POST['update-existing-user'],
+				'send_update_email'    => $_POST['update-existing-email'],
+				'send_welcome_email'   => $_POST['send-welcome-email'],
 			);
 
 			// setup our error settings serialized array
-			$error_settings = json_encode(
-				array(
-					'success' => trim( $_POST['yikes-easy-mc-success-message'] ) ? trim( stripslashes( $_POST['yikes-easy-mc-success-message'] ) ) : '',
-					'general-error' => trim( $_POST['yikes-easy-mc-general-error-message'] ) ? trim( stripslashes( $_POST['yikes-easy-mc-general-error-message'] ) ) : '',
-					'invalid-email' => trim( $_POST['yikes-easy-mc-invalid-email-message'] ) ? trim( stripslashes( $_POST['yikes-easy-mc-invalid-email-message'] ) ) : '',
-					'already-subscribed' => trim( $_POST['yikes-easy-mc-user-subscribed-message'] ) ? trim( stripslashes( $_POST['yikes-easy-mc-user-subscribed-message'] ) ) : '',
-					'update-link' => trim( $_POST['yikes-easy-mc-user-update-link'] ) ? trim( stripslashes( $_POST['yikes-easy-mc-user-update-link'] ) ) : '',
-				)
+			$error_settings = array(
+				'success'            => trim( $_POST['yikes-easy-mc-success-message'] ) ? trim( stripslashes( $_POST['yikes-easy-mc-success-message'] ) ) : '',
+				'general-error'      => trim( $_POST['yikes-easy-mc-general-error-message'] ) ? trim( stripslashes( $_POST['yikes-easy-mc-general-error-message'] ) ) : '',
+				'invalid-email'      => trim( $_POST['yikes-easy-mc-invalid-email-message'] ) ? trim( stripslashes( $_POST['yikes-easy-mc-invalid-email-message'] ) ) : '',
+				'already-subscribed' => trim( $_POST['yikes-easy-mc-user-subscribed-message'] ) ? trim( stripslashes( $_POST['yikes-easy-mc-user-subscribed-message'] ) ) : '',
+				'update-link'        => trim( $_POST['yikes-easy-mc-user-update-link'] ) ? trim( stripslashes( $_POST['yikes-easy-mc-user-update-link'] ) ) : '',
 			);
 
 			// Setup the new form settings array
 			// @since 6.0.3.8
 			// To Do: Combine date & time so it's a single unix timestamp
-			$form_settings = json_encode(
+			$form_settings = array(
+				'yikes-easy-mc-form-class-names'                 => trim( $_POST['yikes-easy-mc-form-class-names'] ),
+				'yikes-easy-mc-inline-form'                      => $_POST['yikes-easy-mc-inline-form'][0],
+				'yikes-easy-mc-submit-button-type'               => $_POST['yikes-easy-mc-submit-button-type'][0],
+				'yikes-easy-mc-submit-button-text'               => trim( $_POST['yikes-easy-mc-submit-button-text'] ),
+				'yikes-easy-mc-submit-button-image'              => esc_url( trim( $_POST['yikes-easy-mc-submit-button-image'] ) ),
+				'yikes-easy-mc-submit-button-classes'            => trim( $_POST['yikes-easy-mc-submit-button-classes'] ),
+				'yikes-easy-mc-form-schedule'                    => ( isset( $_POST['yikes-easy-mc-form-schedule'] ) ) ? '1' : '0',
+				'yikes-easy-mc-form-restriction-start'           => strtotime( $_POST['yikes-easy-mc-form-restriction-start-date'] . ' ' . $_POST['yikes-easy-mc-form-restriction-start-time'] ),
+				'yikes-easy-mc-form-restriction-end'             => strtotime( $_POST['yikes-easy-mc-form-restriction-end-date'] . ' ' . $_POST['yikes-easy-mc-form-restriction-end-time'] ),
+				'yikes-easy-mc-form-restriction-pending-message' => trim( $_POST['yikes-easy-mc-form-restriction-pending-message'] ),
+				'yikes-easy-mc-form-restriction-expired-message' => trim( $_POST['yikes-easy-mc-form-restriction-expired-message'] ),
+				'yikes-easy-mc-form-login-required'              => ( isset( $_POST['yikes-easy-mc-form-login-required'] ) ) ? '1' : '0',
+				'yikes-easy-mc-form-restriction-login-message'   => trim( $_POST['yikes-easy-mc-form-restriction-login-message'] ),
+			);
+
+			// additional custom fields (extensions / user defined fields)
+			$custom_fields = array();
+			if ( isset( $_POST['custom-field'] ) ) {
+				foreach ( $_POST['custom-field'] as $custom_field => $custom_value ) {
+					if ( is_array( $custom_value ) ) {
+						$custom_fields[ $custom_field ] = array_filter( stripslashes_deep( $custom_value ) ); // array_filters to remove empty items (don't save them!)
+					} else {
+						$custom_fields[ $custom_field ] = stripslashes( $custom_value );
+					}
+				}
+			}
+
+			$this->form_interface->update_form(
+				$form_id,
 				array(
-					'yikes-easy-mc-form-class-names' => trim( $_POST['yikes-easy-mc-form-class-names'] ),
-					'yikes-easy-mc-inline-form' => $_POST['yikes-easy-mc-inline-form'][0],
-					'yikes-easy-mc-submit-button-type' => $_POST['yikes-easy-mc-submit-button-type'][0],
-					'yikes-easy-mc-submit-button-text' => trim( $_POST['yikes-easy-mc-submit-button-text'] ),
-					'yikes-easy-mc-submit-button-image' => esc_url( trim( $_POST['yikes-easy-mc-submit-button-image'] ) ),
-					'yikes-easy-mc-submit-button-classes' => trim( $_POST['yikes-easy-mc-submit-button-classes'] ),
-					'yikes-easy-mc-form-schedule' => ( isset( $_POST['yikes-easy-mc-form-schedule'] ) ) ? '1' : '0',
-					'yikes-easy-mc-form-restriction-start' => strtotime( $_POST['yikes-easy-mc-form-restriction-start-date'] . ' ' . $_POST['yikes-easy-mc-form-restriction-start-time'] ),
-					'yikes-easy-mc-form-restriction-end' => strtotime( $_POST['yikes-easy-mc-form-restriction-end-date'] . ' ' . $_POST['yikes-easy-mc-form-restriction-end-time'] ),
-					'yikes-easy-mc-form-restriction-pending-message' => trim( $_POST['yikes-easy-mc-form-restriction-pending-message'] ),
-					'yikes-easy-mc-form-restriction-expired-message' => trim( $_POST['yikes-easy-mc-form-restriction-expired-message'] ),
-					'yikes-easy-mc-form-login-required' => ( isset( $_POST['yikes-easy-mc-form-login-required'] ) ) ? '1' : '0',
-					'yikes-easy-mc-form-restriction-login-message' => trim( $_POST['yikes-easy-mc-form-restriction-login-message'] ),
+					'list_id'                 => $list_id,
+					'form_name'               => $form_name,
+					'form_description'        => $form_description,
+					'fields'                  => $assigned_fields,
+					'custom_template'         => 0,
+					'send_welcome_email'      => $send_welcome_email,
+					'redirect_user_on_submit' => $redirect_user_on_submit,
+					'redirect_page'           => $redirect_page,
+					'submission_settings'     => $submission_settings,
+					'optin_settings'          => $optin_settings,
+					'error_messages'          => $error_settings,
+					'form_settings'           => $form_settings,
+					'custom_fields'           => $custom_fields,
 				)
 			);
 
-			// setup and store our notification array
-			$custom_notifications = isset( $_POST['custom-notification'] ) ? stripslashes( json_encode( $_POST['custom-notification'] ) ) : '';
-
-			// additional custom fields (extensions / user defined fields)
-			if( isset( $_POST['custom-field'] ) ) {
-				$custom_field_array = array();
-				foreach( $_POST['custom-field'] as $custom_field => $custom_value ) {
-					if( is_array( $custom_value ) ) {
-						$custom_field_array[$custom_field] = array_filter( stripslashes_deep( $custom_value ) ); // array_filters to remove empty items (don't save them!)
-					} else {
-						$custom_field_array[$custom_field] = stripslashes( $custom_value );
-					}
-				}
-				$custom_fields = json_encode( $custom_field_array );
-			} else {
-				$custom_fields = '';
-			}
-
-			// verify our nonce
-			if( ! wp_verify_nonce( $nonce, 'update-mailchimp-form-'.$form_id ) ) {
-				wp_die( __( "We've run into an error. The security check didn't pass. Please try again." , 'yikes-inc-easy-mailchimp-extender' ) , __( "Failed nonce validation" , 'yikes-inc-easy-mailchimp-extender' ) , array( 'response' => 500 , 'back_link' => true ) );
-			}
-
-				global $wpdb;
-				/* Working Insert Function */
-				// $form_data = $wpdb->get_row("SELECT * FROM " . $wpdb->prefix . "yikes_easy_mc_forms WHERE id = ".$form_id."");
-				$wpdb->update(
-					$wpdb->prefix . 'yikes_easy_mc_forms',
-					array(
-						'list_id' => $list_id,
-						'form_name' => $form_name,
-						'form_description' => $form_description,
-						'fields' => $assigned_fields,
-						'custom_styles' => $custom_styles,
-						'custom_template' => 0,
-						'send_welcome_email' => $send_welcome_email,
-						'redirect_user_on_submit' => $redirect_user_on_submit,
-						'redirect_page' => $redirect_page,
-						'submission_settings' => $submission_settings,
-						'optin_settings' => $optin_settings,
-						'error_messages' => $error_settings,
-						'form_settings' => $form_settings,
-						'custom_notifications' => $custom_notifications,
-						'custom_fields' => $custom_fields,
-					),
-					array( 'ID' => $form_id ),
-					array(
-						'%s', // list id
-						'%s', // form name
-						'%s', // form description
-						'%s', // fields
-						'%s', // custom styles
-						'%d',	//custom template
-						'%d',	// send welcome email
-						'%s',	// redirect user
-						'%s',	// redirect page
-						'%s',	// submission
-						'%s',	// opt-in
-						'%s', // error
-						'%s', // custom notifications
-						'%s', // custom fields
-					),
-					array( '%d' )
-				);
-
 			/* Custom action hook which allows users to update specific options when a form is updated - used in add ons */
-			do_action( 'yikes-mailchimp-save-form', $form_id,  json_decode( $custom_fields, true ) );
+			do_action( 'yikes-mailchimp-save-form', $form_id,  $custom_fields );
 
 			// redirect the user to the manage forms page, display confirmation
 			wp_redirect( esc_url_raw( admin_url( 'admin.php?page=yikes-mailchimp-edit-form&id=' . $form_id . '&updated-form=true' ) ) );
 			exit();
-			die();
 		}
 
 		/* Unsubscribe a given user from our list */
@@ -2769,7 +2689,6 @@ class Yikes_Inc_Easy_Mailchimp_Forms_Admin {
 				wp_redirect( esc_url_raw( admin_url( 'admin.php?page=yikes-mailchimp-view-list&list-id=' . $list_id . '&user-unsubscribed=true' ) ) );
 				exit;
 			}
-
 		}
 
 		public function yikes_easy_mailchimp_create_missing_error_log() {
@@ -3015,4 +2934,50 @@ class Yikes_Inc_Easy_Mailchimp_Forms_Admin {
 			delete_transient( 'yikes-easy-mailchimp-account-activity' );
 		}
 
+	/**
+	 * Perform a DB version check to see if we need to migrate our forms.
+	 *
+	 * @author Jeremy Pry
+	 */
+	public function check_db_version() {
+		$option = get_option( 'yikes_easy_mailchimp_extender_version', '0.0.0' );
+		if ( version_compare( $option, '6.2.0', '<' ) ) {
+			$this->convert_db_to_option();
+			update_option( 'yikes_easy_mailchimp_extender_version', YIKES_MC_VERSION );
+		}
+	}
+
+	/**
+	 * Handle the conversion from custom table to WP Options.
+	 *
+	 * @author Jeremy Pry
+	 */
+	public function convert_db_to_option() {
+		/** @var wpdb */
+		global $wpdb;
+
+		$db_interface     = new Yikes_Inc_Easy_MailChimp_Extender_Forms( $wpdb );
+		$option_interface = new Yikes_Inc_Easy_MailChimp_Extender_Option_Forms();
+		$form_option      = array();
+		$form_ids         = $db_interface->get_form_ids();
+
+		if ( empty( $form_ids ) ) {
+			return;
+		}
+
+		foreach ( $form_ids as $form_id ) {
+			$form_option[ $form_id ] = $db_interface->get_form( $form_id );
+		}
+
+		$option_interface->import_forms( $form_option, true );
+	}
+
+	/**
+	 * Register the Opt-in widget.
+	 *
+	 * @author Jeremy Pry
+	 */
+	public function register_optin_widget() {
+		register_widget( 'Yikes_Inc_Easy_Mailchimp_Extender_Widget' );
+	}
 }

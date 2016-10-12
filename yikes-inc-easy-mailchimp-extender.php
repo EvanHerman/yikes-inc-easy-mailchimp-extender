@@ -1,37 +1,37 @@
 <?php
 /**
- *		Plugin Name:       Easy Forms for MailChimp by YIKES
- *		Plugin URI:        http://www.yikesinc.com/services/yikes-inc-easy-mailchimp-extender/
- * 		Description:       YIKES Easy Forms for MailChimp links your site to MailChimp and allows you to generate and display mailing list opt-in forms anywhere on your site with ease.
- * 		Version:           6.1.4
- * 		Author:            YIKES
- * 		Author URI:        http://www.yikesinc.com/
- * 		License:           GPL-3.0+
- * 		License URI:       http://www.gnu.org/licenses/gpl-3.0.txt
- * 		Text Domain:       yikes-inc-easy-mailchimp-extender
+ * Plugin Name: Easy Forms for MailChimp by YIKES
+ * Plugin URI:  http://www.yikesinc.com/services/yikes-inc-easy-mailchimp-extender/
+ * Description: YIKES Easy Forms for MailChimp links your site to MailChimp and allows you to generate and display mailing list opt-in forms anywhere on your site with ease.
+ * Version:     6.2.0
+ * Author:      YIKES
+ * Author URI:  http://www.yikesinc.com/
+ * License:     GPL-3.0+
+ * License URI: http://www.gnu.org/licenses/gpl-3.0.txt
+ * Text Domain: yikes-inc-easy-mailchimp-extender
  *
- * 		YIKES Easy Forms for MailChimp is free software: you can redistribute it and/or modify
- * 		it under the terms of the GNU General Public License as published by
- * 		the Free Software Foundation, either version 2 of the License, or
- * 		any later version.
+ * YIKES Easy Forms for MailChimp is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 2 of the License, or
+ * any later version.
  *
- * 		YIKES Easy Forms for MailChimp is distributed in the hope that it will be useful,
- * 		but WITHOUT ANY WARRANTY; without even the implied warranty of
- * 		MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
- * 		GNU General Public License for more details.
+ * YIKES Easy Forms for MailChimp is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+ * GNU General Public License for more details.
  *
- * 		You should have received a copy of the GNU General Public License
- *		along with Easy Forms for MailChimp. If not, see <http://www.gnu.org/licenses/>.
+ * You should have received a copy of the GNU General Public License
+ * along with Easy Forms for MailChimp. If not, see <http://www.gnu.org/licenses/>.
  *
- *		We at YIKES Inc. embrace the open source philosophy on a daily basis. We donate company time back to the WordPress project,
- *		and constantly strive to improve the WordPress project and community as a whole. We eat, sleep and breathe WordPress.
+ * We at YIKES Inc. embrace the open source philosophy on a daily basis. We donate company time back to the WordPress project,
+ * and constantly strive to improve the WordPress project and community as a whole. We eat, sleep and breathe WordPress.
  *
- *		"'Free software' is a matter of liberty, not price. To understand the concept, you should think of 'free' as in 'free speech,' not as in 'free beer'."
- *		- Richard Stallman
+ * "'Free software' is a matter of liberty, not price. To understand the concept, you should think of 'free' as in 'free speech,' not as in 'free beer'."
+ * - Richard Stallman
  *
-**/
+ */
 
-// 	If accessed directly, abort
+// If accessed directly, abort
 if ( ! defined( 'WPINC' ) ) {
 	die;
 }
@@ -40,17 +40,15 @@ if ( ! defined( 'WPINC' ) ) {
  * 	Define version constant
  *
  * 	@since 6.1.3
- *	@return void
  */
 if ( ! defined( 'YIKES_MC_VERSION' ) ) {
-	define( 'YIKES_MC_VERSION' , '6.1.4' );
+	define( 'YIKES_MC_VERSION' , '6.2.0' );
 }
 
 /**
  * 	Define path constant to our plugin directory.
  *
  * 	@since 6.0.0
- *	@return void
  */
 if ( ! defined( 'YIKES_MC_PATH' ) ) {
 	define( 'YIKES_MC_PATH' , plugin_dir_path( __FILE__ ) );
@@ -60,11 +58,13 @@ if ( ! defined( 'YIKES_MC_PATH' ) ) {
  * 	Define URL constant to our plugin directory.
  *
  * 	@since 6.0.0
- *	@return void
  */
 if ( ! defined( 'YIKES_MC_URL' ) ) {
 	define( 'YIKES_MC_URL' , plugin_dir_url( __FILE__ ) );
 }
+
+// Include our autoloader
+require_once( dirname( __FILE__ ) . '/class-loader.php' );
 
 /**
  *	activate_yikes_inc_easy_mailchimp_extender();
@@ -79,7 +79,6 @@ if ( ! defined( 'YIKES_MC_URL' ) ) {
  */
 register_activation_hook( __FILE__, 'activate_yikes_inc_easy_mailchimp_extender' );
 function activate_yikes_inc_easy_mailchimp_extender( $network_wide ) {
-	require_once YIKES_MC_PATH . 'includes/class-yikes-inc-easy-mailchimp-extender-activator.php';
 	add_option( 'yikes_mailchimp_activation_redirect', 'true' );
 	Yikes_Inc_Easy_Mailchimp_Extender_Activator::activate( $network_wide );
 }
@@ -138,10 +137,43 @@ function yikes_easy_mailchimp_new_network_site( $blog_id, $user_id, $domain, $pa
 }
 
 /**
- * The base plugin class
- * admin-specific hooks, filters and all functionality
+ * Retrieve the forms interface that we should be using.
+ *
+ * By default this will use the new Options interface, but this can be
+ * overridden by a constant, YIKES_MC_CUSTOM_DB.
+ *
+ * @author Jeremy Pry
+ * @return Yikes_Inc_Easy_MailChimp_Extender_Form_Interface
  */
-require plugin_dir_path( __FILE__ ) . 'includes/class-yikes-inc-easy-mailchimp-extender.php';
+function yikes_easy_mailchimp_extender_get_form_interface() {
+	static $interface = null;
+
+	if ( null === $interface ) {
+		if ( yikes_inc_easy_mailchimp_extender_use_custom_db() ) {
+			global $wpdb;
+			$interface = new Yikes_Inc_Easy_MailChimp_Extender_Forms( $wpdb );
+		} else {
+			$interface = new Yikes_Inc_Easy_MailChimp_Extender_Option_Forms();
+		}
+	}
+
+	return $interface;
+}
+
+/**
+ * Determine whether we should use the custom database table.
+ *
+ * @author Jeremy Pry
+ * @return bool Whether to use the custom database table.
+ */
+function yikes_inc_easy_mailchimp_extender_use_custom_db() {
+	/**
+	 * Filter whether we should use the custom database table instead of the Options API
+	 *
+	 * @param bool $use_custom_db True to use the custom database table, false to use the Options API.
+	 */
+	return (bool) apply_filters( 'yikes_easy_mailchimp_extender_use_custom_db', defined( 'YIKES_EMCE_CUSTOM_DB' ) && YIKES_EMCE_CUSTOM_DB );
+}
 
 /**
  * 	Begins execution of the plugin.
@@ -149,11 +181,17 @@ require plugin_dir_path( __FILE__ ) . 'includes/class-yikes-inc-easy-mailchimp-e
  * 	@since 6.0.0
  *	@return Yikes_Inc_Easy_Mailchimp_Extender
  */
-function run_yikes_inc_easy_mailchimp_extender() {
-	$plugin = new Yikes_Inc_Easy_Mailchimp_Extender();
-	$plugin->run();
+function yikes_inc_easy_mailchimp_extender() {
+	static $plugin = null;
+
+	if ( null === $plugin ) {
+		$plugin = new Yikes_Inc_Easy_Mailchimp_Extender( yikes_easy_mailchimp_extender_get_form_interface() );
+		$plugin->run();
+	}
+
+	return $plugin;
 }
-run_yikes_inc_easy_mailchimp_extender();
+yikes_inc_easy_mailchimp_extender()->run();
 
 /**
  * Helper function to return our API key
@@ -164,6 +202,7 @@ function yikes_get_mc_api_key() {
 	if ( defined( 'YIKES_MC_API_KEY' ) ) {
 		return trim( YIKES_MC_API_KEY );
 	}
+
 	return trim( get_option( 'yikes-mc-api-key', '' ) );
 }
 

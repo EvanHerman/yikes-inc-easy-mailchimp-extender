@@ -18,12 +18,8 @@ class YIKES_MailChimp_ThirdParty_Integrations {
 		include_once( ABSPATH . 'wp-admin/includes/plugin.php' );
 		/* Visual Composer */
 		if( is_plugin_active( 'js_composer/js_composer.php' ) ) {
-			include_once( YIKES_MC_PATH . 'includes/third-party-integrations/visual-composer/visual-composer.php' );
+			new YIKES_MailChimp_Visual_Composer_Extension();
 		}
 	}
 
 }
-
-new YIKES_MailChimp_ThirdParty_Integrations;
-
-?>

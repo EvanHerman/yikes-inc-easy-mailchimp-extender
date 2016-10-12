@@ -32,7 +32,6 @@
 				include_once( YIKES_MC_PATH . 'admin/partials/ajax/add_notification_to_form.php' );
 			}
 			exit();
-			wp_die();
 		}
 
 		// Process our AJAX request,
@@ -65,7 +64,6 @@
 				include_once( YIKES_MC_PATH . 'admin/partials/dashboard-widgets/templates/stats-list-template.php' );
 			}
 			exit();
-			wp_die();
 		}
 
 		// Process our AJAX request,
@@ -115,7 +113,6 @@
 			// do not kill off execution on load, only on an ajax request
 			if( ! $load ) {
 				exit();
-				wp_die();
 			}
 		}
 
@@ -130,7 +127,6 @@
 			);
 			include YIKES_MC_PATH . 'admin/partials/ajax/add_field_to_form.php';
 			exit();
-			wp_die();
 		}
 
 		// send interest group to our form
@@ -143,7 +139,6 @@
 			);
 			include YIKES_MC_PATH . 'admin/partials/ajax/add_interest_group_to_form.php';
 			exit();
-			wp_die();
 		}
 
 		/*
@@ -171,5 +166,3 @@
 
 	} // end class
 
-	new YIKES_Inc_Easy_MailChimp_Process_Ajax;
-?>

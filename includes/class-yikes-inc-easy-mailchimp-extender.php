@@ -42,7 +42,7 @@ class Yikes_Inc_Easy_Mailchimp_Extender {
 	 * @access   protected
 	 * @var      string    $yikes_inc_easy_mailchimp_extender    The string used to uniquely identify this plugin.
 	 */
-	protected $yikes_inc_easy_mailchimp_extender;
+	protected $yikes_inc_easy_mailchimp_extender = 'yikes-inc-easy-mailchimp-extender';
 	/**
 	 * The current version of the plugin.
 	 *
@@ -51,6 +51,14 @@ class Yikes_Inc_Easy_Mailchimp_Extender {
 	 * @var      string    $version    The current version of the plugin.
 	 */
 	protected $version;
+
+	/**
+	 * Our form interface instance.
+	 *
+	 * @var Yikes_Inc_Easy_MailChimp_Extender_Form_Interface
+	 */
+	protected $form_interface;
+
 	/**
 	 * Define the core functionality of the plugin.
 	 *
@@ -59,10 +67,12 @@ class Yikes_Inc_Easy_Mailchimp_Extender {
 	 * the public-facing side of the site.
 	 *
 	 * @since    1.0.0
+	 *
+	 * @param Yikes_Inc_Easy_MailChimp_Extender_Form_Interface $form_interface
 	 */
-	public function __construct() {
-		$this->yikes_inc_easy_mailchimp_extender = 'yikes-inc-easy-mailchimp-extender';
+	public function __construct( Yikes_Inc_Easy_MailChimp_Extender_Form_Interface $form_interface ) {
 		$this->version = YIKES_MC_VERSION;
+		$this->form_interface = $form_interface;
 		$this->load_dependencies();
 		$this->define_admin_hooks();
 		$this->define_public_hooks();
@@ -108,7 +118,8 @@ class Yikes_Inc_Easy_Mailchimp_Extender {
 	 * @access   private
 	 */
 	private function define_admin_hooks() {
-		$plugin_admin = new Yikes_Inc_Easy_Mailchimp_Forms_Admin( $this->get_yikes_inc_easy_mailchimp_extender(), $this->get_version() );
+		$plugin_admin = new Yikes_Inc_Easy_Mailchimp_Forms_Admin( $this->get_yikes_inc_easy_mailchimp_extender(), $this->get_version(), $this->form_interface );
+		$plugin_admin->hooks();
 		$this->loader->add_action( 'admin_enqueue_scripts', $plugin_admin, 'enqueue_styles' );
 		$this->loader->add_action( 'admin_enqueue_scripts', $plugin_admin, 'enqueue_scripts' );
 	}

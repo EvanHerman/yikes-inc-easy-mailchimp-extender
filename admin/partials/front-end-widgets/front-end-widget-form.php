@@ -5,74 +5,90 @@
 *	By: Yikes Inc. | https://www.yikesinc.com
 */
 class Yikes_Inc_Easy_Mailchimp_Extender_Widget extends WP_Widget {
-		
-	function __construct() {
-				
-		parent::__construct(			
+
+	/**
+	 * Our form interface.
+	 *
+	 * @var Yikes_Inc_Easy_MailChimp_Extender_Form_Interface
+	 */
+	protected $form_interface;
+
+	/**
+	 * Yikes_Inc_Easy_Mailchimp_Extender_Widget constructor.
+	 */
+	public function __construct() {
+		$this->form_interface = yikes_easy_mailchimp_extender_get_form_interface();
+
+		parent::__construct(
 			// Base ID of your widget
-			'yikes_easy_mc_widget', 
+			'yikes_easy_mc_widget',
 			// Widget name will appear in UI
-			__( 'Easy MailChimp Forms', 'yikes-inc-easy-mailchimp-extender' ), 
+			__( 'Easy MailChimp Forms', 'yikes-inc-easy-mailchimp-extender' ),
 			// Widget description
-			array( 'description' => __( 'MailChimp opt-in widget for your sidebar.', 'yikes-inc-easy-mailchimp-extender' ), ) 
+			array( 'description' => __( 'MailChimp opt-in widget for your sidebar.', 'yikes-inc-easy-mailchimp-extender' ), )
 		);
-		
 	}
-	// Creating widget front-end
-	// This is where the action happens
+
+	/**
+	 * Display the widget on the front-end.
+	 *
+	 * @param array $args
+	 * @param array $instance
+	 */
 	public function widget( $args, $instance ) {
-		
-		// get one of our forms to use as the default form
-		// on initial page placement (widget customizer)
-		global $wpdb;
-		$form_results = $wpdb->get_results( 'SELECT * FROM ' . $wpdb->prefix . 'yikes_easy_mc_forms LIMIT 1', ARRAY_A );
+		// Get all form IDs so we can use the first one as a default.
+		$form_ids = $this->form_interface->get_form_ids();
 		
 		$title = isset( $instance['title'] ) ? apply_filters( 'widget_title', $instance['title'] ) : __( 'MailChimp Signup Form', 'yikes-inc-easy-mailchimp-extender' );
-		$form_id = isset( $instance['form_id'] ) ? $instance['form_id'] : $form_results[0]['id'];
+		$form_id = isset( $instance['form_id'] ) ? $instance['form_id'] : $form_ids[0];
 		$form_description = isset( $instance['form_description'] ) ? $instance['form_description'] : '';
 		$submit_button_text = isset( $instance['submit_text'] ) ? $instance['submit_text'] : __( 'Submit' , 'yikes-inc-easy-mailchimp-extender' );
-		
-		$shortcode_attributes = array();
+
 		// Build our array based on settings chosen
-		$sortcode_attributes[] = 'form="' . $form_id .'"';
-		// form description
-		if( !empty( $form_description ) ) {
-			$sortcode_attributes[] = 'description="1"';
+		$shortcode_attributes = array(
+			'form'        => $form_id,
+			'submit'      => $submit_button_text,
+			'description' => ( ! empty( $form_description ) ) ? '1' : '',
+		);
+
+		// Build the shortcode string.
+		$shortcode_string = '';
+		foreach ( $shortcode_attributes as $attribute => $value ) {
+			if ( empty( $value ) ) {
+				continue;
+			}
+
+			$shortcode_string .= " {$attribute}=\"{$value}\"";
 		}
-		// submit button text
-		$sortcode_attributes[] = 'submit="' . $submit_button_text .'"';
-		
+
 		// before and after widget arguments are defined by themes
 		echo $args['before_widget'];
-		
-			if ( ! empty( $title ) )
-				echo $args['before_title'] . $title . $args['after_title'];
-				
-			// Custom action hooks to place content in the widget before the form
-			// See FAQ for examples on usage
-			do_action( 'yikes-mailchimp-before-form-'.$form_id );
-			do_action( 'yikes-mailchimp-before-form' );
-			
-			// This is where you run the code and display the output
-			echo do_shortcode( '[yikes-mailchimp ' . implode( ' ' , $sortcode_attributes ) . ']' );
-			
-			// Custom action hooks to place content in the widget after the form
-			// See FAQ for examples on usage
-			do_action( 'yikes-mailchimp-after-form-'.$form_id );
-			do_action( 'yikes-mailchimp-after-form' );
-		
+
+		if ( ! empty( $title ) ) {
+			echo $args['before_title'] . $title . $args['after_title'];
+		}
+
+		// Custom action hooks to place content in the widget before the form
+		// See FAQ for examples on usage
+		do_action( 'yikes-mailchimp-before-form-'.$form_id );
+		do_action( 'yikes-mailchimp-before-form' );
+
+		// This is where you run the code and display the output
+		echo do_shortcode( "[yikes-mailchimp{$shortcode_string}]" );
+
+		// Custom action hooks to place content in the widget after the form
+		// See FAQ for examples on usage
+		do_action( 'yikes-mailchimp-after-form-'.$form_id );
+		do_action( 'yikes-mailchimp-after-form' );
+
 		echo $args['after_widget'];
-		
 	}
-			
+
 	// Widget Backend 
 	public function form( $instance ) {
-		
-		// get the form data
-		global $wpdb;
-		$form_results = $wpdb->get_results( 'SELECT * FROM ' . $wpdb->prefix . 'yikes_easy_mc_forms', ARRAY_A );
+		$all_forms = $this->form_interface->get_all_forms();
 	
-		if( empty( $form_results ) ) {
+		if ( empty( $all_forms ) ) {
 			?>
 				<section class="no-forms-widget">
 				<strong><span class="dashicons dashicons-no-alt no-forms-found-icon"></span><?php echo sprintf( __( 'No forms found. It looks like you need to <a href="%s" title="%s">%s</a>.', 'yikes-inc-easy-mailchimp-extender' ), esc_url_raw( admin_url( 'admin.php?page=yikes-inc-easy-mailchimp' ) ), __( 'Create a form' , 'yikes-inc-easy-mailchimp-extender' ), __( 'create a form' , 'yikes-inc-easy-mailchimp-extender' ) ); ?></strong>
@@ -81,65 +97,65 @@ class Yikes_Inc_Easy_Mailchimp_Extender_Widget extends WP_Widget {
 			return;
 		}
 		
-			// Title
-			if ( isset( $instance[ 'title' ] ) ) {
-				$title = $instance[ 'title' ];
-			} else {
-				$title = __( 'MailChimp Signup Form', 'yikes-inc-easy-mailchimp-extender' );
-			}
-			
-			// Selected Form
-			if ( isset( $instance[ 'form_id' ] ) ) {
-				$selected_form = $instance[ 'form_id' ];
-			} else {
-				$selected_form = '';
-			}
-						
-			// Submit Button Text
-			if ( isset( $instance[ 'submit_text' ] ) ) {
-				$submit_text = $instance[ 'submit_text' ];
-			} else {
-				$submit_text = __( 'Submit', 'yikes-inc-easy-mailchimp-extender' );
-			}
-			
-			 if( get_option( 'yikes-mc-api-validation' , 'invalid_api_key' ) == 'invalid_api_key' ) {
-				?>
-					<p class="enter-valid-api-error-widget"><strong><?php _e( 'Please enter a valid MailChimp API key to connect your site to MailChimp.' , 'yikes-inc-easy-mailchimp-extender' ); ?></strong></p>
-				<?php
-				return;
-			}
-			
-			// Widget admin form
+		// Title
+		if ( isset( $instance[ 'title' ] ) ) {
+			$title = $instance[ 'title' ];
+		} else {
+			$title = __( 'MailChimp Signup Form', 'yikes-inc-easy-mailchimp-extender' );
+		}
+
+		// Selected Form
+		if ( isset( $instance[ 'form_id' ] ) ) {
+			$selected_form = $instance[ 'form_id' ];
+		} else {
+			$selected_form = '';
+		}
+
+		// Submit Button Text
+		if ( isset( $instance[ 'submit_text' ] ) ) {
+			$submit_text = $instance[ 'submit_text' ];
+		} else {
+			$submit_text = __( 'Submit', 'yikes-inc-easy-mailchimp-extender' );
+		}
+
+		 if( get_option( 'yikes-mc-api-validation' , 'invalid_api_key' ) == 'invalid_api_key' ) {
 			?>
-			<p>
-				<label for="<?php echo $this->get_field_id( 'title' ); ?>"><?php _e( 'Title:' ); ?></label> 
-				<input class="widefat" id="<?php echo $this->get_field_id( 'title' ); ?>" name="<?php echo $this->get_field_name( 'title' ); ?>" type="text" value="<?php echo esc_attr( $title ); ?>" />
-			</p>
-					
-			<p>
-				<label for="<?php echo $this->get_field_id( 'form_id' ); ?>"><?php _e( 'Form:' ); ?></label>
-				<select id="<?php echo $this->get_field_id( 'form_id' ); ?>" name="<?php echo $this->get_field_name( 'form_id' ); ?>" class="widefat">
-					<?php 
-					// build our array
-					foreach( $form_results as $form ) {
-						?>
-							<option <?php selected( $selected_form , $form['id'] ); ?> name="<?php echo $this->get_field_name( 'form_id' ); ?>" value="<?php echo $form['id']; ?>"><?php echo stripslashes( $form['form_name'] ); ?></option>
-						<?php
-					}
+				<p class="enter-valid-api-error-widget"><strong><?php _e( 'Please enter a valid MailChimp API key to connect your site to MailChimp.' , 'yikes-inc-easy-mailchimp-extender' ); ?></strong></p>
+			<?php
+			return;
+		}
+
+		// Widget admin form
+		?>
+		<p>
+			<label for="<?php echo $this->get_field_id( 'title' ); ?>"><?php _e( 'Title:' ); ?></label>
+			<input class="widefat" id="<?php echo $this->get_field_id( 'title' ); ?>" name="<?php echo $this->get_field_name( 'title' ); ?>" type="text" value="<?php echo esc_attr( $title ); ?>" />
+		</p>
+
+		<p>
+			<label for="<?php echo $this->get_field_id( 'form_id' ); ?>"><?php _e( 'Form:' ); ?></label>
+			<select id="<?php echo $this->get_field_id( 'form_id' ); ?>" name="<?php echo $this->get_field_name( 'form_id' ); ?>" class="widefat">
+				<?php
+				// build our array
+				foreach( $all_forms as $id => $form ) {
 					?>
-				</select>
-			</p>
-		
-			<p>
-				<label for="<?php echo $this->get_field_id( 'form_description' ); ?>"><?php _e( 'Display Form Description:' ); ?></label> 
-				<input class="widefat" id="<?php echo $this->get_field_id( 'form_description' ); ?>" name="<?php echo $this->get_field_name( 'form_description' ); ?>" type="checkbox" value="1" <?php if( isset( $instance['form_description'] ) ) { checked( $instance['form_description'] , 1 ); } ?> />
-			</p>
-			
-			<p>
-				<label for="<?php echo $this->get_field_id( 'submit_button_text' ); ?>"><?php _e( 'Submit Button Text:' ); ?></label> 
-				<input class="widefat" id="<?php echo $this->get_field_id( 'submit_text' ); ?>" name="<?php echo $this->get_field_name( 'submit_text' ); ?>" type="text" value="<?php echo esc_attr( $submit_text ); ?>" />
-			</p>
-			<?php 
+						<option <?php selected( $selected_form , $id ); ?> name="<?php echo $this->get_field_name( 'form_id' ); ?>" value="<?php echo $id; ?>"><?php echo stripslashes( $form['form_name'] ); ?></option>
+					<?php
+				}
+				?>
+			</select>
+		</p>
+
+		<p>
+			<label for="<?php echo $this->get_field_id( 'form_description' ); ?>"><?php _e( 'Display Form Description:' ); ?></label>
+			<input class="widefat" id="<?php echo $this->get_field_id( 'form_description' ); ?>" name="<?php echo $this->get_field_name( 'form_description' ); ?>" type="checkbox" value="1" <?php if( isset( $instance['form_description'] ) ) { checked( $instance['form_description'] , 1 ); } ?> />
+		</p>
+
+		<p>
+			<label for="<?php echo $this->get_field_id( 'submit_button_text' ); ?>"><?php _e( 'Submit Button Text:' ); ?></label>
+			<input class="widefat" id="<?php echo $this->get_field_id( 'submit_text' ); ?>" name="<?php echo $this->get_field_name( 'submit_text' ); ?>" type="text" value="<?php echo esc_attr( $submit_text ); ?>" />
+		</p>
+		<?php
 	}
 		
 	// Updating widget replacing old instances with new
@@ -152,9 +168,4 @@ class Yikes_Inc_Easy_Mailchimp_Extender_Widget extends WP_Widget {
 		return $instance;
 	}
 	
-} // Class Yikes_Inc_Easy_Mailchimp_Extender_Widget ends here
-// Register and load the widget
-function yikes_mailchimp_register_optin_widget() {
-	register_widget( 'Yikes_Inc_Easy_Mailchimp_Extender_Widget' );
 }
-add_action( 'widgets_init', 'yikes_mailchimp_register_optin_widget' );
