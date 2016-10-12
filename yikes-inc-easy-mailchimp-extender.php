@@ -149,15 +149,7 @@ function yikes_easy_mailchimp_extender_get_form_interface() {
 	static $interface = null;
 
 	if ( null === $interface ) {
-
-		/**
-		 * Filter whether we should use the custom database table instead of the Options API
-		 *
-		 * @param bool $use_custom_db True to use the custom database table, false to use the Options API.
-		 */
-		$use_custom_db = apply_filters( 'yikes_easy_mailchimp_extender_use_custom_db', defined( 'YIKES_EMCE_CUSTOM_DB' ) && YIKES_EMCE_CUSTOM_DB );
-
-		if ( $use_custom_db ) {
+		if ( yikes_inc_easy_mailchimp_extender_use_custom_db() ) {
 			global $wpdb;
 			$interface = new Yikes_Inc_Easy_MailChimp_Extender_Forms( $wpdb );
 		} else {
@@ -166,6 +158,21 @@ function yikes_easy_mailchimp_extender_get_form_interface() {
 	}
 
 	return $interface;
+}
+
+/**
+ * Determine whether we should use the custom database table.
+ *
+ * @author Jeremy Pry
+ * @return bool Whether to use the custom database table.
+ */
+function yikes_inc_easy_mailchimp_extender_use_custom_db() {
+	/**
+	 * Filter whether we should use the custom database table instead of the Options API
+	 *
+	 * @param bool $use_custom_db True to use the custom database table, false to use the Options API.
+	 */
+	return (bool) apply_filters( 'yikes_easy_mailchimp_extender_use_custom_db', defined( 'YIKES_EMCE_CUSTOM_DB' ) && YIKES_EMCE_CUSTOM_DB );
 }
 
 /**
