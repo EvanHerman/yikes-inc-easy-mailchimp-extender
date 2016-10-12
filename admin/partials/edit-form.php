@@ -37,13 +37,17 @@
 	// set global form data, mainly for use in custom form field declarations
 	$GLOBALS["form_data"] = $form;
 
-	$custom_styles        = $form['custom_styles'];
-	$optin_settings       = $form['optin_settings'];
-	$submission_settings  = $form['submission_settings'];
-	$error_messages       = $form['error_messages'];
+	$custom_styles       = $form['custom_styles'];
+	$optin_settings      = $form['optin_settings'];
+	$submission_settings = $form['submission_settings'];
+	$error_messages      = $form['error_messages'];
+
+	if ( isset( $form['form_settings'] ) ) {
+		$form_settings = $form['form_settings'];
+	}
 
 	// get defaults if none are saved in the database yet
-	if( ! isset( $form_settings ) || empty( $form_settings ) ) {
+	if ( empty( $form_settings ) ) {
 		// setup defaults if none are saved
 		$form_settings = array(
 			'yikes-easy-mc-form-class-names'                 => '',
