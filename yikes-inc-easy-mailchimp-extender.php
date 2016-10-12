@@ -79,7 +79,6 @@ require_once( dirname( __FILE__ ) . '/class-loader.php' );
  */
 register_activation_hook( __FILE__, 'activate_yikes_inc_easy_mailchimp_extender' );
 function activate_yikes_inc_easy_mailchimp_extender( $network_wide ) {
-	require_once YIKES_MC_PATH . 'includes/class-yikes-inc-easy-mailchimp-extender-activator.php';
 	add_option( 'yikes_mailchimp_activation_redirect', 'true' );
 	Yikes_Inc_Easy_Mailchimp_Extender_Activator::activate( $network_wide );
 }
