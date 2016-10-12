@@ -21,4 +21,4 @@ function process_depracated_mailchimp_shortcode( $atts ) {
 	return '<p><em>' . __( 'This MailChimp shortcode is now deprecated. Please insert the new shortcode to display this form.' , 'yikes-inc-easy-mailchimp-extender' ) . '</em></p>';
 	
 }
-add_shortcode( 'yks-mailchimp-list', 'process_depracated_mailchimp_shortcode' ); ?>
+add_shortcode( 'yks-mailchimp-list', 'process_depracated_mailchimp_shortcode' );

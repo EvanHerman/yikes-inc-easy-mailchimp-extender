@@ -102,5 +102,3 @@ function yikes_mailchimp_subscriber_count_shortcode( $attributes ) {
 
 }
 add_shortcode( 'yikes-mailchimp-subscriber-count', 'yikes_mailchimp_subscriber_count_shortcode' );
-
-?>

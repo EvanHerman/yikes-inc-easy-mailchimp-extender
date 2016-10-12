@@ -313,4 +313,4 @@ if ( ! isset( $_POST['yikes_easy_mc_new_subscriber'] ) || ! wp_verify_nonce( $_P
 		$submissions = $form_settings['submissions'] + 1;
 		$interface->update_form_field( $form_id, 'submissions', $submissions );
 }
-?>
+

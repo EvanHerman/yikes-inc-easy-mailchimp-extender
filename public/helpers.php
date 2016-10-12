@@ -26,5 +26,3 @@ function yikes_get_form_data( $form_id ) {
 	}
 	return Yikes_Inc_Easy_Mailchimp_Extender_Public::yikes_retrieve_form_settings( $form_id );
 }
-
-?>
