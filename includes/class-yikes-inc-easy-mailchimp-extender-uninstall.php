@@ -29,23 +29,22 @@ class Yikes_Inc_Easy_Mailchimp_Extender_Uninstaller {
 	 */
 	static function _uninstall_yikes_easy_mailchimp( $wpdb ) {
 		require_once(ABSPATH . 'wp-admin/includes/upgrade.php');
+
 		/* Clean up and delete our custom table from the databse */
 		$table = $wpdb->prefix."yikes_easy_mc_forms";
 		$sql = 'DROP TABLE IF EXISTS ' . $table;
+
 		//Delete any options thats stored also?
 		$wpdb->query( $sql );
 		dbDelta($sql);
+
 		/* Clear All Transient Data */
-		// Delete list data transient data
 		delete_transient( 'yikes-easy-mailchimp-list-data' );
-		// Delete list account data transient data
 		delete_transient( 'yikes-easy-mailchimp-account-data' );
-		// Delete profile data transient data
 		delete_transient( 'yikes-easy-mailchimp-profile-data' );
-		// Delete account activity transient data
 		delete_transient( 'yikes-easy-mailchimp-account-activity' );
-		// Delete GitHub contributor transient
 		delete_transient( 'yikes-mailchimp-contributor-transient' );
+
 		/* Clear All Plugin Options */
 		delete_option( 'yikes_easy_mailchimp_activation_date' );
 		delete_option( 'widget_yikes_easy_mc_widget' );
@@ -71,9 +70,9 @@ class Yikes_Inc_Easy_Mailchimp_Extender_Uninstaller {
 		delete_option( 'yikes-mc-recaptcha-site-key' );
 		delete_option( 'yikes-mc-recaptcha-secret-key' );
 		delete_option( 'yikes-mc-error-messages' );
-		delete_option( 'yikes_mc_database_version' ); // delete the database verison
-		delete_option( 'yikes_mailchimp_activation_redirect' ); /* delete the activation re-direct */
+		delete_option( 'yikes_mc_database_version' );
+		delete_option( 'yikes_mailchimp_activation_redirect' );
+		delete_option( 'yikes_easy_mailchimp_extender_forms' );
+		delete_option( 'yikes_easy_mailchimp_extender_version' );
 	}
-	
 }
-?>
