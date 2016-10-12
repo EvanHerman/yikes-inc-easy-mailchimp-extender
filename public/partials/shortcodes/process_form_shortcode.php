@@ -127,7 +127,7 @@ function process_mailchimp_shortcode( $atts ) {
 	*/
 	$form_settings = Yikes_Inc_Easy_Mailchimp_Extender_Public::yikes_retrieve_form_settings( $form_id );
 
-	$additional_form_settings = ( isset( $form_data['form_settings'] ) ) ? json_decode( $form_data['form_settings'], true ) : false;
+	$additional_form_settings = ( isset( $form_data['form_settings'] ) ) ? $form_data['form_settings'] : false;
 	// store our options from the additional form settings array
 	$form_classes = ( $additional_form_settings ) ? $additional_form_settings['yikes-easy-mc-form-class-names'] : '';
 	$inline_form = ( $additional_form_settings ) ? $additional_form_settings['yikes-easy-mc-inline-form'] : '';
@@ -151,9 +151,9 @@ function process_mailchimp_shortcode( $atts ) {
 	if( isset( $form_data['fields'] ) && ! empty( $form_data['fields'] ) ) {
 		// loop over each field, if it's set to hidden -- subtract it from the field count
 		// this throws off the layout for inline forms setup below
-		foreach( json_decode( $form_data['fields'] ) as $form_field ) {
-			if( isset( $form_field->hide ) && $form_field->hide == 1 ) {
-				$field_count--;
+		foreach ( $form_data['fields'] as $form_field ) {
+			if ( isset( $form_field->hide ) && $form_field->hide == 1 ) {
+				$field_count --;
 			}
 		}
 	}

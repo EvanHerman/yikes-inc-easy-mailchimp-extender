@@ -1373,8 +1373,8 @@ class Yikes_Inc_Easy_Mailchimp_Forms_Admin {
 				$form_name = $new_options['name'];
 				$fields = $new_options['fields']; // our fields array
 
-				$custom_styles = isset( $new_options['custom_styles'] ) ? json_encode( $new_options['custom_styles'] ) : '0'; // store as an array with all of our styles
-				$custom_template = isset( $new_options['custom_template'] ) ? json_encode( $new_options['custom_template'] ) : '0'; // store template data as an array ( active , template used )
+				$custom_styles = isset( $new_options['custom_styles'] ) ? $new_options['custom_styles']: '0'; // store as an array with all of our styles
+				$custom_template = isset( $new_options['custom_template'] ) ? $new_options['custom_template'] : '0'; // store template data as an array ( active , template used )
 				$send_welcome_email = isset( $new_options['yks_mailchimp_send_welcome_'.$list_id] ) ? '0' : '1';
 				$redirect_user_on_submit = isset( $new_options['yks_mailchimp_redirect_'.$list_id] ) ? '1' : '0';
 				$redirect_page = isset( $new_options['page_id_'.$list_id] ) ? $new_options['page_id_'.$list_id] : '';
@@ -1384,7 +1384,7 @@ class Yikes_Inc_Easy_Mailchimp_Forms_Admin {
 					'list_id'                 => $list_id,
 					'form_name'               => $form_name,
 					'form_description'        => '',
-					'fields'                  => json_encode( $fields ),
+					'fields'                  => $fields,
 					'custom_styles'           => $custom_styles,
 					'custom_template'         => $custom_template,
 					'send_welcome_email'      => $send_welcome_email,
@@ -2384,56 +2384,52 @@ class Yikes_Inc_Easy_Mailchimp_Forms_Admin {
 			if( ! wp_verify_nonce( $nonce, 'create_mailchimp_form' ) ) {
 				wp_die( __( "We've run into an error. The security check didn't pass. Please try again." , 'yikes-inc-easy-mailchimp-extender' ) );
 			}
-			global $wpdb;
-				/* Default values */
-				// setup our default submission settings serialized array
-				$submission_settings = json_encode(
-					array(
-						'ajax' => 1,
-						'redirect_on_submission' => 0,
-						'redirect_page' => 1,
-						'hide_form_post_signup' => 0
-					)
-				);
-				// setup our default opt-in settings serialized array
-				$optin_settings = json_encode(
-					array(
-						'optin' => 1,
-						'update_existing_user' => 1,
-						'send_update_email' => 1,
-						'send_welcome_email' => 1,
-					)
-				);
-				// setup our default error message array
-				$error_settings= json_encode(
-					array(
-						'success' => '',
-						'general-error' => '',
-						'invalid-email' => '',
-						'email-already-subscribed' => '',
-						'update-link' => '',
-					)
-				);
-				/* End default values */
 
-				$result = $this->form_interface->create_form( array(
-					'list_id'                 => $_POST['associated-list'],
-					'form_name'               => stripslashes( $_POST['form-name'] ),
-					'form_description'        => stripslashes( $_POST['form-description'] ),
-					'fields'                  => '',
-					'custom_styles'           => 0,
-					'custom_template'         => 0,
-					'send_welcome_email'      => 1,
-					'redirect_user_on_submit' => 0,
-					'redirect_page'           => '',
-					'submission_settings'     => $submission_settings,
-					'optin_settings'          => $optin_settings,
-					'error_messages'          => $error_settings,
-					'custom_notifications'    => '',
-					'impressions'             => 0,
-					'submissions'             => 0,
-					'custom_fields'           => '',
-				) );
+			/* Default values */
+			// setup our default submission settings serialized array
+			$submission_settings = array(
+				'ajax'                   => 1,
+				'redirect_on_submission' => 0,
+				'redirect_page'          => 1,
+				'hide_form_post_signup'  => 0,
+			);
+			// setup our default opt-in settings serialized array
+			$optin_settings = array(
+				'optin'                => 1,
+				'update_existing_user' => 1,
+				'send_update_email'    => 1,
+				'send_welcome_email'   => 1,
+
+			);
+			// setup our default error message array
+			$error_settings = array(
+				'success'                  => '',
+				'general-error'            => '',
+				'invalid-email'            => '',
+				'email-already-subscribed' => '',
+				'update-link'              => '',
+
+			);
+			/* End default values */
+
+			$result = $this->form_interface->create_form( array(
+				'list_id'                 => $_POST['associated-list'],
+				'form_name'               => stripslashes( $_POST['form-name'] ),
+				'form_description'        => stripslashes( $_POST['form-description'] ),
+				'fields'                  => '',
+				'custom_styles'           => 0,
+				'custom_template'         => 0,
+				'send_welcome_email'      => 1,
+				'redirect_user_on_submit' => 0,
+				'redirect_page'           => '',
+				'submission_settings'     => $submission_settings,
+				'optin_settings'          => $optin_settings,
+				'error_messages'          => $error_settings,
+				'custom_notifications'    => '',
+				'impressions'             => 0,
+				'submissions'             => 0,
+				'custom_fields'           => '',
+			) );
 
 			// if an error occurs during the form creation process
 			if ( $result == '0' ) {
@@ -2560,89 +2556,72 @@ class Yikes_Inc_Easy_Mailchimp_Forms_Admin {
 			}
 
 			// store our values!
-			$list_id = $_POST['associated-list'];
-			$form_name = stripslashes( $_POST['form-name'] );
-			$form_description = sanitize_text_field( stripslashes( $_POST['form-description'] ) );
-			$send_welcome_email = $_POST['send-welcome-email'];
+			$list_id                 = $_POST['associated-list'];
+			$form_name               = stripslashes( $_POST['form-name'] );
+			$form_description        = sanitize_text_field( stripslashes( $_POST['form-description'] ) );
+			$send_welcome_email      = $_POST['send-welcome-email'];
 			$redirect_user_on_submit = $_POST['redirect-user-on-submission'];
-			$redirect_page = $_POST['redirect-user-to-selection'];
-			if( isset( $_POST['custom-styles'] ) ) {
-				$custom_styles = $_POST['custom-styles'];
-			}
+			$redirect_page           = $_POST['redirect-user-to-selection'];
 
 			// stripslashes_deep on save, to prevent foreign languages from added excessive backslashes
-			$assigned_fields = isset( $_POST['field'] ) ? json_encode( stripslashes_deep( $_POST['field'] ) ) : '';
+			$assigned_fields = isset( $_POST['field'] ) ? stripslashes_deep( $_POST['field'] ): array();
 
 			// setup our submission settings serialized array
-			$submission_settings = json_encode(
-				array(
-					'ajax' => $_POST['form-ajax-submission'],
-					'redirect_on_submission' => $_POST['redirect-user-on-submission'],
-					'redirect_page' => $_POST['redirect-user-to-selection'],
-					'custom_redirect_url' => esc_url( $_POST['custom-redirect-url'] ),
-					'hide_form_post_signup' => $_POST['hide-form-post-signup'],
-					'replace_interests' => $_POST['replace-interest-groups'],
-				)
+			$submission_settings = array(
+				'ajax'                   => $_POST['form-ajax-submission'],
+				'redirect_on_submission' => $_POST['redirect-user-on-submission'],
+				'redirect_page'          => $_POST['redirect-user-to-selection'],
+				'custom_redirect_url'    => esc_url( $_POST['custom-redirect-url'] ),
+				'hide_form_post_signup'  => $_POST['hide-form-post-signup'],
+				'replace_interests'      => $_POST['replace-interest-groups'],
 			);
 
 			// setup our opt-in settings serialized array
-			$optin_settings = json_encode(
-				array(
-					'optin' => $_POST['single-double-optin'],
-					'update_existing_user' => $_POST['update-existing-user'],
-					'send_update_email' => $_POST['update-existing-email'],
-					'send_welcome_email' => $_POST['send-welcome-email'],
-				)
+			$optin_settings = array(
+				'optin'                => $_POST['single-double-optin'],
+				'update_existing_user' => $_POST['update-existing-user'],
+				'send_update_email'    => $_POST['update-existing-email'],
+				'send_welcome_email'   => $_POST['send-welcome-email'],
 			);
 
 			// setup our error settings serialized array
-			$error_settings = json_encode(
-				array(
-					'success' => trim( $_POST['yikes-easy-mc-success-message'] ) ? trim( stripslashes( $_POST['yikes-easy-mc-success-message'] ) ) : '',
-					'general-error' => trim( $_POST['yikes-easy-mc-general-error-message'] ) ? trim( stripslashes( $_POST['yikes-easy-mc-general-error-message'] ) ) : '',
-					'invalid-email' => trim( $_POST['yikes-easy-mc-invalid-email-message'] ) ? trim( stripslashes( $_POST['yikes-easy-mc-invalid-email-message'] ) ) : '',
-					'already-subscribed' => trim( $_POST['yikes-easy-mc-user-subscribed-message'] ) ? trim( stripslashes( $_POST['yikes-easy-mc-user-subscribed-message'] ) ) : '',
-					'update-link' => trim( $_POST['yikes-easy-mc-user-update-link'] ) ? trim( stripslashes( $_POST['yikes-easy-mc-user-update-link'] ) ) : '',
-				)
+			$error_settings = array(
+				'success'            => trim( $_POST['yikes-easy-mc-success-message'] ) ? trim( stripslashes( $_POST['yikes-easy-mc-success-message'] ) ) : '',
+				'general-error'      => trim( $_POST['yikes-easy-mc-general-error-message'] ) ? trim( stripslashes( $_POST['yikes-easy-mc-general-error-message'] ) ) : '',
+				'invalid-email'      => trim( $_POST['yikes-easy-mc-invalid-email-message'] ) ? trim( stripslashes( $_POST['yikes-easy-mc-invalid-email-message'] ) ) : '',
+				'already-subscribed' => trim( $_POST['yikes-easy-mc-user-subscribed-message'] ) ? trim( stripslashes( $_POST['yikes-easy-mc-user-subscribed-message'] ) ) : '',
+				'update-link'        => trim( $_POST['yikes-easy-mc-user-update-link'] ) ? trim( stripslashes( $_POST['yikes-easy-mc-user-update-link'] ) ) : '',
 			);
 
 			// Setup the new form settings array
 			// @since 6.0.3.8
 			// To Do: Combine date & time so it's a single unix timestamp
-			$form_settings = json_encode(
-				array(
-					'yikes-easy-mc-form-class-names' => trim( $_POST['yikes-easy-mc-form-class-names'] ),
-					'yikes-easy-mc-inline-form' => $_POST['yikes-easy-mc-inline-form'][0],
-					'yikes-easy-mc-submit-button-type' => $_POST['yikes-easy-mc-submit-button-type'][0],
-					'yikes-easy-mc-submit-button-text' => trim( $_POST['yikes-easy-mc-submit-button-text'] ),
-					'yikes-easy-mc-submit-button-image' => esc_url( trim( $_POST['yikes-easy-mc-submit-button-image'] ) ),
-					'yikes-easy-mc-submit-button-classes' => trim( $_POST['yikes-easy-mc-submit-button-classes'] ),
-					'yikes-easy-mc-form-schedule' => ( isset( $_POST['yikes-easy-mc-form-schedule'] ) ) ? '1' : '0',
-					'yikes-easy-mc-form-restriction-start' => strtotime( $_POST['yikes-easy-mc-form-restriction-start-date'] . ' ' . $_POST['yikes-easy-mc-form-restriction-start-time'] ),
-					'yikes-easy-mc-form-restriction-end' => strtotime( $_POST['yikes-easy-mc-form-restriction-end-date'] . ' ' . $_POST['yikes-easy-mc-form-restriction-end-time'] ),
-					'yikes-easy-mc-form-restriction-pending-message' => trim( $_POST['yikes-easy-mc-form-restriction-pending-message'] ),
-					'yikes-easy-mc-form-restriction-expired-message' => trim( $_POST['yikes-easy-mc-form-restriction-expired-message'] ),
-					'yikes-easy-mc-form-login-required' => ( isset( $_POST['yikes-easy-mc-form-login-required'] ) ) ? '1' : '0',
-					'yikes-easy-mc-form-restriction-login-message' => trim( $_POST['yikes-easy-mc-form-restriction-login-message'] ),
-				)
+			$form_settings = array(
+				'yikes-easy-mc-form-class-names'                 => trim( $_POST['yikes-easy-mc-form-class-names'] ),
+				'yikes-easy-mc-inline-form'                      => $_POST['yikes-easy-mc-inline-form'][0],
+				'yikes-easy-mc-submit-button-type'               => $_POST['yikes-easy-mc-submit-button-type'][0],
+				'yikes-easy-mc-submit-button-text'               => trim( $_POST['yikes-easy-mc-submit-button-text'] ),
+				'yikes-easy-mc-submit-button-image'              => esc_url( trim( $_POST['yikes-easy-mc-submit-button-image'] ) ),
+				'yikes-easy-mc-submit-button-classes'            => trim( $_POST['yikes-easy-mc-submit-button-classes'] ),
+				'yikes-easy-mc-form-schedule'                    => ( isset( $_POST['yikes-easy-mc-form-schedule'] ) ) ? '1' : '0',
+				'yikes-easy-mc-form-restriction-start'           => strtotime( $_POST['yikes-easy-mc-form-restriction-start-date'] . ' ' . $_POST['yikes-easy-mc-form-restriction-start-time'] ),
+				'yikes-easy-mc-form-restriction-end'             => strtotime( $_POST['yikes-easy-mc-form-restriction-end-date'] . ' ' . $_POST['yikes-easy-mc-form-restriction-end-time'] ),
+				'yikes-easy-mc-form-restriction-pending-message' => trim( $_POST['yikes-easy-mc-form-restriction-pending-message'] ),
+				'yikes-easy-mc-form-restriction-expired-message' => trim( $_POST['yikes-easy-mc-form-restriction-expired-message'] ),
+				'yikes-easy-mc-form-login-required'              => ( isset( $_POST['yikes-easy-mc-form-login-required'] ) ) ? '1' : '0',
+				'yikes-easy-mc-form-restriction-login-message'   => trim( $_POST['yikes-easy-mc-form-restriction-login-message'] ),
 			);
 
-			// setup and store our notification array
-			$custom_notifications = isset( $_POST['custom-notification'] ) ? stripslashes( json_encode( $_POST['custom-notification'] ) ) : '';
-
 			// additional custom fields (extensions / user defined fields)
-			if( isset( $_POST['custom-field'] ) ) {
-				$custom_field_array = array();
-				foreach( $_POST['custom-field'] as $custom_field => $custom_value ) {
-					if( is_array( $custom_value ) ) {
-						$custom_field_array[$custom_field] = array_filter( stripslashes_deep( $custom_value ) ); // array_filters to remove empty items (don't save them!)
+			$custom_fields = array();
+			if ( isset( $_POST['custom-field'] ) ) {
+				foreach ( $_POST['custom-field'] as $custom_field => $custom_value ) {
+					if ( is_array( $custom_value ) ) {
+						$custom_fields[ $custom_field ] = array_filter( stripslashes_deep( $custom_value ) ); // array_filters to remove empty items (don't save them!)
 					} else {
-						$custom_field_array[$custom_field] = stripslashes( $custom_value );
+						$custom_fields[ $custom_field ] = stripslashes( $custom_value );
 					}
 				}
-				$custom_fields = json_encode( $custom_field_array );
-			} else {
-				$custom_fields = '';
 			}
 
 			$this->form_interface->update_form(
@@ -2660,13 +2639,12 @@ class Yikes_Inc_Easy_Mailchimp_Forms_Admin {
 					'optin_settings'          => $optin_settings,
 					'error_messages'          => $error_settings,
 					'form_settings'           => $form_settings,
-					'custom_notifications'    => $custom_notifications,
 					'custom_fields'           => $custom_fields,
 				)
 			);
 
 			/* Custom action hook which allows users to update specific options when a form is updated - used in add ons */
-			do_action( 'yikes-mailchimp-save-form', $form_id,  json_decode( $custom_fields, true ) );
+			do_action( 'yikes-mailchimp-save-form', $form_id,  $custom_fields );
 
 			// redirect the user to the manage forms page, display confirmation
 			wp_redirect( esc_url_raw( admin_url( 'admin.php?page=yikes-mailchimp-edit-form&id=' . $form_id . '&updated-form=true' ) ) );
@@ -2982,7 +2960,7 @@ class Yikes_Inc_Easy_Mailchimp_Forms_Admin {
 		$db_interface     = new Yikes_Inc_Easy_MailChimp_Extender_Forms( $wpdb );
 		$option_interface = new Yikes_Inc_Easy_MailChimp_Extender_Option_Forms();
 		$form_option      = array();
-		$form_ids = $db_interface->get_form_ids();
+		$form_ids         = $db_interface->get_form_ids();
 
 		if ( empty( $form_ids ) ) {
 			return;
