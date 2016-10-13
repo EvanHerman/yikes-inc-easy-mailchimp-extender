@@ -7,7 +7,7 @@ function process_mailchimp_shortcode( $atts ) {
 	$atts = shortcode_atts(
 		array(
 			'form'                       => '',
-			'submit'                     => 'Submit',
+			'submit'                     => '',
 			'title'                      => '0',
 			'custom_title'               => '',
 			'description'                => '0',
@@ -194,7 +194,7 @@ function process_mailchimp_shortcode( $atts ) {
 
 	// setup the submit button text
 	// shortcode parameter takes precedence over option
-	if( isset( $atts['submit'] ) ) {
+	if( isset( $atts['submit'] ) && ! empty( $atts['submit']) ) {
 		$submit = $atts['submit'];
 	} else {
 		$submit = $submit_button_text;
