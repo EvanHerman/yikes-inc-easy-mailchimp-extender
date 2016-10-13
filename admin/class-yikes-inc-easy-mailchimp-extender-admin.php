@@ -704,12 +704,12 @@ class Yikes_Inc_Easy_Mailchimp_Forms_Admin {
 			'bulk_delete_alert' => __( 'Are you sure you want to delete all of the fields assigned to this form?', 'yikes-inc-easy-mailchimp-extender' ),
 			'closeText'         => __( 'Done', 'yikes-inc-easy-mailchimp-extender' ),
 			'currentText'       => __( 'Today', 'yikes-inc-easy-mailchimp-extender' ),
-			'monthNames'        => $this->strip_array_indices( $wp_locale->month ),
-			'monthNamesShort'   => $this->strip_array_indices( $wp_locale->month_abbrev ),
+			'monthNames'        => array_values( $wp_locale->month ),
+			'monthNamesShort'   => array_values( $wp_locale->month_abbrev ),
 			'monthStatus'       => __( 'Show a different month', 'yikes-inc-easy-mailchimp-extender' ),
-			'dayNames'          => $this->strip_array_indices( $wp_locale->weekday ),
-			'dayNamesShort'     => $this->strip_array_indices( $wp_locale->weekday_abbrev ),
-			'dayNamesMin'       => $this->strip_array_indices( $wp_locale->weekday_initial ),
+			'dayNames'          => array_values( $wp_locale->weekday ),
+			'dayNamesShort'     => array_values( $wp_locale->weekday_abbrev ),
+			'dayNamesMin'       => array_values( $wp_locale->weekday_initial ),
 			// set the date format to match the WP general date settings
 			'dateFormat'        => $this->yikes_jQuery_datepicker_date_format_php_to_js( get_option( 'date_format' ), 'date' ),
 			// get the start of week from WP general setting

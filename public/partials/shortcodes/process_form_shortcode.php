@@ -809,11 +809,11 @@ function process_mailchimp_shortcode( $atts ) {
 											global $wp_locale;
 											$admin_class = new Yikes_Inc_Easy_Mailchimp_Forms_Admin( '', '', yikes_easy_mailchimp_extender_get_form_interface() );
 											$admin_class->hooks();
-											$month_names = $admin_class->strip_array_indices( $wp_locale->month );
-											$month_names_short = $admin_class->strip_array_indices( $wp_locale->month_abbrev );
-											$day_names = $admin_class->strip_array_indices( $wp_locale->weekday );
-											$day_names_short = $admin_class->strip_array_indices( $wp_locale->weekday_abbrev );
-											$day_names_min = $admin_class->strip_array_indices( $wp_locale->weekday_initial );
+											$month_names = array_values( $wp_locale->month );
+											$month_names_short = array_values( $wp_locale->month_abbrev );
+											$day_names = array_values( $wp_locale->weekday );
+											$day_names_short = array_values( $wp_locale->weekday_abbrev );
+											$day_names_min = array_values( $wp_locale->weekday_initial );
 											$date_format = $admin_class->yikes_jQuery_datepicker_date_format_php_to_js( $date_format, $field['type'] );
 											$first_day = get_option( 'start_of_week' );
 											$isRTL = $wp_locale->is_rtl();
@@ -822,7 +822,7 @@ function process_mailchimp_shortcode( $atts ) {
 									<script type="text/javascript">
 										jQuery(document).ready(function() {
 											jQuery.fn.datepicker.dates['en'] = {
-												months: <?php echo json_encode( $admin_class->strip_array_indices( $wp_locale->month ) ); ?>,
+												months: <?php echo json_encode( $month_names ); ?>,
 												monthsShort: <?php echo json_encode( $month_names_short ); ?>,
 												days: <?php echo json_encode( $day_names ); ?>,
 												daysShort: <?php echo json_encode( $day_names_short ); ?>,
@@ -830,7 +830,7 @@ function process_mailchimp_shortcode( $atts ) {
 												dateFormat: <?php echo json_encode( $date_format ); ?>,
 												firstDay: <?php echo json_encode( $first_day ); ?>,
 												format: <?php echo json_encode( $date_format ); ?>,
-												isRTL: 0,
+												isRTL: <?php echo (int) $isRTL; ?>,
 												showButtonPanel: true,
 												numberOfMonths: 1,
 												today: '<?php _e( 'Today', 'yikes-inc-easy-mailchimp-extender' ); ?>'
