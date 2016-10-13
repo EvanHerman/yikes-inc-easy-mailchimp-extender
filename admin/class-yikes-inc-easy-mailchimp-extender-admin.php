@@ -724,103 +724,92 @@ class Yikes_Inc_Easy_Mailchimp_Forms_Admin {
 
 	}
 
-	/** Functionality **/
-	/******************/
-
+	/**
+	 * Format array for the datepicker
+	 * WordPress stores the locale information in an array with a alphanumeric index, and
+	 * the datepicker wants a numerical index. This function replaces the index with a number
+	 */
+	public function strip_array_indices( $ArrayToStrip ) {
+		foreach( $ArrayToStrip as $objArrayItem) {
+			$NewArray[] =  $objArrayItem;
+		}
+		return( $NewArray );
+	}
 
 	/**
-	*	Localization functions for jQuery ui datepicker
-	*	@since 6.0.3.8
-	*/
-		/**
-		 * Format array for the datepicker
-		 * WordPress stores the locale information in an array with a alphanumeric index, and
-		 * the datepicker wants a numerical index. This function replaces the index with a number
-		 */
-		public function strip_array_indices( $ArrayToStrip ) {
-			foreach( $ArrayToStrip as $objArrayItem) {
-				$NewArray[] =  $objArrayItem;
-			}
-			return( $NewArray );
-		}
-
-		/**
-		 * Convert the php date format string to a js date format
-		 */
-		public function yikes_jQuery_datepicker_date_format_php_to_js( $sFormat, $type ) {
-			switch ( $type ) {
+	 * Convert the php date format string to a js date format
+	 */
+	public function yikes_jQuery_datepicker_date_format_php_to_js( $sFormat, $type ) {
+		switch ( $type ) {
+			default:
+			case 'date':
+				// Standard Date Fields
+				switch ( $sFormat ) {
+					//Predefined WP date formats
+					case 'F j, Y':
+					case 'j F Y':
+					case 'm/d/Y':
+					case 'mm/dd/yyyy':
+					case 'MM/DD/YYYY':
 					default:
-					case 'date':
-						// Standard Date Fields
-						switch ( $sFormat ) {
-							//Predefined WP date formats
-							case 'F j, Y':
-							case 'j F Y':
-							case 'm/d/Y':
-							case 'mm/dd/yyyy':
-							case 'MM/DD/YYYY':
-							default:
-								return( 'mm/dd/yy' );
-								break;
-							case 'Y/m/d':
-							case 'Y-m-d':
-								return( 'yy/mm/dd' );
-								break;
-							case 'd/m/Y':
-							case 'dd/mm/yyyy':
-							case 'DD/MM/YYYY':
-								return( 'dd/mm/yyyy' );
-								break;
-						 }
+						return( 'mm/dd/yy' );
 						break;
-					// Birthday Fields
-					case 'birthday':
-						switch ( $sFormat ) {
-							//Predefined WP date formats
-							case 'F j, Y':
-							case 'j F Y':
-							case 'm/d/Y':
-							case 'mm/dd/yyyy':
-							case 'MM/DD/YYYY':
-							default:
-								return( 'mm/dd' );
-								break;
-							case 'Y/m/d':
-							case 'Y-m-d':
-								return( 'mm/dd' );
-								break;
-							case 'd/m/Y':
-							case 'dd/mm/yyyy':
-							case 'DD/MM/YYYY':
-								return( 'dd/mm' );
-								break;
-						 }
+					case 'Y/m/d':
+					case 'Y-m-d':
+						return( 'yy/mm/dd' );
 						break;
-			}
+					case 'd/m/Y':
+					case 'dd/mm/yyyy':
+					case 'DD/MM/YYYY':
+						return( 'dd/mm/yyyy' );
+						break;
+				 }
+				break;
+			// Birthday Fields
+			case 'birthday':
+				switch ( $sFormat ) {
+					//Predefined WP date formats
+					case 'F j, Y':
+					case 'j F Y':
+					case 'm/d/Y':
+					case 'mm/dd/yyyy':
+					case 'MM/DD/YYYY':
+					default:
+						return( 'mm/dd' );
+						break;
+					case 'Y/m/d':
+					case 'Y-m-d':
+						return( 'mm/dd' );
+						break;
+					case 'd/m/Y':
+					case 'dd/mm/yyyy':
+					case 'DD/MM/YYYY':
+						return( 'dd/mm' );
+						break;
+				 }
+				break;
 		}
+	}
 
-		/**
-		 * Convert the php date format string to a js date format
-		 */
-		public function yikes_jQuery_datepicker_date_format( $site_option ) {
-			switch( $site_option ) {
-				//Predefined WP date formats
-				default:
-				case 'F j, Y':
-				case 'm/d/Y':
-					return( 'm/d/Y' );
-					break;
-				case 'Y-m-d':
-					return( 'Y/m/d' );
-					break;
-				case 'd/m/Y':
-					return( 'd/m/Y' );
-					break;
-			 }
-		}
 	/**
-	*	end Localization functions for jQuery ui datepicker
-	*/
+	 * Convert the php date format string to a js date format
+	 */
+	public function yikes_jQuery_datepicker_date_format( $site_option ) {
+		switch( $site_option ) {
+			//Predefined WP date formats
+			default:
+			case 'F j, Y':
+			case 'm/d/Y':
+				return( 'm/d/Y' );
+				break;
+			case 'Y-m-d':
+				return( 'Y/m/d' );
+				break;
+			case 'd/m/Y':
+				return( 'd/m/Y' );
+				break;
+		 }
+	}
 
 	/**
 	*	Register our admin pages
