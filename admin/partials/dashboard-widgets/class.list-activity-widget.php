@@ -15,18 +15,24 @@ class YIKES_Inc_Easy_MailChimp_Dashboard_Widgets {
 		add_action( 'admin_enqueue_scripts', array( $this, 'enqueue_dashboard_widget_script' ) );
 	}
 
-	// enqueue our JS file on the main dashboard page
+	/**
+	 * Enqueue our JS file on the main dashboard page.
+	 *
+	 * @param string $hook
+	 */
 	function enqueue_dashboard_widget_script( $hook ) {
-		if ( 'index.php' == $hook ) { // default 'dashboard' page
-			wp_register_script( 'yikes-easy-mc-dashboard-widget-script', YIKES_MC_URL . 'admin/js/min/yikes-inc-easy-mailchimp-dashboard-widget.min.js', array( 'jquery' ), 'all', false );
-			$data_array = array(
-				'ajax_url'  => esc_url_raw( admin_url( 'admin-ajax.php' ) ),
-				'preloader' => '<img src="' . esc_url_raw( admin_url( 'images/wpspin_light.gif' ) ) . '" title="' . __( 'Preloader', 'yikes-inc-easy-mailchimp-extender' ) . '" alt="' . __( 'Preloader', 'yikes-inc-easy-mailchimp-extender' ) . '" class="yikes-easy-mc-widget-preloader">',
-			);
-			// localize our data, to pass along to JS file
-			wp_localize_script( 'yikes-easy-mc-dashboard-widget-script', 'yikes_mailchimp_dsahboard_widget', $data_array );
-			wp_enqueue_script( 'yikes-easy-mc-dashboard-widget-script' );
+		if ( 'index.php' !== $hook ) {
+			return;
 		}
+
+		wp_register_script( 'yikes-easy-mc-dashboard-widget-script', YIKES_MC_URL . 'admin/js/min/yikes-inc-easy-mailchimp-dashboard-widget.min.js', array( 'jquery' ), 'all', false );
+		$data_array = array(
+			'ajax_url'  => esc_url_raw( admin_url( 'admin-ajax.php' ) ),
+			'preloader' => '<img src="' . esc_url_raw( admin_url( 'images/wpspin_light.gif' ) ) . '" title="' . __( 'Preloader', 'yikes-inc-easy-mailchimp-extender' ) . '" alt="' . __( 'Preloader', 'yikes-inc-easy-mailchimp-extender' ) . '" class="yikes-easy-mc-widget-preloader">',
+		);
+		// localize our data, to pass along to JS file
+		wp_localize_script( 'yikes-easy-mc-dashboard-widget-script', 'yikes_mailchimp_dsahboard_widget', $data_array );
+		wp_enqueue_script( 'yikes-easy-mc-dashboard-widget-script' );
 	}
 
 	/*******************************************************
