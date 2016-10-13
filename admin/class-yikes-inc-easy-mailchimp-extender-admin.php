@@ -685,39 +685,42 @@ class Yikes_Inc_Easy_Mailchimp_Forms_Admin {
 		wp_localize_script( 'yikes-inc-easy-mailchimp-extender-admin-js' , 'object_data' , $localized_data );
 		wp_enqueue_script( 'yikes-inc-easy-mailchimp-extender-admin-js' );
 
-
-		/*
-		*	Enqueue required scripts for the form editor
-		*/
-		if( get_current_screen()->base == 'admin_page_yikes-mailchimp-edit-form' ) {
-			global $wp_locale;
-			wp_enqueue_style( 'wp-color-picker' );
-			wp_enqueue_script( 'wp-color-picker' );
-			wp_enqueue_script( 'jquery.timepicker.js',YIKES_MC_URL . 'admin/js/jquery.timepicker.min.js' , array( 'jquery' ) , $this->version, false );
-			wp_register_script( 'edit-form-js' , YIKES_MC_URL . 'admin/js/min/yikes-inc-easy-mailchimp-extender-edit-form.min.js' , array( 'jquery.timepicker.js', 'jquery-ui-datepicker' ) , $this->version, false );
-			$localized_data = array(
-				'ajax_url' => esc_url_raw( admin_url( 'admin-ajax.php' ) ),
-				'no_fields_assigned' => __( 'No fields assigned to this form. Select some fields to add to this form from the right hand column.', 'yikes-inc-easy-mailchimp-extender' ),
-				'bulk_delete_alert' => __( 'Are you sure you want to delete all of the fields assigned to this form?', 'yikes-inc-easy-mailchimp-extender' ),
-				'closeText'         => __( 'Done', 'yikes-inc-easy-mailchimp-extender' ),
-				'currentText'       => __( 'Today', 'yikes-inc-easy-mailchimp-extender' ),
-				'monthNames'        => $this->yikes_jQuery_datepicker_strip_array_indices( $wp_locale->month ),
-				'monthNamesShort'   => $this->yikes_jQuery_datepicker_strip_array_indices( $wp_locale->month_abbrev ),
-				'monthStatus'       => __( 'Show a different month', 'yikes-inc-easy-mailchimp-extender' ),
-				'dayNames'          => $this->yikes_jQuery_datepicker_strip_array_indices( $wp_locale->weekday ),
-				'dayNamesShort'     => $this->yikes_jQuery_datepicker_strip_array_indices( $wp_locale->weekday_abbrev ),
-				'dayNamesMin'       => $this->yikes_jQuery_datepicker_strip_array_indices( $wp_locale->weekday_initial ),
-				// set the date format to match the WP general date settings
-				'dateFormat'        => $this->yikes_jQuery_datepicker_date_format_php_to_js( get_option( 'date_format' ), 'date' ),
-				// get the start of week from WP general setting
-				'firstDay'          => get_option( 'start_of_week' ),
-				// is Right to left language? default is false
-				'isRTL'             => $wp_locale->is_rtl(),
-				'start_date_exceeds_end_date_error' => __( 'Error: The start date and time cannot occur after the end date and time. Chosen date reverted to previous selection.', 'yikes-inc-easy-mailchimp-extender' ),
-			);
-			wp_localize_script( 'edit-form-js' , 'object' , $localized_data );
-			wp_enqueue_script( 'edit-form-js' );
+		// Enqueue required scripts for the form editor
+		$screen = get_current_screen();
+		if ( ! isset( $screen->base ) || 'admin_page_yikes-mailchimp-edit-form' !== $screen->base ) {
+			return;
 		}
+
+
+		global $wp_locale;
+
+		wp_enqueue_style( 'wp-color-picker' );
+		wp_enqueue_script( 'wp-color-picker' );
+		wp_enqueue_script( 'jquery.timepicker.js',YIKES_MC_URL . 'admin/js/jquery.timepicker.min.js' , array( 'jquery' ) , $this->version, false );
+		wp_register_script( 'edit-form-js' , YIKES_MC_URL . 'admin/js/min/yikes-inc-easy-mailchimp-extender-edit-form.min.js' , array( 'jquery.timepicker.js', 'jquery-ui-datepicker' ) , $this->version, false );
+		$localized_data = array(
+			'ajax_url' => esc_url_raw( admin_url( 'admin-ajax.php' ) ),
+			'no_fields_assigned' => __( 'No fields assigned to this form. Select some fields to add to this form from the right hand column.', 'yikes-inc-easy-mailchimp-extender' ),
+			'bulk_delete_alert' => __( 'Are you sure you want to delete all of the fields assigned to this form?', 'yikes-inc-easy-mailchimp-extender' ),
+			'closeText'         => __( 'Done', 'yikes-inc-easy-mailchimp-extender' ),
+			'currentText'       => __( 'Today', 'yikes-inc-easy-mailchimp-extender' ),
+			'monthNames'        => $this->strip_array_indices( $wp_locale->month ),
+			'monthNamesShort'   => $this->strip_array_indices( $wp_locale->month_abbrev ),
+			'monthStatus'       => __( 'Show a different month', 'yikes-inc-easy-mailchimp-extender' ),
+			'dayNames'          => $this->strip_array_indices( $wp_locale->weekday ),
+			'dayNamesShort'     => $this->strip_array_indices( $wp_locale->weekday_abbrev ),
+			'dayNamesMin'       => $this->strip_array_indices( $wp_locale->weekday_initial ),
+			// set the date format to match the WP general date settings
+			'dateFormat'        => $this->yikes_jQuery_datepicker_date_format_php_to_js( get_option( 'date_format' ), 'date' ),
+			// get the start of week from WP general setting
+			'firstDay'          => get_option( 'start_of_week' ),
+			// is Right to left language? default is false
+			'isRTL'             => $wp_locale->is_rtl(),
+			'start_date_exceeds_end_date_error' => __( 'Error: The start date and time cannot occur after the end date and time. Chosen date reverted to previous selection.', 'yikes-inc-easy-mailchimp-extender' ),
+		);
+		wp_localize_script( 'edit-form-js' , 'object' , $localized_data );
+		wp_enqueue_script( 'edit-form-js' );
+
 
 	}
 
