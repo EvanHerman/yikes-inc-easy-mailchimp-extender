@@ -137,7 +137,7 @@ module.exports = function(grunt) {
 	grunt.loadNpmTasks('grunt-browser-sync'); // browser-sync auto refresh
 	grunt.loadNpmTasks('grunt-postcss'); // CSS autoprefixer plugin (cross-browser auto pre-fixes)
 	grunt.loadNpmTasks('grunt-wp-i18n'); // wordpress localization plugin
-	grunt.loadNpmTasks('grunt-auto-install'); // autoload all of ourd ependencies (ideally, you install this one package, and run grunt auto_install to install our dependencies automagically)
+	grunt.loadNpmTasks('grunt-auto-install'); // autoload all of our dependencies (ideally, you install this one package, and run grunt auto_install to install our dependencies automagically)
 	grunt.loadNpmTasks('grunt-contrib-clean');
 
 	// register task
@@ -149,8 +149,8 @@ module.exports = function(grunt) {
 			'emptyFile'
 	]);
 
-		grunt.registerTask( 'emptyFile', 'Creates an empty file', function() {
-			grunt.file.write('includes/error_log/yikes-easy-mailchimp-error-log.php', '');
-		});
+	grunt.registerTask( 'emptyFile', 'Creates an empty file', function() {
+		grunt.file.write('includes/error_log/yikes-easy-mailchimp-error-log.php', '');
+	});
 
 };
