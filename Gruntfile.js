@@ -140,15 +140,14 @@ module.exports = function(grunt) {
 	grunt.loadNpmTasks('grunt-auto-install'); // autoload all of ourd ependencies (ideally, you install this one package, and run grunt auto_install to install our dependencies automagically)
 	grunt.loadNpmTasks('grunt-contrib-clean');
 
-    // register task
-    grunt.registerTask( 'default', [
+	// register task
+	grunt.registerTask( 'default', [
 			'uglify',
 			'cssmin',
 			'postcss',
 			'clean',
-			'emptyFile',
-			'watch',
-    ]);
+			'emptyFile'
+	]);
 
 		grunt.registerTask( 'emptyFile', 'Creates an empty file', function() {
 			grunt.file.write('includes/error_log/yikes-easy-mailchimp-error-log.php', '');
