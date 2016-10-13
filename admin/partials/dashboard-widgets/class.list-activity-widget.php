@@ -23,9 +23,9 @@
 					'preloader' => '<img src="' . esc_url_raw( admin_url( 'images/wpspin_light.gif' ) ) . '" title="' . __( 'Preloader' , 'yikes-inc-easy-mailchimp-extender' ) . '" alt="' . __( 'Preloader' , 'yikes-inc-easy-mailchimp-extender' ) . '" class="yikes-easy-mc-widget-preloader">'
 				);
 				// localize our data, to pass along to JS file
-				wp_localize_script( 'yikes-easy-mc-dashboard-widget-script' , 'object' , $data_array );
 				wp_enqueue_script( 'yikes-easy-mc-dashboard-widget-script' );
 			}
+			wp_localize_script( 'yikes-easy-mc-dashboard-widget-script', 'yikes_mailchimp_dsahboard_widget', $data_array );
 		}
 
 		/*******************************************************
