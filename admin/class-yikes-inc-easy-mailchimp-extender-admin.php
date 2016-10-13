@@ -734,7 +734,7 @@ class Yikes_Inc_Easy_Mailchimp_Forms_Admin {
 		 * WordPress stores the locale information in an array with a alphanumeric index, and
 		 * the datepicker wants a numerical index. This function replaces the index with a number
 		 */
-		public function yikes_jQuery_datepicker_strip_array_indices( $ArrayToStrip ) {
+		public function strip_array_indices( $ArrayToStrip ) {
 			foreach( $ArrayToStrip as $objArrayItem) {
 				$NewArray[] =  $objArrayItem;
 			}
