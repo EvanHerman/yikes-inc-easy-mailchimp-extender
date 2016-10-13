@@ -573,15 +573,13 @@ class Yikes_Inc_Easy_Mailchimp_Forms_Admin {
 
 			$list_data = $this->form_interface->get_all_forms();
 			$lists = array();
-			$i = 0;
 			if( !empty( $list_data ) ) {
 				// build an array to pass to our javascript
 				foreach( $list_data as $id => $form ) {
-						$lists[$i] = array(
-							'text' => urlencode( $form['form_name'] ),
-							'value' => $id,
-						);
-						$i++;
+					$lists[] = array(
+						'text'  => urlencode( $form['form_name'] ),
+						'value' => $id,
+					);
 				}
 			} else {
 				$lists[0] = array(
@@ -593,7 +591,7 @@ class Yikes_Inc_Easy_Mailchimp_Forms_Admin {
 			?>
 			<script type="text/javascript">
 				var forms = {
-					'data' : '<?php echo json_encode( $lists ); ?>'
+					'data' : <?php echo json_encode( $lists ); ?>
 				};
 				var localized_data = {
 					'button_title' : '<?php _e( 'Easy Forms for MailChimp by YIKES', 'yikes-inc-easy-mailchimp-extender' ); ?>',
@@ -601,7 +599,8 @@ class Yikes_Inc_Easy_Mailchimp_Forms_Admin {
 					'list_id_label' : '<?php _e( 'MailChimp Opt-In Form' , 'yikes-inc-easy-mailchimp-extender' ); ?>',
 					'show_title_label' : '<?php _e( 'Display Form Title' , 'yikes-inc-easy-mailchimp-extender' ); ?>',
 					'show_description_label' : '<?php _e( 'Display Form Description' , 'yikes-inc-easy-mailchimp-extender' ); ?>',
-					'submit_button_text_label' : '<?php _e( 'Submit Button Text' , 'yikes-inc-easy-mailchimp-extender' ); ?>',
+					'submit_button_text_label' : '<?php _e( 'Custom Submit Button Text' , 'yikes-inc-easy-mailchimp-extender' ); ?>',
+					'submit_button_message' : '<?php _e( '<br><em>If left empty, the default submit button text from your form will be used.</em>', 'yikes-inc-easy-mailchimp-extender' ); ?>'
 				};
 				<?php
 					$link = sprintf( __( 'You need to <a href="%s" title="%s">create a form</a> before you can add one to a page or post.', 'yikes-inc-easy-mailchimp-extender' ), esc_url_raw( admin_url( 'admin.php?page=yikes-inc-easy-mailchimp' ) ), __( 'Create a form', 'yikes-inc-easy-mailchimp-extender' ) );
