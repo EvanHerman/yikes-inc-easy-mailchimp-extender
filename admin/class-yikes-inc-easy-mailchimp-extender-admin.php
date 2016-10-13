@@ -672,18 +672,16 @@ class Yikes_Inc_Easy_Mailchimp_Forms_Admin {
 	 * @since    6.0.0
 	 */
 	public function enqueue_scripts() {
-
-		/**
-		 * Enqueue our scripts across the dashboard as needed
-		 */
 		wp_register_script( 'yikes-inc-easy-mailchimp-extender-admin-js', plugin_dir_url( __FILE__ ) . 'js/min/yikes-inc-easy-mailchimp-extender-admin.min.js', array( 'jquery' , 'jquery-ui-sortable' ), $this->version, false );
+
 		$localized_data = array(
-			'admin_url' => esc_url_raw( admin_url() ),
-			'ajax_url' => esc_url_raw( admin_url( 'admin-ajax.php' ) ),
+			'admin_url'                => esc_url_raw( admin_url() ),
+			'ajax_url'                 => esc_url_raw( admin_url( 'admin-ajax.php' ) ),
 			'locating_interest_groups' => __( 'Locating Interest Groups', 'yikes-inc-easy-mailchimp-extender' ),
-			'search_preloader_url' => YIKES_MC_URL . 'includes/images/search-interest-group-preloader.gif',
-			'preloader_url' => esc_url_raw( admin_url( '/images/wpspin_light.gif' ) )
+			'search_preloader_url'     => YIKES_MC_URL . 'includes/images/search-interest-group-preloader.gif',
+			'preloader_url'            => esc_url_raw( admin_url( '/images/wpspin_light.gif' ) ),
 		);
+
 		wp_localize_script( 'yikes-inc-easy-mailchimp-extender-admin-js' , 'object_data' , $localized_data );
 		wp_enqueue_script( 'yikes-inc-easy-mailchimp-extender-admin-js' );
 
