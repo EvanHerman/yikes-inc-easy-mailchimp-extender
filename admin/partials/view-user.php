@@ -236,7 +236,7 @@
 										?>
 											<li>
 												<label>
-													<strong class="section-label"><?php echo __( 'Signup IP', 'yikes-inc-easy-mailchimp-extender' ) . '</strong><p class="section-value"><em>' . $user_data['ip_signup']; ?></em></p>
+													<strong class="section-label"><?php echo __( 'Signup IP', 'yikes-inc-easy-mailchimp-extender' ) . '</strong><p class="section-value"><em>' . $user_data['ip_signup']; ?></strong></p>
 												</label>
 											</li>
 										<?php
