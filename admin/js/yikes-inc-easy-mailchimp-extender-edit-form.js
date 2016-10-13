@@ -1,5 +1,10 @@
-(function( $ ) {
+window.Yikes_MailChimp_Edit_Form = window.Yikes_MailChimp_Edit_Form || {};
+window.yikes_mailchimp_edit_form = window.yikes_mailchimp_edit_form || {};
+
+(function( window, document, $, app, undefined ) {
 	'use strict';
+
+	app.l10n = window.yikes_mailchimp_edit_form || {};
 
 	 $( document ).ready( function() {
 
@@ -37,7 +42,7 @@
 					if( $( '#form-builder-container' ).find( '.draggable' ).length < 1 ) {
 						$( '.clear-form-fields' ).hide();
 						$( '.clear-form-fields' ).next().hide(); /* Update Form button next to clear form fields */
-						$( '#form-builder-container' ).html( '<h4 class="no-fields-assigned-notice non-draggable-yikes"><em>'+object.no_fields_assigned+'</em></h4>' );
+						$( '#form-builder-container' ).html( '<h4 class="no-fields-assigned-notice non-draggable-yikes"><em>'+app.l10n.no_fields_assigned+'</em></h4>' );
 					}
 				});
 			});
@@ -82,7 +87,7 @@
 
 				/* submit our ajax request */
 				$.ajax({
-					url: object.ajax_url,
+					url: app.l10n.ajax_url,
 					type:'POST',
 					data: data,
 					dataType: 'html',
@@ -146,7 +151,7 @@
 
 			/* submit our ajax request */
 			$.ajax({
-				url: object.ajax_url,
+				url: app.l10n.ajax_url,
 				type:'POST',
 				data: data,
 				dataType: 'html',
@@ -282,7 +287,7 @@
 		*	@since 6.0.2.2
 		*/
 		$( 'body' ).on( 'click', '.clear-form-fields', function() {
-			if ( confirm( object.bulk_delete_alert ) ) {
+			if ( confirm( app.l10n.bulk_delete_alert ) ) {
 				/* hide/remove the fields */
 				$( '#form-builder' ).find( '.draggable' ).find( '.expansion-section-title' ).each( function() {
 					$( this ).css( 'background' , 'rgb(255, 134, 134)' );
@@ -298,7 +303,7 @@
 						$( '.available-form-field' ).each( function()  {
 							$( this ).removeClass( 'not-available' );
 						});
-						$( '#form-builder-container' ).html( '<h4 class="no-fields-assigned-notice non-draggable-yikes"><em>'+object.no_fields_assigned+'</em></h4>' );
+						$( '#form-builder-container' ).html( '<h4 class="no-fields-assigned-notice non-draggable-yikes"><em>'+app.l10n.no_fields_assigned+'</em></h4>' );
 					});
 				});
 			}
@@ -313,7 +318,12 @@
 
 	});
 
-})( jQuery );
+
+
+
+})( window, document, jQuery, Yikes_MailChimp_Edit_Form );
+
+
 /* Toggle Page Slection for form submission redirection */
 function togglePageRedirection( e ) {
 	if( e.value == 1 ) {
@@ -385,16 +395,16 @@ function initialize_form_schedule_time_pickers() {
 	jQuery( '.date-picker' ).datepicker({
 		numberOfMonths: 1,
 		showButtonPanel: true,
-		closeText: object.closeText,
-		currentText: object.currentText,
-		monthNames: object.monthNames,
-		monthNamesShort: object.monthNamesShort,
-		dayNames: object.dayNames,
-		dayNamesShort: object.dayNamesShort,
-		dayNamesMin: object.dayNamesMin,
-		dateFormat: object.dateFormat,
-		firstDay: object.firstDay,
-		isRTL: object.isRTL,
+		closeText: window.yikes_mailchimp_edit_form.closeText,
+		currentText: window.yikes_mailchimp_edit_form.currentText,
+		monthNames: window.yikes_mailchimp_edit_form.monthNames,
+		monthNamesShort: window.yikes_mailchimp_edit_form.monthNamesShort,
+		dayNames: window.yikes_mailchimp_edit_form.dayNames,
+		dayNamesShort: window.yikes_mailchimp_edit_form.dayNamesShort,
+		dayNamesMin: window.yikes_mailchimp_edit_form.dayNamesMin,
+		dateFormat: window.yikes_mailchimp_edit_form.dateFormat,
+		firstDay: window.yikes_mailchimp_edit_form.firstDay,
+		isRTL: window.yikes_mailchimp_edit_form.isRTL,
 		onSelect: function( newDate, instance ) {
 			var prevDate = instance.lastVal;
 			var changed_object_id = instance.id;
@@ -441,7 +451,7 @@ function yikes_check_valid_date( new_date, previous_date, changed_object_id ) {
 			return;
 		}
 		/* display an error message */
-		jQuery( '.date-restirction-section' ).first().find( 'p.description' ).after( '<p class="description error">' + object.start_date_exceeds_end_date_error + '</p>' );
+		jQuery( '.date-restirction-section' ).first().find( 'p.description' ).after( '<p class="description error">' + window.yikes_mailchimp_edit_form.start_date_exceeds_end_date_error + '</p>' );
 	} else {
 		jQuery( '.date-restirction-section' ).find( 'p.description.error' ).remove();
 	}
