@@ -28,8 +28,7 @@ class Yikes_Inc_Easy_Mailchimp_Extender_Activator {
 	 */
 	public static function activate( $network_wide ) {
 		global $wpdb;
-		// define global switched (required for switch_to_blog())
-		global $switched;
+
 		if ( function_exists( 'is_multisite' ) && is_multisite() ) {
 			// check if it is a network activation - if so, run the activation function for each blog id
 			if ( $network_wide ) {
@@ -96,10 +95,15 @@ class Yikes_Inc_Easy_Mailchimp_Extender_Activator {
 
 		// create an option for the date that the user initially activated the plugin
 		// used to display a two week notice, asking for a review or to upgrade
-		if( !get_option( 'yikes_easy_mailchimp_activation_date' ) || get_option( 'yikes_easy_mailchimp_activation_date' ) == '' ) {
-			update_option( 'yikes_easy_mailchimp_activation_date' , strtotime( 'now' ) );
+		if ( ! get_option( 'yikes_easy_mailchimp_activation_date' ) || get_option( 'yikes_easy_mailchimp_activation_date' ) == '' ) {
+			update_option( 'yikes_easy_mailchimp_activation_date', strtotime( 'now' ) );
 		}
 
+		// Create an option for the forms.
+		if ( class_exists( 'Yikes_Inc_Easy_MailChimp_Extender_Option_Forms' ) ) {
+			$option_class = new Yikes_Inc_Easy_MailChimp_Extender_Option_Forms();
+			$option_class->create_option();
+		}
 	}
 
 }
