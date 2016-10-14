@@ -88,4 +88,12 @@ interface Yikes_Inc_Easy_MailChimp_Extender_Form_Interface {
 	 * @param bool  $replace_existing Whether to replace existing forms.
 	 */
 	public function import_forms( $form_data, $replace_existing );
+
+	/**
+	 * Get the default values for a form.
+	 *
+	 * @author Jeremy Pry
+	 * @return array Array of default form data.
+	 */
+	public function get_form_defaults();
 }
