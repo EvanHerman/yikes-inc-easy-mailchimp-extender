@@ -71,24 +71,24 @@ class Yikes_Inc_Easy_MailChimp_Extender_Option_Forms extends Yikes_Inc_Easy_Mail
 	 * @return int|bool The new form ID, or false on failure.
 	 */
 	public function create_form( $form_data ) {
-		// Remove any existing form ID.
-		unset( $form_data['id'] );
+		// Include default form data
+		$form_data = yikes_deep_parse_args( $form_data, $this->get_form_defaults() );
+
+		// Grab our existing IDs and determine what the next one should be.
+		$all_ids         = $this->get_form_ids();
+		$last_id         = end( $all_ids );
+		$new_id          = false === $last_id ? 1 : $last_id + 1;
+		$form_data['id'] = $new_id;
 
 		// Ensure our data is consistently sorted
 		ksort( $form_data );
 
-		// Grab our existing IDs and determine what the next one should be.
-		$all_ids = $this->get_form_ids();
-		$last_id = end( $all_ids );
-		$new_id  = false === $last_id ? 1 : $last_id + 1;
-
 		// Store the new form in our array of forms.
-		$form_data['id']      = $new_id;
 		$all_forms            = $this->get_all_forms();
 		$all_forms[ $new_id ] = $form_data;
 
+		// Update our option with the new form.
 		$result = update_option( $this->option, $all_forms );
-
 		if ( false === $result ) {
 			return $result;
 		}

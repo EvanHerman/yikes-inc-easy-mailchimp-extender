@@ -117,6 +117,9 @@ class Yikes_Inc_Easy_MailChimp_Extender_Forms extends Yikes_Inc_Easy_MailChimp_E
 	 * @return int|bool The new form ID, or false on failure.
 	 */
 	public function create_form( $form_data ) {
+		// Include default form data
+		$form_data = yikes_deep_parse_args( $form_data, $this->get_form_defaults() );
+
 		// If there is an ID set, remove it
 		unset( $form_data['id'] );
 
@@ -272,6 +275,9 @@ class Yikes_Inc_Easy_MailChimp_Extender_Forms extends Yikes_Inc_Easy_MailChimp_E
 
 			$save_data[ $key ] = $value;
 		}
+
+		// Ensure we don't have any extra columns that don't exist in the DB
+		$save_data = array_intersect_key( $save_data, $this->get_form_defaults() );
 
 		return $save_data;
 	}
