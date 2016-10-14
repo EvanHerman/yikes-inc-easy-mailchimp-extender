@@ -8,6 +8,7 @@ return array (
   'yikes_inc_easy_mailchimp_extender_helper' => 'admin/partials/helpers/init.php',
   'yikes_inc_easy_mailchimp_extender_activator' => 'includes/class-yikes-inc-easy-mailchimp-extender-activator.php',
   'yikes_inc_easy_mailchimp_extender_form_interface' => 'includes/class-yikes-inc-easy-mailchimp-extender-form-interface.php',
+  'yikes_inc_easy_mailchimp_extender_forms_abstract' => 'includes/class-yikes-inc-easy-mailchimp-extender-forms-abstract.php',
   'yikes_inc_easy_mailchimp_extender_forms' => 'includes/class-yikes-inc-easy-mailchimp-extender-forms.php',
   'yikes_inc_easy_mailchimp_extender_loader' => 'includes/class-yikes-inc-easy-mailchimp-extender-loader.php',
   'yikes_inc_easy_mailchimp_extender_option_forms' => 'includes/class-yikes-inc-easy-mailchimp-extender-option-forms.php',
