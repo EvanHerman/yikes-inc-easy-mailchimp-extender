@@ -134,7 +134,7 @@ class Yikes_Inc_Easy_MailChimp_Extender_Option_Forms implements Yikes_Inc_Easy_M
 	 * @return array All form data, indexed by form ID.
 	 */
 	public function get_all_forms() {
-		return get_option( $this->option );
+		return $this->get_option();
 	}
 
 	/**
@@ -156,7 +156,7 @@ class Yikes_Inc_Easy_MailChimp_Extender_Option_Forms implements Yikes_Inc_Easy_M
 	 * @param bool  $replace_existing Whether to replace existing forms.
 	 */
 	public function import_forms( $form_data, $replace_existing ) {
-		$existing = $replace_existing ? array() : get_option( $this->option, array() );
+		$existing = $replace_existing ? array() : $this->get_option();
 		$new_data = array();
 
 		foreach ( $form_data as $id => $data ) {
@@ -191,5 +191,15 @@ class Yikes_Inc_Easy_MailChimp_Extender_Option_Forms implements Yikes_Inc_Easy_M
 
 		// Now we're ready for the regular wp_parse_args() function
 		return wp_parse_args( $args, $defaults );
+	}
+
+	/**
+	 * Get our forms option from the database.
+	 *
+	 * @author Jeremy Pry
+	 * @return array The array of form data.
+	 */
+	protected function get_option() {
+		return get_option( $this->get_option_name(), array() );
 	}
 }
