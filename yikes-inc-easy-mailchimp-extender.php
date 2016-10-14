@@ -111,7 +111,6 @@ function deactivate_yikes_inc_easy_mailchimp_extender() {
  */
 register_uninstall_hook( __FILE__, 'uninstall_yikes_inc_easy_mailchimp_extender' );
 function uninstall_yikes_inc_easy_mailchimp_extender() {
-	require_once YIKES_MC_PATH . 'includes/class-yikes-inc-easy-mailchimp-extender-uninstall.php';
 	Yikes_Inc_Easy_Mailchimp_Extender_Uninstaller::uninstall();
 }
 
@@ -126,13 +125,10 @@ function uninstall_yikes_inc_easy_mailchimp_extender() {
  */
 add_action( 'wpmu_new_blog', 'yikes_easy_mailchimp_new_network_site', 10, 6 );
 function yikes_easy_mailchimp_new_network_site( $blog_id, $user_id, $domain, $path, $site_id, $meta ) {
-	global $wpdb, $switched;
 	if ( is_plugin_active_for_network( 'yikes-inc-easy-mailchimp-extender/yikes-inc-easy-mailchimp-extender.php' ) ) {
-		require_once YIKES_MC_PATH . 'includes/class-yikes-inc-easy-mailchimp-extender-activator.php';
-		$old_blog = $wpdb->blogid;
 		switch_to_blog( $blog_id );
-		Yikes_Inc_Easy_Mailchimp_Extender_Activator::activate( $networkwide = null );
-		switch_to_blog( $old_blog );
+		Yikes_Inc_Easy_Mailchimp_Extender_Activator::activate( false );
+		restore_current_blog();
 	}
 }
 
