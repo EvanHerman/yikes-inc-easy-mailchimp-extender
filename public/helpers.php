@@ -47,7 +47,7 @@ if ( ! function_exists( 'yikes_deep_parse_args' ) ) {
 
 			// For arrays, do another round of parsing args.
 			if ( is_array( $value ) ) {
-				$args[ $key ] = $this->deep_parse_args( $value, $defaults[ $key ] );
+				$args[ $key ] = yikes_deep_parse_args( $value, $defaults[ $key ] );
 			}
 		}
 
