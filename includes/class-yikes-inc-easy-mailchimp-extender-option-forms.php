@@ -48,7 +48,8 @@ class Yikes_Inc_Easy_MailChimp_Extender_Option_Forms extends Yikes_Inc_Easy_Mail
 	 * @return bool Whether the form was successfully updated.
 	 */
 	public function update_form( $form_id, $data ) {
-		$all_forms = $this->get_all_forms();
+		$data['id'] = $form_id;
+		$all_forms  = $this->get_all_forms();
 
 		if ( ! isset( $all_forms[ $form_id ] ) ) {
 			return false;

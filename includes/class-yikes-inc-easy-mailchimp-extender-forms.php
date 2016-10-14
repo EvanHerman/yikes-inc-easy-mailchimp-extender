@@ -93,8 +93,9 @@ class Yikes_Inc_Easy_MailChimp_Extender_Forms extends Yikes_Inc_Easy_MailChimp_E
 	 */
 	public function update_form( $form_id, $data ) {
 		// Prepare the data for the database.
-		$save_data = $this->prepare_data_for_db( $data );
-		$formats   = $this->get_format_array( $save_data );
+		$data['id'] = $form_id;
+		$save_data  = $this->prepare_data_for_db( $data );
+		$formats    = $this->get_format_array( $save_data );
 
 		return (bool) $this->wpdb->update(
 			$this->prefixed_table_name,
