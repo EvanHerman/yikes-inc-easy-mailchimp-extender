@@ -29,8 +29,9 @@ class Yikes_Inc_Easy_MailChimp_Export_Class {
 		header( 'Pragma: public' );
 
 		// Export the titles using form defaults
-		$titles = array_keys( $interface->get_form_defaults() );
-		ksort( $titles );
+		$defaults = $interface->get_form_defaults();
+		ksort( $defaults );
+		$titles = array_keys( $defaults );
 		fputcsv( $output_handle, $titles );
 
 		// Parse results to csv format
