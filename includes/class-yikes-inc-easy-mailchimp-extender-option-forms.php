@@ -167,6 +167,16 @@ class Yikes_Inc_Easy_MailChimp_Extender_Option_Forms implements Yikes_Inc_Easy_M
 	}
 
 	/**
+	 * Add our option to the database.
+	 *
+	 * @author Jeremy Pry
+	 * @return bool
+	 */
+	public function create_option() {
+		return add_option( $this->get_option_name(), array() );
+	}
+
+	/**
 	 * Handle parsing multidimensional arrays of args.
 	 *
 	 * @author Jeremy Pry
