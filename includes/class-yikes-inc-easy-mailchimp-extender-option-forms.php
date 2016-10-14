@@ -3,7 +3,7 @@
 /**
  * Form interface class that uses the native Options API.
  */
-class Yikes_Inc_Easy_MailChimp_Extender_Option_Forms implements Yikes_Inc_Easy_MailChimp_Extender_Form_Interface {
+class Yikes_Inc_Easy_MailChimp_Extender_Option_Forms extends Yikes_Inc_Easy_MailChimp_Extender_Forms_Abstract {
 
 	/**
 	 * The base name of our option in the options table.
@@ -59,21 +59,6 @@ class Yikes_Inc_Easy_MailChimp_Extender_Option_Forms implements Yikes_Inc_Easy_M
 		$all_forms[ $form_id ] = $new_data;
 
 		return update_option( $this->option, $all_forms );
-	}
-
-	/**
-	 * Update a given field for a form.
-	 *
-	 * @author Jeremy Pry
-	 *
-	 * @param int    $form_id The form ID to update.
-	 * @param string $field   The form field to update.
-	 * @param mixed  $data    The form data.
-	 *
-	 * @return bool Whether the form field was successfully updated.
-	 */
-	public function update_form_field( $form_id, $field, $data ) {
-		return $this->update_form( $form_id, array( $field => $data ) );
 	}
 
 	/**

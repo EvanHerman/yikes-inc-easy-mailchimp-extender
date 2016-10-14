@@ -3,7 +3,7 @@
 /**
  * Database helper class.
  */
-class Yikes_Inc_Easy_MailChimp_Extender_Forms implements Yikes_Inc_Easy_MailChimp_Extender_Form_Interface {
+class Yikes_Inc_Easy_MailChimp_Extender_Forms extends Yikes_Inc_Easy_MailChimp_Extender_Forms_Abstract {
 
 	/**
 	 * The WP database object.
@@ -94,33 +94,6 @@ class Yikes_Inc_Easy_MailChimp_Extender_Forms implements Yikes_Inc_Easy_MailChim
 	public function update_form( $form_id, $data ) {
 		// Prepare the data for the database.
 		$save_data = $this->prepare_data_for_db( $data );
-		$formats   = $this->get_format_array( $save_data );
-
-		return (bool) $this->wpdb->update(
-			$this->prefixed_table_name,
-			$save_data,
-			array(
-				'id' => $form_id,
-			),
-			$formats,
-			'%d'
-		);
-	}
-
-	/**
-	 * Update a given field for a form.
-	 *
-	 * @author Jeremy Pry
-	 *
-	 * @param int    $form_id The form ID to update.
-	 * @param string $field   The form field to update.
-	 * @param mixed  $data    The form data.
-	 *
-	 * @return bool Whether the form field was successfully updated.
-	 */
-	public function update_form_field( $form_id, $field, $data ) {
-		// Prepare the data for the database.
-		$save_data = $this->prepare_data_for_db( array( $field => $data ) );
 		$formats   = $this->get_format_array( $save_data );
 
 		return (bool) $this->wpdb->update(
