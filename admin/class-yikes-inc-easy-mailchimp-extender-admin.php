@@ -1342,7 +1342,6 @@ class Yikes_Inc_Easy_Mailchimp_Forms_Admin {
 			// Create some starter forms for the user
 			// based on previously imported lists (to our old version)
 			if( $option_name == 'yikes-mc-lists' ) {
-				global $wpdb;
 				$option_value = $_POST['option_value'];
 				$new_options = json_decode( stripslashes_deep( $option_value ) , true );
 
@@ -2362,50 +2361,10 @@ class Yikes_Inc_Easy_Mailchimp_Forms_Admin {
 				wp_die( __( "We've run into an error. The security check didn't pass. Please try again." , 'yikes-inc-easy-mailchimp-extender' ) );
 			}
 
-			/* Default values */
-			// setup our default submission settings serialized array
-			$submission_settings = array(
-				'ajax'                   => 1,
-				'redirect_on_submission' => 0,
-				'redirect_page'          => 1,
-				'hide_form_post_signup'  => 0,
-			);
-			// setup our default opt-in settings serialized array
-			$optin_settings = array(
-				'optin'                => 1,
-				'update_existing_user' => 1,
-				'send_update_email'    => 1,
-				'send_welcome_email'   => 1,
-
-			);
-			// setup our default error message array
-			$error_settings = array(
-				'success'                  => '',
-				'general-error'            => '',
-				'invalid-email'            => '',
-				'email-already-subscribed' => '',
-				'update-link'              => '',
-
-			);
-			/* End default values */
-
 			$result = $this->form_interface->create_form( array(
-				'list_id'                 => $_POST['associated-list'],
-				'form_name'               => stripslashes( $_POST['form-name'] ),
-				'form_description'        => stripslashes( $_POST['form-description'] ),
-				'fields'                  => '',
-				'custom_styles'           => 0,
-				'custom_template'         => 0,
-				'send_welcome_email'      => 1,
-				'redirect_user_on_submit' => 0,
-				'redirect_page'           => '',
-				'submission_settings'     => $submission_settings,
-				'optin_settings'          => $optin_settings,
-				'error_messages'          => $error_settings,
-				'custom_notifications'    => '',
-				'impressions'             => 0,
-				'submissions'             => 0,
-				'custom_fields'           => '',
+				'list_id'          => sanitize_key( $_POST['associated-list'] ),
+				'form_name'        => stripslashes( $_POST['form-name'] ),
+				'form_description' => stripslashes( $_POST['form-description'] ),
 			) );
 
 			// if an error occurs during the form creation process
@@ -2600,8 +2559,7 @@ class Yikes_Inc_Easy_Mailchimp_Forms_Admin {
 				}
 			}
 
-			$this->form_interface->update_form(
-				$form_id,
+			$form_updates = yikes_deep_parse_args(
 				array(
 					'list_id'                 => $list_id,
 					'form_name'               => $form_name,
@@ -2616,8 +2574,11 @@ class Yikes_Inc_Easy_Mailchimp_Forms_Admin {
 					'error_messages'          => $error_settings,
 					'form_settings'           => $form_settings,
 					'custom_fields'           => $custom_fields,
-				)
+				),
+				$this->form_interface->get_form_defaults()
 			);
+
+			$this->form_interface->update_form( $form_id, $form_updates );
 
 			/* Custom action hook which allows users to update specific options when a form is updated - used in add ons */
 			do_action( 'yikes-mailchimp-save-form', $form_id,  $custom_fields );
