@@ -54,7 +54,9 @@ class Yikes_Inc_Easy_MailChimp_Extender_Option_Forms implements Yikes_Inc_Easy_M
 			return false;
 		}
 
-		$all_forms[ $form_id ] = array_merge( $all_forms[ $form_id ], $data );
+		$new_data = array_merge( $all_forms[ $form_id ], $data );
+		ksort( $new_data );
+		$all_forms[ $form_id ] = $new_data;
 
 		return update_option( $this->option, $all_forms );
 	}
@@ -86,6 +88,9 @@ class Yikes_Inc_Easy_MailChimp_Extender_Option_Forms implements Yikes_Inc_Easy_M
 	public function create_form( $form_data ) {
 		// Remove any existing form ID.
 		unset( $form_data['id'] );
+
+		// Ensure our data is consistently sorted
+		ksort( $form_data );
 
 		// Grab our existing IDs and determine what the next one should be.
 		$all_ids = $this->get_form_ids();
@@ -161,6 +166,7 @@ class Yikes_Inc_Easy_MailChimp_Extender_Option_Forms implements Yikes_Inc_Easy_M
 
 		foreach ( $form_data as $id => $data ) {
 			$new_data[ $id ] = isset( $existing[ $id ] ) ? $existing[ $id ] : $data;
+			ksort( $new_data[ $id ] );
 		}
 
 		update_option( $this->option, $new_data );
