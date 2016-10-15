@@ -1719,13 +1719,15 @@ class Yikes_Inc_Easy_Mailchimp_Forms_Admin {
 				$i = 1;
 				foreach( $form_fields as $field ) {
 
-					if( isset( $field['merge'] ) ) {
-					?>
+					if ( isset( $field['merge'] ) ) {
+						// @todo: don't use in_array()
+						$excluded_field = in_array( $field['merge'], $excluded_fields, true );
+						?>
 						<section class="draggable" id="<?php echo $field['merge']; ?>">
 							<!-- top -->
 							<a href="#" class="expansion-section-title settings-sidebar">
 								<span class="dashicons dashicons-plus"></span><?php echo stripslashes( $field['label'] ); ?>
-								<?php if( in_array( $field['merge'] , $excluded_fields ) ) { ?>
+								<?php if ( $excluded_field ) { ?>
 									<img src="<?php echo YIKES_MC_URL . 'includes/images/warning.svg'; ?>" class="field-doesnt-exist-notice" title="<?php _e( 'Field no longer exists.' , 'yikes-inc-easy-mailchimp-extender' ); ?>" alt="<?php _e( 'Field no longer exists.' , 'yikes-inc-easy-mailchimp-extender' ); ?>">
 								<?php } ?>
 								<span class="field-type-text"><small><?php echo __( 'type' , 'yikes-inc-easy-mailchimp-extender' ) . ' : ' . $field['type']; ?></small></span>
@@ -1733,7 +1735,7 @@ class Yikes_Inc_Easy_Mailchimp_Forms_Admin {
 							<!-- expansion section -->
 							<div class="yikes-mc-settings-expansion-section">
 
-								<?php if( in_array( $field['merge'] , $excluded_fields ) ) { ?>
+								<?php if ( $excluded_field ) { ?>
 									<p class="yikes-mc-warning-message"><?php _e( "This field no longer exists in this list. Delete this field from the form to prevent issues on your website." , 'yikes-inc-easy-mailchimp-extender' ); ?></p>
 								<?php } ?>
 
