@@ -47,6 +47,7 @@ class YIKES_MailChimp_Visual_Composer_Extension {
 					'param_name'  => 'form',
 					'value'       => self::yikes_mailchimp_retreive_user_created_forms(),
 					'description' => __( 'Select which form to display.', 'yikes-inc-easy-mailchimp-extender' ),
+					'save_always' => true,
 				),
 				array(
 					'type'        => 'checkbox',
