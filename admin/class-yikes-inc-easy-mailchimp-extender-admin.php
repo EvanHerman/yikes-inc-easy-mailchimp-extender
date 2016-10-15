@@ -1687,11 +1687,11 @@ class Yikes_Inc_Easy_Mailchimp_Forms_Admin {
 
 			// if no list id, die!
 			if( ! $list_id ) {
-				die( __( "We've encountered an error. No list ID was sent." , 'yikes-inc-easy-mailchimp-extender' ) );
+				wp_die( __( "We've encountered an error. No list ID was sent." , 'yikes-inc-easy-mailchimp-extender' ) );
 			}
 
 			if( ! $merge_variables ) {
-				die( __( "We've encountered an error. Reload the page and try again. If the error persists, please reach out to support." , 'yikes-inc-easy-mailchimp-extender' ) );
+				wp_die( __( "We've encountered an error. Reload the page and try again. If the error persists, please reach out to support." , 'yikes-inc-easy-mailchimp-extender' ) );
 			}
 
 			if( ! empty( $form_fields ) ) {
