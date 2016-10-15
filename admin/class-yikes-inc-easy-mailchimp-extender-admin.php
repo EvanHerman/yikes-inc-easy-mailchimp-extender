@@ -2717,8 +2717,8 @@ class Yikes_Inc_Easy_Mailchimp_Forms_Admin {
 					}
 				}
 				$mail_chimp_list_ids = array();
-				if( $mailchimp_lists ) {
-					foreach( $list_data as $list ) {
+				if( isset( $list_data['data'] ) ) {
+					foreach( $list_data['data'] as $list ) {
 						$mail_chimp_list_ids[] = $list['id'];
 					}
 					return $mail_chimp_list_ids;
