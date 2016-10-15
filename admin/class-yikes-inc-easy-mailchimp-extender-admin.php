@@ -1701,29 +1701,20 @@ class Yikes_Inc_Easy_Mailchimp_Forms_Admin {
 				$available_merge_variables = array();
 				$available_interest_groups = array();
 
-				$assigned_fields= array();
-
 				// loop over merge variables
-				if( ! empty( $merge_variables['data'][0]['merge_vars'] ) ) {
-					foreach( $merge_variables['data'][0]['merge_vars'] as $merge_tag ) {
-						$available_merge_variables[] = $merge_tag['tag'];
-					}
+				if ( ! empty( $merge_variables['data'][0]['merge_vars'] ) ) {
+					$available_merge_variables = wp_list_pluck( $merge_variables['data'][0]['merge_vars'], 'tag' );
 				}
 
 				// loop over interest groups
-				if( ! empty( $interest_groups ) && ! isset( $interest_groups['error'] ) ) {
-					foreach( $interest_groups as $interest_group ) {
-						$available_interest_groups[] = $interest_group['id'];
-					}
+				if ( ! empty( $interest_groups ) && ! isset( $interest_groups['error'] ) ) {
+					$available_interest_groups = wp_list_pluck( $interest_groups, 'id' );
 				}
 
 				// build our assigned fields
-				foreach( $form_fields as $field => $value ) {
-					$assigned_fields[] = $field;
-				}
-
-				$merged_fields = array_merge( $available_merge_variables , $available_interest_groups );
-				$excluded_fields = array_diff( $assigned_fields , $merged_fields );
+				$assigned_fields = array_keys( $form_fields );
+				$merged_fields   = array_merge( $available_merge_variables, $available_interest_groups );
+				$excluded_fields = array_diff( $assigned_fields, $merged_fields );
 
 				$i = 1;
 				foreach( $form_fields as $field ) {
