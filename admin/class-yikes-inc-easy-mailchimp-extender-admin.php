@@ -600,7 +600,7 @@ class Yikes_Inc_Easy_Mailchimp_Forms_Admin {
 					'show_title_label' : '<?php _e( 'Display Form Title' , 'yikes-inc-easy-mailchimp-extender' ); ?>',
 					'show_description_label' : '<?php _e( 'Display Form Description' , 'yikes-inc-easy-mailchimp-extender' ); ?>',
 					'submit_button_text_label' : '<?php _e( 'Custom Submit Button Text' , 'yikes-inc-easy-mailchimp-extender' ); ?>',
-					'submit_button_message' : '<?php _e( '<br><em>If left empty, the default submit button text from your form will be used.</em>', 'yikes-inc-easy-mailchimp-extender' ); ?>'
+					'submit_button_message' : '<?php _e( '<em>If left empty, the button will use the default submit button text .</em>', 'yikes-inc-easy-mailchimp-extender' ); ?>'
 				};
 				<?php
 					$link = sprintf( __( 'You need to <a href="%s" title="%s">create a form</a> before you can add one to a page or post.', 'yikes-inc-easy-mailchimp-extender' ), esc_url_raw( admin_url( 'admin.php?page=yikes-inc-easy-mailchimp' ) ), __( 'Create a form', 'yikes-inc-easy-mailchimp-extender' ) );

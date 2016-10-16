@@ -394,6 +394,8 @@
 																	<label for="yikes-easy-mc-submit-button-text"><strong><?php _e( 'Submit Button Text' , 'yikes-inc-easy-mailchimp-extender' ); ?></strong>
 																		<input type="text" class="widefat" name="yikes-easy-mc-submit-button-text" id="yikes-easy-mc-submit-button-text" value="<?php echo $form_settings['yikes-easy-mc-submit-button-text']; ?>" placeholder="<?php _e( 'Submit', 'yikes-inc-easy-mailchimp-extender' ); ?>">
 																		<p class="description"><?php printf( __( 'Set the submit button text. Leaving this blank will default to %s.', 'yikes-inc-easy-mailchimp-extender' ), '"' . __( 'Submit', 'yikes-inc-easy-mailchimp-extender' ) . '"' ); ?></p>
+
+																		<p class="description"><?php _e( 'The submit button text set above, can be overwritten on a per-form basis using shortcodes.', 'yikes-inc-easy-mailchimp-extender' ); ?></p>
 																	</label>
 																</section>
 																<!-- end text submit button type -->
