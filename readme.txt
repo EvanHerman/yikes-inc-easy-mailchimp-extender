@@ -1,10 +1,10 @@
 === Easy Forms for MailChimp ===
-Contributors: yikesinc, eherman24, liljimmi, hiwhatsup
+Contributors: yikesinc, eherman24, liljimmi, hiwhatsup, JPry
 Donate link: https://yikesplugins.com/?utm_source=wp_plugin_repo&utm_medium=donate_link&utm_campaign=easy_forms_for_mailchimp
 Tags: MailChimp, MailChimp forms, MailChimp lists, opt-in forms, sign up form, MailChimp, email, forms, mailing lists, marketing, newsletter, sign up
 Requires at least: 4.0
-Tested up to: 4.5
-Stable tag: 6.1.4
+Tested up to: 4.6.1
+Stable tag: 6.2.0
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -234,6 +234,24 @@ Below you'll find a complete list of the hooks and filters available in Easy For
 * yikes-mailchimp-list-interest-groups-metabox - action hook allowing users to add additional content inside of the interest groups metabox on the view list page.
 
 == Changelog ==
+
+= Easy Forms for MailChimp 6.2.0 - October 17th, 2016 =
+* Fixed a bug where the default for a radio button would not show up if the first item was selected ([#587](https://github.com/yikesinc/yikes-inc-easy-mailchimp-extender/issues/587))
+* Fixed a bug where the form settings would not import properly ([#572](https://github.com/yikesinc/yikes-inc-easy-mailchimp-extender/issues/572))
+* Fixed a bug in our Visual Composer extension ([#514](https://github.com/yikesinc/yikes-inc-easy-mailchimp-extender/issues/514))
+* Fixed a bug where Interest Groups that are in radio format could not be changed when saving ([#584](https://github.com/yikesinc/yikes-inc-easy-mailchimp-extender/issues/584))
+* Fixed a bug where the Phone Format field would continually append # signs ([#562](https://github.com/yikesinc/yikes-inc-easy-mailchimp-extender/issues/562))
+* Fixed a compatibilty issue where our localized script variables were using common names ([#575](https://github.com/yikesinc/yikes-inc-easy-mailchimp-extender/issues/575))
+* Updated the storage of form data to utilize the Options API instead of a custom database table.
+* Under-the-hood improvements and enhancements
+
+As noted above, this release modifies this plugin to utilize the Options API instead of a custom database table. After upgrading, a routine will run that will grab all of your forms from the custom database table and convert them into a WordPress Option that the code will use from this point forward. At this point, we're choosing to keep the existing custom database table in place, so you can rest assured that all of your form data will be safe.
+
+If for some reason you need to revert to using the custom database table, you can add a constant to your `wp-config.php` file:
+
+`define( 'YIKES_EMCE_CUSTOM_DB', true );`
+
+If you find that you *need* to do this, please contact us to let us know what you're seeing. In a future release, we will remove the custom database table entirely.
 
 = Easy Forms for MailChimp 6.1.3 - July 26th, 2016 =
 * Minor security patch - Thanks goes to the Wordfence Research Team for locating and disclosing the issue.
