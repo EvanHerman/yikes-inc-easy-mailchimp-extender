@@ -1835,11 +1835,18 @@ class Yikes_Inc_Easy_Mailchimp_Forms_Admin {
 														</label>
 													</td>
 													<td>
-														<?php if( ! isset( $field['default_choice'] ) || empty( $field['default_choice'] ) ) { $decode = json_decode( $field['choices'], true ); $field['default_choice'] = $decode[0]; }
+														<?php
+														if ( ! isset( $field['default_choice'] ) ) {
+															$field['default_choice'] = 0;
+														}
 														$x = 0;
-														foreach( json_decode( $field['choices'], true ) as $choice => $value ) { ?>
+														foreach ( $choices as $choice => $value ) { ?>
 															<label for="<?php echo $field['merge'].'-'.$x; ?>">
-																<input id="<?php echo $field['merge'].'-'.$x; ?>" type="radio" name="field[<?php echo $field['merge']; ?>][default_choice]" value="<?php echo $x; ?>" <?php checked( $field['default_choice'], $x ); ?>><?php echo $value; ?>&nbsp;
+																<input id="<?php echo $field['merge'].'-'.$x; ?>"
+																       type="radio"
+																       name="field[<?php echo $field['merge']; ?>][default_choice]"
+																       value="<?php echo $x; ?>" <?php checked( $field['default_choice'], $x ); ?>>
+																<?php echo $value; ?>&nbsp;
 															</label>
 														<?php $x++; } ?>
 														<p class="description"><small><?php _e( "Select the option that should be selected by default.", 'yikes-inc-easy-mailchimp-extender' );?></small></p>
