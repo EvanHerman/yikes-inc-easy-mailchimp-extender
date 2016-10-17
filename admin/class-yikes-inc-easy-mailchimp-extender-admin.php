@@ -2061,20 +2061,45 @@ class Yikes_Inc_Easy_Mailchimp_Forms_Admin {
 													</td>
 													<td>
 														<?php
-															if( $field['type'] != 'checkboxes' ) {
-																if( !isset( $field['default_choice'] ) ) { $field['default_choice'] =  json_decode( stripslashes( $field['groups'] ) , true ); }
-															} else {
-																if( !isset( $field['default_choice'] ) ) { $field['default_choice'] = array(); }
-															}
+														if( $field['type'] != 'checkboxes' ) {
+															if( ! isset( $field['default_choice'] ) ) { $field['default_choice'] =  json_decode( stripslashes( $field['groups'] ) , true ); }
+														} else {
+															if ( ! isset( $field['default_choice'] ) ) { $field['default_choice'] = array(); }
+														}
 														$i = 0;
-														foreach( json_decode( $field['groups'], true ) as $group ) { ?>
-															<label for="<?php echo $field['group_id'].'-'.$i; ?>">
-																<input id="<?php echo $field['group_id'].'-'.$i; ?>" type="<?php if( $field['type'] == 'radio' || $field['type'] == 'hidden' ) { ?>radio<?php } else if( $field['type'] == 'checkboxes' ) { ?>checkbox<?php } ?>" name="field[<?php echo $field['group_id']; ?>][default_choice]<?php if( $field['type'] == 'checkboxes' ) {echo '[]';}?>" value="<?php echo $i; ?>" <?php if( $field['type'] == 'radio' || $field['type'] == 'hidden' ) { checked( $field['default_choice'][0] , $i ); } else if( $field['type'] == 'checkboxes' ) { if( in_array( $i , $field['default_choice'] ) ) { echo 'checked="checked"'; } }?>><?php echo stripslashes( str_replace( '' , '\'' , $group['name'] ) ); ?>&nbsp;
-															</label>
-														<?php
-															$i++;
+														foreach( json_decode( $field['groups'], true ) as $group ) {
+															$field_id   = "{$field['group_id']}-{$i}";
+															$field_type = 'hidden' == $field['type'] ? 'radio' : $field['type'];
+															$field_type = 'checkboxes' == $field_type ? 'checkbox' : $field_type;
+															$field_name = "field[{$field['group_id']}][default_choice]";
+															$field_name = 'checkbox' == $field_type ? $field_name . '[]' : $field_name;
+
+															// Determine if the current group is checked.
+															$checked = '';
+															switch ( $field_type ) {
+																case 'radio':
+																case 'hidden':
+																default:
+																	$checked = checked( $field['default_choice'], $i, false );
+																	break;
+
+																case 'checkbox':
+																	if ( in_array( $i, (array) $field['default_choice'] ) ) {
+																		$checked = checked( true, true, false );
+																	}
 															}
-														?>
+
+															?>
+															<label for="<?php echo $field_id; ?>">
+																<input id="<?php echo $field_id; ?>"
+																       type="<?php echo $field_type; ?>"
+																       name="<?php echo $field_name; ?>"
+																       value="<?php echo $i; ?>" <?php echo $checked; ?>>
+																<?php echo stripslashes( str_replace( '\'' , '' , $group['name'] ) ); ?>&nbsp;
+															</label>
+															<?php
+															$i++;
+														} ?>
 														<p class="description"><small><?php _e( "Select the option that should be selected by default.", 'yikes-inc-easy-mailchimp-extender' );?></small></p>
 													</td>
 												</tr>
