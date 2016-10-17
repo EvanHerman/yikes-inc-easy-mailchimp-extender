@@ -97,69 +97,69 @@ Example:
 
 ###### Filters
 
-- yikes-mailchimp-form-title-FORM_ID - alter the output of the form title of the specified form
-- yikes-mailchimp-form-description-FORM_ID - alter the output of the form description of the specified form
-- yikes-mailchimp-redirect-timer (ms : 1 second = 1000ms) alter the amount of time the user sees the success message before being redirected (default: 1500ms) (@parameters - $time, $form_id)
-- yikes-mailchimp-redirect-url - Alter the URL of the page that the user will be redirected too on a successful submission. (@parameters - $url, $form_id, $page_data)
-- yikes-mailchimp-before-submission - catch the merge variables of all forms before they get sent over to MailChimp
-- yikes-mailchimp-before-submission-FORM_ID - catch the merge variables of the specified form before they get sent over to MailChimp
-- yikes-mailchimp-after-submission - catch the merge variables of all forms after they get sent over to MailChimp
-- yikes-mailchimp-after-submission-FORM_ID - catch the merge variables of the specified form after they get sent over to MailChimp
-- yikes-mailchimp-user-role-access - Alter who can access this plugin page by capability (default 'manage_options' - admins)
-- yikes-mailchimp-admin-widget-capability - Set the minimum user capability for users who can see/access dashboard widgets (Note: you can also use the `yikes-mailchimp-user-role-access` filter)
-- yikes-mailchimp-international-phone-pattern - Alter the regex pattern for acceptable international phone number formats. (default: [0-9]{1,}) (process form shortcode.php - line 295)
-- yikes-mailchimp-us-phone-pattern - Alter the regex pattern for acceptable US phone number formats. (default: [^(\([0-9]{3}\)|[0-9]{3}-)[0-9]{3}-[0-9]{4}$) (process form shortcode.php - line 295)
-- yikes-mailchimp-process-default-tag - Pass the default tag through a filter to populate with dynamic content from the current site (process_form_shortcode.php - line 256)
-- yikes-mailchimp-MERGE_TAG-label - Alter the specified field label text (affects standard fields & interest groups) (process_form_shortcode.php)
-- yikes-mailchimp-MERGE_TAG-description - Alter the specified field description text (affects standard fields & interest groups) (process_form_shortcode.php)  (if targeting an interest group, it will be the group_id)
-- yikes-mailchimp-address-TYPE-label - Alter the field sub-label text for a specified address field (affects only standard address fields) (process_form_shortcode.php)
-- yikes-mailchimp-form-submit-button - Alter the submit button to your liking (process_form_shortcode.php line 660) (@parameters - $submit_button, $form_id)
-- yikes-mailchimp-form-submit-button-text - Alter the submit button text value (process_form_shortcode.php line 660) (@parameters - $submit_button_text, $form_id )
-- yikes-mailchimp-form-submit-button-classes - Add additional classes to the submit button for further styling (process_form_shortcode.php line 660) (@parameters - $classes, $form_id )
-- yikes-mailchimp-form-container-class - add additional classes to the parent form container (process_form_shortcode.php line157) (@parameters - $content, $form_id)
-- yikes-mailchimp-form-class - add additional classes to <form> element of your opt-in form (process_form_shortcode.php line157) (@parameters - $content, $form_id)
-- yikes-mailchimp-front-end-form-action-links - Add custom front end action links alongside Edit Form, Customize Form etc. (@parameters - $form_action_links, $form_id, $form_name)
-- yikes-mailchimp-custom-default-value-tags - Define your own custom pre-defined tags to populate the default value fields with - these tags appear in the modal - (@parameters - $pre_defined_tags_array)
-- yikes-mailchimp-parse-custom-default-value - Process your custom default merge tag into a custom value to populate the form field with - (Goes hand in hand with `yikes-mailchimp-custom-default-value-tags` filter)
-- yikes-mailchimp-field-data - Filter form field data such as placeholder, label, etc. (@parameters - $field_array, $field, $form_id) (process_form_shortcode.php - line 258 & process_preview_form_shortcode.php - line 258)
-- yikes-mailchimp-user-subscribe-api-request - Alter the API request whenever a new user subscribed (@parameters - $api_request data, $form_id, $list_id, $email ) (process_form_shortcode.php/process_form_shortcode_ajax.php)
-- yikes-mailchimp-subscriber-count-value - Adjust the returned value for the total subscriber count of a given MailChimp mailing list as needed. (@parameters - $subscriber_count) (yikes-mailchimp-subscriber-count.php- line 80)
-- yikes-mailchimp-interest-group-checkbox-error - Alter the checkbox interest group required error response (displayed when a checkbox interest group is set to required, but is left blank)(@since 6.0.3)
-- yikes-mailchimp-frontend-content - Custom content filter for this plugin to prevent others from hooking in where not wanted.
-- yikes-mailchimp-interest-group-required-top-error - Alter the top of form error message. (displays only when interest group checkbox group is set to required and left blank (non-ajax only)) (@parameters - count of missing required fields (integer))
-- yikes-mailchimp-interest-group-checkbox-error - Alter the error displayed above each required interest group checkbox group only. Effects checkbox groups only.
-- yikes-mailchimp-recaptcha-parameters - Alter any of the possible reCaptcha shortcode parameters (process_form_shortcode.php line 68) (parameters: $recaptcha_parameter_array, $form_id)
-- yikes-mailchimp-checkbox-integration-subscribe-api-request - Filter the API request sent to MailChimp. (parameters: @type - the integration type (ie: comment, contact_form_7 etc.)
-- yikes-mailchimp-frontend-date-picker-format - Alter the date format. For additional help, see the [knowledge base](https://yikesplugins.com/support/knowledge-base/how-do-i-change-the-frontend-date-picker-format/).
-- yikes-mailchimp-preloader - Filter allowing users to setup a custom preloader image.
-- yikes-mailchimp-update-email-subject - Filter the subject line for the email that is generated and sent when a user needs to update their subscription info.
-- yikes-mailchimp-update-email-content - Filter the content of the email that is generated and sent when a user needs to update their subscription info.
-- yikes-mailchimp-user-already-subscribed-error - Filter the 'xxx@example.com' is already subscribed to the list. (@parameters - $response, $form_id, $user_email)
+- `yikes-mailchimp-form-title-FORM_ID` - alter the output of the form title of the specified form
+- `yikes-mailchimp-form-description-FORM_ID` - alter the output of the form description of the specified form
+- `yikes-mailchimp-redirect-timer` (ms : 1 second = 1000ms) alter the amount of time the user sees the success message before being redirected (default: 1500ms) (@parameters - $time, $form_id)
+- `yikes-mailchimp-redirect-url` - Alter the URL of the page that the user will be redirected too on a successful submission. (@parameters - $url, $form_id, $page_data)
+- `yikes-mailchimp-before-submission` - catch the merge variables of all forms before they get sent over to MailChimp
+- `yikes-mailchimp-before-submission-FORM_ID` - catch the merge variables of the specified form before they get sent over to MailChimp
+- `yikes-mailchimp-after-submission` - catch the merge variables of all forms after they get sent over to MailChimp
+- `yikes-mailchimp-after-submission-FORM_ID` - catch the merge variables of the specified form after they get sent over to MailChimp
+- `yikes-mailchimp-user-role-access` - Alter who can access this plugin page by capability (default 'manage_options' - admins)
+- `yikes-mailchimp-admin-widget-capability` - Set the minimum user capability for users who can see/access dashboard widgets (Note: you can also use the `yikes-mailchimp-user-role-access` filter)
+- `yikes-mailchimp-international-phone-pattern` - Alter the regex pattern for acceptable international phone number formats. (default: [0-9]{1,}) (process form shortcode.php - line 295)
+- `yikes-mailchimp-us-phone-pattern` - Alter the regex pattern for acceptable US phone number formats. (default: [^(\([0-9]{3}\)|[0-9]{3}-)[0-9]{3}-[0-9]{4}$) (process form shortcode.php - line 295)
+- `yikes-mailchimp-process-default-tag` - Pass the default tag through a filter to populate with dynamic content from the current site (process_form_shortcode.php - line 256)
+- `yikes-mailchimp-MERGE_TAG-label` - Alter the specified field label text (affects standard fields & interest groups) (process_form_shortcode.php)
+- `yikes-mailchimp-MERGE_TAG-description` - Alter the specified field description text (affects standard fields & interest groups) (process_form_shortcode.php)  (if targeting an interest group, it will be the group_id)
+- `yikes-mailchimp-address-TYPE-label` - Alter the field sub-label text for a specified address field (affects only standard address fields) (process_form_shortcode.php)
+- `yikes-mailchimp-form-submit-button` - Alter the submit button to your liking (process_form_shortcode.php line 660) (@parameters - $submit_button, $form_id)
+- `yikes-mailchimp-form-submit-button-text` - Alter the submit button text value (process_form_shortcode.php line 660) (@parameters - $submit_button_text, $form_id )
+- `yikes-mailchimp-form-submit-button-classes` - Add additional classes to the submit button for further styling (process_form_shortcode.php line 660) (@parameters - $classes, $form_id )
+- `yikes-mailchimp-form-container-class` - add additional classes to the parent form container (process_form_shortcode.php line157) (@parameters - $content, $form_id)
+- `yikes-mailchimp-form-class` - add additional classes to <form> element of your opt-in form (process_form_shortcode.php line157) (@parameters - $content, $form_id)
+- `yikes-mailchimp-front-end-form-action-links` - Add custom front end action links alongside Edit Form, Customize Form etc. (@parameters - $form_action_links, $form_id, $form_name)
+- `yikes-mailchimp-custom-default-value-tags` - Define your own custom pre-defined tags to populate the default value fields with - these tags appear in the modal - (@parameters - $pre_defined_tags_array)
+- `yikes-mailchimp-parse-custom-default-value` - Process your custom default merge tag into a custom value to populate the form field with - (Goes hand in hand with `yikes-mailchimp-custom-default-value-tags` filter)
+- `yikes-mailchimp-field-data` - Filter form field data such as placeholder, label, etc. (@parameters - $field_array, $field, $form_id) (process_form_shortcode.php - line 258 & process_preview_form_shortcode.php - line 258)
+- `yikes-mailchimp-user-subscribe-api-request` - Alter the API request whenever a new user subscribed (@parameters - $api_request data, $form_id, $list_id, $email ) (process_form_shortcode.php/process_form_shortcode_ajax.php)
+- `yikes-mailchimp-subscriber-count-value` - Adjust the returned value for the total subscriber count of a given MailChimp mailing list as needed. (@parameters - $subscriber_count) (yikes-mailchimp-subscriber-count.php- line 80)
+- `yikes-mailchimp-interest-group-checkbox-error` - Alter the checkbox interest group required error response (displayed when a checkbox interest group is set to required, but is left blank)(@since 6.0.3)
+- `yikes-mailchimp-frontend-content` - Custom content filter for this plugin to prevent others from hooking in where not wanted.
+- `yikes-mailchimp-interest-group-required-top-error` - Alter the top of form error message. (displays only when interest group checkbox group is set to required and left blank (non-ajax only)) (@parameters - count of missing required fields (integer))
+- `yikes-mailchimp-interest-group-checkbox-error` - Alter the error displayed above each required interest group checkbox group only. Effects checkbox groups only.
+- `yikes-mailchimp-recaptcha-parameters` - Alter any of the possible reCaptcha shortcode parameters (process_form_shortcode.php line 68) (parameters: $recaptcha_parameter_array, $form_id)
+- `yikes-mailchimp-checkbox-integration-subscribe-api-request` - Filter the API request sent to MailChimp. (parameters: @type - the integration type (ie: comment, contact_form_7 etc.)
+- `yikes-mailchimp-frontend-date-picker-format` - Alter the date format. For additional help, see the [knowledge base](https://yikesplugins.com/support/knowledge-base/how-do-i-change-the-frontend-date-picker-format/).
+- `yikes-mailchimp-preloader` - Filter allowing users to setup a custom preloader image.
+- `yikes-mailchimp-update-email-subject` - Filter the subject line for the email that is generated and sent when a user needs to update their subscription info.
+- `yikes-mailchimp-update-email-content` - Filter the content of the email that is generated and sent when a user needs to update their subscription info.
+- `yikes-mailchimp-user-already-subscribed-error` - Filter the 'xxx@example.com' is already subscribed to the list. (@parameters - $response, $form_id, $user_email)
 
 ###### Hooks
 
-- yikes-mailchimp-form-submission - do something with the user email + form data on form submission
-- yikes-mailchimp-form-submission-FORM_ID - do something with the user email + form data on form submission (specific form)
-- yikes-mailchimp-before-form - output content before all forms (@parameters - $form_id)
-- yikes-mailchimp-after-form - output content after all forms (@parameters - $form_id)
-- yikes-mailchimp-before-checkbox - output custom content before the opt-in checkbox for all integrations
-- yikes-mailchimp-after-checkbox - output custom content after the opt-in checkbox for all integrations
-- yikes-mailchimp-support-page - output custom content on the support page (used to add our support form for premium users)
-- yikes-mailchimp-edit-form-section-links - add additional links to the edit form page next to 'Custom Messages'
-- yikes-mailchimp-edit-form-sections - add custom section to the edit form page
-- yikes-mailchimp-edit-form-notice - hook to display a custom notice on the edit form page
-- yikes-mailchimp-shortcode-enqueue-scripts-styles - hook to enqueue custom scripts & styles wherever the shortcode is being used (@paremeter $form_id - pass the id of the current form)
-- yikes-mailchimp-additional-form-fields - define additional fields to add below all forms (@parameter $form_data - all data associated with the given form)
-- yikes-mailchimp-custom-form-actions - add custom action links on the manage forms page (alongside Edit, Duplicate, Shortcode, Delete ) (@parameter $form_id - the id of the form)
-- yikes-mailchimp-api-curl-request - custom action hook to disable curl verification (not recommended - see the following [KB article](https://yikesplugins.com/support/knowledge-base/i-receive-the-error-ssl-certificate-problem-unable-to-get-local-issuer-certificate-why/))
-- yikes-mailchimp-list-form-fields-metabox - action hook allowing additional content to be added to the 'Form Fields' metabox on the view list page.
-- yikes-mailchimp-list-interest-groups-metabox - action hook allowing users to add additional content inside of the interest groups metabox on the view list page.
+- `yikes-mailchimp-form-submission` - do something with the user email + form data on form submission
+- `yikes-mailchimp-form-submission-FORM_ID` - do something with the user email + form data on form submission (specific form)
+- `yikes-mailchimp-before-form` - output content before all forms (@parameters - $form_id)
+- `yikes-mailchimp-after-form` - output content after all forms (@parameters - $form_id)
+- `yikes-mailchimp-before-checkbox` - output custom content before the opt-in checkbox for all integrations
+- `yikes-mailchimp-after-checkbox` - output custom content after the opt-in checkbox for all integrations
+- `yikes-mailchimp-support-page` - output custom content on the support page (used to add our support form for premium users)
+- `yikes-mailchimp-edit-form-section-links` - add additional links to the edit form page next to 'Custom Messages'
+- `yikes-mailchimp-edit-form-sections` - add custom section to the edit form page
+- `yikes-mailchimp-edit-form-notice` - hook to display a custom notice on the edit form page
+- `yikes-mailchimp-shortcode-enqueue-scripts-styles` - hook to enqueue custom scripts & styles wherever the shortcode is being used (@paremeter $form_id - pass the id of the current form)
+- `yikes-mailchimp-additional-form-fields` - define additional fields to add below all forms (@parameter $form_data - all data associated with the given form)
+- `yikes-mailchimp-custom-form-actions` - add custom action links on the manage forms page (alongside Edit, Duplicate, Shortcode, Delete ) (@parameter $form_id - the id of the form)
+- `yikes-mailchimp-api-curl-request` - custom action hook to disable curl verification (not recommended - see the following [KB article](https://yikesplugins.com/support/knowledge-base/i-receive-the-error-ssl-certificate-problem-unable-to-get-local-issuer-certificate-why/))
+- `yikes-mailchimp-list-form-fields-metabox` - action hook allowing additional content to be added to the 'Form Fields' metabox on the view list page.
+- `yikes-mailchimp-list-interest-groups-metabox` - action hook allowing users to add additional content inside of the interest groups metabox on the view list page.
 
 ###### Hooks for Extensions
 
-- yikes-mailchimp-menu - hook to add additional menu items inside of the "Easy MailChimp" menu item
-- yikes-mailchimp-settings-field - hook to register additional settings fields for add-ons
-- yikes-mailchimp-ADDON-SLUG-options-path - hook to load up a custom settings page
+- `yikes-mailchimp-menu` - hook to add additional menu items inside of the "Easy MailChimp" menu item
+- `yikes-mailchimp-settings-field` - hook to register additional settings fields for add-ons
+- `yikes-mailchimp-ADDON-SLUG-options-path` - hook to load up a custom settings page
 
 
 ##### Helper Shortcodes
