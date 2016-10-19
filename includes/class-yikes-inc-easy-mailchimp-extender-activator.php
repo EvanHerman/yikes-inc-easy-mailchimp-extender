@@ -104,6 +104,8 @@ class Yikes_Inc_Easy_Mailchimp_Extender_Activator {
 			$option_class = new Yikes_Inc_Easy_MailChimp_Extender_Option_Forms();
 			$option_class->create_option();
 		}
-	}
 
+		// Add the DB version option.
+		add_option( 'yikes_easy_mailchimp_extender_version', YIKES_MC_VERSION );
+	}
 }

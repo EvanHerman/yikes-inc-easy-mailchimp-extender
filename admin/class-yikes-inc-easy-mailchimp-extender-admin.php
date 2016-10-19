@@ -2906,6 +2906,9 @@ class Yikes_Inc_Easy_Mailchimp_Forms_Admin {
 		$option = get_option( 'yikes_easy_mailchimp_extender_version', '0.0.0' );
 		if ( version_compare( $option, '6.2.0', '<' ) ) {
 			$this->convert_db_to_option();
+		}
+
+		if ( version_compare( $option, YIKES_MC_VERSION, '<' ) ) {
 			update_option( 'yikes_easy_mailchimp_extender_version', YIKES_MC_VERSION );
 		}
 	}
