@@ -235,6 +235,10 @@ Below you'll find a complete list of the hooks and filters available in Easy For
 
 == Changelog ==
 
+= Easy Forms for MailChimp 6.2.1 - October 19th, 2016 =
+* Fixed a bug where the title and description will not display using the shortcode.
+* Fixed a bug where the `recaptcha` shortcode parameter doesn't work properly.
+
 = Easy Forms for MailChimp 6.2.0 - October 17th, 2016 =
 * Fixed a bug where the default for a radio button would not show up if the first item was selected ([#587](https://github.com/yikesinc/yikes-inc-easy-mailchimp-extender/issues/587))
 * Fixed a bug where the form settings would not import properly ([#572](https://github.com/yikesinc/yikes-inc-easy-mailchimp-extender/issues/572))
