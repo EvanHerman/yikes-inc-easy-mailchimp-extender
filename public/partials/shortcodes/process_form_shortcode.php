@@ -54,7 +54,7 @@ function process_mailchimp_shortcode( $atts ) {
 	*/
 	if ( get_option( 'yikes-mc-recaptcha-status' , '' ) == '1' ) {
 		// allow users to manually set recaptcha (instead of globally - recaptcha="1"/recaptcha="0" - but still needs to be globally enabled on the settings page)
-		if ( empty( $atts['recaptcha'] ) || $atts['recaptcha'] == '1' ) {
+		if ( $atts['recaptcha'] != '0' ) {
 			// if either of the Private the Secret key is left blank, we should display an error back to the user
 			if( get_option( 'yikes-mc-recaptcha-site-key' , '' ) == '' ) {
 				return __( "Whoops! It looks like you enabled reCAPTCHA but forgot to enter the reCAPTCHA site key!" , 'yikes-inc-easy-mailchimp-extender' ) . '<span class="edit-link yikes-easy-mc-edit-link"><a class="post-edit-link" href="' . esc_url( admin_url( 'admin.php?page=yikes-inc-easy-mailchimp-settings&section=recaptcha-settings' ) ) . '" title="' . __( 'ReCaptcha Settings' , 'yikes-inc-easy-mailchimp-extender' ) . '">' . __( 'Edit ReCaptcha Settings' , 'yikes-inc-easy-mailchimp-extender' ) . '</a></span>';
