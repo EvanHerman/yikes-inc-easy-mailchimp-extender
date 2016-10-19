@@ -38,11 +38,11 @@ class Yikes_Inc_Easy_Mailchimp_Extender_Widget extends WP_Widget {
 	public function widget( $args, $instance ) {
 		// Get all form IDs so we can use the first one as a default.
 		$form_ids = $this->form_interface->get_form_ids();
-		
-		$title = isset( $instance['title'] ) ? apply_filters( 'widget_title', $instance['title'] ) : __( 'MailChimp Signup Form', 'yikes-inc-easy-mailchimp-extender' );
-		$form_id = isset( $instance['form_id'] ) ? $instance['form_id'] : $form_ids[0];
-		$form_description = isset( $instance['form_description'] ) ? $instance['form_description'] : '';
-		$submit_button_text = isset( $instance['submit_text'] ) ? $instance['submit_text'] : __( 'Submit' , 'yikes-inc-easy-mailchimp-extender' );
+
+		$title              = isset( $instance['title'] ) ? apply_filters( 'widget_title', $instance['title'] ) : __( 'MailChimp Signup Form', 'yikes-inc-easy-mailchimp-extender' );
+		$form_id            = isset( $instance['form_id'] ) ? $instance['form_id'] : $form_ids[0];
+		$form_description   = isset( $instance['form_description'] ) ? $instance['form_description'] : '';
+		$submit_button_text = isset( $instance['submit_text'] ) ? $instance['submit_text'] : __( 'Submit', 'yikes-inc-easy-mailchimp-extender' );
 
 		// Build our array based on settings chosen
 		$shortcode_attributes = array(
@@ -50,16 +50,6 @@ class Yikes_Inc_Easy_Mailchimp_Extender_Widget extends WP_Widget {
 			'submit'      => $submit_button_text,
 			'description' => ( ! empty( $form_description ) ) ? '1' : '',
 		);
-
-		// Build the shortcode string.
-		$shortcode_string = '';
-		foreach ( $shortcode_attributes as $attribute => $value ) {
-			if ( empty( $value ) ) {
-				continue;
-			}
-
-			$shortcode_string .= " {$attribute}=\"{$value}\"";
-		}
 
 		// before and after widget arguments are defined by themes
 		echo $args['before_widget'];
@@ -70,15 +60,15 @@ class Yikes_Inc_Easy_Mailchimp_Extender_Widget extends WP_Widget {
 
 		// Custom action hooks to place content in the widget before the form
 		// See FAQ for examples on usage
-		do_action( 'yikes-mailchimp-before-form-'.$form_id );
+		do_action( 'yikes-mailchimp-before-form-' . $form_id );
 		do_action( 'yikes-mailchimp-before-form' );
 
 		// This is where you run the code and display the output
-		echo do_shortcode( "[yikes-mailchimp{$shortcode_string}]" );
+		echo process_mailchimp_shortcode( $shortcode_attributes );
 
 		// Custom action hooks to place content in the widget after the form
 		// See FAQ for examples on usage
-		do_action( 'yikes-mailchimp-after-form-'.$form_id );
+		do_action( 'yikes-mailchimp-after-form-' . $form_id );
 		do_action( 'yikes-mailchimp-after-form' );
 
 		echo $args['after_widget'];
