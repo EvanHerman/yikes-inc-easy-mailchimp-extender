@@ -52,9 +52,9 @@ function process_mailchimp_shortcode( $atts ) {
 	/*
 	*	Check if the user wants to use reCAPTCHA Spam Prevention
 	*/
-	if( get_option( 'yikes-mc-recaptcha-status' , '' ) == '1' ) {
+	if ( get_option( 'yikes-mc-recaptcha-status' , '' ) == '1' ) {
 		// allow users to manually set recaptcha (instead of globally - recaptcha="1"/recaptcha="0" - but still needs to be globally enabled on the settings page)
-		if( ! isset( $atts['recaptcha'] ) || ( isset( $atts['recaptcha'] ) && $atts['recaptcha'] == '1' ) ) {
+		if ( empty( $atts['recaptcha'] ) || $atts['recaptcha'] == '1' ) {
 			// if either of the Private the Secret key is left blank, we should display an error back to the user
 			if( get_option( 'yikes-mc-recaptcha-site-key' , '' ) == '' ) {
 				return __( "Whoops! It looks like you enabled reCAPTCHA but forgot to enter the reCAPTCHA site key!" , 'yikes-inc-easy-mailchimp-extender' ) . '<span class="edit-link yikes-easy-mc-edit-link"><a class="post-edit-link" href="' . esc_url( admin_url( 'admin.php?page=yikes-inc-easy-mailchimp-settings&section=recaptcha-settings' ) ) . '" title="' . __( 'ReCaptcha Settings' , 'yikes-inc-easy-mailchimp-extender' ) . '">' . __( 'Edit ReCaptcha Settings' , 'yikes-inc-easy-mailchimp-extender' ) . '</a></span>';
@@ -71,13 +71,13 @@ function process_mailchimp_shortcode( $atts ) {
 			$locale = get_locale();
 			$locale_split = explode( '_', $locale );
 			// Setup reCAPTCHA parameters
-			$lang = ( isset( $locale_split ) ? $locale_split[0] : $locale );
-			$lang = ( isset( $atts['recaptcha_lang'] ) ) ? $atts['recaptcha_lang'] : $locale_split[0];
-			$type = ( isset( $atts['recaptcha_type'] ) ) ? strtolower( $atts['recaptcha_type'] ) : 'image'; // setup recaptcha type
-			$theme= ( isset( $atts['recaptcha_theme'] ) ) ? strtolower( $atts['recaptcha_theme'] ) : 'light'; // setup recaptcha theme
-			$size = ( isset( $atts['recaptcha_size'] ) ) ? strtolower( $atts['recaptcha_size'] ) : 'normal'; // setup recaptcha size
-			$data_callback = ( isset( $atts['recaptcha_data_callback'] ) ) ? $atts['recaptcha_data_callback'] : false; // setup recaptcha size
-			$expired_callback = ( isset( $atts['recaptcha_expired_callback'] ) ) ? $atts['recaptcha_expired_callback'] : false; // setup recaptcha size
+			$lang = ( ! empty( $locale_split ) ? $locale_split[0] : $locale );
+			$lang = ( ! empty( $atts['recaptcha_lang'] ) ) ? $atts['recaptcha_lang'] : $lang;
+			$type = ( ! empty( $atts['recaptcha_type'] ) ) ? strtolower( $atts['recaptcha_type'] ) : 'image'; // setup recaptcha type
+			$theme= ( ! empty( $atts['recaptcha_theme'] ) ) ? strtolower( $atts['recaptcha_theme'] ) : 'light'; // setup recaptcha theme
+			$size = ( ! empty( $atts['recaptcha_size'] ) ) ? strtolower( $atts['recaptcha_size'] ) : 'normal'; // setup recaptcha size
+			$data_callback = ( ! empty( $atts['recaptcha_data_callback'] ) ) ? $atts['recaptcha_data_callback'] : false; // setup recaptcha size
+			$expired_callback = ( ! empty( $atts['recaptcha_expired_callback'] ) ) ? $atts['recaptcha_expired_callback'] : false; // setup recaptcha size
 			// Pass the shortcode parameters through a filter
 			$recaptcha_shortcode_params = apply_filters( 'yikes-mailchimp-recaptcha-parameters', array(
 				'language' => $lang,
@@ -194,11 +194,7 @@ function process_mailchimp_shortcode( $atts ) {
 
 	// setup the submit button text
 	// shortcode parameter takes precedence over option
-	if( isset( $atts['submit'] ) && ! empty( $atts['submit']) ) {
-		$submit = $atts['submit'];
-	} else {
-		$submit = $submit_button_text;
-	}
+	$submit = ( ! empty( $atts['submit'] ) ) ? $atts['submit'] : $submit_button_text;
 
 	// used in yikes-mailchimp-redirect-url filter
 	global $post;
@@ -227,10 +223,10 @@ function process_mailchimp_shortcode( $atts ) {
 	/**
 	*	Check for form inline parameter
 	*/
-	$form_inline = ( isset( $atts['inline'] ) && ( $atts['inline'] == 1 || $atts['inline'] == 'true' ) ) ? true : false;
+	$form_inline = ( $atts['inline'] == 1 || $atts['inline'] == 'true' );
 	// recheck from our form options
-	if( ! $form_inline ) {
-		$form_inline = ( isset( $additional_form_settings['yikes-easy-mc-inline-form'] ) && $additional_form_settings['yikes-easy-mc-inline-form'] == 1 ) ? true : false;
+	if ( ! $form_inline ) {
+		$form_inline = (bool) $additional_form_settings['yikes-easy-mc-inline-form'];
 	}
 
 	/* If the current user is logged in, and an admin...lets display our 'Edit Form' link */
@@ -303,28 +299,40 @@ function process_mailchimp_shortcode( $atts ) {
 		*	Set a custom title using custom_title="lorem ipsum" parameter in the shortcode
 		*	- This takes precedence over the title set
 		*/
-		if( ! empty( $atts['title'] ) && $atts['title'] == 1 && isset( $atts['custom_title'] ) ) {
-			echo '<h3 class="yikes-mailchimp-form-title yikes-mailchimp-form-title-'.$form_id.'">' . apply_filters( 'yikes-mailchimp-form-title', apply_filters( 'the_title', $atts['custom_title'] ), $form_id ) . '</h3>';
-		} else {
-			// display the form description if the user
-			// has specified to do so
-			if( ! empty( $atts['title'] ) && $atts['title'] == 1 ) {
-				echo '<h3 class="yikes-mailchimp-form-title yikes-mailchimp-form-title-'.$form_id.'">' . apply_filters( 'yikes-mailchimp-form-title', apply_filters( 'the_title', $form_data['form_name'] ), $form_id ) . '</h3>';
+		if ( $atts['title'] ) {
+			if ( ! empty( $atts['custom_title'] ) ) {
+				/**
+				 * Filter the title that is displayed through the shortcode.
+				 *
+				 * @param string $title   The title to display.
+				 * @param int    $form_id The form ID.
+				 */
+				$title = apply_filters( 'yikes-mailchimp-form-title', apply_filters( 'the_title', $atts['custom_title'] ), $form_id );
+			} else {
+				$title = apply_filters( 'yikes-mailchimp-form-title', apply_filters( 'the_title', $form_data['form_name'] ), $form_id );
 			}
+
+			echo sprintf( '<h3 class="yikes-mailchimp-form-title yikes-mailchimp-form-title-%1$s">%2$s</h3>', $form_id, $title );
 		}
 
 		/*
 		*	Allow users to specify a custom description for this form, no html support
 		*	@since 6.0.3.8
 		*/
-		if( ! empty( $atts['description'] ) && $atts['description'] == 1 && isset( $atts['custom_description'] ) ) {
-			echo '<section class="yikes-mailchimp-form-description yikes-mailchimp-form-description-'.$form_id.'">' . apply_filters( 'yikes-mailchimp-frontend-content', apply_filters( 'yikes-mailchimp-form-description', $atts['custom_description'], $form_id ) ) . '</section>';
-		} else {
-			// display the form description if the user
-			// has specified to do so
-			if( ! empty( $atts['description'] ) && $atts['description'] == 1 ) {
-				echo '<section class="yikes-mailchimp-form-description yikes-mailchimp-form-description-'.$form_id.'">' . apply_filters( 'yikes-mailchimp-frontend-content', apply_filters( 'yikes-mailchimp-form-description', $form_data['form_description'], $form_id ) ) . '</section>';
+		if ( $atts['description'] ) {
+			if ( ! empty( $atts['custom_description'] ) ) {
+				/**
+				 * Filter the description that is displayed through the shortcode.
+				 *
+				 * @param string $title   The title to display.
+				 * @param int    $form_id The form ID.
+				 */
+				$description = apply_filters( 'yikes-mailchimp-form-description', $atts['custom_description'], $form_id );
+			} else {
+				$description = apply_filters( 'yikes-mailchimp-form-description', $form_data['form_description'], $form_id );
 			}
+
+			echo sprintf( '<section class="yikes-mailchimp-form-description yikes-mailchimp-form-description-%1$s">%2$s</section>', $form_id, $description );
 		}
 
 		// Check for AJAX
