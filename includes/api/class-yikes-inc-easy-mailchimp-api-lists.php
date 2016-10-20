@@ -32,36 +32,48 @@ class Yikes_Inc_Easy_MailChimp_API_Lists {
 	 * Get all of the lists from the API.
 	 *
 	 * @author Jeremy Pry
-	 * @return array|WP_Error
+	 *
+	 * @param array $limit_fields Array of fields to limit the results. The fields should be keys in the array.
+	 *
+	 * @return array The array of lists, indexed by list ID.
 	 */
-	public function get_lists() {
-		$response = $this->get_from_api( $this->base_path );
-		if ( isset( $response['error'] ) ) {
-			return new WP_Error( $response['title'], $response['detail'] );
+	public function get_lists( $limit_fields = array() ) {
+		// Ensure the ID and total_items are always present in the limit fields
+		if ( ! empty( $limit_fields ) ) {
+			if ( ! isset( $limit_fields['lists.id'] ) ) {
+				$limit_fields['lists.id'] = true;
+			}
+			if ( ! isset( $limit_fields['total_items'] ) ) {
+				$limit_fields['total_items'] = true;
+			}
 		}
 
-		$lists       = array();
-		$total_lists = $response['total_items'];
-		foreach ( $response['lists'] as $list ) {
-			$lists[ $list['id'] ] = $list;
-		}
+		// Build the relative query
+		$query = add_query_arg( 'fields', join( ',', array_keys( $limit_fields ) ), $this->base_path );
 
-		// Maybe get more items.
-		if ( $total_lists > 10 ) {
-			$offset = 0;
-			do {
-				$offset += 10;
-				$response = $this->get_from_api( $this->base_path . "?offset={$offset}" );
-				if ( isset( $response['error'] ) || empty( $response['lists'] ) ) {
-					break;
-				}
+		// Set some initial variables.
+		$lists  = array();
+		$offset = 0;
+		$total  = 0;
 
-				foreach ( $response['lists'] as $list ) {
-					$lists[ $list['id'] ] = $list;
-				}
+		// Retrieve lists, looping if needed.
+		do {
+			$query    = add_query_arg( 'offset', $offset, $query );
+			$response = $this->get_from_api( $query );
+			if ( isset( $response['error'] ) || empty( $response['lists'] ) ) {
+				break;
+			}
 
-			} while ( true );
-		}
+			if ( 0 === $total ) {
+				$total = intval( $response['total_items'] );
+			}
+
+			foreach ( $response['lists'] as $list ) {
+				$lists[ $list['id'] ] = $list;
+			}
+
+			$offset += 10;
+		} while ( ( $offset - 1 ) < $total );
 
 		return $lists;
 	}
