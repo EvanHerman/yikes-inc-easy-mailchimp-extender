@@ -1,147 +1,151 @@
 <?php
-if( isset( $_REQUEST['list-id'] ) ) {
-	$list_id = sanitize_key( $_REQUEST['list-id'] );
-	$api_key = yikes_get_mc_api_key();
-	$dash_position = strpos( $api_key, '-' );
-	if( $dash_position !== false ) {
-		$api_endpoint = 'https://' . substr( $api_key, $dash_position + 1 ) . '.api.mailchimp.com/2.0/lists/list.json';
-	}
-	$list_data = wp_remote_post( $api_endpoint, array(
-		'body' => array(
-			'apikey' => $api_key,
-			'filters' => array( 'list_id' => $list_id ),
-		),
-		'timeout' => 10,
-		'sslverify' => apply_filters( 'yikes-mailchimp-sslverify', true ),
-	) );
-	$list_data = json_decode( wp_remote_retrieve_body( $list_data ), true );
-	if( isset( $list_data['error'] ) ) {
-		if( WP_DEBUG || get_option( 'yikes-mailchimp-debug-status' , '' ) == '1' ) {
-			require_once YIKES_MC_PATH . 'includes/error_log/class-yikes-inc-easy-mailchimp-error-logging.php';
-			$error_logging = new Yikes_Inc_Easy_Mailchimp_Error_Logging();
-			$error_logging->yikes_easy_mailchimp_write_to_error_log( $list_data['error'], __( "Get Account Lists" , 'yikes-inc-easy-mailchimp-extender' ), "View Lists Page" );
-		}
-	}
-	// reset our data so we can easily use it
-	$list_data = $list_data['data'][0];
-
-	if( $dash_position !== false ) {
-		$api_endpoint = 'https://' . substr( $api_key, $dash_position + 1 ) . '.api.mailchimp.com/2.0/lists/merge-vars.json';
-	}
-	$merge_variables = wp_remote_post( $api_endpoint, array(
-		'body' => array(
-			'apikey' => $api_key,
-			'id' => array( $list_id ) ,
-		),
-		'timeout' => 10,
-		'sslverify' => apply_filters( 'yikes-mailchimp-sslverify', true ),
-	) );
-	$merge_variables = json_decode( wp_remote_retrieve_body( $merge_variables ), true );
-	if( isset( $merge_variables['error'] ) ) {
-		if( WP_DEBUG || get_option( 'yikes-mailchimp-debug-status' , '' ) == '1' ) {
-			require_once YIKES_MC_PATH . 'includes/error_log/class-yikes-inc-easy-mailchimp-error-logging.php';
-			$error_logging = new Yikes_Inc_Easy_Mailchimp_Error_Logging();
-			$error_logging->yikes_easy_mailchimp_write_to_error_log( $merge_variables['error'], __( "Get Merge Variables" , 'yikes-inc-easy-mailchimp-extender' ), "View Lists Page" );
-		}
-	}
-	// re-store our data
-	$merge_variables = $merge_variables['data'][0]['merge_vars'];
-
-	// get the interest group data
-	if( $dash_position !== false ) {
-		$api_endpoint = 'https://' . substr( $api_key, $dash_position + 1 ) . '.api.mailchimp.com/2.0/lists/interest-groupings.json';
-	}
-	$interest_groupings = wp_remote_post( $api_endpoint, array(
-		'body' => array(
-			'apikey' => $api_key,
-			'id' => $list_id,
-			'counts' => true
-		),
-		'timeout' => 10,
-		'sslverify' => apply_filters( 'yikes-mailchimp-sslverify', true ),
-	) );
-	$interest_groupings = json_decode( wp_remote_retrieve_body( $interest_groupings ), true );
-
-	if( isset( $interest_groupings['error'] ) ) {
-		if( WP_DEBUG || get_option( 'yikes-mailchimp-debug-status' , '' ) == '1' ) {
-			require_once YIKES_MC_PATH . 'includes/error_log/class-yikes-inc-easy-mailchimp-error-logging.php';
-			$error_logging = new Yikes_Inc_Easy_Mailchimp_Error_Logging();
-			$error_logging->yikes_easy_mailchimp_write_to_error_log( $interest_groupings['error'], __( "Get Interest Groups" , 'yikes-inc-easy-mailchimp-extender' ), "View Lists Page" );
-		}
-	}
-
-	$no_interest_groupings = '<p class="description">' . __( 'Interest groups are not enabled for this list.', 'yikes-inc-easy-mailchimp-extender' ) . '</p>';
-
-
-	$no_segments = __( 'No segments set up for this list.' , 'yikes-inc-easy-mailchimp-extender' );
-	// get the segment data
-	if( $dash_position !== false ) {
-		$api_endpoint = 'https://' . substr( $api_key, $dash_position + 1 ) . '.api.mailchimp.com/2.0/lists/segments.json';
-	}
-	$segments = wp_remote_post( $api_endpoint, array(
-		'body' => array(
-			'apikey' => $api_key,
-			'id' => $list_id,
-			'type' => 'saved'
-		),
-		'timeout' => 10,
-		'sslverify' => apply_filters( 'yikes-mailchimp-sslverify', true ),
-	) );
-
-
-	// setup pagination variables
-	$paged = isset( $_REQUEST['paged'] ) ? $_REQUEST['paged'] : '0';
-
-	$limit = apply_filters( 'yikes_admin_list_subscriber_limit' , '20' );
-
-	$sort_dir = isset( $_REQUEST['sort'] ) ? $_REQUEST['sort'] : 'DESC';
-	$column = isset( $_REQUEST['column'] ) ? $_REQUEST['column'] : 'optin_time';
-
-	if( $sort_dir == 'DESC' ) {
-		$opposite_sort_dir = 'ASC';
-		$icon = '<span class="dashicons dashicons-arrow-down"></span>';
-	} else {
-		$opposite_sort_dir = 'DESC';
-		$icon = '<span class="dashicons dashicons-arrow-up"></span>';
-	}
-
-	if( !isset( $_REQUEST['sort'] ) ) {
-		$icon = '';
-	}
-
-	// get all subscribed members
-	if( $dash_position !== false ) {
-		$api_endpoint = 'https://' . substr( $api_key, $dash_position + 1 ) . '.api.mailchimp.com/2.0/lists/members.json';
-	}
-	$subscribers_list = wp_remote_post( $api_endpoint, array(
-		'body' => array(
-			'apikey' => $api_key,
-			'id'	=>	$list_id,
-			'opts'	=>	array(
-				'start' => $paged,
-				'limit'	=>	$limit,
-				'sort_field'	=>	$column,
-				'sort_dir'	=>	$sort_dir
-			)
-		),
-		'timeout' => 10,
-		'sslverify' => apply_filters( 'yikes-mailchimp-sslverify', true ),
-	) );
-	$subscribers_list = json_decode( wp_remote_retrieve_body( $subscribers_list ), true );
-	if( isset( $subscribers_list['error'] ) ) {
-		if( WP_DEBUG || get_option( 'yikes-mailchimp-debug-status' , '' ) == '1' ) {
-			require_once YIKES_MC_PATH . 'includes/error_log/class-yikes-inc-easy-mailchimp-error-logging.php';
-			$error_logging = new Yikes_Inc_Easy_Mailchimp_Error_Logging();
-			$error_logging->yikes_easy_mailchimp_write_to_error_log( $subscribers_list['error'], __( "Get Subscriber Count" , 'yikes-inc-easy-mailchimp-extender' ), "View Lists Page" );
-		}
-	}
-
-	$total_pages = ceil( $subscribers_list['total'] / $limit );
-	if( $total_pages == 0 ) {
-		$total_pages = '1';
-	}
-
+if ( ! isset( $_REQUEST['list-id'] ) ) {
+	wp_die( __( 'Oops, we can\'t determine what List to view. Please go back and try again.' ) );
 }
+
+
+$list_id       = sanitize_key( $_REQUEST['list-id'] );
+$api_key       = yikes_get_mc_api_key();
+$dash_position = strpos( $api_key, '-' );
+if ( $dash_position !== false ) {
+	$api_endpoint = 'https://' . substr( $api_key, $dash_position + 1 ) . '.api.mailchimp.com/2.0/lists/list.json';
+}
+$list_data = wp_remote_post( $api_endpoint, array(
+	'body'      => array(
+		'apikey'  => $api_key,
+		'filters' => array( 'list_id' => $list_id ),
+	),
+	'timeout'   => 10,
+	'sslverify' => apply_filters( 'yikes-mailchimp-sslverify', true ),
+) );
+$list_data = json_decode( wp_remote_retrieve_body( $list_data ), true );
+if ( isset( $list_data['error'] ) ) {
+	if ( WP_DEBUG || get_option( 'yikes-mailchimp-debug-status', '' ) == '1' ) {
+		require_once YIKES_MC_PATH . 'includes/error_log/class-yikes-inc-easy-mailchimp-error-logging.php';
+		$error_logging = new Yikes_Inc_Easy_Mailchimp_Error_Logging();
+		$error_logging->yikes_easy_mailchimp_write_to_error_log( $list_data['error'], __( "Get Account Lists", 'yikes-inc-easy-mailchimp-extender' ), "View Lists Page" );
+	}
+}
+// reset our data so we can easily use it
+$list_data = $list_data['data'][0];
+
+if ( $dash_position !== false ) {
+	$api_endpoint = 'https://' . substr( $api_key, $dash_position + 1 ) . '.api.mailchimp.com/2.0/lists/merge-vars.json';
+}
+$merge_variables = wp_remote_post( $api_endpoint, array(
+	'body'      => array(
+		'apikey' => $api_key,
+		'id'     => array( $list_id ),
+	),
+	'timeout'   => 10,
+	'sslverify' => apply_filters( 'yikes-mailchimp-sslverify', true ),
+) );
+$merge_variables = json_decode( wp_remote_retrieve_body( $merge_variables ), true );
+if ( isset( $merge_variables['error'] ) ) {
+	if ( WP_DEBUG || get_option( 'yikes-mailchimp-debug-status', '' ) == '1' ) {
+		require_once YIKES_MC_PATH . 'includes/error_log/class-yikes-inc-easy-mailchimp-error-logging.php';
+		$error_logging = new Yikes_Inc_Easy_Mailchimp_Error_Logging();
+		$error_logging->yikes_easy_mailchimp_write_to_error_log( $merge_variables['error'], __( "Get Merge Variables", 'yikes-inc-easy-mailchimp-extender' ), "View Lists Page" );
+	}
+}
+// re-store our data
+$merge_variables = $merge_variables['data'][0]['merge_vars'];
+
+// get the interest group data
+if ( $dash_position !== false ) {
+	$api_endpoint = 'https://' . substr( $api_key, $dash_position + 1 ) . '.api.mailchimp.com/2.0/lists/interest-groupings.json';
+}
+$interest_groupings = wp_remote_post( $api_endpoint, array(
+	'body'      => array(
+		'apikey' => $api_key,
+		'id'     => $list_id,
+		'counts' => true,
+	),
+	'timeout'   => 10,
+	'sslverify' => apply_filters( 'yikes-mailchimp-sslverify', true ),
+) );
+$interest_groupings = json_decode( wp_remote_retrieve_body( $interest_groupings ), true );
+
+if ( isset( $interest_groupings['error'] ) ) {
+	if ( WP_DEBUG || get_option( 'yikes-mailchimp-debug-status', '' ) == '1' ) {
+		require_once YIKES_MC_PATH . 'includes/error_log/class-yikes-inc-easy-mailchimp-error-logging.php';
+		$error_logging = new Yikes_Inc_Easy_Mailchimp_Error_Logging();
+		$error_logging->yikes_easy_mailchimp_write_to_error_log( $interest_groupings['error'], __( "Get Interest Groups", 'yikes-inc-easy-mailchimp-extender' ), "View Lists Page" );
+	}
+}
+
+$no_interest_groupings = '<p class="description">' . __( 'Interest groups are not enabled for this list.', 'yikes-inc-easy-mailchimp-extender' ) . '</p>';
+
+
+$no_segments = __( 'No segments set up for this list.', 'yikes-inc-easy-mailchimp-extender' );
+// get the segment data
+if ( $dash_position !== false ) {
+	$api_endpoint = 'https://' . substr( $api_key, $dash_position + 1 ) . '.api.mailchimp.com/2.0/lists/segments.json';
+}
+$segments = wp_remote_post( $api_endpoint, array(
+	'body'      => array(
+		'apikey' => $api_key,
+		'id'     => $list_id,
+		'type'   => 'saved',
+	),
+	'timeout'   => 10,
+	'sslverify' => apply_filters( 'yikes-mailchimp-sslverify', true ),
+) );
+
+
+// setup pagination variables
+$paged = isset( $_REQUEST['paged'] ) ? $_REQUEST['paged'] : '0';
+
+$limit = apply_filters( 'yikes_admin_list_subscriber_limit', '20' );
+
+$sort_dir = isset( $_REQUEST['sort'] ) ? $_REQUEST['sort'] : 'DESC';
+$column   = isset( $_REQUEST['column'] ) ? $_REQUEST['column'] : 'optin_time';
+
+if ( $sort_dir == 'DESC' ) {
+	$opposite_sort_dir = 'ASC';
+	$icon              = '<span class="dashicons dashicons-arrow-down"></span>';
+} else {
+	$opposite_sort_dir = 'DESC';
+	$icon              = '<span class="dashicons dashicons-arrow-up"></span>';
+}
+
+if ( ! isset( $_REQUEST['sort'] ) ) {
+	$icon = '';
+}
+
+// get all subscribed members
+if ( $dash_position !== false ) {
+	$api_endpoint = 'https://' . substr( $api_key, $dash_position + 1 ) . '.api.mailchimp.com/2.0/lists/members.json';
+}
+$subscribers_list = wp_remote_post( $api_endpoint, array(
+	'body'      => array(
+		'apikey' => $api_key,
+		'id'     => $list_id,
+		'opts'   => array(
+			'start'      => $paged,
+			'limit'      => $limit,
+			'sort_field' => $column,
+			'sort_dir'   => $sort_dir,
+		),
+	),
+	'timeout'   => 10,
+	'sslverify' => apply_filters( 'yikes-mailchimp-sslverify', true ),
+) );
+$subscribers_list = json_decode( wp_remote_retrieve_body( $subscribers_list ), true );
+if ( isset( $subscribers_list['error'] ) ) {
+	if ( WP_DEBUG || get_option( 'yikes-mailchimp-debug-status', '' ) == '1' ) {
+		require_once YIKES_MC_PATH . 'includes/error_log/class-yikes-inc-easy-mailchimp-error-logging.php';
+		$error_logging = new Yikes_Inc_Easy_Mailchimp_Error_Logging();
+		$error_logging->yikes_easy_mailchimp_write_to_error_log( $subscribers_list['error'], __( "Get Subscriber Count", 'yikes-inc-easy-mailchimp-extender' ), "View Lists Page" );
+	}
+}
+
+$total_pages = ceil( $subscribers_list['total'] / $limit );
+if ( $total_pages == 0 ) {
+	$total_pages = '1';
+}
+
+
 
 ?>
 <div class="wrap">
