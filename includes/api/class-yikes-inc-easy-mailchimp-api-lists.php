@@ -108,4 +108,38 @@ class Yikes_Inc_Easy_MailChimp_API_Lists extends Yikes_Inc_Easy_MailChimp_API_Ab
 
 		return $response;
 	}
+
+	/**
+	 * Get the Interest Categories for a particular list.
+	 *
+	 * @author Jeremy Pry
+	 *
+	 * @param $list_id
+	 *
+	 * @return array|WP_Error
+	 */
+	public function get_interest_categories( $list_id ) {
+		$base_path  = "{$this->base_path}/{$list_id}/interest-categories";
+		$categories = $this->loop_items( $base_path, 'categories' );
+
+		// Check for Error, and maybe return early.
+		if ( is_wp_error( $categories ) ) {
+			return $categories;
+		}
+
+		// Loop through each interest category and attach the items.
+		foreach ( $categories as $id => &$category ) {
+			$path = "{$base_path}/{$id}/interests";
+			$interests = $this->loop_items( $path, 'interests' );
+
+			// Check for Error, and maybe return early.
+			if ( is_wp_error( $interests ) ) {
+				return $interests;
+			}
+
+			$category['items'] = $interests;
+		}
+
+		return $categories;
+	}
 }
