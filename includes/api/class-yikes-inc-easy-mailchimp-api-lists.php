@@ -99,6 +99,16 @@ class Yikes_Inc_Easy_MailChimp_API_Lists {
 	}
 
 	/**
+	 * Get an array of list IDs from the API.
+	 *
+	 * @author Jeremy Pry
+	 * @return array Array of list IDs.
+	 */
+	public function get_list_ids() {
+		return array_keys( $this->get_lists( array( 'lists.id' => true ) ) );
+	}
+
+	/**
 	 * Get data from the API
 	 *
 	 * @author Jeremy Pry
