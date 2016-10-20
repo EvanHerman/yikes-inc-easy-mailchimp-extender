@@ -202,6 +202,22 @@ function yikes_get_mc_api_key() {
 	return trim( get_option( 'yikes-mc-api-key', '' ) );
 }
 
+/**
+ * Get the API Manager instance.
+ *
+ * @author Jeremy Pry
+ * @return Yikes_Inc_Easy_MailChimp_API_Manager
+ */
+function yikes_get_mc_api_manager() {
+	static $manager = null;
+
+	if ( null === $manager ) {
+		$manager = new Yikes_Inc_Easy_MailChimp_API_Manager( yikes_get_mc_api_key() );
+	}
+
+	return $manager;
+}
+
 add_action( 'plugins_loaded', 'yikes_mailchimp_plugin_textdomain' );
 function yikes_mailchimp_plugin_textdomain() {
 	load_plugin_textdomain( 'yikes-inc-easy-mailchimp-extender', false, plugin_basename( dirname( __FILE__ ) ) . '/languages' );
