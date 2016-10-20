@@ -117,6 +117,22 @@ class Yikes_Inc_Easy_MailChimp_API_Lists {
 	}
 
 	/**
+	 * Get the merge fields for a particular list.
+	 *
+	 * @author Jeremy Pry
+	 *
+	 * @param string $list_id The list ID in MailChimp.
+	 *
+	 * @return array|WP_Error
+	 */
+	public function get_list_merge_fields( $list_id ) {
+		$path = "{$this->base_path}/{$list_id}/merge-fields";
+		$response = $this->get_from_api( $path );
+
+		return $this->maybe_return_error( $response );
+	}
+
+	/**
 	 * Get data from the API
 	 *
 	 * @author Jeremy Pry
