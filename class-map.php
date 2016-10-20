@@ -6,6 +6,7 @@ return array (
   'yikes_inc_easy_mailchimp_dashboard_widgets' => 'admin/partials/dashboard-widgets/class.list-activity-widget.php',
   'yikes_inc_easy_mailchimp_extender_widget' => 'admin/partials/front-end-widgets/front-end-widget-form.php',
   'yikes_inc_easy_mailchimp_extender_helper' => 'admin/partials/helpers/init.php',
+  'yikes_inc_easy_mailchimp_api_lists' => 'includes/api/class-yikes-inc-easy-mailchimp-api-lists.php',
   'yikes_inc_easy_mailchimp_api_manager' => 'includes/api/class-yikes-inc-easy-mailchimp-api-manager.php',
   'yikes_inc_easy_mailchimp_api' => 'includes/api/class-yikes-inc-easy-mailchimp-api.php',
   'yikes_inc_easy_mailchimp_extender_activator' => 'includes/class-yikes-inc-easy-mailchimp-extender-activator.php',
