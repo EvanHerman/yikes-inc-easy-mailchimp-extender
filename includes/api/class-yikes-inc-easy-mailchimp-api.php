@@ -9,6 +9,14 @@
 class Yikes_Inc_Easy_MailChimp_API {
 
 	/**
+	 * The API key.
+	 *
+	 * @since %VERSION%
+	 * @var string
+	 */
+	protected $api_key = '';
+
+	/**
 	 * The URL for the API.
 	 *
 	 * @since %VERSION%
@@ -40,9 +48,11 @@ class Yikes_Inc_Easy_MailChimp_API {
 	 * @since %VERSION%
 	 *
 	 * @param string $datacenter The datacenter string where the MailChimp account is located.
+	 * @param string $api_key    The base API key, without the datacenter appended.
 	 */
-	public function __construct( $datacenter ) {
+	public function __construct( $datacenter, $api_key ) {
 		$this->datacenter = $datacenter;
+		$this->api_key    = $api_key;
 		$this->api_url    = "https://{$this->datacenter}.api.mailchimp.com/{$this->api_version}";
 	}
 
@@ -241,7 +251,11 @@ class Yikes_Inc_Easy_MailChimp_API {
 	 * @return array The array of auth headers for an API request.
 	 */
 	protected function get_auth_headers() {
-		$user_pass    = base64_encode( "yikesmailchimp:{$this->api_key['key']}" );
+		/*
+		 * According to the MailChimp API docs, you can use any string you want, and the API
+		 * key as the password. We're just going to use "yikesmailchimp" as the user.
+		 */
+		$user_pass    = base64_encode( "yikesmailchimp:{$this->api_key}" );
 		$auth_headers = array(
 			'Authorization' => "Basic {$user_pass}",
 		);
