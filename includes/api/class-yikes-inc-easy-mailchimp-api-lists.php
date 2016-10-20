@@ -35,7 +35,7 @@ class Yikes_Inc_Easy_MailChimp_API_Lists {
 	 *
 	 * @param array $limit_fields Array of fields to limit the results. The fields should be keys in the array.
 	 *
-	 * @return array The array of lists, indexed by list ID.
+	 * @return array|WP_Error The array of lists, indexed by list ID, or WP_Error if the API gave us an error.
 	 */
 	public function get_lists( $limit_fields = array() ) {
 		// Ensure the ID and total_items are always present in the limit fields
@@ -48,7 +48,7 @@ class Yikes_Inc_Easy_MailChimp_API_Lists {
 			}
 		}
 
-		// Build the relative query
+		// Add the limiting fields to the query.
 		$query = add_query_arg( 'fields', join( ',', array_keys( $limit_fields ) ), $this->base_path );
 
 		// Set some initial variables.
@@ -58,22 +58,34 @@ class Yikes_Inc_Easy_MailChimp_API_Lists {
 
 		// Retrieve lists, looping if needed.
 		do {
+			// Add the offset to the query.
 			$query    = add_query_arg( 'offset', $offset, $query );
 			$response = $this->get_from_api( $query );
-			if ( isset( $response['error'] ) || empty( $response['lists'] ) ) {
+			if ( is_wp_error( $response ) ) {
+				return $response;
+			}
+
+			// If the API gave an error or there are no more lists, break.
+			if ( isset( $response['error'] ) ) {
+				return new WP_Error( $response['title'], $response['detail'] );
+			}
+
+			if ( empty( $response['lists'] ) ) {
 				break;
 			}
 
+			// Update the total number of items if it's still zero.
 			if ( 0 === $total ) {
 				$total = intval( $response['total_items'] );
 			}
 
+			// Store each new list.
 			foreach ( $response['lists'] as $list ) {
 				$lists[ $list['id'] ] = $list;
 			}
 
 			$offset += 10;
-		} while ( ( $offset - 1 ) < $total );
+		} while ( $offset <= $total );
 
 		return $lists;
 	}
@@ -83,7 +95,7 @@ class Yikes_Inc_Easy_MailChimp_API_Lists {
 	 *
 	 * @author Jeremy Pry
 	 *
-	 * @param $list_id
+	 * @param string $list_id The list ID in MailChimp.
 	 *
 	 * @return array|WP_Error
 	 */
@@ -91,11 +103,7 @@ class Yikes_Inc_Easy_MailChimp_API_Lists {
 		$path     = "{$this->base_path}/{$list_id}";
 		$response = $this->get_from_api( $path );
 
-		if ( isset( $response['error'] ) ) {
-			return new WP_Error( $response['title'], $response['detail'] );
-		}
-
-		return $response;
+		return $this->maybe_return_error( $response );
 	}
 
 	/**
@@ -115,14 +123,14 @@ class Yikes_Inc_Easy_MailChimp_API_Lists {
 	 *
 	 * @param string $path The relative API path. Leading slash not required.
 	 *
-	 * @return array
+	 * @return array|WP_Error
 	 */
 	protected function get_from_api( $path ) {
 		$response = $this->api->get( $path );
 		$headers  = wp_remote_retrieve_headers( $response );
 
 		if ( is_wp_error( $response ) ) {
-			return array();
+			return $response;
 		}
 
 		// JSON-decode the body.
@@ -134,5 +142,22 @@ class Yikes_Inc_Easy_MailChimp_API_Lists {
 		}
 
 		return $body;
+	}
+
+	/**
+	 * Return either the valid response, or a WP_Error.
+	 *
+	 * @author Jeremy Pry
+	 *
+	 * @param mixed $response The API response.
+	 *
+	 * @return array|WP_Error Array of data when there was no error, or a WP_Error.
+	 */
+	protected function maybe_return_error( $response ) {
+		if ( isset( $response['error'] ) ) {
+			return new WP_Error( $response['title'], $response['detail'] );
+		}
+
+		return $response;
 	}
 }
