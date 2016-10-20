@@ -42,6 +42,13 @@ class Yikes_Inc_Easy_MailChimp_API_Manager {
 	protected $key = '';
 
 	/**
+	 * The list manager instance.
+	 *
+	 * @var Yikes_Inc_Easy_MailChimp_API_Lists
+	 */
+	protected $list_manager = null;
+
+	/**
 	 * Yikes_Inc_Easy_MailChimp_API_Manager constructor.
 	 *
 	 * @since %VERSION%
@@ -109,5 +116,20 @@ class Yikes_Inc_Easy_MailChimp_API_Manager {
 		}
 
 		return $this->api;
+	}
+
+	/**
+	 * Get the List Manager instance.
+	 *
+	 * @author Jeremy Pry
+	 *
+	 * @return Yikes_Inc_Easy_MailChimp_API_Lists
+	 */
+	public function get_list_handler() {
+		if ( null == $this->list_manager ) {
+			$this->list_manager = new Yikes_Inc_Easy_MailChimp_API_Lists( $this->get_api() );
+		}
+
+		return $this->list_manager;
 	}
 }
