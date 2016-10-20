@@ -210,6 +210,13 @@ class Yikes_Inc_Easy_MailChimp_API {
 			 */
 			'headers'    => apply_filters( 'yikesinc_eme_api_headers', $this->combine_headers( $headers ), $path, $method, $params ),
 			'user-agent' => $this->get_user_agent(),
+			'timeout'    => 15,
+			/**
+			 * Filter whether our requests should verify the SSL certificate.
+			 *
+			 * @param bool $sslverify
+			 */
+			'sslverify'  => apply_filters( 'yikes-mailchimp-sslverify', true ),
 		);
 
 		/**
