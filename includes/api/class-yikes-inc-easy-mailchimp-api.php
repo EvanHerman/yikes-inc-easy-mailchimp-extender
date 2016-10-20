@@ -101,6 +101,17 @@ class Yikes_Inc_Easy_MailChimp_API {
 	 * @return array|WP_Error
 	 */
 	public function patch( $path, $headers = array(), $params = array() ) {
+		if ( ! isset( $params['body'] ) || empty( $params['body'] ) ) {
+			return new WP_Error(
+				'yikesinc_eme_missing_body',
+				sprintf(
+				/* translators: %s refers to the request method. */
+					__( '%s requests require a body as one of the parameters.', 'yikes-inc-easy-mailchimp-extender' ),
+					'PATCH'
+				)
+			);
+		}
+
 		return $this->send_request( $path, 'PATCH', $headers, $params );
 	}
 
@@ -117,6 +128,17 @@ class Yikes_Inc_Easy_MailChimp_API {
 	 * @return array|WP_Error
 	 */
 	public function post( $path, $headers = array(), $params = array() ) {
+		if ( ! isset( $params['body'] ) || empty( $params['body'] ) ) {
+			return new WP_Error(
+				'yikesinc_eme_missing_body',
+				sprintf(
+				/* translators: %s refers to the request method. */
+					__( '%s requests require a body as one of the parameters.', 'yikes-inc-easy-mailchimp-extender' ),
+					'POST'
+				)
+			);
+		}
+
 		return $this->send_request( $path, 'POST', $headers, $params );
 	}
 
@@ -133,6 +155,17 @@ class Yikes_Inc_Easy_MailChimp_API {
 	 * @return array|WP_Error
 	 */
 	public function put( $path, $headers = array(), $params = array() ) {
+		if ( ! isset( $params['body'] ) || empty( $params['body'] ) ) {
+			return new WP_Error(
+				'yikesinc_eme_missing_body',
+				sprintf(
+				/* translators: %s refers to the request method. */
+					__( '%s requests require a body as one of the parameters.', 'yikes-inc-easy-mailchimp-extender' ),
+					'PUT'
+				)
+			);
+		}
+
 		return $this->send_request( $path, 'PUT', $headers, $params );
 	}
 
