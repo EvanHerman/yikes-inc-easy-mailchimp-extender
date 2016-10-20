@@ -80,10 +80,32 @@ class Yikes_Inc_Easy_MailChimp_API_Lists extends Yikes_Inc_Easy_MailChimp_API_Ab
 	 *
 	 * @return array|WP_Error
 	 */
-	public function get_list_merge_fields( $list_id ) {
-		$path = "{$this->base_path}/{$list_id}/merge-fields";
+	public function get_merge_fields( $list_id ) {
+		$path     = "{$this->base_path}/{$list_id}/merge-fields";
 		$response = $this->get_from_api( $path );
 
-		return $this->maybe_return_error( $response );
+		// The API doesn't give us the email field, so let's create that ourselves.
+		$response = $this->maybe_return_error( $response );
+		if ( ! is_wp_error( $response ) && isset( $response['merge_fields'] ) ) {
+			$email_field = array(
+				'merge_id'      => 0,
+				'tag'           => 'EMAIL',
+				'name'          => __( 'Email Address' ),
+				'type'          => 'email',
+				'required'      => true,
+				'default_value' => '',
+				'public'        => true,
+				'display_order' => 1,
+				'options'       => array(
+					'size' => 25,
+				),
+				'list_id'       => $list_id,
+				'_links'        => array(),
+			);
+
+			array_unshift( $response['merge_fields'], $email_field );
+		}
+
+		return $response;
 	}
 }
