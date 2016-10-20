@@ -105,7 +105,7 @@ class Yikes_Inc_Easy_MailChimp_API_Manager {
 	 */
 	public function get_api() {
 		if ( null === $this->api ) {
-			$this->api = new Yikes_Inc_Easy_MailChimp_API( $this->get_datacenter() );
+			$this->api = new Yikes_Inc_Easy_MailChimp_API( $this->get_datacenter(), $this->get_api_key() );
 		}
 
 		return $this->api;
