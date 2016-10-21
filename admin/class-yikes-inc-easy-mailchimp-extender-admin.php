@@ -806,9 +806,9 @@ class Yikes_Inc_Easy_Mailchimp_Forms_Admin {
 
 		/* Top Level Menu 'Easy MailChimp' */
 		add_menu_page(
-			__( 'Easy Forms' , 'yikes-inc-easy-mailchimp-extender' ),
+			__( 'Easy Forms', 'yikes-inc-easy-mailchimp-extender' ),
 			'Easy Forms',
-			apply_filters( 'yikes-mailchimp-user-role-access' , 'manage_options' ),
+			apply_filters( 'yikes-mailchimp-user-role-access', 'manage_options' ),
 			'yikes-inc-easy-mailchimp',
 			'', // no callback,
 			YIKES_MC_URL . 'includes/images/MailChimp_Assets/Freddie_wink_icon.png'
@@ -817,131 +817,131 @@ class Yikes_Inc_Easy_Mailchimp_Forms_Admin {
 		// Sub Pages
 		/*************/
 
-			/* YIKES Inc. Easy MailChimp Settings */
+		/* YIKES Inc. Easy MailChimp Settings */
 
-				/* YIKES Inc. Easy MailChimp Manage Forms */
-				add_submenu_page(
-					'yikes-inc-easy-mailchimp',
-					__( 'Opt-in Forms' , 'yikes-inc-easy-mailchimp-extender' ),
-					__( 'Opt-in Forms' , 'yikes-inc-easy-mailchimp-extender' ),
-					apply_filters( 'yikes-mailchimp-user-role-access' , 'manage_options' ),
-					'yikes-inc-easy-mailchimp',
-					array( $this, 'generateManageFormsPage' )
-				);
+		/* YIKES Inc. Easy MailChimp Manage Forms */
+		add_submenu_page(
+			'yikes-inc-easy-mailchimp',
+			__( 'Opt-in Forms', 'yikes-inc-easy-mailchimp-extender' ),
+			__( 'Opt-in Forms', 'yikes-inc-easy-mailchimp-extender' ),
+			apply_filters( 'yikes-mailchimp-user-role-access', 'manage_options' ),
+			'yikes-inc-easy-mailchimp',
+			array( $this, 'generateManageFormsPage' )
+		);
 
-				/* YIKES Inc. Easy MailChimp Manage Lists */
-				add_submenu_page(
-					'yikes-inc-easy-mailchimp',
-					__( 'Mailing Lists' , 'yikes-inc-easy-mailchimp-extender' ),
-					__( 'Mailing Lists' , 'yikes-inc-easy-mailchimp-extender' ),
-					apply_filters( 'yikes-mailchimp-user-role-access' , 'manage_options' ),
-					'yikes-inc-easy-mailchimp-lists',
-					array( $this, 'generateManageListsPage' )
-				);
-
-
-				/*
-				*	Custom action hook to hook into to add additional
-				*	menu items from extensions
-				*/
-				do_action( 'yikes-mailchimp-menu' );
+		/* YIKES Inc. Easy MailChimp Manage Lists */
+		add_submenu_page(
+			'yikes-inc-easy-mailchimp',
+			__( 'Mailing Lists', 'yikes-inc-easy-mailchimp-extender' ),
+			__( 'Mailing Lists', 'yikes-inc-easy-mailchimp-extender' ),
+			apply_filters( 'yikes-mailchimp-user-role-access', 'manage_options' ),
+			'yikes-inc-easy-mailchimp-lists',
+			array( $this, 'generateManageListsPage' )
+		);
 
 
-			/* YIKES Inc. Easy MailChimp Account Overview */
-			if ( get_option('yikes-mc-api-validation') == 'valid_api_key' ) {
-				/* YIKES Inc. Easy MailChimp Settings */
-				add_submenu_page(
-					'yikes-inc-easy-mailchimp',
-					__( 'Account' , 'yikes-inc-easy-mailchimp-extender' ),
-					__( 'Account' , 'yikes-inc-easy-mailchimp-extender' ),
-					apply_filters( 'yikes-mailchimp-user-role-access' , 'manage_options' ),
-					'yikes-inc-easy-mailchimp-account-overview',
-					array( $this, 'generateAccountDetailsPage' )
-				);
-			}
+		/*
+		*	Custom action hook to hook into to add additional
+		*	menu items from extensions
+		*/
+		do_action( 'yikes-mailchimp-menu' );
 
 
+		/* YIKES Inc. Easy MailChimp Account Overview */
+		if ( get_option( 'yikes-mc-api-validation' ) == 'valid_api_key' ) {
 			/* YIKES Inc. Easy MailChimp Settings */
 			add_submenu_page(
 				'yikes-inc-easy-mailchimp',
-				__( 'Settings.' , 'yikes-inc-easy-mailchimp-extender' ),
-				__( 'Settings' , 'yikes-inc-easy-mailchimp-extender' ),
-				apply_filters( 'yikes-mailchimp-user-role-access' , 'manage_options' ),
-				'yikes-inc-easy-mailchimp-settings',
-				array( $this, 'generatePageOptions' )
+				__( 'Account', 'yikes-inc-easy-mailchimp-extender' ),
+				__( 'Account', 'yikes-inc-easy-mailchimp-extender' ),
+				apply_filters( 'yikes-mailchimp-user-role-access', 'manage_options' ),
+				'yikes-inc-easy-mailchimp-account-overview',
+				array( $this, 'generateAccountDetailsPage' )
 			);
+		}
 
-			/* Support Page */
-			add_submenu_page(
-				'yikes-inc-easy-mailchimp',
-				__( 'Support' , 'yikes-inc-easy-mailchimp-extender' ),
-				__( 'Support' , 'yikes-inc-easy-mailchimp-extender' ),
-				apply_filters( 'yikes-mailchimp-user-role-access' , 'manage_options' ),
-				'yikes-inc-easy-mailchimp-support',
-				array( $this, 'generateSupportPage' )
-			);
 
-			/* Add-Ons Page */
-			add_submenu_page(
-				'yikes-inc-easy-mailchimp',
-				__( 'Add-Ons' , 'yikes-inc-easy-mailchimp-extender' ),
-				__( 'Add-Ons' , 'yikes-inc-easy-mailchimp-extender' ),
-				apply_filters( 'yikes-mailchimp-user-role-access' , 'manage_options' ),
-				'yikes-inc-easy-mailchimp-addons',
-				array( $this , 'generateAddOnsPage' )
-			);
+		/* YIKES Inc. Easy MailChimp Settings */
+		add_submenu_page(
+			'yikes-inc-easy-mailchimp',
+			__( 'Settings.', 'yikes-inc-easy-mailchimp-extender' ),
+			__( 'Settings', 'yikes-inc-easy-mailchimp-extender' ),
+			apply_filters( 'yikes-mailchimp-user-role-access', 'manage_options' ),
+			'yikes-inc-easy-mailchimp-settings',
+			array( $this, 'generatePageOptions' )
+		);
 
-			/** Hidden Pages **/
+		/* Support Page */
+		add_submenu_page(
+			'yikes-inc-easy-mailchimp',
+			__( 'Support', 'yikes-inc-easy-mailchimp-extender' ),
+			__( 'Support', 'yikes-inc-easy-mailchimp-extender' ),
+			apply_filters( 'yikes-mailchimp-user-role-access', 'manage_options' ),
+			'yikes-inc-easy-mailchimp-support',
+			array( $this, 'generateSupportPage' )
+		);
 
-				/* Add Hidden Edit Form Page */
-				add_submenu_page(
-					'options.php',
-					__( 'Edit Form' , 'yikes-inc-easy-mailchimp-extender' ),
-					__( 'Edit Form' , 'yikes-inc-easy-mailchimp-extender' ),
-					apply_filters( 'yikes-mailchimp-user-role-access' , 'manage_options' ),
-					'yikes-mailchimp-edit-form',
-					array( $this, 'generateEditFormPage' )
-				);
+		/* Add-Ons Page */
+		add_submenu_page(
+			'yikes-inc-easy-mailchimp',
+			__( 'Add-Ons', 'yikes-inc-easy-mailchimp-extender' ),
+			__( 'Add-Ons', 'yikes-inc-easy-mailchimp-extender' ),
+			apply_filters( 'yikes-mailchimp-user-role-access', 'manage_options' ),
+			'yikes-inc-easy-mailchimp-addons',
+			array( $this, 'generateAddOnsPage' )
+		);
 
-				/* Add Hidden Migrate Options Page */
-				add_submenu_page(
-					'options-writing.php',
-					__( 'YIKES Inc. Easy Forms for MailChimp Upgrade Options Structure' , 'yikes-inc-easy-mailchimp-extender' ),
-					'YIKES Inc. Easy Forms for MailChimp Upgrade Options Structure',
-					'manage_options',
-					'yikes-inc-easy-mailchimp-update' ,
-					array( $this , 'migrate_old_yks_mc_options' )
-				);
+		/** Hidden Pages **/
 
-				/* Add Hidden Welcome Page */
-				add_submenu_page(
-					'options.php',
-					__( 'Welcome' , 'yikes-inc-easy-mailchimp-extender' ),
-					__( 'Welcome' , 'yikes-inc-easy-mailchimp-extender' ),
-					apply_filters( 'yikes-mailchimp-user-role-access' , 'manage_options' ),
-					'yikes-mailchimp-welcome',
-					array( $this, 'generateWelcomePage' )
-				);
+		/* Add Hidden Edit Form Page */
+		add_submenu_page(
+			'options.php',
+			__( 'Edit Form', 'yikes-inc-easy-mailchimp-extender' ),
+			__( 'Edit Form', 'yikes-inc-easy-mailchimp-extender' ),
+			apply_filters( 'yikes-mailchimp-user-role-access', 'manage_options' ),
+			'yikes-mailchimp-edit-form',
+			array( $this, 'generateEditFormPage' )
+		);
 
-				/* Add Hidden 'View List' Page */
-				add_submenu_page(
-					'options.php',
-					__( 'View List' , 'yikes-inc-easy-mailchimp-extender' ),
-					__( 'View List' , 'yikes-inc-easy-mailchimp-extender' ),
-					apply_filters( 'yikes-mailchimp-user-role-access' , 'manage_options' ),
-					'yikes-mailchimp-view-list',
-					array( $this, 'generateViewListPage' )
-				);
+		/* Add Hidden Migrate Options Page */
+		add_submenu_page(
+			'options-writing.php',
+			__( 'YIKES Inc. Easy Forms for MailChimp Upgrade Options Structure', 'yikes-inc-easy-mailchimp-extender' ),
+			'YIKES Inc. Easy Forms for MailChimp Upgrade Options Structure',
+			'manage_options',
+			'yikes-inc-easy-mailchimp-update',
+			array( $this, 'migrate_old_yks_mc_options' )
+		);
 
-				/* Add Hidden View User Page */
-				add_submenu_page(
-					'options.php',
-					__( 'View User' , 'yikes-inc-easy-mailchimp-extender' ),
-					__( 'View User' , 'yikes-inc-easy-mailchimp-extender' ),
-					apply_filters( 'yikes-mailchimp-user-role-access' , 'manage_options' ),
-					'yikes-mailchimp-view-user',
-					array( $this, 'generateViewUserPage' )
-				);
+		/* Add Hidden Welcome Page */
+		add_submenu_page(
+			'options.php',
+			__( 'Welcome', 'yikes-inc-easy-mailchimp-extender' ),
+			__( 'Welcome', 'yikes-inc-easy-mailchimp-extender' ),
+			apply_filters( 'yikes-mailchimp-user-role-access', 'manage_options' ),
+			'yikes-mailchimp-welcome',
+			array( $this, 'generateWelcomePage' )
+		);
+
+		/* Add Hidden 'View List' Page */
+		add_submenu_page(
+			'options.php',
+			__( 'View List', 'yikes-inc-easy-mailchimp-extender' ),
+			__( 'View List', 'yikes-inc-easy-mailchimp-extender' ),
+			apply_filters( 'yikes-mailchimp-user-role-access', 'manage_options' ),
+			'yikes-mailchimp-view-list',
+			array( $this, 'generateViewListPage' )
+		);
+
+		/* Add Hidden View User Page */
+		add_submenu_page(
+			'options.php',
+			__( 'View User', 'yikes-inc-easy-mailchimp-extender' ),
+			__( 'View User', 'yikes-inc-easy-mailchimp-extender' ),
+			apply_filters( 'yikes-mailchimp-user-role-access', 'manage_options' ),
+			'yikes-mailchimp-view-user',
+			array( $this, 'generateViewUserPage' )
+		);
 
 	}
 
