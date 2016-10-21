@@ -301,4 +301,39 @@ class Yikes_Inc_Easy_MailChimp_API_Lists extends Yikes_Inc_Easy_MailChimp_API_Ab
 
 		return $member;
 	}
+
+	/**
+	 * Get the lists that a member belongs to.
+	 *
+	 * @author Jeremy Pry
+	 *
+	 * @param string $member_id     The unique member ID.
+	 * @param bool   $use_transient Whether to use a transient.
+	 *
+	 * @return array
+	 */
+	public function get_members_lists( $member_id, $use_transient = true ) {
+		$transient = get_transient( "yikes_eme_member_lists_{$member_id}" );
+		if ( false !== $transient && $use_transient ) {
+			return $transient;
+		}
+
+		$member_lists = array();
+		$list_ids     = $this->get_list_ids();
+		if ( is_wp_error( $list_ids ) ) {
+			return array();
+		}
+
+		foreach ( $list_ids as $list_id ) {
+			$member = $this->get_member( $list_id, $member_id );
+			if ( is_wp_error( $member ) ) {
+				continue;
+			}
+			$member_lists[ $list_id ] = true;
+		}
+
+		set_transient( "yikes_eme_member_lists_{$member_id}", $member_lists, HOUR_IN_SECONDS );
+
+		return $member_lists;
+	}
 }
