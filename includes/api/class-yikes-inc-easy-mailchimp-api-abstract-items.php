@@ -96,8 +96,10 @@ abstract class Yikes_Inc_Easy_MailChimp_API_Abstract_Items {
 		$body = json_decode( wp_remote_retrieve_body( $response ), true );
 
 		// MailChimp uses the application/problem+json type for errors
-		if ( isset( $headers['Content-Type'] ) && 'application/problem+json' == $headers['Content-Type'] ) {
-			$body['error'] = true;
+		if ( isset( $headers['content-type'] ) ) {
+			if ( false !== strpos( $headers['content-type'], 'application/problem+json' ) ) {
+				$body['error'] = true;
+			}
 		}
 
 		return $body;
