@@ -24,11 +24,12 @@ class Yikes_Inc_Easy_MailChimp_API_Lists extends Yikes_Inc_Easy_MailChimp_API_Ab
 	 *
 	 * @author Jeremy Pry
 	 *
-	 * @param array $limit_fields Array of fields to limit the results. The fields should be keys in the array.
+	 * @param array $limit_fields  Array of fields to limit the results. The fields should be keys in the array.
+	 * @param bool  $use_transient Whether to use a transient.
 	 *
 	 * @return array|WP_Error The array of lists, indexed by list ID, or WP_Error if the API gave us an error.
 	 */
-	public function get_lists( $limit_fields = array() ) {
+	public function get_lists( $limit_fields = array(), $use_transient = true ) {
 		// Ensure the ID and total_items are always present in the limit fields
 		if ( ! empty( $limit_fields ) ) {
 			if ( ! isset( $limit_fields['lists.id'] ) ) {
@@ -39,10 +40,24 @@ class Yikes_Inc_Easy_MailChimp_API_Lists extends Yikes_Inc_Easy_MailChimp_API_Ab
 			}
 		}
 
-		// Add the limiting fields to the query.
-		$query = add_query_arg( 'fields', join( ',', array_keys( $limit_fields ) ), $this->base_path );
+		$joined_fields = join( ',', array_keys( $limit_fields ) );
+		$transient_key = empty( $limit_fields ) ? 'yikes_eme_lists' : "yikes_eme_lists_{$joined_fields}";
+		$transient     = get_transient( $transient_key );
+		if ( false !== $transient && $use_transient ) {
+			return $transient;
+		}
 
-		return $this->loop_items( $query, 'lists' );
+		// Add the limiting fields to the query.
+		$query = add_query_arg( 'fields', $joined_fields, $this->base_path );
+		$lists = $this->maybe_return_error( $this->loop_items( $query, 'lists' ) );
+
+		if ( is_wp_error( $lists ) ) {
+			return $lists;
+		}
+
+		set_transient( $transient_key, $lists, HOUR_IN_SECONDS );
+
+		return $lists;
 	}
 
 	/**
@@ -50,25 +65,55 @@ class Yikes_Inc_Easy_MailChimp_API_Lists extends Yikes_Inc_Easy_MailChimp_API_Ab
 	 *
 	 * @author Jeremy Pry
 	 *
-	 * @param string $list_id The list ID in MailChimp.
+	 * @param string $list_id       The list ID in MailChimp.
+	 * @param bool   $use_transient Whether to use a transient.
 	 *
 	 * @return array|WP_Error
 	 */
-	public function get_list( $list_id ) {
-		$path     = "{$this->base_path}/{$list_id}";
-		$response = $this->get_from_api( $path );
+	public function get_list( $list_id, $use_transient = true ) {
+		$transient = get_transient( "yikes_eme_list_{$list_id}" );
+		if ( false !== $transient && $use_transient ) {
+			return $transient;
+		}
 
-		return $this->maybe_return_error( $response );
+		$path     = "{$this->base_path}/{$list_id}";
+		$response = $this->maybe_return_error( $this->get_from_api( $path ) );
+
+		if ( is_wp_error( $response ) ) {
+			return $response;
+		}
+
+		set_transient( "yikes_eme_list_{$list_id}", $response, HOUR_IN_SECONDS );
+
+		return $response;
 	}
 
 	/**
 	 * Get an array of list IDs from the API.
 	 *
+	 * Utilizies a transient for caching.
+	 *
 	 * @author Jeremy Pry
-	 * @return array Array of list IDs.
+	 *
+	 * @param bool $use_transient Whether to use the transient.
+	 *
+	 * @return array|WP_Error Array of list IDs or WP_Error object.
 	 */
-	public function get_list_ids() {
-		return array_keys( $this->get_lists( array( 'lists.id' => true ) ) );
+	public function get_list_ids( $use_transient = true ) {
+		$transient = get_transient( 'yikesinc_eme_list_ids' );
+		if ( false !== $transient && $use_transient ) {
+			return $transient;
+		}
+
+		$lists = $this->get_lists( array( 'lists.id' => true ) );
+		if ( is_wp_error( $lists ) ) {
+			return $lists;
+		}
+
+		$list_ids = $list_ids = array_keys( $lists );
+		set_transient( 'yikesinc_eme_list_ids', $list_ids, HOUR_IN_SECONDS );
+
+		return $list_ids;
 	}
 
 	/**
@@ -76,11 +121,17 @@ class Yikes_Inc_Easy_MailChimp_API_Lists extends Yikes_Inc_Easy_MailChimp_API_Ab
 	 *
 	 * @author Jeremy Pry
 	 *
-	 * @param string $list_id The list ID in MailChimp.
+	 * @param string $list_id       The list ID in MailChimp.
+	 * @param bool   $use_transient Whether to use a transient.
 	 *
 	 * @return array|WP_Error
 	 */
-	public function get_merge_fields( $list_id ) {
+	public function get_merge_fields( $list_id, $use_transient = true ) {
+		$transient = get_transient( "yikes_eme_merge_variables_{$list_id}" );
+		if ( false !== $transient && $use_transient ) {
+			return $transient;
+		}
+
 		$path         = "{$this->base_path}/{$list_id}/merge-fields";
 		$merge_fields = $this->loop_items( $path, 'merge_fields', 'merge_id' );
 
@@ -115,6 +166,7 @@ class Yikes_Inc_Easy_MailChimp_API_Lists extends Yikes_Inc_Easy_MailChimp_API_Ab
 
 		array_unshift( $merge_fields, $email_field );
 		$merge_object['merge_fields'] = $merge_fields;
+		set_transient( "yikes_eme_merge_variables_{$list_id}", $merge_object, HOUR_IN_SECONDS );
 
 		return $merge_object;
 	}
@@ -124,11 +176,17 @@ class Yikes_Inc_Easy_MailChimp_API_Lists extends Yikes_Inc_Easy_MailChimp_API_Ab
 	 *
 	 * @author Jeremy Pry
 	 *
-	 * @param string $list_id The list ID.
+	 * @param string $list_id       The list ID.
+	 * @param bool   $use_transient Whether to use a transient.
 	 *
 	 * @return array|WP_Error
 	 */
-	public function get_interest_categories( $list_id ) {
+	public function get_interest_categories( $list_id, $use_transient = true ) {
+		$transient = get_transient( "yikes_eme_interest_categories_{$list_id}" );
+		if ( false !== $transient && $use_transient ) {
+			return $transient;
+		}
+
 		$base_path  = "{$this->base_path}/{$list_id}/interest-categories";
 		$categories = $this->loop_items( $base_path, 'categories' );
 
@@ -150,6 +208,8 @@ class Yikes_Inc_Easy_MailChimp_API_Lists extends Yikes_Inc_Easy_MailChimp_API_Ab
 			$category['items'] = $interests;
 		}
 
+		set_transient( "yikes_eme_interest_categories_{$list_id}", $categories, HOUR_IN_SECONDS );
+
 		return $categories;
 	}
 
@@ -158,17 +218,29 @@ class Yikes_Inc_Easy_MailChimp_API_Lists extends Yikes_Inc_Easy_MailChimp_API_Ab
 	 *
 	 * @author Jeremy Pry
 	 *
-	 * @param string $list_id The list ID.
+	 * @param string $list_id       The list ID.
+	 * @param bool   $use_transient Whether to use a transient.
 	 *
 	 * @return array|WP_Error
 	 */
-	public function get_segments( $list_id ) {
-		$base_path = "{$this->base_path}/{$list_id}/segments";
-		$base_path = add_query_arg( 'type', 'saved', $base_path );
-		$segments  = $this->loop_items( $base_path, 'segments' );
+	public function get_segments( $list_id, $use_transient = true ) {
+		$transient = get_transient( "yikes_eme_segments_{$list_id}" );
+		if ( false !== $transient && $use_transient ) {
+			return $transient;
+		}
 
 		// @todo: Include members in the segments?
-		return $this->maybe_return_error( $segments );
+		$base_path = "{$this->base_path}/{$list_id}/segments";
+		$base_path = add_query_arg( 'type', 'saved', $base_path );
+		$segments  = $this->maybe_return_error( $this->loop_items( $base_path, 'segments' ) );
+
+		if ( is_wp_error( $segments ) ) {
+			return $segments;
+		}
+
+		set_transient( "yikes_eme_segments_{$list_id}", $segments, HOUR_IN_SECONDS );
+
+		return $segments;
 	}
 
 	/**
@@ -178,14 +250,26 @@ class Yikes_Inc_Easy_MailChimp_API_Lists extends Yikes_Inc_Easy_MailChimp_API_Ab
 	 *
 	 * @author Jeremy Pry
 	 *
-	 * @param string $list_id The list ID.
+	 * @param string $list_id       The list ID.
+	 * @param bool   $use_transient Whether to use a transient.
 	 *
 	 * @return array|WP_Error
 	 */
-	public function get_members( $list_id ) {
-		$base_path = "{$this->base_path}/{$list_id}/members";
-		$members   = $this->loop_items( $base_path, 'members', 'email_address' );
+	public function get_members( $list_id, $use_transient = true ) {
+		$transient = get_transient( "yikes_eme_members_{$list_id}" );
+		if ( false !== $transient && $use_transient ) {
+			return $transient;
+		}
 
-		return $this->maybe_return_error( $members );
+		$base_path = "{$this->base_path}/{$list_id}/members";
+		$members   = $this->maybe_return_error( $this->loop_items( $base_path, 'members', 'email_address' ) );
+
+		if ( is_wp_error( $members ) ) {
+			return $members;
+		}
+
+		set_transient( "yikes_eme_members_{$list_id}", $members, HOUR_IN_SECONDS );
+
+		return $members;
 	}
 }
