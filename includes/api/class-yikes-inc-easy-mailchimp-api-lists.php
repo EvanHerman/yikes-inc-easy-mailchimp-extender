@@ -91,7 +91,7 @@ class Yikes_Inc_Easy_MailChimp_API_Lists extends Yikes_Inc_Easy_MailChimp_API_Ab
 	/**
 	 * Get an array of list IDs from the API.
 	 *
-	 * Utilizies a transient for caching.
+	 * Utilizes a transient for caching.
 	 *
 	 * @author Jeremy Pry
 	 *
@@ -271,5 +271,34 @@ class Yikes_Inc_Easy_MailChimp_API_Lists extends Yikes_Inc_Easy_MailChimp_API_Ab
 		set_transient( "yikes_eme_members_{$list_id}", $members, HOUR_IN_SECONDS );
 
 		return $members;
+	}
+
+	/**
+	 * Get data for an individual member.
+	 *
+	 * @author Jeremy Pry
+	 *
+	 * @param string $list_id       The list ID.
+	 * @param string $member_id     The member ID.
+	 * @param bool   $use_transient Whether to use a transient.
+	 *
+	 * @return array|WP_Error
+	 */
+	public function get_member( $list_id, $member_id, $use_transient = true ) {
+		$transient = get_transient( "yikes_eme_member_{$list_id}_{$member_id}" );
+		if ( false !== $transient && $use_transient ) {
+			return $transient;
+		}
+
+		$path   = "{$this->base_path}/{$list_id}/members/{$member_id}";
+		$member = $this->maybe_return_error( $this->get_from_api( $path ) );
+
+		if ( is_wp_error( $member ) ) {
+			return $member;
+		}
+
+		set_transient( "yikes_eme_member_{$list_id}_{$member_id}", $member, HOUR_IN_SECONDS );
+
+		return $member;
 	}
 }
