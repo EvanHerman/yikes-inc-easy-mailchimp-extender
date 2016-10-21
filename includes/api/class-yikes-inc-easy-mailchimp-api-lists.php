@@ -329,7 +329,7 @@ class Yikes_Inc_Easy_MailChimp_API_Lists extends Yikes_Inc_Easy_MailChimp_API_Ab
 			if ( is_wp_error( $member ) ) {
 				continue;
 			}
-			$member_lists[ $list_id ] = true;
+			$member_lists[ $list_id ] = $member;
 		}
 
 		set_transient( "yikes_eme_member_lists_{$member_id}", $member_lists, HOUR_IN_SECONDS );
