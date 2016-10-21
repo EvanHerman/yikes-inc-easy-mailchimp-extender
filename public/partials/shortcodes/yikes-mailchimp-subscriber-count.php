@@ -76,12 +76,9 @@ function yikes_mailchimp_subscriber_count_shortcode( $attributes ) {
 		) );
 
 		$subscriber_count_response = json_decode( wp_remote_retrieve_body( $subscriber_count_response ), true );
-		if( isset( $subscriber_count_response['error'] ) ) {
-			if( WP_DEBUG || get_option( 'yikes-mailchimp-debug-status' , '' ) == '1' ) {
-				require_once YIKES_MC_PATH . 'includes/error_log/class-yikes-inc-easy-mailchimp-error-logging.php';
-				$error_logging = new Yikes_Inc_Easy_Mailchimp_Error_Logging();
-				$error_logging->yikes_easy_mailchimp_write_to_error_log( $subscriber_count_response['error'], __( "Get Account Lists" , 'yikes-inc-easy-mailchimp-extender' ), "yikes-mailchimp-subscriber-count.php" );
-			}
+		if ( isset( $subscriber_count_response['error'] ) ) {
+			$error_logging = new Yikes_Inc_Easy_Mailchimp_Error_Logging();
+			$error_logging->maybe_write_to_log( $subscriber_count_response['error'], __( "Get Account Lists" , 'yikes-inc-easy-mailchimp-extender' ), "yikes-mailchimp-subscriber-count.php" );
 		}
 		// if more than one list is returned, something went wrong - bail
 		if( $subscriber_count_response['total'] != 1 ) {

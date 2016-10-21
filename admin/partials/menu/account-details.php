@@ -17,12 +17,9 @@
 				'sslverify' => apply_filters( 'yikes-mailchimp-sslverify', true )
 			) );
 			$profile_info = json_decode( wp_remote_retrieve_body( $profile_info ), true );
-			if( isset( $profile_info['error'] ) ) {
-				if( WP_DEBUG || get_option( 'yikes-mailchimp-debug-status' , '' ) == '1' ) {
-					require_once YIKES_MC_PATH . 'includes/error_log/class-yikes-inc-easy-mailchimp-error-logging.php';
-					$error_logging = new Yikes_Inc_Easy_Mailchimp_Error_Logging();
-					$error_logging->yikes_easy_mailchimp_write_to_error_log( $profile_info['error'], __( "Get Profile Info." , 'yikes-inc-easy-mailchimp-extender' ), "Account Details Page" );
-				}
+			if ( isset( $profile_info['error'] ) ) {
+				$error_logging = new Yikes_Inc_Easy_Mailchimp_Error_Logging();
+				$error_logging->maybe_write_to_log( $profile_info['error'], __( "Get Profile Info." , 'yikes-inc-easy-mailchimp-extender' ), "Account Details Page" );
 				return;
 			} else {
 				// set our transient for one week
@@ -41,12 +38,9 @@
 				'sslverify' => apply_filters( 'yikes-mailchimp-sslverify', true )
 			) );
 			$account_details = json_decode( wp_remote_retrieve_body( $account_details ), true );
-			if( isset( $account_details['error'] ) ) {
-				if( WP_DEBUG || get_option( 'yikes-mailchimp-debug-status' , '' ) == '1' ) {
-					require_once YIKES_MC_PATH . 'includes/error_log/class-yikes-inc-easy-mailchimp-error-logging.php';
-					$error_logging = new Yikes_Inc_Easy_Mailchimp_Error_Logging();
-					$error_logging->yikes_easy_mailchimp_write_to_error_log( $account_details['error'], __( "Get Account Details" , 'yikes-inc-easy-mailchimp-extender' ), "Account Details Page" );
-				}
+			if ( isset( $account_details['error'] ) ) {
+				$error_logging = new Yikes_Inc_Easy_Mailchimp_Error_Logging();
+				$error_logging->maybe_write_to_log( $account_details['error'], __( "Get Account Details" , 'yikes-inc-easy-mailchimp-extender' ), "Account Details Page" );
 			} else {
 				// set our transient for one hour
 				set_transient( 'yikes-easy-mailchimp-account-data', $account_details, 1 * HOUR_IN_SECONDS );
@@ -66,11 +60,8 @@
 			) );
 			$account_activity = json_decode( wp_remote_retrieve_body( $account_activity ), true );
 			if( isset( $account_activity['error'] ) ) {
-				if( WP_DEBUG || get_option( 'yikes-mailchimp-debug-status' , '' ) == '1' ) {
-					require_once YIKES_MC_PATH . 'includes/error_log/class-yikes-inc-easy-mailchimp-error-logging.php';
-					$error_logging = new Yikes_Inc_Easy_Mailchimp_Error_Logging();
-					$error_logging->yikes_easy_mailchimp_write_to_error_log( $account_activity['error'], __( "Get Chimp Chatter" , 'yikes-inc-easy-mailchimp-extender' ), "Account Details Page" );
-				}
+				$error_logging = new Yikes_Inc_Easy_Mailchimp_Error_Logging();
+				$error_logging->maybe_write_to_log( $account_activity['error'], __( "Get Chimp Chatter" , 'yikes-inc-easy-mailchimp-extender' ), "Account Details Page" );
 			} else {
 				// set our transient for one hour
 				set_transient( 'yikes-easy-mailchimp-account-activity', $account_activity, 1 * HOUR_IN_SECONDS );

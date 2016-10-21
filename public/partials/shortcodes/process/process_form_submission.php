@@ -175,13 +175,9 @@ if ( ! isset( $_POST['yikes_easy_mc_new_subscriber'] ) || ! wp_verify_nonce( $_P
 		$subscribe_response = json_decode( wp_remote_retrieve_body( $subscribe_response ), true );
 
 		// check for any errors
-		if( isset( $subscribe_response['error'] ) ) {
-
-			if( WP_DEBUG || get_option( 'yikes-mailchimp-debug-status' , '' ) == '1' ) {
-				require_once YIKES_MC_PATH . 'includes/error_log/class-yikes-inc-easy-mailchimp-error-logging.php';
-				$error_logging = new Yikes_Inc_Easy_Mailchimp_Error_Logging();
-				$error_logging->yikes_easy_mailchimp_write_to_error_log( $subscribe_response['error'], __( "Subscribe New User" , 'yikes-inc-easy-mailchimp-extender' ), "process_form_submission.php" );
-			}
+		if ( isset( $subscribe_response['error'] ) ) {
+			$error_logging = new Yikes_Inc_Easy_Mailchimp_Error_Logging();
+			$error_logging->maybe_write_to_log( $subscribe_response['error'], __( "Subscribe New User" , 'yikes-inc-easy-mailchimp-extender' ), "process_form_submission.php" );
 
 			$update_account_details_link = '';
 			switch( $subscribe_response['code'] ) {
@@ -220,12 +216,9 @@ if ( ! isset( $_POST['yikes_easy_mc_new_subscriber'] ) || ! wp_verify_nonce( $_P
 							'sslverify' => apply_filters( 'yikes-mailchimp-sslverify', true ),
 						) );
 						$merge_variables = json_decode( wp_remote_retrieve_body( $merge_variables ), true );
-						if( isset( $merge_variables['error'] ) ) {
-							if( WP_DEBUG || get_option( 'yikes-mailchimp-debug-status' , '' ) == '1' ) {
-								require_once YIKES_MC_PATH . 'includes/error_log/class-yikes-inc-easy-mailchimp-error-logging.php';
-								$error_logging = new Yikes_Inc_Easy_Mailchimp_Error_Logging();
-								$error_logging->yikes_easy_mailchimp_write_to_error_log( $merge_variables['error'], __( "Get Merge Variables" , 'yikes-inc-easy-mailchimp-extender' ), "process_form_submission.php" );
-							}
+						if ( isset( $merge_variables['error'] ) ) {
+							$error_logging = new Yikes_Inc_Easy_Mailchimp_Error_Logging();
+							$error_logging->maybe_write_to_log( $merge_variables['error'], __( "Get Merge Variables" , 'yikes-inc-easy-mailchimp-extender' ), "process_form_submission.php" );
 						}
 						// re-store our data
 						$merge_variables = $merge_variables['data'][0]['merge_vars'];

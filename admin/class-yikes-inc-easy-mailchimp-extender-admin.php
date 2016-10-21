@@ -1179,7 +1179,6 @@ class Yikes_Inc_Easy_Mailchimp_Forms_Admin {
 				$this->delete_yikes_mailchimp_transients();
 			}
 		}  else {
-			require_once YIKES_MC_PATH . 'includes/error_log/class-yikes-inc-easy-mailchimp-error-logging.php';
 			$error_logging = new Yikes_Inc_Easy_Mailchimp_Error_Logging();
 			$error_logging->yikes_easy_mailchimp_write_to_error_log( $api_key_response->get_error_message() , __( "Connecting to MailChimp" , 'yikes-inc-easy-mailchimp-extender' ) , __( "Settings Page/General Settings" , 'yikes-inc-easy-mailchimp-extender' ) );
 			update_option( 'yikes-mc-api-invalid-key-response' , $api_key_response->get_error_message() );
@@ -2396,10 +2395,8 @@ class Yikes_Inc_Easy_Mailchimp_Forms_Admin {
 			if ( false == $result ) {
 				// write it to the error log
 				// if the form was not created successfully
-				if( get_option( 'yikes-mailchimp-debug-status' , '' ) == '1' ) {
-					$error_logging = new Yikes_Inc_Easy_Mailchimp_Error_Logging();
-					$error_logging->yikes_easy_mailchimp_write_to_error_log( __( 'Error creating a new form', 'yikes-inc-easy-mailchimp-extender') , __( "Creating a new form" , 'yikes-inc-easy-mailchimp-extender' ) , __( "Forms" , 'yikes-inc-easy-mailchimp-extender' ) );
-				}
+				$error_logging = new Yikes_Inc_Easy_Mailchimp_Error_Logging();
+				$error_logging->maybe_write_to_log( __( 'Error creating a new form', 'yikes-inc-easy-mailchimp-extender') , __( "Creating a new form" , 'yikes-inc-easy-mailchimp-extender' ) , __( "Forms" , 'yikes-inc-easy-mailchimp-extender' ) );
 				wp_redirect( esc_url_raw( admin_url( 'admin.php?page=yikes-mailchimp-edit-form&sql_error=' . urlencode( __( 'Error creating a new form', 'yikes-inc-easy-mailchimp-extender' ) ) ) ) );
 			} else {
 				// redirect the user to the new form edit page
@@ -2643,11 +2640,8 @@ class Yikes_Inc_Easy_Mailchimp_Forms_Admin {
 			if( ! is_wp_error( $response ) ) {
 				$response_body = json_decode( wp_remote_retrieve_body( $response ), true );
 				if( isset( $response_body['error'] ) ) {
-					if( WP_DEBUG || get_option( 'yikes-mailchimp-debug-status' , '' ) == '1' ) {
-						require_once YIKES_MC_PATH . 'includes/error_log/class-yikes-inc-easy-mailchimp-error-logging.php';
-						$error_logging = new Yikes_Inc_Easy_Mailchimp_Error_Logging();
-						$error_logging->yikes_easy_mailchimp_write_to_error_log( $response_body['error'], __( "Unsubscribe User" , 'yikes-inc-easy-mailchimp-extender' ) , __( "Manage List Page" , 'yikes-inc-easy-mailchimp-extender' ) );
-					}
+					$error_logging = new Yikes_Inc_Easy_Mailchimp_Error_Logging();
+					$error_logging->maybe_write_to_log( $response_body['error'], __( "Unsubscribe User" , 'yikes-inc-easy-mailchimp-extender' ) , __( "Manage List Page" , 'yikes-inc-easy-mailchimp-extender' ) );
 				}
 				wp_redirect( esc_url_raw( admin_url( 'admin.php?page=yikes-mailchimp-view-list&list-id=' . $list_id . '&user-unsubscribed=true' ) ) );
 				exit;

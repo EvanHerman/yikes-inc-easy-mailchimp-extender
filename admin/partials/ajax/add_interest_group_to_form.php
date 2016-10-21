@@ -16,11 +16,8 @@
 	$interest_groupings_body = json_decode( wp_remote_retrieve_body( $interest_groupings ), true );
 	if( ! is_wp_error( $interest_groupings_body ) ) {
 		if( isset( $interest_groupings_body['error'] ) ) {
-			if( WP_DEBUG || get_option( 'yikes-mailchimp-debug-status' , '' ) == '1' ) {
-				require_once YIKES_MC_PATH . 'includes/error_log/class-yikes-inc-easy-mailchimp-error-logging.php';
-				$error_logging = new Yikes_Inc_Easy_Mailchimp_Error_Logging();
-				$error_logging->yikes_easy_mailchimp_write_to_error_log( $interest_groupings_body['error'], __( "Get Interest Groups" , 'yikes-inc-easy-mailchimp-extender' ) , __( "Add Interest Group to Form" , 'yikes-inc-easy-mailchimp-extender' ) );
-			}
+			$error_logging = new Yikes_Inc_Easy_Mailchimp_Error_Logging();
+			$error_logging->maybe_write_to_log( $interest_groupings_body['error'], __( "Get Interest Groups" , 'yikes-inc-easy-mailchimp-extender' ) , __( "Add Interest Group to Form" , 'yikes-inc-easy-mailchimp-extender' ) );
 			?>
 			<section class="draggable" id="error-container">
 				<p><span class="dashicons dashicons-no-alt"></span> <?php printf( __( 'Error: %s', 'yikes-inc-easy-mailchimp-extender' ), $interest_groupings_body['error'] ); ?></p>

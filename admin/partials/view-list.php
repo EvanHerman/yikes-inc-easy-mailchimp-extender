@@ -133,11 +133,8 @@ $subscribers_list = wp_remote_post( $api_endpoint, array(
 ) );
 $subscribers_list = json_decode( wp_remote_retrieve_body( $subscribers_list ), true );
 if ( isset( $subscribers_list['error'] ) ) {
-	if ( WP_DEBUG || get_option( 'yikes-mailchimp-debug-status', '' ) == '1' ) {
-		require_once YIKES_MC_PATH . 'includes/error_log/class-yikes-inc-easy-mailchimp-error-logging.php';
-		$error_logging = new Yikes_Inc_Easy_Mailchimp_Error_Logging();
-		$error_logging->yikes_easy_mailchimp_write_to_error_log( $subscribers_list['error'], __( "Get Subscriber Count", 'yikes-inc-easy-mailchimp-extender' ), "View Lists Page" );
-	}
+	$error_logging = new Yikes_Inc_Easy_Mailchimp_Error_Logging();
+	$error_logging->maybe_write_to_log( $subscribers_list['error'], __( "Get Subscriber Count", 'yikes-inc-easy-mailchimp-extender' ), "View Lists Page" );
 }
 
 $total_pages = ceil( $subscribers_list['total'] / $limit );

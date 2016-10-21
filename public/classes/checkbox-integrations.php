@@ -45,12 +45,9 @@
 					'sslverify' => apply_filters( 'yikes-mailchimp-sslverify', true )
 				) );
 				$already_subscribed = json_decode( wp_remote_retrieve_body( $already_subscribed ), true );
-				if( isset( $already_subscribed['error'] ) ) {
-					if( WP_DEBUG || get_option( 'yikes-mailchimp-debug-status' , '' ) == '1' ) {
-						require_once YIKES_MC_PATH . 'includes/error_log/class-yikes-inc-easy-mailchimp-error-logging.php';
-						$error_logging = new Yikes_Inc_Easy_Mailchimp_Error_Logging();
-						$error_logging->yikes_easy_mailchimp_write_to_error_log( $already_subscribed['error'], __( "Get Member Info" , 'yikes-inc-easy-mailchimp-extender' ), "Checkbox Integrations Page" );
-					}
+				if ( isset( $already_subscribed['error'] ) ) {
+					$error_logging = new Yikes_Inc_Easy_Mailchimp_Error_Logging();
+					$error_logging->maybe_write_to_log( $already_subscribed['error'], __( "Get Member Info" , 'yikes-inc-easy-mailchimp-extender' ), "Checkbox Integrations Page" );
 				}
 				if( ! Isset( $already_subscribed['error'] ) ) {
 					return $already_subscribed['success_count'];
@@ -88,12 +85,9 @@
 					'sslverify' => apply_filters( 'yikes-mailchimp-sslverify', true )
 				) );
 				$already_subscribed = json_decode( wp_remote_retrieve_body( $already_subscribed ), true );
-				if( isset( $already_subscribed['error'] ) ) {
-					if( WP_DEBUG || get_option( 'yikes-mailchimp-debug-status' , '' ) == '1' ) {
-						require_once YIKES_MC_PATH . 'includes/error_log/class-yikes-inc-easy-mailchimp-error-logging.php';
-						$error_logging = new Yikes_Inc_Easy_Mailchimp_Error_Logging();
-						$error_logging->yikes_easy_mailchimp_write_to_error_log( $already_subscribed['error'], __( "Get Member Info" , 'yikes-inc-easy-mailchimp-extender' ), "Checkbox Integrations Page" );
-					}
+				if ( isset( $already_subscribed['error'] ) ) {
+					$error_logging = new Yikes_Inc_Easy_Mailchimp_Error_Logging();
+					$error_logging->maybe_write_to_log( $already_subscribed['error'], __( "Get Member Info" , 'yikes-inc-easy-mailchimp-extender' ), "Checkbox Integrations Page" );
 				}
 				return $already_subscribed['success_count'];
 			} catch ( Exception $error ) {
@@ -184,14 +178,11 @@
 				'timeout' => 10,
 				'sslverify' => apply_filters( 'yikes-mailchimp-sslverify', true )
 			) );
-			if( ! Is_wp_error( $subscribe_response ) ) {
+			if( ! is_wp_error( $subscribe_response ) ) {
 				$response_body = json_decode( wp_remote_retrieve_body( $subscribe_response ), true );
-				if( WP_DEBUG || isset( $response_body['error'] ) ) {
-					if( get_option( 'yikes-mailchimp-debug-status' , '' ) == '1' ) {
-						require_once YIKES_MC_PATH . 'includes/error_log/class-yikes-inc-easy-mailchimp-error-logging.php';
-						$error_logging = new Yikes_Inc_Easy_Mailchimp_Error_Logging();
-						$error_logging->yikes_easy_mailchimp_write_to_error_log( $response_body['error'], __( "Checkbox Integration Subscribe User" , 'yikes-inc-easy-mailchimp-extender' ), "Checkbox Integrations" );
-					}
+				if ( isset( $response_body['error'] ) ) {
+					$error_logging = new Yikes_Inc_Easy_Mailchimp_Error_Logging();
+					$error_logging->maybe_write_to_log( $response_body['error'], __( "Checkbox Integration Subscribe User" , 'yikes-inc-easy-mailchimp-extender' ), "Checkbox Integrations" );
 				}
 			}
 			return;
