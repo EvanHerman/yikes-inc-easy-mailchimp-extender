@@ -84,29 +84,39 @@ class Yikes_Inc_Easy_MailChimp_API_Lists extends Yikes_Inc_Easy_MailChimp_API_Ab
 		$path         = "{$this->base_path}/{$list_id}/merge-fields";
 		$merge_fields = $this->loop_items( $path, 'merge_fields', 'merge_id' );
 
-		// The API doesn't give us the email field, so let's create that ourselves.
-		$merge_fields = $this->maybe_return_error( $merge_fields );
-		if ( ! is_wp_error( $merge_fields ) && ! empty( $merge_fields ) ) {
-			$email_field = array(
-				'merge_id'      => 0,
-				'tag'           => 'EMAIL',
-				'name'          => __( 'Email Address' ),
-				'type'          => 'email',
-				'required'      => true,
-				'default_value' => '',
-				'public'        => true,
-				'display_order' => 1,
-				'options'       => array(
-					'size' => 25,
-				),
-				'list_id'       => $list_id,
-				'_links'        => array(),
-			);
-
-			array_unshift( $merge_fields, $email_field );
+		if ( is_wp_error( $merge_fields ) ) {
+			return $merge_fields;
 		}
 
-		return $merge_fields;
+		// Get the whole merge object, minus the fields we already retrieved.
+		$path         = add_query_arg( 'exclude_fields', 'merge_fields', $path );
+		$merge_object = $this->get_from_api( $path );
+
+		if ( is_wp_error( $merge_object ) ) {
+			return $merge_object;
+		}
+
+		// The API doesn't give us the email field, so let's create that ourselves.
+		$email_field = array(
+			'merge_id'      => 0,
+			'tag'           => 'EMAIL',
+			'name'          => __( 'Email Address' ),
+			'type'          => 'email',
+			'required'      => true,
+			'default_value' => '',
+			'public'        => true,
+			'display_order' => 1,
+			'options'       => array(
+				'size' => 25,
+			),
+			'list_id'       => $list_id,
+			'_links'        => array(),
+		);
+
+		array_unshift( $merge_fields, $email_field );
+		$merge_object['merge_fields'] = $merge_fields;
+
+		return $merge_object;
 	}
 
 	/**
