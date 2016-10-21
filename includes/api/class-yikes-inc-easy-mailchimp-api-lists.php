@@ -160,4 +160,22 @@ class Yikes_Inc_Easy_MailChimp_API_Lists extends Yikes_Inc_Easy_MailChimp_API_Ab
 		// @todo: Include members in the segments?
 		return $this->maybe_return_error( $segments );
 	}
+
+	/**
+	 * Get the members associated with a list.
+	 *
+	 * The members will be keyed to their email address.
+	 *
+	 * @author Jeremy Pry
+	 *
+	 * @param string $list_id The list ID.
+	 *
+	 * @return array|WP_Error
+	 */
+	public function get_members( $list_id ) {
+		$base_path = "{$this->base_path}/{$list_id}/members";
+		$members   = $this->loop_items( $base_path, 'members', 'email_address' );
+
+		return $this->maybe_return_error( $members );
+	}
 }
