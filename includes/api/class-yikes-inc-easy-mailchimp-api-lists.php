@@ -142,4 +142,22 @@ class Yikes_Inc_Easy_MailChimp_API_Lists extends Yikes_Inc_Easy_MailChimp_API_Ab
 
 		return $categories;
 	}
+
+	/**
+	 * Get segments for a list.
+	 *
+	 * @author Jeremy Pry
+	 *
+	 * @param string $list_id The list ID.
+	 *
+	 * @return array|WP_Error
+	 */
+	public function get_segments( $list_id ) {
+		$base_path = "{$this->base_path}/{$list_id}/segments";
+		$base_path = add_query_arg( 'type', 'saved', $base_path );
+		$segments  = $this->loop_items( $base_path, 'segments' );
+
+		// @todo: Include members in the segments?
+		return $this->maybe_return_error( $segments );
+	}
 }
