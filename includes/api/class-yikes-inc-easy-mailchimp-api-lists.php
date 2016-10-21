@@ -251,17 +251,18 @@ class Yikes_Inc_Easy_MailChimp_API_Lists extends Yikes_Inc_Easy_MailChimp_API_Ab
 	 * @author Jeremy Pry
 	 *
 	 * @param string $list_id       The list ID.
+	 * @param string $status        The subscriber status.
 	 * @param bool   $use_transient Whether to use a transient.
 	 *
 	 * @return array|WP_Error
 	 */
-	public function get_members( $list_id, $use_transient = true ) {
+	public function get_members( $list_id, $status = 'subscribed', $use_transient = true ) {
 		$transient = get_transient( "yikes_eme_members_{$list_id}" );
 		if ( false !== $transient && $use_transient ) {
 			return $transient;
 		}
 
-		$base_path = "{$this->base_path}/{$list_id}/members";
+		$base_path = add_query_arg( 'status', $status, "{$this->base_path}/{$list_id}/members" );
 		$members   = $this->maybe_return_error( $this->loop_items( $base_path, 'members', 'email_address' ) );
 
 		if ( is_wp_error( $members ) ) {
