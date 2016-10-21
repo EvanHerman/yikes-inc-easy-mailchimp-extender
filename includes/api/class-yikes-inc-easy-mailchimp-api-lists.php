@@ -337,4 +337,25 @@ class Yikes_Inc_Easy_MailChimp_API_Lists extends Yikes_Inc_Easy_MailChimp_API_Ab
 
 		return $member_lists;
 	}
+
+	/**
+	 * Unsubscribe a member from the list.
+	 *
+	 * @author Jeremy Pry
+	 *
+	 * @param string $list_id   The list ID.
+	 * @param string $member_id The member ID.
+	 *
+	 * @return array|WP_Error
+	 */
+	public function member_unsubscribe( $list_id, $member_id ) {
+		$path     = "{$this->base_path}/{$list_id}/members/{$member_id}";
+		$body     = array( 'status' => 'unsubscribed' );
+		$response = $this->patch_to_api( $path, $body );
+
+		// Clear the list members transient
+		delete_transient( "yikes_eme_members_{$list_id}" );
+
+		return $this->maybe_return_error( $response );
+	}
 }
