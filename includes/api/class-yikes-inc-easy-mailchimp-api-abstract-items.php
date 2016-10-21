@@ -86,23 +86,10 @@ abstract class Yikes_Inc_Easy_MailChimp_API_Abstract_Items {
 	 */
 	protected function get_from_api( $path, $headers = array(), $params = array() ) {
 		$response = $this->api->get( $path, $headers, $params );
-		$headers  = wp_remote_retrieve_headers( $response );
 
-		if ( is_wp_error( $response ) ) {
-			return $response;
-		}
+		return $this->determine_error_response( $response );
 
-		// JSON-decode the body.
-		$body = json_decode( wp_remote_retrieve_body( $response ), true );
 
-		// MailChimp uses the application/problem+json type for errors
-		if ( isset( $headers['content-type'] ) ) {
-			if ( false !== strpos( $headers['content-type'], 'application/problem+json' ) ) {
-				$body['error'] = true;
-			}
-		}
-
-		return $body;
 	}
 
 	/**
@@ -122,5 +109,31 @@ abstract class Yikes_Inc_Easy_MailChimp_API_Abstract_Items {
 		return $response;
 	}
 
+	/**
+	 * Determine if the response is an error.
+	 *
+	 * @author Jeremy Pry
+	 *
+	 * @param array|WP_Error $response
+	 *
+	 * @return array|WP_Error
+	 */
+	protected function determine_error_response( $response ) {
+		if ( is_wp_error( $response ) ) {
+			return $response;
+		}
 
+		// JSON-decode the body.
+		$body = json_decode( wp_remote_retrieve_body( $response ), true );
+
+		// MailChimp uses the application/problem+json type for errors
+		$headers = wp_remote_retrieve_headers( $response );
+		if ( isset( $headers['content-type'] ) ) {
+			if ( false !== strpos( $headers['content-type'], 'application/problem+json' ) ) {
+				$body['error'] = true;
+			}
+		}
+
+		return $body;
+	}
 }
