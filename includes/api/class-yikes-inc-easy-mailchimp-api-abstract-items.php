@@ -28,11 +28,12 @@ abstract class Yikes_Inc_Easy_MailChimp_API_Abstract_Items {
 	 *
 	 * @param string $query        The relative path, including any query args.
 	 * @param string $item_key     The item key to look for in results.
+	 * @param string $index_field  The item field to use as an index.
 	 * @param int    $offset_start The offset to start at.
 	 *
 	 * @return array|WP_Error
 	 */
-	protected function loop_items( $query, $item_key, $offset_start = 0 ) {
+	protected function loop_items( $query, $item_key, $index_field = 'id', $offset_start = 0 ) {
 		// Set some initial variables.
 		$items  = array();
 		$offset = $offset_start;
@@ -63,7 +64,7 @@ abstract class Yikes_Inc_Easy_MailChimp_API_Abstract_Items {
 
 			// Store each new list.
 			foreach ( $response[ $item_key ] as $item ) {
-				$items[ $item['id'] ] = $item;
+				$items[ $item[ $index_field ] ] = $item;
 			}
 
 			$offset += 10;
