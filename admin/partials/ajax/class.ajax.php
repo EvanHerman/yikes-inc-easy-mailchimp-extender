@@ -141,22 +141,9 @@
 		*	- http://stackoverflow.com/questions/6661530/php-multi-dimensional-array-search
 		*/
 		public function findMCListIndex( $id, $array, $tag ) {
-			if( $tag == 'tag' ) {
-				foreach( $array as $key => $val ) {
-					   if ( $val['tag'] === $id ) {
-						   return $key;
-					   }
-				   }
-			   return null;
-			} else {
-				foreach ( $array as $key => $val ) {
-				   if ( $val['id'] == $id ) {
-					   return $key;
-				   }
-			   }
-			return null;
-			}
-	  	} // end
+			$mapping = array_flip( wp_list_pluck( $array, $tag ) );
+			$index   = isset( $mapping[ $id ] ) ? $mapping[ $id ] : null;
 
-	} // end class
-
+			return $index;
+		}
+	}
