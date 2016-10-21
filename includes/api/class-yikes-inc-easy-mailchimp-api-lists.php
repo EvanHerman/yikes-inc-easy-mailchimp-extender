@@ -114,7 +114,7 @@ class Yikes_Inc_Easy_MailChimp_API_Lists extends Yikes_Inc_Easy_MailChimp_API_Ab
 	 *
 	 * @author Jeremy Pry
 	 *
-	 * @param $list_id
+	 * @param string $list_id The list ID.
 	 *
 	 * @return array|WP_Error
 	 */
@@ -129,7 +129,7 @@ class Yikes_Inc_Easy_MailChimp_API_Lists extends Yikes_Inc_Easy_MailChimp_API_Ab
 
 		// Loop through each interest category and attach the items.
 		foreach ( $categories as $id => &$category ) {
-			$path = "{$base_path}/{$id}/interests";
+			$path      = "{$base_path}/{$id}/interests";
 			$interests = $this->loop_items( $path, 'interests' );
 
 			// Check for Error, and maybe return early.
