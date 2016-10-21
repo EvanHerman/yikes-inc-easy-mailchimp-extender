@@ -11,6 +11,13 @@
 class Yikes_Inc_Easy_MailChimp_API_Manager {
 
 	/**
+	 * The account manager instance.
+	 *
+	 * @var Yikes_Inc_Easy_MailChimp_API_Account
+	 */
+	protected $account_manager = null;
+
+	/**
 	 * Our API instance.
 	 *
 	 * @var Yikes_Inc_Easy_MailChimp_API
@@ -131,5 +138,19 @@ class Yikes_Inc_Easy_MailChimp_API_Manager {
 		}
 
 		return $this->list_manager;
+	}
+
+	/**
+	 * Get the Account Manager instance.
+	 *
+	 * @author Jeremy Pry
+	 * @return Yikes_Inc_Easy_MailChimp_API_Account
+	 */
+	public function get_account_handler() {
+		if ( null === $this->account_manager ) {
+			$this->account_manager = new Yikes_Inc_Easy_MailChimp_API_Account( $this->get_api() );
+		}
+
+		return $this->account_manager;
 	}
 }
