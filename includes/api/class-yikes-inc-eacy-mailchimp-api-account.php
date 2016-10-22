@@ -20,7 +20,8 @@ class Yikes_Inc_Easy_MailChimp_API_Account extends Yikes_Inc_Easy_MailChimp_API_
 			return $transient;
 		}
 
-		$response = $this->maybe_return_error( $this->api->get( '' ) );
+		$response = $this->parse_response( $this->api->get( '' ) );
+		$response = $this->maybe_return_error( $response );
 		if ( ! is_wp_error( $response ) ) {
 			set_transient( 'yikes_eme_account', $response, HOUR_IN_SECONDS );
 		}
