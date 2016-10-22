@@ -3,8 +3,9 @@
 *	Get and store our variables
 *	@since 6.0
 */
-$list_id  = $_GET['mailchimp-list'];
-$email_id = (int) esc_attr( $_GET['email-id'] );
+$list_id     = $_GET['mailchimp-list'];
+$email_id    = esc_attr( $_GET['email-id'] );
+$list_helper = yikes_get_mc_api_manager()->get_list_handler();
 
 /*
 *	Confirm that our data is set
@@ -15,145 +16,96 @@ if ( ! isset( $list_id ) || ! isset( $email_id ) ) {
 	exit;
 }
 
-// run our API call, to get list data..
-$api_key       = yikes_get_mc_api_key();
-$dash_position = strpos( $api_key, '-' );
-
-// get this lists data
-if ( $dash_position !== false ) {
-	$api_endpoint = 'https://' . substr( $api_key, $dash_position + 1 ) . '.api.mailchimp.com/2.0/lists/member-info.json';
-}
-$user_data = wp_remote_post( $api_endpoint, array(
-	'body'      => array(
-		'apikey' => $api_key,
-		'id'     => $list_id,
-		'emails' => array(
-			array( 'leid' => $email_id ),
-		),
-	),
-	'timeout'   => 10,
-	'sslverify' => apply_filters( 'yikes-mailchimp-sslverify', true ),
-) );
-$user_data = json_decode( wp_remote_retrieve_body( $user_data ), true );
-
-if ( isset( $user_data['error'] ) ) {
+$user_data = $list_helper->get_member( $list_id, $email_id );
+if ( is_wp_error( $user_data ) ) {
 	$error_logging = new Yikes_Inc_Easy_Mailchimp_Error_Logging();
-	$error_logging->maybe_write_to_log( $user_data['error'], __( "Get Member Info", 'yikes-inc-easy-mailchimp-extender' ), "View User Page" );
-}
+	$error_logging->maybe_write_to_log(
+		$user_data->get_error_code(),
+		__( "Get Member Info", 'yikes-inc-easy-mailchimp-extender' ),
+		"View User Page"
+	);
 
-/*
-*	Check for MailChimp returned errors
-*/
-if ( isset( $user_data['error'] ) ) {
 	echo '<h4>Error</h4>';
-	echo $user_data['error'] . '.';
+	echo $user_data->get_error_code() . '.';
 
 	return;
 }
 
-if ( isset( $user_data['data'][0] ) ) {
-	// reset our data so we can easily use it
-	$user_data = $user_data['data'][0];
+if ( empty( $user_data ) ) {
+	return;
+}
 
-	$other_lists      = ( isset( $user_data['lists'] ) && ! empty( $user_data['lists'] ) ) ? $user_data['lists'] : array();
-	$merge_data_array = ( $user_data['merges'] && ! empty( $user_data['merges'] ) ) ? $user_data['merges'] : array();
+$other_lists      = $list_helper->get_members_lists( $email_id );
+$merge_data_array = $user_data['merge_fields'];
 
-	// print_r( $user_data );
+$additional_lists = array();
+$merge_variable_fields = array();
 
-	/* Empty array to populate with list names */
-	$additional_lists = array();
-	/* Merge Variable Fields */
-	$merge_variable_fields = array();
-
-	/* Build the array of mailing lists the user is subscribed to */
-	if ( isset( $other_lists ) && count( $other_lists ) >= 1 ) {
-		foreach ( $other_lists as $list ) {
-			if ( $list['status'] == 'subscribed' ) {
-				if ( $dash_position !== false ) {
-					$api_endpoint = 'https://' . substr( $api_key, $dash_position + 1 ) . '.api.mailchimp.com/2.0/lists/list.json';
-				}
-				$list_data = wp_remote_post( $api_endpoint, array(
-					'body'      => array(
-						'apikey'  => $api_key,
-						'filters' => array(
-							'list_id' => $list['id'],
-						),
-					),
-					'timeout'   => 10,
-					'sslverify' => apply_filters( 'yikes-mailchimp-sslverify', true ),
-				) );
-				$list_data = json_decode( wp_remote_retrieve_body( $list_data ), true );
-				if ( isset( $list_data['error'] ) ) {
-					$error_logging = new Yikes_Inc_Easy_Mailchimp_Error_Logging();
-					$error_logging->maybe_write_to_log( $list_data['error'], __( "Get Account Lists", 'yikes-inc-easy-mailchimp-extender' ), "View User Page" );
-				}
-				if ( $list_data && isset( $list_data['data'][0] ) ) {
-					$additional_lists[ $list_data['data'][0]['id'] ] = $list_data['data'][0]['name'];
-				}
-			}
-		}
+/* Build the array of mailing lists the user is subscribed to */
+foreach ( $other_lists as $id => $value ) {
+	if ( 'subscribed' !== $value['status'] ) {
+		continue;
 	}
 
-	/* Build the array of merge variables => value */
-	if ( isset( $merge_data_array ) && count( $merge_data_array ) >= 1 ) {
-		if ( $dash_position !== false ) {
-			$api_endpoint = 'https://' . substr( $api_key, $dash_position + 1 ) . '.api.mailchimp.com/2.0/lists/merge-vars.json';
-		}
-		$merge_variables = wp_remote_post( $api_endpoint, array(
-			'body'      => array(
-				'apikey' => $api_key,
-				'id'     => array( $list_id ),
-			),
-			'timeout'   => 10,
-			'sslverify' => apply_filters( 'yikes-mailchimp-sslverify', true ),
-		) );
-		$merge_variables = json_decode( wp_remote_retrieve_body( $merge_variables ), true );
-		if ( isset( $merge_variables['error'] ) ) {
-			$error_logging = new Yikes_Inc_Easy_Mailchimp_Error_Logging();
-			$error_logging->maybe_write_to_log( $merge_variables['error'], __( "Get Merge Variables", 'yikes-inc-easy-mailchimp-extender' ), "View User Page" );
-		}
-		// loop and display
-		if ( $merge_variables ) {
-			foreach ( $merge_variables['data'][0]['merge_vars'] as $merge_variable ) {
-				if ( $merge_variable['tag'] != 'EMAIL' ) {
-					$merge_variable_fields[ $merge_variable['name'] ] = ( isset( $merge_data_array[ $merge_variable['tag'] ] ) ) ? $merge_data_array[ $merge_variable['tag'] ] : '';
-				}
-			}
-		}
+	$list_data = $list_helper->get_list( $id );
+	if ( is_wp_error( $list_data ) ) {
+		$error_logging = new Yikes_Inc_Easy_Mailchimp_Error_Logging();
+		$error_logging->maybe_write_to_log(
+			$list_data->get_error_code(),
+			__( "Get Account Lists", 'yikes-inc-easy-mailchimp-extender' ),
+			"View User Page"
+		);
+		continue;
 	}
 
+	$additional_lists[ $list_data['id'] ] = $list_data['name'];
+}
 
-	// store usable data
-	$user_email = sanitize_email( $user_data['email'] );
-	// prepend our email address to the beginning
-	$merge_variable_fields = array( 'Email Address' => $user_email ) + $merge_variable_fields;
-	$gravatar_image        = get_avatar( $user_email, 120 );
-	$email_type            = $user_data['email_type'];
-	$member_rating         = ( ! empty( $user_data['member_rating'] ) ) ? (int) $user_data['member_rating'] : 0;
-	$member_rating_stars   = '';
-	if ( $member_rating > 0 ) {
-		$x = 1;
-		while ( $x <= 5 ) {
-			if ( $x <= $member_rating ) {
-				$member_rating_stars .= '<span class="yikes-mc-member-rating-star dashicons dashicons-star-filled"></span>';
-			} else {
-				$member_rating_stars .= '<span class="yikes-mc-member-rating-star dashicons dashicons-star-empty"></span>';
-			}
-			$x ++;
+/* Build the array of merge variables => value */
+$merge_variables = $list_helper->get_merge_fields( $list_id );
+if ( is_wp_error( $merge_variables ) ) {
+	$error_logging = new Yikes_Inc_Easy_Mailchimp_Error_Logging();
+	$error_logging->maybe_write_to_log(
+		$merge_variables->get_error_code(),
+		__( "Get Merge Variables", 'yikes-inc-easy-mailchimp-extender' ),
+		"View User Page"
+	);
+	$merge_variables = array();
+}
+// loop and display
+if ( $merge_variables ) {
+	foreach ( $merge_variables['merge_fields'] as $merge_variable ) {
+		if ( $merge_variable['tag'] != 'EMAIL' ) {
+			$merge_variable_fields[ $merge_variable['name'] ] = ( isset( $merge_data_array[ $merge_variable['tag'] ] ) ) ? $merge_data_array[ $merge_variable['tag'] ] : '';
 		}
+	}
+}
+
+
+// store usable data
+$user_email = sanitize_email( $user_data['email_address'] );
+// prepend our email address to the beginning
+$merge_variable_fields = array( 'Email Address' => $user_email ) + $merge_variable_fields;
+$gravatar_image        = get_avatar( $user_email, 120 );
+$email_type            = $user_data['email_type'];
+$member_rating         = ( ! empty( $user_data['member_rating'] ) ) ? (int) $user_data['member_rating'] : 0;
+$member_rating_stars   = '';
+
+// Create member rating stars
+for ( $i = 1; $i <= 5; $i++ ) {
+	if ( $i <= $member_rating ) {
+		$member_rating_stars .= '<span class="yikes-mc-member-rating-star dashicons dashicons-star-filled"></span>';
 	} else {
-		$y = 1;
-		while ( $y <= 5 ) {
-			$member_rating_stars .= '<span class="yikes-mc-member-rating-star dashicons dashicons-star-empty"></span>';
-			$y ++;
-		}
+		$member_rating_stars .= '<span class="yikes-mc-member-rating-star dashicons dashicons-star-empty"></span>';
 	}
-	$last_changed  = strtotime( $user_data['info_changed'] );
-	$user_language = ( $user_data['language'] && $user_data['language'] != '' ) ? $user_data['language'] : '';
-	$list_name     = $user_data['list_name'];
+}
 
-	// Generate our display page
-	?>
+$last_changed  = strtotime( $user_data['last_changed'] );
+$user_language = ( ! empty( $user_data['language'] ) ) ? $user_data['language'] : '';
+$list_name     = $additional_lists[ $list_id ];
+
+// Generate our display page
+?>
 	<div class="wrap view-user-data-wrap">
 		<!-- Freddie Logo -->
 		<img src="<?php echo YIKES_MC_URL . 'includes/images/MailChimp_Assets/Freddie_60px.png'; ?>" alt="<?php __( 'Freddie - MailChimp Mascot', 'yikes-inc-easy-mailchimp-extender' ); ?>" class="yikes-mc-freddie-logo" />
@@ -173,8 +125,8 @@ if ( isset( $user_data['data'][0] ) ) {
 			</a>
 			&nbsp;&#187;&nbsp;
 			<span title="<?php echo $user_email; ?>">
-						<?php echo $user_email; ?>
-					</span>
+					<?php echo $user_email; ?>
+				</span>
 		</section>
 
 		<!-- Customer Container -->
@@ -184,17 +136,17 @@ if ( isset( $user_data['data'][0] ) ) {
 				<h2><?php echo $user_email; ?></h2>
 				<?php echo '<span class="member-star-rating-container" title="' . sprintf( _n( 'Member Rating: %s star', 'Member Rating: %s stars', $member_rating, 'yikes-inc-easy-mailchimp-extender' ), $member_rating ) . '">' . $member_rating_stars . '</span>'; ?>
 				<span class="member-subscription-date">
-							<?php echo __( 'Subscribed:', 'yikes-inc-easy-mailchimp-extender' ) . ' ' . get_date_from_gmt( $user_data['info_changed'], 'F jS, Y h:i a' ); ?>
-						</span>
-				<?php if ( isset( $user_data['geo'] ) && ! empty( $user_data['geo'] ) ) { ?>
-					<?php if ( isset( $user_data['geo']['latitude'] ) && isset( $user_data['geo']['longitude'] ) ) { ?>
+						<?php echo __( 'Subscribed:', 'yikes-inc-easy-mailchimp-extender' ) . ' ' . gmdate( 'F jS, Y h:i a', $last_changed ); ?>
+					</span>
+				<?php if ( isset( $user_data['location'] ) && ! empty( $user_data['location'] ) ) { ?>
+					<?php if ( isset( $user_data['location']['latitude'] ) && isset( $user_data['location']['longitude'] ) ) { ?>
 						<span class="member-location-data">
-									<?php echo __( 'Location:', 'yikes-inc-easy-mailchimp-extender' ) . ' ' . yikes_mc_geocode_subscriber_data( $user_data['geo']['latitude'], $user_data['geo']['longitude'] ); ?>
-								</span>
+								<?php echo __( 'Location:', 'yikes-inc-easy-mailchimp-extender' ) . ' ' . yikes_mc_geocode_subscriber_data( $user_data['location']['latitude'], $user_data['location']['longitude'] ); ?>
+							</span>
 					<?php } else { ?>
 						<span class="member-location-data">
-								<?php echo __( 'Location:', 'yikes-inc-easy-mailchimp-extender' ) . ' ' . $user_data['geo']['region'] . ', ' . $user_data['geo']['cc']; ?>
-							</span>
+							<?php echo __( 'Location:', 'yikes-inc-easy-mailchimp-extender' ) . ' ' . $user_data['location']['timezone'] . ', ' . $user_data['location']['country_code']; ?>
+						</span>
 						<?php
 					}
 				}
@@ -269,10 +221,11 @@ if ( isset( $user_data['data'][0] ) ) {
 
 			<?php
 			if ( isset( $_GET['section'] ) && $_GET['section'] == 'delete-subscriber' ) {
-				$unsubscribe_subscriber_url = esc_url_raw( add_query_arg( array( 'action'         => 'yikes-easy-mc-unsubscribe-user',
-				                                                                 'mailchimp-list' => $list_id,
-				                                                                 'nonce'          => wp_create_nonce( 'unsubscribe-user-' . $email_id ),
-				                                                                 'email_id'       => $email_id,
+				$unsubscribe_subscriber_url = esc_url_raw( add_query_arg( array(
+					'action'         => 'yikes-easy-mc-unsubscribe-user',
+					'mailchimp-list' => $list_id,
+					'nonce'          => wp_create_nonce( 'unsubscribe-user-' . $email_id ),
+					'email_id'       => $email_id,
 				) ) );
 				?>
 				<form id="delete_subscriber" method="POST" action="<?php echo $unsubscribe_subscriber_url; ?>">
@@ -284,7 +237,7 @@ if ( isset( $user_data['data'][0] ) ) {
 						<input type="checkbox" name="confirm_delete_subscriber" value="1" onclick="toggleDeleteSubscriberButton(jQuery(this));">
 						<?php printf( __( 'Are you sure you want to delete "%s" from "%s?"', 'yikes-inc-easy-mailchimp-extender' ), '<strong>' . $user_email . '</strong>', '<strong>' . $list_name . '</strong>' ); ?>
 					</label>
-					<?php echo submit_button( __( 'Delete Subscriber', 'yikes-inc-easy-mailchimp-extender' ), 'primary', 'delete-mailchimp-subscriber', true, array( 'disabled' => 'disabled' ) ); ?>
+					<?php submit_button( __( 'Delete Subscriber', 'yikes-inc-easy-mailchimp-extender' ), 'primary', 'delete-mailchimp-subscriber', true, array( 'disabled' => 'disabled' ) ); ?>
 				</form>
 				<?php
 			}
@@ -359,8 +312,8 @@ if ( isset( $user_data['data'][0] ) ) {
 		</div>
 
 	</div>
-	<?php
-}
+<?php
+
 
 
 function yikes_mc_geocode_subscriber_data( $latitude, $longitude ) {

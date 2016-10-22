@@ -7,32 +7,18 @@ $all_forms = $form_interface->get_all_forms();
 
 /* Store Data if User is Authorized */
 if( $this->is_user_mc_api_valid_form( false ) == 'valid' ) {
-	/// Check for a transient, if not - set one up for one hour
-	if ( false === ( $list_data = get_transient( 'yikes-easy-mailchimp-list-data' ) ) ) {
-		$api_key = yikes_get_mc_api_key();
-		$dash_position = strpos( $api_key, '-' );
-		if( $dash_position !== false ) {
-			$api_endpoint = 'https://' . substr( $api_key, $dash_position + 1 ) . '.api.mailchimp.com/2.0/lists/list.json';
-		}
-		$list_data = wp_remote_post( $api_endpoint, array(
-			'body' => array(
-				'apikey' => $api_key,
-				'limit' => 100
-			),
-			'timeout' => 10,
-			'sslverify' => apply_filters( 'yikes-mailchimp-sslverify', true )
-		) );
-		$list_data = json_decode( wp_remote_retrieve_body( $list_data ), true );
-		if( isset( $list_data['error'] ) ) {
-			$error_logging = new Yikes_Inc_Easy_Mailchimp_Error_Logging();
-			$error_logging->maybe_write_to_log( $list_data['error'], __( "Get Account Lists" , 'yikes-inc-easy-mailchimp-extender' ), "Manage Forms Page" );
-		} else {
-			// set our transient
-			set_transient( 'yikes-easy-mailchimp-list-data', $list_data, 1 * HOUR_IN_SECONDS );
-		}
+	$list_data = yikes_get_mc_api_manager()->get_list_handler()->get_lists();
+	if ( is_wp_error( $list_data ) ) {
+		$error_logging = new Yikes_Inc_Easy_Mailchimp_Error_Logging();
+		$error_logging->maybe_write_to_log(
+			$list_data->get_error_code(),
+			__( "Get Account Lists" , 'yikes-inc-easy-mailchimp-extender' ),
+			"Manage Forms Page"
+		);
+		$list_data = array();
 	}
 } else {
-	$list_data = null;
+	$list_data = array();
 }
 ?>
 <div class="wrap">
@@ -172,7 +158,17 @@ if( $this->is_user_mc_api_valid_form( false ) == 'valid' ) {
 											</td>
 
 											<td class="column-columnname"><?php echo isset( $form['form_description'] ) ? str_replace( '[yikes-mailchimp-subscriber-count]', do_shortcode( '[yikes-mailchimp-subscriber-count form="' . $id . '"]' ), $form['form_description'] ) : ''; ?></td>
-											<td class="column-columnname"><?php if( isset( $list_data ) && $list_data['total'] > 0 ) { $key = $this->findMCListID( $form['list_id'] , $list_data['data'] ); if( isset( $key ) ) { echo $list_data['data'][$key]['name']; } else { echo '<strong>' . __( 'List Not Found' , 'yikes-inc-easy-mailchimp-extender' ) . '</strong>'; } } ?></td>
+											<td class="column-columnname">
+												<?php
+												if ( $list_data && count( $list_data ) > 0 ) {
+													$parsed = wp_list_pluck( $list_data, 'name', 'id' );
+													if ( isset( $parsed[ $form['list_id'] ] ) ) {
+														echo esc_textarea( $parsed[ $form['list_id'] ] );
+													} else {
+														echo '<strong>' . __( 'List Not Found', 'yikes-inc-easy-mailchimp-extender' ) . '</strong>';
+													}
+												} ?>
+											</td>
 
 											<td class="column-columnname num stat-container">
 												<?php
@@ -237,7 +233,7 @@ if( $this->is_user_mc_api_valid_form( false ) == 'valid' ) {
 					<div class="postbox yikes-easy-mc-postbox">
 
 						<?php
-							$this->generate_manage_forms_sidebar( $list_data['data'] );
+							$this->generate_manage_forms_sidebar( $list_data );
 						?>
 
 					</div> <!-- .postbox -->

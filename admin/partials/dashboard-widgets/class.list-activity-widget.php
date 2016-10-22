@@ -66,41 +66,24 @@ class YIKES_Inc_Easy_MailChimp_Dashboard_Widgets {
 	 */
 	function list_stats_dashboard_widget() {
 		// Get our list data!
-		// Check for a transient, if not - set one up for one hour
-		if ( false === ( $list_data = get_transient( 'yikes-easy-mailchimp-list-data' ) ) ) {
-			$api_key       = yikes_get_mc_api_key();
-			$dash_position = strpos( $api_key, '-' );
-			if ( $dash_position !== false ) {
-				$api_endpoint = 'https://' . substr( $api_key, $dash_position + 1 ) . '.api.mailchimp.com/2.0/lists/list.json';
-			}
-			$list_data = wp_remote_post( $api_endpoint, array(
-				'body'      => array(
-					'apikey' => $api_key,
-					'limit'  => 100,
-				),
-				'timeout'   => 10,
-				'sslverify' => apply_filters( 'yikes-mailchimp-sslverify', true ),
-			) );
-			$list_data = json_decode( wp_remote_retrieve_body( $list_data ), true );
-			if ( isset( $list_data['error'] ) ) {
-				$error_logging = new Yikes_Inc_Easy_Mailchimp_Error_Logging();
-				$error_logging->maybe_write_to_log( $list_data['error'], __( "Get Account Lists", 'yikes-inc-easy-mailchimp-extender' ), "Dashboard Activity Widget" );
-			} else {
-				// set our transient
-				set_transient( 'yikes-easy-mailchimp-list-data', $list_data, 1 * HOUR_IN_SECONDS );
-			}
+		$list_data = yikes_get_mc_api_manager()->get_list_handler()->get_lists();
+		if ( isset( $list_data['error'] ) ) {
+			$error_logging = new Yikes_Inc_Easy_Mailchimp_Error_Logging();
+			$error_logging->maybe_write_to_log( $list_data['error'], __( "Get Account Lists", 'yikes-inc-easy-mailchimp-extender' ), "Dashboard Activity Widget" );
 		}
+
 		?>
 		<!-- Dropdown to Change the list -->
-		<?php if ( ! empty( $list_data['data'] ) ) {
+		<?php if ( ! empty( $list_data['lists'] ) ) {
 			?>
 			<section class="inside-widget yikes-dashboard-widget-section">
 			<strong class="select-list-title"><?php _e( 'Select a list', 'yikes-inc-easy-mailchimp-extender' ) ?>:</strong>
 			<select id="yikes-easy-mc-dashboard-change-list" class="widefat">
 				<?php
-				foreach ( $list_data['data'] as $list ) {
+				foreach ( $list_data['lists'] as $list ) {
 					?>
-					<option val="<?php echo $list['id']; ?>"><?php echo $list['name']; ?></option><?php
+					<option value="<?php echo $list['id']; ?>"><?php echo $list['name']; ?></option>
+					<?php
 				}
 				?>
 			</select>
@@ -108,11 +91,7 @@ class YIKES_Inc_Easy_MailChimp_Dashboard_Widgets {
 			</section>
 			<!-- display stats here! -->
 			<section id="yikes-easy-mc-dashboard-widget-stats">
-				<?php
-				if ( ! empty( $list_data['data'] ) ) {
-					include_once( YIKES_MC_PATH . 'admin/partials/dashboard-widgets/templates/stats-list-template.php' );
-				}
-				?>
+				<?php include_once( YIKES_MC_PATH . 'admin/partials/dashboard-widgets/templates/stats-list-template.php' ); ?>
 			</section>
 		<?php } else { ?>
 			<section id="yikes-easy-mc-dashboard-widget-stats">

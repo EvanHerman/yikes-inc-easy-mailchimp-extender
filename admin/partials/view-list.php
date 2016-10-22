@@ -3,146 +3,89 @@ if ( ! isset( $_REQUEST['list-id'] ) ) {
 	wp_die( __( 'Oops, we can\'t determine what List to view. Please go back and try again.' ) );
 }
 
-
 $list_id       = sanitize_key( $_REQUEST['list-id'] );
+$list_helper   = yikes_get_mc_api_manager()->get_list_handler();
 $api_key       = yikes_get_mc_api_key();
 $dash_position = strpos( $api_key, '-' );
-if ( $dash_position !== false ) {
-	$api_endpoint = 'https://' . substr( $api_key, $dash_position + 1 ) . '.api.mailchimp.com/2.0/lists/list.json';
-}
-$list_data = wp_remote_post( $api_endpoint, array(
-	'body'      => array(
-		'apikey'  => $api_key,
-		'filters' => array( 'list_id' => $list_id ),
-	),
-	'timeout'   => 10,
-	'sslverify' => apply_filters( 'yikes-mailchimp-sslverify', true ),
-) );
-$list_data = json_decode( wp_remote_retrieve_body( $list_data ), true );
-if ( isset( $list_data['error'] ) ) {
-	if ( WP_DEBUG || get_option( 'yikes-mailchimp-debug-status', '' ) == '1' ) {
-		require_once YIKES_MC_PATH . 'includes/error_log/class-yikes-inc-easy-mailchimp-error-logging.php';
-		$error_logging = new Yikes_Inc_Easy_Mailchimp_Error_Logging();
-		$error_logging->yikes_easy_mailchimp_write_to_error_log( $list_data['error'], __( "Get Account Lists", 'yikes-inc-easy-mailchimp-extender' ), "View Lists Page" );
-	}
-}
-// reset our data so we can easily use it
-$list_data = $list_data['data'][0];
 
-if ( $dash_position !== false ) {
-	$api_endpoint = 'https://' . substr( $api_key, $dash_position + 1 ) . '.api.mailchimp.com/2.0/lists/merge-vars.json';
+
+$list_data = $list_helper->get_list( $list_id );
+if ( is_wp_error( $list_data ) ) {
+	$error_logging = new Yikes_Inc_Easy_Mailchimp_Error_Logging();
+	$error_logging->maybe_write_to_log(
+		$list_data->get_error_code(),
+		__( "Get Account Lists", 'yikes-inc-easy-mailchimp-extender' ),
+		"View Lists Page"
+	);
+	$list_data = array();
 }
-$merge_variables = wp_remote_post( $api_endpoint, array(
-	'body'      => array(
-		'apikey' => $api_key,
-		'id'     => array( $list_id ),
-	),
-	'timeout'   => 10,
-	'sslverify' => apply_filters( 'yikes-mailchimp-sslverify', true ),
-) );
-$merge_variables = json_decode( wp_remote_retrieve_body( $merge_variables ), true );
-if ( isset( $merge_variables['error'] ) ) {
-	if ( WP_DEBUG || get_option( 'yikes-mailchimp-debug-status', '' ) == '1' ) {
-		require_once YIKES_MC_PATH . 'includes/error_log/class-yikes-inc-easy-mailchimp-error-logging.php';
-		$error_logging = new Yikes_Inc_Easy_Mailchimp_Error_Logging();
-		$error_logging->yikes_easy_mailchimp_write_to_error_log( $merge_variables['error'], __( "Get Merge Variables", 'yikes-inc-easy-mailchimp-extender' ), "View Lists Page" );
-	}
+
+$merge_fields = $list_helper->get_merge_fields( $list_id );
+if ( is_wp_error( $merge_fields ) ) {
+	$error_logging = new Yikes_Inc_Easy_Mailchimp_Error_Logging();
+	$error_logging->maybe_write_to_log(
+		$merge_fields->get_error_code(),
+		__( "Get Merge Variables", 'yikes-inc-easy-mailchimp-extender' ),
+		"View Lists Page"
+	);
+	$merge_fields = array();
 }
-// re-store our data
-$merge_variables = $merge_variables['data'][0]['merge_vars'];
 
 // get the interest group data
-if ( $dash_position !== false ) {
-	$api_endpoint = 'https://' . substr( $api_key, $dash_position + 1 ) . '.api.mailchimp.com/2.0/lists/interest-groupings.json';
-}
-$interest_groupings = wp_remote_post( $api_endpoint, array(
-	'body'      => array(
-		'apikey' => $api_key,
-		'id'     => $list_id,
-		'counts' => true,
-	),
-	'timeout'   => 10,
-	'sslverify' => apply_filters( 'yikes-mailchimp-sslverify', true ),
-) );
-$interest_groupings = json_decode( wp_remote_retrieve_body( $interest_groupings ), true );
-
-if ( isset( $interest_groupings['error'] ) ) {
-	if ( WP_DEBUG || get_option( 'yikes-mailchimp-debug-status', '' ) == '1' ) {
-		require_once YIKES_MC_PATH . 'includes/error_log/class-yikes-inc-easy-mailchimp-error-logging.php';
-		$error_logging = new Yikes_Inc_Easy_Mailchimp_Error_Logging();
-		$error_logging->yikes_easy_mailchimp_write_to_error_log( $interest_groupings['error'], __( "Get Interest Groups", 'yikes-inc-easy-mailchimp-extender' ), "View Lists Page" );
-	}
+$interest_groupings = $list_helper->get_interest_categories( $list_id );
+if ( is_wp_error( $interest_groupings ) ) {
+	$error_logging = new Yikes_Inc_Easy_Mailchimp_Error_Logging();
+	$error_logging->maybe_write_to_log(
+		$interest_groupings->get_error_code(),
+		__( "Get Interest Groups", 'yikes-inc-easy-mailchimp-extender' ),
+		"View Lists Page"
+	);
+	$interest_groupings = array();
 }
 
 $no_interest_groupings = '<p class="description">' . __( 'Interest groups are not enabled for this list.', 'yikes-inc-easy-mailchimp-extender' ) . '</p>';
-
-
 $no_segments = __( 'No segments set up for this list.', 'yikes-inc-easy-mailchimp-extender' );
-// get the segment data
-if ( $dash_position !== false ) {
-	$api_endpoint = 'https://' . substr( $api_key, $dash_position + 1 ) . '.api.mailchimp.com/2.0/lists/segments.json';
-}
-$segments = wp_remote_post( $api_endpoint, array(
-	'body'      => array(
-		'apikey' => $api_key,
-		'id'     => $list_id,
-		'type'   => 'saved',
-	),
-	'timeout'   => 10,
-	'sslverify' => apply_filters( 'yikes-mailchimp-sslverify', true ),
-) );
+$segments = $list_helper->get_segments( $list_id );
 
+// Get the full list of members.
+$members = $list_helper->get_members( $list_id );
+if ( is_wp_error( $members ) ) {
+	$error_logging = new Yikes_Inc_Easy_Mailchimp_Error_Logging();
+	$error_logging->maybe_write_to_log(
+		$members->get_error_code(),
+		__( "Get Subscriber Count", 'yikes-inc-easy-mailchimp-extender' ),
+		"View Lists Page"
+	);
+	$members = array();
+}
 
 // setup pagination variables
-$paged = isset( $_REQUEST['paged'] ) ? $_REQUEST['paged'] : '0';
-
-$limit = apply_filters( 'yikes_admin_list_subscriber_limit', '20' );
-
+$paged    = isset( $_REQUEST['paged'] ) ? $_REQUEST['paged'] : '0';
+$limit    = apply_filters( 'yikes_admin_list_subscriber_limit', '20' );
 $sort_dir = isset( $_REQUEST['sort'] ) ? $_REQUEST['sort'] : 'DESC';
-$column   = isset( $_REQUEST['column'] ) ? $_REQUEST['column'] : 'optin_time';
+
 
 if ( $sort_dir == 'DESC' ) {
 	$opposite_sort_dir = 'ASC';
 	$icon              = '<span class="dashicons dashicons-arrow-down"></span>';
+	$sort_function     = 'krsort';
 } else {
 	$opposite_sort_dir = 'DESC';
 	$icon              = '<span class="dashicons dashicons-arrow-up"></span>';
+	$sort_function     = 'ksort';
 }
 
-if ( ! isset( $_REQUEST['sort'] ) ) {
-	$icon = '';
-}
+// Sort the array based on the sort direction.
+$sort_function( $members );
 
-// get all subscribed members
-if ( $dash_position !== false ) {
-	$api_endpoint = 'https://' . substr( $api_key, $dash_position + 1 ) . '.api.mailchimp.com/2.0/lists/members.json';
-}
-$subscribers_list = wp_remote_post( $api_endpoint, array(
-	'body'      => array(
-		'apikey' => $api_key,
-		'id'     => $list_id,
-		'opts'   => array(
-			'start'      => $paged,
-			'limit'      => $limit,
-			'sort_field' => $column,
-			'sort_dir'   => $sort_dir,
-		),
-	),
-	'timeout'   => 10,
-	'sslverify' => apply_filters( 'yikes-mailchimp-sslverify', true ),
-) );
-$subscribers_list = json_decode( wp_remote_retrieve_body( $subscribers_list ), true );
-if ( isset( $subscribers_list['error'] ) ) {
-	$error_logging = new Yikes_Inc_Easy_Mailchimp_Error_Logging();
-	$error_logging->maybe_write_to_log( $subscribers_list['error'], __( "Get Subscriber Count", 'yikes-inc-easy-mailchimp-extender' ), "View Lists Page" );
-}
-
-$total_pages = ceil( $subscribers_list['total'] / $limit );
+// Maybe split the array into pages
+$total_pages = ceil( count( $members ) / $limit );
 if ( $total_pages == 0 ) {
 	$total_pages = '1';
 }
 
-
+// Segment the members based on the page and limit
+$subscribers_list = array_slice( $members, $paged, $limit );
 
 ?>
 <div class="wrap">
@@ -178,7 +121,7 @@ if ( $total_pages == 0 ) {
 		<h4><?php _e( 'Add New Subscriber' , 'yikes-inc-easy-mailchimp-extender' ); ?></h4>
 		<form id="add-new-subcscriber">
 			<input type="text" class="regular-text" placeholder="<?php _e( 'User Email Address' , 'yikes-inc-easy-mailchimp-extender' ); ?>" /></p>
-			<p><?php echo submit_button( 'Add Subscriber' ); ?></p>
+			<p><?php submit_button( 'Add Subscriber' ); ?></p>
 		</form>
 	</section>
 
@@ -216,37 +159,39 @@ if ( $total_pages == 0 ) {
 
 									<!-- TABLE BODY -->
 									<tbody>
-										<?php if( $subscribers_list['total'] > 0 ) {
-												$i = 1;
-												foreach( $subscribers_list['data'] as $subscriber ) {
-													$user_id = $subscriber['leid'];
-													// setup the email client name and icon
-													if( !empty( $subscriber['clients'] ) ) {
-														$user_email_client_name = $subscriber['clients']['name'];
-														$user_email_client_icon = "<img src='" . esc_url_raw( $subscriber['clients']['icon_url'] ) . "' alt=" . $user_email_client_name . " title=" . $user_email_client_name . ">";
-													} else {
-														$path = YIKES_MC_URL . "includes/images/na.png";
-														$user_email_client_icon = "<img width='35' src='" . $path . "' alt='" . __( 'not set' , 'yikes-inc-easy-mailchimp-extender' ) . "' title='" .  __( 'not set' , 'yikes-inc-easy-mailchimp-extender' ) . "'>";
-													}
+										<?php if ( count( $subscribers_list ) > 0 ) {
+											$i = 1;
+											foreach ( $subscribers_list as $subscriber ) {
+												$user_id           = $subscriber['id'];
+												$path              = YIKES_MC_URL . "includes/images/na.png";
+												$email_client_icon = "<img width='35' src='" . $path . "' alt='" . __( 'not set', 'yikes-inc-easy-mailchimp-extender' ) . "' title='" . __( 'not set', 'yikes-inc-easy-mailchimp-extender' ) . "'>";
 
-										?>
-											<tr class="<?php if( $i % 2 == 0 ) { echo 'alternate'; } ?>">
-												<td class="column-columnname">
-													<a class="user-email row-title" href="mailto:<?php echo sanitize_email( $subscriber['email'] ); ?>">
-														<?php echo sanitize_email( $subscriber['email'] ); ?>
-													</a>
-													<div class="row-actions">
-														<?php $view_user_info_url = esc_url_raw( add_query_arg( array( 'mailchimp-list' => $list_id , 'email-id' => $user_id ), admin_url() . 'admin.php?page=yikes-mailchimp-view-user' ) ); ?>
-														<span><a href="<?php echo $view_user_info_url; ?>"><?php _e( "View Info." , 'yikes-inc-easy-mailchimp-extender' ); ?></a> |</span>
-														<?php $url = esc_url_raw( add_query_arg( array( 'action' => 'yikes-easy-mc-unsubscribe-user', 'mailchimp-list' => $list_id , 'nonce' => wp_create_nonce( 'unsubscribe-user-'.$user_id ), 'email_id' => $user_id ) ) ); ?>
-														<span><a href="<?php echo $url; ?>" onclick="return confirm('<?php printf( __( "Are you sure you want to unsubscribe %s from this mailing list?" , 'yikes-inc-easy-mailchimp-extender' ), sanitize_email( $subscriber['email'] ) ); ?>');" class="yikes-delete-subscriber"><?php _e( "Unsubscribe" , 'yikes-inc-easy-mailchimp-extender' ); ?></a>
-													</div>
-												</td>
-												<td class="column-columnname num"><?php echo $user_email_client_icon; ?></td>
-											</tr>
-										<?php
-												$i++;
-												}
+												?>
+												<tr class="<?php if ( $i % 2 == 0 ) { echo 'alternate'; } ?>">
+													<td class="column-columnname">
+														<a class="user-email row-title" href="mailto:<?php echo sanitize_email( $subscriber['email_address'] ); ?>">
+															<?php echo sanitize_email( $subscriber['email_address'] ); ?>
+														</a>
+														<div class="row-actions">
+															<?php $view_user_info_url = esc_url_raw( add_query_arg( array(
+																'mailchimp-list' => $list_id,
+																'email-id'       => $user_id,
+															), admin_url() . 'admin.php?page=yikes-mailchimp-view-user' ) ); ?>
+															<span><a href="<?php echo $view_user_info_url; ?>"><?php _e( "View Info.", 'yikes-inc-easy-mailchimp-extender' ); ?></a> |</span>
+															<?php $url = esc_url_raw( add_query_arg( array(
+																'action'         => 'yikes-easy-mc-unsubscribe-user',
+																'mailchimp-list' => $list_id,
+																'nonce'          => wp_create_nonce( 'unsubscribe-user-' . $user_id ),
+																'email_id'       => $user_id,
+															) ) ); ?>
+															<span><a href="<?php echo $url; ?>" onclick="return confirm('<?php printf( __( "Are you sure you want to unsubscribe %s from this mailing list?", 'yikes-inc-easy-mailchimp-extender' ), sanitize_email( $subscriber['email_address'] ) ); ?>');" class="yikes-delete-subscriber"><?php _e( "Unsubscribe", 'yikes-inc-easy-mailchimp-extender' ); ?></a>
+														</div>
+													</td>
+													<td class="column-columnname num"><?php echo $email_client_icon; ?></td>
+												</tr>
+												<?php
+												$i ++;
+											}
 											} else { ?>
 											<tr class="no-items">
 												<td class="colspanchange no-current-subscriber-notice" colspan="2"><em><?php _e( 'No one is currently subscribed to this list.' , 'yikes-inc-easy-mailchimp-extender' ); ?></em></td>
@@ -323,7 +268,7 @@ if ( $total_pages == 0 ) {
 								</tr>
 								<tr valign="top">
 									<td scope="row"><label for="tablecell"><strong><?php  _e( 'List Fields' , 'yikes-inc-easy-mailchimp-extender' ); ?></strong></label></td>
-									<td><?php echo intval( $list_data['stats']['merge_var_count'] + 1 ); // add 1 for our email field.. ?></td>
+									<td><?php echo intval( $list_data['stats']['merge_field_count'] + 1 ); // add 1 for our email field.. ?></td>
 								</tr>
 								<tr valign="top">
 									<td scope="row"><label for="tablecell"><strong><?php  _e( 'Short Signup URL' , 'yikes-inc-easy-mailchimp-extender' ); ?></strong></label></td>
@@ -331,11 +276,11 @@ if ( $total_pages == 0 ) {
 								</tr>
 								<tr valign="top">
 									<td scope="row"><label for="tablecell"><strong><?php  _e( 'Default From Email' , 'yikes-inc-easy-mailchimp-extender' ); ?></strong></label></td>
-									<td><input type="text" class="widefat view-list-sidebar-input" value="<?php echo sanitize_email( $list_data['default_from_email'] ); ?>" readonly onclick="jQuery(this).select();"></td>
+									<td><input type="text" class="widefat view-list-sidebar-input" value="<?php echo sanitize_email( $list_data['campaign_defaults']['from_email'] ); ?>" readonly onclick="jQuery(this).select();"></td>
 								</tr>
 								<tr valign="top">
 									<td scope="row"><label for="tablecell"><strong><?php  _e( 'Default From Name' , 'yikes-inc-easy-mailchimp-extender' ); ?></strong></label></td>
-									<td><?php echo $list_data['default_from_name']; ?></td>
+									<td><?php echo $list_data['campaign_defaults']['from_name']; ?></td>
 								</tr>
 							</table>
 
@@ -347,12 +292,12 @@ if ( $total_pages == 0 ) {
 
 							<h3><?php _e( 'Form Fields' , 'yikes-inc-easy-mailchimp-extender' ); ?></h3>
 							<?php
-								if( count( $merge_variables ) >= 1 ) {
+								if( count( $merge_fields['merge_fields'] ) >= 1 ) {
 									?><ul class="merge-variable-ul"><?php
-										echo '<li class="interest-group-count">' . sprintf( _n( '%d Field', '%d Fields', intval( count( $merge_variables ) ), 'yikes-inc-easy-mailchimp-extender' ), intval( count( $merge_variables ) ) ) . '</li>';
-										foreach( $merge_variables as $merge_variable ) {
+										echo '<li class="interest-group-count">' . sprintf( _n( '%d Field', '%d Fields', intval( count( $merge_fields['merge_fields'] ) ), 'yikes-inc-easy-mailchimp-extender' ), intval( count( $merge_fields['merge_fields'] ) ) ) . '</li>';
+										foreach( $merge_fields['merge_fields'] as $merge_field ) {
 											// new action hook @since 6.0.3.8
-											echo '<li class="' . $merge_variable['tag'] . '"><span class="dashicons dashicons-marker"></span>' . $merge_variable['name'] . ' ' . do_action( 'yikes-mailchimp-list-field', $merge_variable ) . '</li>';
+											echo '<li class="' . $merge_field['tag'] . '"><span class="dashicons dashicons-marker"></span>' . $merge_field['name'] . ' ' . do_action( 'yikes-mailchimp-list-field', $merge_field ) . '</li>';
 										}
 									?></ul><?php
 								}
@@ -371,25 +316,29 @@ if ( $total_pages == 0 ) {
 
 							<h3><?php _e( 'Interest Groups Overview' , 'yikes-inc-easy-mailchimp-extender' ); ?></h3>
 							<?php
-								if( isset( $interest_groupings ) && ! isset( $interest_groupings['error'] ) ) {
-									?><ul class="interest-group-ul"><?php
-										echo '<li class="interest-group-count">' . sprintf( _n( '%d Interest Group', '%d Interest Groups', intval( count( $interest_groupings ) ), 'yikes-inc-easy-mailchimp-extender' ), intval( count( $interest_groupings ) ) ) . '</li>';
-									foreach( $interest_groupings as $interest_group ) {
-										echo '<li><span class="dashicons dashicons-marker"></span>' . $interest_group['name'] . '<span class="interest-group-title"></span><small title="' . $interest_group['groups'][0]['subscribers'] . ' ' . __( "subscribers assigned to this group" , 'yikes-inc-easy-mailchimp-extender' ) . '">(' . $interest_group['groups'][0]['subscribers'] . ')</small></li>';
-									}
-									?></ul><?php
-								} else {
-									?>
-									<ul class="interest-group-ul">
-										<li><?php echo $no_interest_groupings; ?></li>
-									</ul>
-									<?php
+							if ( ! empty( $interest_groupings ) ) {
+								?>
+								<ul class="interest-group-ul"><?php
+								echo '<li class="interest-group-count">' . sprintf( _n( '%d Interest Group', '%d Interest Groups', intval( count( $interest_groupings ) ), 'yikes-inc-easy-mailchimp-extender' ), intval( count( $interest_groupings ) ) ) . '</li>';
+								foreach ( $interest_groupings as $interest_group ) {
+									// Build up the total subscribers
+									$count = array_sum( wp_list_pluck( $interest_group['items'], 'subscriber_count' ) );
+									echo '<li><span class="dashicons dashicons-marker"></span>' . $interest_group['title'] . '<span class="interest-group-title"></span><small title="' . $count . ' ' . __( "subscribers assigned to this group", 'yikes-inc-easy-mailchimp-extender' ) . '">(' . $count . ')</small></li>';
 								}
-								/**
-								*	Custom action hook for our add-ons to hook into
-								*	@since 6.0.3.8
-								*/
-								do_action( 'yikes-mailchimp-list-interest-groups-metabox' );
+								?></ul><?php
+							} else {
+								?>
+								<ul class="interest-group-ul">
+									<li><?php echo $no_interest_groupings; ?></li>
+								</ul>
+								<?php
+							}
+							/**
+							 *    Custom action hook for our add-ons to hook into
+							 *
+							 * @since 6.0.3.8
+							 */
+							do_action( 'yikes-mailchimp-list-interest-groups-metabox' );
 							?>
 
 						</div>
