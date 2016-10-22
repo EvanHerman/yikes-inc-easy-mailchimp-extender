@@ -87,7 +87,7 @@ abstract class Yikes_Inc_Easy_MailChimp_API_Abstract_Items {
 	protected function get_from_api( $path, $headers = array(), $params = array() ) {
 		$response = $this->api->get( $path, $headers, $params );
 
-		return $this->determine_error_response( $response );
+		return $this->parse_response( $response );
 	}
 
 	/**
@@ -106,7 +106,7 @@ abstract class Yikes_Inc_Easy_MailChimp_API_Abstract_Items {
 		$params   = wp_parse_args( array( 'body' => $body ), $params );
 		$response = $this->api->patch( $path, $headers, $params );
 
-		return $this->determine_error_response( $response );
+		return $this->parse_response( $response );
 	}
 
 	/**
@@ -127,7 +127,7 @@ abstract class Yikes_Inc_Easy_MailChimp_API_Abstract_Items {
 	}
 
 	/**
-	 * Determine if the response is an error.
+	 * Parse the response and retrieve the body.
 	 *
 	 * @author Jeremy Pry
 	 *
@@ -135,7 +135,7 @@ abstract class Yikes_Inc_Easy_MailChimp_API_Abstract_Items {
 	 *
 	 * @return array|WP_Error
 	 */
-	protected function determine_error_response( $response ) {
+	protected function parse_response( $response ) {
 		if ( is_wp_error( $response ) ) {
 			return $response;
 		}
