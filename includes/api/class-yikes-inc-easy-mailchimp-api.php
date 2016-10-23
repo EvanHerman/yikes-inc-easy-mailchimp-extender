@@ -68,7 +68,7 @@ class Yikes_Inc_Easy_MailChimp_API {
 	 *
 	 * @return array|WP_Error
 	 */
-	public function delete( $path, $headers = array(), $params = array() ) {
+	public function delete( $path = '', $headers = array(), $params = array() ) {
 		return $this->send_request( $path, 'DELETE', $headers, $params );
 	}
 
@@ -84,7 +84,7 @@ class Yikes_Inc_Easy_MailChimp_API {
 	 *
 	 * @return array|WP_Error
 	 */
-	public function get( $path, $headers = array(), $params = array() ) {
+	public function get( $path = '', $headers = array(), $params = array() ) {
 		return $this->send_request( $path, 'GET', $headers, $params );
 	}
 
@@ -100,12 +100,12 @@ class Yikes_Inc_Easy_MailChimp_API {
 	 *
 	 * @return array|WP_Error
 	 */
-	public function patch( $path, $headers = array(), $params = array() ) {
+	public function patch( $path = '', $headers = array(), $params = array() ) {
 		if ( ! isset( $params['body'] ) || empty( $params['body'] ) ) {
 			return new WP_Error(
 				'yikesinc_eme_missing_body',
 				sprintf(
-				/* translators: %s refers to the request method. */
+					/* translators: %s refers to the request method. */
 					__( '%s requests require a body as one of the parameters.', 'yikes-inc-easy-mailchimp-extender' ),
 					'PATCH'
 				)
@@ -127,12 +127,12 @@ class Yikes_Inc_Easy_MailChimp_API {
 	 *
 	 * @return array|WP_Error
 	 */
-	public function post( $path, $headers = array(), $params = array() ) {
+	public function post( $path = '', $headers = array(), $params = array() ) {
 		if ( ! isset( $params['body'] ) || empty( $params['body'] ) ) {
 			return new WP_Error(
 				'yikesinc_eme_missing_body',
 				sprintf(
-				/* translators: %s refers to the request method. */
+					/* translators: %s refers to the request method. */
 					__( '%s requests require a body as one of the parameters.', 'yikes-inc-easy-mailchimp-extender' ),
 					'POST'
 				)
@@ -154,12 +154,12 @@ class Yikes_Inc_Easy_MailChimp_API {
 	 *
 	 * @return array|WP_Error
 	 */
-	public function put( $path, $headers = array(), $params = array() ) {
+	public function put( $path = '', $headers = array(), $params = array() ) {
 		if ( ! isset( $params['body'] ) || empty( $params['body'] ) ) {
 			return new WP_Error(
 				'yikesinc_eme_missing_body',
 				sprintf(
-				/* translators: %s refers to the request method. */
+					/* translators: %s refers to the request method. */
 					__( '%s requests require a body as one of the parameters.', 'yikes-inc-easy-mailchimp-extender' ),
 					'PUT'
 				)
