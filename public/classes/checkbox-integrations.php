@@ -17,46 +17,56 @@
 
 		}
 
-		/*
-		*	Check if a user is already subscribed to
-		*	a given list, if so don't show the checkbox integration
-		*	@since 6.0.0
-		*	@$integration_type - pass in the type of checkbox integration
-		*/
-		public function is_user_already_subscribed( $integration_type ) {
-			// first check if the user is logged in
-			if( is_user_logged_in() ) {
-				$checkbox_options = get_option( 'optin-checkbox-init' , '' );
-				$current_user = wp_get_current_user();
-				$email = $current_user->user_email;
-
-				$api_key = yikes_get_mc_api_key();
-				$dash_position = strpos( $api_key, '-' );
-				if( $dash_position !== false ) {
-					$api_endpoint = 'https://' . substr( $api_key, $dash_position + 1 ) . '.api.mailchimp.com/2.0/lists/member-info.json';
-				}
-				$already_subscribed = wp_remote_post( $api_endpoint, array(
-					'body' => array(
-						'apikey' => $api_key,
-						'id' => $checkbox_options[$integration_type]['associated-list'],
-						'emails' => array( array( 'email' => sanitize_email( $email ) ) )
-					),
-					'timeout' => 10,
-					'sslverify' => apply_filters( 'yikes-mailchimp-sslverify', true )
-				) );
-				$already_subscribed = json_decode( wp_remote_retrieve_body( $already_subscribed ), true );
-				if ( isset( $already_subscribed['error'] ) ) {
-					$error_logging = new Yikes_Inc_Easy_Mailchimp_Error_Logging();
-					$error_logging->maybe_write_to_log( $already_subscribed['error'], __( "Get Member Info" , 'yikes-inc-easy-mailchimp-extender' ), "Checkbox Integrations Page" );
-				}
-				if( ! Isset( $already_subscribed['error'] ) ) {
-					return $already_subscribed['success_count'];
-				}
-			} else {
-				// if the user isn't logged in
-				// we'll always display it
-				return '0';
+		/**
+		 * Determine whether the current user is already subscribed to a given list.
+		 *
+		 * @author Jeremy Pry
+		 *
+		 * @param string $type The integration type to check.
+		 *
+		 * @return bool Whether the current user is subscribed to a list.
+		 */
+		public function is_user_already_subscribed( $type ) {
+			if ( ! is_user_logged_in() ) {
+				return false;
 			}
+
+			$checkbox_options = get_option( 'optin-checkbox-init', '' );
+			if ( empty( $checkbox_options ) ) {
+				return false;
+			}
+			if ( ! isset( $checkbox_options[ $type ] ) || ! isset( $checkbox_options[ $type ]['associated-list'] ) ) {
+				return false;
+			}
+
+			$list_id      = $checkbox_options[ $type ]['associated-list'];
+			$current_user = wp_get_current_user();
+			$email        = $current_user->user_email;
+			$email_hash   = md5( $email );
+
+			// Check the API to see the status
+			$response = yikes_get_mc_api_manager()->get_list_handler()->get_member( $list_id, $email_hash, false );
+			if ( is_wp_error( $response ) ) {
+				$data = $response->get_error_data();
+
+				// If the error response is a 404, they are not subscribed.
+				if ( isset( $data['status'] ) && 404 == $data['status'] ) {
+					return false;
+				} else {
+					$error_logging = new Yikes_Inc_Easy_Mailchimp_Error_Logging();
+					$error_logging->maybe_write_to_log(
+						$response->get_error_code(),
+						__( "Get Member Info", 'yikes-inc-easy-mailchimp-extender' ),
+						"Checkbox Integrations Page"
+					);
+
+					// If there was some other error, let's just assume they're not subscribed
+					return false;
+				}
+			}
+
+			// Look at the status from the API
+			return 'subscribed' == $response['status'];
 		}
 
 		/*

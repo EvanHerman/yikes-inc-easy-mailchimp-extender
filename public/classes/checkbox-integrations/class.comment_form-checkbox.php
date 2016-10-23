@@ -27,13 +27,14 @@
 		* Outputs a checkbox, if user is not already subscribed
 		*/
 		public function output_checkbox( $comment_field ) {
-			if( $this->is_user_already_subscribed( $this->type ) == '1' ) {
+			if ( $this->is_user_already_subscribed( $this->type ) ) {
 				return $comment_field;
 			}
-				echo do_action( 'yikes-mailchimp-before-checkbox' , $this->type );
-					echo $comment_field . $this->yikes_get_checkbox();
-				echo do_action( 'yikes-mailchimp-after-checkbox' , $this->type );
-		}		
+
+			do_action( 'yikes-mailchimp-before-checkbox', $this->type );
+			echo $comment_field . $this->yikes_get_checkbox();
+			do_action( 'yikes-mailchimp-after-checkbox', $this->type );
+		}
 	
 		/**
 		 *	Hook to submit the data to MailChimp when 
@@ -63,4 +64,3 @@
 		
 	}
 	new Yikes_Easy_MC_Comment_Checkbox_Class;
-?>
