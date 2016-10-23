@@ -280,7 +280,7 @@ class Yikes_Inc_Easy_MailChimp_API_Lists extends Yikes_Inc_Easy_MailChimp_API_Ab
 	 * @author Jeremy Pry
 	 *
 	 * @param string $list_id       The list ID.
-	 * @param string $member_id     The member ID.
+	 * @param string $member_id     The member ID. This is the MD5 hash of the email address.
 	 * @param bool   $use_transient Whether to use a transient.
 	 *
 	 * @return array|WP_Error
@@ -308,7 +308,7 @@ class Yikes_Inc_Easy_MailChimp_API_Lists extends Yikes_Inc_Easy_MailChimp_API_Ab
 	 *
 	 * @author Jeremy Pry
 	 *
-	 * @param string $member_id     The unique member ID.
+	 * @param string $member_id     The unique member ID. This is the MD5 hash of the email address.
 	 * @param bool   $use_transient Whether to use a transient.
 	 *
 	 * @return array
@@ -344,7 +344,7 @@ class Yikes_Inc_Easy_MailChimp_API_Lists extends Yikes_Inc_Easy_MailChimp_API_Ab
 	 * @author Jeremy Pry
 	 *
 	 * @param string $list_id   The list ID.
-	 * @param string $member_id The member ID.
+	 * @param string $member_id The member ID. This is the MD5 hash of the email address.
 	 *
 	 * @return array|WP_Error
 	 */
