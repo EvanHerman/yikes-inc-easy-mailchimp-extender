@@ -95,14 +95,33 @@ abstract class Yikes_Inc_Easy_MailChimp_API_Abstract_Items {
 	 *
 	 * @author Jeremy Pry
 	 *
-	 * @param  string $path    The relative API path. Leading slash not required.
-	 * @param  mixed  $body    The body data for the request.
-	 * @param array   $headers Array of headers to send with the request.
-	 * @param array   $params  Additional parameters to pass to the request. See WP_Http::request().
+	 * @param string $path    The relative API path. Leading slash not required.
+	 * @param mixed  $body    The body data for the request.
+	 * @param array  $headers Array of headers to send with the request.
+	 * @param array  $params  Additional parameters to pass to the request. See WP_Http::request().
 	 *
 	 * @return array|WP_Error
 	 */
 	protected function patch_to_api( $path, $body, $headers = array(), $params = array() ) {
+		$params   = wp_parse_args( array( 'body' => $body ), $params );
+		$response = $this->api->patch( $path, $headers, $params );
+
+		return $this->parse_response( $response );
+	}
+
+	/**
+	 * Send a PUT request to the API.
+	 *
+	 * @author Jeremy Pry
+	 *
+	 * @param string $path    The relative API path. Leading slash not required.
+	 * @param mixed  $body    The body data for the request.
+	 * @param array  $headers Array of headers to send with the request.
+	 * @param array  $params  Additional parameters to pass to the request. See WP_Http::request().
+	 *
+	 * @return array|WP_Error
+	 */
+	protected function put_to_api( $path, $body, $headers = array(), $params = array() ) {
 		$params   = wp_parse_args( array( 'body' => $body ), $params );
 		$response = $this->api->patch( $path, $headers, $params );
 
