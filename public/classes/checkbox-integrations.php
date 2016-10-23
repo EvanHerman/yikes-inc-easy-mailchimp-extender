@@ -22,15 +22,28 @@
 		 *
 		 * @author Jeremy Pry
 		 *
-		 * @param string $type The integration type to check.
+		 * @param string $type  The integration type to check.
+		 * @param string $email The email address to check.
 		 *
 		 * @return bool Whether the current user is subscribed to a list.
 		 */
-		public function is_user_already_subscribed( $type ) {
-			if ( ! is_user_logged_in() ) {
+		public function is_user_already_subscribed( $type, $email = '' ) {
+			// Make sure we have an email address to use.
+			if ( empty( $email ) ) {
+				if ( ! is_user_logged_in() ) {
+					return false;
+				}
+
+				$current_user = wp_get_current_user();
+				$email        = $current_user->user_email;
+			}
+
+			// Ensure we have a valid email.
+			if ( ! is_email( $email ) ) {
 				return false;
 			}
 
+			// Convert the integration type to a list ID
 			$checkbox_options = get_option( 'optin-checkbox-init', '' );
 			if ( empty( $checkbox_options ) ) {
 				return false;
@@ -39,10 +52,21 @@
 				return false;
 			}
 
-			$list_id      = $checkbox_options[ $type ]['associated-list'];
-			$current_user = wp_get_current_user();
-			$email        = $current_user->user_email;
-			$email_hash   = md5( $email );
+			return $this->is_user_subscribed( $email, $checkbox_options[ $type ]['associated-list'] );
+		}
+
+		/**
+		 * Determine whether a given email is subscribed to a given list.
+		 *
+		 * @author Jeremy Pry
+		 *
+		 * @param string $email   The email address to check.
+		 * @param string $list_id The list ID to check.
+		 *
+		 * @return bool Whether the email is subscribed to the list.
+		 */
+		public function is_user_subscribed( $email, $list_id ) {
+			$email_hash = md5( $email );
 
 			// Check the API to see the status
 			$response = yikes_get_mc_api_manager()->get_list_handler()->get_member( $list_id, $email_hash, false );
@@ -67,42 +91,6 @@
 
 			// Look at the status from the API
 			return 'subscribed' == $response['status'];
-		}
-
-		/*
-		*	Check if a new user registration email already subscribed
-		*	a given list, if so don't show the checkbox integration
-		*	@since 6.0.0
-		*	@$email - users email address entered into the form
-		*	@$integration_type - pass in the type of checkbox integration
-		*/
-		public function is_new_registration_already_subscribed( $email , $integration_type ) {
-			// first check if the user is logged in
-			$checkbox_options = get_option( 'optin-checkbox-init' , '' );
-			try {
-				$api_key = yikes_get_mc_api_key();
-				$dash_position = strpos( $api_key, '-' );
-				if( $dash_position !== false ) {
-					$api_endpoint = 'https://' . substr( $api_key, $dash_position + 1 ) . '.api.mailchimp.com/2.0/lists/member-info.json';
-				}
-				$already_subscribed = wp_remote_post( $api_endpoint, array(
-					'body' => array(
-						'apikey' => $api_key,
-						'id' => $checkbox_options[$integration_type]['associated-list'],
-						'emails' => array( array( 'email' => sanitize_email( $email ) ) )
-					),
-					'timeout' => 10,
-					'sslverify' => apply_filters( 'yikes-mailchimp-sslverify', true )
-				) );
-				$already_subscribed = json_decode( wp_remote_retrieve_body( $already_subscribed ), true );
-				if ( isset( $already_subscribed['error'] ) ) {
-					$error_logging = new Yikes_Inc_Easy_Mailchimp_Error_Logging();
-					$error_logging->maybe_write_to_log( $already_subscribed['error'], __( "Get Member Info" , 'yikes-inc-easy-mailchimp-extender' ), "Checkbox Integrations Page" );
-				}
-				return $already_subscribed['success_count'];
-			} catch ( Exception $error ) {
-				return $error->getMessage();
-			}
 		}
 
 		/**
@@ -169,6 +157,12 @@
 				// replace the interest groups - to avoid any errors thrown if the admin switches lists, or interest groups
 				$merge_vars['replace_interests'] = 1;
 			}
+
+			// Subscribe the user to the list via the API.
+			$data = array(
+
+			);
+
 			// initialize MailChimp API
 			$api_key = yikes_get_mc_api_key();
 			$dash_position = strpos( $api_key, '-' );
