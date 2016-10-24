@@ -31,14 +31,13 @@ class Yikes_Inc_Easy_MailChimp_API_Lists extends Yikes_Inc_Easy_MailChimp_API_Ab
 	 */
 	public function get_lists( $limit_fields = array(), $use_transient = true ) {
 		// Ensure the ID and total_items are always present in the limit fields
-		if ( ! empty( $limit_fields ) ) {
-			if ( ! isset( $limit_fields['lists.id'] ) ) {
-				$limit_fields['lists.id'] = true;
-			}
-			if ( ! isset( $limit_fields['total_items'] ) ) {
-				$limit_fields['total_items'] = true;
-			}
-		}
+		$limit_fields = $this->compute_limit_fields(
+			$limit_fields,
+			array(
+				'lists.id'    => true,
+				'total_items' => true,
+			)
+		);
 
 		$joined_fields = join( ',', array_keys( $limit_fields ) );
 		$transient_key = empty( $limit_fields ) ? 'yikes_eme_lists' : "yikes_eme_lists_{$joined_fields}";
@@ -66,12 +65,21 @@ class Yikes_Inc_Easy_MailChimp_API_Lists extends Yikes_Inc_Easy_MailChimp_API_Ab
 	 * @author Jeremy Pry
 	 *
 	 * @param string $list_id       The list ID in MailChimp.
+	 * @param array  $limit_fields  Array of fields to limit the results. The fields should be keys in the array.
 	 * @param bool   $use_transient Whether to use a transient.
 	 *
 	 * @return array|WP_Error
 	 */
-	public function get_list( $list_id, $use_transient = true ) {
-		$transient = get_transient( "yikes_eme_list_{$list_id}" );
+	public function get_list( $list_id, $limit_fields = array(), $use_transient = true ) {
+		$transient_key = "yikes_eme_list_{$list_id}";
+		$limit_fields  = $this->compute_limit_fields( $limit_fields, array() );
+		$joined_fields = join( ',', array_keys( $limit_fields ) );
+		$transient     = get_transient( $transient_key );
+
+		if ( ! empty( $limit_fields ) ) {
+			$transient_key .= "_{$joined_fields}";
+		}
+
 		if ( false !== $transient && $use_transient ) {
 			return $transient;
 		}
@@ -79,11 +87,9 @@ class Yikes_Inc_Easy_MailChimp_API_Lists extends Yikes_Inc_Easy_MailChimp_API_Ab
 		$path     = "{$this->base_path}/{$list_id}";
 		$response = $this->maybe_return_error( $this->get_from_api( $path ) );
 
-		if ( is_wp_error( $response ) ) {
-			return $response;
+		if ( ! is_wp_error( $response ) ) {
+			set_transient( $transient_key, $response, HOUR_IN_SECONDS );
 		}
-
-		set_transient( "yikes_eme_list_{$list_id}", $response, HOUR_IN_SECONDS );
 
 		return $response;
 	}
@@ -110,7 +116,7 @@ class Yikes_Inc_Easy_MailChimp_API_Lists extends Yikes_Inc_Easy_MailChimp_API_Ab
 			return $lists;
 		}
 
-		$list_ids = $list_ids = array_keys( $lists );
+		$list_ids = array_keys( $lists );
 		set_transient( 'yikesinc_eme_list_ids', $list_ids, HOUR_IN_SECONDS );
 
 		return $list_ids;
@@ -344,7 +350,7 @@ class Yikes_Inc_Easy_MailChimp_API_Lists extends Yikes_Inc_Easy_MailChimp_API_Ab
 	 * For keys to include in the $member_data array, see the MailChimp API documentation (link below).
 	 *
 	 * @author Jeremy Pry
-	 * @see http://developer.mailchimp.com/documentation/mailchimp/reference/lists/members/#edit-put_lists_list_id_members_subscriber_hash
+	 * @see    http://developer.mailchimp.com/documentation/mailchimp/reference/lists/members/#edit-put_lists_list_id_members_subscriber_hash
 	 *
 	 * @param string $list_id     The list ID.
 	 * @param string $member_id   The unique member ID. This is the MD5 hash of the email address.
@@ -381,5 +387,32 @@ class Yikes_Inc_Easy_MailChimp_API_Lists extends Yikes_Inc_Easy_MailChimp_API_Ab
 		delete_transient( "yikes_eme_members_{$list_id}" );
 
 		return $this->maybe_return_error( $response );
+	}
+
+	/**
+	 * Ensure that an array of limit fields includes defaults.
+	 *
+	 * Both the $fields and $required arrays should be key-based arrays.
+	 *
+	 * @author Jeremy Pry
+	 *
+	 * @param array $fields   The limit fields.
+	 * @param array $required The required fields.
+	 *
+	 * @return array
+	 */
+	protected function compute_limit_fields( $fields, $required ) {
+		// Don't add required fields if there aren't any limits at all.
+		if ( empty( $fields ) || empty( $required ) ) {
+			return $fields;
+		}
+
+		foreach ( $required as $key => $value ) {
+			if ( ! isset( $fields[ $key ] ) ) {
+				$fields[ $key ] = true;
+			}
+		}
+
+		return $fields;
 	}
 }
