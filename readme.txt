@@ -236,6 +236,7 @@ Below you'll find a complete list of the hooks and filters available in Easy For
 == Changelog ==
 
 = Easy Forms for MailChimp 6.2.2 - October 25th, 2016 =
+* Minor security patch - Thanks goes to the Tristan Md for locating and disclosing the issues below.
 * Fixed a bug where request variable "section" was not sanitize before execution and rendering
 * Fixed a bug where global constant "YIKES_MC_API_KEY" was not sanitize before execution and rendering
 * Fixed a bug where WP option "yikes-mc-api-key" was not sanitize before validating and saving
