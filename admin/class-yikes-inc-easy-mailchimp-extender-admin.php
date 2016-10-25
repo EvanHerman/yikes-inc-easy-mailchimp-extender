@@ -1154,7 +1154,7 @@ class Yikes_Inc_Easy_Mailchimp_Forms_Admin {
 			update_option( 'yikes-mc-api-validation' , 'invalid_api_key' );
 			return;
 		}
-		$api_key = trim( $input );
+		$api_key = strip_tags ( trim( $input ) );
 		$dash_position = strpos( trim( $input ), '-' );
 		if( $dash_position !== false ) {
 			$api_endpoint = 'https://' . substr( $api_key, $dash_position + 1 ) . '.api.mailchimp.com/2.0/helper/ping.json';

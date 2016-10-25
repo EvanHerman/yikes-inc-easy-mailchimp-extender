@@ -16,12 +16,19 @@
 			$api_error_response = '';
 		}
 	}
-
+	
+	/* 
+	* Properly Sanatize $_REQUEST['section'] variable 
+	*
+	* @since 6.2.2
+	*
+	*/
+	if ( isset( $_REQUEST['section'] ) ) {
+		$_REQUEST['section'] = preg_replace('/[^\w-]/', '', strip_tags ( $_REQUEST['section'] ) );
+	}
 ?>
-	<!--
-		Actual Settings Form
-		Chyea --
-	-->
+	<!-- Actual Settings Form
+		 Chyea -->
 	<div class="wrap">
 
 		<!-- Freddie Logo -->

@@ -193,13 +193,15 @@ yikes_inc_easy_mailchimp_extender()->run();
  * Helper function to return our API key
  * Support the use of a PHP constant
  * @return string MailChimp API key from the PHP constant, or the options
+ * @security strip away tags and patch security 
+ * @since 6.2.2
  */
 function yikes_get_mc_api_key() {
 	if ( defined( 'YIKES_MC_API_KEY' ) ) {
-		return trim( YIKES_MC_API_KEY );
+		return trim( strip_tags ( YIKES_MC_API_KEY ) );
 	}
 
-	return trim( get_option( 'yikes-mc-api-key', '' ) );
+	return trim( strip_tags( get_option( 'yikes-mc-api-key', '' ) ) );
 }
 
 add_action( 'plugins_loaded', 'yikes_mailchimp_plugin_textdomain' );
