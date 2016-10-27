@@ -146,7 +146,8 @@ class Yikes_Inc_Easy_Mailchimp_Forms_Admin {
 		add_action( 'admin_head', array( $this, 'add_tinyMCE_buttons' ) );
 		// pass our lists data to tinyMCE button for use
 		foreach ( array( 'post.php', 'post-new.php' ) as $hook ) {
-			add_action( "admin_head-$hook", array( $this, 'tinymce_yikes_easy_mc' ) );
+			// add_action( "admin_head-$hook", array( $this, 'tinymce_yikes_easy_mc' ) );
+			add_action( 'admin_enqueue_scripts', array( $this, 'tinymce_yikes_easy_mc' ) );
 		}
 		// display an admin notice for users on PHP < 5.3
 		if ( phpversion() < '5.3' ) {
@@ -554,10 +555,12 @@ class Yikes_Inc_Easy_Mailchimp_Forms_Admin {
 
 		// inlcude the js for tinymce
 		public function yks_mc_add_tinymce_plugin( $plugin_array ) {
+			// wp_enqueue_script( 'tinymce_yikes', plugin_dir_url( __FILE__ ) . 'js/min/yikes-inc-easy-mailchimp-tinymce-button.min.js', array( 'jquery', 'tiny_mce' ), $this->version, true );
+
 			$plugin_array['yks_mc_tinymce_button'] = plugins_url( '/js/min/yikes-inc-easy-mailchimp-tinymce-button.min.js', __FILE__ );
-			// Print all plugin js path
-			// var_dump( $plugin_array );
+
 			return $plugin_array;
+
 		}
 
 		/**
@@ -587,27 +590,20 @@ class Yikes_Inc_Easy_Mailchimp_Forms_Admin {
 					'value' => '-'
 				);
 			}
+
 			/* Pass our form data to our JS file for use */
-			?>
-			<script type="text/javascript">
-				var forms = {
-					'data' : <?php echo json_encode( $lists ); ?>
-				};
-				var localized_data = {
-					'button_title' : '<?php _e( 'Easy Forms for MailChimp by YIKES', 'yikes-inc-easy-mailchimp-extender' ); ?>',
-					'popup_title' : '<?php _e( 'Easy Forms for MailChimp by YIKES', 'yikes-inc-easy-mailchimp-extender' ); ?>',
-					'list_id_label' : '<?php _e( 'MailChimp Opt-In Form' , 'yikes-inc-easy-mailchimp-extender' ); ?>',
-					'show_title_label' : '<?php _e( 'Display Form Title' , 'yikes-inc-easy-mailchimp-extender' ); ?>',
-					'show_description_label' : '<?php _e( 'Display Form Description' , 'yikes-inc-easy-mailchimp-extender' ); ?>',
-					'submit_button_text_label' : '<?php _e( 'Custom Submit Button Text' , 'yikes-inc-easy-mailchimp-extender' ); ?>',
-					'submit_button_message' : '<?php _e( '<em>If left empty, the button will use the default submit button text .</em>', 'yikes-inc-easy-mailchimp-extender' ); ?>'
-				};
-				<?php
-					$link = sprintf( __( 'You need to <a href="%s" title="%s">create a form</a> before you can add one to a page or post.', 'yikes-inc-easy-mailchimp-extender' ), esc_url_raw( admin_url( 'admin.php?page=yikes-inc-easy-mailchimp' ) ), __( 'Create a form', 'yikes-inc-easy-mailchimp-extender' ) );
-				?>
-				var alert_translated = '<?php echo $link; ?>';
-			</script>
-			<?php
+			wp_localize_script( 'editor', 'localized_data', array(
+				'forms' => json_encode( $lists ),
+				'button_title' => __( 'Easy Forms for MailChimp by YIKES', 'yikes-inc-easy-mailchimp-extender' ),
+				'popup_title' => __( 'Easy Forms for MailChimp by YIKES', 'yikes-inc-easy-mailchimp-extender' ),
+				'list_id_label' => __( 'MailChimp Opt-In Form' , 'yikes-inc-easy-mailchimp-extender' ),
+				'show_title_label' => __( 'Display Form Title' , 'yikes-inc-easy-mailchimp-extender' ),
+				'show_description_label' => __( 'Display Form Description' , 'yikes-inc-easy-mailchimp-extender' ),
+				'submit_button_text_label' => __( 'Custom Submit Button Text' , 'yikes-inc-easy-mailchimp-extender' ),
+				'submit_button_message' => '<em>' . __( 'If left empty, the button will use the default submit button text .', 'yikes-inc-easy-mailchimp-extender' ) . '</em>',
+				'alert_translated' => sprintf( __( 'You need to <a href=%s title="%s">create a form</a> before you can add one to a page or post.', 'yikes-inc-easy-mailchimp-extender' ), esc_url_raw( admin_url( 'admin.php?page=yikes-inc-easy-mailchimp' ) ), __( 'Create a form', 'yikes-inc-easy-mailchimp-extender' ) ),
+			) );
+
 		}
 	/* End TinyMCE Functions */
 

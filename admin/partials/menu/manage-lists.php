@@ -42,7 +42,21 @@
 	<?php
 		/* If the user hasn't authenticated yet, lets kill off */
 		if( get_option( 'yikes-mc-api-validation' , 'invalid_api_key' ) != 'valid_api_key' ) {
-			wp_die( '<div class="error"><p>' . sprintf( __( 'You need to connect to MailChimp before you can start creating forms. Head over to the <a href="%s" title="Settings Page">Settings Page</a> and enter your API key.', 'yikes-inc-easy-mailchimp-extender' ), esc_url_raw( admin_url( 'admin.php?page=yikes-inc-easy-mailchimp-settings' ) ) ) . '</p></div>' , 500 );
+
+			$error_string = sprintf(
+				esc_html__( 'You need to connect to MailChimp before you can start creating forms. Head over to the %s and enter your API key.', 'yikes-inc-easy-mailchimp-extender' ),
+				sprintf(
+					'<a href="%s" title="Settings Page">' . esc_html__( 'Settings Page', 'yikes-inc-easy-mailchimp-extender' ) . '</a>',
+					admin_url( 'admin.php?page=yikes-inc-easy-mailchimp-settings' )
+				)
+			);
+
+			echo wp_kses_post(
+				'<div class="error"><p>' . $error_string . '</p></div>'
+			);
+
+			exit;
+
 		}
 	?>
 
