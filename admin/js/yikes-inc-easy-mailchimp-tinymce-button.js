@@ -2,13 +2,9 @@
 
 	var forms = JSON.parse( localized_data.forms );
 
-	console.log( forms );
-
 	/* loop over the stored options and decode them for display back to the user */
 	/* used to escape quotes and add appropriate spaces */
 	var array_length = parseInt( forms.length - 1 );
-
-	console.log( array_length );
 
 	var i = 0;
 	while( i <= array_length ) {
