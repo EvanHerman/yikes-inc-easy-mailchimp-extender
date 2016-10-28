@@ -1,4 +1,4 @@
-=== Easy Forms for MailChimp ===
+﻿=== Easy Forms for MailChimp ===
 Contributors: yikesinc, eherman24, liljimmi, hiwhatsup, JPry
 Donate link: https://yikesplugins.com/?utm_source=wp_plugin_repo&utm_medium=donate_link&utm_campaign=easy_forms_for_mailchimp
 Tags: MailChimp, MailChimp forms, MailChimp lists, opt-in forms, sign up form, MailChimp, email, forms, mailing lists, marketing, newsletter, sign up
@@ -236,6 +236,10 @@ Below you'll find a complete list of the hooks and filters available in Easy For
 == Changelog ==
 
 = Easy Forms for MailChimp 6.2.3 - October 28th, 2016 =
+* Changed the way HTML field data is retrieved for compatibility with the options DB table and the Incentives Add-on
+* Fixed the path to the Knowledge Base on the welcome page
+* Refactored and localized the tinyMCE JS file
+* Fixed an i18n issue where an incorrect URL was being displayed in an error message
 
 = Easy Forms for MailChimp 6.2.2 - October 25th, 2016 =
 * Minor security patch - Thanks goes to the Tristan Madani for locating and disclosing the issues below.
