@@ -6,7 +6,12 @@
 	*	For help on using, see our documentation [https://yikesplugins.com/support/knowledge-base/product/easy-forms-for-mailchimp/]
 	* 	@since 6.0
 	*/
-	$field_data = json_decode( $form_data['custom_fields'] , true ); 
+	if ( is_string( $form_data['custom_fields'] ) ) {
+		$field_data = json_decode( $form_data['custom_fields'] , true );
+	} elseif ( is_array( $form_data['custom_fields'] ) ) {
+		$field_data = $form_data['custom_fields'];
+	}
+	
 	$content = ( isset( $field_data[$field['id']] ) ) ? $field_data[$field['id']] : ( isset( $field['default'] ) ? $field['default'] : '' );
 	$wysiwyg_id = 'custom-field['.$field['id'].']';
 ?>
