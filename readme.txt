@@ -4,7 +4,7 @@ Donate link: https://yikesplugins.com/?utm_source=wp_plugin_repo&utm_medium=dona
 Tags: MailChimp, MailChimp forms, MailChimp lists, opt-in forms, sign up form, MailChimp, email, forms, mailing lists, marketing, newsletter, sign up
 Requires at least: 4.0
 Tested up to: 4.6.1
-Stable tag: 6.2.2
+Stable tag: 6.2.3
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -235,8 +235,10 @@ Below you'll find a complete list of the hooks and filters available in Easy For
 
 == Changelog ==
 
+= Easy Forms for MailChimp 6.2.3 - October 28th, 2016 =
+
 = Easy Forms for MailChimp 6.2.2 - October 25th, 2016 =
-* Minor security patch - Thanks goes to the Tristan Md for locating and disclosing the issues below.
+* Minor security patch - Thanks goes to the Tristan Madani for locating and disclosing the issues below.
 * Fixed a bug where request variable "section" was not sanitize before execution and rendering
 * Fixed a bug where global constant "YIKES_MC_API_KEY" was not sanitize before execution and rendering
 * Fixed a bug where WP option "yikes-mc-api-key" was not sanitize before validating and saving
