@@ -218,14 +218,18 @@
 								<h3><?php _e( 'Fields:', 'yikes-inc-easy-mailchimp-extender' ); ?></h3>
 								<?php
 									if( ! empty( $merge_variable_fields ) ) {
-									?>
-										<?php foreach( $merge_variable_fields as $field_name => $value ) { ?>
+										foreach( $merge_variable_fields as $field_name => $value ) { ?>
 											<li>
 												<label>
 													<strong class="section-label"><?php echo $field_name; ?></strong>
-													<p class="section-value"><em><?php echo $value; ?></em></p>
-												</label>
-											</li>
+										
+													<?php if ( strtolower( $field_name ) === 'address' && is_array( $value ) ) { ?>
+														<p class="section-value"><em><?php echo yikes_mc_format_address_field( $value ); ?></em></p>
+													<?php } else { ?>
+														<p class="section-value"><em><?php echo $value; ?></em></p>
+												<?php } ?>
+											</label>
+										</li>
 										<?php }
 									} else {
 										?>
@@ -378,4 +382,36 @@
 		$state = $geocode_response_body['results'][0]['address_components'][5]['short_name'];
 		$country = $geocode_response_body['results'][0]['address_components'][6]['short_name'];
 		return $link = '<a href="http://maps.google.com/maps?q=' . $latitude . ',' . $longitude . '" target="_blank" title="' . __( 'View Google Map', 'yikes-inc-easy-mailchimp-extender' ) . '">' . $city . ', ' . $state . ', ' . $country . '</a>&nbsp;<span class="flag-icon flag-icon-' . strtolower( $country ) . '"></span>';
+	}
+
+	function yikes_mc_format_address_field( $address_array ) {
+		$address_string = '';
+
+		if ( isset( $address_array['addr1'] ) && ! empty( $address_array['addr1'] ) && ! trim( $address_array['addr1'] ) === '-' ) {
+			$address_string .= $address_array['addr1'];
+		}
+		if ( isset( $address_array['addr2'] ) && ! empty( $address_array['addr2'] ) ) {
+			$address_string .= ', ';
+			$address_string .= $address_array['addr2'];
+		}
+		if ( isset( $address_array['city'] ) && ! empty( $address_array['city'] ) ) {
+			$address_string .= ', ';
+			$address_string .= $address_array['city'];
+		}
+		if ( isset( $address_array['state'] ) && ! empty( $address_array['state'] ) ) {
+			$address_string .= ', ';
+			$address_string .= $address_array['state'];
+		}
+		if ( isset( $address_array['zip'] ) && ! empty( $address_array['zip'] ) ) {
+			$address_string .= $address_array['zip'];
+		}
+		if ( isset( $address_array['country'] ) && ! empty( $address_array['country'] ) ) {
+			$address_string .= ', ';
+			$address_string .= $address_array['country'];
+		}
+		
+		//trim any initial whitespace and commas
+		$address_string = ltrim( $address_string, ',' );
+
+		return $address_string;	
 	}
