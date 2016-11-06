@@ -6,21 +6,21 @@ $form_interface = yikes_easy_mailchimp_extender_get_form_interface();
 $all_forms = $form_interface->get_all_forms();
 
 /* Store Data if User is Authorized */
-if( $this->is_user_mc_api_valid_form( false ) == 'valid' ) {
+if ( $this->is_user_mc_api_valid_form( false ) == 'valid' ) {
 	/// Check for a transient, if not - set one up for one hour
 	if ( false === ( $list_data = get_transient( 'yikes-easy-mailchimp-list-data' ) ) ) {
-		$api_key = yikes_get_mc_api_key();
+		$api_key       = yikes_get_mc_api_key();
 		$dash_position = strpos( $api_key, '-' );
-		if( $dash_position !== false ) {
+		if ( $dash_position !== false ) {
 			$api_endpoint = 'https://' . substr( $api_key, $dash_position + 1 ) . '.api.mailchimp.com/2.0/lists/list.json';
 		}
 		$list_data = wp_remote_post( $api_endpoint, array(
-			'body' => array(
+			'body'      => array(
 				'apikey' => $api_key,
-				'limit' => 100
+				'limit'  => 100,
 			),
-			'timeout' => 10,
-			'sslverify' => apply_filters( 'yikes-mailchimp-sslverify', true )
+			'timeout'   => 10,
+			'sslverify' => apply_filters( 'yikes-mailchimp-sslverify', true ),
 		) );
 
 		if ( is_wp_error( $list_data ) ) {
