@@ -252,26 +252,20 @@ if( $this->is_user_mc_api_valid_form( false ) == 'valid' ) {
 
 			<!-- sidebar -->
 			<div id="postbox-container-1" class="postbox-container">
-
 				<div class="meta-box-sortables">
-
 					<div class="postbox yikes-easy-mc-postbox">
-
 						<?php
+						if ( isset( $list_data['data'] ) ) {
 							$this->generate_manage_forms_sidebar( $list_data['data'] );
+						} else {
+							esc_html_e( 'There was an error retrieving the list data.', 'yikes-inc-easy-mailchimp-extender' );
+						}
 						?>
-
 					</div> <!-- .postbox -->
 
-					<?php
-						// display, show some love container
-						$this->generate_show_some_love_container();
-					?>
-
+					<?php $this->generate_show_some_love_container(); ?>
 				</div> <!-- .meta-box-sortables -->
-
 			</div> <!-- #postbox-container-1 .postbox-container -->
-
 		</div> <!-- #post-body .metabox-holder .columns-2 -->
 
 		<br class="clear">
