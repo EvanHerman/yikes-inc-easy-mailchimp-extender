@@ -6,31 +6,43 @@ $form_interface = yikes_easy_mailchimp_extender_get_form_interface();
 $all_forms = $form_interface->get_all_forms();
 
 /* Store Data if User is Authorized */
-if( $this->is_user_mc_api_valid_form( false ) == 'valid' ) {
+if ( $this->is_user_mc_api_valid_form( false ) == 'valid' ) {
 	/// Check for a transient, if not - set one up for one hour
 	if ( false === ( $list_data = get_transient( 'yikes-easy-mailchimp-list-data' ) ) ) {
-		$api_key = yikes_get_mc_api_key();
+		$api_key       = yikes_get_mc_api_key();
 		$dash_position = strpos( $api_key, '-' );
-		if( $dash_position !== false ) {
+		if ( $dash_position !== false ) {
 			$api_endpoint = 'https://' . substr( $api_key, $dash_position + 1 ) . '.api.mailchimp.com/2.0/lists/list.json';
 		}
 		$list_data = wp_remote_post( $api_endpoint, array(
-			'body' => array(
+			'body'      => array(
 				'apikey' => $api_key,
-				'limit' => 100
+				'limit'  => 100,
 			),
-			'timeout' => 10,
-			'sslverify' => apply_filters( 'yikes-mailchimp-sslverify', true )
+			'timeout'   => 10,
+			'sslverify' => apply_filters( 'yikes-mailchimp-sslverify', true ),
 		) );
-		$list_data = json_decode( wp_remote_retrieve_body( $list_data ), true );
-		if( isset( $list_data['error'] ) ) {
-			if( WP_DEBUG || get_option( 'yikes-mailchimp-debug-status' , '' ) == '1' ) {
+
+		if ( is_wp_error( $list_data ) ) {
+			if ( WP_DEBUG || get_option( 'yikes-mailchimp-debug-status', '' ) == '1' ) {
 				$error_logging = new Yikes_Inc_Easy_Mailchimp_Error_Logging();
-				$error_logging->yikes_easy_mailchimp_write_to_error_log( $list_data['error'], __( "Get Account Lists" , 'yikes-inc-easy-mailchimp-extender' ), "Manage Forms Page" );
+				$error_logging->yikes_easy_mailchimp_write_to_error_log( $list_data->get_error_message(), __( "Get Account Lists", 'yikes-inc-easy-mailchimp-extender' ), "Manage Forms Page" );
 			}
-		} else {
-			// set our transient
-			set_transient( 'yikes-easy-mailchimp-list-data', $list_data, 1 * HOUR_IN_SECONDS );
+			$list_data = null;
+		}
+
+		$list_data = json_decode( wp_remote_retrieve_body( $list_data ), true );
+		if ( isset( $list_data['error'] ) ) {
+			if ( WP_DEBUG || get_option( 'yikes-mailchimp-debug-status', '' ) == '1' ) {
+				$error_logging = new Yikes_Inc_Easy_Mailchimp_Error_Logging();
+				$error_logging->yikes_easy_mailchimp_write_to_error_log( $list_data['error'], __( "Get Account Lists", 'yikes-inc-easy-mailchimp-extender' ), "Manage Forms Page" );
+			}
+			$list_data = null;
+		}
+
+		// Maybe set our transient
+		if ( null !== $list_data ) {
+			set_transient( 'yikes-easy-mailchimp-list-data', $list_data, HOUR_IN_SECONDS );
 		}
 	}
 } else {
@@ -247,26 +259,20 @@ if( $this->is_user_mc_api_valid_form( false ) == 'valid' ) {
 
 			<!-- sidebar -->
 			<div id="postbox-container-1" class="postbox-container">
-
 				<div class="meta-box-sortables">
-
 					<div class="postbox yikes-easy-mc-postbox">
-
 						<?php
+						if ( isset( $list_data['data'] ) ) {
 							$this->generate_manage_forms_sidebar( $list_data['data'] );
+						} else {
+							esc_html_e( 'There was an error retrieving the list data.', 'yikes-inc-easy-mailchimp-extender' );
+						}
 						?>
-
 					</div> <!-- .postbox -->
 
-					<?php
-						// display, show some love container
-						$this->generate_show_some_love_container();
-					?>
-
+					<?php $this->generate_show_some_love_container(); ?>
 				</div> <!-- .meta-box-sortables -->
-
 			</div> <!-- #postbox-container-1 .postbox-container -->
-
 		</div> <!-- #post-body .metabox-holder .columns-2 -->
 
 		<br class="clear">
