@@ -338,7 +338,7 @@ function process_mailchimp_shortcode( $atts ) {
 		// Check for AJAX
 		if( ( ! empty( $atts['ajax'] ) && $atts['ajax'] == 1 ) || $form_data['submission_settings']['ajax'] == 1 ) {
 			// enqueue our ajax script
-			wp_enqueue_script( 'yikes-easy-mc-ajax' , YIKES_MC_URL . 'public/js/yikes-mc-ajax-forms.min.js' , array( 'jquery' ) , 'yikes-inc-easy-mailchimp-extender', false );
+			wp_enqueue_script( 'yikes-easy-mc-ajax' , YIKES_MC_URL . 'public/js/yikes-mc-ajax-forms.min.js' , array( 'jquery' ) , YIKES_MC_VERSION, false );
 			wp_localize_script( 'yikes-easy-mc-ajax', 'yikes_mailchimp_ajax', array(
 				'ajax_url'                      => esc_url( admin_url( 'admin-ajax.php' ) ),
 				'page_data'                     => $page_data,
