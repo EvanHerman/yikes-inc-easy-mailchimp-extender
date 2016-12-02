@@ -94,10 +94,10 @@ foreach ( $data as $merge_tag => $value ) {
 				$value = date( 'Y-m-d', strtotime( str_replace( '/', '.', $value ) ) );
 			} else if ( $form_fields[$merge_tag]['date_format'] == 'MM/DD' ) {
 				// Birthday MM/DD
-				$avalue = date( 'm-d', strtotime( $value ) );
+				$value = date( 'm-d', strtotime( $value ) );
 			} else if ( $form_fields[$merge_tag]['date_format'] == 'DD/MM' ) {
 				// Birthday DD/MM
-				$avalue = date( 'd-m', strtotime( $value ) );
+				$value = date( 'd-m', strtotime( $value ) );
 			} else {
 				// convert to UNIX timestamp
 				$value = date( 'Y-m-d', strtotime( $value ) );
