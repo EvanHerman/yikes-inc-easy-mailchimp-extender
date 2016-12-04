@@ -15,6 +15,7 @@ class Yikes_Inc_Easy_MailChimp_API_Chimp_Chatter extends Yikes_Inc_Easy_MailChim
 	/**
 	 * Our API object.
 	 *
+	 * @since %VERSION%
 	 * @var Yikes_Inc_Easy_MailChimp_API
 	 */
 	protected $api;
@@ -22,6 +23,7 @@ class Yikes_Inc_Easy_MailChimp_API_Chimp_Chatter extends Yikes_Inc_Easy_MailChim
 	/**
 	 * The base API path.
 	 *
+	 * @since %VERSION%
 	 * @var string
 	 */
 	protected $base_path = 'helper/chimp-chatter.json';
@@ -30,6 +32,7 @@ class Yikes_Inc_Easy_MailChimp_API_Chimp_Chatter extends Yikes_Inc_Easy_MailChim
 	 * Retrieve the Chimp Chatter
 	 *
 	 * @author Jeremy Pry
+	 * @since %VERSION%
 	 *
 	 * @param bool $use_transient Whether to use a transient in the response.
 	 *
