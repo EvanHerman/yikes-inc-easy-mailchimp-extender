@@ -267,7 +267,19 @@ class Yikes_Inc_Easy_MailChimp_API {
 		);
 	}
 
-
+	/**
+	 * Build the arguments for the request.
+	 *
+	 * @author Jeremy Pry
+	 * @since %VERSION%
+	 *
+	 * @param string $path    The relative path for the request.
+	 * @param string $method  The method to use for the request.
+	 * @param array  $headers Array of headers to send with the request.
+	 * @param array  $params  An array of additional parameters to pass to the request. See WP_Http::request().
+	 *
+	 * @return array
+	 */
 	protected function build_request_args( $path, $method, $headers = array(), $params = array() ) {
 		// Ensure our method is uppercase
 		$method = strtoupper( $method );
