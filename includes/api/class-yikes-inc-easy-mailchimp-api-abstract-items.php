@@ -1,12 +1,17 @@
 <?php
 
 /**
+ * Abstract class for retrieving items from the API.
  *
+ * @author Jeremy Pry
+ * @since  %VERSION%
  */
 abstract class Yikes_Inc_Easy_MailChimp_API_Abstract_Items {
 
 	/**
 	 * Our API object.
+	 *
+	 * @since %VERSION%
 	 *
 	 * @var Yikes_Inc_Easy_MailChimp_API
 	 */
@@ -14,6 +19,8 @@ abstract class Yikes_Inc_Easy_MailChimp_API_Abstract_Items {
 
 	/**
 	 * Yikes_Inc_Easy_MailChimp_API_Lists constructor.
+	 *
+	 * @since %VERSION%
 	 *
 	 * @param Yikes_Inc_Easy_MailChimp_API $api
 	 */
@@ -25,6 +32,7 @@ abstract class Yikes_Inc_Easy_MailChimp_API_Abstract_Items {
 	 * Retrieve items from the API, looping as needed.
 	 *
 	 * @author Jeremy Pry
+	 * @since  %VERSION%
 	 *
 	 * @param string $query        The relative path, including any query args.
 	 * @param string $item_key     The item key to look for in results.
@@ -77,6 +85,7 @@ abstract class Yikes_Inc_Easy_MailChimp_API_Abstract_Items {
 	 * Get data from the API
 	 *
 	 * @author Jeremy Pry
+	 * @since  %VERSION%
 	 *
 	 * @param string $path    The relative API path. Leading slash not required.
 	 * @param array  $headers Array of headers to send with the request.
@@ -94,6 +103,7 @@ abstract class Yikes_Inc_Easy_MailChimp_API_Abstract_Items {
 	 * Send a PATCH request to the API.
 	 *
 	 * @author Jeremy Pry
+	 * @since  %VERSION%
 	 *
 	 * @param string $path    The relative API path. Leading slash not required.
 	 * @param mixed  $body    The body data for the request.
