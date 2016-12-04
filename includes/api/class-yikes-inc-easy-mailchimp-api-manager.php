@@ -134,7 +134,7 @@ class Yikes_Inc_Easy_MailChimp_API_Manager {
 	 * Get the default version of the API to use.
 	 *
 	 * @author Jeremy Pry
-	 * @since %VERSION%
+	 * @since  %VERSION%
 	 * @return string
 	 */
 	public function get_default_api_version() {
@@ -152,7 +152,7 @@ class Yikes_Inc_Easy_MailChimp_API_Manager {
 	 * Get the API instance.
 	 *
 	 * @author Jeremy Pry
-	 * @since %VERSION%
+	 * @since  %VERSION%
 	 *
 	 * @param string $version The API version instance to retrieve.
 	 *
@@ -172,7 +172,7 @@ class Yikes_Inc_Easy_MailChimp_API_Manager {
 	 * Get the List Manager instance.
 	 *
 	 * @author Jeremy Pry
-	 * @since %VERSION%
+	 * @since  %VERSION%
 	 * @return Yikes_Inc_Easy_MailChimp_API_Lists
 	 */
 	public function get_list_handler() {
@@ -187,7 +187,7 @@ class Yikes_Inc_Easy_MailChimp_API_Manager {
 	 * Get the Account Manager instance.
 	 *
 	 * @author Jeremy Pry
-	 * @since %VERSION%
+	 * @since  %VERSION%
 	 * @return Yikes_Inc_Easy_MailChimp_API_Account
 	 */
 	public function get_account_handler() {
@@ -202,7 +202,7 @@ class Yikes_Inc_Easy_MailChimp_API_Manager {
 	 * Get the chimp chatter instance.
 	 *
 	 * @author Jeremy Pry
-	 * @since %VERSION%
+	 * @since  %VERSION%
 	 * @return Yikes_Inc_Easy_MailChimp_API_Chimp_Chatter
 	 */
 	public function get_chimp_chatter() {
