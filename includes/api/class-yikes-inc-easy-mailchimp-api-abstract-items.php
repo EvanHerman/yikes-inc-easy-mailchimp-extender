@@ -169,9 +169,12 @@ abstract class Yikes_Inc_Easy_MailChimp_API_Abstract_Items {
 	 */
 	protected function maybe_return_error( $response ) {
 		if ( isset( $response['error'] ) ) {
+			$title  = isset( $response['title'] ) ? $response['title'] : $response['name'];
+			$detail = isset( $response['detail'] ) ? $response['detail'] : $response['error'];
+
 			return new WP_Error(
-				$response['title'],
-				$response['detail'],
+				$title,
+				$detail,
 				array(
 					'status' => (int) $response['status'],
 				)
