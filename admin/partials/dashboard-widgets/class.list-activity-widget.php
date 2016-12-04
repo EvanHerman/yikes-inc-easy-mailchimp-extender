@@ -104,30 +104,18 @@ class YIKES_Inc_Easy_MailChimp_Dashboard_Widgets {
 	 * Create the function to output our account activity dashboard widget
 	 */
 	function account_activity_dashboard_widget() {
-		// Get our list data!
-		// Check for a transient, if not - set one up for one hour
-		if ( false === ( $account_activity = get_transient( 'yikes-easy-mailchimp-account-activity' ) ) ) {
-			$api_key       = yikes_get_mc_api_key();
-			$dash_position = strpos( $api_key, '-' );
-			if ( $dash_position !== false ) {
-				$api_endpoint = 'https://' . substr( $api_key, $dash_position + 1 ) . '.api.mailchimp.com/2.0/helper/chimp-chatter.json';
-			}
-			$account_activity = wp_remote_post( $api_endpoint, array(
-				'body'      => array(
-					'apikey' => $api_key,
-				),
-				'timeout'   => 10,
-				'sslverify' => apply_filters( 'yikes-mailchimp-sslverify', true ),
-			) );
-			$account_activity = json_decode( wp_remote_retrieve_body( $account_activity ), true );
-			if ( isset( $account_activity['error'] ) ) {
-				$error_logging = new Yikes_Inc_Easy_Mailchimp_Error_Logging();
-				$error_logging->maybe_write_to_log( $account_activity['error'], __( "Get Account Activity", 'yikes-inc-easy-mailchimp-extender' ), "Dashboard Activity Widget" );
-			} else {
-				// set our transient for one hour
-				set_transient( 'yikes-easy-mailchimp-account-activity', $account_activity, 1 * HOUR_IN_SECONDS );
-			}
+		$chimp_chatter    = yikes_get_mc_api_manager()->get_chimp_chatter();
+		$account_activity = $chimp_chatter->chimp_chatter();
+
+		if ( is_wp_error( $account_activity ) ) {
+			$error_logging = new Yikes_Inc_Easy_Mailchimp_Error_Logging();
+			$error_logging->maybe_write_to_log(
+				$account_activity->get_error_code(),
+				__( "Get Account Activity", 'yikes-inc-easy-mailchimp-extender' ),
+				"Dashboard Activity Widget"
+			);
 		}
+
 		if ( ! empty( $account_activity ) ) {
 			include_once( YIKES_MC_PATH . 'admin/partials/dashboard-widgets/templates/account-activity-template.php' );
 		}
