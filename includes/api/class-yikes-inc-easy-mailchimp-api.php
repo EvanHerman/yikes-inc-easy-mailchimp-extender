@@ -249,9 +249,10 @@ class Yikes_Inc_Easy_MailChimp_API {
 		 *
 		 * @since %VERSION%
 		 *
-		 * @param array $auth_headers The array of auth headers for an API request.
+		 * @param array  $auth_headers The array of auth headers for an API request.
+		 * @param string $api_version  The version of the API being used.
 		 */
-		return apply_filters( 'yikesinc_eme_api_auth_headers', $auth_headers );
+		return apply_filters( 'yikesinc_eme_api_auth_headers', $auth_headers, $this->api_version );
 	}
 
 	/**
