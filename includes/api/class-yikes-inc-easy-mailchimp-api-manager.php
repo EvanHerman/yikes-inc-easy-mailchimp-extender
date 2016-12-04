@@ -33,6 +33,14 @@ class Yikes_Inc_Easy_MailChimp_API_Manager {
 	protected $api_key = '';
 
 	/**
+	 * Yikes_Inc_Easy_MailChimp_API_Chimp_Chatter instance.
+	 *
+	 * @since %VERSION%
+	 * @var Yikes_Inc_Easy_MailChimp_API_Chimp_Chatter
+	 */
+	protected $chimp_chatter = null;
+
+	/**
 	 * The Datacenter for the MailChimp account.
 	 *
 	 * @since %VERSION%
@@ -172,5 +180,20 @@ class Yikes_Inc_Easy_MailChimp_API_Manager {
 		}
 
 		return $this->account_manager;
+	}
+
+	/**
+	 * Get the chimp chatter instance.
+	 *
+	 * @author Jeremy Pry
+	 * @since %VERSION%
+	 * @return Yikes_Inc_Easy_MailChimp_API_Chimp_Chatter
+	 */
+	public function get_chimp_chatter() {
+		if ( null === $this->chimp_chatter ) {
+			$this->chimp_chatter = new Yikes_Inc_Easy_MailChimp_API_Chimp_Chatter( $this->get_api( '2.0' ) );
+		}
+
+		return $this->chimp_chatter;
 	}
 }
