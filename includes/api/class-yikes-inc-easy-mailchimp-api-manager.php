@@ -67,6 +67,14 @@ class Yikes_Inc_Easy_MailChimp_API_Manager {
 	protected $list_manager = null;
 
 	/**
+	 * Yikes_Inc_Easy_MailChimp_API_Profile instance.
+	 *
+	 * @since %VERSION%
+	 * @var Yikes_Inc_Easy_MailChimp_API_Profile
+	 */
+	protected $profile = null;
+
+	/**
 	 * Yikes_Inc_Easy_MailChimp_API_Manager constructor.
 	 *
 	 * @since %VERSION%
@@ -203,5 +211,21 @@ class Yikes_Inc_Easy_MailChimp_API_Manager {
 		}
 
 		return $this->chimp_chatter;
+	}
+
+	/**
+	 * Get the User Profile instance.
+	 *
+	 * This uses the V2 API.
+	 *
+	 * @author Jeremy Pry
+	 * @return Yikes_Inc_Easy_MailChimp_API_Profile
+	 */
+	public function get_profile_handler() {
+		if ( null === $this->profile ) {
+			$this->profile = new Yikes_Inc_Easy_MailChimp_API_Profile( $this->get_api( '2.0' ) );
+		}
+
+		return $this->profile;
 	}
 }
