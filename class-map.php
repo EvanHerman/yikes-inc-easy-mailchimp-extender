@@ -11,6 +11,7 @@ return array (
   'yikes_inc_easy_mailchimp_api_chimp_chatter' => 'includes/api/class-yikes-inc-easy-mailchimp-api-chimp-chatter.php',
   'yikes_inc_easy_mailchimp_api_lists' => 'includes/api/class-yikes-inc-easy-mailchimp-api-lists.php',
   'yikes_inc_easy_mailchimp_api_manager' => 'includes/api/class-yikes-inc-easy-mailchimp-api-manager.php',
+  'yikes_inc_easy_mailchimp_api_profile' => 'includes/api/class-yikes-inc-easy-mailchimp-api-profile.php',
   'yikes_inc_easy_mailchimp_api' => 'includes/api/class-yikes-inc-easy-mailchimp-api.php',
   'yikes_inc_easy_mailchimp_extender_activator' => 'includes/class-yikes-inc-easy-mailchimp-extender-activator.php',
   'yikes_inc_easy_mailchimp_extender_form_interface' => 'includes/class-yikes-inc-easy-mailchimp-extender-form-interface.php',
