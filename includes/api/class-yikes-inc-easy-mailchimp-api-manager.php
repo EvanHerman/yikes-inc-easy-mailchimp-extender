@@ -112,6 +112,21 @@ class Yikes_Inc_Easy_MailChimp_API_Manager {
 	}
 
 	/**
+	 * Get the default version of the API to use.
+	 *
+	 * @author Jeremy Pry
+	 * @return string
+	 */
+	public function get_default_api_version() {
+		/**
+		 * Filter the default MailChimp API version.
+		 *
+		 * @param string $version The default MailChimp API version.
+		 */
+		return apply_filters( 'yikesinc_eme_default_api_version', '3.0' );
+	}
+
+	/**
 	 * Get the API instance.
 	 *
 	 * @author Jeremy Pry
