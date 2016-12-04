@@ -13,6 +13,7 @@ class Yikes_Inc_Easy_MailChimp_API_Manager {
 	/**
 	 * The account manager instance.
 	 *
+	 * @since %VERSION%
 	 * @var Yikes_Inc_Easy_MailChimp_API_Account
 	 */
 	protected $account_manager = null;
@@ -20,6 +21,7 @@ class Yikes_Inc_Easy_MailChimp_API_Manager {
 	/**
 	 * Our API instance.
 	 *
+	 * @since %VERSION%
 	 * @var Yikes_Inc_Easy_MailChimp_API[]
 	 */
 	protected $api = array();
@@ -59,6 +61,7 @@ class Yikes_Inc_Easy_MailChimp_API_Manager {
 	/**
 	 * The list manager instance.
 	 *
+	 * @since %VERSION%
 	 * @var Yikes_Inc_Easy_MailChimp_API_Lists
 	 */
 	protected $list_manager = null;
@@ -123,11 +126,14 @@ class Yikes_Inc_Easy_MailChimp_API_Manager {
 	 * Get the default version of the API to use.
 	 *
 	 * @author Jeremy Pry
+	 * @since %VERSION%
 	 * @return string
 	 */
 	public function get_default_api_version() {
 		/**
 		 * Filter the default MailChimp API version.
+		 *
+		 * @since %VERSION%
 		 *
 		 * @param string $version The default MailChimp API version.
 		 */
@@ -138,6 +144,7 @@ class Yikes_Inc_Easy_MailChimp_API_Manager {
 	 * Get the API instance.
 	 *
 	 * @author Jeremy Pry
+	 * @since %VERSION%
 	 *
 	 * @param string $version The API version instance to retrieve.
 	 *
@@ -157,7 +164,7 @@ class Yikes_Inc_Easy_MailChimp_API_Manager {
 	 * Get the List Manager instance.
 	 *
 	 * @author Jeremy Pry
-	 *
+	 * @since %VERSION%
 	 * @return Yikes_Inc_Easy_MailChimp_API_Lists
 	 */
 	public function get_list_handler() {
@@ -172,6 +179,7 @@ class Yikes_Inc_Easy_MailChimp_API_Manager {
 	 * Get the Account Manager instance.
 	 *
 	 * @author Jeremy Pry
+	 * @since %VERSION%
 	 * @return Yikes_Inc_Easy_MailChimp_API_Account
 	 */
 	public function get_account_handler() {
