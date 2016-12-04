@@ -185,53 +185,11 @@ class Yikes_Inc_Easy_MailChimp_API {
 	 * @return array|WP_Error
 	 */
 	protected function send_request( $path, $method, $headers = array(), $params = array() ) {
-		// Ensure our method is uppercase
-		$method = strtoupper( $method );
 
 		// Remove leading slashes from $path, as we'll add that ourselves later.
 		$path = ltrim( $path, '/' );
 
-		// If we have body data, maybe convert it to JSON.
-		if ( isset( $params['body'] ) && ( is_array( $params['body'] ) || is_object( $params['body'] ) ) ) {
-			$params['body']          = json_encode( $params['body'] );
-			$headers['Content-Type'] = 'application/json';
-		}
-
-		// Build the args for the request.
-		$args = array(
-			'method'     => $method,
-			/**
-			 * Filter the headers used for a request to the MailChimp API.
-			 *
-			 * @since %VERSION%
-			 *
-			 * @param array  $headers The array of headers to send with the request.
-			 * @param string $path    The relative path for the request.
-			 * @param string $method  The method used for the request.
-			 * @param array  $params  The array of additional parameters passed to the request.
-			 */
-			'headers'    => apply_filters( 'yikesinc_eme_api_headers', $this->combine_headers( $headers ), $path, $method, $params ),
-			'user-agent' => $this->get_user_agent(),
-			'timeout'    => 15,
-			/**
-			 * Filter whether our requests should verify the SSL certificate.
-			 *
-			 * @param bool $sslverify
-			 */
-			'sslverify'  => apply_filters( 'yikes-mailchimp-sslverify', true ),
-		);
-
-		/**
-		 * Filter the args used for a request to the MailChimp API.
-		 *
-		 * @since %VERSION%
-		 *
-		 * @param array  $args   The arguments for the request.
-		 * @param string $path   The relative path for the request.
-		 * @param string $method The method used for the request.
-		 * @param array  $params The array of additional params passed to the request.
-		 */
-		$args = apply_filters( 'yikesinc_eme_api_args', wp_parse_args( $params, $args ), $path, $method, $params );
+		$args = $this->build_request_args( $path, $method, $headers, $params );
 
 		/**
 		 * Filter the URL used for a request to the MailChimp API.
@@ -270,22 +228,6 @@ class Yikes_Inc_Easy_MailChimp_API {
 	}
 
 	/**
-	 * Combine the headers for the request with Auth Headers.
-	 *
-	 * @author Jeremy Pry
-	 * @since  %VERSION%
-	 *
-	 * @param array $headers The array of headers to use for the request.
-	 *
-	 * @return array The array of headers, including auth headers, to use for the request.
-	 */
-	protected function combine_headers( $headers = array() ) {
-		$headers = wp_parse_args( $headers, $this->get_auth_headers() );
-
-		return $headers;
-	}
-
-	/**
 	 * Get the Auth Headers for an API requests.
 	 *
 	 * @author Jeremy Pry
@@ -310,5 +252,104 @@ class Yikes_Inc_Easy_MailChimp_API {
 		 * @param array $auth_headers The array of auth headers for an API request.
 		 */
 		return apply_filters( 'yikesinc_eme_api_auth_headers', $auth_headers );
+	}
+
+	/**
+	 * Get a body array with authorization included.
+	 *
+	 * @author Jeremy Pry
+	 * @return array
+	 */
+	protected function get_auth_body() {
+		return array(
+			'apikey' => $this->api_key,
+		);
+	}
+
+
+	protected function build_request_args( $path, $method, $headers = array(), $params = array() ) {
+		// Ensure our method is uppercase
+		$method = strtoupper( $method );
+
+		// Get the authorized array
+		$authorized_args = $this->get_authorized_args();
+
+		// If we have body data, maybe convert it to JSON.
+		if ( isset( $params['body'] ) && ( is_array( $params['body'] ) || is_object( $params['body'] ) ) ) {
+			$params['body']          = json_encode( wp_parse_args( $authorized_args['body'], $params['body'] ) );
+			$headers['Content-Type'] = 'application/json';
+		}
+
+		// Combine the given headers and auth headers
+		$headers = wp_parse_args( $authorized_args['headers'], $headers );
+		/**
+		 * Filter the headers used for a request to the MailChimp API.
+		 *
+		 * @since %VERSION%
+		 *
+		 * @param array  $headers The array of headers to send with the request.
+		 * @param string $path    The relative path for the request.
+		 * @param string $method  The method used for the request.
+		 * @param array  $params  The array of additional parameters passed to the request.
+		 */
+		$headers = apply_filters( 'yikesinc_eme_api_headers', $headers, $path, $method, $params );
+
+		// Build the args for the request.
+		$args = array(
+			'method'     => $method,
+			'headers'    => $headers,
+			'user-agent' => $this->get_user_agent(),
+			/**
+			 * Filter the timeout used when sending an API request.
+			 *
+			 * @since %VERSION%
+			 *
+			 * @param int $timeout The number of seconds after which the request will time out.
+			 */
+			'timeout'    => apply_filters( 'yikesinc_eme_api_timeout', 15 ),
+			/**
+			 * Filter whether our requests should verify the SSL certificate.
+			 *
+			 * @param bool $sslverify
+			 */
+			'sslverify'  => apply_filters( 'yikes-mailchimp-sslverify', true ),
+		);
+
+		/**
+		 * Filter the args used for a request to the MailChimp API.
+		 *
+		 * @since %VERSION%
+		 *
+		 * @param array  $args   The arguments for the request.
+		 * @param string $path   The relative path for the request.
+		 * @param string $method The method used for the request.
+		 * @param array  $params The array of additional params passed to the request.
+		 */
+		return apply_filters( 'yikesinc_eme_api_args', wp_parse_args( $params, $args ), $path, $method, $params );
+	}
+
+	/**
+	 * Get an authorized request based on the API version.
+	 *
+	 * @author Jeremy Pry
+	 * @return array
+	 */
+	protected function get_authorized_args() {
+		$args = array(
+			'body'    => array(),
+			'headers' => array(),
+		);
+
+		// Version 2.0 uses body authorization
+		if ( version_compare( '3.0', $this->api_version, '>' ) ) {
+			$args['body'] = $this->get_auth_body();
+		}
+
+		// Version 3.0 uses authorization headers.
+		if ( version_compare( '3.0', $this->api_version, '<=' ) ) {
+			$args['headers'] = $this->get_auth_headers();
+		}
+
+		return $args;
 	}
 }
