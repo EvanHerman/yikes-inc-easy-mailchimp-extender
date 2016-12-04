@@ -30,7 +30,7 @@ class Yikes_Inc_Easy_MailChimp_API {
 	 * @since %VERSION%
 	 * @var string
 	 */
-	protected $api_version = '3.0';
+	protected $api_version = '';
 
 	/**
 	 * The datacenter where the MailChimp account is located.
@@ -47,13 +47,15 @@ class Yikes_Inc_Easy_MailChimp_API {
 	 *
 	 * @since %VERSION%
 	 *
-	 * @param string $datacenter The datacenter string where the MailChimp account is located.
-	 * @param string $api_key    The base API key, without the datacenter appended.
+	 * @param string $datacenter  The datacenter string where the MailChimp account is located.
+	 * @param string $api_key     The base API key, without the datacenter appended.
+	 * @param string $api_version The API version to use.
 	 */
-	public function __construct( $datacenter, $api_key ) {
-		$this->datacenter = $datacenter;
-		$this->api_key    = $api_key;
-		$this->api_url    = "https://{$this->datacenter}.api.mailchimp.com/{$this->api_version}";
+	public function __construct( $datacenter, $api_key, $api_version ) {
+		$this->datacenter  = $datacenter;
+		$this->api_key     = $api_key;
+		$this->api_version = $api_version;
+		$this->api_url     = "https://{$this->datacenter}.api.mailchimp.com/{$this->api_version}";
 	}
 
 	/**
