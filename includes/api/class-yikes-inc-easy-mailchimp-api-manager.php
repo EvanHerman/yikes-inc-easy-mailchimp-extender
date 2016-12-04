@@ -20,9 +20,9 @@ class Yikes_Inc_Easy_MailChimp_API_Manager {
 	/**
 	 * Our API instance.
 	 *
-	 * @var Yikes_Inc_Easy_MailChimp_API
+	 * @var Yikes_Inc_Easy_MailChimp_API[]
 	 */
-	protected $api = null;
+	protected $api = array();
 
 	/**
 	 * The whole API key.
@@ -130,14 +130,19 @@ class Yikes_Inc_Easy_MailChimp_API_Manager {
 	 * Get the API instance.
 	 *
 	 * @author Jeremy Pry
+	 *
+	 * @param string $version The API version instance to retrieve.
+	 *
 	 * @return Yikes_Inc_Easy_MailChimp_API
 	 */
-	public function get_api() {
-		if ( null === $this->api ) {
-			$this->api = new Yikes_Inc_Easy_MailChimp_API( $this->get_datacenter(), $this->get_api_key() );
+	public function get_api( $version = '' ) {
+		$version = $version ?: $this->get_default_api_version();
+
+		if ( ! array_key_exists( $version, $this->api ) || null === $this->api[ $version ] ) {
+			$this->api[ $version ] = new Yikes_Inc_Easy_MailChimp_API( $this->get_datacenter(), $this->get_api_key(), $version );
 		}
 
-		return $this->api;
+		return $this->api[ $version ];
 	}
 
 	/**
