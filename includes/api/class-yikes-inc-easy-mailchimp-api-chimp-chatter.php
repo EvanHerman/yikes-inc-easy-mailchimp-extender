@@ -5,6 +5,8 @@
  *
  * Note that this expects a V2 API object.
  *
+ * @deprecated
+ *
  * @author Jeremy Pry
  * @since  %VERSION%
  */

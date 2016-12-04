@@ -5,6 +5,8 @@
  *
  * Note: This needs the V2 endpoint.
  *
+ * @deprecated
+ *
  * @author Jeremy Pry
  * @since  %VERSION%
  */
