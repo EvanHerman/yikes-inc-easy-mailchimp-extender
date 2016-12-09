@@ -711,7 +711,21 @@ function process_mailchimp_shortcode( $atts ) {
 													</span>
 												<?php } ?>
 
-												<input <?php echo implode( ' ' , $field_array ); ?> type="text" pattern="<?php echo apply_filters( 'yikes-mailchimp-zip-pattern', '\d{5,5}(-\d{4,4})?' ); ?>" title="<?php _e( '5 digit zip code, numbers only' , 'yikes-inc-easy-mailchimp-extender' ); ?>" value="<?php if( isset( $_POST[$field['merge']] ) && $form_submitted != 1 ) { echo $_POST[$field['merge']]; } else { echo esc_attr( $default_value ); } ?>">
+												<?php 
+													// If zip lookup plugin is installed, the ZIP field comes back as an array and we need to handle it differently...
+													$zip_value_to_echo = '';
+													if( isset( $_POST[$field['merge']] ) && $form_submitted != 1 ) {
+														if ( is_array( $_POST[$field['merge']] ) && isset( $_POST[$field['merge']]['zip'] ) ) {
+															$zip_value_to_echo = $_POST[$field['merge']]['zip'];
+														} else {
+															$zip_value_to_echo = $_POST[$field['merge']]; 
+														}
+													} else { 
+														$zip_value_to_echo = esc_attr( $default_value ); 
+													}
+												?>
+
+												<input <?php echo implode( ' ' , $field_array ); ?> type="text" pattern="<?php echo apply_filters( 'yikes-mailchimp-zip-pattern', '\d{5,5}(-\d{4,4})?' ); ?>" title="<?php _e( '5 digit zip code, numbers only' , 'yikes-inc-easy-mailchimp-extender' ); ?>" value="<?php echo $zip_value_to_echo ?>">
 
 											</label>
 											<?php

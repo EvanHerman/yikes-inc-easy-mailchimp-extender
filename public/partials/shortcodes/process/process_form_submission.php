@@ -301,8 +301,9 @@ if ( ! isset( $_POST['yikes_easy_mc_new_subscriber'] ) || ! wp_verify_nonce( $_P
 		*	@$notifications - the notification array
 		*	@since 6.0.0
 		*/
-		do_action( 'yikes-mailchimp-form-submission' , $_POST['EMAIL'] , $merge_variables , $form_id , $form_settings['notifications'] );
-		do_action( 'yikes-mailchimp-form-submission-' . $form_id , $_POST['EMAIL'] , $merge_variables , $form_id , $form_settings['notifications'] );
+		$notifications = ( isset( $form_settings ) && isset( $form_settings['notifications'] ) ) ? $form_settings['notifications'] : '';
+		do_action( 'yikes-mailchimp-form-submission' , $_POST['EMAIL'] , $merge_variables , $form_id , $notifications );
+		do_action( 'yikes-mailchimp-form-submission-' . $form_id , $_POST['EMAIL'] , $merge_variables , $form_id , $notifications );
 
 		/*
 		*	Increase the submission count for this form
