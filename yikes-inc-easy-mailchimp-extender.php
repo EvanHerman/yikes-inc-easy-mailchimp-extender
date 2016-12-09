@@ -42,7 +42,7 @@ if ( ! defined( 'WPINC' ) ) {
  * 	@since 6.1.3
  */
 if ( ! defined( 'YIKES_MC_VERSION' ) ) {
-	define( 'YIKES_MC_VERSION' , '6.2.1' );
+	define( 'YIKES_MC_VERSION' , '6.2.4' );
 }
 
 /**
