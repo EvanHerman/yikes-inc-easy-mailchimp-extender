@@ -365,4 +365,15 @@ class Yikes_Inc_Easy_MailChimp_API {
 
 		return $args;
 	}
+
+	/**
+	 * Get the API version for this instance.
+	 *
+	 * @author Jeremy Pry
+	 * @since %VERSION%
+	 * @return string The API version.
+	 */
+	public function get_version() {
+		return $this->api_version;
+	}
 }
