@@ -21,6 +21,14 @@ class Yikes_Inc_Easy_MailChimp_API_Account_Details extends Yikes_Inc_Easy_MailCh
 	protected $base_path = 'helper/account-details.json';
 
 	/**
+	 * Whether a V2 API connection is required.
+	 *
+	 * @since %VERSION%
+	 * @var bool
+	 */
+	protected $requires_v2 = true;
+
+	/**
 	 * Get the account details.
 	 *
 	 * This is meant to use the V2 API.

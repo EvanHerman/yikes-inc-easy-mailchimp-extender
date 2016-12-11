@@ -21,6 +21,14 @@ class Yikes_Inc_Easy_MailChimp_API_Profile extends Yikes_Inc_Easy_MailChimp_API_
 	protected $base_path = 'users/profile.json';
 
 	/**
+	 * Whether a V2 API connection is required.
+	 *
+	 * @since %VERSION%
+	 * @var bool
+	 */
+	protected $requires_v2 = true;
+
+	/**
 	 * Get profile data from the API.
 	 *
 	 * @author Jeremy Pry

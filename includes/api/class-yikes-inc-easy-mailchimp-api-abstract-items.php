@@ -26,13 +26,28 @@ abstract class Yikes_Inc_Easy_MailChimp_API_Abstract_Items {
 	protected $base_path = '';
 
 	/**
+	 * Whether a V2 API connection is required.
+	 *
+	 * @since %VERSION%
+	 * @var bool
+	 */
+	protected $requires_v2 = false;
+
+	/**
 	 * Yikes_Inc_Easy_MailChimp_API_Lists constructor.
 	 *
 	 * @since %VERSION%
 	 *
-	 * @param Yikes_Inc_Easy_MailChimp_API $api
+	 * @param Yikes_Inc_Easy_MailChimp_API $api The API connection.
+	 *
+	 * @throws \Exception When a V2 API connection is required and not received.
 	 */
 	public function __construct( Yikes_Inc_Easy_MailChimp_API $api ) {
+		// If a V2 API is required, throw an exception if we don't have it.
+		if ( $this->requires_v2 && ! version_compare( '3.0', $api->get_version(), '>' ) ) {
+			throw new \Exception( sprintf( 'The %s class requires a V2 API instance.', get_class( $this ) ) );
+		}
+
 		$this->api = $api;
 	}
 
