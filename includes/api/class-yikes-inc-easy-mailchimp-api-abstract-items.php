@@ -101,7 +101,7 @@ abstract class Yikes_Inc_Easy_MailChimp_API_Abstract_Items {
 	 *
 	 * @return array|WP_Error
 	 */
-	protected function get_from_api( $path, $headers = array(), $params = array() ) {
+	protected function get_from_api( $path = '', $headers = array(), $params = array() ) {
 		$response = $this->api->get( $path, $headers, $params );
 
 		return $this->parse_response( $response );
