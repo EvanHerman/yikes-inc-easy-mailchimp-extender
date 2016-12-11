@@ -18,6 +18,14 @@ abstract class Yikes_Inc_Easy_MailChimp_API_Abstract_Items {
 	protected $api;
 
 	/**
+	 * The base API path.
+	 *
+	 * @since %VERSION%
+	 * @var string
+	 */
+	protected $base_path = '';
+
+	/**
 	 * Yikes_Inc_Easy_MailChimp_API_Lists constructor.
 	 *
 	 * @since %VERSION%
@@ -210,5 +218,32 @@ abstract class Yikes_Inc_Easy_MailChimp_API_Abstract_Items {
 		}
 
 		return $body;
+	}
+
+	/**
+	 * Get a post response from the API.
+	 *
+	 * This is an abstracted method to retrieve a POST response from the API using only the base path.
+	 *
+	 * @author Jeremy Pry
+	 * @since  %VERSION%
+	 *
+	 * @param string $transient_key The string to use for returning a stored transient.
+	 * @param bool   $use_transient Whether to use transients.
+	 *
+	 * @return array|WP_Error
+	 */
+	protected function post_base_path( $transient_key, $use_transient = true ) {
+		$transient = get_transient( $transient_key );
+		if ( false !== $transient && $use_transient ) {
+			return $transient;
+		}
+
+		$response = $this->maybe_return_error( $this->post_to_api( $this->base_path, array() ) );
+		if ( ! is_wp_error( $response ) ) {
+			set_transient( $transient_key, $response, HOUR_IN_SECONDS );
+		}
+
+		return $response;
 	}
 }
