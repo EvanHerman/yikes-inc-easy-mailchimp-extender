@@ -34,18 +34,7 @@ class Yikes_Inc_Easy_MailChimp_API_Account_Details extends Yikes_Inc_Easy_MailCh
 	 */
 	public function account_details( $use_transient = true ) {
 		$transient_key = 'yikes_eme_account_details';
-		$transient     = get_transient( $transient_key );
 
-		if ( false !== $transient && $use_transient ) {
-			return $transient;
-		}
-
-		$response = $this->maybe_return_error( $this->post_to_api( $this->base_path, array() ) );
-
-		if ( ! is_wp_error( $response ) ) {
-			set_transient( $transient_key, $response, HOUR_IN_SECONDS );
-		}
-
-		return $response;
+		return $this->post_base_path( $transient_key, $use_transient );
 	}
 }

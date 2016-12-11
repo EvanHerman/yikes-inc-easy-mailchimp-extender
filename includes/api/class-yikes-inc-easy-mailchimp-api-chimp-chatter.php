@@ -40,18 +40,7 @@ class Yikes_Inc_Easy_MailChimp_API_Chimp_Chatter extends Yikes_Inc_Easy_MailChim
 	 */
 	public function chimp_chatter( $use_transient = true ) {
 		$transient_key = 'yikes_eme_chimp_chatter';
-		$transient     = get_transient( $transient_key );
 
-		if ( false !== $transient && $use_transient ) {
-			return $transient;
-		}
-
-		$response = $this->maybe_return_error( $this->post_to_api( $this->base_path, array() ) );
-
-		if ( ! is_wp_error( $response ) ) {
-			set_transient( $transient_key, $response, HOUR_IN_SECONDS );
-		}
-
-		return $response;
+		return $this->post_base_path( $transient_key, $use_transient );
 	}
 }

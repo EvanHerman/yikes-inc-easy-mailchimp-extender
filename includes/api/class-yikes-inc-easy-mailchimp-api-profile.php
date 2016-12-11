@@ -32,18 +32,7 @@ class Yikes_Inc_Easy_MailChimp_API_Profile extends Yikes_Inc_Easy_MailChimp_API_
 	 */
 	public function get_profile( $use_transients = true ) {
 		$transient_key = 'yikes_eme_user_profile';
-		$transient     = get_transient( $transient_key );
 
-		if ( false !== $transient && $use_transients ) {
-			return $transient;
-		}
-
-		$response = $this->maybe_return_error( $this->post_to_api( $this->base_path, array() ) );
-
-		if ( ! is_wp_error( $response ) ) {
-			set_transient( $transient_key, $response, HOUR_IN_SECONDS );
-		}
-
-		return $response;
+		return $this->post_base_path( $transient_key, $use_transients );
 	}
 }
