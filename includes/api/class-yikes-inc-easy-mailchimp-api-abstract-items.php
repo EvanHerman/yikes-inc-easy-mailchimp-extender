@@ -12,7 +12,6 @@ abstract class Yikes_Inc_Easy_MailChimp_API_Abstract_Items {
 	 * Our API object.
 	 *
 	 * @since %VERSION%
-	 *
 	 * @var Yikes_Inc_Easy_MailChimp_API
 	 */
 	protected $api;
@@ -166,6 +165,7 @@ abstract class Yikes_Inc_Easy_MailChimp_API_Abstract_Items {
 	 * Send a PUT request to the API.
 	 *
 	 * @author Jeremy Pry
+	 * @since  %VERSION%
 	 *
 	 * @param string $path    The relative API path. Leading slash not required.
 	 * @param mixed  $body    The body data for the request.
@@ -185,6 +185,7 @@ abstract class Yikes_Inc_Easy_MailChimp_API_Abstract_Items {
 	 * Return either the valid response, or a WP_Error.
 	 *
 	 * @author Jeremy Pry
+	 * @since  %VERSION%
 	 *
 	 * @param mixed $response The API response.
 	 *
@@ -211,6 +212,7 @@ abstract class Yikes_Inc_Easy_MailChimp_API_Abstract_Items {
 	 * Parse the response and retrieve the body.
 	 *
 	 * @author Jeremy Pry
+	 * @since  %VERSION%
 	 *
 	 * @param array|WP_Error $response
 	 *

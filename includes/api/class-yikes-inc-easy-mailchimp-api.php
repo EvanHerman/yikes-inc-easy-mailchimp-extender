@@ -323,6 +323,8 @@ class Yikes_Inc_Easy_MailChimp_API {
 			/**
 			 * Filter whether our requests should verify the SSL certificate.
 			 *
+			 * @since %VERSION%
+			 *
 			 * @param bool $sslverify
 			 */
 			'sslverify'  => apply_filters( 'yikes-mailchimp-sslverify', true ),
@@ -345,6 +347,7 @@ class Yikes_Inc_Easy_MailChimp_API {
 	 * Get an authorized request based on the API version.
 	 *
 	 * @author Jeremy Pry
+	 * @since %VERSION%
 	 * @return array
 	 */
 	protected function get_authorized_args() {

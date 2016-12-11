@@ -32,7 +32,7 @@ class Yikes_Inc_Easy_MailChimp_API_Profile extends Yikes_Inc_Easy_MailChimp_API_
 	 * Get profile data from the API.
 	 *
 	 * @author Jeremy Pry
-	 * @since %VERSION%
+	 * @since  %VERSION%
 	 *
 	 * @param bool $use_transients Whether to use a transient in the response.
 	 *

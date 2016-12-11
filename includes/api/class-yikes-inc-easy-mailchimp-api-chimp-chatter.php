@@ -32,7 +32,7 @@ class Yikes_Inc_Easy_MailChimp_API_Chimp_Chatter extends Yikes_Inc_Easy_MailChim
 	 * Retrieve the Chimp Chatter
 	 *
 	 * @author Jeremy Pry
-	 * @since %VERSION%
+	 * @since  %VERSION%
 	 *
 	 * @param bool $use_transient Whether to use a transient in the response.
 	 *
