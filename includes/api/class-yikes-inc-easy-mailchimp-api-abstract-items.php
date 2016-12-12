@@ -154,7 +154,7 @@ abstract class Yikes_Inc_Easy_MailChimp_API_Abstract_Items {
 	 *
 	 * @return array|WP_Error
 	 */
-	public function post_to_api( $path, $body, $headers = array(), $params = array() ) {
+	protected function post_to_api( $path, $body, $headers = array(), $params = array() ) {
 		$params   = wp_parse_args( array( 'body' => $body ), $params );
 		$response = $this->api->post( $path, $headers, $params );
 
