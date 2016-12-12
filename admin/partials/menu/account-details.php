@@ -1,82 +1,49 @@
 <?php
 // lets confirm the user has a valid API key stored
-if ( $this->is_user_mc_api_valid_form( false ) == 'valid' ) {
-	$manager = yikes_get_mc_api_manager();
+if ( $this->is_user_mc_api_valid_form( false ) !== 'valid' ) {
+	wp_die( __( 'It looks like you need to re-validate your MailChimp API key before you can continue.', 'yikes-inc-easy-mailchimp-extender' ), 500 );
+}
 
-	// Use new account details where we can.
-	$new_account_details = $manager->get_account_handler()->get_account();
+$manager = yikes_get_mc_api_manager();
 
-	// store the API key
-	$api_key = yikes_get_mc_api_key();
-	$dash_position = strpos( $api_key, '-' );
+// Use new account details where we can.
+$new_account_details = $manager->get_account_handler()->get_account();
 
-	// Check for a transients, if not - set them up
-	if ( false === ( $profile_info = get_transient( 'yikes-easy-mailchimp-profile-data' ) ) ) {
-		if ( $dash_position !== false ) {
-			$api_endpoint = 'https://' . substr( $api_key, $dash_position + 1 ) . '.api.mailchimp.com/2.0/users/profile.json';
-		}
-		$profile_info = wp_remote_post( $api_endpoint, array(
-			'body'      => array(
-				'apikey' => $api_key,
-			),
-			'timeout'   => 10,
-			'sslverify' => apply_filters( 'yikes-mailchimp-sslverify', true ),
-		) );
-		$profile_info = json_decode( wp_remote_retrieve_body( $profile_info ), true );
-		if ( isset( $profile_info['error'] ) ) {
-			$error_logging = new Yikes_Inc_Easy_Mailchimp_Error_Logging();
-			$error_logging->maybe_write_to_log( $profile_info['error'], __( "Get Profile Info.", 'yikes-inc-easy-mailchimp-extender' ), "Account Details Page" );
+// Get the user profile data from the V2 API
+$profile_info = $manager->get_profile_handler()->get_profile();
+if ( is_wp_error( $profile_info ) ) {
+	$error_logging = new Yikes_Inc_Easy_Mailchimp_Error_Logging();
+	$error_logging->maybe_write_to_log(
+		$profile_info->get_error_code(),
+		__( "Get Profile Info.", 'yikes-inc-easy-mailchimp-extender' ),
+		"Account Details Page"
+	);
 
-			return;
-		} else {
-			// set our transient for one week
-			set_transient( 'yikes-easy-mailchimp-profile-data', $profile_info, 1 * WEEK_IN_SECONDS );
-		}
-	}
+	return;
+}
 
-	if ( false === ( $account_details = get_transient( 'yikes-easy-mailchimp-account-data' ) ) ) {
-		if( $dash_position !== false ) {
-			$api_endpoint = 'https://' . substr( $api_key, $dash_position + 1 ) . '.api.mailchimp.com/2.0/helper/account-details.json';
-		}
-		$account_details = wp_remote_post( $api_endpoint, array(
-			'body' => array(
-				'apikey' => $api_key
-			),
-			'timeout' => 10,
-			'sslverify' => apply_filters( 'yikes-mailchimp-sslverify', true )
-		) );
-		$account_details = json_decode( wp_remote_retrieve_body( $account_details ), true );
-		if ( isset( $account_details['error'] ) ) {
-			$error_logging = new Yikes_Inc_Easy_Mailchimp_Error_Logging();
-			$error_logging->maybe_write_to_log( $account_details['error'], __( "Get Account Details" , 'yikes-inc-easy-mailchimp-extender' ), "Account Details Page" );
-		} else {
-			// set our transient for one hour
-			set_transient( 'yikes-easy-mailchimp-account-data', $account_details, 1 * HOUR_IN_SECONDS );
-		}
-	}
-	if ( false === ( $account_activity = get_transient( 'yikes-easy-mailchimp-account-activity' ) ) ) {
-		// retreive our list data
-		if( $dash_position !== false ) {
-			$api_endpoint = 'https://' . substr( $api_key, $dash_position + 1 ) . '.api.mailchimp.com/2.0/helper/chimp-chatter.json';
-		}
-		$account_activity = wp_remote_post( $api_endpoint, array(
-			'body' => array(
-				'apikey' => $api_key
-			),
-			'timeout' => 10,
-			'sslverify' => apply_filters( 'yikes-mailchimp-sslverify', true )
-		) );
-		$account_activity = json_decode( wp_remote_retrieve_body( $account_activity ), true );
-		if( isset( $account_activity['error'] ) ) {
-			$error_logging = new Yikes_Inc_Easy_Mailchimp_Error_Logging();
-			$error_logging->maybe_write_to_log( $account_activity['error'], __( "Get Chimp Chatter" , 'yikes-inc-easy-mailchimp-extender' ), "Account Details Page" );
-		} else {
-			// set our transient for one hour
-			set_transient( 'yikes-easy-mailchimp-account-activity', $account_activity, 1 * HOUR_IN_SECONDS );
-		}
-	}
-} else {
-	wp_die( __( 'It looks like you need to re-validate your MailChimp API key before you can continue.' , 'yikes-inc-easy-mailchimp-extender' ) , 500 );
+$account_details = $manager->get_account_details_handler()->account_details();
+if ( is_wp_error( $account_details ) ) {
+	$error_logging = new Yikes_Inc_Easy_Mailchimp_Error_Logging();
+	$error_logging->maybe_write_to_log(
+		$account_details->get_error_code(),
+		__( "Get Account Details", 'yikes-inc-easy-mailchimp-extender' ),
+		"Account Details Page"
+	);
+
+	return;
+}
+
+$account_activity = $manager->get_chimp_chatter()->chimp_chatter();
+if ( is_wp_error( $account_activity ) ) {
+	$error_logging = new Yikes_Inc_Easy_Mailchimp_Error_Logging();
+	$error_logging->maybe_write_to_log(
+		$account_activity->get_error_code(),
+		__( "Get Chimp Chatter", 'yikes-inc-easy-mailchimp-extender' ),
+		"Account Details Page"
+	);
+
+	return;
 }
 ?>
 <div class="wrap" id="account-details">
@@ -104,6 +71,7 @@ if ( $this->is_user_mc_api_valid_form( false ) == 'valid' ) {
 								$end = count( $account_activity );
 								foreach( $account_activity as $activity ) {
 									$split_type = explode( ':',str_replace('-',' ',$activity['type']));
+									$section_class = '';
 									switch( $activity['type'] ) {
 										case 'lists:new-subscriber':
 										case 'lists:profile-updates':
