@@ -11,6 +11,14 @@
 class Yikes_Inc_Easy_MailChimp_API_Manager {
 
 	/**
+	 * The account details instance.
+	 *
+	 * @since %VERSION%
+	 * @var Yikes_Inc_Easy_MailChimp_API_Account_Details
+	 */
+	protected $account_details = null;
+
+	/**
 	 * The account manager instance.
 	 *
 	 * @since %VERSION%
@@ -219,6 +227,7 @@ class Yikes_Inc_Easy_MailChimp_API_Manager {
 	 * This uses the V2 API.
 	 *
 	 * @author Jeremy Pry
+	 * @since  %VERSION%
 	 * @return Yikes_Inc_Easy_MailChimp_API_Profile
 	 */
 	public function get_profile_handler() {
@@ -227,5 +236,20 @@ class Yikes_Inc_Easy_MailChimp_API_Manager {
 		}
 
 		return $this->profile;
+	}
+
+	/**
+	 * Get the Account Details instance.
+	 *
+	 * @author Jeremy Pry
+	 * @since  %VERSION%
+	 * @return Yikes_Inc_Easy_MailChimp_API_Account_Details
+	 */
+	public function get_account_details_handler() {
+		if ( null === $this->account_details ) {
+			$this->account_details = new Yikes_Inc_Easy_MailChimp_API_Account_Details( $this->get_api( '2.0' ) );
+		}
+
+		return $this->account_details;
 	}
 }
