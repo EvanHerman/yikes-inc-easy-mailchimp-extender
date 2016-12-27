@@ -51,34 +51,45 @@ if ( ! isset( $_POST['yikes_easy_mc_new_subscriber'] ) || ! wp_verify_nonce( $_P
 } else {
 
 	/* Check for Honeypot filled */
-	$honey_pot_filled = ( isset( $_POST['yikes-mailchimp-honeypot'] ) && $_POST['yikes-mailchimp-honeypot'] != '' ) ? true : false;
+	$honey_pot_filled = ( isset( $_POST['yikes-mailchimp-honeypot'] ) && '' !== $_POST['yikes-mailchimp-honeypot'] ) ? true : false;
 
 	// if it was filled out, return an error...
 	if ( $honey_pot_filled ) {
 
-		$process_submission_response = '<p><small class="form_submission_error">' . __( "Error: It looks like the honeypot was filled out and the form was not properly be submitted." , 'yikes-inc-easy-mailchimp-extender' ) . '</small></p>';
+		$process_submission_response = '<p><small class="form_submission_error">' . __( 'Error: It looks like the honeypot was filled out and the form was not properly be submitted.' , 'yikes-inc-easy-mailchimp-extender' ) . '</small></p>';
 
 		return;
 
 	}
 
 	// Check reCAPTCHA Response
-	if( isset( $_POST['g-recaptcha-response'] ) ) {
-		$url = esc_url_raw( 'https://www.google.com/recaptcha/api/siteverify?secret=' . get_option( 'yikes-mc-recaptcha-secret-key' , '' ) . '&response=' . $_POST['g-recaptcha-response'] . '&remoteip=' . $_SERVER["REMOTE_ADDR"] );
-		$response = wp_remote_get( $url );
+	if ( isset( $_POST['g-recaptcha-response'] ) ) {
+
+		$url           = esc_url_raw( 'https://www.google.com/recaptcha/api/siteverify?secret=' . get_option( 'yikes-mc-recaptcha-secret-key' , '' ) . '&response=' . $_POST['g-recaptcha-response'] . '&remoteip=' . $_SERVER['REMOTE_ADDR'] );
+		$response      = wp_remote_get( $url );
 		$response_body = json_decode( $response['body'] , true );
 
 		// if we've hit an error, lets return the error!
-		if( $response_body['success'] != 1 ) {
+		if ( 1 !== $response_body['success'] ) {
+
 			$recaptcha_error = array(); // empty array to store error messages
-			foreach( $response_body['error-codes'] as $error_code ) {
-				if( $error_code == 'missing-input-response' ) {
+
+			foreach ( $response_body['error-codes'] as $error_code ) {
+
+				if ( 'missing-input-response' === $error_code ) {
+
 					$error_code = __( 'Please check the reCAPTCHA field.', 'yikes-inc-easy-mailchimp-extender' );
+
 				}
+
 				$recaptcha_error[] = $error_code;
+
 			}
-			$process_submission_response .= "<p class='yikes-easy-mc-error-message'>" . apply_filters( 'yikes-mailchimp-recaptcha-required-error', __( 'Error' , 'yikes-inc-easy-mailchimp-extender' )  . ': ' . implode( ' ' , $recaptcha_error ) ) . "</p>";
+
+			$process_submission_response .= "<p class='yikes-easy-mc-error-message'>" . apply_filters( 'yikes-mailchimp-recaptcha-required-error', __( 'Error' , 'yikes-inc-easy-mailchimp-extender' ) . ': ' . implode( ' ' , $recaptcha_error ) ) . '</p>';
+
 			return;
+
 		}
 	}
 
@@ -87,22 +98,31 @@ if ( ! isset( $_POST['yikes_easy_mc_new_subscriber'] ) || ! wp_verify_nonce( $_P
 	*	No HTML5 validation, and don't want to use jQuery for non-ajax forms
 	*/
 	$missing_required_checkbox_interest_groups = array();
-	foreach( $form_settings['fields'] as $merge_tag => $field_data ) {
-		if( isset( $field_data['group_id'] ) ) {
+	foreach ( $form_settings['fields'] as $merge_tag => $field_data ) {
+
+		if ( isset( $field_data['group_id'] ) ) {
+
 			// check if the checkbox group was set to required, if so return an error
-			if( isset( $field_data['require'] ) && $field_data['require'] == 1 ) {
-				if( $field_data['type'] == 'checkboxes' ) {
-					if( ! isset( $_POST[$merge_tag] ) ) {
+			if ( isset( $field_data['require'] ) && 1 === $field_data['require'] ) {
+
+				if ( 'checkboxes' === $field_data['type'] ) {
+
+					if ( ! isset( $_POST[ $merge_tag ] ) ) {
+
 						$missing_required_checkbox_interest_groups[] = $merge_tag;
+
 					}
 				}
 			}
 		}
 	}
 
-	if( ! empty( $missing_required_checkbox_interest_groups ) ) {
-		$process_submission_response = '<p class="yikes-easy-mc-error-message">' . apply_filters( 'yikes-mailchimp-interest-group-required-top-error', sprintf( _n( 'It looks like you forgot to fill in a required field.', 'It looks like you forgot to fill in %s required fields.', count( $missing_required_checkbox_interest_groups ), 'yikes-inc-easy-mailchimp-extender' ), count( $missing_required_checkbox_interest_groups ) ), count( $missing_required_checkbox_interest_groups ), $form_id ) . '</p>';
+	if ( ! empty( $missing_required_checkbox_interest_groups ) ) {
+
+		$process_submission_response = '<p class="yikes-easy-mc-error-message">' . apply_filters( 'yikes-mailchimp-interest-group-required-top-error', sprintf( _n( 'It looks like you forgot to fill in %s required field.', 'It looks like you forgot to fill in %s required fields.', count( $missing_required_checkbox_interest_groups ), 'yikes-inc-easy-mailchimp-extender' ), count( $missing_required_checkbox_interest_groups ) ), count( $missing_required_checkbox_interest_groups ), $form_id ) . '</p>';
+
 		return;
+
 	}
 
 	// Empty array to build up merge variables & interest groups
@@ -110,20 +130,25 @@ if ( ! isset( $_POST['yikes_easy_mc_new_subscriber'] ) || ! wp_verify_nonce( $_P
 
 	// loop to push variables to our array
 	foreach ( $_POST as $merge_tag => $value ) {
-		if ( $merge_tag != 'yikes_easy_mc_new_subscriber' && $merge_tag != '_wp_http_referer' ) {
+
+		if ( 'yikes_easy_mc_new_subscriber' !== $merge_tag && '_wp_http_referer' !== $merge_tag ) {
+
 			// check if the current iteration has a 'date_format' key set
 			// (aka - date/birthday fields)
-			if ( isset( $form_settings['fields'][$merge_tag]['date_format'] ) ) {
+			if ( isset( $form_settings['fields'][ $merge_tag ]['date_format'] ) ) {
 
 				// check if EU date format
-				if ( $form_settings['fields'][$merge_tag]['date_format'] == 'DD/MM/YYYY' || $form_settings['fields'][$merge_tag]['date_format'] == 'DD/MM' ) {
+				if ( 'DD/MM/YYYY' === $form_settings['fields'][ $merge_tag ]['date_format'] || 'DD/MM' === $form_settings['fields'][ $merge_tag ]['date_format'] ) {
+
 					// convert '/' to '.' and to UNIX timestamp
 					$value = ( '' != $value ) ? str_replace( '/', '.', $value ) : '';
+
 				} else {
+
 					// convert to UNIX timestamp
 					$value = ( '' != $value ) ? $value : '';
-				}
 
+				}
 			}
 
 			if ( strpos( $merge_tag, 'group-' ) !== false ) { // this is is an interest group!
@@ -217,13 +242,11 @@ if ( ! isset( $_POST['yikes_easy_mc_new_subscriber'] ) || ! wp_verify_nonce( $_P
 	if ( ! empty( $form_settings['error_messages']['success'] ) ) {
 
 		$process_submission_response = '<p class="yikes-easy-mc-success-message">' . apply_filters( 'yikes-mailchimp-success-response', stripslashes( esc_html( $form_settings['error_messages']['success'] ) ), $form_id, $merge_variables ) . '</p>';
-		// echo stripslashes( esc_html( $error_messages['success'] ) );
 
 	} else {
 
-		$default_success_response = ( 1 === $form_settings['optin_settings']['optin'] ) ? __( 'Thank you for subscribing! Check your email for the confirmation message.' , 'yikes-inc-easy-mailchimp-extender' ) : __( 'Thank you for subscribing!' , 'yikes-inc-easy-mailchimp-extender' );
+		$default_success_response    = ( 1 === $form_settings['optin_settings']['optin'] ) ? __( 'Thank you for subscribing! Check your email for the confirmation message.' , 'yikes-inc-easy-mailchimp-extender' ) : __( 'Thank you for subscribing!' , 'yikes-inc-easy-mailchimp-extender' );
 		$process_submission_response = '<p class="yikes-easy-mc-success-message">' . apply_filters( 'yikes-mailchimp-success-response', $default_success_response, $form_id, $merge_variables ) . '</p>';
-		// echo $default_success_response;
 
 	}
 
@@ -262,7 +285,7 @@ if ( ! isset( $_POST['yikes_easy_mc_new_subscriber'] ) || ! wp_verify_nonce( $_P
 	*	on a successful submission
 	*	@since 6.0.0
 	*/
-	$interface = yikes_easy_mailchimp_extender_get_form_interface();
+	$interface   = yikes_easy_mailchimp_extender_get_form_interface();
 	$submissions = $form_settings['submissions'] + 1;
 	$interface->update_form_field( $form_id, 'submissions', $submissions );
 
