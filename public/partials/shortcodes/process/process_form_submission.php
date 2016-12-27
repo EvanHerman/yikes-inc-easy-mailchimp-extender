@@ -9,26 +9,63 @@ global $form_submitted, $process_submission_response;
 
 // confirm we have a form id to work with
 $form_id = ( ! empty( $_POST['yikes-mailchimp-submitted-form'] ) ) ? $_POST['yikes-mailchimp-submitted-form'] : false;
-if( ! $form_id ) {
+
+if ( ! $form_id ) {
+
 	return;
+
 }
 
+$list_id = $_POST['yikes-mailchimp-associated-list-id'];
+
 $form_settings = Yikes_Inc_Easy_Mailchimp_Extender_Public::yikes_retrieve_form_settings( $_POST['yikes-mailchimp-submitted-form'] );
+
+/**
+ * Setup whether or not we should update the user, or display the error with email generation
+ * @since 6.1
+ */
+$update_existing_user = isset( $form_settings['optin_settings']['update_existing_user'] ) ? $form_settings['optin_settings']['update_existing_user'] : 0;
+
+$replace_interests    = isset( $form_settings['submission_settings']['replace_interests'] ) ? (bool) $form_settings['submission_settings']['replace_interests'] : true;
+
+$groups = array();
+
+// If the user intends to replace existing interst groups, loop and set them all to false to start.
+if ( $replace_interests ) {
+
+	$list_handler = yikes_get_mc_api_manager()->get_list_handler();
+
+	$interest_groupings = $list_handler->get_interest_categories( $_POST['yikes-mailchimp-associated-list-id'] );
+
+	foreach ( $interest_groupings as $group_id => $group_data ) {
+
+		foreach ( $group_data['items'] as $item_id => $item_data ) {
+
+			$groups[ $item_id ] = false;
+
+		}
+	}
+}
 
 // Process our form submissions (non ajax forms)
 if ( ! isset( $_POST['yikes_easy_mc_new_subscriber'] ) || ! wp_verify_nonce( $_POST['yikes_easy_mc_new_subscriber'], 'yikes_easy_mc_form_submit' ) ) {
 
-    $process_submission_response = '<p><small class="form_submission_error">' . __( "Error : Sorry, the nonce security check didn't pass. Please reload the page and try again. You may want to try clearing your browser cache as a last attempt." , 'yikes-inc-easy-mailchimp-extender' ) . '</small></p>';
+	$process_submission_response = '<p><small class="form_submission_error">' . __( "Error : Sorry, the nonce security check didn't pass. Please reload the page and try again. You may want to try clearing your browser cache as a last attempt." , 'yikes-inc-easy-mailchimp-extender' ) . '</small></p>';
+
 	return;
 
 } else {
 
 	/* Check for Honeypot filled */
 	$honey_pot_filled = ( isset( $_POST['yikes-mailchimp-honeypot'] ) && $_POST['yikes-mailchimp-honeypot'] != '' ) ? true : false;
+
 	// if it was filled out, return an error...
 	if ( $honey_pot_filled ) {
+
 		$process_submission_response = '<p><small class="form_submission_error">' . __( "Error: It looks like the honeypot was filled out and the form was not properly be submitted." , 'yikes-inc-easy-mailchimp-extender' ) . '</small></p>';
+
 		return;
+
 	}
 
 	// Check reCAPTCHA Response
@@ -57,7 +94,7 @@ if ( ! isset( $_POST['yikes_easy_mc_new_subscriber'] ) || ! wp_verify_nonce( $_P
 	*/
 	$missing_required_checkbox_interest_groups = array();
 	foreach( $form_settings['fields'] as $merge_tag => $field_data ) {
-		if( is_numeric( $merge_tag ) ) {
+		if( isset( $field_data['group_id'] ) ) {
 			// check if the checkbox group was set to required, if so return an error
 			if( isset( $field_data['require'] ) && $field_data['require'] == 1 ) {
 				if( $field_data['type'] == 'checkboxes' ) {
@@ -74,7 +111,7 @@ if ( ! isset( $_POST['yikes_easy_mc_new_subscriber'] ) || ! wp_verify_nonce( $_P
 		return;
 	}
 
-	// Empty array to build up merge variables
+	// Empty array to build up merge variables & interest groups
 	$merge_variables = array();
 
 	// loop to push variables to our array
@@ -92,10 +129,28 @@ if ( ! isset( $_POST['yikes_easy_mc_new_subscriber'] ) || ! wp_verify_nonce( $_P
 					$value = ( '' != $value ) ? date( 'Y-m-d', strtotime( $value ) ) : '';
 				}
 			}
-			if( is_numeric( $merge_tag ) ) { // this is is an interest group!
-				$merge_variables['groupings'][] = array( 'id' => $merge_tag , 'groups' => ( is_array( $value ) ) ? $value : array( $value ) );
+			if ( strpos( $merge_tag, 'group-' ) !== false ) { // this is is an interest group!
+
+				$tag = str_replace( 'group-', '', $merge_tag );
+
+				if ( is_array( $value ) ) {
+
+					foreach ( $value as $val ) {
+
+						$groups[ $val ] = true;
+
+					}
+
+					continue;
+
+				}
+
+				$groups[ $value ] = true;
+
 			} else { // or else it's just a standard merge variable
-				$merge_variables[$merge_tag] = $value;
+
+				$merge_variables[ $merge_tag ] = $value;
+
 			}
 		}
 	}
@@ -109,7 +164,9 @@ if ( ! isset( $_POST['yikes_easy_mc_new_subscriber'] ) || ! wp_verify_nonce( $_P
 
 	// setup the end point
 	if( $dash_position !== false ) {
-		$api_endpoint = 'https://' . substr( $api_key, $dash_position + 1 ) . '.api.mailchimp.com/2.0/lists/subscribe.json';
+
+		$api_endpoint = 'https://' . substr( $api_key, $dash_position + 1 ) . '.api.mailchimp.com/3.0/lists/' . $list_id . '/members/' . md5( strtolower( sanitize_email( $_POST['EMAIL'] ) ) );
+
 	}
 
 	/*
@@ -141,23 +198,9 @@ if ( ! isset( $_POST['yikes_easy_mc_new_subscriber'] ) || ! wp_verify_nonce( $_P
 		return;
 	}
 
-	/**
-	 * Setup whether or not we should update the user, or display the error with email generation
-	 * @since 6.1
-	 */
-	if ( isset( $form_settings['optin_settings']['update_existing_user'] ) && 1 === absint( $form_settings['optin_settings']['update_existing_user'] ) ) {
-		$update_existing_user = 1;
-		// Should we send the update email
-		if ( isset( $form_settings['optin_settings']['send_update_email'] ) && 1 === absint( $form_settings['optin_settings']['send_update_email'] ) ) {
-			$update_existing_user = 0;
-		}
-	} else {
-		$update_existing_user = 0;
-	}
-
 	// submit the request & data, using the form settings
 		// subscribe the user
-		$subscribe_response = wp_remote_post( $api_endpoint, array(
+		/* $subscribe_response = wp_remote_post( $api_endpoint, array(
 			'body' => apply_filters( 'yikes-mailchimp-user-subscribe-api-request', array(
 				'apikey' => $api_key,
 				'id' => $_POST['yikes-mailchimp-associated-list-id'],
@@ -170,101 +213,60 @@ if ( ! isset( $_POST['yikes_easy_mc_new_subscriber'] ) || ! wp_verify_nonce( $_P
 			), $form_id, $_POST['yikes-mailchimp-associated-list-id'], $_POST['EMAIL'] ),
 			'timeout' => 10,
 			'sslverify' => apply_filters( 'yikes-mailchimp-sslverify', true )
+		) ); */
+
+		// subscribe the user
+		/* $subscribe_response = wp_remote_request( $api_endpoint, array(
+			'method' => 'PATCH',
+			'body' => apply_filters( 'yikes-mailchimp-user-subscribe-api-request', json_encode( array(
+				'email_address' => sanitize_email( $_POST['EMAIL'] ),
+				'status'        => 'subscribed',
+				'merge_fields'  => $merge_variables,
+			) ), $form, $list_id, $_POST['EMAIL'] ),
+			'headers' => array(
+				'Authorization' => 'Basic ' . base64_encode( 'api_key:' . $api_key ),
+			),
 		) );
+		*/
 
-		$subscribe_response = json_decode( wp_remote_retrieve_body( $subscribe_response ), true );
+		$member_data = array(
+			'email_address' => sanitize_email( $_POST['EMAIL'] ),
+			'merge_fields'  => $merge_variables,
+			'interests'     => $groups,
+			'status'        => 'subscribed',
+		);
 
-		// check for any errors
-		if ( isset( $subscribe_response['error'] ) ) {
+		$subscribe_response = yikes_get_mc_api_manager()->get_list_handler()->member_subscribe( $list_id, md5( strtolower( sanitize_email( $_POST['EMAIL'] ) ) ), $member_data );
+
+		if ( is_wp_error( $subscribe_response ) ) {
+
+			$error_message = $subscribe_response->get_error_message();
+
 			$error_logging = new Yikes_Inc_Easy_Mailchimp_Error_Logging();
-			$error_logging->maybe_write_to_log( $subscribe_response['error'], __( "Subscribe New User" , 'yikes-inc-easy-mailchimp-extender' ), "process_form_submission.php" );
 
-			$update_account_details_link = '';
-			switch( $subscribe_response['code'] ) {
-				// user already subscribed
-				case '214':
-					$custom_already_subscribed_text = apply_filters( 'yikes-easy-mailchimp-update-existing-subscriber-text', sprintf( __( ' To update your MailChimp profile, please %s.', 'yikes-inc-easy-mailchimp-extender' ), '<a class="send-update-email" data-list-id="' . $_POST['yikes-mailchimp-associated-list-id'] . '" data-user-email="' . sanitize_email( $_POST['EMAIL'] ) . '" href="#">' . __( 'click to send yourself an update link', 'yikes-inc-easy-mailchimp-extender' ) . '</a>' ), $form_id, '<a class="send-update-email" data-list-id="' . $_POST['yikes-mailchimp-associated-list-id'] . '" data-user-email="' . sanitize_email( $_POST['EMAIL'] ) . '" href="#">' . __( 'click to send yourself an update link', 'yikes-inc-easy-mailchimp-extender' ) . '</a>' );
-					$update_account_details_link = ( 1 === absint( $form_settings['optin_settings']['update_existing_user'] ) && 1 === absint( $form_settings['optin_settings']['send_update_email'] ) ) ? $custom_already_subscribed_text : false;
-					if( $update_account_details_link ) {
-						// if update account details is set, we need to include our script to send out the update email
-						wp_enqueue_script( 'update-existing-subscriber.js', YIKES_MC_URL . 'public/js/yikes-update-existing-subscriber.js' , array( 'jquery' ), 'all' );
-						wp_localize_script( 'update-existing-subscriber.js', 'update_subscriber_details_data', array(
-							'ajax_url' => esc_url( admin_url( 'admin-ajax.php' ) ),
-							'preloader_url' => apply_filters( 'yikes-mailchimp-preloader', esc_url_raw( admin_url( 'images/wpspin_light.gif' ) ) ),
-						) );
-					}
-					if( ! empty( $form_settings['error_messages']['already-subscribed'] ) ) {
-						$process_submission_response = '<p class="yikes-easy-mc-error-message">' . apply_filters( 'yikes-easy-mailchimp-user-already-subscribed-text', $form_settings['error_messages']['already-subscribed'], $form_id, $_POST['EMAIL'] ) . ' ' . $update_account_details_link . '</p>';
-					} else {
-						$process_submission_response = '<p class="yikes-easy-mc-error-message">' . $subscribe_response['error'] . ' ' . $update_account_details_link . '</p>';
-					}
-					break;
-				// missing a required field
-				case '250':
-						// get all merge variables in array, loop and str_replace error code with field name
-						$api_key = yikes_get_mc_api_key();
-						$dash_position = strpos( $api_key, '-' );
-						if( $dash_position !== false ) {
-							$api_endpoint = 'https://' . substr( $api_key, $dash_position + 1 ) . '.api.mailchimp.com/2.0/lists/merge-vars.json';
-						}
-						$merge_variables = wp_remote_post( $api_endpoint, array(
-							'body' => array(
-								'apikey' => $api_key,
-								'id' => array( $_POST['yikes-mailchimp-associated-list-id'] ) ,
-							),
-							'timeout' => 10,
-							'sslverify' => apply_filters( 'yikes-mailchimp-sslverify', true ),
-						) );
-						$merge_variables = json_decode( wp_remote_retrieve_body( $merge_variables ), true );
-						if ( isset( $merge_variables['error'] ) ) {
-							$error_logging = new Yikes_Inc_Easy_Mailchimp_Error_Logging();
-							$error_logging->maybe_write_to_log( $merge_variables['error'], __( "Get Merge Variables" , 'yikes-inc-easy-mailchimp-extender' ), "process_form_submission.php" );
-						}
-						// re-store our data
-						$merge_variables = $merge_variables['data'][0]['merge_vars'];
-						$merge_variable_name_array = array();
-						foreach( $merge_variables as $merge_var ) {
-							$merge_variables_name_array[$merge_var['tag']] = $merge_var['name'];
-						}
-						$error_message = $subscribe_response['error'];
-						// replace tag with name in the error message.
-						foreach( $merge_variables_name_array as $tag => $name ) {
-							$error_message = str_replace( $tag, $name, $error_message );
-						}
-						$process_submission_response = '<p class="yikes-easy-mc-error-message">' . $error_message . '.</p>';
-					break;
-				// test@email.com is not allowed
-				case '-99':
-					// generic error
-					$process_submission_response = '<p class="yikes-easy-mc-error-message">' .  str_replace( ' and cannot be imported', '', str_replace( 'List_RoleEmailMember:', '', $subscribe_response['error'] ) ) . '</p>';
-					break;
-				// invalid email (or no email at all)
-				case '-100':
-					$process_submission_response = ( ! empty( $form_settings['error_messages']['invalid-email'] ) ) ? '<p class="yikes-easy-mc-error-message">' . $form_settings['error_messages']['invalid-email'] . '</p>' : '<p class="yikes-easy-mc-error-message">' . __( 'Please provide a valid email address.', 'yikes-inc-easy-mailchimp-extender' ) . '</p>';
-					break;
-				default:
-					// generic error
-					if( ! empty( $form_settings['error_messages']['general-error'] ) ) {
-						$process_submission_response = '<p class="yikes-easy-mc-error-message">' . $form_settings['error_messages']['general-error'] . '</p>';
-					} else {
-						$process_submission_response = '<p class="yikes-easy-mc-error-message">' .  $subscribe_response['error'] . '</p>';
-					}
-					break;
-			}
+			$error_logging->maybe_write_to_log( $error_message, __( 'New Subscriber' , 'yikes-inc-easy-mailchimp-extender' ), 'process_form_submission.php' );
+
+			$process_submission_response = '<p class="yikes-easy-mc-error-message">' . $error_message . '</p>';
+
 			return;
+
 		}
 
 		// setup our submission response
 		$form_submitted = 1;
 
 		// Display the success message
-		if( ! empty( $form_settings['error_messages']['success'] ) ) {
+		if ( ! empty( $form_settings['error_messages']['success'] ) ) {
+
 			$process_submission_response = '<p class="yikes-easy-mc-success-message">' . apply_filters( 'yikes-mailchimp-success-response', stripslashes( esc_html( $form_settings['error_messages']['success'] ) ), $form_id, $merge_variables ) . '</p>';
 			// echo stripslashes( esc_html( $error_messages['success'] ) );
+
 		} else {
+
 			$default_success_response = ( 1 === $form_settings['optin_settings']['optin'] ) ? __( 'Thank you for subscribing! Check your email for the confirmation message.' , 'yikes-inc-easy-mailchimp-extender' ) : __( 'Thank you for subscribing!' , 'yikes-inc-easy-mailchimp-extender' );
 			$process_submission_response = '<p class="yikes-easy-mc-success-message">' . apply_filters( 'yikes-mailchimp-success-response', $default_success_response, $form_id, $merge_variables ) . '</p>';
 			// echo $default_success_response;
+
 		}
 
 		/*
@@ -306,4 +308,3 @@ if ( ! isset( $_POST['yikes_easy_mc_new_subscriber'] ) || ! wp_verify_nonce( $_P
 		$submissions = $form_settings['submissions'] + 1;
 		$interface->update_form_field( $form_id, 'submissions', $submissions );
 }
-

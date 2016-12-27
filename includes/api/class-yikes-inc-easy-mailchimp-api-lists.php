@@ -360,7 +360,7 @@ class Yikes_Inc_Easy_MailChimp_API_Lists extends Yikes_Inc_Easy_MailChimp_API_Ab
 	 */
 	public function member_subscribe( $list_id, $member_id, $member_data ) {
 		$path     = "{$this->base_path}/{$list_id}/members/{$member_id}";
-		$response = $this->patch_to_api( $path, $member_data );
+		$response = $this->put_to_api( $path, $member_data );
 
 		// Clear the list members transient
 		delete_transient( "yikes_eme_members_{$list_id}" );

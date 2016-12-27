@@ -75,7 +75,7 @@ if( isset( $data['g-recaptcha-response'] ) ) {
 		$error = 1;
 		wp_send_json_error( array(
 			'hide' => '0',
-			'error' => $error ,
+			'error' => $error,
 			'response' => apply_filters( 'yikes-mailchimp-recaptcha-required-error', implode( ' ', $error_messages ) ),
 		) );
 		exit();
@@ -105,7 +105,7 @@ foreach ( $data as $merge_tag => $value ) {
 	}
 }
 // store the opt-in time
-$merge_variables['optin_time'] = current_time( 'Y-m-d H:i:s', 1 );
+$merge_variables['timestamp_opt'] = current_time( 'Y-m-d H:i:s', 1 );
 
 // Submit our form data
 $api_key = yikes_get_mc_api_key();
@@ -114,6 +114,7 @@ $dash_position = strpos( $api_key, '-' );
 // setup the end point
 if( $dash_position !== false ) {
 	$api_endpoint = 'https://' . substr( $api_key, $dash_position + 1 ) . '.api.mailchimp.com/2.0/lists/subscribe.json';
+	$api_endpoint = 'https://' . substr( $api_key, $dash_position + 1 ) . '.api.mailchimp.com/3.0/lists/' . $list_id . '/members/' . sanitize_email( $data['EMAIL'] );
 }
 
 /*
@@ -161,7 +162,7 @@ if ( isset( $optin_settings['update_existing_user'] ) && 1 === absint( $optin_se
 
 // submit the request & data, using the form settings
 	// subscribe the user
-	$subscribe_response = wp_remote_post( $api_endpoint, array(
+	/* $subscribe_response = wp_remote_post( $api_endpoint, array(
 		'body' => apply_filters( 'yikes-mailchimp-user-subscribe-api-request', array(
 			'apikey' => $api_key,
 			'id' => $list_id,
@@ -174,9 +175,26 @@ if ( isset( $optin_settings['update_existing_user'] ) && 1 === absint( $optin_se
 		), $form, $list_id, $data['EMAIL'] ),
 		'timeout' => 10,
 		'sslverify' => apply_filters( 'yikes-mailchimp-sslverify', true )
+	) ); */
+
+	// subscribe the user
+	$subscribe_response = wp_remote_post( $api_endpoint, array(
+		'body' => apply_filters( 'yikes-mailchimp-user-subscribe-api-request', array(
+			'email_address' => array( 'email' => sanitize_email( $data['EMAIL'] ) ),
+			'status'        => 'subscribed',
+			'merge_fields' => $merge_variables,
+			'double_optin' => $optin_settings['optin'],
+			'update_existing' => $update_existing_user, // Decide if we should update the user or not
+			'send_welcome' => $optin_settings['send_welcome_email'],
+			'replace_interests' => ( isset( $submission_settings['replace_interests'] ) ) ? $submission_settings['replace_interests'] : 1, // defaults to replace
+		), $form, $list_id, $data['EMAIL'] ),
+		'timeout' => 10,
+		'sslverify' => apply_filters( 'yikes-mailchimp-sslverify', true )
 	) );
 
 	$subscribe_response = json_decode( wp_remote_retrieve_body( $subscribe_response ), true );
+
+	wp_die( print_r( $subscribe_response ) );
 
 	if( isset( $subscribe_response['error'] ) ) {
 

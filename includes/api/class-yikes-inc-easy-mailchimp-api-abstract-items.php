@@ -176,7 +176,7 @@ abstract class Yikes_Inc_Easy_MailChimp_API_Abstract_Items {
 	 */
 	protected function put_to_api( $path, $body, $headers = array(), $params = array() ) {
 		$params   = wp_parse_args( array( 'body' => $body ), $params );
-		$response = $this->api->patch( $path, $headers, $params );
+		$response = $this->api->put( $path, $headers, $params );
 
 		return $this->parse_response( $response );
 	}
