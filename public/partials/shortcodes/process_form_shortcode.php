@@ -532,8 +532,11 @@ function process_mailchimp_shortcode( $atts ) {
 									<script type="text/javascript">
 										function properlyFormatURLField( e ) {
 											var url_value = jQuery( e ).val();
-											if( url_value.indexOf("http://") == '-1' ) {
+
+											if ( url_value.indexOf( "http://" ) === -1 && url_value.indexOf( "https://" ) === -1 ) {
+
 												jQuery( e ).val( 'http://' + url_value );
+
 											}
 										}
 									</script>
@@ -792,7 +795,7 @@ function process_mailchimp_shortcode( $atts ) {
 								switch ( $field['type'] ) {
 									default:
 									case 'date':
-										$date_format = ( isset( $field['date_format'] ) ) ? $field['date_format'] : 'mm/dd/yy';
+										$date_format = ( isset( $field['date_format'] ) ) ? $field['date_format'] : 'mm/dd';
 										break;
 
 									case 'birthday':

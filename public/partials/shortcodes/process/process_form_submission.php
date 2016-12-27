@@ -20,12 +20,6 @@ $list_id = $_POST['yikes-mailchimp-associated-list-id'];
 
 $form_settings = Yikes_Inc_Easy_Mailchimp_Extender_Public::yikes_retrieve_form_settings( $_POST['yikes-mailchimp-submitted-form'] );
 
-/**
- * Setup whether or not we should update the user, or display the error with email generation
- * @since 6.1
- */
-$update_existing_user = isset( $form_settings['optin_settings']['update_existing_user'] ) ? $form_settings['optin_settings']['update_existing_user'] : 0;
-
 $replace_interests    = isset( $form_settings['submission_settings']['replace_interests'] ) ? (bool) $form_settings['submission_settings']['replace_interests'] : true;
 
 $groups = array();
@@ -116,19 +110,22 @@ if ( ! isset( $_POST['yikes_easy_mc_new_subscriber'] ) || ! wp_verify_nonce( $_P
 
 	// loop to push variables to our array
 	foreach ( $_POST as $merge_tag => $value ) {
-		if( $merge_tag != 'yikes_easy_mc_new_subscriber' && $merge_tag != '_wp_http_referer' ) {
+		if ( $merge_tag != 'yikes_easy_mc_new_subscriber' && $merge_tag != '_wp_http_referer' ) {
 			// check if the current iteration has a 'date_format' key set
 			// (aka - date/birthday fields)
-			if( isset( $form_settings['fields'][$merge_tag]['date_format'] ) ) {
+			if ( isset( $form_settings['fields'][$merge_tag]['date_format'] ) ) {
+
 				// check if EU date format
-				if( $form_settings['fields'][$merge_tag]['date_format'] == 'DD/MM/YYYY' ) {
+				if ( $form_settings['fields'][$merge_tag]['date_format'] == 'DD/MM/YYYY' || $form_settings['fields'][$merge_tag]['date_format'] == 'DD/MM' ) {
 					// convert '/' to '.' and to UNIX timestamp
-					$value = ( '' != $value ) ? date( 'Y-m-d', strtotime( str_replace( '/', '.', $value ) ) ) : '';
+					$value = ( '' != $value ) ? str_replace( '/', '.', $value ) : '';
 				} else {
 					// convert to UNIX timestamp
-					$value = ( '' != $value ) ? date( 'Y-m-d', strtotime( $value ) ) : '';
+					$value = ( '' != $value ) ? $value : '';
 				}
+
 			}
+
 			if ( strpos( $merge_tag, 'group-' ) !== false ) { // this is is an interest group!
 
 				$tag = str_replace( 'group-', '', $merge_tag );
@@ -158,17 +155,6 @@ if ( ! isset( $_POST['yikes_easy_mc_new_subscriber'] ) || ! wp_verify_nonce( $_P
 	// store the opt-in time
 	$merge_variables['optin_time'] = current_time( 'Y-m-d H:i:s', 1 );
 
-	// Submit our form data
-	$api_key = yikes_get_mc_api_key();
-	$dash_position = strpos( $api_key, '-' );
-
-	// setup the end point
-	if( $dash_position !== false ) {
-
-		$api_endpoint = 'https://' . substr( $api_key, $dash_position + 1 ) . '.api.mailchimp.com/3.0/lists/' . $list_id . '/members/' . md5( strtolower( sanitize_email( $_POST['EMAIL'] ) ) );
-
-	}
-
 	/*
 	*	yikes-mailchimp-before-submission
 	*
@@ -193,118 +179,91 @@ if ( ! isset( $_POST['yikes_easy_mc_new_subscriber'] ) || ! wp_verify_nonce( $_P
 	*	Allow users to check for submit value
 	*	and pass back an error to the user
 	*/
-	if( isset( $merge_variables['error'] ) ) {
+	if ( isset( $merge_variables['error'] ) ) {
+
 		$process_submission_response = apply_filters( 'yikes-mailchimp-frontend-content' , $merge_variables['message'] );
+
 		return;
+
 	}
 
-	// submit the request & data, using the form settings
-		// subscribe the user
-		/* $subscribe_response = wp_remote_post( $api_endpoint, array(
-			'body' => apply_filters( 'yikes-mailchimp-user-subscribe-api-request', array(
-				'apikey' => $api_key,
-				'id' => $_POST['yikes-mailchimp-associated-list-id'],
-				'email' => array( 'email' => sanitize_email( $_POST['EMAIL'] ) ),
-				'merge_vars' => $merge_variables,
-				'double_optin' => $form_settings['optin_settings']['optin'],
-				'update_existing' => $update_existing_user, // Decide if we should update the user or not
-				'send_welcome' => $form_settings['optin_settings']['send_welcome_email'],
-				'replace_interests' => ( isset( $form_settings['submission_settings']['replace_interests'] ) ) ? $form_settings['submission_settings']['replace_interests'] : 1, // defaults to replace
-			), $form_id, $_POST['yikes-mailchimp-associated-list-id'], $_POST['EMAIL'] ),
-			'timeout' => 10,
-			'sslverify' => apply_filters( 'yikes-mailchimp-sslverify', true )
-		) ); */
+	$member_data = array(
+		'email_address' => sanitize_email( $_POST['EMAIL'] ),
+		'merge_fields'  => $merge_variables,
+		'interests'     => $groups,
+		'status'        => 'subscribed',
+	);
 
-		// subscribe the user
-		/* $subscribe_response = wp_remote_request( $api_endpoint, array(
-			'method' => 'PATCH',
-			'body' => apply_filters( 'yikes-mailchimp-user-subscribe-api-request', json_encode( array(
-				'email_address' => sanitize_email( $_POST['EMAIL'] ),
-				'status'        => 'subscribed',
-				'merge_fields'  => $merge_variables,
-			) ), $form, $list_id, $_POST['EMAIL'] ),
-			'headers' => array(
-				'Authorization' => 'Basic ' . base64_encode( 'api_key:' . $api_key ),
-			),
-		) );
-		*/
+	$subscribe_response = yikes_get_mc_api_manager()->get_list_handler()->member_subscribe( $list_id, md5( strtolower( sanitize_email( $_POST['EMAIL'] ) ) ), $member_data );
 
-		$member_data = array(
-			'email_address' => sanitize_email( $_POST['EMAIL'] ),
-			'merge_fields'  => $merge_variables,
-			'interests'     => $groups,
-			'status'        => 'subscribed',
-		);
+	if ( is_wp_error( $subscribe_response ) ) {
 
-		$subscribe_response = yikes_get_mc_api_manager()->get_list_handler()->member_subscribe( $list_id, md5( strtolower( sanitize_email( $_POST['EMAIL'] ) ) ), $member_data );
+		$error_message = $subscribe_response->get_error_message();
 
-		if ( is_wp_error( $subscribe_response ) ) {
+		$error_logging = new Yikes_Inc_Easy_Mailchimp_Error_Logging();
 
-			$error_message = $subscribe_response->get_error_message();
+		$error_logging->maybe_write_to_log( $error_message, __( 'New Subscriber' , 'yikes-inc-easy-mailchimp-extender' ), 'process_form_submission.php' );
 
-			$error_logging = new Yikes_Inc_Easy_Mailchimp_Error_Logging();
+		$process_submission_response = '<p class="yikes-easy-mc-error-message">' . $error_message . '</p>';
 
-			$error_logging->maybe_write_to_log( $error_message, __( 'New Subscriber' , 'yikes-inc-easy-mailchimp-extender' ), 'process_form_submission.php' );
+		return;
 
-			$process_submission_response = '<p class="yikes-easy-mc-error-message">' . $error_message . '</p>';
+	}
 
-			return;
+	// setup our submission response
+	$form_submitted = 1;
 
-		}
+	// Display the success message
+	if ( ! empty( $form_settings['error_messages']['success'] ) ) {
 
-		// setup our submission response
-		$form_submitted = 1;
+		$process_submission_response = '<p class="yikes-easy-mc-success-message">' . apply_filters( 'yikes-mailchimp-success-response', stripslashes( esc_html( $form_settings['error_messages']['success'] ) ), $form_id, $merge_variables ) . '</p>';
+		// echo stripslashes( esc_html( $error_messages['success'] ) );
 
-		// Display the success message
-		if ( ! empty( $form_settings['error_messages']['success'] ) ) {
+	} else {
 
-			$process_submission_response = '<p class="yikes-easy-mc-success-message">' . apply_filters( 'yikes-mailchimp-success-response', stripslashes( esc_html( $form_settings['error_messages']['success'] ) ), $form_id, $merge_variables ) . '</p>';
-			// echo stripslashes( esc_html( $error_messages['success'] ) );
+		$default_success_response = ( 1 === $form_settings['optin_settings']['optin'] ) ? __( 'Thank you for subscribing! Check your email for the confirmation message.' , 'yikes-inc-easy-mailchimp-extender' ) : __( 'Thank you for subscribing!' , 'yikes-inc-easy-mailchimp-extender' );
+		$process_submission_response = '<p class="yikes-easy-mc-success-message">' . apply_filters( 'yikes-mailchimp-success-response', $default_success_response, $form_id, $merge_variables ) . '</p>';
+		// echo $default_success_response;
 
-		} else {
+	}
 
-			$default_success_response = ( 1 === $form_settings['optin_settings']['optin'] ) ? __( 'Thank you for subscribing! Check your email for the confirmation message.' , 'yikes-inc-easy-mailchimp-extender' ) : __( 'Thank you for subscribing!' , 'yikes-inc-easy-mailchimp-extender' );
-			$process_submission_response = '<p class="yikes-easy-mc-success-message">' . apply_filters( 'yikes-mailchimp-success-response', $default_success_response, $form_id, $merge_variables ) . '</p>';
-			// echo $default_success_response;
+	/*
+	*	yikes-mailchimp-after-submission
+	*
+	*	Catch the merge variables after they've been sent over to MailChimp
+	*	param @merge_variables - user submitted form data
+	* 	optional @form - the ID of the form to filter
+	*	@since 6.0.0
+	*/
+	do_action( 'yikes-mailchimp-after-submission' , $merge_variables );
+	do_action( 'yikes-mailchimp-after-submission-' . $form_id , $merge_variables );
 
-		}
+	/*
+	*	Non-AJAX redirects now handled in class-yikes-inc-easy-mailchimp-extender-public.php
+	*	function: redirect_user_non_ajax_forms
+	*/
 
-		/*
-		*	yikes-mailchimp-after-submission
-		*
-		*	Catch the merge variables after they've been sent over to MailChimp
-		*	param @merge_variables - user submitted form data
-		* 	optional @form - the ID of the form to filter
-		*	@since 6.0.0
-		*/
-		do_action( 'yikes-mailchimp-after-submission' , $merge_variables );
-		do_action( 'yikes-mailchimp-after-submission-' . $form_id , $merge_variables );
+	/*
+	*	yikes-mailchimp-form-submission
+	*
+	*	Do something with the email address, merge variables,
+	*	form ID or notifications
+	*	@$_POST['EMAIL'] - users email address
+	*	@$merge_variables - the merge variables attached to the form ie. form field
+	*	@$form_id - the form ID
+	*	@$notifications - the notification array
+	*	@since 6.0.0
+	*/
+	do_action( 'yikes-mailchimp-form-submission' , $_POST['EMAIL'] , $merge_variables , $form_id , $form_settings['notifications'] );
+	do_action( 'yikes-mailchimp-form-submission-' . $form_id , $_POST['EMAIL'] , $merge_variables , $form_id , $form_settings['notifications'] );
 
-		/*
-		*	Non-AJAX redirects now handled in class-yikes-inc-easy-mailchimp-extender-public.php
-		*	function: redirect_user_non_ajax_forms
-		*/
+	/*
+	*	Increase the submission count for this form
+	*	on a successful submission
+	*	@since 6.0.0
+	*/
+	$interface = yikes_easy_mailchimp_extender_get_form_interface();
+	$submissions = $form_settings['submissions'] + 1;
+	$interface->update_form_field( $form_id, 'submissions', $submissions );
 
-		/*
-		*	yikes-mailchimp-form-submission
-		*
-		*	Do something with the email address, merge variables,
-		*	form ID or notifications
-		*	@$_POST['EMAIL'] - users email address
-		*	@$merge_variables - the merge variables attached to the form ie. form field
-		*	@$form_id - the form ID
-		*	@$notifications - the notification array
-		*	@since 6.0.0
-		*/
-		do_action( 'yikes-mailchimp-form-submission' , $_POST['EMAIL'] , $merge_variables , $form_id , $form_settings['notifications'] );
-		do_action( 'yikes-mailchimp-form-submission-' . $form_id , $_POST['EMAIL'] , $merge_variables , $form_id , $form_settings['notifications'] );
-
-		/*
-		*	Increase the submission count for this form
-		*	on a successful submission
-		*	@since 6.0.0
-		*/
-		$interface = yikes_easy_mailchimp_extender_get_form_interface();
-		$submissions = $form_settings['submissions'] + 1;
-		$interface->update_form_field( $form_id, 'submissions', $submissions );
 }
