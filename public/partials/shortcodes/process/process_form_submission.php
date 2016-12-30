@@ -128,6 +128,11 @@ foreach ( $_POST as $merge_tag => $value ) {
 		}
 	}
 
+	// If the field is empty, don't include it.
+	if ( empty( $sanitized ) ) {
+		continue;
+	}
+
 	// check if the current iteration has a 'date_format' key set (aka - date/birthday fields)
 	if ( isset( $form_settings['fields'][ $merge_tag ]['date_format'] ) ) {
 
@@ -154,9 +159,10 @@ foreach ( $_POST as $merge_tag => $value ) {
 		}
 
 		$groups[ $sanitized ] = true;
-	} else {
-		$merge_variables[ $merge_tag ] = $sanitized;
+		continue;
 	}
+
+	$merge_variables[ $merge_tag ] = $sanitized;
 }
 
 // store the opt-in time
