@@ -81,20 +81,14 @@ $replace_interests = isset( $submission_settings['replace_interests'] ) ? (bool)
 
 $groups = array();
 
-// If the user intends to replace existing interst groups, loop and set them all to false to start.
+// If the user intends to replace existing interest groups, loop and set them all to false to start.
 if ( $replace_interests ) {
+	$interest_groupings = $list_handler->get_interest_categories( $_POST['yikes-mailchimp-associated-list-id'] );
 
-	$list_handler = yikes_get_mc_api_manager()->get_list_handler();
-
-	$interest_groupings = $list_handler->get_interest_categories( $list_id );
-
-	foreach ( $interest_groupings as $group_id => $group_data ) {
-
-		foreach ( $group_data['items'] as $item_id => $item_data ) {
-
-			$groups[ $item_id ] = false;
-
-		}
+	foreach ( $interest_groupings as $group_data ) {
+		$item_ids = array_keys( $group_data['items'] );
+		$keyed    = array_fill_keys( $item_ids, false );
+		$groups   = array_merge( $groups, $keyed );
 	}
 }
 
