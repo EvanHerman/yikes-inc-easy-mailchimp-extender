@@ -4,14 +4,14 @@
  * Abstract class for retrieving items from the API.
  *
  * @author Jeremy Pry
- * @since  %VERSION%
+ * @since  6.3.0
  */
 abstract class Yikes_Inc_Easy_MailChimp_API_Abstract_Items {
 
 	/**
 	 * Our API object.
 	 *
-	 * @since %VERSION%
+	 * @since 6.3.0
 	 * @var Yikes_Inc_Easy_MailChimp_API
 	 */
 	protected $api;
@@ -19,7 +19,7 @@ abstract class Yikes_Inc_Easy_MailChimp_API_Abstract_Items {
 	/**
 	 * The base API path.
 	 *
-	 * @since %VERSION%
+	 * @since 6.3.0
 	 * @var string
 	 */
 	protected $base_path = '';
@@ -27,7 +27,7 @@ abstract class Yikes_Inc_Easy_MailChimp_API_Abstract_Items {
 	/**
 	 * Whether a V2 API connection is required.
 	 *
-	 * @since %VERSION%
+	 * @since 6.3.0
 	 * @var bool
 	 */
 	protected $requires_v2 = false;
@@ -35,7 +35,7 @@ abstract class Yikes_Inc_Easy_MailChimp_API_Abstract_Items {
 	/**
 	 * Yikes_Inc_Easy_MailChimp_API_Lists constructor.
 	 *
-	 * @since %VERSION%
+	 * @since 6.3.0
 	 *
 	 * @param Yikes_Inc_Easy_MailChimp_API $api The API connection.
 	 *
@@ -54,7 +54,7 @@ abstract class Yikes_Inc_Easy_MailChimp_API_Abstract_Items {
 	 * Retrieve items from the API, looping as needed.
 	 *
 	 * @author Jeremy Pry
-	 * @since  %VERSION%
+	 * @since  6.3.0
 	 *
 	 * @param string $query        The relative path, including any query args.
 	 * @param string $item_key     The item key to look for in results.
@@ -107,7 +107,7 @@ abstract class Yikes_Inc_Easy_MailChimp_API_Abstract_Items {
 	 * Get data from the API
 	 *
 	 * @author Jeremy Pry
-	 * @since  %VERSION%
+	 * @since  6.3.0
 	 *
 	 * @param string $path    The relative API path. Leading slash not required.
 	 * @param array  $headers Array of headers to send with the request.
@@ -125,7 +125,7 @@ abstract class Yikes_Inc_Easy_MailChimp_API_Abstract_Items {
 	 * Send a PATCH request to the API.
 	 *
 	 * @author Jeremy Pry
-	 * @since  %VERSION%
+	 * @since  6.3.0
 	 *
 	 * @param string $path    The relative API path. Leading slash not required.
 	 * @param mixed  $body    The body data for the request.
@@ -145,7 +145,7 @@ abstract class Yikes_Inc_Easy_MailChimp_API_Abstract_Items {
 	 * Send a POST request to the API.
 	 *
 	 * @author Jeremy Pry
-	 * @since  %VERSION%
+	 * @since  6.3.0
 	 *
 	 * @param string $path    The relative API path. Leading slash not required.
 	 * @param mixed  $body    The body data for the request.
@@ -165,7 +165,7 @@ abstract class Yikes_Inc_Easy_MailChimp_API_Abstract_Items {
 	 * Send a PUT request to the API.
 	 *
 	 * @author Jeremy Pry
-	 * @since  %VERSION%
+	 * @since  6.3.0
 	 *
 	 * @param string $path    The relative API path. Leading slash not required.
 	 * @param mixed  $body    The body data for the request.
@@ -185,7 +185,7 @@ abstract class Yikes_Inc_Easy_MailChimp_API_Abstract_Items {
 	 * Return either the valid response, or a WP_Error.
 	 *
 	 * @author Jeremy Pry
-	 * @since  %VERSION%
+	 * @since  6.3.0
 	 *
 	 * @param mixed $response The API response.
 	 *
@@ -212,7 +212,7 @@ abstract class Yikes_Inc_Easy_MailChimp_API_Abstract_Items {
 	 * Parse the response and retrieve the body.
 	 *
 	 * @author Jeremy Pry
-	 * @since  %VERSION%
+	 * @since  6.3.0
 	 *
 	 * @param array|WP_Error $response
 	 *
@@ -243,7 +243,7 @@ abstract class Yikes_Inc_Easy_MailChimp_API_Abstract_Items {
 	 * This is an abstracted method to retrieve a POST response from the API using only the base path.
 	 *
 	 * @author Jeremy Pry
-	 * @since  %VERSION%
+	 * @since  6.3.0
 	 *
 	 * @param string $transient_key The string to use for returning a stored transient.
 	 * @param bool   $use_transient Whether to use transients.

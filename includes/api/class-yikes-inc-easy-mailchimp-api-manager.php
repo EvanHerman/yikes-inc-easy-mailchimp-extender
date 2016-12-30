@@ -6,14 +6,14 @@
  * Used to retrieve API functionality for use elsewhere.
  *
  * @author Jeremy Pry
- * @since  %VERSION%
+ * @since  6.3.0
  */
 class Yikes_Inc_Easy_MailChimp_API_Manager {
 
 	/**
 	 * The account details instance.
 	 *
-	 * @since %VERSION%
+	 * @since 6.3.0
 	 * @var Yikes_Inc_Easy_MailChimp_API_Account_Details
 	 */
 	protected $account_details = null;
@@ -21,7 +21,7 @@ class Yikes_Inc_Easy_MailChimp_API_Manager {
 	/**
 	 * The account manager instance.
 	 *
-	 * @since %VERSION%
+	 * @since 6.3.0
 	 * @var Yikes_Inc_Easy_MailChimp_API_Account
 	 */
 	protected $account_manager = null;
@@ -29,7 +29,7 @@ class Yikes_Inc_Easy_MailChimp_API_Manager {
 	/**
 	 * Our API instance.
 	 *
-	 * @since %VERSION%
+	 * @since 6.3.0
 	 * @var Yikes_Inc_Easy_MailChimp_API[]
 	 */
 	protected $api = array();
@@ -37,7 +37,7 @@ class Yikes_Inc_Easy_MailChimp_API_Manager {
 	/**
 	 * The whole API key.
 	 *
-	 * @since %VERSION%
+	 * @since 6.3.0
 	 * @var string
 	 */
 	protected $api_key = '';
@@ -45,7 +45,7 @@ class Yikes_Inc_Easy_MailChimp_API_Manager {
 	/**
 	 * Yikes_Inc_Easy_MailChimp_API_Chimp_Chatter instance.
 	 *
-	 * @since %VERSION%
+	 * @since 6.3.0
 	 * @var Yikes_Inc_Easy_MailChimp_API_Chimp_Chatter
 	 */
 	protected $chimp_chatter = null;
@@ -53,7 +53,7 @@ class Yikes_Inc_Easy_MailChimp_API_Manager {
 	/**
 	 * The Datacenter for the MailChimp account.
 	 *
-	 * @since %VERSION%
+	 * @since 6.3.0
 	 * @var string
 	 */
 	protected $dc = '';
@@ -61,7 +61,7 @@ class Yikes_Inc_Easy_MailChimp_API_Manager {
 	/**
 	 * The API key with the datacenter portion removed.
 	 *
-	 * @since %VERSION%
+	 * @since 6.3.0
 	 * @var string
 	 */
 	protected $key = '';
@@ -69,7 +69,7 @@ class Yikes_Inc_Easy_MailChimp_API_Manager {
 	/**
 	 * The list manager instance.
 	 *
-	 * @since %VERSION%
+	 * @since 6.3.0
 	 * @var Yikes_Inc_Easy_MailChimp_API_Lists
 	 */
 	protected $list_manager = null;
@@ -77,7 +77,7 @@ class Yikes_Inc_Easy_MailChimp_API_Manager {
 	/**
 	 * Yikes_Inc_Easy_MailChimp_API_Profile instance.
 	 *
-	 * @since %VERSION%
+	 * @since 6.3.0
 	 * @var Yikes_Inc_Easy_MailChimp_API_Profile
 	 */
 	protected $profile = null;
@@ -85,7 +85,7 @@ class Yikes_Inc_Easy_MailChimp_API_Manager {
 	/**
 	 * Yikes_Inc_Easy_MailChimp_API_Manager constructor.
 	 *
-	 * @since %VERSION%
+	 * @since 6.3.0
 	 *
 	 * @param string $api_key The full API key from MailChimp.
 	 */
@@ -104,7 +104,7 @@ class Yikes_Inc_Easy_MailChimp_API_Manager {
 	 * Get the API key.
 	 *
 	 * @author Jeremy Pry
-	 * @since  %VERSION%
+	 * @since  6.3.0
 	 * @return string The API key with the datacenter portion removed.
 	 */
 	public function get_api_key() {
@@ -115,7 +115,7 @@ class Yikes_Inc_Easy_MailChimp_API_Manager {
 	 * Get the array of API Key parts.
 	 *
 	 * @author Jeremy Pry
-	 * @since  %VERSION%
+	 * @since  6.3.0
 	 * @return array Associative array of API key parts.
 	 */
 	protected function get_api_key_parts() {
@@ -131,7 +131,7 @@ class Yikes_Inc_Easy_MailChimp_API_Manager {
 	 * Get the Datacenter for the MailChimp account.
 	 *
 	 * @author Jeremy Pry
-	 * @since  %VERSION%
+	 * @since  6.3.0
 	 * @return string The datacenter for the MailChimp Account.
 	 */
 	public function get_datacenter() {
@@ -142,14 +142,14 @@ class Yikes_Inc_Easy_MailChimp_API_Manager {
 	 * Get the default version of the API to use.
 	 *
 	 * @author Jeremy Pry
-	 * @since  %VERSION%
+	 * @since  6.3.0
 	 * @return string
 	 */
 	public function get_default_api_version() {
 		/**
 		 * Filter the default MailChimp API version.
 		 *
-		 * @since %VERSION%
+		 * @since 6.3.0
 		 *
 		 * @param string $version The default MailChimp API version.
 		 */
@@ -160,7 +160,7 @@ class Yikes_Inc_Easy_MailChimp_API_Manager {
 	 * Get the API instance.
 	 *
 	 * @author Jeremy Pry
-	 * @since  %VERSION%
+	 * @since  6.3.0
 	 *
 	 * @param string $version The API version instance to retrieve.
 	 *
@@ -180,7 +180,7 @@ class Yikes_Inc_Easy_MailChimp_API_Manager {
 	 * Get the List Manager instance.
 	 *
 	 * @author Jeremy Pry
-	 * @since  %VERSION%
+	 * @since  6.3.0
 	 * @return Yikes_Inc_Easy_MailChimp_API_Lists
 	 */
 	public function get_list_handler() {
@@ -195,7 +195,7 @@ class Yikes_Inc_Easy_MailChimp_API_Manager {
 	 * Get the Account Manager instance.
 	 *
 	 * @author Jeremy Pry
-	 * @since  %VERSION%
+	 * @since  6.3.0
 	 * @return Yikes_Inc_Easy_MailChimp_API_Account
 	 */
 	public function get_account_handler() {
@@ -210,7 +210,7 @@ class Yikes_Inc_Easy_MailChimp_API_Manager {
 	 * Get the chimp chatter instance.
 	 *
 	 * @author Jeremy Pry
-	 * @since  %VERSION%
+	 * @since  6.3.0
 	 * @return Yikes_Inc_Easy_MailChimp_API_Chimp_Chatter
 	 */
 	public function get_chimp_chatter() {
@@ -227,7 +227,7 @@ class Yikes_Inc_Easy_MailChimp_API_Manager {
 	 * This uses the V2 API.
 	 *
 	 * @author Jeremy Pry
-	 * @since  %VERSION%
+	 * @since  6.3.0
 	 * @return Yikes_Inc_Easy_MailChimp_API_Profile
 	 */
 	public function get_profile_handler() {
@@ -242,7 +242,7 @@ class Yikes_Inc_Easy_MailChimp_API_Manager {
 	 * Get the Account Details instance.
 	 *
 	 * @author Jeremy Pry
-	 * @since  %VERSION%
+	 * @since  6.3.0
 	 * @return Yikes_Inc_Easy_MailChimp_API_Account_Details
 	 */
 	public function get_account_details_handler() {

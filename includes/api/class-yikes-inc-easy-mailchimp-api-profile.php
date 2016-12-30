@@ -8,14 +8,14 @@
  * @deprecated
  *
  * @author Jeremy Pry
- * @since  %VERSION%
+ * @since  6.3.0
  */
 class Yikes_Inc_Easy_MailChimp_API_Profile extends Yikes_Inc_Easy_MailChimp_API_Abstract_Items {
 
 	/**
 	 * The base API path.
 	 *
-	 * @since %VERSION%
+	 * @since 6.3.0
 	 * @var string
 	 */
 	protected $base_path = 'users/profile.json';
@@ -23,7 +23,7 @@ class Yikes_Inc_Easy_MailChimp_API_Profile extends Yikes_Inc_Easy_MailChimp_API_
 	/**
 	 * Whether a V2 API connection is required.
 	 *
-	 * @since %VERSION%
+	 * @since 6.3.0
 	 * @var bool
 	 */
 	protected $requires_v2 = true;
@@ -32,7 +32,7 @@ class Yikes_Inc_Easy_MailChimp_API_Profile extends Yikes_Inc_Easy_MailChimp_API_
 	 * Get profile data from the API.
 	 *
 	 * @author Jeremy Pry
-	 * @since  %VERSION%
+	 * @since  6.3.0
 	 *
 	 * @param bool $use_transients Whether to use a transient in the response.
 	 *

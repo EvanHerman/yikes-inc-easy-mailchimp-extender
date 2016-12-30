@@ -4,14 +4,14 @@
  * A class to handle requests to the MailChimp API.
  *
  * @author Jeremy Pry
- * @since  %VERSION%
+ * @since  6.3.0
  */
 class Yikes_Inc_Easy_MailChimp_API {
 
 	/**
 	 * The API key.
 	 *
-	 * @since %VERSION%
+	 * @since 6.3.0
 	 * @var string
 	 */
 	protected $api_key = '';
@@ -19,7 +19,7 @@ class Yikes_Inc_Easy_MailChimp_API {
 	/**
 	 * The URL for the API.
 	 *
-	 * @since %VERSION%
+	 * @since 6.3.0
 	 * @var string
 	 */
 	protected $api_url = '';
@@ -27,7 +27,7 @@ class Yikes_Inc_Easy_MailChimp_API {
 	/**
 	 * The API version.
 	 *
-	 * @since %VERSION%
+	 * @since 6.3.0
 	 * @var string
 	 */
 	protected $api_version = '';
@@ -37,7 +37,7 @@ class Yikes_Inc_Easy_MailChimp_API {
 	 *
 	 * This is typically part of the API Key.
 	 *
-	 * @since %VERSION%
+	 * @since 6.3.0
 	 * @var string
 	 */
 	protected $datacenter = '';
@@ -45,7 +45,7 @@ class Yikes_Inc_Easy_MailChimp_API {
 	/**
 	 * Yikes_Inc_Easy_MailChimp_API constructor.
 	 *
-	 * @since %VERSION%
+	 * @since 6.3.0
 	 *
 	 * @param string $datacenter  The datacenter string where the MailChimp account is located.
 	 * @param string $api_key     The base API key, without the datacenter appended.
@@ -62,7 +62,7 @@ class Yikes_Inc_Easy_MailChimp_API {
 	 * Send a DELETE request to the MailChimp API.
 	 *
 	 * @author Jeremy Pry
-	 * @since  %VERSION%
+	 * @since  6.3.0
 	 *
 	 * @param string $path    The relative path for the request.
 	 * @param array  $headers Array of headers to send with the request.
@@ -78,7 +78,7 @@ class Yikes_Inc_Easy_MailChimp_API {
 	 * Send a GET request to the MailChimp API.
 	 *
 	 * @author Jeremy Pry
-	 * @since  %VERSION%
+	 * @since  6.3.0
 	 *
 	 * @param string $path    The relative path for the request.
 	 * @param array  $headers Array of headers to send with the request.
@@ -94,7 +94,7 @@ class Yikes_Inc_Easy_MailChimp_API {
 	 * Send a PATCH request to the MailChimp API.
 	 *
 	 * @author Jeremy Pry
-	 * @since  %VERSION%
+	 * @since  6.3.0
 	 *
 	 * @param string $path    The relative path for the request.
 	 * @param array  $headers Array of headers to send with the request.
@@ -121,7 +121,7 @@ class Yikes_Inc_Easy_MailChimp_API {
 	 * Send a POST request to the MailChimp API.
 	 *
 	 * @author Jeremy Pry
-	 * @since  %VERSION%
+	 * @since  6.3.0
 	 *
 	 * @param string $path    The relative path for the request.
 	 * @param array  $headers Array of headers to send with the request.
@@ -148,7 +148,7 @@ class Yikes_Inc_Easy_MailChimp_API {
 	 * Send a PUT request to the MailChimp API.
 	 *
 	 * @author Jeremy Pry
-	 * @since  %VERSION%
+	 * @since  6.3.0
 	 *
 	 * @param string $path    The relative path for the request.
 	 * @param array  $headers Array of headers to send with the request.
@@ -175,7 +175,7 @@ class Yikes_Inc_Easy_MailChimp_API {
 	 * Send a request to the MailChimp API.
 	 *
 	 * @author Jeremy Pry
-	 * @since  %VERSION%
+	 * @since  6.3.0
 	 *
 	 * @param string $path    The relative path for the request.
 	 * @param string $method  The method to use for the request.
@@ -194,7 +194,7 @@ class Yikes_Inc_Easy_MailChimp_API {
 		/**
 		 * Filter the URL used for a request to the MailChimp API.
 		 *
-		 * @since %VERSION%
+		 * @since 6.3.0
 		 *
 		 * @param string $url  The URL to use.
 		 * @param string $path The relative path for the request.
@@ -208,7 +208,7 @@ class Yikes_Inc_Easy_MailChimp_API {
 	 * Get the user agent to use with a request to the API.
 	 *
 	 * @author Jeremy Pry
-	 * @since  %VERSION%
+	 * @since  6.3.0
 	 * @return string The user agent string.
 	 */
 	protected function get_user_agent() {
@@ -218,7 +218,7 @@ class Yikes_Inc_Easy_MailChimp_API {
 		/**
 		 * Filter the User Agent used in API requests.
 		 *
-		 * @since %VERSION%
+		 * @since 6.3.0
 		 *
 		 * @param string $user_agent The user agent to send with API requests.
 		 */
@@ -231,7 +231,7 @@ class Yikes_Inc_Easy_MailChimp_API {
 	 * Get the Auth Headers for an API requests.
 	 *
 	 * @author Jeremy Pry
-	 * @since  %VERSION%
+	 * @since  6.3.0
 	 * @return array The array of auth headers for an API request.
 	 */
 	protected function get_auth_headers() {
@@ -247,7 +247,7 @@ class Yikes_Inc_Easy_MailChimp_API {
 		/**
 		 * Filter the Auth Headers used for an API request.
 		 *
-		 * @since %VERSION%
+		 * @since 6.3.0
 		 *
 		 * @param array  $auth_headers The array of auth headers for an API request.
 		 * @param string $api_version  The version of the API being used.
@@ -271,7 +271,7 @@ class Yikes_Inc_Easy_MailChimp_API {
 	 * Build the arguments for the request.
 	 *
 	 * @author Jeremy Pry
-	 * @since %VERSION%
+	 * @since 6.3.0
 	 *
 	 * @param string $path    The relative path for the request.
 	 * @param string $method  The method to use for the request.
@@ -298,7 +298,7 @@ class Yikes_Inc_Easy_MailChimp_API {
 		/**
 		 * Filter the headers used for a request to the MailChimp API.
 		 *
-		 * @since %VERSION%
+		 * @since 6.3.0
 		 *
 		 * @param array  $headers The array of headers to send with the request.
 		 * @param string $path    The relative path for the request.
@@ -315,7 +315,7 @@ class Yikes_Inc_Easy_MailChimp_API {
 			/**
 			 * Filter the timeout used when sending an API request.
 			 *
-			 * @since %VERSION%
+			 * @since 6.3.0
 			 *
 			 * @param int $timeout The number of seconds after which the request will time out.
 			 */
@@ -323,7 +323,7 @@ class Yikes_Inc_Easy_MailChimp_API {
 			/**
 			 * Filter whether our requests should verify the SSL certificate.
 			 *
-			 * @since %VERSION%
+			 * @since 6.3.0
 			 *
 			 * @param bool $sslverify
 			 */
@@ -333,7 +333,7 @@ class Yikes_Inc_Easy_MailChimp_API {
 		/**
 		 * Filter the args used for a request to the MailChimp API.
 		 *
-		 * @since %VERSION%
+		 * @since 6.3.0
 		 *
 		 * @param array  $args   The arguments for the request.
 		 * @param string $path   The relative path for the request.
@@ -347,7 +347,7 @@ class Yikes_Inc_Easy_MailChimp_API {
 	 * Get an authorized request based on the API version.
 	 *
 	 * @author Jeremy Pry
-	 * @since %VERSION%
+	 * @since 6.3.0
 	 * @return array
 	 */
 	protected function get_authorized_args() {
@@ -373,7 +373,7 @@ class Yikes_Inc_Easy_MailChimp_API {
 	 * Get the API version for this instance.
 	 *
 	 * @author Jeremy Pry
-	 * @since %VERSION%
+	 * @since 6.3.0
 	 * @return string The API version.
 	 */
 	public function get_version() {

@@ -8,14 +8,14 @@
  * @deprecated
  *
  * @author Jeremy Pry
- * @since  %VERSION%
+ * @since  6.3.0
  */
 class Yikes_Inc_Easy_MailChimp_API_Chimp_Chatter extends Yikes_Inc_Easy_MailChimp_API_Abstract_Items {
 
 	/**
 	 * The base API path.
 	 *
-	 * @since %VERSION%
+	 * @since 6.3.0
 	 * @var string
 	 */
 	protected $base_path = 'helper/chimp-chatter.json';
@@ -23,7 +23,7 @@ class Yikes_Inc_Easy_MailChimp_API_Chimp_Chatter extends Yikes_Inc_Easy_MailChim
 	/**
 	 * Whether a V2 API connection is required.
 	 *
-	 * @since %VERSION%
+	 * @since 6.3.0
 	 * @var bool
 	 */
 	protected $requires_v2 = true;
@@ -32,7 +32,7 @@ class Yikes_Inc_Easy_MailChimp_API_Chimp_Chatter extends Yikes_Inc_Easy_MailChim
 	 * Retrieve the Chimp Chatter
 	 *
 	 * @author Jeremy Pry
-	 * @since  %VERSION%
+	 * @since  6.3.0
 	 *
 	 * @param bool $use_transient Whether to use a transient in the response.
 	 *
