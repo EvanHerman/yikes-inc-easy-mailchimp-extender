@@ -30,14 +30,15 @@
 		* Outputs a checkbox
 		*/
 		public function output_checkbox() {
-			if( $this->is_user_already_subscribed( $this->type ) == '1' ) {
+			if ( $this->is_user_already_subscribed( $this->type ) ) {
 				return;
 			}
+
 			// render our field if the user isn't current subscribed
-			echo do_action( 'yikes-mailchimp-before-checkbox' , $this->type );
-				echo $this->yikes_get_checkbox();
-			echo do_action( 'yikes-mailchimp-after-checkbox' , $this->type );
-		}	
+			do_action( 'yikes-mailchimp-before-checkbox', $this->type );
+			echo $this->yikes_get_checkbox();
+			do_action( 'yikes-mailchimp-after-checkbox', $this->type );
+		}
 		
 		
 		/**
@@ -83,6 +84,3 @@
 	
 	}
 	new Yikes_Easy_MC_EDD_Checkbox_Class;
-
-	
-?>

@@ -70,73 +70,43 @@
 		);
 	}
 
-	$api_key = yikes_get_mc_api_key();
-	$dash_position = strpos( $api_key, '-' );
+	// Set up our list_handler object.
+	$list_handler = yikes_get_mc_api_manager()->get_list_handler();
 
 	// Check for a transient, if not - set one up for one hour
-	if ( false === ( $list_data = get_transient( 'yikes-easy-mailchimp-list-data' ) ) ) {
-		if( $dash_position !== false ) {
-			$api_endpoint = 'https://' . substr( $api_key, $dash_position + 1 ) . '.api.mailchimp.com/2.0/lists/list.json';
-		}
-		$list_data = wp_remote_post( $api_endpoint, array(
-			'body' => array(
-				'apikey' => $api_key,
-				'limit' => 100
-			),
-			'timeout' => 10,
-			'sslverify' => apply_filters( 'yikes-mailchimp-sslverify', true )
-		) );
-		$list_data = json_decode( wp_remote_retrieve_body( $list_data ), true );
-		if( isset( $list_data['error'] ) ) {
-			if( WP_DEBUG || get_option( 'yikes-mailchimp-debug-status' , '' ) == '1' ) {
-				$error_logging = new Yikes_Inc_Easy_Mailchimp_Error_Logging();
-				$error_logging->yikes_easy_mailchimp_write_to_error_log( $list_data['error'], __( "Get Account Lists" , 'yikes-inc-easy-mailchimp-extender' ), "Edit Form Page" );
-			}
-		} else {
-			// set our transient
-			set_transient( 'yikes-easy-mailchimp-list-data', $list_data, 1 * HOUR_IN_SECONDS );
-		}
+	$list_data = $list_handler->get_lists();
+	if ( is_wp_error( $list_data ) ) {
+		$error_logging = new Yikes_Inc_Easy_Mailchimp_Error_Logging();
+		$error_logging->maybe_write_to_log(
+			$list_data->get_error_code(),
+			__( "Get Account Lists", 'yikes-inc-easy-mailchimp-extender' ),
+			"Edit Form Page"
+		);
+		$list_data = array();
 	}
 
-	// get the list data
-	if( $dash_position !== false ) {
-		$api_endpoint = 'https://' . substr( $api_key, $dash_position + 1 ) . '.api.mailchimp.com/2.0/lists/merge-vars.json';
-	}
-	$available_merge_variables = wp_remote_post( $api_endpoint, array(
-		'body' => array(
-			'apikey' => $api_key,
-			'id' => array( $form['list_id'] ),
-		),
-		'timeout' => 10,
-		'sslverify' => apply_filters( 'yikes-mailchimp-sslverify', true )
-	) );
-	$available_merge_variables = json_decode( wp_remote_retrieve_body( $available_merge_variables ), true );
-	if( isset( $available_merge_variables['error'] ) ) {
-		if( WP_DEBUG || get_option( 'yikes-mailchimp-debug-status' , '' ) == '1' ) {
-			$error_logging = new Yikes_Inc_Easy_Mailchimp_Error_Logging();
-			$error_logging->yikes_easy_mailchimp_write_to_error_log( $available_merge_variables['error'], __( "Get Merge Variables" , 'yikes-inc-easy-mailchimp-extender' ), "Edit Form Page" );
-		}
+	// Get the merge fields
+	$available_merge_variables = $list_handler->get_merge_fields( $form['list_id'] );
+	if ( is_wp_error( $available_merge_variables ) ) {
+		$error_logging = new Yikes_Inc_Easy_Mailchimp_Error_Logging();
+		$error_logging->maybe_write_to_log(
+			$available_merge_variables->get_error_code(),
+			__( "Get Merge Variables", 'yikes-inc-easy-mailchimp-extender' ),
+			"Edit Form Page"
+		);
+		$available_merge_variables = array();
 	}
 
 	// get the interest group data
-	if( $dash_position !== false ) {
-		$api_endpoint = 'https://' . substr( $api_key, $dash_position + 1 ) . '.api.mailchimp.com/2.0/lists/interest-groupings.json';
-	}
-	$interest_groupings = wp_remote_post( $api_endpoint, array(
-		'body' => array(
-			'apikey' => $api_key,
-			'id' => $form['list_id']
-		),
-		'timeout' => 10,
-		'sslverify' => apply_filters( 'yikes-mailchimp-sslverify', true )
-	) );
-	$interest_groupings = json_decode( wp_remote_retrieve_body( $interest_groupings ), true );
-	$no_interest_groupings = '<p class="description error-descripion">' . __( 'No Interest Groups Found' , 'yikes-inc-easy-mailchimp-extender' ) . '.</p>';
-	if( isset( $interest_groupings['error'] ) ) {
-		if( WP_DEBUG || get_option( 'yikes-mailchimp-debug-status' , '' ) == '1' ) {
-			$error_logging = new Yikes_Inc_Easy_Mailchimp_Error_Logging();
-			$error_logging->yikes_easy_mailchimp_write_to_error_log( $interest_groupings['error'], __( "Get Interest Groups" , 'yikes-inc-easy-mailchimp-extender' ), "Edit Form Page" );
-		}
+	$interest_groupings = $list_handler->get_interest_categories( $form['list_id'] );
+	if ( is_wp_error( $interest_groupings ) ) {
+		$error_logging = new Yikes_Inc_Easy_Mailchimp_Error_Logging();
+		$error_logging->maybe_write_to_log(
+			$interest_groupings->get_error_code(),
+			__( 'Get Interest Groups', 'yikes-inc-easy-mailchimp-extender' ),
+			'Edit Form Page'
+		);
+		$interest_groupings = array();
 	}
 
 	/* Build Our Update Form URL */
@@ -253,7 +223,7 @@
 													?>
 
 													<!-- Save Fields Button -->
-													<?php echo submit_button( __( 'Update Form' ) , 'primary' , '' , false , array( 'onclick' => '', 'style' => 'float:right;margin-right:12px;'.$display_none ) ); ?>
+													<?php submit_button( __( 'Update Form' ) , 'primary' , '' , false , array( 'onclick' => '', 'style' => 'float:right;margin-right:12px;'.$display_none ) ); ?>
 
 													<!-- .inside -->
 												</div>
@@ -683,17 +653,17 @@
 							<div class="yikes-mc-settings-expansion-section">
 								<!-- Associated List -->
 								<p class="form-field-container"><!-- necessary to prevent skipping on slideToggle(); --><label for="associated-list"><strong><?php _e( 'Associated List' , 'yikes-inc-easy-mailchimp-extender' ); ?></strong>
-									<select name="associated-list" id="associated-list" <?php if( empty( $list_data['data'] ) ) { echo 'disabled="disabled"'; } ?> onchange="jQuery('.view-list-link').attr( 'href', '<?php echo esc_url( admin_url( 'admin.php?page=yikes-mailchimp-view-list&list-id=' ) ); ?>' + jQuery( this ).val() );">
+									<select name="associated-list" id="associated-list" <?php if ( empty( $list_data ) ) { echo 'disabled="disabled"'; } ?> onchange="jQuery('.view-list-link').attr( 'href', '<?php echo esc_url( admin_url( 'admin.php?page=yikes-mailchimp-view-list&list-id=' ) ); ?>' + jQuery( this ).val() );">
 										<?php
-										if( !empty( $list_data['data'] ) ) {
-											foreach( $list_data['data'] as $mailing_list ) {
+										if ( ! empty( $list_data ) ) {
+											foreach( $list_data as $mailing_list ) {
 												?>
-													<option <?php selected( $form['list_id'] , $mailing_list['id'] ); ?> value="<?php echo $mailing_list['id']; ?>"><?php echo stripslashes( $mailing_list['name'] ) . ' (' . $mailing_list['stats']['member_count'] . ') '; ?></option>
+												<option <?php selected( $form['list_id'] , $mailing_list['id'] ); ?> value="<?php echo $mailing_list['id']; ?>"><?php echo stripslashes( $mailing_list['name'] ) . ' (' . $mailing_list['stats']['member_count'] . ') '; ?></option>
 												<?php
 											}
 										} else {
 											?>
-												<option value="no-forms"><?php _e( 'No Lists Found' , 'yikes-inc-easy-mailchimp-extender' ); ?></option>
+											<option value="no-forms"><?php _e( 'No Lists Found' , 'yikes-inc-easy-mailchimp-extender' ); ?></option>
 											<?php
 										}
 										?>

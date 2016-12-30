@@ -31,7 +31,7 @@
 		*/
 		public function output_checkbox() {
 			// if the user is already subscribed, abort and don't render the checkbox
-			if( $this->is_user_already_subscribed( $this->type ) == '1' ) {
+			if ( $this->is_user_already_subscribed( $this->type ) ) {
 				return;
 			}
 			echo $this->yikes_get_checkbox();
@@ -62,4 +62,3 @@
 		
 	}
 	new Yikes_Easy_MC_bbPress_Checkbox_Class;
-?>

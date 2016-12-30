@@ -442,14 +442,16 @@ function process_mailchimp_shortcode( $atts ) {
 
 					/* Store tag variable based on field type */
 					if( isset( $field['merge'] ) ) {
+						$group = '';
 						$tag = 'merge';
 					} else {
+						$group = 'group-';
 						$tag = 'group_id';
 					}
 
 					// build up our array
 					$field_array['id'] = 'id="yikes-easy-mc-form-' . $form_id . '-' . esc_attr( $field[$tag] ) . '" ';
-					$field_array['name'] = 'name="' . esc_attr( $field[$tag] ) . '" ';
+					$field_array['name'] = 'name="' . $group . esc_attr( $field[ $tag ] ) . '" ';
 					$field_array['placeholder'] = isset( $field['placeholder'] ) ? 'placeholder="' . esc_attr( stripslashes( $field['placeholder'] ) ) . '" ' : '';
 					$field_array['classes'] = 'class="yikes-easy-mc-'.$field['type'] . ' ' .  esc_attr( trim( implode( ' ' , $custom_classes ) ) ) . '" ';
 
@@ -534,8 +536,11 @@ function process_mailchimp_shortcode( $atts ) {
 									<script type="text/javascript">
 										function properlyFormatURLField( e ) {
 											var url_value = jQuery( e ).val();
-											if( url_value.indexOf("http://") == '-1' ) {
+
+											if ( url_value.indexOf( "http://" ) === -1 && url_value.indexOf( "https://" ) === -1 ) {
+
 												jQuery( e ).val( 'http://' + url_value );
+
 											}
 										}
 									</script>
@@ -808,7 +813,7 @@ function process_mailchimp_shortcode( $atts ) {
 								switch ( $field['type'] ) {
 									default:
 									case 'date':
-										$date_format = ( isset( $field['date_format'] ) ) ? $field['date_format'] : 'mm/dd/yy';
+										$date_format = ( isset( $field['date_format'] ) ) ? $field['date_format'] : 'mm/dd';
 										break;
 
 									case 'birthday':
@@ -1049,21 +1054,27 @@ function process_mailchimp_shortcode( $atts ) {
 											}
 										}
 
+										foreach ( $groups as $group_id => $name ) {
 
-
-										foreach( $groups as $group ) {
 											if( $field['type'] == 'checkboxes' ) {
+
 												/* Setup the defaults for this field - varies if the field was previously submitted */
 												if( isset( $_POST[$field['group_id']] ) && $form_submitted != 1 ) {
+
 													$default_choice = $_POST[$field['group_id']];
+
 												} elseif( ( ! isset( $_POST['yikes-mailchimp-honeypot'] ) && $form_submitted != 1 ) || ( isset( $_POST['yikes-mailchimp-honeypot'] ) && $form_submitted == 1 ) ) {
+
 													$default_choice = ( isset( $field['default_choice'] ) && ! empty( $field['default_choice'] ) ) ? ( is_array( $field['default_choice'] ) ? $field['default_choice'] : $field['default_choice'] ) : array();
+
 												}
+
 											}
+
 											?>
 											<label for="<?php echo $field['group_id'] . '-' . $i; ?>" class="yikes-easy-mc-checkbox-label <?php echo implode( ' ' , $custom_classes ); if( $x === $count ) { ?> last-selection<?php } ?>">
-												<input <?php if( isset( $field['require'] ) && $field['require'] == 1 ) { ?> class="yikes-interest-group-required" <?php } ?> type="<?php echo $type; ?>" name="<?php echo $field['group_id']; ?>[]" id="<?php echo $field['group_id'] . '-' . $i; ?>" <?php if( $field['type'] == 'checkboxes' ) { if( ( ( isset( $_POST['yikes-mailchimp-honeypot' ] ) && $form_submitted == 1 && in_array( $i , $default_choice )) || ! isset( $_POST['yikes-mailchimp-honeypot' ] ) && $form_submitted != 1 && in_array( $i , $default_choice ) ) || ( ( $form_submitted != 1 && isset( $_POST[$field['group_id']] ) ) && in_array( esc_attr( $group['name'] ), $default_choice ) ) ) { echo 'checked="checked"'; } } else { checked( ( isset( $default_choice ) && is_array( $default_choice ) ) ? $default_choice[0] : $default_choice , $i ); } ?> value="<?php echo esc_attr( $group['name'] ); ?>">
-												<?php echo $group['name']; ?>
+												<input <?php if( isset( $field['require'] ) && $field['require'] == 1 ) { ?> class="yikes-interest-group-required" <?php } ?> type="<?php echo $type; ?>" name="group-<?php echo $field['group_id']; ?>[]" id="<?php echo $field['group_id'] . '-' . $i; ?>" <?php if( $field['type'] == 'checkboxes' ) { if( ( ( isset( $_POST['yikes-mailchimp-honeypot' ] ) && $form_submitted == 1 && in_array( $i , $default_choice )) || ! isset( $_POST['yikes-mailchimp-honeypot' ] ) && $form_submitted != 1 && in_array( $i , $default_choice ) ) || ( ( $form_submitted != 1 && isset( $_POST[$field['group_id']] ) ) && in_array( esc_attr( $group['name'] ), $default_choice ) ) ) { echo 'checked="checked"'; } } else { checked( ( isset( $default_choice ) && is_array( $default_choice ) ) ? $default_choice[0] : $default_choice , $i ); } ?> value="<?php echo $group_id; ?>">
+												<?php echo $name; ?>
 											</label>
 											<?php
 											$i++;
@@ -1099,8 +1110,8 @@ function process_mailchimp_shortcode( $atts ) {
 										<select <?php echo implode( ' ' , $field_array ); ?>>
 											<?php
 												$i = 0;
-												foreach( $groups as $group ) {
-													?><option <?php selected( $i , $default_choice ); ?> value="<?php echo $group['name']; ?>"><?php echo esc_attr( $group['name'] ); ?></option><?php
+												foreach( $groups as $group_id => $name ) {
+													?><option <?php selected( $i , $default_choice ); ?> value="<?php echo $group_id; ?>"><?php echo esc_attr( $name ); ?></option><?php
 													$i++;
 												}
 											?>
