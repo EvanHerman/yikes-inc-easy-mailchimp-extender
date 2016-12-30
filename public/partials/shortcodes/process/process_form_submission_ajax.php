@@ -49,7 +49,7 @@ $merge_variables = array();
 $error = 0;
 
 /* Check for Honeypot filled */
-$honey_pot_filled = ( isset( $data['yikes-mailchimp-honeypot'] ) && '' !== $data['yikes-mailchimp-honeypot'] ) ? true : false;
+$honey_pot_filled = ( isset( $data['yikes-mailchimp-honeypot'] ) && '' !== $data['yikes-mailchimp-honeypot'] );
 
 // if it was filled out, return an error...
 if ( $honey_pot_filled ) {
