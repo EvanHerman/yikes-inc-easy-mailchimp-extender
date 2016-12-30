@@ -1194,13 +1194,13 @@ class Yikes_Inc_Easy_Mailchimp_Forms_Admin {
 	*	to form fields. (input, dropdowns, buttons etc.)
 	* 	@since v5.5 re-write
 	**/
-	public function is_user_mc_api_valid_form( $echo=true ) {
-		if( $echo == true ) {
-			if( get_option( 'yikes-mc-api-validation' , 'invalid_api_key' ) == 'invalid_api_key' ) {
+	public function is_user_mc_api_valid_form( $echo = true ) {
+		if ( $echo == true ) {
+			if ( get_option( 'yikes-mc-api-validation', 'invalid_api_key' ) == 'invalid_api_key' ) {
 				echo 'disabled="disabled"';
 			}
 		} else {
-			if( get_option( 'yikes-mc-api-validation' , 'invalid_api_key' ) == 'invalid_api_key' ) {
+			if ( get_option( 'yikes-mc-api-validation', 'invalid_api_key' ) == 'invalid_api_key' ) {
 				return false;
 			} else {
 				return true;
