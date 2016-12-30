@@ -226,21 +226,34 @@ $member_data = array(
 $subscribe_response = yikes_get_mc_api_manager()->get_list_handler()->member_subscribe( $list_id, md5( strtolower( sanitize_email( $data['EMAIL'] ) ) ), $member_data );
 
 if ( is_wp_error( $subscribe_response ) ) {
+	$error_data = $subscribe_response->get_error_data();
+	$details    = '';
+	if ( isset( $error_data['data'] ) ) {
+		foreach ( $error_data['data'] as $datum ) {
+			if ( ! isset( $datum['field'], $datum['message'] ) ) {
+				continue;
+			}
+
+			$details .= sprintf( '<br>Error with %1$s field: <strong>%2$s</strong>', $form_fields[ $datum['field'] ]['label'], $datum['message'] );
+		}
+	}
 
 	$error_message = $subscribe_response->get_error_message();
+	if ( ! empty( $details ) ) {
+		$error_message .= $details;
+	}
 
 	$error_logging = new Yikes_Inc_Easy_Mailchimp_Error_Logging();
-
-	$error_logging->maybe_write_to_log( $error_message, __( 'New Subscriber' , 'yikes-inc-easy-mailchimp-extender' ), 'process_form_submission.php' );
-
+	$error_logging->maybe_write_to_log( $error_message, __( 'New Subscriber', 'yikes-inc-easy-mailchimp-extender' ), 'process_form_submission.php' );
 	$process_submission_response = '<p class="yikes-easy-mc-error-message">' . $error_message . '</p>';
 
 	// send the response
 	wp_send_json_error( array(
-		'hide' => '0',
-		'error' => $subscribe_response->get_error_code(),
-		'response' => $error_message,
+		'hide'              => '0',
+		'error'             => $subscribe_response->get_error_code(),
+		'response'          => $error_message,
 		'security_response' => 'test',
+		'data'              => $subscribe_response->get_error_data(),
 	) );
 
 	return;
