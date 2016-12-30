@@ -2059,9 +2059,14 @@ class Yikes_Inc_Easy_Mailchimp_Forms_Admin {
 													<td>
 														<?php
 														if( $field['type'] != 'checkboxes' ) {
-															if( ! isset( $field['default_choice'] ) ) { $field['default_choice'] =  json_decode( stripslashes( $field['groups'] ) , true ); }
+															if ( ! isset( $field['default_choice'] ) ) {
+																$group_options           = json_decode( stripslashes( $field['groups'] ), true );
+																$field['default_choice'] = key( $group_options );
+															}
 														} else {
-															if ( ! isset( $field['default_choice'] ) ) { $field['default_choice'] = array(); }
+															if ( ! isset( $field['default_choice'] ) ) {
+																$field['default_choice'] = array();
+															}
 														}
 
 														foreach( json_decode( $field['groups'], true ) as $id => $group ) {
