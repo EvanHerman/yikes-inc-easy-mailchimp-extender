@@ -303,7 +303,7 @@
 	width: 80px;
 }
 
-.yikes-easy-mc-feature-image-left {
+.about-wrap img.yikes-easy-mc-feature-image.yikes-easy-mc-feature-image-left, .yikes-easy-mc-feature-image-left {
 	float: left;
 	margin-right: 30px;
 	margin-left: 0 !important;
@@ -352,9 +352,6 @@ ul.support-option-list {
 
 .whats-new-wrap .feature-section:nth-child(1) img {
 	float: left;
-	width: 500px;
-	margin-left: 0 !important;
-	margin-right: 30px;
 }
 
 .whats-new-wrap .feature-section:nth-child(3) img {
@@ -383,6 +380,10 @@ ul.support-option-list {
 	left: 0;
 }
 
+.about-wrap h2 {
+	text-align: left;
+}
+
 .edd-welcome-screenshots {
 	float: right;
 	margin-left: 10px!important;
@@ -392,9 +393,21 @@ ul.support-option-list {
 	margin-top: 20px;
 }
 
-.yikes-easy-mc-feature-image {
+.about-wrap .feature-section p {
+	max-width: 40em;
+}
+
+.about-wrap img.yikes-easy-mc-feature-image {
 	float: right;
-	margin-left: 30px !important;
+	margin-left: 30px;
+}
+
+.yikes-easy-mc-feature-image.yikes-easy-mc-feature-v3-image {
+	border: 0;
+	margin-left: 100px !important;
+	margin-right: 100px;
+	max-height: 340px;
+	width: auto;
 }
 
 #credit-container,

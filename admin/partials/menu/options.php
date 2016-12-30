@@ -34,10 +34,10 @@
 		<!-- Freddie Logo -->
 		<img src="<?php echo YIKES_MC_URL . 'includes/images/MailChimp_Assets/Freddie_60px.png'; ?>" alt="<?php _e( 'Freddie - MailChimp Mascot' , 'yikes-inc-easy-mailchimp-extender' ); ?>" class="yikes-mc-freddie-logo" />
 
-		<h1>YIKES Easy Forms for MailChimp | <?php if ( isset( $_REQUEST['section'] ) ) { echo ucwords( str_replace( '-', ' ', $_REQUEST['section'] ) ); } else { echo __( 'General Settings' , 'yikes-inc-easy-mailchimp-extender' ); } ?></h1>
+		<h1>Easy Forms for MailChimp | <?php if ( isset( $_REQUEST['section'] ) ) { echo ucwords( str_replace( '-', ' ', $_REQUEST['section'] ) ); } else { echo __( 'General Settings' , 'yikes-inc-easy-mailchimp-extender' ); } ?></h1>
 
 		<!-- Settings Page Description -->
-		<p class="yikes-easy-mc-about-text about-text"><?php _e( 'Easy Forms for MailChimp allows you to painlessly add MailChimp sign up forms to your WordPress site and track user activity with interactive reports.' , 'yikes-inc-easy-mailchimp-extender' ); ?></p>
+		<p class="yikes-easy-mc-about-text about-text"><?php _e( 'Manage the overall settings for Easy forms for MailChimp.' , 'yikes-inc-easy-mailchimp-extender' ); ?></p>
 		<?php
 			/* Success Messages on Options Updated */
 			if( isset( $_REQUEST['settings-updated'] ) && $_REQUEST['settings-updated'] == 'true' ) {
