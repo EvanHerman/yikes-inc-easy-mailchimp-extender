@@ -103,7 +103,7 @@ class Yikes_Inc_Easy_MailChimp_API {
 	 * @return array|WP_Error
 	 */
 	public function patch( $path = '', $headers = array(), $params = array() ) {
-		if ( ! isset( $params['body'] ) || empty( $params['body'] ) ) {
+		if ( ! isset( $params['body'] ) ) {
 			return new WP_Error(
 				'yikesinc_eme_missing_body',
 				sprintf(
@@ -130,7 +130,7 @@ class Yikes_Inc_Easy_MailChimp_API {
 	 * @return array|WP_Error
 	 */
 	public function post( $path = '', $headers = array(), $params = array() ) {
-		if ( ! isset( $params['body'] ) || empty( $params['body'] ) ) {
+		if ( ! isset( $params['body'] ) ) {
 			return new WP_Error(
 				'yikesinc_eme_missing_body',
 				sprintf(
@@ -157,7 +157,7 @@ class Yikes_Inc_Easy_MailChimp_API {
 	 * @return array|WP_Error
 	 */
 	public function put( $path = '', $headers = array(), $params = array() ) {
-		if ( ! isset( $params['body'] ) || empty( $params['body'] ) ) {
+		if ( ! isset( $params['body'] ) ) {
 			return new WP_Error(
 				'yikesinc_eme_missing_body',
 				sprintf(

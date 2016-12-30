@@ -195,7 +195,7 @@ $merge_field_data = $available_merge_variables['merge_fields'][ $index ];
 								</td>
 								<td>
 									<select type="default" name="field[<?php echo $merge_field_data['tag']; ?>][default_choice]">
-										<?php foreach ( $merge_field_data['choices'] as $choice => $value ) {
+										<?php foreach ( $merge_field_data['options']['choices'] as $choice => $value ) {
 											$pre_selected = ! empty( $merge_field_data['default_choice'] ) ? $merge_field_data['default_choice'] : '0';
 											?>
 											<option value="<?php echo $choice; ?>" <?php selected( $pre_selected, $choice ); ?>><?php echo stripslashes( $value ); ?></option>

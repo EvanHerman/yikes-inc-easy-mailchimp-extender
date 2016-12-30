@@ -192,15 +192,21 @@ abstract class Yikes_Inc_Easy_MailChimp_API_Abstract_Items {
 	 * @return array|WP_Error Array of data when there was no error, or a WP_Error.
 	 */
 	protected function maybe_return_error( $response ) {
+		if ( is_wp_error( $response ) ) {
+			return $response;
+		}
+
 		if ( isset( $response['error'] ) ) {
-			$title  = isset( $response['title'] ) ? $response['title'] : $response['name'];
+			$title  = isset( $response['title'] )  ? $response['title']  : $response['name'];
 			$detail = isset( $response['detail'] ) ? $response['detail'] : $response['error'];
+			$data   = isset( $response['errors'] ) ? $response['errors'] : array();
 
 			return new WP_Error(
 				$title,
 				$detail,
 				array(
 					'status' => (int) $response['status'],
+					'data'   => $data,
 				)
 			);
 		}
