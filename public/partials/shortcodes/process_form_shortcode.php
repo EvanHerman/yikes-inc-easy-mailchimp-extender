@@ -207,8 +207,12 @@ function process_mailchimp_shortcode( $atts ) {
 
 	// grab the last enqueued style, so we can use it as a dependency of our styles (for override)
 	global $wp_styles;
-	end( $wp_styles->groups );
-	$last_key = key( $wp_styles->groups );
+	
+	$last_key = '';
+	if ( isset( $wp_styles ) && isset( $wp_styles->groups ) ) {
+		end( $wp_styles->groups );	
+		$last_key = key( $wp_styles->groups );
+	}
 
 	/*
 	*	Check for the constant to prevent styles from loading
