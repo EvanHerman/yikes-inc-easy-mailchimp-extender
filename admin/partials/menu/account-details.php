@@ -1,6 +1,6 @@
 <?php
 // lets confirm the user has a valid API key stored
-if ( $this->is_user_mc_api_valid_form( false ) !== 'valid' ) {
+if ( ! $this->is_user_mc_api_valid_form( false ) ) {
 	wp_die( __( 'It looks like you need to re-validate your MailChimp API key before you can continue.', 'yikes-inc-easy-mailchimp-extender' ), 500 );
 }
 
