@@ -1,21 +1,21 @@
 <?php
 /**
- * Plugin Name: Easy Forms for MailChimp by YIKES
+ * Plugin Name: Easy Forms for MailChimp
  * Plugin URI:  http://www.yikesinc.com/services/yikes-inc-easy-mailchimp-extender/
- * Description: YIKES Easy Forms for MailChimp links your site to MailChimp and allows you to generate and display mailing list opt-in forms anywhere on your site with ease.
+ * Description: The ultimate MailChimp WordPress plugin. Easily build <strong>unlimited forms for your MailChimp lists</strong>, add them to your site and track subscriber activity. To get started, go to the settings page and enter your <a href="https://yikesplugins.com/support/knowledge-base/finding-your-mailchimp-api-key/" target="_blank">MailChimp API key</a>.
  * Version:     6.3.0
- * Author:      YIKES
- * Author URI:  http://www.yikesinc.com/
+ * Author:      YIKES, Inc.
+ * Author URI:  https://www.yikesplugins.com/
  * License:     GPL-3.0+
  * License URI: http://www.gnu.org/licenses/gpl-3.0.txt
  * Text Domain: yikes-inc-easy-mailchimp-extender
  *
- * YIKES Easy Forms for MailChimp is free software: you can redistribute it and/or modify
+ * Easy Forms for MailChimp is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 2 of the License, or
  * any later version.
  *
- * YIKES Easy Forms for MailChimp is distributed in the hope that it will be useful,
+ * Easy Forms for MailChimp is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
  * GNU General Public License for more details.
@@ -23,8 +23,8 @@
  * You should have received a copy of the GNU General Public License
  * along with Easy Forms for MailChimp. If not, see <http://www.gnu.org/licenses/>.
  *
- * We at YIKES Inc. embrace the open source philosophy on a daily basis. We donate company time back to the WordPress project,
- * and constantly strive to improve the WordPress project and community as a whole. We eat, sleep and breathe WordPress.
+ * We at YIKES, Inc. embrace the open source philosophy on a daily basis. We donate company time back to the WordPress project,
+ * and constantly strive to improve the WordPress project and community as a whole.
  *
  * "'Free software' is a matter of liberty, not price. To understand the concept, you should think of 'free' as in 'free speech,' not as in 'free beer'."
  * - Richard Stallman
@@ -42,7 +42,7 @@ if ( ! defined( 'WPINC' ) ) {
  * 	@since 6.1.3
  */
 if ( ! defined( 'YIKES_MC_VERSION' ) ) {
-	define( 'YIKES_MC_VERSION' , '6.2.4' );
+	define( 'YIKES_MC_VERSION' , '6.3' );
 }
 
 /**
