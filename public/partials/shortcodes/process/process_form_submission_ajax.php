@@ -32,6 +32,7 @@ $notifications       = isset( $form_data['custom_notifications'] ) ? $form_data[
 $page_data       = $_POST['page_data'];
 $merge_variables = array();
 $error           = 0;
+$list_handler    = yikes_get_mc_api_manager()->get_list_handler();
 
 /* Check for Honeypot filled */
 $honey_pot_filled = ( isset( $data['yikes-mailchimp-honeypot'] ) && '' !== $data['yikes-mailchimp-honeypot'] );
@@ -191,7 +192,7 @@ $member_data = array(
 	'status'        => 'subscribed',
 );
 
-$subscribe_response = yikes_get_mc_api_manager()->get_list_handler()->member_subscribe( $list_id, md5( strtolower( sanitize_email( $data['EMAIL'] ) ) ), $member_data );
+$subscribe_response = $list_handler->member_subscribe( $list_id, md5( strtolower( sanitize_email( $data['EMAIL'] ) ) ), $member_data );
 
 if ( is_wp_error( $subscribe_response ) ) {
 	$error_data = $subscribe_response->get_error_data();
