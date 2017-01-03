@@ -12,7 +12,7 @@ Easy Forms for MailChimp
 
 <strong>Latest Stable Beta Release Candidate</strong>
 
-This is the development repo for the [Easy Forms for MailChimp](https://wordpress.org/plugins/yikes-inc-easy-mailchimp-extender/) plugin where we work on new features and bug fixes.
+This is the development repo for the [Easy Forms for MailChimp](https://wordpress.org/plugins/yikes-inc-easy-mailchimp-extender/) plugin by [YIKES, Inc.](https://yikesinc.com/) where we work on new features and bug fixes.
 
 Feel free to beta test this plugin now, but remember, it's not a stable release.
 
@@ -30,7 +30,7 @@ Feel free to beta test this plugin now, but remember, it's not a stable release.
 For full documentation, please visit [our Knowledge Base](https://yikesplugins.com/support/knowledge-base/product/easy-forms-for-mailchimp/).
 
 ####### Integrations
-Easy Forms for MailChimp by [YIKES, Inc.](https://yikesinc.com/) integrates well with many popular third party plugins for WordPress:
+Easy Forms for MailChimp integrates well with many popular third party plugins for WordPress:
 
 * WooCommerce
 * Easy Digital Downloads
@@ -46,7 +46,7 @@ Have any questions? Feel free to open up an issue in the issue tracker and we'll
 
 #### Grunt.js
 
-To develop with grunt place Gruntfile.js file inside the plugin root during development (/wp-content/yikes-inc-easy-mailchimp-extender/). The paths inside Gruntfile.js are setup relative to the plugin root, so placing it anywhere else without changing the paths will cause an error.
+To develop with Grunt place Gruntfile.js file inside the plugin root during development (/wp-content/yikes-inc-easy-mailchimp-extender/). The paths inside Gruntfile.js are setup relative to the plugin root, so placing it anywhere else without changing the paths will cause an error.
 
 First, make sure you install the latest version of Grunt to the local project directory.
 
