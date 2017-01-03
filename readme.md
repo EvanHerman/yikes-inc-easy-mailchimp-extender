@@ -2,7 +2,7 @@
 [![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/yikesinc/yikes-inc-easy-mailchimp-extender/badges/quality-score.png?b=staging)](https://scrutinizer-ci.com/g/yikesinc/yikes-inc-easy-mailchimp-extender/?branch=staging)
 [![Code Coverage](https://scrutinizer-ci.com/g/yikesinc/yikes-inc-easy-mailchimp-extender/badges/coverage.png?b=staging)](https://scrutinizer-ci.com/g/yikesinc/yikes-inc-easy-mailchimp-extender/?branch=staging)
 [![Build Status](https://scrutinizer-ci.com/g/yikesinc/yikes-inc-easy-mailchimp-extender/badges/build.png?b=staging)](https://scrutinizer-ci.com/g/yikesinc/yikes-inc-easy-mailchimp-extender/build-status/staging)
-YIKES Inc. Easy Forms for MailChimp
+Easy Forms for MailChimp
 =====================
 [![WordPress](https://img.shields.io/wordpress/plugin/dt/yikes-inc-easy-mailchimp-extender.svg)]()
 ![Rating](https://img.shields.io/wordpress/plugin/r/yikes-inc-easy-mailchimp-extender.svg)
@@ -12,7 +12,7 @@ YIKES Inc. Easy Forms for MailChimp
 
 <strong>Latest Stable Beta Release Candidate</strong>
 
-This is the development repo for the [YIKES Inc Easy MailChimp Extender](https://wordpress.org/plugins/yikes-inc-easy-mailchimp-extender/) plugin where we work on new features and bug fixes.
+This is the development repo for the [Easy Forms for MailChimp](https://wordpress.org/plugins/yikes-inc-easy-mailchimp-extender/) plugin where we work on new features and bug fixes.
 
 Feel free to beta test this plugin now, but remember, it's not a stable release.
 
@@ -30,7 +30,7 @@ Feel free to beta test this plugin now, but remember, it's not a stable release.
 For full documentation, please visit [our Knowledge Base](https://yikesplugins.com/support/knowledge-base/product/easy-forms-for-mailchimp/).
 
 ####### Integrations
-Easy Forms for MailChimp by YIKES integrates well with many popular third party plugins for WordPress:
+Easy Forms for MailChimp by [YIKES, Inc.](https://yikesinc.com/) integrates well with many popular third party plugins for WordPress:
 
 * WooCommerce
 * Easy Digital Downloads
