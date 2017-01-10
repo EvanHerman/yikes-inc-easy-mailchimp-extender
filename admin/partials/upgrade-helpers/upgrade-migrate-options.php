@@ -5,7 +5,7 @@
 	*	Helper File , called inside class-yikes-inc-easy-mailchimp-extender-admin.php ( migrate_old_yks_mc_options() )
 	*	@since v6.0
 	* 	@Author: Yikes Inc. 
-	*	@Contact: http://www.yikesinc.com/
+	*	@Contact: https://www.yikesplugins.com/
 	*/
 		
 	// enqueue the styles for our migration page..

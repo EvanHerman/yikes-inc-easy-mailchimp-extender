@@ -2,7 +2,7 @@
 /**
  * Fired during plugin activation
  *
- * @link       http://www.yikesinc.com/
+ * @link       https://www.yikesplugins.com/
  * @since      6.0.0
  *
  * @package    Yikes_Inc_Easy_Mailchimp_Extender
@@ -16,7 +16,7 @@
  * @since      6.0.0
  * @package    Yikes_Inc_Easy_Mailchimp_Extender
  * @subpackage Yikes_Inc_Easy_Mailchimp_Extender/includes
- * @author     YIKES Inc. <info@yikesinc.com>
+ * @author     YIKES Inc. <plugins@yikesinc.com>
  */
 class Yikes_Inc_Easy_Mailchimp_Extender_Activator {
 	/**

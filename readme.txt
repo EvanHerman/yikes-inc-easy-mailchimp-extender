@@ -163,11 +163,11 @@ Example:
 
 == Other Notes ==
 
-Alongside the default functionality of Easy Forms for MailChimp by YIKES we've included a number of hooks and filters to allow for a higher level of customization of your MailChimp forms.
+Alongside the default functionality of Easy Forms for MailChimp we've included a number of hooks and filters to allow for a higher level of customization of your MailChimp forms.
 
-For information and code examples on how to implement the hooks and filters provided by Easy Forms for MailChimp by YIKES, please see our [Developer Documentation in the Knowledge Base](https://yikesplugins.com/support/knowledge-base/product/developer-documentation/?utm_source=wp_plugin_repo&utm_medium=link&utm_campaign=easy_forms_for_mailchimp).
+For information and code examples on how to implement the hooks and filters provided by Easy Forms for MailChimp, please see our [Developer Documentation in the Knowledge Base](https://yikesplugins.com/support/knowledge-base/product/developer-documentation/?utm_source=wp_plugin_repo&utm_medium=link&utm_campaign=easy_forms_for_mailchimp).
 
-Below you'll find a complete list of the hooks and filters available in Easy Forms for MailChimp by YIKES.
+Below you'll find a complete list of the hooks and filters available in Easy Forms for MailChimp.
 
 **Filters**
 
