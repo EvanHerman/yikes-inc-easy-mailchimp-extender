@@ -66,7 +66,7 @@ class Yikes_Inc_Easy_Mailchimp_Extender_Public {
 		// Filter the user already subscribed response with a custom message
 		add_filter( 'yikes-easy-mailchimp-update-existing-subscriber-text', array( $this, 'yikes_custom_already_subscribed_response' ), 10, 3 );
 		// Filter the user already subscribed response with a custom message
-		add_filter( 'yikes-easy-mailchimp-user-already-subscribed-text', array( $this, 'yikes_custom_already_subscribed_text' ), 10, 3 );
+		// add_filter( 'yikes-easy-mailchimp-user-already-subscribed-text', array( $this, 'yikes_custom_already_subscribed_text' ), 10, 3 );
 	}
 
 	/**
@@ -134,6 +134,14 @@ class Yikes_Inc_Easy_Mailchimp_Extender_Public {
 			$form_settings = self::yikes_retrieve_form_settings( $form_id );
 			if( isset( $_POST ) && !empty( $_POST ) && isset( $form_id ) && $form_settings['submission_settings']['ajax'] == 0 ) {
 				if( $_POST['yikes-mailchimp-submitted-form'] == $form_id ) { // ensure we only process the form that was submitted
+
+					// if update account details is set, we need to include our script to send out the update email
+					wp_enqueue_script( 'update-existing-subscriber.js', YIKES_MC_URL . 'public/js/yikes-update-existing-subscriber.js' , array( 'jquery' ), 'all' );
+					wp_localize_script( 'update-existing-subscriber.js', 'update_subscriber_details_data', array(
+						'ajax_url' => esc_url( admin_url( 'admin-ajax.php' ) ),
+						'preloader_url' => apply_filters( 'yikes-mailchimp-preloader', esc_url_raw( admin_url( 'images/wpspin_light.gif' ) ) ),
+					) );
+
 					// lets include our form processing file
 					include_once( YIKES_MC_PATH . 'public/partials/shortcodes/process/process_form_submission.php' );
 					if( $form_settings['submission_settings']['redirect_on_submission'] == '1' ) {

@@ -1094,7 +1094,7 @@ ul.support-option-list {
 		width: 18px;
 	}
 	.field-type-text {
-		float: right;
+		display: inline-block;
 	}
 	.type-container {
 		margin-top: 0;

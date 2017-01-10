@@ -77,7 +77,8 @@ window.Yikes_Mailchimp_Ajax = window.Yikes_Mailchimp_Ajax || {};
 				'action' : 'process_form_submission',
 				'form_data' : submitted_form.serialize(),
 				'form_id' : form_id,
-				'page_data' : app.l10n.page_data
+				'page_data' : app.l10n.page_data,
+				'ajax_security_nonce' : app.l10n.ajax_security_nonce
 			};
 
 			/* submit our ajax request */
@@ -115,8 +116,8 @@ window.Yikes_Mailchimp_Ajax = window.Yikes_Mailchimp_Ajax || {};
 						if( response.redirection == 1 ) {
 							submitted_form.before( response.redirect );
 						}
-						/* clear the inputs */
-						submitted_form.find( 'input' ).not( '.yikes-easy-mc-submit-button' ).val( '' );
+						/* clear the inputs - but don't clear submit button, radio, select, list_id, or form */
+						submitted_form.find( 'input' ).not( '.yikes-easy-mc-submit-button, input[type="radio"], input[type="select"], input[type="checkbox"], #yikes-mailchimp-associated-list-id, #yikes-mailchimp-submitted-form' ).val( '' );
 						/* ajax to increase submission count by 1 */
 						var new_data = {
 							'action' : 'increase_submission_count',
@@ -137,12 +138,14 @@ window.Yikes_Mailchimp_Ajax = window.Yikes_Mailchimp_Ajax || {};
 						/* console.log( 'Successfully submit subscriber data to MailChimp.' ); */
 					} else {
 						response = response.data;
-						if( $( '.yikes-easy-mc-form-description-'+form_id ).length > 0 ) {
-							$( '.yikes-easy-mc-form-description-'+form_id ).before( '<p class="yikes-easy-mc-error-message yikes-easy-mc-error-message-'+form_id+'" yikes-easy-mc-hidden"> '+response.response+'</p>' );
+						if( $( '.yikes-easy-mc-form-description-' + form_id ).length > 0 ) {
+							$( '.yikes-easy-mc-form-description-' + form_id ).before( '<p class="yikes-easy-mc-error-message yikes-easy-mc-error-message-' + form_id + '" yikes-easy-mc-hidden"> ' + response.response + '</p>' );
 						} else {
-							submitted_form.before( '<p class="yikes-easy-mc-error-message yikes-easy-mc-error-message-'+form_id+' yikes-easy-mc-hidden">'+response.response+'</p>' );
+							var response_message = ( typeof( response ) !== 'undefined' && typeof( response.response ) !== 'undefined' ) ? response.response : 'Error collecting the API response.'
+							submitted_form.before( '<p class="yikes-easy-mc-error-message yikes-easy-mc-error-message-' + form_id + ' yikes-easy-mc-hidden">' + response_message + '</p>' );
 						}
-						/* fade in the error message */
+
+						// Fade in the error message
 						$( '.yikes-easy-mc-error-message' ).fadeIn();
 					}
 				},

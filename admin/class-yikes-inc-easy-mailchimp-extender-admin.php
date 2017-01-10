@@ -558,12 +558,29 @@ class Yikes_Inc_Easy_Mailchimp_Forms_Admin {
 		public function yikes_easy_mailchimp_display_review_us_notice() {
 			/* Lets only display our admin notice on YT4WP pages to not annoy the hell out of people :) */
 			if ( in_array( get_current_screen()->base , array( 'dashboard' , 'post' , 'edit' ) ) || strpos( get_current_screen()->base ,'yikes-inc-easy-mailchimp') !== false ) {
+
+				$plugin_name = '<strong>Easy Forms for MailChimp by YIKES Inc.</strong>';
 				// Review URL - Change to the URL of your plugin on WordPress.org
 				$reviewurl = 'https://wordpress.org/support/view/plugin-reviews/yikes-inc-easy-mailchimp-extender';
 				$addons_url = esc_url( admin_url( 'admin.php?page=yikes-inc-easy-mailchimp-addons' ) );
 				$nobugurl = esc_url_raw( add_query_arg( 'yikes_easy_mc_icons_nobug', '1', admin_url() ) );
+
+				// Make sure all of our variables have values
+				$reviewurl  = ( ! empty( $reviewurl ) ) ? $reviewurl : '';
+				$addons_url = ( ! empty( $addons_url ) ) ? $addons_url : '';
+				$nobugurl	= ( ! empty( $nobugurl ) ) ? $nobugurl : '';
+
 				$review_message = '<div id="yikes-mailchimp-logo"></div>';
-				$review_message .= sprintf( __( "It looks like you've been using %s for 2 weeks now. We hope you're enjoying the features included with the free version. If so, please consider leaving us a review. Reviews only help to catch other users attention as well as provide us with feedback to grow and improve upon. If you're really enjoying the plugin, consider buying an add-on or developer license for some really awesome features and premium support." , 'yikes-inc-easy-mailchimp-extender' ) . "<span class='button-container'> <a href='%s' target='_blank' class='button-secondary'><span class='dashicons dashicons-star-filled'></span>" . __( "Leave A Review" , 'yikes-inc-easy-mailchimp-extender' ) . "</a> <a href='%s' class='button-secondary'><span class='dashicons dashicons-upload'></span>" . __( "View Addons" , 'yikes-inc-easy-mailchimp-extender' ) . "</a> <a href='%s' class='button-secondary'><span class='dashicons dashicons-no-alt'></span>" . __( "Dismiss" , 'yikes-inc-easy-mailchimp-extender' ) . "</a> </span>", '<strong>Easy Forms for MailChimp by YIKES Inc.</strong>', $reviewurl, $addons_url, $nobugurl ) . '';
+				$review_message .= sprintf( 
+					__( 'It looks like you\'ve been using %1$s for 2 weeks now. We hope you\'re enjoying the features included with the free version. If so, please consider leaving us a review. Reviews only help to catch other users attention as well as provide us with feedback to grow and improve upon. If you\'re really enjoying the plugin, consider buying an add-on or developer license for some really awesome features and premium support.' , 'yikes-inc-easy-mailchimp-extender' ) 
+					. '<span class="button-container"> <a href="%2$s" target="_blank" class="button-secondary"><span class="dashicons dashicons-star-filled"></span>'
+						. __( "Leave A Review" , 'yikes-inc-easy-mailchimp-extender' ) 
+					. '</a> <a href="%3$s" class="button-secondary"><span class="dashicons dashicons-upload"></span>'
+						. __( "View Addons" , 'yikes-inc-easy-mailchimp-extender' ) 
+					. '</a> <a href="%4$s" class="button-secondary"><span class="dashicons dashicons-no-alt"></span>'
+						. __( "Dismiss" , 'yikes-inc-easy-mailchimp-extender' ) 
+					. "</a> </span>", 
+					$plugin_name, $reviewurl, $addons_url, $nobugurl );
 				?>
 					<div id="review-yikes-easy-mailchimp-notice">
 						<?php echo $review_message; ?>
@@ -829,6 +846,8 @@ class Yikes_Inc_Easy_Mailchimp_Forms_Admin {
 					case 'd/m/Y':
 					case 'dd/mm/yyyy':
 					case 'DD/MM/YYYY':
+					case 'dd/mm':
+					case 'DD/MM':
 						return( 'dd/mm' );
 						break;
 				 }
@@ -1615,13 +1634,16 @@ class Yikes_Inc_Easy_Mailchimp_Forms_Admin {
 											?><option <?php selected( $redirect_page , $page->ID ); ?> value="<?php echo $page->ID; ?>"><?php echo $page->post_title; ?></option><?php
 										}
 									?>
-									<option <?php selected( $redirect_page, 'custom_url' ); ?> value="custom_url"><?php echo __( 'Custom URL', 'yikes-inc-easy-mailchimp-extender' ); ?></option>
 									</optgroup>
 									<?php
 								}
 							}
 						}
 					?>
+						<!-- Add the Custom URL option -->
+						<optgroup label="Custom URL">
+							<option <?php selected( $redirect_page, 'custom_url' ); ?> value="custom_url"><?php echo __( 'Custom URL', 'yikes-inc-easy-mailchimp-extender' ); ?></option>
+						</optgroup>
 					</select>
 
 					<label name="custom-redirect-url" class="custom_redirect_url_label" <?php if( ! isset( $redirect_page ) || $redirect_page != 'custom_url' ) { echo 'style="display:none;"'; } ?>>

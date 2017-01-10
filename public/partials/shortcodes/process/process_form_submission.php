@@ -1,187 +1,142 @@
 <?php
 /*
 *	Process Non-Ajax forms
-*	@Updated for v6.0.3.5
+*	Overhauled for @6.3.0
 */
 
-// set the global variable to 1, to trigger a successful submission
+// Define our globals - $form_submitted is a flag, $process_submission_response is a string with a message
 global $form_submitted, $process_submission_response;
 
-// confirm we have a form id to work with
-$form_id = ( ! empty( $_POST['yikes-mailchimp-submitted-form'] ) ) ? absint( $_POST['yikes-mailchimp-submitted-form'] ) : false;
+// Instantiate our submission handler class
+$submission_handler = new Yikes_Inc_Easy_MailChimp_Extender_Process_Submission_Handler( $is_ajax = false );
 
-if ( ! $form_id ) {
+// Capture our form data
+$data = $_POST;
+
+// Check our nonce
+if ( $submission_handler->handle_nonce( $_POST['yikes_easy_mc_new_subscriber'], 'yikes_easy_mc_form_submit' ) === false ) {
+	$process_submission_response = $submission_handler->wrap_form_submission_response( $submission_handler->handle_nonce_message, $is_success = false );
 	return;
 }
 
-$form_interface    = yikes_easy_mailchimp_extender_get_form_interface();
-$list_handler      = yikes_get_mc_api_manager()->get_list_handler();
-$list_id           = sanitize_text_field( $_POST['yikes-mailchimp-associated-list-id'] );
-$form_settings     = $interface->get_form( $form_id );
-$replace_interests = isset( $form_settings['submission_settings']['replace_interests'] ) ? (bool) $form_settings['submission_settings']['replace_interests'] : true;
-$groups            = array();
+// Confirm we have a form id to work with
+$form_id = ( isset( $data['yikes-mailchimp-submitted-form'] ) ) ? absint( $data['yikes-mailchimp-submitted-form'] ) : false;
 
-// If the user intends to replace existing interest groups, loop and set them all to false to start.
-if ( $replace_interests ) {
-	$interest_groupings = $list_handler->get_interest_categories( $_POST['yikes-mailchimp-associated-list-id'] );
+// Set the form id in our class
+$submission_handler->set_form_id( $form_id );
 
-	foreach ( $interest_groupings as $group_data ) {
-		$item_ids = array_keys( $group_data['items'] );
-		$keyed    = array_fill_keys( $item_ids, false );
-		$groups   = array_merge( $groups, $keyed );
-	}
-}
+// For non-AJAX, we need to wrap our 'empty' calls in an if statement and if false `return;` 
 
-// Process our form submissions (non ajax forms)
-if ( ! isset( $_POST['yikes_easy_mc_new_subscriber'] ) || ! wp_verify_nonce( $_POST['yikes_easy_mc_new_subscriber'], 'yikes_easy_mc_form_submit' ) ) {
-	$process_submission_response = '<p><small class="form_submission_error">' . __( "Error : Sorry, the nonce security check didn't pass. Please reload the page and try again. You may want to try clearing your browser cache as a last attempt." , 'yikes-inc-easy-mailchimp-extender' ) . '</small></p>';
-
+// Send an error if for some reason we can't find the $form_id
+if ( $submission_handler->handle_empty_form_id( $form_id ) === false ) {
+	$process_submission_response = $submission_handler->wrap_form_submission_response( $submission_handler->handle_empty_form_id_message, $is_success = false );
 	return;
 }
 
-// See if the Honeypot was filled, and maybe return an error.
-$honey_pot_filled = ( isset( $_POST['yikes-mailchimp-honeypot'] ) && '' !== $_POST['yikes-mailchimp-honeypot'] ) ? true : false;
-if ( $honey_pot_filled ) {
-	$process_submission_response = '<p><small class="form_submission_error">' . __( 'Error: It looks like the honeypot was filled out and the form was not properly be submitted.' , 'yikes-inc-easy-mailchimp-extender' ) . '</small></p>';
+// Get the form data
+$interface = yikes_easy_mailchimp_extender_get_form_interface();
+$form_data = $interface->get_form( $form_id );
 
+// Send an error if for some reason we can't find the form.
+if ( $submission_handler->handle_empty_form( $form_data ) === false ) {
+	$process_submission_response = $submission_handler->wrap_form_submission_response( $submission_handler->handle_empty_form_message, $is_success = false );
 	return;
 }
 
-// Check reCAPTCHA Response
-if ( isset( $_POST['g-recaptcha-response'] ) ) {
-	$url           = esc_url_raw( 'https://www.google.com/recaptcha/api/siteverify?secret=' . get_option( 'yikes-mc-recaptcha-secret-key' , '' ) . '&response=' . $_POST['g-recaptcha-response'] . '&remoteip=' . $_SERVER['REMOTE_ADDR'] );
-	$response      = wp_remote_get( $url );
-	$response_body = json_decode( $response['body'] , true );
+// Set up some variables from the form data -- these are required
+$list_id             = isset( $form_data['list_id'] ) ? $form_data['list_id'] : null;
+$submission_settings = isset( $form_data['submission_settings'] ) ? $form_data['submission_settings'] : null;
+$optin_settings      = isset( $form_data['optin_settings'] ) ? $form_data['optin_settings'] : null;
+$form_fields         = isset( $form_data['fields'] ) ? $form_data['fields'] : null;
 
-	// if we've hit an error, lets return the error!
-	if ( 1 !== $response_body['success'] ) {
-		$recaptcha_error = array();
+// Send an error if for some reason we can't find the required form data
+if ( $submission_handler->handle_empty_fields_generic( array( $list_id, $submission_settings, $optin_settings, $form_fields ) ) === false ) {
+	$process_submission_response = $submission_handler->wrap_form_submission_response( $submission_handler->handle_empty_fields_generic_message, $is_success = false );
+	return;
+}
 
-		foreach ( $response_body['error-codes'] as $error_code ) {
-			if ( 'missing-input-response' === $error_code ) {
-				$error_code = __( 'Please check the reCAPTCHA field.', 'yikes-inc-easy-mailchimp-extender' );
-			}
 
-			$recaptcha_error[] = $error_code;
-		}
+// if ( ! empty( $missing_required_checkbox_interest_groups ) ) {
+// 	$process_submission_response = '<p class="yikes-easy-mc-error-message">' . apply_filters( 'yikes-mailchimp-interest-group-required-top-error', sprintf( _n( 'It looks like you forgot to fill in %s required field.', 'It looks like you forgot to fill in %s required fields.', count( $missing_required_checkbox_interest_groups ), 'yikes-inc-easy-mailchimp-extender' ), count( $missing_required_checkbox_interest_groups ) ), count( $missing_required_checkbox_interest_groups ), $form_id ) . '</p>';
 
-		$process_submission_response .= "<p class='yikes-easy-mc-error-message'>" . apply_filters( 'yikes-mailchimp-recaptcha-required-error', __( 'Error' , 'yikes-inc-easy-mailchimp-extender' ) . ': ' . implode( ' ' , $recaptcha_error ) ) . '</p>';
+// 	return;
+// }
 
+// Check for required fields and send an error if a required field is empty
+// This is a server side check for required fields because some browsers (e.g. Safari) do not recognize the `required` HTML 5 attribute
+if ( $submission_handler->check_for_required_form_fields( $data, $form_fields ) === false ) {
+	$process_submission_response = $submission_handler->wrap_form_submission_response( $submission_handler->handle_empty_required_field_message, $is_success = false );
+	return;
+}
+if ( $submission_handler->check_for_required_interest_groups( $data, $form_fields ) === false ) {
+	$process_submission_response = $submission_handler->wrap_form_submission_response( $submission_handler->handle_empty_required_interest_group_message, $is_success = false );
+	return;
+}
+
+// Set the list id in our class
+$submission_handler->set_list_id( $list_id );
+
+// Set up some variables from the form data -- these are not required
+$error_messages      = isset( $form_data['error_messages'] ) ? $form_data['error_messages'] : array();
+$notifications       = isset( $form_data['custom_notifications'] ) ? $form_data['custom_notifications'] : array(); // Do we need this?
+
+// Set the error messages in our class
+$submission_handler->set_error_messages( $error_messages );
+
+// Some other variables we'll need.
+$merge_variables = array();
+$list_handler    = yikes_get_mc_api_manager()->get_list_handler();
+
+// Send an error if for some reason we can't find the list_handler
+if ( $submission_handler->handle_empty_list_handler( $list_handler ) === false ) {
+	$process_submission_response = $submission_handler->wrap_form_submission_response( $submission_handler->handle_empty_list_handler_message, $is_success = false );
+	return;
+}
+
+// Get and sanitize the email
+$submitted_email = isset( $data['EMAIL'] ) ? $data['EMAIL'] : '';
+$sanitized_email = $submission_handler->get_sanitized_email( $submitted_email ); 
+$submission_handler->set_email( $sanitized_email );
+
+// Send an error if for some reason we can't find the email
+if ( $submission_handler->handle_empty_email( $sanitized_email ) === false ) {
+	$process_submission_response = $submission_handler->wrap_form_submission_response( $submission_handler->handle_empty_email_message, $is_success = false );
+	return;
+}
+
+// Check for Honeypot filled
+$honey_pot_filled = ( isset( $data['yikes-mailchimp-honeypot'] ) && '' !== $data['yikes-mailchimp-honeypot'] ) ? true : false;
+
+// Send an error if honey pot is not empty
+if ( $submission_handler->handle_non_empty_honeypot( $honey_pot_filled ) === false ) {
+	$process_submission_response = $submission_handler->wrap_form_submission_response( $submission_handler->handle_non_empty_honeypot_message, $is_success = false );
+	return;
+}
+
+// Check if reCAPTCHA Response was submitted with the form data, and handle it if needed
+if ( isset( $data['g-recaptcha-response'] ) ) {
+	$recaptcha_response = $data['g-recaptcha-response'];
+	$recaptcha_handle = $submission_handler->handle_recaptcha( $recaptcha_response );
+	if ( isset( $recaptcha_handle['success'] ) && $recaptcha_handle['success'] === false ) {
+		$process_submission_response = $submission_handler->wrap_form_submission_response( $recaptcha_handle['message'], $is_success = false );
 		return;
 	}
 }
 
-/*
- * Confirm that all required checkbox groups were submitted.
- * No HTML5 validation, and don't want to use jQuery for non-ajax forms
-*/
-$missing_required_checkbox_interest_groups = array();
-foreach ( $form_settings['fields'] as $merge_tag => $field_data ) {
-	if ( ! isset( $field_data['group_id'] ) ) {
-		continue;
-	}
+// Loop through the submitted data to sanitize and format values
+$merge_variables = $submission_handler->get_submitted_merge_values( $data, $form_fields );
 
-	// If this isn't a checkbox field, continue.
-	if ( ! isset( $field_data['type'] ) || 'checkboxes' !== $field_data['type'] ) {
-		continue;
-	}
+// Submission Setting: Replace interest groups or update interest groups
+$replace_interests = isset( $submission_settings['replace_interests'] ) ? (bool) $submission_settings['replace_interests'] : true;
 
-	// Determine if the group is required.
-	if ( ! isset( $field_data['require'] ) || 1 !== $field_data['require'] ) {
-		continue;
-	}
+// Get the default groups
+$groups = $submission_handler->get_default_interest_groups( $replace_interests, $list_handler );
 
-	// If we've come this far, make sure we have the merge tag present.
-	if ( ! isset( $_POST[ $merge_tag ] ) ) {
-		$missing_required_checkbox_interest_groups[] = $merge_tag;
-	}
-}
-
-if ( ! empty( $missing_required_checkbox_interest_groups ) ) {
-	$process_submission_response = '<p class="yikes-easy-mc-error-message">' . apply_filters( 'yikes-mailchimp-interest-group-required-top-error', sprintf( _n( 'It looks like you forgot to fill in %s required field.', 'It looks like you forgot to fill in %s required fields.', count( $missing_required_checkbox_interest_groups ), 'yikes-inc-easy-mailchimp-extender' ), count( $missing_required_checkbox_interest_groups ) ), count( $missing_required_checkbox_interest_groups ), $form_id ) . '</p>';
-
-	return;
-}
-
-// Empty array to build up merge variables & interest groups
-$merge_variables = array();
-
-// loop to push variables to our array
-foreach ( $_POST as $merge_tag => $value ) {
-	$skip_merge_tags = array(
-		'yikes_easy_mc_new_subscriber' => 1,
-		'_wp_http_referer'             => 1,
-	);
-
-	// Skip any merge tags that aren't in the field settings, or that should be skipped.
-	if ( ! isset( $form_settings['fields'][ $merge_tag ] ) || isset( $skip_merge_tags[ $merge_tag ] ) ) {
-		continue;
-	}
-
-	// Sanitize the value to start with.
-	if ( is_scalar( $value ) ) {
-		$sanitized = sanitize_text_field( $value );
-	} else {
-		$sanitized = array();
-		foreach ( $value as $val ) {
-			$sanitized[] = sanitize_text_field( $val );
-		}
-	}
-
-	// If the field is empty, don't include it.
-	if ( empty( $sanitized ) ) {
-		continue;
-	}
-
-	// check if the current iteration has a 'date_format' key set (aka - date/birthday fields)
-	if ( isset( $form_settings['fields'][ $merge_tag ]['date_format'] ) ) {
-
-		// check if EU date format
-		if ( 'DD/MM/YYYY' === $form_settings['fields'][ $merge_tag ]['date_format'] || 'DD/MM' === $form_settings['fields'][ $merge_tag ]['date_format'] ) {
-			// convert '/' to '.' and to UNIX timestamp
-			$sanitized = ( '' != $sanitized ) ? str_replace( '/', '.', $sanitized ) : '';
-		} else {
-			// convert to UNIX timestamp
-			$sanitized = ( '' != $sanitized ) ? absint( $sanitized ): '';
-		}
-	}
-
-	// Possibly handle an interest group.
-	if ( strpos( $merge_tag, 'group-' ) !== false ) {
-		$tag = str_replace( 'group-', '', $merge_tag );
-
-		if ( is_array( $sanitized ) ) {
-			foreach ( $sanitized as $val ) {
-				$groups[ $val ] = true;
-			}
-
-			continue;
-		}
-
-		$groups[ $sanitized ] = true;
-		continue;
-	}
-
-	$merge_variables[ $merge_tag ] = $sanitized;
-}
-
-// store the opt-in time
-$merge_variables['optin_time'] = current_time( 'Y-m-d H:i:s', 1 );
+// Loop through the submitted data and update the default groups array
+$groups = $submission_handler->get_submitted_interest_groups( $data, $form_fields, $groups );
 
 /**
- * Filter the merge variables.
- *
- * Filter the merge variables before they get sent over to MailChimp.
- *
- * @since 6.0.0
- *
- * @param array $merge_variables The array of merge variables.
- */
-$merge_variables = apply_filters( 'yikesinc_eme_merge_vars',            $merge_variables );
-$merge_variables = apply_filters( "yikesinc_eme_merge_vars_{$form_id}", $merge_variables );
-
-/**
- * Action hooks fired before API request
+ * Action hooks fired before data is sent over to the API
  *
  * @since 6.0.5.5
  *
@@ -190,70 +145,170 @@ $merge_variables = apply_filters( "yikesinc_eme_merge_vars_{$form_id}", $merge_v
 do_action( 'yikes-mailchimp-before-submission',            $merge_variables );
 do_action( "yikes-mailchimp-before-submission-{$form_id}", $merge_variables );
 
-// Allow users to check for submit value and pass back an error to the user.
+// Allow users to check for form values (using the `yikes-mailchimp-filter-before-submission` filter hook in function `get_submitted_merge_values`) 
+// and pass back an error and message to the user
+// If error is set and no message, default to our class variable's default error message
 if ( isset( $merge_variables['error'] ) ) {
-	$process_submission_response = apply_filters( 'yikes-mailchimp-frontend-content' , $merge_variables['message'] );
-
-	return;
+	$merge_error_message = isset( $merge_variables['message'] ) ? $merge_variables['message'] : $submission_handler->default_error_response_message;
+	$merge_vars_error_array = $submission_handler->handle_merge_variables_error( $merge_variables['error'], $merge_error_message );
+	if ( $merge_vars_error_array['success'] === false ) {
+		$process_submission_response = $submission_handler->wrap_form_submission_response( $merge_vars_error_array['message'], $is_success = false );
+		return;
+	}
 }
 
-$email = sanitize_email( $_POST['EMAIL'] );
+// This is the array we're going to pass through to the MailChimp API
 $member_data = array(
-	'email_address' => $email,
+	'email_address' => $sanitized_email,
 	'merge_fields'  => $merge_variables,
-	'interests'     => $groups,
-	'status'        => 'subscribed',
+	'timestamp_opt' => current_time( 'Y-m-d H:i:s', 1 ),
+	'status'		=> 'subscribed'
 );
 
-$subscribe_response = $list_handler->member_subscribe( $list_id, md5( strtolower( sanitize_email( $_POST['EMAIL'] ) ) ), $member_data );
+// Only add groups if they exist
+if ( ! empty( $groups ) ) {
+	$member_data['interests'] = $groups;
+}
 
+// Check if this member already exists
+$member_exists = $list_handler->get_member( $list_id, md5( strtolower( $sanitized_email ) ), $use_transient = true );
+
+// If this member does not exist, then we need to add the status_if_new flag and set our $new_subscriber variable
+if ( is_wp_error( $member_exists ) ) {
+	$new_subscriber = true;
+	$member_data['status_if_new'] = 'subscribed';
+} else {
+
+	// If this member already exists, then we need to go through our optin settings and run some more logic
+
+	// But first let's set our flag
+	$new_subscriber = false;
+
+	// Check our update_existing_user optin setting
+	$update_existing_user = ( $optin_settings['update_existing_user'] === '1' ) ? true : false;
+
+	// If update_existing_user is false (not allowed) then simply fail and return a response message
+	if ( $update_existing_user === false ) {
+		$disallow_update_array = $submission_handler->handle_disallowed_existing_user_update();
+		if ( $disallow_update_array['success'] === false ) {
+			$process_submission_response = $submission_handler->wrap_form_submission_response( $disallow_update_array['message'], $is_success = false );
+			return;
+		}
+	}
+
+	// If update_existing_user is true, we need to check our 'send_update_email' option
+	$send_update_email = ( $optin_settings['send_update_email'] === '1' ) ? true : false;
+
+	// If $send_update_email is true (we send the email) then we need to fire off the 'send update email' logic
+	if ( $send_update_email === true ) {
+		$update_existing_user_array = $submission_handler->handle_updating_existing_user();
+		if ( $update_existing_user_array['success'] === false ) {
+			$process_submission_response = $submission_handler->wrap_form_submission_response( $update_existing_user_array['message'], $is_success = false );
+			return;
+		}
+	}
+	
+	// If $send_update_email is false (we don't send the email) then simply continue (we allow them to update their profile via only an email)
+}
+
+// Send the API request to create a new subscriber! (Or update an existing one)
+$subscribe_response = $list_handler->member_subscribe( $list_id, md5( strtolower( $sanitized_email ) ), $member_data );
+
+// Handle the response 
+
+// Was our submission successful or did it create an error?
 if ( is_wp_error( $subscribe_response ) ) {
-	$error_message = $subscribe_response->get_error_message();
-	$error_logging = new Yikes_Inc_Easy_Mailchimp_Error_Logging();
-	$error_logging->maybe_write_to_log( $error_message, __( 'New Subscriber', 'yikes-inc-easy-mailchimp-extender' ), 'process_form_submission.php' );
-	$process_submission_response = '<p class="yikes-easy-mc-error-message">' . $error_message . '</p>';
+	$success_array = $submission_handler->handle_submission_response_error( $subscribe_response, $form_fields );
+} else {
+	$submission_handler->handle_submission_response_success( $submission_settings, array(), $merge_variables, $notifications, $optin_settings, $new_subscriber );
+}
 
+// Handle errors in the response
+if ( isset( $success_array ) && isset( $success_array['success'] ) && $success_array['success'] === false ) {
+	$process_submission_response = isset( $success_array['message'] ) ? $success_array['message'] : '';
+	$process_submission_response = $submission_handler->wrap_form_submission_response( $success_array['message'], $is_success = false );
 	return;
 }
 
-// setup our submission response
+// Set our global submission response
 $form_submitted = 1;
 
-// Display the success message
-if ( ! empty( $form_settings['error_messages']['success'] ) ) {
-	$process_submission_response = '<p class="yikes-easy-mc-success-message">' . apply_filters( 'yikes-mailchimp-success-response', stripslashes( esc_html( $form_settings['error_messages']['success'] ) ), $form_id, $merge_variables ) . '</p>';
-} else {
-	$default_success_response    = ( 1 === $form_settings['optin_settings']['optin'] ) ? __( 'Thank you for subscribing! Check your email for the confirmation message.' , 'yikes-inc-easy-mailchimp-extender' ) : __( 'Thank you for subscribing!' , 'yikes-inc-easy-mailchimp-extender' );
-	$process_submission_response = '<p class="yikes-easy-mc-success-message">' . apply_filters( 'yikes-mailchimp-success-response', $default_success_response, $form_id, $merge_variables ) . '</p>';
+// For non-AJAX submissions, if we have a new subscriber we need to increment our submissions count by 1
+// For AJAX, this is an AJAX call that gets fired off after form submission
+if ( $new_subscriber === true ) {
+	$submissions = (int) $form_settings['submissions'] + 1;	
+	$interface->update_form_field( $form_id, 'submissions', $submissions );
 }
 
-/**
- * After the form submission.
- *
- * Catch the merge variables after they've been sent over to MailChimp.
- *
- * @since 6.0.0
- *
- * @param array $merge_variables
- */
-do_action( 'yikes-mailchimp-after-submission' ,           $merge_variables );
-do_action( "yikes-mailchimp-after-submission-{$form_id}", $merge_variables );
+// End execution
+return;
 
-/**
- * Form Submission.
- *
- * Do something with the email address, merge variables, form ID or notifications.
- *
- * @since 6.0.0
- *
- * @param string $email           The user's email address.
- * @param array  $merge_variables Array of data that the user submitted.
- * @param int    $form_id         The form ID.
- * @param array  $notifications   The array of notifications settings for the form.
- */
-do_action( 'yikes-mailchimp-form-submission',            $email, $merge_variables, $form_id, $form_settings['notifications'] );
-do_action( "yikes-mailchimp-form-submission-{$form_id}", $email, $merge_variables, $form_id, $form_settings['notifications'] );
+// That's all folks.
 
-// Increase the submission count for this form on a successful submission.
-$submissions = $form_settings['submissions'] + 1;
-$form_interface->update_form_field( $form_id, 'submissions', $submissions );
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// $subscribe_response = $list_handler->member_subscribe( $list_id, md5( strtolower( sanitize_email( $_POST['EMAIL'] ) ) ), $member_data );
+
+// if ( is_wp_error( $subscribe_response ) ) {
+// 	$error_message = $subscribe_response->get_error_message();
+// 	$error_logging = new Yikes_Inc_Easy_Mailchimp_Error_Logging();
+// 	$error_logging->maybe_write_to_log( $error_message, __( 'New Subscriber', 'yikes-inc-easy-mailchimp-extender' ), 'process_form_submission.php' );
+// 	$process_submission_response = '<p class="yikes-easy-mc-error-message">' . $error_message . '</p>';
+
+// 	return;
+// }
+
+
+
+// // Display the success message
+// if ( ! empty( $form_settings['error_messages']['success'] ) ) {
+// 	$process_submission_response = '<p class="yikes-easy-mc-success-message">' . apply_filters( 'yikes-mailchimp-success-response', stripslashes( esc_html( $form_settings['error_messages']['success'] ) ), $form_id, $merge_variables ) . '</p>';
+// } else {
+// 	$default_success_response    = ( 1 === $form_settings['optin_settings']['optin'] ) ? __( 'Thank you for subscribing! Check your email for the confirmation message.' , 'yikes-inc-easy-mailchimp-extender' ) : __( 'Thank you for subscribing!' , 'yikes-inc-easy-mailchimp-extender' );
+// 	$process_submission_response = '<p class="yikes-easy-mc-success-message">' . apply_filters( 'yikes-mailchimp-success-response', $default_success_response, $form_id, $merge_variables ) . '</p>';
+// }
+
+// /**
+//  * After the form submission.
+//  *
+//  * Catch the merge variables after they've been sent over to MailChimp.
+//  *
+//  * @since 6.0.0
+//  *
+//  * @param array $merge_variables
+//  */
+// do_action( 'yikes-mailchimp-after-submission' ,           $merge_variables );
+// do_action( "yikes-mailchimp-after-submission-{$form_id}", $merge_variables );
+
+// /**
+//  * Form Submission.
+//  *
+//  * Do something with the email address, merge variables, form ID or notifications.
+//  *
+//  * @since 6.0.0
+//  *
+//  * @param string $email           The user's email address.
+//  * @param array  $merge_variables Array of data that the user submitted.
+//  * @param int    $form_id         The form ID.
+//  * @param array  $notifications   The array of notifications settings for the form.
+//  */
+// do_action( 'yikes-mailchimp-form-submission',            $email, $merge_variables, $form_id, $form_settings['notifications'] );
+// do_action( "yikes-mailchimp-form-submission-{$form_id}", $email, $merge_variables, $form_id, $form_settings['notifications'] );
+
+// // Increase the submission count for this form on a successful submission.
+// $submissions = $form_settings['submissions'] + 1;
+// $form_interface->update_form_field( $form_id, 'submissions', $submissions );

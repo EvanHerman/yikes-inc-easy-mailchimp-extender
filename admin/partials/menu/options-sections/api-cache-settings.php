@@ -11,7 +11,7 @@
 									
 		<p><?php _e( "Delete all MailChimp data stored in your sites cache. Most data is stored in the cache for 1 hour." , 'yikes-inc-easy-mailchimp-extender' ); ?></p>
 			<!-- check if any of our transients contain data -->							
-			<?php if ( false === get_transient( 'yikes-easy-mailchimp-list-data' ) && false === get_transient( 'yikes-easy-mailchimp-profile-data' ) && false === get_transient( 'yikes-easy-mailchimp-account-data' ) ) { ?>
+			<?php if ( false === get_transient( 'yikes-easy-mailchimp-list-data' ) && false === get_transient( 'yikes-easy-mailchimp-profile-data' ) && false === get_transient( 'yikes-easy-mailchimp-account-data' ) && false === get_transient( 'yikesinc_eme_list_ids' ) && false === get_transient( 'yikes_eme_lists' ) ) { ?>
 				<p><a href="#" class="button-secondary" disabled="disabled" title="<?php _e( 'No MailChimp data found in temporary cache storage.' , 'yikes-inc-easy-mailchimp-extender' ); ?>"><?php _e( 'Clear MailChimp API Cache' , 'yikes-inc-easy-mailchimp-extender' ); ?></a></p>
 			<?php } else { ?>
 				<p><input type="submit" class="button-primary" value="<?php _e( 'Clear MailChimp API Cache' , 'yikes-inc-easy-mailchimp-extender' ); ?>" /></p>
