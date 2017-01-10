@@ -106,7 +106,7 @@
 <div class="inside">
 
 	<p>
-		<?php _e( 'Select which plugins or features Easy Forms for MailChimp by Yikes Inc. should integrate with. Depending on which plugins or features you choose to integrate with, an opt-in checkbox will be generated. For example, the comment form checkbox will generate a checkbox below the standard WordPress comment form to add any new commenters to a pre-determined MailChimp mailing list.' , 'yikes-inc-easy-mailchimp-extender' ); ?>
+		<?php _e( 'Select which plugins or features Easy Forms for MailChimp should integrate with. Depending on which plugins or features you choose to integrate with, an opt-in checkbox will be generated. For example, the comment form checkbox will generate a checkbox below the standard WordPress comment form to add any new commenters to a pre-determined MailChimp mailing list.' , 'yikes-inc-easy-mailchimp-extender' ); ?>
 	</p>
 
 	<!-- Settings Form -->
