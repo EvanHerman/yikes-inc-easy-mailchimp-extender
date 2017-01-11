@@ -67,6 +67,7 @@ class YIKES_Inc_Easy_MailChimp_Dashboard_Widgets {
 	function list_stats_dashboard_widget() {
 		// Get our list data!
 		$list_data = yikes_get_mc_api_manager()->get_list_handler()->get_lists();
+		
 		if ( isset( $list_data['error'] ) ) {
 			$error_logging = new Yikes_Inc_Easy_Mailchimp_Error_Logging();
 			$error_logging->maybe_write_to_log( $list_data['error'], __( "Get Account Lists", 'yikes-inc-easy-mailchimp-extender' ), "Dashboard Activity Widget" );
@@ -74,13 +75,13 @@ class YIKES_Inc_Easy_MailChimp_Dashboard_Widgets {
 
 		?>
 		<!-- Dropdown to Change the list -->
-		<?php if ( ! empty( $list_data['lists'] ) ) {
+		<?php if ( ! empty( $list_data ) ) {
 			?>
 			<section class="inside-widget yikes-dashboard-widget-section">
 			<strong class="select-list-title"><?php _e( 'Select a list', 'yikes-inc-easy-mailchimp-extender' ) ?>:</strong>
 			<select id="yikes-easy-mc-dashboard-change-list" class="widefat">
 				<?php
-				foreach ( $list_data['lists'] as $list ) {
+				foreach ( $list_data as $list ) {
 					?>
 					<option value="<?php echo $list['id']; ?>"><?php echo $list['name']; ?></option>
 					<?php
