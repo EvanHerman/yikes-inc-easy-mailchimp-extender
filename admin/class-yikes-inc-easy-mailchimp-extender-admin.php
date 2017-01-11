@@ -2650,13 +2650,15 @@ class Yikes_Inc_Easy_Mailchimp_Forms_Admin {
 				'send_welcome_email'   => $_POST['send-welcome-email'],
 			);
 
-			// setup our error settings serialized array
+			// Setup our error settings serialized array
 			$error_settings = array(
-				'success'            => trim( $_POST['yikes-easy-mc-success-message'] ) ? trim( stripslashes( $_POST['yikes-easy-mc-success-message'] ) ) : '',
-				'general-error'      => trim( $_POST['yikes-easy-mc-general-error-message'] ) ? trim( stripslashes( $_POST['yikes-easy-mc-general-error-message'] ) ) : '',
-				'invalid-email'      => trim( $_POST['yikes-easy-mc-invalid-email-message'] ) ? trim( stripslashes( $_POST['yikes-easy-mc-invalid-email-message'] ) ) : '',
-				'already-subscribed' => trim( $_POST['yikes-easy-mc-user-subscribed-message'] ) ? trim( stripslashes( $_POST['yikes-easy-mc-user-subscribed-message'] ) ) : '',
-				'update-link'        => trim( $_POST['yikes-easy-mc-user-update-link'] ) ? trim( stripslashes( $_POST['yikes-easy-mc-user-update-link'] ) ) : '',
+				'success'              => trim( $_POST['yikes-easy-mc-success-message'] ) ? trim( stripslashes( $_POST['yikes-easy-mc-success-message'] ) ) : '',
+				'success-single-optin' => trim( $_POST['yikes-easy-mc-success-single-optin-message'] ) ? trim( stripslashes( $_POST['yikes-easy-mc-success-single-optin-message'] ) ) : '',
+				'success-resubscribed' => trim( $_POST['yikes-easy-mc-user-resubscribed-success-message'] ) ? trim( stripslashes( $_POST['yikes-easy-mc-user-resubscribed-success-message'] ) ) : '',
+				'general-error'        => trim( $_POST['yikes-easy-mc-general-error-message'] ) ? trim( stripslashes( $_POST['yikes-easy-mc-general-error-message'] ) ) : '',
+				'invalid-email'        => trim( $_POST['yikes-easy-mc-invalid-email-message'] ) ? trim( stripslashes( $_POST['yikes-easy-mc-invalid-email-message'] ) ) : '',
+				'already-subscribed'   => trim( $_POST['yikes-easy-mc-user-subscribed-message'] ) ? trim( stripslashes( $_POST['yikes-easy-mc-user-subscribed-message'] ) ) : '',
+				'update-link'          => trim( $_POST['yikes-easy-mc-user-update-link'] ) ? trim( stripslashes( $_POST['yikes-easy-mc-user-update-link'] ) ) : '',
 			);
 
 			// Setup the new form settings array
