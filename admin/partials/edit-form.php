@@ -548,8 +548,8 @@
 																'general-error' => __( "Whoops! It looks like something went wrong. Please try again." , 'yikes-inc-easy-mailchimp-extender' ),
 																'invalid-email' => __( "Please provide a valid email address." , 'yikes-inc-easy-mailchimp-extender' ),
 																'email-exists-error' => __( "The email you entered is already a subscriber to this list." , 'yikes-inc-easy-mailchimp-extender' ),
-																'update-link' => __ ( "To update your MailChimp profile, please [link]click to send yourself an update link[/link].", 'yikes-inc-easy-mailchimp-extender' ),
-																
+																'update-link' => __( "To update your MailChimp profile, please [link]click to send yourself an update link[/link].", 'yikes-inc-easy-mailchimp-extender' ),
+																'email-subject' => __( 'MailChimp Profile Update', 'yikes-inc-easy-mailchimp-extender' ),
 
 															);
 															$global_error_messages = get_option( 'yikes-easy-mc-global-error-messages' , $error_message_array );
@@ -584,6 +584,22 @@
 														<label for="yikes-easy-mc-user-subscribed-update-link"><strong><?php _e( 'Update Link' , 'yikes-inc-easy-mailchimp-extender' ); ?></strong>
 															<input type="text" class="widefat" name="yikes-easy-mc-user-update-link" id="yikes-easy-mc-user-update-link" value="<?php echo isset( $error_messages['update-link'] ) ? stripslashes( esc_html( $error_messages['update-link'] ) ) : ''; ?>" placeholder="<?php echo $global_error_messages['update-link']; ?>">
 														</label>
+
+														<!-- Email Section -->
+
+														<hr>
+														<p class="edit-form-description"><?php _e( "Enter your custom email message content for the update profile link below. Leave the field blank to use the default email message." , 'yikes-inc-easy-mailchimp-extender' ); ?></p>
+														<!-- Email Subject -->
+														<label for="yikes-easy-mc-user-email-subject"><strong><?php _e( 'Email Subject' , 'yikes-inc-easy-mailchimp-extender' ); ?></strong>
+															<input type="text" class="widefat" name="yikes-easy-mc-user-email-subject" id="yikes-easy-mc-user-email-subject" value="<?php echo isset( $error_messages['email-subject'] ) ? stripslashes( esc_html( $error_messages['email-subject'] ) ) : ''; ?>" placeholder="<?php echo $global_error_messages['email-subject']; ?>">
+														</label>
+														<!-- Email Body -->
+														<label for="yikes-easy-mc-user-email-body"><strong><?php _e( 'Email Body' , 'yikes-inc-easy-mailchimp-extender' ); ?></strong>
+															<?php 
+																$editor_content = ( isset( $error_messages['email-body'] ) && ! empty( $error_messages['email-body'] ) ) ? $error_messages['email-body'] : Yikes_Inc_Easy_Mailchimp_Forms_Admin::generate_default_email_body();
+																wp_editor( $editor_content, 'yikes-easy-mc-user-email-body', array( 'textarea_id' => 'yikes-easy-mc-user-email-body' ) ); 
+															?>
+														</label>
 													</div>
 
 													<!-- .inside -->
@@ -613,6 +629,24 @@
 													</div>
 													<!-- .inside -->
 												</div>
+
+												<div class="postbox yikes-easy-mc-postbox">
+													<h3 class="edit-form-title"><span><?php _e( "Email Message Explanation" , 'yikes-inc-easy-mailchimp-extender' ); ?></span></h3>
+													<div class="inside">
+
+														<ul>
+															<li><strong><?php _e( 'Email Subject' , 'yikes-inc-easy-mailchimp-extender' ); ?></strong> : <?php _e( 'The subject of the email sent to the user.' , 'yikes-inc-easy-mailchimp-extender' ); ?></li>
+															<li><strong><?php _e( 'Email Body' , 'yikes-inc-easy-mailchimp-extender' ); ?></strong> : <?php echo sprintf( __( 'The body of the email sent to the user. Wrap the text you want to use as the link in <code>[link][/link]</code> tags. Please don\'t leave these tags out. You can also use the <code>[url]</code> variable to reference your website (e.g. %s)', 'yikes-inc-easy-mailchimp-extender' ), get_home_url() ); ?></li>
+														</ul>
+
+													</div>
+													<!-- .inside -->
+												</div>
+
+
+
+
+
 												<!-- .postbox -->
 											</div>
 											<!-- .meta-box-sortables -->

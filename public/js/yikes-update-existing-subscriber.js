@@ -9,7 +9,8 @@ jQuery( document ).ready( function() {
 		var data = {
 			'action': 'easy_forms_send_email',
 			'user_email': jQuery( this ).attr( 'data-user-email' ),
-			'list_id': jQuery( this ).attr( 'data-list-id' ), 
+			'list_id': jQuery( this ).attr( 'data-list-id' ),
+			'form_id': jQuery( this ).attr( 'data-form-id' ),
 		};
 		jQuery( this ).parent( 'p' ).fadeTo( 'fast', .75 ).append( '<img src="' + update_subscriber_details_data.preloader_url + '" class="update-email-preloader" />' );
 		/* We can also pass the url value separately from ajaxurl for front end AJAX implementations */

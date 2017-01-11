@@ -1023,7 +1023,7 @@ class Yikes_Inc_Easy_MailChimp_Extender_Process_Submission_Handler {
 		$response = $this->handle_updating_existing_user_message;
 
 		// Create our link variables
-		$link_start_tag = '<a class="send-update-email" data-list-id="' . $this->list_id . '" data-user-email="' . $this->email . '" href="#">';
+		$link_start_tag = '<a class="send-update-email" data-form-id="' . $this->form_id . '" data-list-id="' . $this->list_id . '" data-user-email="' . $this->email . '" href="#">';
 		$link_close_tag = '</a>';
 		$link_array = array( 'link_start_tag' => $link_start_tag, 'link_close_tag' => $link_close_tag );
 

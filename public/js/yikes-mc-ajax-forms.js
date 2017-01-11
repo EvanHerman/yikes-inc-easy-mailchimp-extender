@@ -176,6 +176,7 @@ window.Yikes_Mailchimp_Ajax = window.Yikes_Mailchimp_Ajax || {};
 				'action': 'easy_forms_send_email',
 				'user_email': jQuery( this ).attr( 'data-user-email' ),
 				'list_id': jQuery( this ).attr( 'data-list-id' ),
+				'form_id': jQuery( this ).attr( 'data-form-id' ),
 			};
 			jQuery( this ).parent( 'p' ).fadeTo( 'fast', .75 ).append( '<img src="' + app.l10n.preloader_url + '" class="update-email-preloader" />' );
 			/* We can also pass the url value separately from ajaxurl for front end AJAX implementations */
