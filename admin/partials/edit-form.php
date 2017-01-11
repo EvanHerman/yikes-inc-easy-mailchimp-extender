@@ -543,18 +543,30 @@
 															// build our default options
 															$error_message_array = array(
 																'success' => __( 'Thank You for subscribing! Check your email for the confirmation message.' , 'yikes-inc-easy-mailchimp-extender' ),
+																'success-single-optin' => __( 'Thank you for subscribing!' , 'yikes-inc-easy-mailchimp-extender' ),
+																'success-resubscribed' => __( 'Thank you for already being a subscriber! Your profile info has been updated.', 'yikes-inc-easy-mailchimp-extender' ),
 																'general-error' => __( "Whoops! It looks like something went wrong. Please try again." , 'yikes-inc-easy-mailchimp-extender' ),
 																'invalid-email' => __( "Please provide a valid email address." , 'yikes-inc-easy-mailchimp-extender' ),
 																'email-exists-error' => __( "The email you entered is already a subscriber to this list." , 'yikes-inc-easy-mailchimp-extender' ),
 																'update-link' => __ ( "To update your MailChimp profile, please [link]click to send yourself an update link[/link].", 'yikes-inc-easy-mailchimp-extender' ),
+																
+
 															);
 															$global_error_messages = get_option( 'yikes-easy-mc-global-error-messages' , $error_message_array );
 														?>
 														<p class="edit-form-description"><?php _e( "Enter your custom messages for this form below. Leave the field blank to use the default global error message." , 'yikes-inc-easy-mailchimp-extender' ); ?></p>
 
-														<!-- Success Message -->
-														<label for="yikes-easy-mc-success-message"><strong><?php _e( 'Success Message' , 'yikes-inc-easy-mailchimp-extender' ); ?></strong>
+														<!-- Success Message (refactored @ 6.3.0 for double optin) -->
+														<label for="yikes-easy-mc-success-message"><strong><?php _e( 'Success Message (double opt-in)' , 'yikes-inc-easy-mailchimp-extender' ); ?></strong>
 															<input type="text" class="widefat" name="yikes-easy-mc-success-message" id="yikes-easy-mc-success-message" value="<?php echo isset( $error_messages['success'] ) ? stripslashes( esc_html( $error_messages['success'] ) ) : ''; ?>" placeholder="<?php echo $global_error_messages['success']; ?>" >
+														</label>
+														<!-- Success Message (for single optin) -->
+														<label for="yikes-easy-mc-success-single-optin-message"><strong><?php _e( 'Success Message (single opt-in)' , 'yikes-inc-easy-mailchimp-extender' ); ?></strong>
+															<input type="text" class="widefat" name="yikes-easy-mc-success-single-optin-message" id="yikes-easy-mc-success-single-optin-message" value="<?php echo isset( $error_messages['success-single-optin'] ) ? stripslashes( esc_html( $error_messages['success-single-optin'] ) ) : ''; ?>" placeholder="<?php echo $global_error_messages['success-single-optin']; ?>" >
+														</label>
+														<!-- Resubscribing users when updating your profile via the form is allowed -->
+														<label for="yikes-easy-mc-user-resubscribed-success-message"><strong><?php _e( 'Success Message for Resubscribers' , 'yikes-inc-easy-mailchimp-extender' ); ?></strong>
+															<input type="text" class="widefat" name="yikes-easy-mc-user-resubscribed-success-message" id="yikes-easy-mc-user-resubscribed-success-message" value="<?php echo isset( $error_messages['success-resubscribed'] ) ? stripslashes( esc_html( $error_messages['success-resubscribed'] ) ) : ''; ?>" placeholder="<?php echo $global_error_messages['success-resubscribed']; ?>">
 														</label>
 														<!-- General Error Message -->
 														<label for="yikes-easy-mc-general-error-message"><strong><?php _e( 'General Error Message' , 'yikes-inc-easy-mailchimp-extender' ); ?></strong>
@@ -589,7 +601,9 @@
 													<div class="inside">
 
 														<ul>
-															<li><strong><?php _e( 'Success Message' , 'yikes-inc-easy-mailchimp-extender' ); ?></strong> : <?php _e( 'The message displayed to the user after they have submitted the form and the data has been successfully sent to MailChimp.' , 'yikes-inc-easy-mailchimp-extender' ); ?></li>
+															<li><strong><?php _e( 'Success Message (double opt-in)' , 'yikes-inc-easy-mailchimp-extender' ); ?></strong> : <?php _e( 'The message displayed to the user after they have submitted the form and the data has been successfully sent to MailChimp.' , 'yikes-inc-easy-mailchimp-extender' ); ?></li>
+															<li><strong><?php _e( 'Success Message (single opt-in)' , 'yikes-inc-easy-mailchimp-extender' ); ?></strong> : <?php _e( 'Hi Tracy. Please fix me!.' , 'yikes-inc-easy-mailchimp-extender' ); ?></li>
+															<li><strong><?php _e( 'Success Message for Resubscribers' , 'yikes-inc-easy-mailchimp-extender' ); ?></strong> : <?php _e( 'Hi Tracy. Please fix me!.' , 'yikes-inc-easy-mailchimp-extender' ); ?></li>
 															<li><strong><?php _e( 'General Error Message' , 'yikes-inc-easy-mailchimp-extender' ); ?></strong> : <?php _e( 'The message displayed to the user after a generic error has occurred.' , 'yikes-inc-easy-mailchimp-extender' ); ?></li>
 															<li><strong><?php _e( 'Invalid Email' , 'yikes-inc-easy-mailchimp-extender' ); ?></strong> : <?php _e( 'The message displayed to the user after they have entered a non-valid email address.' , 'yikes-inc-easy-mailchimp-extender' ); ?></li>
 															<li><strong><?php _e( 'Email Already Subscribed' , 'yikes-inc-easy-mailchimp-extender' ); ?></strong> : <?php _e( 'The message displayed to the user after they attempt to sign up for a mailing list using an email address that is already subscribed. You can display the user email back in the response by using an <code>[email]</code> tag. This will be replaced with the email entered by the user, in the response.' , 'yikes-inc-easy-mailchimp-extender' ); ?></li>
