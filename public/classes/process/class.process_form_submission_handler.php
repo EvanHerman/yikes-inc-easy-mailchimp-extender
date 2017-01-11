@@ -625,18 +625,22 @@ class Yikes_Inc_Easy_MailChimp_Extender_Process_Submission_Handler {
 		do_action( 'yikes-mailchimp-form-submission', $this->email, $merge_variables, $this->form_id, $notifications );
 		do_action( 'yikes-mailchimp-form-submission-{$this->form_id}', $this->email, $merge_variables, $this->form_id, $notifications );
 
-		// Get our default feedback message based on the optin setting and $error_messages array and $new_subscriber variable
-		$optin = isset( $optin_settings['optin'] ) ? $optin_settings['optin'] : 0;
-		$default_response = $this->default_response_single_optin_success_message;
+		// Get the optin value
+		$optin = isset( $optin_settings['optin'] ) ? (int) $optin_settings['optin'] : 0;
+
 		if ( 1 === $optin ) {
-			$default_response = $this->default_response_double_optin_success_message;
+
+			// Allow the user-defined 'success' message to overwrite the default double opt-in response
+			$default_response = $this->check_for_user_defined_response_message( 'success', $this->default_response_double_optin_success_message );
+		} else {
+
+			// Allow the user-defined 'success-single-optin' message to overwrite the default single opt-in response
+			$default_response = $this->check_for_user_defined_response_message( 'success-single-optin', $this->default_response_single_optin_success_message );
 		}
 
 		// If they're not a new subscriber and we're updating their profile, then show them this message
-		$default_response = ( $new_subscriber === false ) ? $this->existing_subscriber_profile_update_message : $default_response;
-
-		// Allow the user-defined success message to overwrite the default response
-		$default_response = ( isset( $this->error_messages['success'] ) && ! empty( $this->error_messages['success'] ) ) ? $this->error_messages['success'] : $default_response;
+		// Allow the user-defined 'success-resubscribed' message to overwrite the default already subscribed response
+		$default_response = ( $new_subscriber === false ) ? $this->check_for_user_defined_response_message( 'success-resubscribed', $this->existing_subscriber_profile_update_message ) : $default_response;
 
 		/**
 		*	yikes-mailchimp-success-response
@@ -992,23 +996,18 @@ class Yikes_Inc_Easy_MailChimp_Extender_Process_Submission_Handler {
 		}
 	}
 
+	/**
+	* Construct and filter the error message related to user's re-subscribing when it's not allowed
+	*
+	* @since 6.3.0
+	*/
 	public function handle_disallowed_existing_user_update() {
 
 		// Get the default response
 		$default_response = $this->handle_disallowed_existing_user_update_message;
 
 		// Run the default response through our function to check for a user-defined response message
-		$response = $this->check_for_user_defined_response_message( 'already-subscribed', $default_response, array( 'email' => $this->email ) );
-
-		/**
-		*	yikes-easy-mailchimp-user-already-subscribed-text
-		*
-		*	Catch the message for user's already subscrbed before we show it to the user
-		*	@param string | $response | The response message
-		*	@param int	  | $form_id  | The form id
-		*	@param string | $email	  | The user's email
-		*/
-		$response = apply_filters( 'yikes-easy-mailchimp-user-already-subscribed-text', $response, $this->form_id, $this->email );
+		$response = $this->check_for_user_defined_response_message( 'already-subscribed', $default_response );
 
 		return $this->yikes_fail( $hide = 0, $error = 1, $response, false, $return_response_non_ajax = true );	
 	}
@@ -1036,21 +1035,13 @@ class Yikes_Inc_Easy_MailChimp_Extender_Process_Submission_Handler {
 		// Check for a user-defined message
 		$response = $this->check_for_user_defined_response_message( 'update-link', $response, $link_array );
 
-		/**
-		*	yikes-easy-mailchimp-user-already-subscribed-link-text
-		*
-		*	Catch the message for user's already subscrbed link text before we show it to the user
-		*	@param string | $response | The response message
-		*/
-		$response = apply_filters( 'yikes-easy-mailchimp-user-already-subscribed-link-text', $response );
-
 		return $this->yikes_fail( $hide = 0, $error = 1, $response, false, $return_response_non_ajax = true );
 	}
 
 	/**** Helper Functions ****/
 
 	/**
-	* Check the user-defined $error_messages array for a message and return it. These messages overwrite the defaults.
+	* Check the user-defined $error_messages array for a message, filter it, and return it. These messages overwrite the defaults.
 	*
 	* @since 6.3.0
 	*
@@ -1061,35 +1052,140 @@ class Yikes_Inc_Easy_MailChimp_Extender_Process_Submission_Handler {
 	*/
 	protected function check_for_user_defined_response_message( $slug, $response_text, $data = false ) {
 
-		if ( $slug === 'already-subscribed' && $data !== false ) {
+		switch( $slug ) {
+			case 'already-subscribed':
 
-			// Check if this error message exists
-			if ( isset( $this->error_messages['already-subscribed'] ) && ! empty( $this->error_messages['already-subscribed'] ) ) {
+				// Check if this error message exists
+				if ( isset( $this->error_messages['already-subscribed'] ) && ! empty( $this->error_messages['already-subscribed'] ) ) {
 
-				// Check if the substring (that we replace) '[email]' is located in the string and replace it
-				$response_text = str_replace( '[email]', $data['email'], $this->error_messages['already-subscribed'] );
-			}
-		} else if ( $slug === 'update-link' && $data !== false ) {
+					// Check if the substring (that we replace) '[email]' is located in the string and replace it
+					$response_text = str_replace( '[email]', $this->email, $this->error_messages['already-subscribed'] );
+				}
 
-			// Check if this error message exists
-			if ( isset( $this->error_messages['update-link'] ) && ! empty( $this->error_messages['update-link'] ) ) {
+				/**
+				*	yikes-easy-mailchimp-user-already-subscribed-text
+				*
+				*	Catch the message for user's already subscrbed before we show it to the user
+				*	@param string | $message  | The response message
+				*	@param int	  | $form_id  | The form id
+				*	@param string | $email	  | The user's email
+				*/
+				$response_text = apply_filters( 'yikes-easy-mailchimp-user-already-subscribed-text', $response_text, $this->form_id, $this->email );
 
-				// Check if the substring (that we replace) '[link]' is located in the string and replace it
-				$response_text = str_replace( '[link]', $data['link_start_tag'], $this->error_messages['update-link'] );
+				return $response_text;
+				break;
 
-				// Remove [/link]
-				$response_text = str_replace( '[/link]', $data['link_close_tag'], $response_text );
-			}
-		} else if ( $slug === 'invalid-email' ) {
-				
-		} else if ( $slug === 'general-error' ) {
-			if ( isset( $this->$error_messages['general-error'] ) && ! empty( $this->error_messages['general-error'] ) ) {
-				return $this->error_messages['general-error'];
-			}
+			case 'update-link':
+
+				// Check if this error message exists
+				if ( $data !== false && isset( $this->error_messages['update-link'] ) && ! empty( $this->error_messages['update-link'] ) ) {
+
+					// Check if the substring (that we replace) '[link]' is located in the string and replace it
+					$response_text = str_replace( '[link]', $data['link_start_tag'], $this->error_messages['update-link'] );
+
+					// Remove [/link]
+					$response_text = str_replace( '[/link]', $data['link_close_tag'], $response_text );
+				}
+
+				/**
+				*	yikes-easy-mailchimp-user-already-subscribed-link-text
+				*
+				*	Catch the message for user's already subscrbed link text before we show it to the user
+				*
+				*	@param string | $response_text	| The response message that will be shown to the user
+				*	@param string | $form_id		| The form ID
+				*/
+				$response_text = apply_filters( 'yikes-easy-mailchimp-user-already-subscribed-link-text', $response_text, $this->form_id );
+
+				return $response_text;
+				break;
+
+			case 'success':
+
+				// 'success' is the user-defined success message for double opt-in
+				if ( isset( $this->error_messages['success'] ) && ! empty( $this->error_messages['success'] ) ) {
+					$response_text = $this->error_messages['success'];
+				}
+
+				/**
+				*	yikes-mailchimp-success-double-optin-response
+				*
+				*	Filter the success message displayed to the user
+				*
+				*	@param string | $response_text	| The response message that will be shown to the user
+				*	@param string | $form_id		| The form ID
+				*
+				*/
+				$response_text = apply_filters( 'yikes-mailchimp-success-double-optin-response', $response_text, $this->form_id );
+
+				return $response_text;
+				break;
+
+			case 'success-single-optin':
+
+				if ( isset( $this->error_messages['success-single-optin'] ) && ! empty( $this->error_messages['success-single-optin'] ) ) {
+					$response_text = $this->error_messages['success-single-optin'];
+				}
+
+				/**
+				*	yikes-mailchimp-success-single-optin-response
+				*
+				*	Filter the success message displayed to the user
+				*
+				*	@param string | $response_text	| The response message that will be shown to the user
+				*	@param string | $form_id		| The form ID
+				*
+				*/
+				$response_text = apply_filters( 'yikes-mailchimp-success-single-optin-response', $response_text, $this->form_id );
+
+				return $response_text;
+			break;
+
+			case 'success-resubscribed':
+
+				if ( isset( $this->error_messages['success-resubscribed'] ) && ! empty( $this->error_messages['success-resubscribed'] ) ) {
+					$response_text = $this->error_messages['success-resubscribed'];
+				}
+
+				/**
+				*	yikes-mailchimp-success-resubscribed-response
+				*
+				*	Filter the success message displayed to the user
+				*
+				*	@param string | $response_text	| The response message that will be shown to the user
+				*	@param string | $form_id 		| The form ID
+				*
+				*/
+				$response_text = apply_filters( 'yikes-mailchimp-success-resubscribed-response', $response_text, $this->form_id );
+
+				return $response_text;
+			break;
+
+			case 'general-error':
+
+				if ( isset( $this->error_messages['general-error'] ) && ! empty( $this->error_messages['general-error'] ) ) {
+					$response_text = $this->error_messages['general-error'];
+				}
+
+				/**
+				*	yikes-mailchimp-general-error-response
+				*
+				*	Filter the error message displayed to the user
+				*
+				*	@param string | $response_text	| The response message that will be shown to the user
+				*	@param string | $form_id 		| The form ID
+				*
+				*/
+				$response_text = apply_filters( 'yikes-mailchimp-general-error-response', $response_text, $this->form_id );
+
+				return $response_text;
+			break;
+
+			// Default to just returning the message supplied to us
+			case 'default':
+				return $response_text;
+			break;
 		}
-
-		// Return the string
-		return $response_text;
 	}
 
 	/**

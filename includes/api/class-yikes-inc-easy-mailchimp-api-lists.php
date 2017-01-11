@@ -74,11 +74,12 @@ class Yikes_Inc_Easy_MailChimp_API_Lists extends Yikes_Inc_Easy_MailChimp_API_Ab
 		$transient_key = "yikes_eme_list_{$list_id}";
 		$limit_fields  = $this->compute_limit_fields( $limit_fields, array() );
 		$joined_fields = join( ',', array_keys( $limit_fields ) );
-		$transient     = get_transient( $transient_key );
-
+		
 		if ( ! empty( $limit_fields ) ) {
 			$transient_key .= "_{$joined_fields}";
 		}
+
+		$transient = get_transient( $transient_key );
 
 		if ( false !== $transient && $use_transient ) {
 			return $transient;
