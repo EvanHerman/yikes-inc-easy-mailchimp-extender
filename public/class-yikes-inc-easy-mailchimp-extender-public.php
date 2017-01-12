@@ -135,14 +135,7 @@ class Yikes_Inc_Easy_Mailchimp_Extender_Public {
 			if( isset( $_POST ) && !empty( $_POST ) && isset( $form_id ) && $form_settings['submission_settings']['ajax'] == 0 ) {
 				if( $_POST['yikes-mailchimp-submitted-form'] == $form_id ) { // ensure we only process the form that was submitted
 
-					// if update account details is set, we need to include our script to send out the update email
-					wp_enqueue_script( 'update-existing-subscriber.js', YIKES_MC_URL . 'public/js/yikes-update-existing-subscriber.js' , array( 'jquery' ), 'all' );
-					wp_localize_script( 'update-existing-subscriber.js', 'update_subscriber_details_data', array(
-						'ajax_url' => esc_url( admin_url( 'admin-ajax.php' ) ),
-						'preloader_url' => apply_filters( 'yikes-mailchimp-preloader', esc_url_raw( admin_url( 'images/wpspin_light.gif' ) ) ),
-					) );
-
-					// lets include our form processing file
+					// Lets include our form processing file
 					include_once( YIKES_MC_PATH . 'public/partials/shortcodes/process/process_form_submission.php' );
 					if( $form_settings['submission_settings']['redirect_on_submission'] == '1' ) {
 						if( $form_submitted == 1 ) {

@@ -165,31 +165,6 @@ window.Yikes_Mailchimp_Ajax = window.Yikes_Mailchimp_Ajax || {};
 			return false;
 		});
 
-		/**
-		*	When the user clicks the 'send update email' eg: 'click here' link,
-		*	-- fire off the send email function
-		*	@since 6.0.4.1
-		*/
-		body.on( 'click', '.send-update-email', function() {
-			/* Submit an ajax request to send off the update email */
-			var data = {
-				'action': 'easy_forms_send_email',
-				'user_email': jQuery( this ).attr( 'data-user-email' ),
-				'list_id': jQuery( this ).attr( 'data-list-id' ),
-				'form_id': jQuery( this ).attr( 'data-form-id' ),
-			};
-			jQuery( this ).parent( 'p' ).fadeTo( 'fast', .75 ).append( '<img src="' + app.l10n.preloader_url + '" class="update-email-preloader" />' );
-			/* We can also pass the url value separately from ajaxurl for front end AJAX implementations */
-			jQuery.post( app.l10n.ajax_url, data, function( response ) {
-				if( response.success ) {
-					jQuery( '.yikes-easy-mc-error-message' ).removeClass( 'yikes-easy-mc-error-message' ).addClass( 'yikes-easy-mc-success-message' ).html( response.data.response_text );
-				} else {
-					jQuery( '.yikes-easy-mc-error-message' ).fadeTo( 'fast', 1 ).html( response.data.response_text );
-				}
-			});
-			return false;
-		});
-
 	});
 
 })( window, document, jQuery, Yikes_Mailchimp_Ajax );

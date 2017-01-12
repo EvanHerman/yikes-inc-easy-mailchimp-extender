@@ -354,6 +354,13 @@ function process_mailchimp_shortcode( $atts ) {
 			) );
 		}
 
+		// If update account details is set, we need to include our script to send out the update email
+		wp_enqueue_script( 'update-existing-subscriber.js', YIKES_MC_URL . 'public/js/yikes-update-existing-subscriber.min.js' , array( 'jquery' ), 'all' );
+		wp_localize_script( 'update-existing-subscriber.js', 'update_subscriber_details_data', array(
+			'ajax_url' => esc_url( admin_url( 'admin-ajax.php' ) ),
+			'preloader_url' => apply_filters( 'yikes-mailchimp-preloader', esc_url_raw( admin_url( 'images/wpspin_light.gif' ) ) ),
+		) );
+
 		/*
 		*	If a form was submitted, and the response was returned
 		*	let's display it back to the user
@@ -910,7 +917,7 @@ function process_mailchimp_shortcode( $atts ) {
 							break;
 
 							case 'dropdown':
-								$default_value = $field['default_choice'];
+								$default_choice = ( is_array( $field['default_choice'] ) ) ? $field['default_choice'] : array( $field['default_choice'] );
 								// store empty number for looping
 								$x = 0;
 								// hidden labels
@@ -928,8 +935,18 @@ function process_mailchimp_shortcode( $atts ) {
 											<?php
 												// decode for looping
 												$choices = json_decode( $field['choices'], true );
-												foreach( $choices as $choice ) {
-													?><option value="<?php echo $choice; ?>" <?php selected( $default_value , $x ); ?>><?php echo esc_attr( stripslashes( $choice ) ); ?></option><?php
+
+												// If the form was submitted, but failed, let's default to the chosen option
+												if( isset( $_POST[ $field['merge'] ] ) && $form_submitted === 0 ) {
+													$default_choice = is_array( $_POST[ $field['merge'] ] ) ? $_POST[ $field['merge'] ] : array( $_POST[ $field['merge'] ] );
+												}
+
+												foreach( $choices as $choice ) { ?>
+													<option 
+														value="<?php echo $choice; ?>" 
+														<?php if ( in_array( $x, $default_choice ) || in_array( $choice, $default_choice ) ) { echo 'selected="selected"'; } ?>>
+														<?php echo esc_attr( stripslashes( $choice ) ); ?>
+													</option><?php
 													$x++;
 												}
 											?>
@@ -955,12 +972,16 @@ function process_mailchimp_shortcode( $atts ) {
 								// remove the ID (as to not assign the same ID to every radio button)
 								unset( $field_array['id'] );
 								$choices = json_decode( $field['choices'], true );
+
 								// assign a default choice
-								$default_value = ( isset( $field['default_choice'] ) && $field['default_choice'] != '' ) ? $field['default_choice'] : $choices[0];
-								// if the form was submit, but failed, let's reset the post data
-								if( isset( $_POST[$field['merge']] ) && $form_submitted != 1 ) {
-									$default_value = $_POST[$field['merge']];
+								$default_choice = ( isset( $field['default_choice'] ) && ! empty( $field['default_choice'] ) ) ? $field['default_choice'] : $choices[0];
+								$default_choice = ( is_array( $default_choice ) ) ? $default_choice : array( $default_choice );
+
+								// If the form was submitted, but failed, let's default to the chosen option
+								if( isset( $_POST[ $field['merge'] ] ) && $form_submitted === 0 ) {
+									$default_choice = is_array( $_POST[ $field['merge'] ] ) ? $_POST[ $field['merge'] ] : array( $_POST[ $field['merge'] ] );
 								}
+
 								$count = count( $choices );
 								$i = 1;
 								$x = 0;
@@ -980,7 +1001,12 @@ function process_mailchimp_shortcode( $atts ) {
 										foreach( $choices as $choice ) {
 											?>
 											<label for="<?php echo esc_attr( $field['merge'] ) . '-' . $i; ?>" class="yikes-easy-mc-checkbox-label <?php echo implode( ' ' , $custom_classes ); if( $i === $count ) { ?> last-selection<?php } ?>" <?php if( $i == 1 ) { echo $field_array['required']; } ?>>
-												<input type="<?php echo esc_attr( $field['type'] ); ?>" name="<?php echo $field['merge']; ?>" id="<?php echo $field['merge'] . '-' . $i; ?>" <?php checked( $default_value , $x ); ?> value="<?php echo esc_attr( $choice ); ?>">
+												<input 
+													type="<?php echo esc_attr( $field['type'] ); ?>" 
+													name="<?php echo $field['merge']; ?>" 
+													id="<?php echo $field['merge'] . '-' . $i; ?>" 
+													<?php if ( in_array( $x, $default_choice ) || in_array( $choice, $default_choice ) ) { echo 'checked="checked"'; } ?> 
+													value="<?php echo esc_attr( $choice ); ?>">
 												<span class="<?php echo esc_attr( $field['merge'] ). '-label'; ?>"><?php echo stripslashes( $choice ); ?></span>
 											</label>
 											<?php
@@ -1007,13 +1033,9 @@ function process_mailchimp_shortcode( $atts ) {
 					} else { // loop over interest groups
 
 
-						// store default choice
-						$default_choice = ( isset( $field['default_choice'] ) && ! empty( $field['default_choice'] ) ) ? ( is_array( $field['default_choice'] ) ? $field['default_choice'] : $field['default_choice'] ) : ( isset( $field['default_choice'] ) ? $field['default_choice'] : '' );
-
-						// if the form was submit, but failed, let's reset the post data
-						if( isset( $_POST[$field['group_id']] ) && $form_submitted != 1 ) {
-							$default_choice = $_POST[$field['group_id']];
-						}
+						// Get the default choice(s) from the field settings and turn them into an array if not already
+						$default_choice = ( isset( $field['default_choice'] ) ) ? $field['default_choice'] : '';
+						$default_choice = ( is_array( $default_choice ) ) ? $default_choice : array( $default_choice );
 
 						// get our groups
 						$groups = ( isset( $field['groups'] ) && ! empty( $field['groups'] ) ) ? json_decode( $field['groups'], true ) : array();
@@ -1057,25 +1079,24 @@ function process_mailchimp_shortcode( $atts ) {
 
 										foreach ( $groups as $group_id => $name ) {
 
-											if( $field['type'] == 'checkboxes' ) {
+											// If the form was submitted and failed, set the submitted/chosen values as the default
+											if( isset( $_POST[ 'group-' . $field['group_id'] ] ) && $form_submitted === 0 ) {
 
-												/* Setup the defaults for this field - varies if the field was previously submitted */
-												if( isset( $_POST[$field['group_id']] ) && $form_submitted != 1 ) {
-
-													$default_choice = $_POST[$field['group_id']];
-
-												} elseif( ( ! isset( $_POST['yikes-mailchimp-honeypot'] ) && $form_submitted != 1 ) || ( isset( $_POST['yikes-mailchimp-honeypot'] ) && $form_submitted == 1 ) ) {
-
-													$default_choice = ( isset( $field['default_choice'] ) && ! empty( $field['default_choice'] ) ) ? ( is_array( $field['default_choice'] ) ? $field['default_choice'] : $field['default_choice'] ) : array();
-
-												}
-
+												// Format default choice as array
+												$default_choice = ( is_array( $_POST[ 'group-' . $field['group_id'] ] ) ) ? $_POST[ 'group-' . $field['group_id'] ] : array( $_POST[ 'group-' . $field['group_id'] ] );
 											}
 
 											?>
 											<label for="<?php echo $field['group_id'] . '-' . $i; ?>" class="yikes-easy-mc-checkbox-label <?php echo implode( ' ' , $custom_classes ); if( $x === $count ) { ?> last-selection<?php } ?>">
-												<input <?php if( isset( $field['require'] ) && $field['require'] == 1 ) { if ( $field['type'] !== 'checkboxes' ) { ?> required="required" <?php } ?> class="yikes-interest-group-required" <?php } ?> type="<?php echo $type; ?>" name="group-<?php echo $field['group_id']; ?>[]" id="<?php echo $field['group_id'] . '-' . $i; ?>" <?php if( $field['type'] == 'checkboxes' ) { if( ( ( isset( $_POST['yikes-mailchimp-honeypot' ] ) && $form_submitted == 1 && in_array( $i , $default_choice )) || ! isset( $_POST['yikes-mailchimp-honeypot' ] ) && $form_submitted != 1 && in_array( $i , $default_choice ) ) || ( ( $form_submitted != 1 && isset( $_POST[$field['group_id']] ) ) && in_array( esc_attr( $group['name'] ), $default_choice ) ) ) { echo 'checked="checked"'; } } else { checked( ( isset( $default_choice ) && is_array( $default_choice ) ) ? $default_choice[0] : $default_choice , $i ); } ?> value="<?php echo $group_id; ?>">
-												<?php echo $name; ?>
+												<input 
+													<?php if( isset( $field['require'] ) && $field['require'] == 1 ) { if ( $field['type'] !== 'checkboxes' ) { ?> required="required" <?php } ?> 
+													class="yikes-interest-group-required" <?php } ?> 
+													type="<?php echo $type; ?>" 
+													name="group-<?php echo $field['group_id']; ?>[]" 
+													id="<?php echo $field['group_id'] . '-' . $i; ?>" 
+													<?php if ( in_array( $group_id, $default_choice ) ) { echo 'checked="checked"'; } ?> 
+													value="<?php echo $group_id; ?>">
+													<?php echo $name; ?>
 											</label>
 											<?php
 											$i++;
@@ -1111,9 +1132,22 @@ function process_mailchimp_shortcode( $atts ) {
 										<select <?php echo implode( ' ' , $field_array ); ?>>
 											<?php
 												$i = 0;
-												foreach( $groups as $group_id => $name ) {
-													?><option <?php selected( $i , $default_choice ); ?> value="<?php echo $group_id; ?>"><?php echo esc_attr( $name ); ?></option><?php
-													$i++;
+												foreach( $groups as $group_id => $name ) { 
+
+													// If the form was submitted and failed, set the submitted/chosen values as the default
+													if( isset( $_POST[ 'group-' . $field['group_id'] ] ) && $form_submitted === 0 ) {
+
+														// Format default choice as array
+														$default_choice = ( is_array( $_POST[ 'group-' . $field['group_id'] ] ) ) ? $_POST[ 'group-' . $field['group_id'] ] : array( $_POST[ 'group-' . $field['group_id'] ] );
+													}
+											?>
+													<option 
+														<?php if ( in_array( $group_id, $default_choice ) ) { echo 'selected="selected"'; } ?> 
+														value="<?php echo $group_id; ?>">
+														<?php echo esc_attr( $name ); ?>
+													</option>
+											<?php 
+												$i++;
 												}
 											?>
 										</select>

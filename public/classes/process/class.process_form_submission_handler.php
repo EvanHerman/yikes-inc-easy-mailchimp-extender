@@ -260,7 +260,7 @@ class Yikes_Inc_Easy_MailChimp_Extender_Process_Submission_Handler {
 		$this->handle_empty_email_message = __( 'Error: The email is invalid.', 'yikes-inc-easy-mailchimp-extender' );
 		$this->handle_non_empty_honeypot_message = __( 'Error: It looks like the honeypot was filled out and the form was not properly submitted.', 'yikes-inc-easy-mailchimp-extender' );
 		$this->handle_disallowed_existing_user_update_message = __( 'The email you entered is already a subscriber to this list.', 'yikes-inc-easy-mailchimp-extender' );
-		$this->default_error_response_message =  __( 'Error: An error occurred.', 'yikes-inc-easy-mailchimp-extender' );
+		$this->default_error_response_message =  __( 'Whoops! It looks like something went wrong. Please try again.', 'yikes-inc-easy-mailchimp-extender' );
 		$this->handle_updating_existing_user_message = __( 'You\'re already subscribed. ', 'yikes-inc-easy-mailchimp-extender' );
 		$this->handle_updating_existing_user_link_message = __( 'To update your MailChimp profile, please click to send yourself an update link', 'yikes-inc-easy-mailchimp-extender' );
 		$this->handle_empty_required_field_message = __( 'A required field was not filled in.', 'yikes-inc-easy-mailchimp-extender' );
@@ -700,6 +700,9 @@ class Yikes_Inc_Easy_MailChimp_Extender_Process_Submission_Handler {
 		// Log the error
 		$error_logging = new Yikes_Inc_Easy_Mailchimp_Error_Logging();
 		$error_logging->maybe_write_to_log( $error_message, __( 'New Subscriber', 'yikes-inc-easy-mailchimp-extender' ), 'process_form_submission_ajax.php' );
+
+		// Check for a user-defined 'general-error' message
+		$error_message = $this->check_for_user_defined_response_message( 'general-error', $error_message );
 
 		// Set up our return fields and send error
 		$additional_response_fields = array( 'security_response' => 'test', 'data' => $subscribe_response->get_error_data() );
