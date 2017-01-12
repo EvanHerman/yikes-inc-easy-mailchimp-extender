@@ -554,41 +554,41 @@
 															);
 															$global_error_messages = get_option( 'yikes-easy-mc-global-error-messages' , $error_message_array );
 														?>
-														<p class="edit-form-description"><?php _e( "Enter your custom messages for this form below. Leave the field blank to use the default global error message." , 'yikes-inc-easy-mailchimp-extender' ); ?></p>
+														<p class="edit-form-description"><?php _e( "Customize the response messages for this form. Leave the field blank to use the default message." , 'yikes-inc-easy-mailchimp-extender' ); ?></p>
 
 														<!-- Success Message (refactored @ 6.3.0 for double optin) -->
-														<label for="yikes-easy-mc-success-message"><strong><?php _e( 'Success Message (double opt-in)' , 'yikes-inc-easy-mailchimp-extender' ); ?></strong>
+														<label for="yikes-easy-mc-success-message"><strong><?php _e( 'Success: Double opt-in' , 'yikes-inc-easy-mailchimp-extender' ); ?></strong>
 															<input type="text" class="widefat" name="yikes-easy-mc-success-message" id="yikes-easy-mc-success-message" value="<?php echo isset( $error_messages['success'] ) ? stripslashes( esc_html( $error_messages['success'] ) ) : ''; ?>" placeholder="<?php echo $global_error_messages['success']; ?>" >
 														</label>
 														<!-- Success Message (for single optin) -->
-														<label for="yikes-easy-mc-success-single-optin-message"><strong><?php _e( 'Success Message (single opt-in)' , 'yikes-inc-easy-mailchimp-extender' ); ?></strong>
+														<label for="yikes-easy-mc-success-single-optin-message"><strong><?php _e( 'Success: Single opt-in' , 'yikes-inc-easy-mailchimp-extender' ); ?></strong>
 															<input type="text" class="widefat" name="yikes-easy-mc-success-single-optin-message" id="yikes-easy-mc-success-single-optin-message" value="<?php echo isset( $error_messages['success-single-optin'] ) ? stripslashes( esc_html( $error_messages['success-single-optin'] ) ) : ''; ?>" placeholder="<?php echo $global_error_messages['success-single-optin']; ?>" >
 														</label>
 														<!-- Resubscribing users when updating your profile via the form is allowed -->
-														<label for="yikes-easy-mc-user-resubscribed-success-message"><strong><?php _e( 'Success Message for Resubscribers' , 'yikes-inc-easy-mailchimp-extender' ); ?></strong>
+														<label for="yikes-easy-mc-user-resubscribed-success-message"><strong><?php _e( 'Success: Re-subscriber' , 'yikes-inc-easy-mailchimp-extender' ); ?></strong>
 															<input type="text" class="widefat" name="yikes-easy-mc-user-resubscribed-success-message" id="yikes-easy-mc-user-resubscribed-success-message" value="<?php echo isset( $error_messages['success-resubscribed'] ) ? stripslashes( esc_html( $error_messages['success-resubscribed'] ) ) : ''; ?>" placeholder="<?php echo $global_error_messages['success-resubscribed']; ?>">
 														</label>
-														<!-- General Error Message -->
-														<label for="yikes-easy-mc-general-error-message"><strong><?php _e( 'General Error Message' , 'yikes-inc-easy-mailchimp-extender' ); ?></strong>
-															<input type="text" class="widefat" name="yikes-easy-mc-general-error-message" id="yikes-easy-mc-general-error-message" value="<?php echo isset( $error_messages['general-error'] ) ? stripslashes( esc_html( $error_messages['general-error'] ) ) : ''; ?>" placeholder="<?php echo $global_error_messages['general-error']; ?>" >
-														</label>
-														<!-- Invalid Email Address Message -->
-														<label for="yikes-easy-mc-invalid-email-message"><strong><?php _e( 'Invalid Email' , 'yikes-inc-easy-mailchimp-extender' ); ?></strong>
-															<input type="text" class="widefat" name="yikes-easy-mc-invalid-email-message" id="yikes-easy-mc-invalid-email-message" value="<?php echo isset( $error_messages['invalid-email'] ) ? stripslashes( esc_html( $error_messages['invalid-email'] ) ) : ''; ?>" placeholder="<?php echo $global_error_messages['invalid-email']; ?>">
+														<!-- Click the link to update user profile etc. etc. -->
+														<label for="yikes-easy-mc-user-subscribed-update-link"><strong><?php _e( 'Success: Re-subscriber with link to update profile' , 'yikes-inc-easy-mailchimp-extender' ); ?></strong>
+															<input type="text" class="widefat" name="yikes-easy-mc-user-update-link" id="yikes-easy-mc-user-update-link" value="<?php echo isset( $error_messages['update-link'] ) ? stripslashes( esc_html( $error_messages['update-link'] ) ) : ''; ?>" placeholder="<?php echo $global_error_messages['update-link']; ?>">
 														</label>
 														<!-- Email Address is already subscribed -->
-														<label for="yikes-easy-mc-user-subscribed-message"><strong><?php _e( 'Email Already Subscribed' , 'yikes-inc-easy-mailchimp-extender' ); ?></strong>
+														<label for="yikes-easy-mc-user-subscribed-message"><strong><?php _e( 'Error: Email already subscribed' , 'yikes-inc-easy-mailchimp-extender' ); ?></strong>
 															<input type="text" class="widefat" name="yikes-easy-mc-user-subscribed-message" id="yikes-easy-mc-user-subscribed-message" value="<?php echo isset( $error_messages['already-subscribed'] ) ? stripslashes( esc_html( $error_messages['already-subscribed'] ) ) : ''; ?>" placeholder="<?php echo $global_error_messages['email-exists-error']; ?>">
 														</label>
-														<!-- Click the link to update user profile etc. etc. -->
-														<label for="yikes-easy-mc-user-subscribed-update-link"><strong><?php _e( 'Update Link' , 'yikes-inc-easy-mailchimp-extender' ); ?></strong>
-															<input type="text" class="widefat" name="yikes-easy-mc-user-update-link" id="yikes-easy-mc-user-update-link" value="<?php echo isset( $error_messages['update-link'] ) ? stripslashes( esc_html( $error_messages['update-link'] ) ) : ''; ?>" placeholder="<?php echo $global_error_messages['update-link']; ?>">
+														<!-- Invalid Email Address Message -->
+														<label for="yikes-easy-mc-invalid-email-message"><strong><?php _e( 'Error: Invalid email' , 'yikes-inc-easy-mailchimp-extender' ); ?></strong>
+															<input type="text" class="widefat" name="yikes-easy-mc-invalid-email-message" id="yikes-easy-mc-invalid-email-message" value="<?php echo isset( $error_messages['invalid-email'] ) ? stripslashes( esc_html( $error_messages['invalid-email'] ) ) : ''; ?>" placeholder="<?php echo $global_error_messages['invalid-email']; ?>">
+														</label>
+														<!-- General Error Message -->
+														<label for="yikes-easy-mc-general-error-message"><strong><?php _e( 'Error: General' , 'yikes-inc-easy-mailchimp-extender' ); ?></strong>
+															<input type="text" class="widefat" name="yikes-easy-mc-general-error-message" id="yikes-easy-mc-general-error-message" value="<?php echo isset( $error_messages['general-error'] ) ? stripslashes( esc_html( $error_messages['general-error'] ) ) : ''; ?>" placeholder="<?php echo $global_error_messages['general-error']; ?>" >
 														</label>
 
 														<!-- Email Section -->
 
 														<hr>
-														<p class="edit-form-description"><?php _e( "Enter your custom email message content for the update profile link below. Leave the field blank to use the default email message." , 'yikes-inc-easy-mailchimp-extender' ); ?></p>
+														<p class="edit-form-description"><?php _e( "Customize the profile verification email sent to re-subscribers. Leave the text unedited to use the default message." , 'yikes-inc-easy-mailchimp-extender' ); ?></p>
 														<!-- Email Subject -->
 														<label for="yikes-easy-mc-user-email-subject"><strong><?php _e( 'Email Subject' , 'yikes-inc-easy-mailchimp-extender' ); ?></strong>
 															<input type="text" class="widefat" name="yikes-easy-mc-user-email-subject" id="yikes-easy-mc-user-email-subject" value="<?php echo isset( $error_messages['email-subject'] ) ? stripslashes( esc_html( $error_messages['email-subject'] ) ) : ''; ?>" placeholder="<?php echo $global_error_messages['email-subject']; ?>">
@@ -613,7 +613,7 @@
 										<div id="postbox-container-1" class="postbox-container">
 											<div class="meta-box-sortables">
 												<div class="postbox yikes-easy-mc-postbox">
-													<h3 class="edit-form-title"><span><?php _e( "Error Message Explanation" , 'yikes-inc-easy-mailchimp-extender' ); ?></span></h3>
+													<h3 class="edit-form-title"><span><?php _e( "Custom Messages" , 'yikes-inc-easy-mailchimp-extender' ); ?></span></h3>
 													<div class="inside">
 
 														<ul>
@@ -631,7 +631,7 @@
 												</div>
 
 												<div class="postbox yikes-easy-mc-postbox">
-													<h3 class="edit-form-title"><span><?php _e( "Email Message Explanation" , 'yikes-inc-easy-mailchimp-extender' ); ?></span></h3>
+													<h3 class="edit-form-title"><span><?php _e( "Email Message" , 'yikes-inc-easy-mailchimp-extender' ); ?></span></h3>
 													<div class="inside">
 
 														<ul>
