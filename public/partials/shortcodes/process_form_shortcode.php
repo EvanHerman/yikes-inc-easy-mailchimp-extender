@@ -1030,8 +1030,7 @@ function process_mailchimp_shortcode( $atts ) {
 
 						}
 
-					} else { // loop over interest groups
-
+					} else { // Loop over interest groups
 
 						// Get the default choice(s) from the field settings and turn them into an array if not already
 						$default_choice = ( isset( $field['default_choice'] ) ) ? $field['default_choice'] : '';
