@@ -93,8 +93,8 @@ class Yikes_Inc_Easy_Mailchimp_Extender_Public {
 	**/
 	public function load_checkbox_integration_classes() {
 		// store our options
-		$integrations = get_option( 'optin-checkbox-init' , '' );
-		if( !empty( $integrations ) ) {
+		$integrations = get_option( 'optin-checkbox-init' , array() );
+		if( ! empty( $integrations ) && is_array( $integrations ) ) {
 			// load our mail integrations class
 			require_once YIKES_MC_PATH . 'public/classes/checkbox-integrations.php';
 			// loop over selected classes and load them up!
