@@ -11,19 +11,25 @@ window.Yikes_Mailchimp_Ajax = window.Yikes_Mailchimp_Ajax || {};
 		/* On Submission, run our ajax shtuff */
 		body.on( 'submit' , '.yikes-easy-mc-form' , function() {
 
-			/* store which form was submitted */
+			// Store which form was submitted
 			var submitted_form = $( this );
 
-			/* Fade down the form */
+			// Fade down the form
 			submitted_form.find( 'input, label, button' ).not( ':hidden' ).fadeTo( 'fast', .5 );
 
-			/* Append our preloader */
+			// Append our preloader
 			submitted_form.append( '<img src="' + app.l10n.preloader_url + '" class="yikes-mailchimp-preloader" />')
 
+			// Remove the missing required fields class
+			$( '.yikes-mc-required-field-not-filled' ).removeClass( 'yikes-mc-required-field-not-filled' );
+
+			// Store the submit button text (we remove the text and replace with the dots gif)
 			var original_submit_button_text = submitted_form.find( '.yikes-easy-mc-submit-button' ).text();
 
+			// Remove the submit button text and replace with the loading dots
 			submitted_form.find( '.yikes-easy-mc-submit-button' ).text( '' ).html( '<img src="' + app.l10n.loading_dots + '" class="loading-dots" />' );
 
+			// Get the form id
 			var form_id = submitted_form.attr( 'data-attr-form-id' );
 
 			/* Checkbox Interest Group Error */
@@ -145,6 +151,17 @@ window.Yikes_Mailchimp_Ajax = window.Yikes_Mailchimp_Ajax || {};
 							submitted_form.before( '<p class="yikes-easy-mc-error-message yikes-easy-mc-error-message-' + form_id + ' yikes-easy-mc-hidden">' + response_message + '</p>' );
 						}
 
+						// Check if we found a required field that's missing (server side check)
+						if ( typeof( response.missing_required_field ) !== 'undefined' && response.missing_required_field === true ) {
+							if ( typeof ( response.missing_required_field_data ) !== 'undefined' ) {
+
+								// Capture the field data and highlight the field
+								var field_data = response.missing_required_field_data;
+								var is_interest_group = ( typeof( response.is_interest_group ) !== 'undefined' ) ? response.is_interest_group : false;
+								highlight_missing_required_fields( field_data, is_interest_group );
+							}
+						}
+
 						// Fade in the error message
 						$( '.yikes-easy-mc-error-message' ).fadeIn();
 					}
@@ -166,5 +183,25 @@ window.Yikes_Mailchimp_Ajax = window.Yikes_Mailchimp_Ajax || {};
 		});
 
 	});
+
+	function highlight_missing_required_fields( field_data, is_interest_group ) {
+		if ( typeof ( field_data ) !== 'undefined' ) {
+
+			$.each( field_data, function( merge_label, field ) {
+				if ( is_interest_group === true ) {
+
+					// We might be hiding labels, so for interest groups we need to check if the label.span (label text) exists
+					if ( $( 'span.' + merge_label + '-label' ).length > 0 ) {
+						$( 'span.' + merge_label + '-label' ).addClass( 'yikes-mc-required-field-not-filled' );
+					} else {
+						// If it doesn't exist, then try to add it to the label (the label wraps the whole input/select/radio field)
+						$( '.' + merge_label + '-label' ).addClass( 'yikes-mc-required-field-not-filled' );
+					}
+				} else {
+					$( 'label[for="' + merge_label + '"]' ).children( 'input').addClass( 'yikes-mc-required-field-not-filled' );
+				}
+			});
+		}
+	}
 
 })( window, document, jQuery, Yikes_Mailchimp_Ajax );

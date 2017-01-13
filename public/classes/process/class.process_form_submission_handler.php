@@ -3,7 +3,7 @@
 class Yikes_Inc_Easy_MailChimp_Extender_Process_Submission_Handler {
 
 	/**
-	* A flag signifying if we're dealing with an AJAX submission or standard form submission
+	* A flag signifying whether we're dealing with an AJAX submission or standard form submission
 	* 
 	* @since 6.3.0
 	* @access protected
@@ -263,8 +263,8 @@ class Yikes_Inc_Easy_MailChimp_Extender_Process_Submission_Handler {
 		$this->default_error_response_message =  __( 'Whoops! It looks like something went wrong. Please try again.', 'yikes-inc-easy-mailchimp-extender' );
 		$this->handle_updating_existing_user_message = __( 'You\'re already subscribed. ', 'yikes-inc-easy-mailchimp-extender' );
 		$this->handle_updating_existing_user_link_message = __( 'To update your MailChimp profile, please click to send yourself an update link', 'yikes-inc-easy-mailchimp-extender' );
-		$this->handle_empty_required_field_message = __( 'A required field was not filled in.', 'yikes-inc-easy-mailchimp-extender' );
-		$this->handle_empty_required_interest_group_message = __( 'A required interest group was not filled in.', 'yikes-inc-easy-mailchimp-extender' );
+		$this->handle_empty_required_field_message = __( 'A required field is missing.', 'yikes-inc-easy-mailchimp-extender' );
+		$this->handle_empty_required_interest_group_message = __( 'A required interest group is missing.', 'yikes-inc-easy-mailchimp-extender' );
 		$this->handle_nonce_message = __( 'Error: Sorry, the nonce security check didn\'t pass. Please reload the page and try again. You may want to try clearing your browser cache as a last attempt.' , 'yikes-inc-easy-mailchimp-extender' );
 		$this->handle_non_filled_recaptcha_message_message = __( 'Please check the reCAPTCHA field.', 'yikes-inc-easy-mailchimp-extender' );
 		$this->generic_recaptcha_error_message =  __( 'Please refresh the page and try again.', 'yikes-inc-easy-mailchimp-extender' );
@@ -788,6 +788,10 @@ class Yikes_Inc_Easy_MailChimp_Extender_Process_Submission_Handler {
 	*/
 	public function check_for_required_form_fields( $data, $form_fields ) {
 
+		// Set up our defaults
+		$field_is_missing = false;
+		$missing_fields = array();
+
 		// Loop through submitted form data
 		foreach( $data as $merge_tag => $value ) {
 
@@ -805,18 +809,34 @@ class Yikes_Inc_Easy_MailChimp_Extender_Process_Submission_Handler {
 					// Loop through the data and check if any are empty
 					foreach( $value as $val ) {
 						if ( empty( $val ) ) {
+							$field_is_missing = true;
 
-							// If we find a required field with an empty value, send an error
-							return $this->yikes_fail( $hide = 0, $error = 1, $this->handle_empty_required_field_message );
+							// Set the merge label (e.g. MMERGE6) as the key so we don't get the same field multiple times
+							// (e.g. For arrays, like an address, where multiple address fields are empty)
+							$missing_fields[ $form_fields[ $merge_tag ]['merge'] ] = $form_fields[ $merge_tag ];
 						}
 					}
 
 				} else if ( empty( $value ) ) {
-
-					// If we find a required field with an empty value, send an error
-					return $this->yikes_fail( $hide = 0, $error = 1, $this->handle_empty_required_field_message );
+					$field_is_missing = true;
+					$missing_fields[ $form_fields[ $merge_tag ]['merge'] ] = $form_fields[ $merge_tag ];
 				}
 			}
+		}
+
+		// After we've looped through all the fields, check if we've found a missing field
+		// Note: we do this at the end so we can highlight ALL of the missing fields, instead of the first one we found
+		if ( $field_is_missing === true ) {
+
+			// Construct our return array
+			$additional_fields = array(
+				'missing_required_field'		=> true,
+				'missing_required_field_data'	=> $missing_fields,
+				'is_interest_group'				=> false
+			);
+
+			// If we've found a missing field, return the array of field data
+			return $this->yikes_fail( $hide = 0, $error = 1, $this->handle_empty_required_field_message, $additional_fields );
 		}
 	}
 
@@ -830,6 +850,10 @@ class Yikes_Inc_Easy_MailChimp_Extender_Process_Submission_Handler {
 	*/
 	public function check_for_required_interest_groups( $data, $form_fields ) {
 
+		// Set up our defaults
+		$field_is_missing = false;
+		$missing_fields = array();
+
 		// Loop through the form fields
 		foreach ( $form_fields as $merge_tag => $field_data ) {
 
@@ -839,10 +863,25 @@ class Yikes_Inc_Easy_MailChimp_Extender_Process_Submission_Handler {
 				// Check if it was submitted (meaning, check if it's set in our $data array)
 				if ( ! isset( $data[ 'group-' . $merge_tag ] ) ) {
 
-					// If we find a required interest group with an empty value, send an error
-					return $this->yikes_fail( $hide = 0, $error = 1, $this->handle_empty_required_interest_group_message );
+					$field_is_missing = true;
+					$missing_fields[ $merge_tag ] = $field_data;
 				}
 			}
+		}
+
+		// After we've looped through all the fields, check if we've found a missing field
+		// Note: we do this at the end so we can highlight ALL of the missing fields, instead of the first one we found
+		if ( $field_is_missing === true ) {
+
+			// Construct our return array
+			$additional_fields = array(
+				'missing_required_field'		=> true,
+				'missing_required_field_data'	=> $missing_fields,
+				'is_interest_group'				=> true
+			);
+
+			// If we find a required interest group with an empty value, send an error
+			return $this->yikes_fail( $hide = 0, $error = 1, $this->handle_empty_required_interest_group_message, $additional_fields );
 		}
 	}
 
