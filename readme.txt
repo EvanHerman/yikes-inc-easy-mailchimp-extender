@@ -3,8 +3,8 @@ Contributors: yikesinc, eherman24, liljimmi, hiwhatsup, JPry
 Donate link: https://yikesplugins.com/?utm_source=wp_plugin_repo&utm_medium=donate_link&utm_campaign=easy_forms_for_mailchimp
 Tags: MailChimp, MailChimp forms, MailChimp lists, opt-in forms, sign up form, MailChimp, email, forms, mailing lists, marketing, newsletter, sign up
 Requires at least: 4.0
-Tested up to: 4.7
-Stable tag: 6.2.4
+Tested up to: 4.7.1
+Stable tag: 6.3
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -12,7 +12,7 @@ The ultimate MailChimp WordPress plugin. Easily build unlimited forms for your M
 
 == Description ==
 
-Easy Forms for MailChimp allows you to add unlimited MailChimp sign up forms to your WordPress site. You can add forms to posts, pages, sidebars and other widgetized areas. Your MailChimp API Key connects your site to your MailChimp account and pulls in all of your MailChimp list information.
+Easy Forms for MailChimp allows you to add **unlimited** MailChimp sign up forms to your WordPress site. You can add forms to posts, pages, sidebars and other widgetized areas. Your MailChimp API Key connects your site to your MailChimp account and pulls in all of your MailChimp list information.
 
 MailChimp List statistics and user activity can be viewed right from your dashboard. From there, you can manage users and list settings.
 
@@ -25,33 +25,33 @@ https://www.youtube.com/watch?v=NRZbW-Da1XA
 **Features**
 
 * Build **unlimited** forms for any of your MailChimp lists with an easy-to-use admin, including multiple forms for the same list.
-* Connect your website to your MailChimp account with a MailChimp API key and a click.
-* Toggle inline forms with the click of a button.
-* Schedule form visibility by date/time.
-* Limit opt-ins by logged in users.
-* Localized data/time pickers
+* Connect your website to your MailChimp account with a MailChimp API key.
+* Add MailChimp forms to any post or page with our editor button or a shortcode.
 * Duplicate forms with a click.
-* Easily add MailChimp forms to any post or page with our custom editor button or with a shortcode.
-* Toggle on/off AJAX functionality on a per form basis.
-* Add MailChimp forms to widgetized areas with our custom widget.
-* Allow users to sign up for MailChimp interest groups, or pre-check groups in a hidden field.
-* Use our built-in CSS classes or add your own additional classes to form fields to easily style and customize forms.
 * Customize the MailChimp submission button text.
-* Shortcode available to display the number of subscribers on a given MailChimp list.
+* Display forms with inline fields.
+* Add MailChimp forms to widgetized areas with our widget.
+* Allow users to sign up for MailChimp interest groups, or pre-check groups in a hidden field.
+* Use our built-in CSS classes or add your own additional classes to form fields to style and customize forms.
+* Use a shortcode to display the number of subscribers on a given MailChimp list.
 * Fully customize the success and error messages displayed back to the user.
 * Quickly toggle between single or double opt-in.
 * Disable or Enable the default MailChimp welcome email.
-* Remove bogus subscribers from your MailChimp list through the admin interface.
-* Allow existing subscribers to update their account info (**new** now including two factor authentication).
+* Remove subscribers from your MailChimp list through our admin interface.
+* Allow existing subscribers to update their MailChimp profile information.
 * Redirect users to another post or page after form submission.
 * Enable Google reCAPTCHA protection on your forms.
+* Schedule form visibility by date/time.
+* Limit opt-ins by logged in users.
+* Use localized data/time pickers
+* Toggle on/off AJAX functionality on a per form basis.
 * Import/Export all MailChimp forms and associated settings for use on other sites with Easy Forms for MailChimp installed.
-* Seamless integration with core WordPress forms: comments and registration.
-* Seamless integration with many popular third party plugins: WooCommerce, Easy Digital Downloads, BuddyPress, BbPress, Contact Form 7.
+* Integrate with core WordPress forms: comments and registration.
+* Integrate with many popular third party plugins: WooCommerce, Easy Digital Downloads, BuddyPress, BbPress, Contact Form 7.
 * View your MailChimp account activity like subscribes and unsubscribes.
 * View your MailChimp list statistics and manage users and list settings.
-* Advanced debugging to log MailChimp errors as they occur, for easy troubleshooting.
-* Developer friendly! We've provided hooks and filters to allow developers to extend the plugin.
+* Use advanced debugging to log MailChimp errors as they occur, for easy troubleshooting.
+* Developer friendly! Use our many hooks and filters to extend the plugin.
 * Add-ons available to extend the core functionality of the plugin. [Check them out](https://yikesplugins.com/?utm_source=wp_plugin_repo&utm_medium=link&utm_campaign=easy_forms_for_mailchimp)!
 
 **Integrations**
@@ -158,8 +158,8 @@ Example:
 14. MailChimp Form Widget in the Sidebar on Live Website
 15. Editor Button to easily add Forms to Page and Posts
 16. MailChimp Form on a Page on Live Website
-17. *New* Additional Form Settings
-18. *New* Inline Form on a Page on Live Website
+17. Additional Form Settings
+18. Inline Form on a Page on Live Website
 
 == Other Notes ==
 
