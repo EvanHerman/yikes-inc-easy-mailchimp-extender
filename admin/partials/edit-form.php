@@ -547,7 +547,7 @@
 																'success-resubscribed' => __( 'Thank you for already being a subscriber! Your profile info has been updated.', 'yikes-inc-easy-mailchimp-extender' ),
 																'general-error' => __( "Whoops! It looks like something went wrong. Please try again." , 'yikes-inc-easy-mailchimp-extender' ),
 																'email-exists-error' => __( "The email you entered is already a subscriber to this list." , 'yikes-inc-easy-mailchimp-extender' ),
-																'update-link' => __( "To update your MailChimp profile, please [link]click to send yourself an update link[/link].", 'yikes-inc-easy-mailchimp-extender' ),
+																'update-link' => __( "You're already subscribed. To update your MailChimp profile, please [link]click to send yourself an update link[/link].", 'yikes-inc-easy-mailchimp-extender' ),
 																'email-subject' => __( 'MailChimp Profile Update', 'yikes-inc-easy-mailchimp-extender' ),
 
 															);
