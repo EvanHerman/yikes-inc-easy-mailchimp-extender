@@ -572,8 +572,8 @@ class Yikes_Inc_Easy_MailChimp_Extender_Process_Submission_Handler {
 		*	@optional int| $form_id| the ID of the form to filter
 		*	@since 6.3.0
 		*/
-		$groups = apply_filters( 'yikes-mailchimp-filter-groups-before-submission', $groups );
-		$groups = apply_filters( 'yikes-mailchimp-filter-groups-before-submission-{$this->form_id}', $groups );
+		$groups = apply_filters( 'yikes-mailchimp-filter-groups-before-submission', $groups, $this->form_id );
+		$groups = apply_filters( 'yikes-mailchimp-filter-groups-before-submission-{$this->form_id}', $groups, $this->form_id );
 
 		return $groups;
 	}
@@ -1112,7 +1112,7 @@ class Yikes_Inc_Easy_MailChimp_Extender_Process_Submission_Handler {
 				*	@param int	  | $form_id  | The form id
 				*	@param string | $email	  | The user's email
 				*/
-				$response_text = apply_filters( 'yikes-easy-mailchimp-user-already-subscribed-text', $response_text, $this->form_id, $this->email );
+				$response_text = apply_filters( 'yikes-mailchimp-user-already-subscribed-text', $response_text, $this->form_id, $this->email );
 
 				return $response_text;
 				break;
@@ -1137,7 +1137,7 @@ class Yikes_Inc_Easy_MailChimp_Extender_Process_Submission_Handler {
 				*	@param string | $response_text	| The response message that will be shown to the user
 				*	@param string | $form_id		| The form ID
 				*/
-				$response_text = apply_filters( 'yikes-easy-mailchimp-user-already-subscribed-link-text', $response_text, $this->form_id );
+				$response_text = apply_filters( 'yikes-mailchimp-user-already-subscribed-link-text', $response_text, $this->form_id );
 
 				return $response_text;
 				break;

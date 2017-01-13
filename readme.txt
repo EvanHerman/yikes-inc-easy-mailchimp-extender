@@ -175,8 +175,8 @@ Below you'll find a complete list of the hooks and filters available in Easy For
 * yikes-mailchimp-form-description-FORM_ID - alter the output of the form description of the specified form
 * yikes-mailchimp-redirect-timer (ms : 1 second = 1000ms) alter the amount of time the user sees the success message before being redirected (default: 1500ms) (@parameters - $time, $form_id)
 * yikes-mailchimp-redirect-url - Alter the URL of the page that the user will be redirected too on a successful submission. (@parameters - $url, $form_id, $page_data)
-* yikes-mailchimp-before-submission - catch the merge variables of all forms before they get sent over to MailChimp
-* yikes-mailchimp-before-submission-FORM_ID - catch the merge variables of the specified form before they get sent over to MailChimp
+* yikes-mailchimp-filter-before-submission - catch the merge variables of all forms before they get sent over to MailChimp
+* yikes-mailchimp-filter-before-submission-FORM_ID - catch the merge variables of the specified form before they get sent over to MailChimp
 * yikes-mailchimp-after-submission - catch the merge variables of all forms after they get sent over to MailChimp
 * yikes-mailchimp-after-submission-FORM_ID - catch the merge variables of the specified form after they get sent over to MailChimp
 * yikes-mailchimp-user-role-access - Alter who can access this plugin page by capability (default 'manage_options' - admins)
@@ -212,13 +212,23 @@ Below you'll find a complete list of the hooks and filters available in Easy For
 * yikes-mailchimp-default-country-value - Alter the default country selected in the country dropdown.
 * yikes-mailchimp-recaptcha-required-error - Filter the error displayed back to the user when an error occurs during the reCAPTCHA submission process. (@parameters: $error_text)
 * yikes-mailchimp-sslverify - Toggle sslverify on/off when attempting to validate your API key with the MailChimp API servers.
-* yikes-mailchimp-user-already-subscribed-error - Filter the 'xxx@example.com' is already subscribed to the list. (@parameters - $response, $form_id, $user_email)
+* Version 6.3.0:
+* yikes-mailchimp-success-double-optin-response - Filter the "Success: Double opt-in" custom message (@parameters - $response, $form_id)
+* yikes-mailchimp-success-single-optin-response - Filter the "Success: Single opt-in" custom message (@parameters - $response, $form_id)
+* yikes-mailchimp-success-resubscribed-response - Filter the "Success: Re-subscriber" custom message (@parameters - $response, $form_id)
+* yikes-mailchimp-user-already-subscribed-link-text - Filter the "Success: Re-subscriber with link to email profile update message" custom message (@parameters - $response, $form_id)
+* yikes-mailchimp-general-error-response - Filter the "Error: General" custom message (@parameters - $response, $form_id)
+* yikes-mailchimp-user-already-subscribed-text - Filter the "Error: Re-subscribers not permitted" custom message (this replaced `yikes-mailchimp-user-already-subscribed-error`)
+* yikes-mailchimp-filter-groups-before-submission and yikes-mailchimp-filter-groups-before-submission-FORM_ID - Filter the interest groups before they're submitted (@parameters - $groups, $form_id)
 
 **Actions**
 
 * yikes-mailchimp-form-submission - do something with the user email + form data on form submission
 * yikes-mailchimp-form-submission-FORM_ID - do something with the user email + form data on form submission (specific form)
-* yikes-mailchimp-before-form - output content before all forms (@parameters - $form_id)
+* yikes-mailchimp-after-submission-FORM_ID -  do something with the user email + form data on form submission (specific form)
+* yikes-mailchimp-after-submission - do something with the user email + form data on form submission
+* yikes-mailchimp-before-form-submission - output content before all forms (@parameters - $form_id)
+* yikes-mailchimp-before-form-submission-FORM_ID - output content before a specific form (@parameters - $form_id)
 * yikes-mailchimp-after-form - output content after all forms (@parameters - $form_id)
 * yikes-mailchimp-before-checkbox - output custom content before the opt-in checkbox for all integrations
 * yikes-mailchimp-after-checkbox - output custom content after the opt-in checkbox for all integrations
@@ -234,6 +244,36 @@ Below you'll find a complete list of the hooks and filters available in Easy For
 * yikes-mailchimp-list-interest-groups-metabox - action hook allowing users to add additional content inside of the interest groups metabox on the view list page.
 
 == Changelog ==
+
+= Easy Forms for MailChimp 6.3.0 - January 17th, 2016 = 
+Version 6.3.0's biggest change is migrating the plugin to use MailChimp's v3 API.
+* Created API classes to interact with the MailChimp API
+* Converted all supported v2 endpoints to the corresponding v3 endpoint
+* Refactored all v2 endpoints that are unsupported in v3 to use the new API classes
+
+Version 6.3.0 includes a suite of custom message updates:
+* Removed the "invalid email" custom message (MailChimp v3 no longer supports error codes to detect things like an invalid email error)
+* Updated the custom messages descriptions text
+* Updated the success message - it is now specifically for successful double opt-in subscriptions
+* Added two new custom success messages: "Success: Single opt-in" for successful single opt-in subscriptions, and "Success: Re-subscriber" for successful re-subscriptions
+* Added two new custom message for customizing the "update your profile link" email: "Email Subject" to customize the subject of the email, and "Email body" to customize the body of the email
+* Added/Updated filters for each custom message type. See the `Filters` section for more details.
+
+Version 6.3.0 includes a suite of bug fixes, enhancements, and changes:
+* Added server-side validation to check for required form fields and required interest groups; this supports browsers like Safari that do not support the HTML 5 `required` attribute, or situations where the JavaScript validation fails
+* Added the HTML 5 required attribute to radio button and dropdown formatted interest groups
+* Wrapped the subscription form submit button's text in a span to better support adding custom HTML to the submit button text
+* Renamed filters `yikes-mailchimp-before-submission` and `yikes-mailchimp-before-submission-{$form_id}` to `yikes-mailchimp-filter-before-submission` and `yikes-mailchimp-filter-before-submission-{$form_id}. This prevents conflicts between the actions of the same name.
+* Renamed filter `yikes-mailchimp-user-already-subscribed-error` to `yikes-mailchimp-user-already-subscribed-text`
+* Added filters `yikes-mailchimp-filter-groups-before-submission` and `yikes-mailchimp-filter-groups-before-submission-{$form_id}` to filter the interest groups before they're submitted
+* Changed the types of values that are wiped out after submission to better support subscribing multiple times without refreshing the page
+* Added a nonce to the subscription form submission
+* Multiple interest groups can now be highlighted and added to the form at the same time (instead of one at a time)
+* Fixed the way default values work for interest groups and checkbox/dropdown/radio form fields
+* Changed the way the datepicker displays birthdays when the date format is DD/MM
+* Added error handling and a default error message for fatal server errors ('Error collecting the API response')
+* Allowing + signs for phone fields using MailChimp's international phone format (supports country codes)
+* Added transients throughout the application for common requests (e.g. MailChimp API requests and internal form data requests)
 
 = Easy Forms for MailChimp 6.2.4 - December 6th, 2016 =
 * Fixed the way birthday field data was being handled / stored
