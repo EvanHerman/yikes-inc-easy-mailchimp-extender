@@ -132,7 +132,14 @@ window.yikes_mailchimp_edit_form = window.yikes_mailchimp_edit_form || {};
 			/* get the length, to decide if we should clear the html and append, or just append */
 			var form_builder_length = $( '#form-builder-container' ).find( '.draggable' ).length;
 
-			var group_id = $( '.group-to-add-to-form' ).attr( 'alt' );
+			var interest_groups = [];
+			$( '.group-to-add-to-form' ).each( function() {
+				interest_groups.push({
+					'group_id'  : $( this ).attr( 'alt' ),
+					'field_type': $( this ).attr( 'data-attr-field-type' ),
+					'field_name': $( this ).attr( 'data-attr-field-name' )
+				});
+			});
 
 			/* temporarily disable all of the possible merge variables and interest groups (to prevent some weird stuff happening) */
 			$( '#available-interest-groups' ).children( 'li' ).removeClass( 'available-interest-group' );
@@ -143,9 +150,7 @@ window.yikes_mailchimp_edit_form = window.yikes_mailchimp_edit_form || {};
 			/* build our data */
 			var data = {
 				'action' : 'add_interest_group_to_form',
-				'field_name' : $( '.group-to-add-to-form' ).attr( 'data-attr-field-name' ),
-				'group_id' : group_id,
-				'field_type' : $( '.group-to-add-to-form' ).attr( 'data-attr-field-type' ),
+				'interest_groups': interest_groups,
 				'list_id' : $( '.group-to-add-to-form' ).attr( 'data-attr-form-id' ) /* grab the form ID to query the API for field data */
 			};
 
@@ -218,12 +223,16 @@ window.yikes_mailchimp_edit_form = window.yikes_mailchimp_edit_form || {};
 			} else {
 				if( $( this ).hasClass( 'group-to-add-to-form' ) ) {
 					$( this ).removeClass( 'group-to-add-to-form' );
-					$( '.add-interest-group-to-editor' ).stop().fadeOut();
 				} else {
-					$( '.group-to-add-to-form' ).removeClass( 'group-to-add-to-form' );
 					$( this ).toggleClass( 'group-to-add-to-form' );
-					$( '.add-interest-group-to-editor' ).stop().fadeIn();
 				}
+			}
+
+			// Check if we have groups to add still
+			if ( $( '.group-to-add-to-form' ).length > 0 ) {
+				$( '.add-interest-group-to-editor' ).stop().fadeIn();
+			} else {
+				$( '.add-interest-group-to-editor' ).stop().fadeOut();
 			}
 		});
 

@@ -343,7 +343,7 @@ function process_mailchimp_shortcode( $atts ) {
 		if( ( ! empty( $atts['ajax'] ) && $atts['ajax'] == 1 ) || $form_data['submission_settings']['ajax'] == 1 ) {
 			// enqueue our ajax script
 			$min = defined( 'SCRIPT_DEBUG' ) && SCRIPT_DEBUG ? '' : '.min';
-			wp_enqueue_script( 'yikes-easy-mc-ajax' , YIKES_MC_URL . "public/js/yikes-mc-ajax-forms{$min}.js" , array( 'jquery' ) , 'yikes-inc-easy-mailchimp-extender', false );
+			wp_enqueue_script( 'yikes-easy-mc-ajax' , YIKES_MC_URL . "public/js/yikes-mc-ajax-forms{$min}.js" , array( 'jquery' ) , YIKES_MC_VERSION, false );
 			wp_localize_script( 'yikes-easy-mc-ajax', 'yikes_mailchimp_ajax', array(
 				'ajax_url'                      => esc_url( admin_url( 'admin-ajax.php' ) ),
 				'page_data'                     => $page_data,
@@ -1030,8 +1030,7 @@ function process_mailchimp_shortcode( $atts ) {
 
 						}
 
-					} else { // loop over interest groups
-
+					} else { // Loop over interest groups
 
 						// Get the default choice(s) from the field settings and turn them into an array if not already
 						$default_choice = ( isset( $field['default_choice'] ) ) ? $field['default_choice'] : '';
