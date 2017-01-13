@@ -14,6 +14,9 @@ window.Yikes_Mailchimp_Ajax = window.Yikes_Mailchimp_Ajax || {};
 			// Store which form was submitted
 			var submitted_form = $( this );
 
+			// Add a class to the form while it's submitted (as of 6.3.0)
+			submitted_form.addClass( 'yikes-mc-submitted-form-loading' );
+
 			// Fade down the form
 			submitted_form.find( 'input, label, button' ).not( ':hidden' ).fadeTo( 'fast', .5 );
 
@@ -23,11 +26,11 @@ window.Yikes_Mailchimp_Ajax = window.Yikes_Mailchimp_Ajax || {};
 			// Remove the missing required fields class
 			$( '.yikes-mc-required-field-not-filled' ).removeClass( 'yikes-mc-required-field-not-filled' );
 
-			// Store the submit button text (we remove the text and replace with the dots gif)
-			var original_submit_button_text = submitted_form.find( '.yikes-easy-mc-submit-button' ).text();
+			// As of 6.3.0 we just hide the button text instead of removing it, so hide:
+			$( '.yikes-mailchimp-submit-button-span-text' ).hide();
 
-			// Remove the submit button text and replace with the loading dots
-			submitted_form.find( '.yikes-easy-mc-submit-button' ).text( '' ).html( '<img src="' + app.l10n.loading_dots + '" class="loading-dots" />' );
+			// And then append the loading dots gif
+			submitted_form.find( '.yikes-easy-mc-submit-button' ).append( '<img src="' + app.l10n.loading_dots + '" class="loading-dots yikes-mc-loading-dots" />' );
 
 			// Get the form id
 			var form_id = submitted_form.attr( 'data-attr-form-id' );
@@ -66,7 +69,16 @@ window.Yikes_Mailchimp_Ajax = window.Yikes_Mailchimp_Ajax || {};
 				submitted_form.find( '.yikes-easy-mc-submit-button' ).removeAttr( 'disabled', 'disabled' );
 				submitted_form.find( 'input, label, button' ).not( ':hidden' ).fadeTo( 'fast', 1 );
 				submitted_form.find( '.yikes-mailchimp-preloader' ).remove();
-				submitted_form.find( '.yikes-easy-mc-submit-button' ).html( '' ).text( original_submit_button_text );
+				
+				//submitted_form.find( '.yikes-easy-mc-submit-button' ).html( '' ).html( original_submit_button_text );
+
+				// As of 6.3.0 we just show/hide the button text instead of removing it, so:
+				// Remove loading dots && show button text
+				$( '.yikes-mc-loading-dots' ).remove();
+				$( '.yikes-mailchimp-submit-button-span-text' ).show();
+
+				// As of 6.3.0 we add a class to the form, so remove it if we're here
+				submitted_form.removeClass( 'yikes-mc-submitted-form-loading' );
 
 				return false;
 			}
@@ -96,7 +108,14 @@ window.Yikes_Mailchimp_Ajax = window.Yikes_Mailchimp_Ajax || {};
 
 					submitted_form.find( 'input, label, button' ).not( ':hidden' ).fadeTo( 'fast', 1 );
 					submitted_form.find( '.yikes-mailchimp-preloader' ).remove();
-					submitted_form.find( '.yikes-easy-mc-submit-button' ).html( '' ).text( original_submit_button_text );
+
+					// As of 6.3.0 we just show/hide the button text instead of removing it, so:
+					// Remove loading dots && show button text
+					$( '.yikes-mc-loading-dots' ).remove();
+					$( '.yikes-mailchimp-submit-button-span-text' ).show();
+
+					// As of 6.3.0 we add a class to the form, so remove it if we're here
+					submitted_form.removeClass( 'yikes-mc-submitted-form-loading' );
 
 					/* Success */
 					if( response.success ) {
