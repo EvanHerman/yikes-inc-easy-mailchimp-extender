@@ -609,7 +609,7 @@ class Yikes_Inc_Easy_MailChimp_Extender_Process_Submission_Handler {
 		*	@param array | $merge_variables | The array of user submitted form data
 		*/
 		do_action( 'yikes-mailchimp-after-submission', $merge_variables );
-		do_action( 'yikes-mailchimp-after-submission-{$this->form_id}', $merge_variables );
+		do_action( "yikes-mailchimp-after-submission-{$this->form_id}", $merge_variables );
 
 		/**
 		*	yikes-mailchimp-form-submission || yikes-mailchimp-form-submission-{$form_id}
@@ -623,7 +623,7 @@ class Yikes_Inc_Easy_MailChimp_Extender_Process_Submission_Handler {
 		*
 		*/
 		do_action( 'yikes-mailchimp-form-submission', $this->email, $merge_variables, $this->form_id, $notifications );
-		do_action( 'yikes-mailchimp-form-submission-{$this->form_id}', $this->email, $merge_variables, $this->form_id, $notifications );
+		do_action( "yikes-mailchimp-form-submission-{$this->form_id}", $this->email, $merge_variables, $this->form_id, $notifications );
 
 		// Get the optin value
 		$optin = isset( $optin_settings['optin'] ) ? (int) $optin_settings['optin'] : 0;
@@ -764,7 +764,7 @@ class Yikes_Inc_Easy_MailChimp_Extender_Process_Submission_Handler {
 			*
 			*	@param int | $default_redirect_time_ms | The default time (1500 milliseconds) to wait before redirecting
 			*/
-			$redirect_timer = apply_filters( 'yikes-mailchimp-redirect-timer', $this->default_redirect_time_ms );
+			$redirect_timer = apply_filters( 'yikes-mailchimp-redirect-timer', $this->default_redirect_time_ms, $this->form_id );
 
 			// Well this definitely has to change... why are we writing JavaScript in PHP?
 			$redirect_array['redirect'] = '<script type="text/javascript">setTimeout(function() { window.location="' . $redirect_url . '"; }, ' . $redirect_timer . ');</script>';	
@@ -835,8 +835,19 @@ class Yikes_Inc_Easy_MailChimp_Extender_Process_Submission_Handler {
 				'is_interest_group'				=> false
 			);
 
+			/**
+			*	yikes-mailchimp-required-form-field-missing
+			*
+			*	Alter the response message shown to the user for missing required form fields
+			*
+			*	@param string | $handle_empty_required_field_message	| The default message displayed to the user
+			*	@param int	  | $form_id 								| The ID of the form
+			*	@param array  | $missing_fields							| Array of the missing required fields
+			*/
+			$default_response = apply_filters( 'yikes-mailchimp-required-form-field-missing', $this->handle_empty_required_field_message, $this->form_id, $missing_fields );
+
 			// If we've found a missing field, return the array of field data
-			return $this->yikes_fail( $hide = 0, $error = 1, $this->handle_empty_required_field_message, $additional_fields );
+			return $this->yikes_fail( $hide = 0, $error = 1, $default_response, $additional_fields );
 		}
 	}
 
@@ -880,8 +891,19 @@ class Yikes_Inc_Easy_MailChimp_Extender_Process_Submission_Handler {
 				'is_interest_group'				=> true
 			);
 
+			/**
+			*	yikes-mailchimp-required-interest-group-missing
+			*
+			*	Alter the response message shown to the user for missing required form fields
+			*
+			*	@param string | $handle_empty_required_interest_group_message	| The default message displayed to the user
+			*	@param int	  | $form_id 										| The ID of the form
+			*	@param array  | $missing_fields									| Array of the missing required fields
+			*/
+			$default_response = apply_filters( 'yikes-mailchimp-required-interest-group-missing', $this->handle_empty_required_interest_group_message, $this->form_id, $missing_fields );
+
 			// If we find a required interest group with an empty value, send an error
-			return $this->yikes_fail( $hide = 0, $error = 1, $this->handle_empty_required_interest_group_message, $additional_fields );
+			return $this->yikes_fail( $hide = 0, $error = 1, $default_response, $additional_fields );
 		}
 	}
 
@@ -927,7 +949,7 @@ class Yikes_Inc_Easy_MailChimp_Extender_Process_Submission_Handler {
 			*	Catch the recaptcha errors before they're returned to the user
 			*	@param string | $recaptcha_errors | A string of recaptcha errors separated by a space
 			*/
-			$response = apply_filters( 'yikes-mailchimp-recaptcha-required-error', implode( ' ', $recaptcha_errors ) );
+			$response = apply_filters( 'yikes-mailchimp-recaptcha-required-error', implode( ' ', $recaptcha_errors ), $this->form_id );
 			return $this->yikes_fail( $hide = 0, $error = 1, $response, false, $return_response_non_ajax = true );
 		}
 	}
