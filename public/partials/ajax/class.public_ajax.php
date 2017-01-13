@@ -106,7 +106,7 @@ class YIKES_Inc_Easy_MailChimp_Public_Ajax {
 			if ( ! empty( $form_data ) ) {
 				if ( isset( $form_data['error_messages'] ) ) {
 					if ( isset( $form_data['error_messages']['email-body'] ) && ! empty( $form_data['error_messages']['email-body'] ) ) {
-						$email_body = $form_data['error_messages']['email-body'];
+						$email_body = apply_filters( 'the_content', $form_data['error_messages']['email-body'] );
 					}
 					if ( isset( $form_data['error_messages']['email-subject'] ) && ! empty( $form_data['error_messages']['email-subject'] ) ) {
 						$email_subject = $form_data['error_messages']['email-subject'];
@@ -139,9 +139,9 @@ class YIKES_Inc_Easy_MailChimp_Public_Ajax {
 		if ( ! isset( $email_subject ) ) {
 			$email_subject = __( 'MailChimp Profile Update', 'yikes-inc-easy-mailchimp-extender' );
 		}
-
+		
 		// Check if the email_body was set
-		if ( ! isset( $email_body ) ) {
+		if ( ! isset( $email_body ) || empty( $email_body ) ) {
 
 			// The email_body should always be set, but we've made this function static just in case so we can grab our default
 			$email_body = Yikes_Inc_Easy_Mailchimp_Forms_Admin::generate_default_email_body();
