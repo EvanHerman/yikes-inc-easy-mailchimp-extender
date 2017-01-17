@@ -254,7 +254,7 @@ Below you'll find a complete list of the hooks and filters available in Easy For
 * Updated the custom messages descriptions text
 * Updated the success message - it is now specifically for successful double opt-in subscriptions
 * Added two new custom success messages: "Success: Single opt-in" for successful single opt-in subscriptions, and "Success: Re-subscriber" for successful re-subscriptions
-* Added two new custom message for customizing the "update your profile link" email: "Email Subject" to customize the subject of the email, and "Email body" to customize the body of the email
+* Added two new custom messages for customizing the "update your profile link" email: "Email Subject" to customize the subject of the email, and "Email body" to customize the body of the email
 * Added/Updated filters for each custom message type. See the `Filters` section for more details.
 
 * Version 6.3.0 includes a suite of bug fixes, enhancements, and changes:
@@ -273,7 +273,7 @@ Below you'll find a complete list of the hooks and filters available in Easy For
 * The second address line (addr2) is never required by default (this can be changed using a filter - see `yikes-mailchimp-address-2-required`).
 
 * Version 6.3.0 includes a lot of new filters, some renamed filters, some new parameters added, and some filters removed. For a complete list of available filters, please see the newly updated filters section. Here are some of the highlights:
-* Renamed filters `yikes-mailchimp-before-submission` and `yikes-mailchimp-before-submission-{$form_id}` to `yikes-mailchimp-filter-before-submission` and `yikes-mailchimp-filter-before-submission-{$form_id}. This prevents conflicts between the actions of the same name.
+* Renamed filters `yikes-mailchimp-before-submission` and `yikes-mailchimp-before-submission-{$form_id}` to `yikes-mailchimp-filter-before-submission` and `yikes-mailchimp-filter-before-submission-{$form_id}`. This prevents conflicts between the actions of the same name.
 * Renamed filter `yikes-mailchimp-user-already-subscribed-error` to `yikes-mailchimp-user-already-subscribed-text`
 * Added filters `yikes-mailchimp-filter-groups-before-submission` and `yikes-mailchimp-filter-groups-before-submission-{$form_id}` to filter the interest groups before they're submitted
 * Removed filters `yikes-mailchimp-user-subscribe-api-request`, `yikes-mailchimp-checkbox-integration-subscribe-api-request`
