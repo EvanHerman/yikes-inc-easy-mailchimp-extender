@@ -243,13 +243,13 @@ Below you'll find a complete list of the hooks and filters available in Easy For
 == Changelog ==
 
 = Easy Forms for MailChimp 6.3.0 - January 17th, 2016 = 
-Version 6.3.0's biggest change is migrating the plugin to use MailChimp's v3 API.
+* Version 6.3.0's biggest change is migrating the plugin to use MailChimp's v3 API.
 * Created API classes to interact with the MailChimp API
 * Converted all supported v2 endpoints to the corresponding v3 endpoint
 * Refactored all v2 endpoints that are unsupported in v3 to use the new API classes
 * Added filters to customize API requests
 
-Version 6.3.0 includes a suite of custom message updates:
+* Version 6.3.0 includes a suite of custom message updates:
 * Removed the "invalid email" custom message (MailChimp v3 no longer supports error codes to detect things like an invalid email error)
 * Updated the custom messages descriptions text
 * Updated the success message - it is now specifically for successful double opt-in subscriptions
@@ -257,7 +257,7 @@ Version 6.3.0 includes a suite of custom message updates:
 * Added two new custom message for customizing the "update your profile link" email: "Email Subject" to customize the subject of the email, and "Email body" to customize the body of the email
 * Added/Updated filters for each custom message type. See the `Filters` section for more details.
 
-Version 6.3.0 includes a suite of bug fixes, enhancements, and changes:
+* Version 6.3.0 includes a suite of bug fixes, enhancements, and changes:
 * Added server-side validation to check for required form fields and required interest groups; this supports browsers like Safari that do not support the HTML 5 `required` attribute, or situations where the JavaScript validation fails
 * Added the HTML 5 required attribute to radio button and dropdown formatted interest groups
 * Wrapped the subscription form submit button's text in a span to better support adding custom HTML to the submit button text
@@ -272,7 +272,7 @@ Version 6.3.0 includes a suite of bug fixes, enhancements, and changes:
 * The "Send Welcome Email" option is no longer supported by MailChimp and has been removed
 * The second address line (addr2) is never required by default (this can be changed using a filter - see `yikes-mailchimp-address-2-required`).
 
-Version 6.3.0 includes a lot of new filters, some renamed filters, some new parameters added, and some filters removed. For a complete list of available filters, please see the newly updated filters section. Here are some of the highlights:
+* Version 6.3.0 includes a lot of new filters, some renamed filters, some new parameters added, and some filters removed. For a complete list of available filters, please see the newly updated filters section. Here are some of the highlights:
 * Renamed filters `yikes-mailchimp-before-submission` and `yikes-mailchimp-before-submission-{$form_id}` to `yikes-mailchimp-filter-before-submission` and `yikes-mailchimp-filter-before-submission-{$form_id}. This prevents conflicts between the actions of the same name.
 * Renamed filter `yikes-mailchimp-user-already-subscribed-error` to `yikes-mailchimp-user-already-subscribed-text`
 * Added filters `yikes-mailchimp-filter-groups-before-submission` and `yikes-mailchimp-filter-groups-before-submission-{$form_id}` to filter the interest groups before they're submitted
