@@ -204,6 +204,17 @@ if ( is_wp_error( $member_exists ) ) {
 	// If $send_update_email is false (we don't send the email) then simply continue (we allow them to update their profile via only an email)
 }
 
+/**
+ * Filters for the subscribe body
+ *
+ * @since 6.3.0
+ *
+ * @param array  | $member_data | Array of all the variables sent to the MailChimp API
+ * @param string | $form_id		| The form ID
+ */
+$member_data = apply_filters( 'yikes-mailchimp-filter-subscribe-request', $member_data, $form_id );
+$member_data = apply_filters( "yikes-mailchimp-filter-subscribe-request-{$form_id}", $member_data, $form_id );
+
 // Send the API request to create a new subscriber! (Or update an existing one)
 $subscribe_response = $list_handler->member_subscribe( $list_id, md5( strtolower( $sanitized_email ) ), $member_data );
 
