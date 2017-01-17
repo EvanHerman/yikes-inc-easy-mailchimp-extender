@@ -67,7 +67,7 @@ foreach( $interest_groupings as $id => $interest_group ) {
 				<select name="optin-checkbox-init[<?php echo $integration_type; ?>][interest-groups][<?php echo $id; ?>][]">
 				<?php foreach( $interest_groups_fields as $field_id => $field ) {
 					if ( isset( $selected_interest_groups[ $id ] ) ) {
-						$selected = checked( true, in_array( $field_id, $selected_interest_groups[ $id ] ), false );
+						$selected = selected( true, in_array( $field_id, $selected_interest_groups[ $id ] ), false );
 					}
 					?>
 					<option value="<?php echo $field_id; ?>" <?php echo $selected; ?>>
