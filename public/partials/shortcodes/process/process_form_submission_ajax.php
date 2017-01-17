@@ -130,8 +130,23 @@ $member_exists = $list_handler->get_member( $list_id, md5( strtolower( $sanitize
 
 // If this member does not exist, then we need to add the status_if_new flag and set our $new_subscriber variable
 if ( is_wp_error( $member_exists ) ) {
+
 	$new_subscriber = true;
-	$member_data['status_if_new'] = 'subscribed';
+
+	// Check the opt-in value - is it double or single?
+	// Double opt-in means 'status_if_new' => 'pending'
+	$double_optin = isset( $optin_settings['optin'] ) ? (int) $optin_settings['optin'] : 0;
+
+	if ( $double_optin === 1 ) {
+
+		// Double opt-in
+		$member_data['status_if_new'] = 'pending';
+	} else {
+
+		// Single opt-in
+		$member_data['status_if_new'] = 'subscribed';
+	}
+	
 } else {
 
 	// If this member already exists, then we need to go through our optin settings and run some more logic
