@@ -743,20 +743,6 @@
 									<p class="description"><?php _e( "Double opt-in requires users to confirm their email address before being added to a list (recommended)" , 'yikes-inc-easy-mailchimp-extender' ); ?></p>
 								</label></p>
 
-								<!-- Welcome Email -->
-								<?php
-									if( !isset( $optin_settings['send_welcome_email'] ) ) {
-										$optin_settings['send_welcome_email'] = '1';
-									}
-								?>
-								<p class="form-field-container"><!-- necessary to prevent skipping on slideToggle(); --><label for="send-welcome-email"><strong><?php _e( 'Send Welcome Email' , 'yikes-inc-easy-mailchimp-extender' ); ?></strong>
-									<span class="edit-form-field-container-span">
-										<label for="send-welcome"><input id="send-welcome" type="radio" name="send-welcome-email" value="1" <?php checked( $optin_settings['send_welcome_email'] , '1' ); ?>><?php _e( 'Yes' , 'yikes-inc-easy-mailchimp-extender' ); ?></label>
-										&nbsp;<label for="do-not-send-welcome"><input id="do-not-send-welcome" type="radio" name="send-welcome-email" value="0" <?php checked( $optin_settings['send_welcome_email'] , '0' ); ?>><?php _e( 'No' , 'yikes-inc-easy-mailchimp-extender' ); ?></label>
-									</span>
-									<p class="description"><?php _e( "When a user signs up, should they receive the default welcome email?" , 'yikes-inc-easy-mailchimp-extender' ); ?></p>
-								</label></p>
-
 								<!-- Update Existing Users -->
 								<?php
 									if( !isset( $optin_settings['update_existing_user'] ) ) {

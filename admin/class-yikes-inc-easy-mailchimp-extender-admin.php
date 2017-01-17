@@ -1418,7 +1418,6 @@ class Yikes_Inc_Easy_Mailchimp_Forms_Admin {
 
 				$custom_styles = isset( $new_options['custom_styles'] ) ? $new_options['custom_styles']: '0'; // store as an array with all of our styles
 				$custom_template = isset( $new_options['custom_template'] ) ? $new_options['custom_template'] : '0'; // store template data as an array ( active , template used )
-				$send_welcome_email = isset( $new_options['yks_mailchimp_send_welcome_'.$list_id] ) ? '0' : '1';
 				$redirect_user_on_submit = isset( $new_options['yks_mailchimp_redirect_'.$list_id] ) ? '1' : '0';
 				$redirect_page = isset( $new_options['page_id_'.$list_id] ) ? $new_options['page_id_'.$list_id] : '';
 
@@ -1430,7 +1429,6 @@ class Yikes_Inc_Easy_Mailchimp_Forms_Admin {
 					'fields'                  => $fields,
 					'custom_styles'           => $custom_styles,
 					'custom_template'         => $custom_template,
-					'send_welcome_email'      => $send_welcome_email,
 					'redirect_user_on_submit' => $redirect_user_on_submit,
 					'redirect_page'           => $redirect_page,
 					'submission_settings'     => '',
@@ -2625,7 +2623,6 @@ class Yikes_Inc_Easy_Mailchimp_Forms_Admin {
 			$list_id                 = $_POST['associated-list'];
 			$form_name               = stripslashes( $_POST['form-name'] );
 			$form_description        = sanitize_text_field( stripslashes( $_POST['form-description'] ) );
-			$send_welcome_email      = $_POST['send-welcome-email'];
 			$redirect_user_on_submit = $_POST['redirect-user-on-submission'];
 			$redirect_page           = $_POST['redirect-user-to-selection'];
 
@@ -2647,7 +2644,6 @@ class Yikes_Inc_Easy_Mailchimp_Forms_Admin {
 				'optin'                => $_POST['single-double-optin'],
 				'update_existing_user' => $_POST['update-existing-user'],
 				'send_update_email'    => $_POST['update-existing-email'],
-				'send_welcome_email'   => $_POST['send-welcome-email'],
 			);
 
 			// Setup our error settings serialized array
@@ -2700,7 +2696,6 @@ class Yikes_Inc_Easy_Mailchimp_Forms_Admin {
 					'form_description'        => $form_description,
 					'fields'                  => $assigned_fields,
 					'custom_template'         => 0,
-					'send_welcome_email'      => $send_welcome_email,
 					'redirect_user_on_submit' => $redirect_user_on_submit,
 					'redirect_page'           => $redirect_page,
 					'submission_settings'     => $submission_settings,

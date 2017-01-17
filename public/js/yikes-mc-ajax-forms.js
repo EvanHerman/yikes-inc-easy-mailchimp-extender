@@ -171,7 +171,7 @@ window.Yikes_Mailchimp_Ajax = window.Yikes_Mailchimp_Ajax || {};
 						}
 
 						// Check if we found a required field that's missing (server side check)
-						if ( typeof( response.missing_required_field ) !== 'undefined' && response.missing_required_field === true ) {
+						if ( typeof( response ) !== 'undefined' && typeof( response.missing_required_field ) !== 'undefined' && response.missing_required_field === true ) {
 							if ( typeof ( response.missing_required_field_data ) !== 'undefined' ) {
 
 								// Capture the field data and highlight the field

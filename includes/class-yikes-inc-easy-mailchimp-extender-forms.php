@@ -189,10 +189,6 @@ class Yikes_Inc_Easy_MailChimp_Extender_Forms extends Yikes_Inc_Easy_MailChimp_E
 					$value = json_decode( $value, true );
 					break;
 
-				case 'send_welcome_email':
-					$key = 'send_welcome';
-					break;
-
 				case 'custom_notifications':
 					$key = 'notifications';
 				// Deliberately omit break, to fall through to the next group.
@@ -241,11 +237,6 @@ class Yikes_Inc_Easy_MailChimp_Extender_Forms extends Yikes_Inc_Easy_MailChimp_E
 					$value = json_encode( $value );
 					break;
 
-				case 'send_welcome':
-					$key = 'send_welcome_email';
-				// Deliberately omit break, to fall through to the next group.
-
-				case 'send_welcome_email':
 				case 'redirect_user_on_submit':
 					$value = intval( (bool) $value );
 					break;
@@ -296,7 +287,6 @@ class Yikes_Inc_Easy_MailChimp_Extender_Forms extends Yikes_Inc_Easy_MailChimp_E
 		$formats = array();
 		foreach ( $form_data as $key => $value ) {
 			switch ( $key ) {
-				case 'send_welcome_email':
 				case 'impressions':
 				case 'submissions':
 				case 'redirect_user_on_submit':

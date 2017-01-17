@@ -23,7 +23,6 @@ abstract class Yikes_Inc_Easy_MailChimp_Extender_Forms_Abstract implements Yikes
 			'fields'                  => array(),
 			'custom_styles'           => '',
 			'custom_template'         => '',
-			'send_welcome_email'      => 0,
 			'redirect_user_on_submit' => 0,
 			'redirect_page'           => '',
 			'submission_settings'     => array(
@@ -36,7 +35,6 @@ abstract class Yikes_Inc_Easy_MailChimp_Extender_Forms_Abstract implements Yikes
 				'optin'                => 1,
 				'update_existing_user' => 1,
 				'send_update_email'    => 1,
-				'send_welcome_email'   => 1,
 			),
 			'form_settings'           => array(
 				'yikes-easy-mc-form-class-names'                 => '',
