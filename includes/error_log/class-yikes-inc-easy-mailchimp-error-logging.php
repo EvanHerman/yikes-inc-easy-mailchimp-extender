@@ -5,7 +5,7 @@
  * A class definition that includes attributes and functions used across both the
  * public-facing side of the site and the admin area.
  *
- * @link       http://www.yikesinc.com/
+ * @link       https://www.yikesplugins.com/
  * @since      1.0.0
  *
  * @package    Yikes_Inc_Easy_Mailchimp_Extender
@@ -23,9 +23,17 @@
  * @since      1.0.0
  * @package    Yikes_Inc_Easy_Mailchimp_Extender
  * @subpackage Yikes_Inc_Easy_Mailchimp_Extender/includes
- * @author     YIKES Inc. <info@yikesinc.com>
+ * @author     YIKES Inc. <plugins@yikesinc.com>
  */
 class Yikes_Inc_Easy_Mailchimp_Error_Logging {
+
+	/**
+	 * Whether we're doing debugging.
+	 *
+	 * @var bool
+	 */
+	protected $is_debugging;
+
 	/**
 	 * Define the core functionality of the plugin.
 	 *
@@ -36,7 +44,26 @@ class Yikes_Inc_Easy_Mailchimp_Error_Logging {
 	 * @since    1.0.0
 	 */
 	public function __construct() {
-	
+		$this->is_debugging = WP_DEBUG || get_option( 'yikes-mailchimp-debug-status', '' ) == '1';
+	}
+
+	/**
+	 * Maybe write to the error log.
+	 *
+	 * This will do nothing if debugging is not enabled.
+	 *
+	 * @author Jeremy Pry
+	 *
+	 * @param string $returned_error The returned error.
+	 * @param string $error_type     The error type.
+	 * @param string $page           The page information.
+	 */
+	public function maybe_write_to_log( $returned_error, $error_type, $page = '' ) {
+		if ( ! $this->is_debugging ) {
+			return;
+		}
+
+		$this->yikes_easy_mailchimp_write_to_error_log( $returned_error, $error_type, $page );
 	}
 	
 	

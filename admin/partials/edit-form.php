@@ -70,73 +70,43 @@
 		);
 	}
 
-	$api_key = yikes_get_mc_api_key();
-	$dash_position = strpos( $api_key, '-' );
+	// Set up our list_handler object.
+	$list_handler = yikes_get_mc_api_manager()->get_list_handler();
 
 	// Check for a transient, if not - set one up for one hour
-	if ( false === ( $list_data = get_transient( 'yikes-easy-mailchimp-list-data' ) ) ) {
-		if( $dash_position !== false ) {
-			$api_endpoint = 'https://' . substr( $api_key, $dash_position + 1 ) . '.api.mailchimp.com/2.0/lists/list.json';
-		}
-		$list_data = wp_remote_post( $api_endpoint, array(
-			'body' => array(
-				'apikey' => $api_key,
-				'limit' => 100
-			),
-			'timeout' => 10,
-			'sslverify' => apply_filters( 'yikes-mailchimp-sslverify', true )
-		) );
-		$list_data = json_decode( wp_remote_retrieve_body( $list_data ), true );
-		if( isset( $list_data['error'] ) ) {
-			if( WP_DEBUG || get_option( 'yikes-mailchimp-debug-status' , '' ) == '1' ) {
-				$error_logging = new Yikes_Inc_Easy_Mailchimp_Error_Logging();
-				$error_logging->yikes_easy_mailchimp_write_to_error_log( $list_data['error'], __( "Get Account Lists" , 'yikes-inc-easy-mailchimp-extender' ), "Edit Form Page" );
-			}
-		} else {
-			// set our transient
-			set_transient( 'yikes-easy-mailchimp-list-data', $list_data, 1 * HOUR_IN_SECONDS );
-		}
+	$list_data = $list_handler->get_lists();
+	if ( is_wp_error( $list_data ) ) {
+		$error_logging = new Yikes_Inc_Easy_Mailchimp_Error_Logging();
+		$error_logging->maybe_write_to_log(
+			$list_data->get_error_code(),
+			__( "Get Account Lists", 'yikes-inc-easy-mailchimp-extender' ),
+			"Edit Form Page"
+		);
+		$list_data = array();
 	}
 
-	// get the list data
-	if( $dash_position !== false ) {
-		$api_endpoint = 'https://' . substr( $api_key, $dash_position + 1 ) . '.api.mailchimp.com/2.0/lists/merge-vars.json';
-	}
-	$available_merge_variables = wp_remote_post( $api_endpoint, array(
-		'body' => array(
-			'apikey' => $api_key,
-			'id' => array( $form['list_id'] ),
-		),
-		'timeout' => 10,
-		'sslverify' => apply_filters( 'yikes-mailchimp-sslverify', true )
-	) );
-	$available_merge_variables = json_decode( wp_remote_retrieve_body( $available_merge_variables ), true );
-	if( isset( $available_merge_variables['error'] ) ) {
-		if( WP_DEBUG || get_option( 'yikes-mailchimp-debug-status' , '' ) == '1' ) {
-			$error_logging = new Yikes_Inc_Easy_Mailchimp_Error_Logging();
-			$error_logging->yikes_easy_mailchimp_write_to_error_log( $available_merge_variables['error'], __( "Get Merge Variables" , 'yikes-inc-easy-mailchimp-extender' ), "Edit Form Page" );
-		}
+	// Get the merge fields
+	$available_merge_variables = $list_handler->get_merge_fields( $form['list_id'] );
+	if ( is_wp_error( $available_merge_variables ) ) {
+		$error_logging = new Yikes_Inc_Easy_Mailchimp_Error_Logging();
+		$error_logging->maybe_write_to_log(
+			$available_merge_variables->get_error_code(),
+			__( "Get Merge Variables", 'yikes-inc-easy-mailchimp-extender' ),
+			"Edit Form Page"
+		);
+		$available_merge_variables = array();
 	}
 
 	// get the interest group data
-	if( $dash_position !== false ) {
-		$api_endpoint = 'https://' . substr( $api_key, $dash_position + 1 ) . '.api.mailchimp.com/2.0/lists/interest-groupings.json';
-	}
-	$interest_groupings = wp_remote_post( $api_endpoint, array(
-		'body' => array(
-			'apikey' => $api_key,
-			'id' => $form['list_id']
-		),
-		'timeout' => 10,
-		'sslverify' => apply_filters( 'yikes-mailchimp-sslverify', true )
-	) );
-	$interest_groupings = json_decode( wp_remote_retrieve_body( $interest_groupings ), true );
-	$no_interest_groupings = '<p class="description error-descripion">' . __( 'No Interest Groups Found' , 'yikes-inc-easy-mailchimp-extender' ) . '.</p>';
-	if( isset( $interest_groupings['error'] ) ) {
-		if( WP_DEBUG || get_option( 'yikes-mailchimp-debug-status' , '' ) == '1' ) {
-			$error_logging = new Yikes_Inc_Easy_Mailchimp_Error_Logging();
-			$error_logging->yikes_easy_mailchimp_write_to_error_log( $interest_groupings['error'], __( "Get Interest Groups" , 'yikes-inc-easy-mailchimp-extender' ), "Edit Form Page" );
-		}
+	$interest_groupings = $list_handler->get_interest_categories( $form['list_id'] );
+	if ( is_wp_error( $interest_groupings ) ) {
+		$error_logging = new Yikes_Inc_Easy_Mailchimp_Error_Logging();
+		$error_logging->maybe_write_to_log(
+			$interest_groupings->get_error_code(),
+			__( 'Get Interest Groups', 'yikes-inc-easy-mailchimp-extender' ),
+			'Edit Form Page'
+		);
+		$interest_groupings = array();
 	}
 
 	/* Build Our Update Form URL */
@@ -253,7 +223,7 @@
 													?>
 
 													<!-- Save Fields Button -->
-													<?php echo submit_button( __( 'Update Form' ) , 'primary' , '' , false , array( 'onclick' => '', 'style' => 'float:right;margin-right:12px;'.$display_none ) ); ?>
+													<?php submit_button( __( 'Update Form' ) , 'primary' , '' , false , array( 'onclick' => '', 'style' => 'float:right;margin-right:12px;'.$display_none ) ); ?>
 
 													<!-- .inside -->
 												</div>
@@ -573,34 +543,57 @@
 															// build our default options
 															$error_message_array = array(
 																'success' => __( 'Thank You for subscribing! Check your email for the confirmation message.' , 'yikes-inc-easy-mailchimp-extender' ),
+																'success-single-optin' => __( 'Thank you for subscribing!' , 'yikes-inc-easy-mailchimp-extender' ),
+																'success-resubscribed' => __( 'Thank you for already being a subscriber! Your profile info has been updated.', 'yikes-inc-easy-mailchimp-extender' ),
 																'general-error' => __( "Whoops! It looks like something went wrong. Please try again." , 'yikes-inc-easy-mailchimp-extender' ),
-																'invalid-email' => __( "Please provide a valid email address." , 'yikes-inc-easy-mailchimp-extender' ),
-																'email-exists-error' => __( "The provided email is already subscribed to this list." , 'yikes-inc-easy-mailchimp-extender' ),
-																'update-link' => __ ( "To update your MailChimp profile, please [link]click to send yourself an update link[/link].", 'yikes-inc-easy-mailchimp-extender' ),
+																'email-exists-error' => __( "The email you entered is already a subscriber to this list." , 'yikes-inc-easy-mailchimp-extender' ),
+																'update-link' => __( "You're already subscribed. To update your MailChimp profile, please [link]click to send yourself an update link[/link].", 'yikes-inc-easy-mailchimp-extender' ),
+																'email-subject' => __( 'MailChimp Profile Update', 'yikes-inc-easy-mailchimp-extender' ),
+
 															);
 															$global_error_messages = get_option( 'yikes-easy-mc-global-error-messages' , $error_message_array );
 														?>
-														<p class="edit-form-description"><?php _e( "Enter your custom messages for this form below. Leave the field blank to use the default global error message." , 'yikes-inc-easy-mailchimp-extender' ); ?></p>
+														<p class="edit-form-description"><?php _e( "Customize the response messages for this form. Leave the field blank to use the default message. The messages applicable to this form depend on the Opt-in Settings chosen." , 'yikes-inc-easy-mailchimp-extender' ); ?></p>
 
-														<!-- Success Message -->
-														<label for="yikes-easy-mc-success-message"><strong><?php _e( 'Success Message' , 'yikes-inc-easy-mailchimp-extender' ); ?></strong>
+														<!-- Success Message (refactored @ 6.3.0 for double optin) -->
+														<label for="yikes-easy-mc-success-message"><strong><?php _e( 'Success: Double opt-in' , 'yikes-inc-easy-mailchimp-extender' ); ?></strong>
 															<input type="text" class="widefat" name="yikes-easy-mc-success-message" id="yikes-easy-mc-success-message" value="<?php echo isset( $error_messages['success'] ) ? stripslashes( esc_html( $error_messages['success'] ) ) : ''; ?>" placeholder="<?php echo $global_error_messages['success']; ?>" >
 														</label>
-														<!-- General Error Message -->
-														<label for="yikes-easy-mc-general-error-message"><strong><?php _e( 'General Error Message' , 'yikes-inc-easy-mailchimp-extender' ); ?></strong>
-															<input type="text" class="widefat" name="yikes-easy-mc-general-error-message" id="yikes-easy-mc-general-error-message" value="<?php echo isset( $error_messages['general-error'] ) ? stripslashes( esc_html( $error_messages['general-error'] ) ) : ''; ?>" placeholder="<?php echo $global_error_messages['general-error']; ?>" >
+														<!-- Success Message (for single optin) -->
+														<label for="yikes-easy-mc-success-single-optin-message"><strong><?php _e( 'Success: Single opt-in' , 'yikes-inc-easy-mailchimp-extender' ); ?></strong>
+															<input type="text" class="widefat" name="yikes-easy-mc-success-single-optin-message" id="yikes-easy-mc-success-single-optin-message" value="<?php echo isset( $error_messages['success-single-optin'] ) ? stripslashes( esc_html( $error_messages['success-single-optin'] ) ) : ''; ?>" placeholder="<?php echo $global_error_messages['success-single-optin']; ?>" >
 														</label>
-														<!-- Invalid Email Address Message -->
-														<label for="yikes-easy-mc-invalid-email-message"><strong><?php _e( 'Invalid Email' , 'yikes-inc-easy-mailchimp-extender' ); ?></strong>
-															<input type="text" class="widefat" name="yikes-easy-mc-invalid-email-message" id="yikes-easy-mc-invalid-email-message" value="<?php echo isset( $error_messages['invalid-email'] ) ? stripslashes( esc_html( $error_messages['invalid-email'] ) ) : ''; ?>" placeholder="<?php echo $global_error_messages['invalid-email']; ?>">
-														</label>
-														<!-- Email Address is already subscribed -->
-														<label for="yikes-easy-mc-user-subscribed-message"><strong><?php _e( 'Email Already Subscribed' , 'yikes-inc-easy-mailchimp-extender' ); ?></strong>
-															<input type="text" class="widefat" name="yikes-easy-mc-user-subscribed-message" id="yikes-easy-mc-user-subscribed-message" value="<?php echo isset( $error_messages['already-subscribed'] ) ? stripslashes( esc_html( $error_messages['already-subscribed'] ) ) : ''; ?>" placeholder="<?php echo $global_error_messages['email-exists-error']; ?>">
+														<!-- Resubscribing users when updating your profile via the form is allowed -->
+														<label for="yikes-easy-mc-user-resubscribed-success-message"><strong><?php _e( 'Success: Re-subscriber' , 'yikes-inc-easy-mailchimp-extender' ); ?></strong>
+															<input type="text" class="widefat" name="yikes-easy-mc-user-resubscribed-success-message" id="yikes-easy-mc-user-resubscribed-success-message" value="<?php echo isset( $error_messages['success-resubscribed'] ) ? stripslashes( esc_html( $error_messages['success-resubscribed'] ) ) : ''; ?>" placeholder="<?php echo $global_error_messages['success-resubscribed']; ?>">
 														</label>
 														<!-- Click the link to update user profile etc. etc. -->
-														<label for="yikes-easy-mc-user-subscribed-update-link"><strong><?php _e( 'Update Link' , 'yikes-inc-easy-mailchimp-extender' ); ?></strong>
+														<label for="yikes-easy-mc-user-subscribed-update-link"><strong><?php _e( 'Success: Re-subscriber with link to email profile update message' , 'yikes-inc-easy-mailchimp-extender' ); ?></strong>
 															<input type="text" class="widefat" name="yikes-easy-mc-user-update-link" id="yikes-easy-mc-user-update-link" value="<?php echo isset( $error_messages['update-link'] ) ? stripslashes( esc_html( $error_messages['update-link'] ) ) : ''; ?>" placeholder="<?php echo $global_error_messages['update-link']; ?>">
+														</label>
+														<!-- Email Address is already subscribed -->
+														<label for="yikes-easy-mc-user-subscribed-message"><strong><?php _e( 'Error: Re-subscribers not permitted' , 'yikes-inc-easy-mailchimp-extender' ); ?></strong>
+															<input type="text" class="widefat" name="yikes-easy-mc-user-subscribed-message" id="yikes-easy-mc-user-subscribed-message" value="<?php echo isset( $error_messages['already-subscribed'] ) ? stripslashes( esc_html( $error_messages['already-subscribed'] ) ) : ''; ?>" placeholder="<?php echo $global_error_messages['email-exists-error']; ?>">
+														</label>
+														<!-- General Error Message -->
+														<label for="yikes-easy-mc-general-error-message"><strong><?php _e( 'Error: General' , 'yikes-inc-easy-mailchimp-extender' ); ?></strong>
+															<input type="text" class="widefat" name="yikes-easy-mc-general-error-message" id="yikes-easy-mc-general-error-message" value="<?php echo isset( $error_messages['general-error'] ) ? stripslashes( esc_html( $error_messages['general-error'] ) ) : ''; ?>" placeholder="<?php echo $global_error_messages['general-error']; ?>" >
+														</label>
+
+														<!-- Email Section -->
+
+														<hr>
+														<p class="edit-form-description"><?php _e( 'Customize the profile verification email sent to re-subscribers. Leave the text unedited to use the default message. This email is used if you have "Update Existing Subscriber" set to Yes and "Send Update Email" set to Yes.' , 'yikes-inc-easy-mailchimp-extender' ); ?></p>
+														<!-- Email Subject -->
+														<label for="yikes-easy-mc-user-email-subject"><strong><?php _e( 'Email Subject' , 'yikes-inc-easy-mailchimp-extender' ); ?></strong>
+															<input type="text" class="widefat" name="yikes-easy-mc-user-email-subject" id="yikes-easy-mc-user-email-subject" value="<?php echo isset( $error_messages['email-subject'] ) ? stripslashes( esc_html( $error_messages['email-subject'] ) ) : ''; ?>" placeholder="<?php echo $global_error_messages['email-subject']; ?>">
+														</label>
+														<!-- Email Body -->
+														<label for="yikes-easy-mc-user-email-body"><strong><?php _e( 'Email Body' , 'yikes-inc-easy-mailchimp-extender' ); ?></strong>
+															<?php 
+																$editor_content = ( isset( $error_messages['email-body'] ) && ! empty( $error_messages['email-body'] ) ) ? $error_messages['email-body'] : Yikes_Inc_Easy_Mailchimp_Forms_Admin::generate_default_email_body();
+																wp_editor( $editor_content, 'yikes-easy-mc-user-email-body', array( 'textarea_id' => 'yikes-easy-mc-user-email-body' ) ); 
+															?>
 														</label>
 													</div>
 
@@ -615,20 +608,38 @@
 										<div id="postbox-container-1" class="postbox-container">
 											<div class="meta-box-sortables">
 												<div class="postbox yikes-easy-mc-postbox">
-													<h3 class="edit-form-title"><span><?php _e( "Error Message Explanation" , 'yikes-inc-easy-mailchimp-extender' ); ?></span></h3>
+													<h3 class="edit-form-title"><span><?php _e( "Custom Message Help" , 'yikes-inc-easy-mailchimp-extender' ); ?></span></h3>
 													<div class="inside">
-
 														<ul>
-															<li><strong><?php _e( 'Success Message' , 'yikes-inc-easy-mailchimp-extender' ); ?></strong> : <?php _e( 'The message displayed to the user after they have submitted the form and the data has been successfully sent to MailChimp.' , 'yikes-inc-easy-mailchimp-extender' ); ?></li>
-															<li><strong><?php _e( 'General Error Message' , 'yikes-inc-easy-mailchimp-extender' ); ?></strong> : <?php _e( 'The message displayed to the user after a generic error has occurred.' , 'yikes-inc-easy-mailchimp-extender' ); ?></li>
-															<li><strong><?php _e( 'Invalid Email' , 'yikes-inc-easy-mailchimp-extender' ); ?></strong> : <?php _e( 'The message displayed to the user after they have entered a non-valid email address.' , 'yikes-inc-easy-mailchimp-extender' ); ?></li>
-															<li><strong><?php _e( 'Email Already Subscribed' , 'yikes-inc-easy-mailchimp-extender' ); ?></strong> : <?php _e( 'The message displayed to the user after they attempt to sign up for a mailing list using an email address that is already subscribed. You can display the user email back in the response by using an <code>[email]</code> tag. This will be replaced with the email entered by the user, in the response.' , 'yikes-inc-easy-mailchimp-extender' ); ?></li>
-															<li><strong><?php _e( 'Update Link' , 'yikes-inc-easy-mailchimp-extender' ); ?></strong> : <?php _e( 'The update link is used when you allow users to generate an update email, when they are already subscribed to a list. Wrap the text you want to use as the link in <code>[link][/link]</code> tags.' , 'yikes-inc-easy-mailchimp-extender' ); ?></li>
+															<li><strong><?php _e( 'Success: Double opt-in' , 'yikes-inc-easy-mailchimp-extender' ); ?></strong> <?php _e( 'The message displayed after a double opt-in form has been submitted.' , 'yikes-inc-easy-mailchimp-extender' ); ?></li>
+															<li><strong><?php _e( 'Success Message: Single opt-in' , 'yikes-inc-easy-mailchimp-extender' ); ?></strong> <?php _e( 'The message displayed after a single opt-in form has been submitted.' , 'yikes-inc-easy-mailchimp-extender' ); ?></li>
+															<li><strong><?php _e( 'Success: Re-subscriber' , 'yikes-inc-easy-mailchimp-extender' ); ?></strong> <?php _e( 'The message displayed after a form has been submitted if you have "Update Existing Subscriber" set to Yes and "Send Update Email" set to No.' , 'yikes-inc-easy-mailchimp-extender' ); ?></li>
+															<li><strong><?php _e( 'Success: Re-subscriber with link to email profile update message' , 'yikes-inc-easy-mailchimp-extender' ); ?></strong> <?php _e( 'The message displayed after a form has been submitted if you have "Update Existing Subscriber" set to Yes and "Send Update Email" set to Yes. Wrap the text you want to be the link in <code>[link][/link]</code> tags.' , 'yikes-inc-easy-mailchimp-extender' ); ?></li>
+															<li><strong><?php _e( 'Error: Re-subscribers not permitted' , 'yikes-inc-easy-mailchimp-extender' ); ?></strong> <?php _e( 'The message displayed after an current subscriber tries to submit a form that has "Update Existing Subscriber" set to No. You can display the user\'s email in the message  using an <code>[email]</code> tag.' , 'yikes-inc-easy-mailchimp-extender' ); ?></li>
+															<li><strong><?php _e( 'Error: General' , 'yikes-inc-easy-mailchimp-extender' ); ?></strong> <?php _e( 'The message displayed if an form error has occurred.' , 'yikes-inc-easy-mailchimp-extender' ); ?></li>
 														</ul>
 
 													</div>
 													<!-- .inside -->
 												</div>
+
+												<div class="postbox yikes-easy-mc-postbox">
+													<h3 class="edit-form-title"><span><?php _e( "Email Message Help" , 'yikes-inc-easy-mailchimp-extender' ); ?></span></h3>
+													<div class="inside">
+
+														<ul>
+															<li><strong><?php _e( 'Email Subject' , 'yikes-inc-easy-mailchimp-extender' ); ?></strong> <?php _e( 'The subject of the email sent to the user.' , 'yikes-inc-easy-mailchimp-extender' ); ?></li>
+															<li><strong><?php _e( 'Email Body' , 'yikes-inc-easy-mailchimp-extender' ); ?></strong> <?php echo sprintf( __( 'The text in the profile update verification email sent to the subscriber. Wrap the text you want to be the link in <code>[link][/link]</code> tags. The link is required in the email, please don\'t leave these tags out. You can also use <code>[url]</code> tag to display your website\'s URL (e.g. %s).', 'yikes-inc-easy-mailchimp-extender' ), get_home_url() ); ?></li>
+														</ul>
+
+													</div>
+													<!-- .inside -->
+												</div>
+
+
+
+
+
 												<!-- .postbox -->
 											</div>
 											<!-- .meta-box-sortables -->
@@ -683,22 +694,22 @@
 							<div class="yikes-mc-settings-expansion-section">
 								<!-- Associated List -->
 								<p class="form-field-container"><!-- necessary to prevent skipping on slideToggle(); --><label for="associated-list"><strong><?php _e( 'Associated List' , 'yikes-inc-easy-mailchimp-extender' ); ?></strong>
-									<select name="associated-list" id="associated-list" <?php if( empty( $list_data['data'] ) ) { echo 'disabled="disabled"'; } ?> onchange="jQuery('.view-list-link').attr( 'href', '<?php echo esc_url( admin_url( 'admin.php?page=yikes-mailchimp-view-list&list-id=' ) ); ?>' + jQuery( this ).val() );">
+									<select name="associated-list" id="associated-list" <?php if ( empty( $list_data ) ) { echo 'disabled="disabled"'; } ?> onchange="jQuery('.view-list-link').attr( 'href', '<?php echo esc_url( admin_url( 'admin.php?page=yikes-mailchimp-view-list&list-id=' ) ); ?>' + jQuery( this ).val() );">
 										<?php
-										if( !empty( $list_data['data'] ) ) {
-											foreach( $list_data['data'] as $mailing_list ) {
+										if ( ! empty( $list_data ) ) {
+											foreach( $list_data as $mailing_list ) {
 												?>
-													<option <?php selected( $form['list_id'] , $mailing_list['id'] ); ?> value="<?php echo $mailing_list['id']; ?>"><?php echo stripslashes( $mailing_list['name'] ) . ' (' . $mailing_list['stats']['member_count'] . ') '; ?></option>
+												<option <?php selected( $form['list_id'] , $mailing_list['id'] ); ?> value="<?php echo $mailing_list['id']; ?>"><?php echo stripslashes( $mailing_list['name'] ) . ' (' . $mailing_list['stats']['member_count'] . ') '; ?></option>
 												<?php
 											}
 										} else {
 											?>
-												<option value="no-forms"><?php _e( 'No Lists Found' , 'yikes-inc-easy-mailchimp-extender' ); ?></option>
+											<option value="no-forms"><?php _e( 'No Lists Found' , 'yikes-inc-easy-mailchimp-extender' ); ?></option>
 											<?php
 										}
 										?>
 									</select>
-									<?php if( !empty( $list_data['data'] ) ) { ?>
+									<?php if( ! empty( $form['list_id'] ) ) { ?>
 										<p class="description view-list">
 											<a href="<?php echo esc_url( admin_url( 'admin.php?page=yikes-mailchimp-view-list&list-id=' . $form['list_id'] ) ); ?>" class="view-list-link"><?php _e( 'View List', 'yikes-inc-easy-mailchimp-extender' ); ?></a>
 										</p>
@@ -730,20 +741,6 @@
 										&nbsp;<label for="double"><input id="double" type="radio" name="single-double-optin" value="1" <?php checked( $optin_settings['optin'] , '1' ); ?>><?php _e( 'Double' , 'yikes-inc-easy-mailchimp-extender' ); ?></label>
 									</span>
 									<p class="description"><?php _e( "Double opt-in requires users to confirm their email address before being added to a list (recommended)" , 'yikes-inc-easy-mailchimp-extender' ); ?></p>
-								</label></p>
-
-								<!-- Welcome Email -->
-								<?php
-									if( !isset( $optin_settings['send_welcome_email'] ) ) {
-										$optin_settings['send_welcome_email'] = '1';
-									}
-								?>
-								<p class="form-field-container"><!-- necessary to prevent skipping on slideToggle(); --><label for="send-welcome-email"><strong><?php _e( 'Send Welcome Email' , 'yikes-inc-easy-mailchimp-extender' ); ?></strong>
-									<span class="edit-form-field-container-span">
-										<label for="send-welcome"><input id="send-welcome" type="radio" name="send-welcome-email" value="1" <?php checked( $optin_settings['send_welcome_email'] , '1' ); ?>><?php _e( 'Yes' , 'yikes-inc-easy-mailchimp-extender' ); ?></label>
-										&nbsp;<label for="do-not-send-welcome"><input id="do-not-send-welcome" type="radio" name="send-welcome-email" value="0" <?php checked( $optin_settings['send_welcome_email'] , '0' ); ?>><?php _e( 'No' , 'yikes-inc-easy-mailchimp-extender' ); ?></label>
-									</span>
-									<p class="description"><?php _e( "When a user signs up, should they receive the default welcome email?" , 'yikes-inc-easy-mailchimp-extender' ); ?></p>
 								</label></p>
 
 								<!-- Update Existing Users -->

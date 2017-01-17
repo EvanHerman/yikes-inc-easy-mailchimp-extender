@@ -80,51 +80,33 @@
 
 
 	<?php
-		// lets confirm the user has a valid API key stored
-		if( $this->is_user_mc_api_valid_form( false ) == 'valid' ) {
-			/// Check for a transient, if not - set one up for one hour
-			if ( false === ( $list_data = get_transient( 'yikes-easy-mailchimp-list-data' ) ) ) {
-				$api_key = yikes_get_mc_api_key();
-				$dash_position = strpos( $api_key, '-' );
-				if( $dash_position !== false ) {
-					$api_endpoint = 'https://' . substr( $api_key, $dash_position + 1 ) . '.api.mailchimp.com/2.0/lists/list.json';
-				}
-				$list_data = wp_remote_post( $api_endpoint, array(
-					'body' => array(
-						'apikey' => $api_key,
-						'limit' => 100
-					),
-					'timeout' => 10,
-					'sslverify' => apply_filters( 'yikes-mailchimp-sslverify', true )
-				) );
-				$list_data = json_decode( wp_remote_retrieve_body( $list_data ), true );
-				if( isset( $list_data['error'] ) ) {
-					if( WP_DEBUG || get_option( 'yikes-mailchimp-debug-status' , '' ) == '1' ) {
-						require_once YIKES_MC_PATH . 'includes/error_log/class-yikes-inc-easy-mailchimp-error-logging.php';
-						$error_logging = new Yikes_Inc_Easy_Mailchimp_Error_Logging();
-						$error_logging->yikes_easy_mailchimp_write_to_error_log( $list_data['error'], __( "Get Account Lists" , 'yikes-inc-easy-mailchimp-extender' ), "Integration Settings Page" );
-					}
-				} else {
-					// set our transient
-					set_transient( 'yikes-easy-mailchimp-list-data', $list_data, 1 * HOUR_IN_SECONDS );
-				}
-			}
-		} else {
-			?>
-			<div class="inside">
-				<?php
-					echo sprintf( __( 'Please %s to setup your integrations.', 'yikes-inc-easy-mailchimp-extender' ), '<a href="' . esc_url_raw( admin_url( 'admin.php?page=yikes-inc-easy-mailchimp-settings&section=general-settings' ) ) . '" title="' . __( 'General Settings' , 'yikes-inc-easy-mailchimp-extender' ) . '">' . __( 'enter a valid MailChimp API key' , 'yikes-inc-easy-mailchimp-extender' ) . '</a>' );
-				?>
-			</div>
-			<?php
-			return;
+	// lets confirm the user has a valid API key stored
+	if ( $this->is_user_mc_api_valid_form( false ) == 'valid' ) {
+		$list_data = yikes_get_mc_api_manager()->get_list_handler()->get_lists();
+		if ( is_wp_error( $list_data ) ) {
+			$error_logging = new Yikes_Inc_Easy_Mailchimp_Error_Logging();
+			$error_logging->maybe_write_to_log(
+				$list_data->get_error_code(),
+				__( "Get Account Lists" , 'yikes-inc-easy-mailchimp-extender' ),
+				"Integration Settings Page"
+			);
 		}
+	} else {
+		?>
+		<div class="inside">
+			<?php
+				echo sprintf( __( 'Please %s to setup your integrations.', 'yikes-inc-easy-mailchimp-extender' ), '<a href="' . esc_url_raw( admin_url( 'admin.php?page=yikes-inc-easy-mailchimp-settings&section=general-settings' ) ) . '" title="' . __( 'General Settings' , 'yikes-inc-easy-mailchimp-extender' ) . '">' . __( 'enter a valid MailChimp API key' , 'yikes-inc-easy-mailchimp-extender' ) . '</a>' );
+			?>
+		</div>
+		<?php
+		return;
+	}
 	?>
 
 <div class="inside">
 
 	<p>
-		<?php _e( 'Select which plugins or features Easy Forms for MailChimp by Yikes Inc. should integrate with. Depending on which plugins or features you choose to integrate with, an opt-in checkbox will be generated. For example, the comment form checkbox will generate a checkbox below the standard WordPress comment form to add any new commenters to a pre-determined MailChimp mailing list.' , 'yikes-inc-easy-mailchimp-extender' ); ?>
+		<?php _e( 'Select which plugins or features Easy Forms for MailChimp should integrate with. Depending on which plugins or features you choose to integrate with, an opt-in checkbox will be generated. For example, the comment form checkbox will generate a checkbox below the standard WordPress comment form to add any new commenters to a pre-determined MailChimp mailing list.' , 'yikes-inc-easy-mailchimp-extender' ); ?>
 	</p>
 
 	<!-- Settings Form -->
@@ -159,14 +141,17 @@
 								<!-- checkbox associated list -->
 								<label><?php _e( 'Associated List' , 'yikes-inc-easy-mailchimp-extender' ); ?>
 									<?php
-										if( $list_data['total'] > 0 ) {
+										if ( count( $list_data ) > 0 ) {
 											?>
-												<select class="optin-checkbox-init[<?php echo $class; ?>][associated-list] checkbox-settings-list-dropdown" data-attr-integration="<?php echo $class; ?>" name="optin-checkbox-init[<?php echo $class; ?>][associated-list]" onchange="checkForInterestGroups( jQuery( this ), jQuery( this ).find( 'option:selected' ).val(), jQuery( this ).attr( 'data-attr-integration' ) );return false;">
-														<option value="-" <?php selected( $selected_list , '-' ); ?>><?php _e( 'Select a List' , 'yikes-inc-easy-mailchimp-extender' ); ?></option>
-													<?php foreach( $list_data['data'] as $list ) { ?>
-														<option value="<?php echo $list['id']; ?>" <?php selected( $selected_list , $list['id'] ); ?>><?php echo $list['name']; ?></option>
-													<?php } ?>
-												</select>
+											<select class="optin-checkbox-init[<?php echo $class; ?>][associated-list] checkbox-settings-list-dropdown"
+											        data-attr-integration="<?php echo $class; ?>"
+											        name="optin-checkbox-init[<?php echo $class; ?>][associated-list]"
+											        onchange="checkForInterestGroups( jQuery( this ), jQuery( this ).find( 'option:selected' ).val(), jQuery( this ).attr( 'data-attr-integration' ) );return false;">
+												<option value="-" <?php selected( $selected_list , '-' ); ?>><?php _e( 'Select a List' , 'yikes-inc-easy-mailchimp-extender' ); ?></option>
+												<?php foreach( $list_data as $list ) { ?>
+													<option value="<?php echo $list['id']; ?>" <?php selected( $selected_list , $list['id'] ); ?>><?php echo $list['name']; ?></option>
+												<?php } ?>
+											</select>
 											<?php
 										} else {
 											echo '<p class="description no-lists-setup-notice"><strong>' . __( 'You have not setup any lists. You should head over to MailChimp and setup your first list.' , 'yikes-inc-easy-mailchimp-extender' ) . '</strong></p>';

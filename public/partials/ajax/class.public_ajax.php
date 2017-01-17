@@ -58,132 +58,121 @@ class YIKES_Inc_Easy_MailChimp_Public_Ajax {
 		@since v6.0.4.1
 	*/
 	public function sendUpdateProfileEmail() {
-		$user_email = $_POST['user_email'];
-		$list_id = $_POST['list_id'];
+		$user_email		= $_POST['user_email'];
+		$user_id		= md5( $user_email );
+		$list_id		= $_POST['list_id'];
+		$form_id		= $_POST['form_id'];
+		$full_site_url	= get_bloginfo( 'url' );
+		$manager		= yikes_get_mc_api_manager();
 
-		$api_key = yikes_get_mc_api_key();
-		$dash_position = strpos( $api_key, '-' );
-		$explode_key = explode( '-' , $api_key );
-		$data_center = $explode_key[1];
-		$full_site_url = get_bloginfo('url');
+		// Possibly handle errors.
+		$errors   = array();
+		$is_error = false;
 
-		// list details api call
-		if( $dash_position !== false ) {
-			$api_endpoint = 'https://' . substr( $api_key, $dash_position + 1 ) . '.api.mailchimp.com/2.0/lists/list.json';
-		}
-		$list_details = wp_remote_post( $api_endpoint, array(
-			'body' => array(
-				'apikey' => $api_key,
-				'filters' => array(
-					'list_id' => $list_id
-				),
-			),
-			'timeout' => 10,
-			'sslverify' => apply_filters( 'yikes-mailchimp-sslverify', true )
-		) );
-		$list_details = json_decode( wp_remote_retrieve_body( $list_details ), true );
-		if( isset( $list_details['error'] ) ) {
-			if( WP_DEBUG || get_option( 'yikes-mailchimp-debug-status' , '' ) == '1' ) {
-				require_once YIKES_MC_PATH . 'includes/error_log/class-yikes-inc-easy-mailchimp-error-logging.php';
-				$error_logging = new Yikes_Inc_Easy_Mailchimp_Error_Logging();
-				$error_logging->yikes_easy_mailchimp_write_to_error_log( $list_details['error'], __( "Send Update Profile Email - Get Account Lists" , 'yikes-inc-easy-mailchimp-extender' ), "class.public_ajax.php" );
-			}
+		// List details API call
+		$list_details = $manager->get_list_handler()->get_list( $list_id );
+		if ( is_wp_error( $list_details ) ) {
+			$error_logging = new Yikes_Inc_Easy_Mailchimp_Error_Logging();
+			$error_logging->maybe_write_to_log( $list_details->get_error_code(),
+				__( "Send Update Profile Email - Get Account Lists", 'yikes-inc-easy-mailchimp-extender' ),
+				"class.public_ajax.php"
+			);
+			$is_error = true;
+			$errors[] = $list_details->get_error_message();
 		}
 
-		// account details api call
-		if( $dash_position !== false ) {
-			$api_endpoint = 'https://' . substr( $api_key, $dash_position + 1 ) . '.api.mailchimp.com/2.0/helper/account-details.json';
-		}
-		$account_details = wp_remote_post( $api_endpoint, array(
-			'body' => array(
-				'apikey' => $api_key
-			),
-			'timeout' => 10,
-			'sslverify' => apply_filters( 'yikes-mailchimp-sslverify', true )
-		) );
-		$account_details = json_decode( wp_remote_retrieve_body( $account_details ), true );
-		if( isset( $account_details['error'] ) ) {
-			if( WP_DEBUG || get_option( 'yikes-mailchimp-debug-status' , '' ) == '1' ) {
-				require_once YIKES_MC_PATH . 'includes/error_log/class-yikes-inc-easy-mailchimp-error-logging.php';
-				$error_logging = new Yikes_Inc_Easy_Mailchimp_Error_Logging();
-				$error_logging->yikes_easy_mailchimp_write_to_error_log( $account_details['error'], __( "Send Update Profile Email - Get Account Details" , 'yikes-inc-easy-mailchimp-extender' ), "class.public_ajax.php" );
-			}
+		// Account details API call
+		$account_details = $manager->get_account_handler()->get_account( false );
+		if ( is_wp_error( $account_details ) ) {
+			$error_logging = new Yikes_Inc_Easy_Mailchimp_Error_Logging();
+			$error_logging->maybe_write_to_log( $account_details->get_error_code(), __( "Send Update Profile Email - Get Account Details", 'yikes-inc-easy-mailchimp-extender' ), "class.public_ajax.php" );
+			$is_error = true;
+			$errors[] = $account_details->get_error_message();
 		}
 
-		// subscriber details api call
-		if( $dash_position !== false ) {
-			$api_endpoint = 'https://' . substr( $api_key, $dash_position + 1 ) . '.api.mailchimp.com/2.0/lists/member-info.json';
+		// Subscriber details API call
+		$subscriber_account_details = $manager->get_list_handler()->get_member( $list_id, $user_id );
+		if ( is_wp_error( $subscriber_account_details ) ) {
+			$error_logging = new Yikes_Inc_Easy_Mailchimp_Error_Logging();
+			$error_logging->maybe_write_to_log( $subscriber_account_details->get_error_code(), __( "Send Update Profile Email - Get Member Info.", 'yikes-inc-easy-mailchimp-extender' ), "class.public_ajax.php" );
+			$is_error = true;
+			$errors[] = $subscriber_account_details->get_error_message();
 		}
-		$subscriber_account_details = wp_remote_post( $api_endpoint, array(
-			'body' => array(
-				'apikey' => $api_key,
-				'id'	=>	$list_id,
-				'emails'	=> array(
-					array( 'email' => $user_email ),
-				),
-			),
-			'timeout' => 10,
-			'sslverify' => apply_filters( 'yikes-mailchimp-sslverify', true )
-		) );
-		$subscriber_account_details = json_decode( wp_remote_retrieve_body( $subscriber_account_details ), true );
-		if( isset( $subscriber_account_details['error'] ) ) {
-			if( WP_DEBUG || get_option( 'yikes-mailchimp-debug-status' , '' ) == '1' ) {
-				require_once YIKES_MC_PATH . 'includes/error_log/class-yikes-inc-easy-mailchimp-error-logging.php';
-				$error_logging = new Yikes_Inc_Easy_Mailchimp_Error_Logging();
-				$error_logging->yikes_easy_mailchimp_write_to_error_log( $subscriber_account_details['error'], __( "Send Update Profile Email - Get Member Info." , 'yikes-inc-easy-mailchimp-extender' ), "class.public_ajax.php" );
+
+		// Form details API call
+		$interface = yikes_easy_mailchimp_extender_get_form_interface();
+		if ( ! empty( $interface ) && method_exists( $interface, 'get_form' ) && isset( $form_id ) ) {
+			$form_data = $interface->get_form( $form_id );
+			if ( ! empty( $form_data ) ) {
+				if ( isset( $form_data['error_messages'] ) ) {
+					if ( isset( $form_data['error_messages']['email-body'] ) && ! empty( $form_data['error_messages']['email-body'] ) ) {
+						$email_body = apply_filters( 'the_content', $form_data['error_messages']['email-body'] );
+					}
+					if ( isset( $form_data['error_messages']['email-subject'] ) && ! empty( $form_data['error_messages']['email-subject'] ) ) {
+						$email_subject = $form_data['error_messages']['email-subject'];
+					}
+				}
 			}
 		}
 
 		// check for errors in any of the calls
-		if( isset( $list_details['error'] ) || isset( $account_details['error'] ) || isset( $subscriber_account_details['error'] ) ) {
-			$error_message = ( isset( $list_details['error'] ) ) ? $list_details['error'] : false;
-			if( ! $error_message ) {
-				$error_message = ( isset( $account_details['error'] ) ) ? $account_details['error'] : false;
-				if( ! $error_message ) {
-					$error_message = ( isset( $subscriber_account_details['error'] ) ) ? $subscriber_account_details['error'] : false;
-					if( ! $error_message ) {
-						$error_message = '';
-					}
-				}
-			}
-			$errorMessage = sprintf( __( 'Error sending update profile email. <strong>Error: %s</strong>. Please contact the site administrator.' , 'yikes-inc-easy-mailchimp-extender' ), $error_message );
+		if ( $is_error ) {
+			$error_message = '<br>' . join( '<br>', $errors );
+			$errorMessage  = sprintf( __( 'Error sending update profile email. <strong>Error(s): %s</strong>. Please contact the site administrator.', 'yikes-inc-easy-mailchimp-extender' ), $error_message );
 			wp_send_json_error(
 				array(
 					'response_text' => '<div class="yikes-easy-mc-error-message">&#10005; ' . $errorMessage . '</div>',
 				)
 			);
+
 			return;
 		}
 
-		// send the email!
-		$subscriber_id = $subscriber_account_details['data'][0]['id'];
-		$explode_url = explode( '.' , $account_details['contact']['url'] );
-		$update_link_href = 'http://' . $explode_url[1] . '.' . $data_center . '.list-manage1.com/profile?u=' . $account_details['user_id'] . '&id=' . $list_id .'&e=' . $subscriber_id;
-		$subject = 'MailChimp Profile Update';
-		$headers = 'From: ' . $list_details['data'][0]['default_from_name'] . ' <' . $list_details['data'][0]['default_from_email'] . '>' . "\r\n";
-		$headers .= 'Content-type: text/html';
-			$email_content = '<p>Greetings,</p> <p>A request has been made to update your MailChimp account profile information. To do so please use the following link: <a href="' . $update_link_href . '" title="Update MailChimp Profile">Update MailChimp Profile Info.</a>';
-			$email_content .= "<p>If you did not request this update, please disregard this email.</p>";
-			$email_content .= '<p>&nbsp;</p>';
-			$email_content .= '<p>This email was sent from : ' . $full_site_url . '</p>';
-			$email_content .= '<p>&nbsp;</p>';
-			$email_content .= '<p>&nbsp;</p>';
-			$email_content .= '<p style="font-size:13px;margin-top:5em;"><em>This email was generated by the <a href="http://www.wordpress.org/plugins/yikes-inc-easy-mailchimp-extender/" target="_blank">Easy Forms for MailChimp</a> plugin, created by <a href="http://www.yikesinc.com" target="_blank">YIKES Inc.</a></em></p>';
+		// Construct the headers & email message content
+		$subscriber_id 	  = $subscriber_account_details['unique_email_id'];
+		$update_link_href = str_replace( '/subscribe', '/profile', $list_details['subscribe_url_long'] );
+		$update_link_href = add_query_arg( 'e', $subscriber_id, $update_link_href );
+		$update_link_tag  = '<a href="' . $update_link_href . '">';
+		$headers          = 'From: ' . $list_details['campaign_defaults']['from_name'] . ' <' . $list_details['campaign_defaults']['from_email'] . '>' . "\r\n";
+		$headers 		 .= 'Content-type: text/html';
+
+		if ( ! isset( $email_subject ) ) {
+			$email_subject = __( 'MailChimp Profile Update', 'yikes-inc-easy-mailchimp-extender' );
+		}
+		
+		// Check if the email_body was set
+		if ( ! isset( $email_body ) || empty( $email_body ) ) {
+
+			// The email_body should always be set, but we've made this function static just in case so we can grab our default
+			$email_body = Yikes_Inc_Easy_Mailchimp_Forms_Admin::generate_default_email_body();
+		}
+
+		// Run our replacement strings for the email body
+
+		// We let the user use [link] text [/link] for the update profile link
+		// So replace [link] with the <a> tag 
+		$email_body = str_replace( '[link]', $update_link_tag, $email_body );
+
+		// And replace [/link] with the closing </a> tag
+		$email_body = str_replace( '[/link]', '</a>', $email_body );
+
+		// We let the user use [url] for their website
+		// So replace [url] with get_home_url()
+		$email_body = str_replace( '[url]', get_home_url(), $email_body );
+
 		/* Confirm that the email was sent */
-		if ( wp_mail( $user_email, apply_filters( 'yikes-mailchimp-update-email-subject', $subject ), apply_filters( 'yikes-mailchimp-update-email-content', $email_content, $update_link_href ), $headers ) ) {
+		if ( wp_mail( $user_email, apply_filters( 'yikes-mailchimp-update-email-subject', $email_subject ), apply_filters( 'yikes-mailchimp-update-email-content', $email_body, $update_link_href ), $headers ) ) {
 			wp_send_json_success(
 				array(
-					'response_text' => '<div class="yikes-easy-mc-success-message">' . sprintf( __( '%s Update email successfully sent. Please check your inbox for the message.' , 'yikes-inc-easy-mailchimp-extender' ), '&#10004;' ) . '</div>',
+					'response_text' => '<div class="yikes-easy-mc-success-message">' . sprintf( __( '%s Update email successfully sent. Please check your inbox for the message.', 'yikes-inc-easy-mailchimp-extender' ), '&#10004;' ) . '</div>',
 				)
 			);
-			exit;
 		} else {
 			wp_send_json_error(
 				array(
-					'response_text' => '<div class="yikes-easy-mc-error-message">' . sprintf( __( '%s Email failed to send. Please contact the site administrator.' , 'yikes-inc-easy-mailchimp-extender' ), '&#10005;' ) . '</div>',
+					'response_text' => '<div class="yikes-easy-mc-error-message">' . sprintf( __( '%s Email failed to send. Please contact the site administrator.', 'yikes-inc-easy-mailchimp-extender' ), '&#10005;' ) . '</div>',
 				)
 			);
-			exit;
 		}
 	}
 }

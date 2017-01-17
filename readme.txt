@@ -3,8 +3,8 @@ Contributors: yikesinc, eherman24, liljimmi, hiwhatsup, JPry
 Donate link: https://yikesplugins.com/?utm_source=wp_plugin_repo&utm_medium=donate_link&utm_campaign=easy_forms_for_mailchimp
 Tags: MailChimp, MailChimp forms, MailChimp lists, opt-in forms, sign up form, MailChimp, email, forms, mailing lists, marketing, newsletter, sign up
 Requires at least: 4.0
-Tested up to: 4.7
-Stable tag: 6.2.4
+Tested up to: 4.7.1
+Stable tag: 6.3.0
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -12,7 +12,7 @@ The ultimate MailChimp WordPress plugin. Easily build unlimited forms for your M
 
 == Description ==
 
-Easy Forms for MailChimp allows you to add unlimited MailChimp sign up forms to your WordPress site. You can add forms to posts, pages, sidebars and other widgetized areas. Your MailChimp API Key connects your site to your MailChimp account and pulls in all of your MailChimp list information.
+Easy Forms for MailChimp allows you to add **unlimited** MailChimp sign up forms to your WordPress site. You can add forms to posts, pages, sidebars and other widgetized areas. Your MailChimp API Key connects your site to your MailChimp account and pulls in all of your MailChimp list information.
 
 MailChimp List statistics and user activity can be viewed right from your dashboard. From there, you can manage users and list settings.
 
@@ -25,33 +25,33 @@ https://www.youtube.com/watch?v=NRZbW-Da1XA
 **Features**
 
 * Build **unlimited** forms for any of your MailChimp lists with an easy-to-use admin, including multiple forms for the same list.
-* Connect your website to your MailChimp account with a MailChimp API key and a click.
-* Toggle inline forms with the click of a button.
-* Schedule form visibility by date/time.
-* Limit opt-ins by logged in users.
-* Localized data/time pickers
+* Connect your website to your MailChimp account with a MailChimp API key.
+* Add MailChimp forms to any post or page with our editor button or a shortcode.
 * Duplicate forms with a click.
-* Easily add MailChimp forms to any post or page with our custom editor button or with a shortcode.
-* Toggle on/off AJAX functionality on a per form basis.
-* Add MailChimp forms to widgetized areas with our custom widget.
-* Allow users to sign up for MailChimp interest groups, or pre-check groups in a hidden field.
-* Use our built-in CSS classes or add your own additional classes to form fields to easily style and customize forms.
 * Customize the MailChimp submission button text.
-* Shortcode available to display the number of subscribers on a given MailChimp list.
+* Display forms with inline fields.
+* Add MailChimp forms to widgetized areas with our widget.
+* Allow users to sign up for MailChimp interest groups, or pre-check groups in a hidden field.
+* Use our built-in CSS classes or add your own additional classes to form fields to style and customize forms.
+* Use a shortcode to display the number of subscribers on a given MailChimp list.
 * Fully customize the success and error messages displayed back to the user.
 * Quickly toggle between single or double opt-in.
 * Disable or Enable the default MailChimp welcome email.
-* Remove bogus subscribers from your MailChimp list through the admin interface.
-* Allow existing subscribers to update their account info (**new** now including two factor authentication).
+* Remove subscribers from your MailChimp list through our admin interface.
+* Allow existing subscribers to update their MailChimp profile information.
 * Redirect users to another post or page after form submission.
 * Enable Google reCAPTCHA protection on your forms.
+* Schedule form visibility by date/time.
+* Limit opt-ins by logged in users.
+* Use localized data/time pickers
+* Toggle on/off AJAX functionality on a per form basis.
 * Import/Export all MailChimp forms and associated settings for use on other sites with Easy Forms for MailChimp installed.
-* Seamless integration with core WordPress forms: comments and registration.
-* Seamless integration with many popular third party plugins: WooCommerce, Easy Digital Downloads, BuddyPress, BbPress, Contact Form 7.
+* Integrate with core WordPress forms: comments and registration.
+* Integrate with many popular third party plugins: WooCommerce, Easy Digital Downloads, BuddyPress, BbPress, Contact Form 7.
 * View your MailChimp account activity like subscribes and unsubscribes.
 * View your MailChimp list statistics and manage users and list settings.
-* Advanced debugging to log MailChimp errors as they occur, for easy troubleshooting.
-* Developer friendly! We've provided hooks and filters to allow developers to extend the plugin.
+* Use advanced debugging to log MailChimp errors as they occur, for easy troubleshooting.
+* Developer friendly! Use our many hooks and filters to extend the plugin.
 * Add-ons available to extend the core functionality of the plugin. [Check them out](https://yikesplugins.com/?utm_source=wp_plugin_repo&utm_medium=link&utm_campaign=easy_forms_for_mailchimp)!
 
 **Integrations**
@@ -158,82 +158,127 @@ Example:
 14. MailChimp Form Widget in the Sidebar on Live Website
 15. Editor Button to easily add Forms to Page and Posts
 16. MailChimp Form on a Page on Live Website
-17. *New* Additional Form Settings
-18. *New* Inline Form on a Page on Live Website
+17. Additional Form Settings
+18. Inline Form on a Page on Live Website
 
 == Other Notes ==
 
-Alongside the default functionality of Easy Forms for MailChimp by YIKES we've included a number of hooks and filters to allow for a higher level of customization of your MailChimp forms.
+Alongside the default functionality of Easy Forms for MailChimp we've included a number of hooks and filters to allow for a higher level of customization of your MailChimp forms.
 
-For information and code examples on how to implement the hooks and filters provided by Easy Forms for MailChimp by YIKES, please see our [Developer Documentation in the Knowledge Base](https://yikesplugins.com/support/knowledge-base/product/developer-documentation/?utm_source=wp_plugin_repo&utm_medium=link&utm_campaign=easy_forms_for_mailchimp).
+For information and code examples on how to implement the hooks and filters provided by Easy Forms for MailChimp, please see our [Developer Documentation in the Knowledge Base](https://yikesplugins.com/support/knowledge-base/product/developer-documentation/?utm_source=wp_plugin_repo&utm_medium=link&utm_campaign=easy_forms_for_mailchimp).
 
-Below you'll find a complete list of the hooks and filters available in Easy Forms for MailChimp by YIKES.
+Below you'll find a complete list of the hooks and filters available in Easy Forms for MailChimp.
 
 **Filters**
 
-* yikes-mailchimp-form-title-FORM_ID - alter the output of the form title of the specified form
-* yikes-mailchimp-form-description-FORM_ID - alter the output of the form description of the specified form
-* yikes-mailchimp-redirect-timer (ms : 1 second = 1000ms) alter the amount of time the user sees the success message before being redirected (default: 1500ms) (@parameters - $time, $form_id)
-* yikes-mailchimp-redirect-url - Alter the URL of the page that the user will be redirected too on a successful submission. (@parameters - $url, $form_id, $page_data)
-* yikes-mailchimp-before-submission - catch the merge variables of all forms before they get sent over to MailChimp
-* yikes-mailchimp-before-submission-FORM_ID - catch the merge variables of the specified form before they get sent over to MailChimp
-* yikes-mailchimp-after-submission - catch the merge variables of all forms after they get sent over to MailChimp
-* yikes-mailchimp-after-submission-FORM_ID - catch the merge variables of the specified form after they get sent over to MailChimp
-* yikes-mailchimp-user-role-access - Alter who can access this plugin page by capability (default 'manage_options' - admins)
-* yikes-mailchimp-international-phone-pattern - Alter the regex pattern for acceptable international phone number formats. (process form shortcode.php - line 295)
-* yikes-mailchimp-us-phone-pattern - Alter the regex pattern for acceptable US phone number formats. (process form shortcode.php - line 295)
-* yikes-mailchimp-zip-pattern - Alter the zip code regex pattern (Defaults to: \d{5,5}(-\d{4,4})?)
-* yikes-mailchimp-process-default-tag - Pass the default tag through a filter to populate with dynamic content from the current site (process_form_shortcode.php - line 256)
-* yikes-mailchimp-MERGE_TAG-label - Alter the specified field label text (affects standard fields & interest groups) (process_form_shortcode.php)
-* yikes-mailchimp-MERGE_TAG-description - Alter the specified field description text (affects standard fields & interest groups) (process_form_shortcode.php)  (if targeting an interest group, it will be the group_id instead of the merge tag) ($parameter - $description_content, $form_id)
-* yikes-mailchimp-address-TYPE-label - Alter the field sub-label text for a specified address field (affects only standard address fields) (process_form_shortcode.php)
-* yikes-mailchimp-form-submit-button - Alter the submit button to your liking (process_form_shortcode.php line 660) (@parameters - $submit_button, $form_id)
-* yikes-mailchimp-form-submit-button-text - Alter the submit button text value (process_form_shortcode.php line 660) (@parameters - $submit_button_text, $form_id )
-* yikes-mailchimp-form-submit-button-classes - Add additional classes to the submit button for further styling (process_form_shortcode.php line 660) (@parameters - $classes, $form_id )
-* yikes-mailchimp-form-container-class - add additional classes to the parent form container (process_form_shortcode.php line 91) (@parameters - $class_name, $form_id)
-* yikes-mailchimp-form-class - add additional classes to `<form>` element of your opt-in form (process_form_shortcode.php line 157) (@parameters - $class_name, $form_id)
-* yikes-mailchimp-front-end-form-action-links - Add custom front end action links alongside Edit Form, Customize Form etc. (@parameters - $form_action_links, $form_id, $form_name)
-* yikes-mailchimp-custom-default-value-tags - Define your own custom pre-defined tags to populate the default value fields with - these tags appear in the modal - (@parameters - $pre_defined_tags_array)
-* yikes-mailchimp-parse-custom-default-value - Process your custom default merge tag into a custom value to populate the form field with - (Goes hand in hand with `yikes-mailchimp-custom-default-value-tags` filter)
-* yikes-mailchimp-field-data - Filter form field data such as placeholder, label, etc. (@parameters - $field_array, $field, $form_id) (process_form_shortcode.php - line 258 & process_preview_form_shortcode.php - line 258)
-* yikes-mailchimp-user-subscribe-api-request - Alter the API request whenever a new user subscribed (@parameters - $api_request data, $form_id, $list_id, $email ) (process_form_shortcode.php/process_form_shortcode_ajax.php)
-* yikes-mailchimp-subscriber-count-value - Adjust the returned value for the total subscriber count of a given MailChimp mailing list as needed. (@parameters - $subscriber_count) (yikes-mailchimp-subscriber-count.php- line 80)
-* yikes-mailchimp-interest-group-checkbox-error - Alter the checkbox interest group required error response (displayed when a checkbox interest group is set to required, but is left blank)(@since 6.0.3)
-* yikes-mailchimp-frontend-content - Custom content filter for this plugin to prevent others from hooking in where not wanted.
-* yikes-mailchimp-interest-group-required-top-error - Alter the top of form error message. (displays only when interest group checkbox group is set to required and left blank (non-ajax only)) (@parameters - $count (# ofmissing required fields (integer)), $form_id )
-* yikes-mailchimp-interest-group-checkbox-error - Alter the error displayed above each required interest group checkbox group only. Effects checkbox groups only. (@ajax forms only) (@parameter - $form_id)
-* yikes-mailchimp-recaptcha-parameters - Alter any of the possible reCAPTCHA shortcode parameters (process_form_shortcode.php line 68) (parameters: $recaptcha_parameter_array, $form_id)
-* yikes-mailchimp-checkbox-integration-subscribe-api-request - Filter the API request sent to MailChimp. (parameters: @type - the integration type (ie: comment, contact_form_7 etc.)
-* yikes-mailchimp-frontend-date-picker-format - Alter the date format. For additional help, see the [knowledge base](https://yikesplugins.com/support/knowledge-base/how-do-i-change-the-frontend-date-picker-format/).
-* yikes-mailchimp-preloader - Filter allowing users to setup a custom preloader image.
-* yikes-mailchimp-update-email-subject - Filter the subject line for the email that is generated and sent when a user needs to update their subscription info.
-* yikes-mailchimp-update-email-content - Filter the content of the email that is generated and sent when a user needs to update their subscription info.
-* yikes-mailchimp-success-response - Alter the success response text (@parameters: $response_text, $form_id, $submitted_form_variables)
-* yikes-mailchimp-default-country-value - Alter the default country selected in the country dropdown.
-* yikes-mailchimp-recaptcha-required-error - Filter the error displayed back to the user when an error occurs during the reCAPTCHA submission process. (@parameters: $error_text)
-* yikes-mailchimp-sslverify - Toggle sslverify on/off when attempting to validate your API key with the MailChimp API servers.
-* yikes-mailchimp-user-already-subscribed-error - Filter the 'xxx@example.com' is already subscribed to the list. (@parameters - $response, $form_id, $user_email)
+* `yikes-mailchimp-form-title` - Alter the output of the form title of the specified form. @params: $title, $form_id
+* `yikes-mailchimp-form-description` - Alter the output of the form description of the specified form. @params: $description, $form_id
+* `yikes-mailchimp-redirect-timer` - Alter the amount of time in *milliseconds* the user sees the success message before being redirected. Default: `1500` - @params: $time, $form_id
+* `yikes-mailchimp-redirect-url` - Alter the URL of the page that the user will be redirected to on a successful submission. @params: $url, $form_id, $page_data
+* `yikes-mailchimp-filter-before-submission` and `yikes-mailchimp-filter-before-submission-{$form_id}` - Catch the merge variables before they get sent over to MailChimp. @params: $merge_variables
+* `yikes-mailchimp-after-submission` and `yikes-mailchimp-after-submission-{$form_id}` - Catch the merge variables after they get sent over to MailChimp. @params: $merge_variables
+* `yikes-mailchimp-user-role-access` - Alter who can access this plugin page by capability. Default: `manage_options` - @params: $capability
+* `yikes-mailchimp-international-phone-pattern` - Alter the regex pattern for acceptable international phone number formats. Default: `'[0-9,-,+]{1,}'` - @params: $regex_pattern
+* `yikes-mailchimp-us-phone-pattern` - Alter the regex pattern for acceptable US phone number formats. Default: `^(\([0-9]{3}\)|[0-9]{3}-)[0-9]{3}-[0-9]{4}$` - @params: $regex_pattern
+* `yikes-mailchimp-zip-pattern` - Alter the zip code regex pattern. Default: `\d{5,5}(-\d{4,4})?` - @params: $regex_pattern
+* `yikes-mailchimp-process-default-tag` - Alter the default form field value for text fields. @params: $default_value
+* `yikes-mailchimp-{$merge_tag}-label` - Alter the specified form field's or interest group's label text. @params: $label
+* `yikes-mailchimp-{$merge_tag}-description` - Alter the specified form field's or interest group's description text (note: if targeting an interest group, it will be the group_id instead of the merge tag). @params: $description_content, $form_id.
+* `yikes-mailchimp-address-{$type}-label` - Alter the field sub-label text for a specific address field (e.g. addr1). @params: $label
+* `yikes-mailchimp-form-submit-button` - Alter the submit button to your liking. @params: $submit_button, $form_id
+* `yikes-mailchimp-form-submit-button-text` - Alter the submit button text. Default: `submit` - @params: $submit_button_text, $form_id
+* `yikes-mailchimp-form-submit-button-classes` - Add additional classes to the submit button for further styling. @params: $classes, $form_id
+* `yikes-mailchimp-form-container-class` - Add additional classes to the `<section>` element container that wraps the form. @params: $class_name, $form_id
+* `yikes-mailchimp-form-class` - Add additional classes to `<form>` element of your opt-in form. @params: $class_name, $form_id
+* `yikes-mailchimp-front-end-form-action-links` - Add custom front end action links alongside Edit Form, Customize Form etc. @params: $form_action_links, $form_id, $form_name
+* `yikes-mailchimp-custom-default-value-tags` - Define your own custom pre-defined tags to populate the default value fields with - these tags appear in the modal. @params: $pre_defined_tags_array
+* `yikes-mailchimp-parse-custom-default-value` - Process your custom default merge tag into a custom value to populate the form field with (note: Goes hand in hand with `yikes-mailchimp-custom-default-value-tags` filter). @params: $default_tag
+* `yikes-mailchimp-field-data` - Filter form field data such as placeholder, label, etc. @params: $field_array, $field, $form_id
+* `yikes-mailchimp-subscriber-count-value` - Alter the returned value for the total subscriber count of a given MailChimp list. @params: $subscriber_count
+* `yikes-mailchimp-frontend-content` - Custom content filter for this plugin to prevent others from hooking in where not wanted.
+* `yikes-mailchimp-recaptcha-parameters` - Alter any of the possible reCAPTCHA shortcode parameters. @params: $recaptcha_parameter_array, $form_id
+* `yikes-mailchimp-preloader` - Add a custom preloader image. Default: WordPress's wpspin_light.gif. @params: $url_to_spinner_gif
+* `yikes-mailchimp-update-email-subject` - Filter the subject line for the email that is generated and sent when a user needs to update their subscription info. @params: $email_subject
+* `yikes-mailchimp-update-email-content` - Filter the content of the email that is generated and sent when a user needs to update their subscription info. @params: $email_body
+* `yikes-mailchimp-success-response` - Alter *any* success response text. @params: $response_text, $form_id, $submitted_form_variables
+* `yikes-mailchimp-default-country-value` - Alter the default country selected in the country dropdown. Default: `US` - @params: $country_slug
+* `yikes-mailchimp-recaptcha-required-error` - Filter the error displayed back to the user when an error occurs during the reCAPTCHA submission process. @params: $error_text, $form_id
+* `yikes-mailchimp-sslverify` - Toggle sslverify on/off when attempting to validate your API key with the MailChimp API servers. Default: `true` (on) - @params: $use_ssl
+* Version 6.3.0:
+* `yikes-mailchimp-success-double-optin-response` - Filter the "Success: Double opt-in" custom message. @params: $message, $form_id
+* `yikes-mailchimp-success-single-optin-response` - Filter the "Success: Single opt-in" custom message. @params: $message, $form_id
+* `yikes-mailchimp-success-resubscribed-response` - Filter the "Success: Re-subscriber" custom message. @params: $message, $form_id
+* `yikes-mailchimp-user-already-subscribed-link-text` - Filter the "Success: Re-subscriber with link to email profile update message" custom message. @params: $message, $form_id
+* `yikes-mailchimp-general-error-response` - Filter the "Error: General" custom message. @params: $message, $form_id
+* `yikes-mailchimp-user-already-subscribed-text` - Filter the "Error: Re-subscribers not permitted" custom message (note: this replaced `yikes-mailchimp-user-already-subscribed-error`). @params: $message, $form_id
+* `yikes-mailchimp-filter-groups-before-submission` and `yikes-mailchimp-filter-groups-before-submission-{$form_id}` - Filter the interest groups before they're submitted. @params: $groups, $form_id
+* `yikes-mailchimp-address-2-required` - Change the address 2 field's `required` value. Default: `''` (it is never required) - @params: $required, $form_id
+* `yikes-mailchimp-filter-subscribe-request` and `yikes-mailchimp-filter-subscribe-request-{$form_id}` - Filter all of the fields sent over to the MailChimp API (not just the form fields). @params: $subscribe_body, $form_id
+* `yikesinc_eme_default_api_version` - Filter the API version. Default: `3.0` - @params: $version
+* `yikesinc_eme_api_url` - Filter the URL used for a request to the MailChimp API. @params: $full_path, $path
+* `yikesinc_eme_api_user_agent` - Filter the user agent used in API request. @params: $user_agent
+* `yikesinc_eme_api_auth_headers` - Filter the authentication headers used in the API request. @params: $auth_headers, $api_version
+* `yikesinc_eme_api_headers` - Filter the headers used for a request to the MailChimp API. @params: $headers, $path, $method, $params
+* `yikesinc_eme_api_timeout` - Filter the timeout (in *seconds*) used when sending an API request. Default: `15` @params: $timeout
+* `yikesinc_eme_api_args` - Filter the arguments used for a request to the MailChimp API. @params: $args, $path, $method, $params
 
 **Actions**
 
-* yikes-mailchimp-form-submission - do something with the user email + form data on form submission
-* yikes-mailchimp-form-submission-FORM_ID - do something with the user email + form data on form submission (specific form)
-* yikes-mailchimp-before-form - output content before all forms (@parameters - $form_id)
-* yikes-mailchimp-after-form - output content after all forms (@parameters - $form_id)
-* yikes-mailchimp-before-checkbox - output custom content before the opt-in checkbox for all integrations
-* yikes-mailchimp-after-checkbox - output custom content after the opt-in checkbox for all integrations
-* yikes-mailchimp-support-page - output custom content on the support page (used to add our support form for premium users)
-* yikes-mailchimp-edit-form-section-links - add additional links to the edit form page next to 'Custom Messages'
-* yikes-mailchimp-edit-form-sections - add custom section to the edit form page
-* yikes-mailchimp-edit-form-notice - hook to display a custom notice on the edit form page
-* yikes-mailchimp-shortcode-enqueue-scripts-styles - hook to enqueue custom scripts & styles wherever the shortcode is being used (@paremeter $form_id - pass the id of the current form)
-* yikes-mailchimp-additional-form-fields - define additional fields to add below all forms (@parameter $form_data - all data associated with the given form)
-* yikes-mailchimp-custom-form-actions - add custom action links on the manage forms page (alongside Edit, Duplicate, Shortcode, Delete ) (@parameter $form_id - the id of the form)
-* yikes-mailchimp-api-curl-request - custom action hook to disable curl verification (not recommended - see the following [KB article](https://yikesplugins.com/support/knowledge-base/i-receive-the-error-ssl-certificate-problem-unable-to-get-local-issuer-certificate-why/))
-* yikes-mailchimp-list-form-fields-metabox - action hook allowing additional content to be added to the 'Form Fields' metabox on the view list page.
-* yikes-mailchimp-list-interest-groups-metabox - action hook allowing users to add additional content inside of the interest groups metabox on the view list page.
+* `yikes-mailchimp-form-submission` and `yikes-mailchimp-form-submission-{$form_id}` - Do something with the user email + form data on form submission. @params: $email, $merge_variables, $form_id, $notifications
+* `yikes-mailchimp-after-submission` and `yikes-mailchimp-after-submission-{$form_id}` - Do something with only the $merge_variables (note: these actions are fired off directly after `yikes-mailchimp-form-submission`).
+* `yikes-mailchimp-before-submission` and `yikes-mailchimp-before-submission-{$form_id}` - Do something with the $merge_variables before the API request. @params: $merge_variables
+* `yikes-mailchimp-after-form` - Do something after a form has been loaded. @params: $form_id
+* `yikes-mailchimp-before-checkbox` - Do something (e.g. output custom content) before the opt-in checkbox for all integrations. 
+* `yikes-mailchimp-after-checkbox` - Do something (e.g. output custom content) after the opt-in checkbox for all integrations
+* `yikes-mailchimp-support-page` - Do something (e.g. output custom content) on the support page (note: we use this to add our support form for premium users).
+* `yikes-mailchimp-edit-form-section-links` - Add additional links to the edit form page next to 'Custom Messages'.
+* `yikes-mailchimp-edit-form-sections` - Add custom section to the edit form page.
+* `yikes-mailchimp-edit-form-notice` - Hook to display a custom notice on the edit form page.
+* `yikes-mailchimp-shortcode-enqueue-scripts-styles` - Hook to enqueue custom scripts & styles wherever the shortcode is being used. @params: $form_id
+* `yikes-mailchimp-additional-form-fields` - Define additional fields to add below all forms. @params: $form_data
+* `yikes-mailchimp-custom-form-actions` - Add custom action links on the manage forms page (alongside Edit, Duplicate, Shortcode, Delete). @params: $form_id
+* `yikes-mailchimp-list-form-fields-metabox` - Add additional content to the 'Form Fields' metabox on the view list page.
+* `yikes-mailchimp-list-interest-groups-metabox` - Add additional content inside of the interest groups metabox on the view list page.
 
 == Changelog ==
+
+= Easy Forms for MailChimp 6.3.0 - January 17th, 2016 = 
+* Version 6.3.0's biggest change is migrating the plugin to use MailChimp's v3 API.
+* Created API classes to interact with the MailChimp API
+* Converted all supported v2 endpoints to the corresponding v3 endpoint
+* Refactored all v2 endpoints that are unsupported in v3 to use the new API classes
+* Added filters to customize API requests
+
+* Version 6.3.0 includes a suite of custom message updates:
+* Removed the "invalid email" custom message (MailChimp v3 no longer supports error codes to detect things like an invalid email error)
+* Updated the custom messages descriptions text
+* Updated the success message - it is now specifically for successful double opt-in subscriptions
+* Added two new custom success messages: "Success: Single opt-in" for successful single opt-in subscriptions, and "Success: Re-subscriber" for successful re-subscriptions
+* Added two new custom message for customizing the "update your profile link" email: "Email Subject" to customize the subject of the email, and "Email body" to customize the body of the email
+* Added/Updated filters for each custom message type. See the `Filters` section for more details.
+
+* Version 6.3.0 includes a suite of bug fixes, enhancements, and changes:
+* Added server-side validation to check for required form fields and required interest groups; this supports browsers like Safari that do not support the HTML 5 `required` attribute, or situations where the JavaScript validation fails
+* Added the HTML 5 required attribute to radio button and dropdown formatted interest groups
+* Wrapped the subscription form submit button's text in a span to better support adding custom HTML to the submit button text
+* Changed the types of values that are wiped out after submission to better support subscribing multiple times without refreshing the page
+* Added a nonce to the subscription form submission
+* Multiple interest groups can now be highlighted and added to the form at the same time (instead of one at a time)
+* Fixed the way default values work for interest groups and checkbox/dropdown/radio form fields
+* Changed the way the datepicker displays birthdays when the date format is DD/MM
+* Added error handling and a default error message for fatal server errors ('Error collecting the API response')
+* Allowing + signs for phone fields using MailChimp's international phone format (supports country codes)
+* Added transients throughout the application for common requests (e.g. MailChimp API requests and internal form data requests)
+* The "Send Welcome Email" option is no longer supported by MailChimp and has been removed
+* The second address line (addr2) is never required by default (this can be changed using a filter - see `yikes-mailchimp-address-2-required`).
+
+* Version 6.3.0 includes a lot of new filters, some renamed filters, some new parameters added, and some filters removed. For a complete list of available filters, please see the newly updated filters section. Here are some of the highlights:
+* Renamed filters `yikes-mailchimp-before-submission` and `yikes-mailchimp-before-submission-{$form_id}` to `yikes-mailchimp-filter-before-submission` and `yikes-mailchimp-filter-before-submission-{$form_id}. This prevents conflicts between the actions of the same name.
+* Renamed filter `yikes-mailchimp-user-already-subscribed-error` to `yikes-mailchimp-user-already-subscribed-text`
+* Added filters `yikes-mailchimp-filter-groups-before-submission` and `yikes-mailchimp-filter-groups-before-submission-{$form_id}` to filter the interest groups before they're submitted
+* Removed filters `yikes-mailchimp-user-subscribe-api-request`, `yikes-mailchimp-checkbox-integration-subscribe-api-request`
+* Removed filter `yikes-mailchimp-interest-group-required-top-error` - replaced by `yikes-mailchimp-required-interest-group-missing` - this handles all types of interest group fields, not just checkboxes
+* Removed filter `yikes-mailchimp-interest-group-checkbox-error` - missing fields are now highlighted
 
 = Easy Forms for MailChimp 6.2.4 - December 6th, 2016 =
 * Fixed the way birthday field data was being handled / stored

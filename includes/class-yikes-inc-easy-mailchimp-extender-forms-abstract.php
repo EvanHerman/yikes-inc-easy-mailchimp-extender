@@ -23,7 +23,6 @@ abstract class Yikes_Inc_Easy_MailChimp_Extender_Forms_Abstract implements Yikes
 			'fields'                  => array(),
 			'custom_styles'           => '',
 			'custom_template'         => '',
-			'send_welcome_email'      => 0,
 			'redirect_user_on_submit' => 0,
 			'redirect_page'           => '',
 			'submission_settings'     => array(
@@ -36,7 +35,6 @@ abstract class Yikes_Inc_Easy_MailChimp_Extender_Forms_Abstract implements Yikes
 				'optin'                => 1,
 				'update_existing_user' => 1,
 				'send_update_email'    => 1,
-				'send_welcome_email'   => 1,
 			),
 			'form_settings'           => array(
 				'yikes-easy-mc-form-class-names'                 => '',
@@ -53,12 +51,14 @@ abstract class Yikes_Inc_Easy_MailChimp_Extender_Forms_Abstract implements Yikes
 				'yikes-easy-mc-form-login-required'              => 0,
 				'yikes-easy-mc-form-restriction-login-message'   => __( 'You need to be logged in to sign up for this mailing list.', 'yikes-inc-easy-mailchimp-extender' ),
 			),
-			'error_messages'          => array(
-				'success'            => '',
-				'general-error'      => '',
-				'invalid-email'      => '',
-				'already-subscribed' => '',
-				'update-link'        => '',
+			'error_messages'			=> array(
+				'success'				=> '',
+				'success-single-optin'	=> '',
+				'success-resubscribed'	=> '',
+				'general-error'			=> '',
+				'already-subscribed'	=> '',
+				'update-link'			=> '',
+				'email-subject'			=> '',
 			),
 			'custom_notifications'    => '',
 			'impressions'             => 0,

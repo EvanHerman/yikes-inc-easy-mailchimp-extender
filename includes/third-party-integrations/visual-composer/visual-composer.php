@@ -1,7 +1,7 @@
 <?php
 
 /*
-*	Custom class to allow for YIKES MailChimp to extend visual composer
+*	Custom class to allow Easy Forms for MailChimp to extend visual composer
 *	@since 6.0.3
 */
 
@@ -90,7 +90,7 @@ class YIKES_MailChimp_Visual_Composer_Extension {
 	 * @since 6.0.3
 	 */
 	public function yikes_mailchimp_logo_vc_section() {
-		return '<img style="width:250px;display:block;margin:0 auto;" src="' . YIKES_MC_URL . 'includes/images/Welcome_Page/mailchimp-logo.png" title="' . __( 'Easy Forms for MailChimp by YIKES', 'yikes-inc-easy-mailchimp-extender' ) . '" />';
+		return '<img style="width:250px;display:block;margin:0 auto;" src="' . YIKES_MC_URL . 'includes/images/Welcome_Page/mailchimp-logo.png" title="' . __( 'Easy Forms for MailChimp', 'yikes-inc-easy-mailchimp-extender' ) . '" />';
 	}
 
 	/**

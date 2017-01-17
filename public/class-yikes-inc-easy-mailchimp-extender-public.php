@@ -2,7 +2,7 @@
 /**
  * The public-facing functionality of the plugin.
  *
- * @link       http://www.yikesinc.com/
+ * @link       https://www.yikesplugins.com/
  * @since      6.0.0
  *
  * @package    Yikes_Inc_Easy_Mailchimp_Extender
@@ -12,7 +12,7 @@
  *
  * @package    Yikes_Inc_Easy_Mailchimp_Extender
  * @subpackage Yikes_Inc_Easy_Mailchimp_Extender/public
- * @author     YIKES Inc. <info@yikesinc.com>
+ * @author     YIKES Inc. <plugins@yikesinc.com>
  */
 class Yikes_Inc_Easy_Mailchimp_Extender_Public {
 	/**
@@ -66,7 +66,7 @@ class Yikes_Inc_Easy_Mailchimp_Extender_Public {
 		// Filter the user already subscribed response with a custom message
 		add_filter( 'yikes-easy-mailchimp-update-existing-subscriber-text', array( $this, 'yikes_custom_already_subscribed_response' ), 10, 3 );
 		// Filter the user already subscribed response with a custom message
-		add_filter( 'yikes-easy-mailchimp-user-already-subscribed-text', array( $this, 'yikes_custom_already_subscribed_text' ), 10, 3 );
+		// add_filter( 'yikes-easy-mailchimp-user-already-subscribed-text', array( $this, 'yikes_custom_already_subscribed_text' ), 10, 3 );
 	}
 
 	/**
@@ -93,8 +93,8 @@ class Yikes_Inc_Easy_Mailchimp_Extender_Public {
 	**/
 	public function load_checkbox_integration_classes() {
 		// store our options
-		$integrations = get_option( 'optin-checkbox-init' , '' );
-		if( !empty( $integrations ) ) {
+		$integrations = get_option( 'optin-checkbox-init' , array() );
+		if( ! empty( $integrations ) && is_array( $integrations ) ) {
 			// load our mail integrations class
 			require_once YIKES_MC_PATH . 'public/classes/checkbox-integrations.php';
 			// loop over selected classes and load them up!
@@ -134,7 +134,8 @@ class Yikes_Inc_Easy_Mailchimp_Extender_Public {
 			$form_settings = self::yikes_retrieve_form_settings( $form_id );
 			if( isset( $_POST ) && !empty( $_POST ) && isset( $form_id ) && $form_settings['submission_settings']['ajax'] == 0 ) {
 				if( $_POST['yikes-mailchimp-submitted-form'] == $form_id ) { // ensure we only process the form that was submitted
-					// lets include our form processing file
+
+					// Lets include our form processing file
 					include_once( YIKES_MC_PATH . 'public/partials/shortcodes/process/process_form_submission.php' );
 					if( $form_settings['submission_settings']['redirect_on_submission'] == '1' ) {
 						if( $form_submitted == 1 ) {

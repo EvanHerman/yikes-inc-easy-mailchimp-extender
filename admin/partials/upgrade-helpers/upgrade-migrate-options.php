@@ -5,7 +5,7 @@
 	*	Helper File , called inside class-yikes-inc-easy-mailchimp-extender-admin.php ( migrate_old_yks_mc_options() )
 	*	@since v6.0
 	* 	@Author: Yikes Inc. 
-	*	@Contact: http://www.yikesinc.com/
+	*	@Contact: https://www.yikesplugins.com/
 	*/
 		
 	// enqueue the styles for our migration page..
@@ -18,8 +18,11 @@
 	$global_error_messages = array(
 		'success' => __( $old_plugin_options['single-optin-message'] , 'yikes-inc-easy-mailchimp-extender' ),
 		'general-error' => __( "Whoops! It looks like something went wrong. Please try again." , 'yikes-inc-easy-mailchimp-extender' ),
-		'invalid-email' => __( "Please provide a valid email address." , 'yikes-inc-easy-mailchimp-extender' ),
-		'email-exists-error' => __( "The provided email is already subscribed to this list." , 'yikes-inc-easy-mailchimp-extender' )
+		'email-exists-error' => __( "The email you entered is already a subscriber to this list." , 'yikes-inc-easy-mailchimp-extender' ),
+		'success-single-optin' => __( 'Thank you for subscribing!' , 'yikes-inc-easy-mailchimp-extender' ),
+		'success-resubscribed' => __( 'Thank you for already being a subscriber! Your profile info has been updated.', 'yikes-inc-easy-mailchimp-extender' ),
+		'update-link' => __( "To update your MailChimp profile, please [link]click to send yourself an update link[/link].", 'yikes-inc-easy-mailchimp-extender' ),
+		'email-subject' => __( 'MailChimp Profile Update', 'yikes-inc-easy-mailchimp-extender' ),
 	);
 	
 	// if old options are defined...

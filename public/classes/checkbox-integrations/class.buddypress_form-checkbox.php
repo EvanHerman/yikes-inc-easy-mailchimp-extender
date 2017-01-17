@@ -21,7 +21,7 @@
 		* Outputs a checkbox, if user is not already subscribed
 		*/
 		public function output_checkbox() {
-			if( $this->is_user_already_subscribed( $this->type ) == '1' ) {
+			if ( $this->is_user_already_subscribed( $this->type ) ) {
 				return;
 			}
 			?>
@@ -60,5 +60,3 @@
 	
 	}
 	new Yikes_Easy_MC_BuddyPress_Checkbox_Class;
-	
-?>

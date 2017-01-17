@@ -1,81 +1,76 @@
 <?php
 
-// print_r( $interest_groupings );
-
-$integration_options = get_option( 'optin-checkbox-init' , '' );	
-
-// print_r( $integration_options );
-
-// confirm interest groups are set, else bail
-
-/*
-* Confirm the interest groups is an array and not empty or else bail
-*/
-if( isset( $interest_groupings['error'] ) ) {
-	echo '<p class="description no-interest-groupings-enabled-message">' . $interest_groupings['error'] . '</p>';
-	return;
-}
+$integration_options = get_option( 'optin-checkbox-init' , '' );
 
 ?>
 <br />
 <p class="description"><?php _e( 'It looks like we found some interest groups! Pre-select interest groups for this integration below.', 'yikes-inc-easy-mailchimp-extender' ); ?></p>
-<p class="description"><?php _e( 'note: the interest groups will not show up on the front end for your users to select from.', 'yikes-inc-easy-mailchimp-extender' ); ?></p>
+<p class="description"><?php _e( '<strong>Note:</strong> the interest groups will not show up on the front end for your users to select from.', 'yikes-inc-easy-mailchimp-extender' ); ?></p>
 <?php
 
 /*
 *	Loop over interest groups
 */
-foreach( $interest_groupings as $interest_group ) {
-	
-	$interest_group_id = $interest_group['id'];
-	$interest_group_type = ( isset( $interest_group['form_field'] ) ) ? $interest_group['form_field'] : '';
-	$interest_groups_fields = ( isset( $interest_group['groups'] ) ) ? $interest_group['groups'] : false; // if not set return false
-	$selected_interest_groups = ( isset( $integration_options[$integration_type]['interest-groups'] ) ) ? $integration_options[$integration_type]['interest-groups'] : array();
+foreach( $interest_groupings as $id => $interest_group ) {
+
+	$interest_group_type      = isset( $interest_group['type'] ) ? $interest_group['type'] : '';
+	$interest_groups_fields   = isset( $interest_group['items'] ) ? $interest_group['items'] : array();
+	$selected_interest_groups = isset( $integration_options[ $integration_type ]['interest-groups'] ) ? $integration_options[ $integration_type ]['interest-groups'] : array();
 	?>
 	<section class="interest-group-section">
-		<strong class="interest-group-section-title"><?php echo ucwords( $interest_group['name'] ); ?></strong>
+		<strong class="interest-group-section-title"><?php echo ucwords( $interest_group['title'] ); ?></strong>
 	<?php
 	/*
 	*	Loop over the interest group types, and return the appropriate type
-	*/	
+	*/
+	$checked = $selected = '';
 	switch( $interest_group_type ) {
 	
 		default:
 		case 'hidden':
 		case 'checkboxes':
-			if( $interest_groups_fields ) {
-				foreach( $interest_groups_fields as $field ) {
-				?>
-					<label>
-						<input type="checkbox" name="optin-checkbox-init[<?php echo $integration_type; ?>][interest-groups][<?php echo $interest_group_id; ?>][]" value="<?php echo $field['name']; ?>" <?php if( isset( $selected_interest_groups[$interest_group_id] ) ) {  if( in_array( $field['name'], $selected_interest_groups[$interest_group_id] ) ) { ?> checked="checked" <?php } } ?>>
-						<?php echo $field['name']; ?>
-					</label>
-				<?php
+			foreach( $interest_groups_fields as $field_id => $field ) {
+				if ( isset( $selected_interest_groups[ $id ] ) ) {
+					$checked = checked( true, in_array( $field_id, $selected_interest_groups[ $id ] ), false );
 				}
+				?>
+				<label>
+					<input type="checkbox"
+					       name="optin-checkbox-init[<?php echo $integration_type; ?>][interest-groups][<?php echo $id; ?>][]"
+					       value="<?php echo $field_id; ?>" <?php echo $checked ?>>
+					<?php echo $field['name']; ?>
+				</label>
+				<?php
 			}
 			break;
 			
 		case 'radio':
-			if( $interest_groups_fields ) {
-				$x = 1; //  used to decide which is pre-checked
-				foreach( $interest_groups_fields as $field ) {
-				?>
-					<label>
-						<input type="radio" name="optin-checkbox-init[<?php echo $integration_type; ?>][interest-groups][<?php echo $interest_group_id; ?>][]" value="<?php echo $field['name']; ?>" <?php if( isset( $selected_interest_groups[$interest_group_id] ) ) {  if( in_array( $field['name'], $selected_interest_groups[$interest_group_id] ) ) { ?> checked="checked" <?php } } elseif( $x == 1 ) { ?> checked="checked" <?php }?>>
-						<?php echo $field['name']; ?>
-					</label>
-				<?php
-					$x++;
+			foreach ( $interest_groups_fields as $field_id => $field ) {
+				if ( isset( $selected_interest_groups[ $id ] ) ) {
+					$checked = checked( true, in_array( $field_id, $selected_interest_groups[ $id ] ), false );
 				}
+				?>
+				<label>
+					<input type="radio"
+					       name="optin-checkbox-init[<?php echo $integration_type; ?>][interest-groups][<?php echo $id; ?>][]"
+					       value="<?php echo $field_id; ?>" <?php echo $checked; ?>>
+					<?php echo $field['name']; ?>
+				</label>
+				<?php
 			}
+
 			break;
 			
 		case 'dropdown':
-			if( $interest_groups_fields ) {
-				?><select name="optin-checkbox-init[<?php echo $integration_type; ?>][interest-groups][<?php echo $interest_group_id; ?>][]"><?php
-				foreach( $interest_groups_fields as $field ) {
+			if ( ! empty( $interest_groups_fields ) ) {
 				?>
-					<option  value="<?php echo $field['name']; ?>" <?php if( isset( $selected_interest_groups[$interest_group_id] ) ) {  if( in_array( $field['name'], $selected_interest_groups[$interest_group_id] ) ) { ?> selected="selected" <?php } } ?>>
+				<select name="optin-checkbox-init[<?php echo $integration_type; ?>][interest-groups][<?php echo $id; ?>][]">
+				<?php foreach( $interest_groups_fields as $field_id => $field ) {
+					if ( isset( $selected_interest_groups[ $id ] ) ) {
+						$selected = selected( true, in_array( $field_id, $selected_interest_groups[ $id ] ), false );
+					}
+					?>
+					<option value="<?php echo $field_id; ?>" <?php echo $selected; ?>>
 						<?php echo $field['name']; ?>
 					</option>
 				<?php
@@ -90,5 +85,3 @@ foreach( $interest_groupings as $interest_group ) {
 	</section>
 	<?php
 }
-
-?>

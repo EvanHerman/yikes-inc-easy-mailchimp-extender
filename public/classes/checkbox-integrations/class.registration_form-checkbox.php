@@ -22,7 +22,7 @@ class Yikes_Easy_MC_Registration_Checkbox_Class extends Yikes_Easy_MC_Checkbox_I
 		// alter the error message, if there was an error with the users email address
 		add_filter( 'wp_login_errors', array( $this , 'yikes_reg_complete_msg' ), 10,  2 );
 	}
-	
+
 	/**
 	* Outputs a checkbox
 	*/
@@ -51,17 +51,15 @@ class Yikes_Easy_MC_Registration_Checkbox_Class extends Yikes_Easy_MC_Checkbox_I
 		// build our merge vars
 		$merge_variables = $this->user_merge_vars( $user );
 		// only subscribe the user if they aren't already on the list
-		if( $this->is_new_registration_already_subscribed( $user->user_email , 'registration_form' ) != '1' ) {
+		if ( $this->is_user_already_subscribed( 'registration_form', $user->user_email ) === false ) {
 			$this->subscribe_user_integration( sanitize_email( $user->user_email ) , $this->type , $merge_variables );
 		} else {
 			// add a temporary option to pass our email address and let the user know they are already subscribed
-			$user_already_subscirbed_message = sprintf( __( "You have not been subscribed to our mailing list. %s is already subscribed to this list.", "yikes-inc-easy-mailchimp-extender" ), $user->user_email  );
-			add_option( 'yikes_register_subscription_error' , $user_already_subscirbed_message );
+			$user_already_subscribed_message = sprintf( __( "You have not been subscribed to our mailing list. %s is already subscribed to this list.", "yikes-inc-easy-mailchimp-extender" ), $user->user_email  );
+			add_option( 'yikes_register_subscription_error' , $user_already_subscribed_message );
 		}
 	}
 	
 	/* End registration form functions */
 }
 new Yikes_Easy_MC_Registration_Checkbox_Class;
-
-?>
