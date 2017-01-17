@@ -131,20 +131,22 @@ Example:
 - `yikes-mailchimp-recaptcha-required-error` - Filter the error displayed back to the user when an error occurs during the reCAPTCHA submission process. @params: $error_text, $form_id
 - `yikes-mailchimp-sslverify` - Toggle sslverify on/off when attempting to validate your API key with the MailChimp API servers. Default: `true` (on) - @params: $use_ssl
 - Version 6.3.0:
-- `yikes-mailchimp-success-double-optin-response` - Filter the "Success: Double opt-in" custom message. @params: $message, $form_id
-- `yikes-mailchimp-success-single-optin-response` - Filter the "Success: Single opt-in" custom message. @params: $message, $form_id
-- `yikes-mailchimp-success-resubscribed-response` - Filter the "Success: Re-subscriber" custom message. @params: $message, $form_id
-- `yikes-mailchimp-user-already-subscribed-link-text` - Filter the "Success: Re-subscriber with link to email profile update message" custom message. @params: $message, $form_id
-- `yikes-mailchimp-general-error-response` - Filter the "Error: General" custom message. @params: $message, $form_id
-- `yikes-mailchimp-user-already-subscribed-text` - Filter the "Error: Re-subscribers not permitted" custom message (note: this replaced `yikes-mailchimp-user-already-subscribed-error`). @params: $message, $form_id
-- `yikes-mailchimp-filter-groups-before-submission` and `yikes-mailchimp-filter-groups-before-submission-{$form_id}` - Filter the interest groups before they're submitted. @params: $groups, $form_id
-- `yikesinc_eme_default_api_version` - Filter the API version. Default: `3.0` - @params: $version
-- `yikesinc_eme_api_url` - Filter the URL used for a request to the MailChimp API. @params: $full_path, $path
-- `yikesinc_eme_api_user_agent` - Filter the user agent used in API request. @params: $user_agent
-- `yikesinc_eme_api_auth_headers` - Filter the authentication headers used in the API request. @params: $auth_headers, $api_version
-- `yikesinc_eme_api_headers` - Filter the headers used for a request to the MailChimp API. @params: $headers, $path, $method, $params
-- `yikesinc_eme_api_timeout` - Filter the timeout (in *seconds*) used when sending an API request. Default: `15` @params: $timeout
-- `yikesinc_eme_api_args` - Filter the arguments used for a request to the MailChimp API. @params: $args, $path, $method, $params
+* `yikes-mailchimp-success-double-optin-response` - Filter the "Success: Double opt-in" custom message. @params: $message, $form_id
+* `yikes-mailchimp-success-single-optin-response` - Filter the "Success: Single opt-in" custom message. @params: $message, $form_id
+* `yikes-mailchimp-success-resubscribed-response` - Filter the "Success: Re-subscriber" custom message. @params: $message, $form_id
+* `yikes-mailchimp-user-already-subscribed-link-text` - Filter the "Success: Re-subscriber with link to email profile update message" custom message. @params: $message, $form_id
+* `yikes-mailchimp-general-error-response` - Filter the "Error: General" custom message. @params: $message, $form_id
+* `yikes-mailchimp-user-already-subscribed-text` - Filter the "Error: Re-subscribers not permitted" custom message (note: this replaced `yikes-mailchimp-user-already-subscribed-error`). @params: $message, $form_id
+* `yikes-mailchimp-filter-groups-before-submission` and `yikes-mailchimp-filter-groups-before-submission-{$form_id}` - Filter the interest groups before they're submitted. @params: $groups, $form_id
+* `yikes-mailchimp-address-2-required` - Change the address 2 field's `required` value. Default: `''` (it is never required) - @params: $required, $form_id
+* `yikes-mailchimp-filter-subscribe-request` and `yikes-mailchimp-filter-subscribe-request-{$form_id}` - Filter all of the fields sent over to the MailChimp API (not just the form fields). @params: $subscribe_body, $form_id
+* `yikesinc_eme_default_api_version` - Filter the API version. Default: `3.0` - @params: $version
+* `yikesinc_eme_api_url` - Filter the URL used for a request to the MailChimp API. @params: $full_path, $path
+* `yikesinc_eme_api_user_agent` - Filter the user agent used in API request. @params: $user_agent
+* `yikesinc_eme_api_auth_headers` - Filter the authentication headers used in the API request. @params: $auth_headers, $api_version
+* `yikesinc_eme_api_headers` - Filter the headers used for a request to the MailChimp API. @params: $headers, $path, $method, $params
+* `yikesinc_eme_api_timeout` - Filter the timeout (in *seconds*) used when sending an API request. Default: `15` @params: $timeout
+* `yikesinc_eme_api_args` - Filter the arguments used for a request to the MailChimp API. @params: $args, $path, $method, $params
 
 ###### Hooks
 

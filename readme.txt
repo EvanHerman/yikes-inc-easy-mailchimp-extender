@@ -213,6 +213,7 @@ Below you'll find a complete list of the hooks and filters available in Easy For
 * `yikes-mailchimp-user-already-subscribed-text` - Filter the "Error: Re-subscribers not permitted" custom message (note: this replaced `yikes-mailchimp-user-already-subscribed-error`). @params: $message, $form_id
 * `yikes-mailchimp-filter-groups-before-submission` and `yikes-mailchimp-filter-groups-before-submission-{$form_id}` - Filter the interest groups before they're submitted. @params: $groups, $form_id
 * `yikes-mailchimp-address-2-required` - Change the address 2 field's `required` value. Default: `''` (it is never required) - @params: $required, $form_id
+* `yikes-mailchimp-filter-subscribe-request` and `yikes-mailchimp-filter-subscribe-request-{$form_id}` - Filter all of the fields sent over to the MailChimp API (not just the form fields). @params: $subscribe_body, $form_id
 * `yikesinc_eme_default_api_version` - Filter the API version. Default: `3.0` - @params: $version
 * `yikesinc_eme_api_url` - Filter the URL used for a request to the MailChimp API. @params: $full_path, $path
 * `yikesinc_eme_api_user_agent` - Filter the user agent used in API request. @params: $user_agent
