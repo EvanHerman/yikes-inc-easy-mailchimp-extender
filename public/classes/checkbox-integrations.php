@@ -155,10 +155,26 @@
 				'email_address'    => sanitize_email( $email ),
 				'merge_fields'     => apply_filters( 'yikes-mailchimp-checkbox-integration-merge-variables', $merge_vars, $type ),
 				'status_if_new'    => 'pending',
-				'interests'        => $interests,
-				'timestamp_signup' => current_time( 'timestamp', true ),
+				'timestamp_signup' => (string) current_time( 'timestamp', true ),
 				'ip_signup'        => $user_ip,
 			);
+
+			// Only re-format and add interest groups if not empty
+			if ( ! empty( $interests ) ) {
+
+				$groups = array();
+
+				// Need to reformat interest groups array as $interest_group_ID => true
+				foreach( $interests as $interest ) {
+					if ( is_array( $interest ) ) {
+						foreach( $interest as $group_id ) {
+							$groups[ $group_id ] = true;
+						}
+					}
+				}
+
+				$data['interests'] = $groups;
+			}
 
 			// Subscribe the user to the list via the API.
 			$response = yikes_get_mc_api_manager()->get_list_handler()->member_subscribe( $list_id, $id, $data );

@@ -35,10 +35,10 @@ class Yikes_Easy_MC_CF7_Checkbox_Class extends Yikes_Easy_MC_Checkbox_Integratio
 	* @return boolean
 	*/
 	public function init() {
-		if( ! function_exists( 'wpcf7_add_shortcode' ) ) {
+		if( ! function_exists( 'wpcf7_add_form_tag' ) ) {
 			return false;
 		}
-		wpcf7_add_shortcode( 'yikes_mailchimp_checkbox', array( $this, 'yikes_get_checkbox' ) );
+		wpcf7_add_form_tag( 'yikes_mailchimp_checkbox', array( $this, 'yikes_get_checkbox' ) );
 		return true;
 	}
 	
@@ -73,8 +73,10 @@ class Yikes_Easy_MC_CF7_Checkbox_Class extends Yikes_Easy_MC_Checkbox_Integratio
 			$posted_data = $submission->get_posted_data();
 			// store the email -- this needs to be more dynamic (find string with containing string email?)
 			$email = ( isset( $posted_data['your-email'] ) ) ? $posted_data['your-email'] : '';
+			// Default the merge_values
+			$merge_values = array( 'email' => $email );
 			// submit this subscriber
-			return $this->subscribe_user_integration( $email, $this->type, apply_filters( 'yikes-mailchimp-contact-form-7', array(), $posted_data ) );
+			return $this->subscribe_user_integration( $email, $this->type, apply_filters( 'yikes-mailchimp-contact-form-7', $merge_values, $posted_data ) );
 		}
 	}
 	
