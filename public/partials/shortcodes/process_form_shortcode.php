@@ -670,6 +670,12 @@ function process_mailchimp_shortcode( $atts ) {
 										}
 									}
 
+									// Never force addr2 to be required
+									if ( $type === 'addr2' ) {
+										$addr2_field_array = $field_array;
+										$addr2_field_array['required'] = apply_filters( 'yikes-mailchimp-address-2-required', '', $form_id );
+									}
+
 									switch( $type ) {
 
 										default:
@@ -688,7 +694,7 @@ function process_mailchimp_shortcode( $atts ) {
 													</span>
 												<?php } ?>
 												
-												<input <?php echo implode( ' ' , $field_array ); ?> type="text" value="<?php if( isset( $_POST[$field['merge']][$type] ) && $form_submitted != 1 ) { echo $_POST[$field['merge']][$type]; } ?>">
+												<input <?php if ( $type === 'addr2' ) { echo implode( ' ' , $addr2_field_array ); } else { echo implode( ' ' , $field_array ); } ?> type="text" value="<?php if( isset( $_POST[$field['merge']][$type] ) && $form_submitted != 1 ) { echo $_POST[$field['merge']][$type]; } ?>">
 
 											</label>
 											<?php
