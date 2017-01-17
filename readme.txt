@@ -269,6 +269,7 @@ Version 6.3.0 includes a suite of bug fixes, enhancements, and changes:
 * Added error handling and a default error message for fatal server errors ('Error collecting the API response')
 * Allowing + signs for phone fields using MailChimp's international phone format (supports country codes)
 * Added transients throughout the application for common requests (e.g. MailChimp API requests and internal form data requests)
+* The "Send Welcome Email" option is no longer support by MailChimp and has been removed
 
 Version 6.3.0 includes a lot of new filters, some renamed filters, some new parameters added, and some filters removed. For a complete list of available filters, please see the newly updated filters section. Here are some of the highlights:
 * Renamed filters `yikes-mailchimp-before-submission` and `yikes-mailchimp-before-submission-{$form_id}` to `yikes-mailchimp-filter-before-submission` and `yikes-mailchimp-filter-before-submission-{$form_id}. This prevents conflicts between the actions of the same name.
