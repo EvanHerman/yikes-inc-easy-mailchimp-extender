@@ -1,16 +1,34 @@
 <?php
 /* The template file for displaying our stats in the Admin dashboard widget */
 
-if ( isset( $list_data ) && isset( $list_data['id'] ) ) {
+if ( isset( $list_data ) ) {
+	if ( isset( $list_data['id'] ) ) {
 
 	// When a user selects a list from the dropdown, capture the array value here
 	$list = $list_data;
-} else {
+	} else {
 
-	// On initial page load, we grab all of the lists
-	// So we need to default to the first item in the list
-	$list = $list_data[ array_keys( $list_data )[0] ];
+		// On initial page load, we grab all of the lists and we need to default to the first item in the list
+
+		// Get the list IDs, capture the first list ID
+		$first_list_id = '';
+		$list_ids = array_keys( $list_data );
+		if ( is_array( $list_ids ) && isset( $list_ids[0] ) ) {
+			$first_list_id = $list_ids[0];
+		}
+
+		// Set our $list value to the first list in the list_data array
+		if ( isset( $list_data[ $first_list_id ] ) && is_array( $list_data[ $first_list_id ] ) && isset( $list_data[ $first_list_id ]['id'] ) ) {
+			$list = $list_data[ $first_list_id ];
+		}
+	}
 }
+
+// Make sure we have our variables before continuing
+if ( empty( $list_data ) || empty( $list ) ) {
+	return;
+}
+
 ?>
 <section id="yikes-easy-mc-widget-stat-holder">
 	<h3><?php echo $list['name']; ?> <small><a href="<?php echo esc_url_raw( admin_url( 'admin.php?page=yikes-mailchimp-view-list&list-id=' . $list['id'] . '' ) ); ?>" title="<?php _e( 'view List' , 'yikes-inc-easy-mailchimp-extender' ); ?>"><?php _e( 'view list' , 'yikes-inc-easy-mailchimp-extender' ); ?></a></small></h3>
