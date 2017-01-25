@@ -4,7 +4,7 @@ Donate link: https://yikesplugins.com/?utm_source=wp_plugin_repo&utm_medium=dona
 Tags: MailChimp, MailChimp forms, MailChimp lists, opt-in forms, sign up form, MailChimp, email, forms, mailing lists, marketing, newsletter, sign up
 Requires at least: 4.0
 Tested up to: 4.7.1
-Stable tag: 6.3.1
+Stable tag: 6.3.2
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -241,6 +241,15 @@ Below you'll find a complete list of the hooks and filters available in Easy For
 * `yikes-mailchimp-list-interest-groups-metabox` - Add additional content inside of the interest groups metabox on the view list page.
 
 == Changelog ==
+
+= Easy Forms for MailChimp 6.3.2 - January 25th, 2016 = 
+* Custom message visibility is now dictated by your opt-in settings
+* Fixed an issue with the PHP `array_keys` function that breaks PHP versions < 5.4
+* Hidden interest groups now work properly and are defined as checkboxes for consistency with MailChimp
+* Some minor copy changes and a new .pot file
+
+= Easy Forms for MailChimp 6.3.1 - January 18th, 2016 = 
+* Generated new .pot file for proper i18n/l10n
 
 = Easy Forms for MailChimp 6.3.0 - January 17th, 2016 = 
 * Version 6.3.0's biggest change is migrating the plugin to use MailChimp's v3 API.

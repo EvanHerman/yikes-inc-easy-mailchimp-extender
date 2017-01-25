@@ -553,7 +553,7 @@
 															);
 															$global_error_messages = get_option( 'yikes-easy-mc-global-error-messages' , $error_message_array );
 														?>
-														<p class="edit-form-description"><?php _e( "Customize the response messages for this form. Leave the field blank to use the default message. The messages applicable to this form depend on the Opt-in Settings chosen." , 'yikes-inc-easy-mailchimp-extender' ); ?></p>
+														<p class="edit-form-description"><?php _e( "Customize the response messages for this form. Leave the field blank to use the default message. The messages shown below depend on the Opt-in Settings chosen." , 'yikes-inc-easy-mailchimp-extender' ); ?></p>
 
 														<!-- Success Message (refactored @ 6.3.0 for double optin) -->
 														<label for="yikes-easy-mc-success-message"><strong><?php _e( 'Success: Double opt-in' , 'yikes-inc-easy-mailchimp-extender' ); ?></strong>
@@ -583,18 +583,20 @@
 														<!-- Email Section -->
 
 														<hr>
-														<p class="edit-form-description"><?php _e( 'Customize the profile verification email sent to re-subscribers. Leave the text unedited to use the default message. This email is used if you have "Update Existing Subscriber" set to Yes and "Send Update Email" set to Yes.' , 'yikes-inc-easy-mailchimp-extender' ); ?></p>
-														<!-- Email Subject -->
-														<label for="yikes-easy-mc-user-email-subject"><strong><?php _e( 'Email Subject' , 'yikes-inc-easy-mailchimp-extender' ); ?></strong>
-															<input type="text" class="widefat" name="yikes-easy-mc-user-email-subject" id="yikes-easy-mc-user-email-subject" value="<?php echo isset( $error_messages['email-subject'] ) ? stripslashes( esc_html( $error_messages['email-subject'] ) ) : ''; ?>" placeholder="<?php echo $global_error_messages['email-subject']; ?>">
-														</label>
-														<!-- Email Body -->
-														<label for="yikes-easy-mc-user-email-body"><strong><?php _e( 'Email Body' , 'yikes-inc-easy-mailchimp-extender' ); ?></strong>
-															<?php 
-																$editor_content = ( isset( $error_messages['email-body'] ) && ! empty( $error_messages['email-body'] ) ) ? $error_messages['email-body'] : Yikes_Inc_Easy_Mailchimp_Forms_Admin::generate_default_email_body();
-																wp_editor( $editor_content, 'yikes-easy-mc-user-email-body', array( 'textarea_id' => 'yikes-easy-mc-user-email-body' ) ); 
-															?>
-														</label>
+														<div class="yikes-easy-mc-custom-messages-email-section">
+															<p class="edit-form-description"><?php _e( 'Customize the profile verification email sent to re-subscribers. Leave the text unedited to use the default message.' , 'yikes-inc-easy-mailchimp-extender' ); ?></p>
+															<!-- Email Subject -->
+															<label for="yikes-easy-mc-user-email-subject"><strong><?php _e( 'Email Subject' , 'yikes-inc-easy-mailchimp-extender' ); ?></strong>
+																<input type="text" class="widefat" name="yikes-easy-mc-user-email-subject" id="yikes-easy-mc-user-email-subject" value="<?php echo isset( $error_messages['email-subject'] ) ? stripslashes( esc_html( $error_messages['email-subject'] ) ) : ''; ?>" placeholder="<?php echo $global_error_messages['email-subject']; ?>">
+															</label>
+															<!-- Email Body -->
+															<label for="yikes-easy-mc-user-email-body"><strong><?php _e( 'Email Body' , 'yikes-inc-easy-mailchimp-extender' ); ?></strong>
+																<?php 
+																	$editor_content = ( isset( $error_messages['email-body'] ) && ! empty( $error_messages['email-body'] ) ) ? $error_messages['email-body'] : Yikes_Inc_Easy_Mailchimp_Forms_Admin::generate_default_email_body();
+																	wp_editor( $editor_content, 'yikes-easy-mc-user-email-body', array( 'textarea_id' => 'yikes-easy-mc-user-email-body' ) ); 
+																?>
+															</label>
+														</div>
 													</div>
 
 													<!-- .inside -->
@@ -611,12 +613,12 @@
 													<h3 class="edit-form-title"><span><?php _e( "Custom Message Help" , 'yikes-inc-easy-mailchimp-extender' ); ?></span></h3>
 													<div class="inside">
 														<ul>
-															<li><strong><?php _e( 'Success: Double opt-in' , 'yikes-inc-easy-mailchimp-extender' ); ?></strong> <?php _e( 'The message displayed after a double opt-in form has been submitted.' , 'yikes-inc-easy-mailchimp-extender' ); ?></li>
-															<li><strong><?php _e( 'Success Message: Single opt-in' , 'yikes-inc-easy-mailchimp-extender' ); ?></strong> <?php _e( 'The message displayed after a single opt-in form has been submitted.' , 'yikes-inc-easy-mailchimp-extender' ); ?></li>
-															<li><strong><?php _e( 'Success: Re-subscriber' , 'yikes-inc-easy-mailchimp-extender' ); ?></strong> <?php _e( 'The message displayed after a form has been submitted if you have "Update Existing Subscriber" set to Yes and "Send Update Email" set to No.' , 'yikes-inc-easy-mailchimp-extender' ); ?></li>
-															<li><strong><?php _e( 'Success: Re-subscriber with link to email profile update message' , 'yikes-inc-easy-mailchimp-extender' ); ?></strong> <?php _e( 'The message displayed after a form has been submitted if you have "Update Existing Subscriber" set to Yes and "Send Update Email" set to Yes. Wrap the text you want to be the link in <code>[link][/link]</code> tags.' , 'yikes-inc-easy-mailchimp-extender' ); ?></li>
-															<li><strong><?php _e( 'Error: Re-subscribers not permitted' , 'yikes-inc-easy-mailchimp-extender' ); ?></strong> <?php _e( 'The message displayed after an current subscriber tries to submit a form that has "Update Existing Subscriber" set to No. You can display the user\'s email in the message  using an <code>[email]</code> tag.' , 'yikes-inc-easy-mailchimp-extender' ); ?></li>
-															<li><strong><?php _e( 'Error: General' , 'yikes-inc-easy-mailchimp-extender' ); ?></strong> <?php _e( 'The message displayed if an form error has occurred.' , 'yikes-inc-easy-mailchimp-extender' ); ?></li>
+															<li class="yikes-easy-mc-success-message-help"><strong><?php _e( 'Success: Double opt-in' , 'yikes-inc-easy-mailchimp-extender' ); ?></strong> <?php _e( 'The message displayed after a double opt-in form has been submitted.' , 'yikes-inc-easy-mailchimp-extender' ); ?></li>
+															<li class="yikes-easy-mc-success-single-optin-message-help"><strong><?php _e( 'Success Message: Single opt-in' , 'yikes-inc-easy-mailchimp-extender' ); ?></strong> <?php _e( 'The message displayed after a single opt-in form has been submitted.' , 'yikes-inc-easy-mailchimp-extender' ); ?></li>
+															<li class="yikes-easy-mc-user-resubscribed-success-message-help"><strong><?php _e( 'Success: Re-subscriber' , 'yikes-inc-easy-mailchimp-extender' ); ?></strong> <?php _e( 'The message displayed after a subscriber submits a form for a list they are already subscribed to.' , 'yikes-inc-easy-mailchimp-extender' ); ?></li>
+															<li class="yikes-easy-mc-user-subscribed-update-link-help"><strong><?php _e( 'Success: Re-subscriber with link to email profile update message' , 'yikes-inc-easy-mailchimp-extender' ); ?></strong> <?php _e( 'The message displayed after a subscriber submits a form for a list they are already subscribed to. Wrap the text you want to be the link in <code>[link][/link]</code> tags.' , 'yikes-inc-easy-mailchimp-extender' ); ?></li>
+															<li class="yikes-easy-mc-user-subscribed-message-help"><strong><?php _e( 'Error: Re-subscribers not permitted' , 'yikes-inc-easy-mailchimp-extender' ); ?></strong> <?php _e( 'The message displayed after a subscriber tries to join a list they are already subscribed to. You can display the user\'s email in the message  using an <code>[email]</code> tag.' , 'yikes-inc-easy-mailchimp-extender' ); ?></li>
+															<li class="yikes-easy-mc-general-error-message-help"><strong><?php _e( 'Error: General' , 'yikes-inc-easy-mailchimp-extender' ); ?></strong> <?php _e( 'The message displayed if a form error has occurred.' , 'yikes-inc-easy-mailchimp-extender' ); ?></li>
 														</ul>
 
 													</div>
