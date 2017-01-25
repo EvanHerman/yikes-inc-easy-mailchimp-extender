@@ -6,9 +6,9 @@
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: yikes-inc-easy-mailchimp-extender 6.3.1\n"
+"Project-Id-Version: yikes-inc-easy-mailchimp-extender 6.3.2\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-01-18 13:54+0000\n"
+"POT-Creation-Date: 2017-01-25 17:12+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -234,7 +234,7 @@ msgstr ""
 
 #: admin/class-yikes-inc-easy-mailchimp-extender-admin.php:1006
 #: admin/class-yikes-inc-easy-mailchimp-extender-admin.php:1007
-#: admin/partials/edit-form.php:714 admin/partials/view-user.php:119
+#: admin/partials/edit-form.php:716 admin/partials/view-user.php:119
 msgid "View List"
 msgstr ""
 
@@ -393,7 +393,7 @@ msgid "Form Description"
 msgstr ""
 
 #: admin/class-yikes-inc-easy-mailchimp-extender-admin.php:1531
-#: admin/partials/edit-form.php:696
+#: admin/partials/edit-form.php:698
 #: admin/partials/menu/options-sections/integration-settings.php:142
 msgid "Associated List"
 msgstr ""
@@ -967,59 +967,59 @@ msgstr ""
 msgid "Message"
 msgstr ""
 
-#: admin/partials/dashboard-widgets/templates/stats-list-template.php:16
+#: admin/partials/dashboard-widgets/templates/stats-list-template.php:34
 msgid "view List"
 msgstr ""
 
-#: admin/partials/dashboard-widgets/templates/stats-list-template.php:16
+#: admin/partials/dashboard-widgets/templates/stats-list-template.php:34
 msgid "view list"
 msgstr ""
 
-#: admin/partials/dashboard-widgets/templates/stats-list-template.php:21
+#: admin/partials/dashboard-widgets/templates/stats-list-template.php:39
 msgid "Subscribers"
 msgstr ""
 
-#: admin/partials/dashboard-widgets/templates/stats-list-template.php:22
+#: admin/partials/dashboard-widgets/templates/stats-list-template.php:40
 msgid "Unsubscribed"
 msgstr ""
 
-#: admin/partials/dashboard-widgets/templates/stats-list-template.php:23
+#: admin/partials/dashboard-widgets/templates/stats-list-template.php:41
 msgid "New Since Send"
 msgstr ""
 
-#: admin/partials/dashboard-widgets/templates/stats-list-template.php:24
+#: admin/partials/dashboard-widgets/templates/stats-list-template.php:42
 msgid "Avg. Sub. Rate"
 msgstr ""
 
-#: admin/partials/dashboard-widgets/templates/stats-list-template.php:29
+#: admin/partials/dashboard-widgets/templates/stats-list-template.php:47
 msgid "Number of active subscribers."
 msgstr ""
 
-#: admin/partials/dashboard-widgets/templates/stats-list-template.php:31
+#: admin/partials/dashboard-widgets/templates/stats-list-template.php:49
 msgid "subscribers"
 msgstr ""
 
-#: admin/partials/dashboard-widgets/templates/stats-list-template.php:33
+#: admin/partials/dashboard-widgets/templates/stats-list-template.php:51
 msgid "Number of users who have unsusbscribed."
 msgstr ""
 
-#: admin/partials/dashboard-widgets/templates/stats-list-template.php:35
+#: admin/partials/dashboard-widgets/templates/stats-list-template.php:53
 msgid "unsubscribed"
 msgstr ""
 
-#: admin/partials/dashboard-widgets/templates/stats-list-template.php:39
+#: admin/partials/dashboard-widgets/templates/stats-list-template.php:57
 msgid "Number of new subscribers since the last campaign was sent."
 msgstr ""
 
-#: admin/partials/dashboard-widgets/templates/stats-list-template.php:41
+#: admin/partials/dashboard-widgets/templates/stats-list-template.php:59
 msgid "new since send"
 msgstr ""
 
-#: admin/partials/dashboard-widgets/templates/stats-list-template.php:43
+#: admin/partials/dashboard-widgets/templates/stats-list-template.php:61
 msgid "Average number of subscribers per month."
 msgstr ""
 
-#: admin/partials/dashboard-widgets/templates/stats-list-template.php:45
+#: admin/partials/dashboard-widgets/templates/stats-list-template.php:63
 msgid "avg. sub. rate"
 msgstr ""
 
@@ -1134,7 +1134,7 @@ msgstr ""
 msgid "Form Builder"
 msgstr ""
 
-#: admin/partials/edit-form.php:185 admin/partials/edit-form.php:671
+#: admin/partials/edit-form.php:185 admin/partials/edit-form.php:673
 msgid "Form Settings"
 msgstr ""
 
@@ -1156,7 +1156,7 @@ msgstr ""
 msgid "Clear Form Fields"
 msgstr ""
 
-#: admin/partials/edit-form.php:226 admin/partials/edit-form.php:854
+#: admin/partials/edit-form.php:226 admin/partials/edit-form.php:856
 msgid "Update Form"
 msgstr ""
 
@@ -1472,7 +1472,7 @@ msgid ""
 "in Settings chosen."
 msgstr ""
 
-#: admin/partials/edit-form.php:559 admin/partials/edit-form.php:614
+#: admin/partials/edit-form.php:559 admin/partials/edit-form.php:616
 msgid "Success: Double opt-in"
 msgstr ""
 
@@ -1480,23 +1480,23 @@ msgstr ""
 msgid "Success: Single opt-in"
 msgstr ""
 
-#: admin/partials/edit-form.php:567 admin/partials/edit-form.php:616
+#: admin/partials/edit-form.php:567 admin/partials/edit-form.php:618
 msgid "Success: Re-subscriber"
 msgstr ""
 
-#: admin/partials/edit-form.php:571 admin/partials/edit-form.php:617
+#: admin/partials/edit-form.php:571 admin/partials/edit-form.php:619
 msgid "Success: Re-subscriber with link to email profile update message"
 msgstr ""
 
-#: admin/partials/edit-form.php:575 admin/partials/edit-form.php:618
+#: admin/partials/edit-form.php:575 admin/partials/edit-form.php:620
 msgid "Error: Re-subscribers not permitted"
 msgstr ""
 
-#: admin/partials/edit-form.php:579 admin/partials/edit-form.php:619
+#: admin/partials/edit-form.php:579 admin/partials/edit-form.php:621
 msgid "Error: General"
 msgstr ""
 
-#: admin/partials/edit-form.php:586
+#: admin/partials/edit-form.php:587
 msgid ""
 "Customize the profile verification email sent to re-subscribers. Leave the "
 "text unedited to use the default message. This email is used if you have "
@@ -1504,63 +1504,63 @@ msgid ""
 "Yes."
 msgstr ""
 
-#: admin/partials/edit-form.php:588 admin/partials/edit-form.php:631
+#: admin/partials/edit-form.php:589 admin/partials/edit-form.php:633
 msgid "Email Subject"
 msgstr ""
 
-#: admin/partials/edit-form.php:592 admin/partials/edit-form.php:632
+#: admin/partials/edit-form.php:593 admin/partials/edit-form.php:634
 msgid "Email Body"
 msgstr ""
 
-#: admin/partials/edit-form.php:611
+#: admin/partials/edit-form.php:613
 msgid "Custom Message Help"
 msgstr ""
 
-#: admin/partials/edit-form.php:614
+#: admin/partials/edit-form.php:616
 msgid "The message displayed after a double opt-in form has been submitted."
 msgstr ""
 
-#: admin/partials/edit-form.php:615
+#: admin/partials/edit-form.php:617
 msgid "Success Message: Single opt-in"
 msgstr ""
 
-#: admin/partials/edit-form.php:615
+#: admin/partials/edit-form.php:617
 msgid "The message displayed after a single opt-in form has been submitted."
 msgstr ""
 
-#: admin/partials/edit-form.php:616
+#: admin/partials/edit-form.php:618
 msgid ""
 "The message displayed after a form has been submitted if you have \"Update "
 "Existing Subscriber\" set to Yes and \"Send Update Email\" set to No."
 msgstr ""
 
-#: admin/partials/edit-form.php:617
+#: admin/partials/edit-form.php:619
 msgid ""
 "The message displayed after a form has been submitted if you have \"Update "
 "Existing Subscriber\" set to Yes and \"Send Update Email\" set to Yes. Wrap "
 "the text you want to be the link in <code>[link][/link]</code> tags."
 msgstr ""
 
-#: admin/partials/edit-form.php:618
+#: admin/partials/edit-form.php:620
 msgid ""
 "The message displayed after an current subscriber tries to submit a form "
 "that has \"Update Existing Subscriber\" set to No. You can display the "
 "user's email in the message  using an <code>[email]</code> tag."
 msgstr ""
 
-#: admin/partials/edit-form.php:619
-msgid "The message displayed if an form error has occurred."
+#: admin/partials/edit-form.php:621
+msgid "The message displayed if a form error has occurred."
 msgstr ""
 
-#: admin/partials/edit-form.php:627
+#: admin/partials/edit-form.php:629
 msgid "Email Message Help"
 msgstr ""
 
-#: admin/partials/edit-form.php:631
+#: admin/partials/edit-form.php:633
 msgid "The subject of the email sent to the user."
 msgstr ""
 
-#: admin/partials/edit-form.php:632
+#: admin/partials/edit-form.php:634
 #, php-format
 msgid ""
 "The text in the profile update verification email sent to the subscriber. "
@@ -1569,70 +1569,70 @@ msgid ""
 "can also use <code>[url]</code> tag to display your website's URL (e.g. %s)."
 msgstr ""
 
-#: admin/partials/edit-form.php:675
+#: admin/partials/edit-form.php:677
 msgid "Edit Another Form"
 msgstr ""
 
-#: admin/partials/edit-form.php:685 admin/partials/menu/manage-forms.php:147
+#: admin/partials/edit-form.php:687 admin/partials/menu/manage-forms.php:147
 msgid "Shortcode"
 msgstr ""
 
-#: admin/partials/edit-form.php:692
+#: admin/partials/edit-form.php:694
 msgid "Associated List Settings"
 msgstr ""
 
-#: admin/partials/edit-form.php:707
+#: admin/partials/edit-form.php:709
 msgid "No Lists Found"
 msgstr ""
 
-#: admin/partials/edit-form.php:717
+#: admin/partials/edit-form.php:719
 msgid ""
 "Users who sign up via this form will be added to the list selected above."
 msgstr ""
 
-#: admin/partials/edit-form.php:721
+#: admin/partials/edit-form.php:723
 msgid ""
 "It looks like you first need to create a list to assign this form to. Head "
 "over to"
 msgstr ""
 
-#: admin/partials/edit-form.php:721
+#: admin/partials/edit-form.php:723
 msgid "Create a new list"
 msgstr ""
 
-#: admin/partials/edit-form.php:721
+#: admin/partials/edit-form.php:723
 msgid "to create your first list"
 msgstr ""
 
-#: admin/partials/edit-form.php:728
+#: admin/partials/edit-form.php:730
 msgid "Opt-in Settings"
 msgstr ""
 
-#: admin/partials/edit-form.php:738
+#: admin/partials/edit-form.php:740
 msgid "Single or Double Opt-in"
 msgstr ""
 
-#: admin/partials/edit-form.php:740
+#: admin/partials/edit-form.php:742
 msgid "Single"
 msgstr ""
 
-#: admin/partials/edit-form.php:741
+#: admin/partials/edit-form.php:743
 msgid "Double"
 msgstr ""
 
-#: admin/partials/edit-form.php:743
+#: admin/partials/edit-form.php:745
 msgid ""
 "Double opt-in requires users to confirm their email address before being "
 "added to a list (recommended)"
 msgstr ""
 
-#: admin/partials/edit-form.php:752
+#: admin/partials/edit-form.php:754
 msgid "Update Existing Subscriber"
 msgstr ""
 
-#: admin/partials/edit-form.php:754 admin/partials/edit-form.php:770
-#: admin/partials/edit-form.php:790 admin/partials/edit-form.php:805
-#: admin/partials/edit-form.php:820
+#: admin/partials/edit-form.php:756 admin/partials/edit-form.php:772
+#: admin/partials/edit-form.php:792 admin/partials/edit-form.php:807
+#: admin/partials/edit-form.php:822
 #: admin/partials/menu/options-sections/integration-settings.php:168
 #: includes/third-party-integrations/visual-composer/visual-composer.php:59
 #: includes/third-party-integrations/visual-composer/visual-composer.php:70
@@ -1640,94 +1640,94 @@ msgstr ""
 msgid "Yes"
 msgstr ""
 
-#: admin/partials/edit-form.php:755 admin/partials/edit-form.php:771
-#: admin/partials/edit-form.php:791 admin/partials/edit-form.php:806
-#: admin/partials/edit-form.php:821
+#: admin/partials/edit-form.php:757 admin/partials/edit-form.php:773
+#: admin/partials/edit-form.php:793 admin/partials/edit-form.php:808
+#: admin/partials/edit-form.php:823
 #: admin/partials/menu/options-sections/integration-settings.php:169
 #: public/classes/checkbox-integrations/class.contact_form_7-checkbox.php:54
 msgid "No"
 msgstr ""
 
-#: admin/partials/edit-form.php:757
+#: admin/partials/edit-form.php:759
 #, php-format
 msgid ""
 "Update an existing subscriber's profile information instead of displaying a "
 "%s message."
 msgstr ""
 
-#: admin/partials/edit-form.php:757 admin/partials/edit-form.php:773
+#: admin/partials/edit-form.php:759 admin/partials/edit-form.php:775
 msgid "\"user already subscribed\""
 msgstr ""
 
-#: admin/partials/edit-form.php:768
+#: admin/partials/edit-form.php:770
 msgid "Send Update Email"
 msgstr ""
 
-#: admin/partials/edit-form.php:773
+#: admin/partials/edit-form.php:775
 msgid ""
 "Send an email to the user granting their permission to update their profile "
 "information. Otherwise, an existing subscriber filling out this form, will "
 "have their profile information updated without any further interaction."
 msgstr ""
 
-#: admin/partials/edit-form.php:779
+#: admin/partials/edit-form.php:781
 msgid "Submission Settings"
 msgstr ""
 
-#: admin/partials/edit-form.php:788
+#: admin/partials/edit-form.php:790
 msgid "Enable AJAX Submission"
 msgstr ""
 
-#: admin/partials/edit-form.php:793
+#: admin/partials/edit-form.php:795
 msgid ""
 "AJAX form submissions transmit data without requiring the page to refresh."
 msgstr ""
 
-#: admin/partials/edit-form.php:803
+#: admin/partials/edit-form.php:805
 msgid "Redirect On Submission"
 msgstr ""
 
-#: admin/partials/edit-form.php:809
+#: admin/partials/edit-form.php:811
 msgid "When the user signs up would you like to redirect them to another page?"
 msgstr ""
 
-#: admin/partials/edit-form.php:818
+#: admin/partials/edit-form.php:820
 msgid "Hide Form After Sign Up"
 msgstr ""
 
-#: admin/partials/edit-form.php:823
+#: admin/partials/edit-form.php:825
 msgid "Should the form be hidden after the user successfully signs up?"
 msgstr ""
 
-#: admin/partials/edit-form.php:832
+#: admin/partials/edit-form.php:834
 msgid "Existing Interest Groups"
 msgstr ""
 
-#: admin/partials/edit-form.php:834
+#: admin/partials/edit-form.php:836
 msgid "Replace"
 msgstr ""
 
-#: admin/partials/edit-form.php:835
+#: admin/partials/edit-form.php:837
 msgid "Update"
 msgstr ""
 
-#: admin/partials/edit-form.php:838
+#: admin/partials/edit-form.php:840
 msgid ""
 "<strong>Replace</strong>: Replace all interest groups with the new ones "
 "submitted."
 msgstr ""
 
-#: admin/partials/edit-form.php:841
+#: admin/partials/edit-form.php:843
 msgid ""
 "<strong>Update</strong>: Update <em>only</em> the ones submitted. Leave "
 "existing interest groups as is."
 msgstr ""
 
-#: admin/partials/edit-form.php:856
+#: admin/partials/edit-form.php:858
 msgid "Are you sure you want to delete this form? This cannot be undone."
 msgstr ""
 
-#: admin/partials/edit-form.php:856
+#: admin/partials/edit-form.php:858
 msgid "Delete Form"
 msgstr ""
 
