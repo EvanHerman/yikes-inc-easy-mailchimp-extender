@@ -68,6 +68,9 @@ function yikes_mailchimp_subscriber_count_shortcode( $attributes ) {
 			__( "Get Account Lists", 'yikes-inc-easy-mailchimp-extender' ),
 			"yikes-mailchimp-subscriber-count.php"
 		);
+		
+		ob_clean();
+		return;
 	}
 
 	/* type cast the returned value as an integer */
