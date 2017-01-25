@@ -607,7 +607,7 @@
 										</div>
 										<!-- post-body-content -->
 										<!-- sidebar -->
-										<div id="postbox-container-1" class="postbox-container">
+										<div id="postbox-container-1" class="postbox-container yikes-easy-mc-custom-messages-section-help">
 											<div class="meta-box-sortables">
 												<div class="postbox yikes-easy-mc-postbox">
 													<h3 class="edit-form-title"><span><?php _e( "Custom Message Help" , 'yikes-inc-easy-mailchimp-extender' ); ?></span></h3>
@@ -625,13 +625,13 @@
 													<!-- .inside -->
 												</div>
 
-												<div class="postbox yikes-easy-mc-postbox">
+												<div class="postbox yikes-easy-mc-postbox yikes-easy-mc-custom-messages-email-section-help">
 													<h3 class="edit-form-title"><span><?php _e( "Email Message Help" , 'yikes-inc-easy-mailchimp-extender' ); ?></span></h3>
 													<div class="inside">
 
 														<ul>
-															<li><strong><?php _e( 'Email Subject' , 'yikes-inc-easy-mailchimp-extender' ); ?></strong> <?php _e( 'The subject of the email sent to the user.' , 'yikes-inc-easy-mailchimp-extender' ); ?></li>
-															<li><strong><?php _e( 'Email Body' , 'yikes-inc-easy-mailchimp-extender' ); ?></strong> <?php echo sprintf( __( 'The text in the profile update verification email sent to the subscriber. Wrap the text you want to be the link in <code>[link][/link]</code> tags. The link is required in the email, please don\'t leave these tags out. You can also use <code>[url]</code> tag to display your website\'s URL (e.g. %s).', 'yikes-inc-easy-mailchimp-extender' ), get_home_url() ); ?></li>
+															<li class="yikes-easy-mc-user-email-subject-help"><strong><?php _e( 'Email Subject' , 'yikes-inc-easy-mailchimp-extender' ); ?></strong> <?php _e( 'The subject of the email sent to the user.' , 'yikes-inc-easy-mailchimp-extender' ); ?></li>
+															<li class="yikes-easy-mc-user-email-body-help"><strong><?php _e( 'Email Body' , 'yikes-inc-easy-mailchimp-extender' ); ?></strong> <?php echo sprintf( __( 'The text in the profile update verification email sent to the subscriber. Wrap the text you want to be the link in <code>[link][/link]</code> tags. The link is required in the email, please don\'t leave these tags out. You can also use <code>[url]</code> tag to display your website\'s URL (e.g. %s).', 'yikes-inc-easy-mailchimp-extender' ), get_home_url() ); ?></li>
 														</ul>
 
 													</div>
