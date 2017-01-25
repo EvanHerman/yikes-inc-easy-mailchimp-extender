@@ -2123,7 +2123,6 @@ class Yikes_Inc_Easy_Mailchimp_Forms_Admin {
 									<table class="form-table form-field-container">
 										<!-- Default Value -->
 										<?php switch( $field['type'] ) {
-
 											default:
 											case 'radio':
 											case 'checkboxes':
@@ -2149,7 +2148,7 @@ class Yikes_Inc_Easy_Mailchimp_Forms_Admin {
 
 														foreach( json_decode( $field['groups'], true ) as $id => $group ) {
 															$field_id   = "{$field['group_id']}-{$id}";
-															$field_type = 'hidden' == $field['type'] ? 'radio' : $field['type'];
+															$field_type = 'hidden' == $field['type'] ? 'checkbox' : $field['type'];
 															$field_type = 'checkboxes' == $field_type ? 'checkbox' : $field_type;
 															$field_name = "field[{$field['group_id']}][default_choice]";
 															$field_name = 'checkbox' == $field_type ? $field_name . '[]' : $field_name;
@@ -2158,12 +2157,12 @@ class Yikes_Inc_Easy_Mailchimp_Forms_Admin {
 															$checked = '';
 															switch ( $field_type ) {
 																case 'radio':
-																case 'hidden':
 																default:
 																	$checked = checked( $field['default_choice'], $id, false );
 																	break;
 
 																case 'checkbox':
+																case 'hidden':
 																	if ( in_array( $id, (array) $field['default_choice'] ) ) {
 																		$checked = checked( true, true, false );
 																	}
