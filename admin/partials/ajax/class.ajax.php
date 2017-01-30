@@ -131,7 +131,7 @@
 			// Make sure we have our required variables before continuing
 			if ( empty( $list_id ) || empty( $field_name ) || empty( $field_id ) ) {
 				wp_send_json_error( array(
-						'message' => __( 'Could not update field label: missing required field.', 'yikes-inc-easy-mailchimp-extender' ),
+						'message' => __( 'Could not update the field label: missing required field.', 'yikes-inc-easy-mailchimp-extender' ),
 						'developer-info' => "One of the following variables was empty: list_id: $list_id, field_name: $field_name, field_id: $field_id."
 					)
 				);
@@ -146,7 +146,7 @@
 				$error_logging = new Yikes_Inc_Easy_Mailchimp_Error_Logging();
 				$error_logging->maybe_write_to_log( $error, __( "Updating merge field" , 'yikes-inc-easy-mailchimp-extender' ), "class.ajax.php" );
 				wp_send_json_error( array(
-						'message' => __( 'Could not update field label: API request failed.', 'yikes-inc-easy-mailchimp-extender' ),
+						'message' => __( 'Could not update the field label: API request failed.', 'yikes-inc-easy-mailchimp-extender' ),
 						'developer-info' => $error
 					)
 				);

@@ -346,10 +346,10 @@ window.yikes_mailchimp_edit_form = window.yikes_mailchimp_edit_form || {};
 		* Show the pencil for editing field labels when a user hovers over the expansion section
 		* and hide it when a user's mouse leaves the expansion section
 		*/
-		$( '.expansion-section-title' ).hover( 
-			function() { $( this ).children( '.yikes-mc-edit-field-label-icon.dashicons-edit' ).show(); },
-			function() { $( this ).children( '.yikes-mc-edit-field-label-icon.dashicons-edit' ).hide(); } 
-		);
+		// $( '.expansion-section-title' ).hover( 
+		// 	function() { $( this ).children( '.yikes-mc-edit-field-label-icon.dashicons-edit' ).show(); },
+		// 	function() { $( this ).children( '.yikes-mc-edit-field-label-icon.dashicons-edit' ).hide(); } 
+		// );
 
 		/**
 		* Save field label edit changes

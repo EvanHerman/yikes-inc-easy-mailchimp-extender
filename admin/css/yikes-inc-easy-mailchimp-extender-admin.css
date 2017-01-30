@@ -2313,19 +2313,22 @@ body.wp-customizer #available-widgets [id*="_yikes_easy_mc_widget"]>div.widget-t
 }
 
 .yikes-mc-edit-field-label-icon {
-	display: none;
+	display: inline;
+	float: right;
 }
 
 .yikes-mc-edit-field-label-input {
 	display: none;
-	width: 50%;
+	width: 94%;
+	border-radius: 5px;
 }
 .yikes-mc-save-field-label-edits-icon {
 	display: none;
 }
 .yikes-mc-edit-field-label-message {
 	display: none;
-	color: #F56060
+	color: #F56060;
+	margin-left: 26px;
 }
 
 /* Animations */
