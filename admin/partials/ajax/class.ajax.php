@@ -11,16 +11,24 @@
 	{
 
 		public function __construct() {
-			// ajax send merge variable to form builder
+
+			// Ajax send merge variable to form builder
 			add_action( 'wp_ajax_add_field_to_form', array( $this , 'send_field_to_form' ), 10 );
-			// ajax send interest group to form builder
+
+			// Ajax send interest group to form builder
 			add_action( 'wp_ajax_add_interest_group_to_form', array( $this , 'send_interest_group_to_form' ), 10 );
-			// return new list data + activity (for dashboard widget )
+
+			// Return new list data + activity (for dashboard widget )
 			add_action( 'wp_ajax_get_new_list_data', array( $this , 'get_new_list_data' ), 10 );
-			// return new list data + activity (for dashboard widget )
+
+			// Return new list data + activity (for dashboard widget )
 			add_action( 'wp_ajax_check_list_for_interest_groups', array( $this , 'check_list_for_interest_groups' ), 10 );
+
 			// Add a new notification to a form
 			add_action( 'wp_ajax_add_notification_to_form', array( $this , 'add_notification_to_form' ), 10 , 1 );
+
+			// Save field label edits
+			add_action( 'wp_ajax_save_field_label_edits', array( $this , 'save_field_label_edits' ), 10 , 1 );
 		}
 
 		/*
@@ -107,5 +115,43 @@
 			$index   = isset( $mapping[ $id ] ) ? $mapping[ $id ] : null;
 
 			return $index;
+		}
+
+		/**
+		* Save changes to a field's label
+		*/ 
+		public function save_field_label_edits() {
+
+			// Capture our $_POST variables
+			$list_id	= isset( $_POST['list_id'] ) ? $_POST['list_id'] : '';
+			$field_data = isset( $_POST['field_data'] ) ? $_POST['field_data'] : array();
+			$field_name = isset( $field_data['field_name'] ) ? $field_data['field_name'] : '';
+			$field_id	= isset( $field_data['field_id'] ) ? $field_data['field_id'] : '';
+
+			// Make sure we have our required variables before continuing
+			if ( empty( $list_id ) || empty( $field_name ) || empty( $field_id ) ) {
+				wp_send_json_error( array(
+						'message' => __( 'Could not update the field label: missing required field.', 'yikes-inc-easy-mailchimp-extender' ),
+						'developer-info' => "One of the following variables was empty: list_id: $list_id, field_name: $field_name, field_id: $field_id."
+					)
+				);
+			}
+
+			// Update the field!
+			$merge_field = yikes_get_mc_api_manager()->get_list_handler()->update_merge_field( $list_id, $field_id, array( 'name' => $field_name ), true );
+			
+			// Check for an error. If error, log it and return error
+			if ( is_wp_error( $merge_field ) ) {
+				$error = isset( $merge_field['error'] ) ? $merge_field['error'] : __( 'API request failed. Unknown error.', 'yikes-inc-easy-mailchimp-extender' );
+				$error_logging = new Yikes_Inc_Easy_Mailchimp_Error_Logging();
+				$error_logging->maybe_write_to_log( $error, __( "Updating merge field" , 'yikes-inc-easy-mailchimp-extender' ), "class.ajax.php" );
+				wp_send_json_error( array(
+						'message' => __( 'Could not update the field label: API request failed.', 'yikes-inc-easy-mailchimp-extender' ),
+						'developer-info' => $error
+					)
+				);
+			}
+
+			wp_send_json_success();
 		}
 	}

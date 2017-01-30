@@ -208,7 +208,7 @@
 											<div class="meta-box-sortables ui-sortable">
 												<div class="postbox yikes-easy-mc-postbox">
 													<!-- container title -->
-													<h3 class="edit-form-title"><?php _e( 'Form Builder' , 'yikes-inc-easy-mailchimp-extender' ); ?></h3>
+													<h3 class="edit-form-title" id="form-builder-div" data-list-id="<?php echo $form['list_id'] ?>" ><?php _e( 'Form Builder' , 'yikes-inc-easy-mailchimp-extender' ); ?></h3>
 													<p id="edit-form-description" class="description"><?php _e( 'Select fields from the right to add to this form, you can click a field to reveal advanced options, or drag it to re-arrange its position in the form.' , 'yikes-inc-easy-mailchimp-extender' );?></p>
 													<div id="form-builder-container" class="inside">
 														<!-- #poststuff -->
@@ -691,7 +691,7 @@
 
 
 							<a href="#" class="expansion-section-title settings-sidebar">
-								<span class="dashicons dashicons-plus"></span><?php _e( 'Associated List Settings' , 'yikes-inc-easy-mailchimp-extender' ); ?>
+								<span class="dashicons dashicons-plus yikes-mc-expansion-toggle"></span><?php _e( 'Associated List Settings' , 'yikes-inc-easy-mailchimp-extender' ); ?>
 							</a>
 							<div class="yikes-mc-settings-expansion-section">
 								<!-- Associated List -->
@@ -727,7 +727,7 @@
 							</div>
 
 							<a href="#" class="expansion-section-title settings-sidebar">
-								<span class="dashicons dashicons-plus"></span><?php _e( 'Opt-in Settings' , 'yikes-inc-easy-mailchimp-extender' ); ?>
+								<span class="dashicons dashicons-plus yikes-mc-expansion-toggle"></span><?php _e( 'Opt-in Settings' , 'yikes-inc-easy-mailchimp-extender' ); ?>
 							</a>
 							<div class="yikes-mc-settings-expansion-section">
 
@@ -778,7 +778,7 @@
 							</div>
 
 							<a href="#" class="expansion-section-title settings-sidebar">
-								<span class="dashicons dashicons-plus"></span><?php _e( 'Submission Settings' , 'yikes-inc-easy-mailchimp-extender' ); ?>
+								<span class="dashicons dashicons-plus yikes-mc-expansion-toggle"></span><?php _e( 'Submission Settings' , 'yikes-inc-easy-mailchimp-extender' ); ?>
 							</a>
 							<div class="yikes-mc-settings-expansion-section">
 								<!-- AJAX form Submission -->

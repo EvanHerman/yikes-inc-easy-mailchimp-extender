@@ -323,7 +323,7 @@ class Yikes_Inc_Easy_Mailchimp_Forms_Admin {
 				$default_tag = get_the_title( $post->ID );
 			}
 			// page id
-			if( $default_tag == '{page_title}' ) {
+			if( $default_tag == '{page_id}' ) {
 				$default_tag = $post->ID;
 			}
 			// page url
@@ -794,6 +794,11 @@ class Yikes_Inc_Easy_Mailchimp_Forms_Admin {
 			// is Right to left language? default is false
 			'isRTL'                             => $wp_locale->is_rtl(),
 			'start_date_exceeds_end_date_error' => __( 'Error: The start date and time cannot occur after the end date and time. Chosen date reverted to previous selection.', 'yikes-inc-easy-mailchimp-extender' ),
+
+			// Editing field label fields
+			'edit_field_label_pencil_title' => __( 'Click to edit the label', 'yikes-inc-easy-mailchimp-extender' ),
+			'edit_field_label_cancel_title' => __( 'Click to cancel editing. Your changes will not be saved.', 'yikes-inc-easy-mailchimp-extender' ),
+			'save_field_label_nonce' => wp_create_nonce( 'save_field_label_nonce' ),
 		);
 		wp_localize_script( 'edit-form-js' , 'yikes_mailchimp_edit_form' , $localized_data );
 	}
@@ -1766,12 +1771,22 @@ class Yikes_Inc_Easy_Mailchimp_Forms_Admin {
 
 				// find any fields that are assigned to this form, that don't exist in MailChimp
 				// or else were going to run into issues when we submit the form
-				$available_merge_variables = array();
-				$available_interest_groups = array();
+				$available_merge_variables	= array();
+				$available_interest_groups	= array();
+
+				// Default variables as arrays - these are used for holding the MailChimp merge field ID
+				$merge_field_ids			= array();
+				$mailchimp_merge_field_ids	= array();
 
 				// loop over merge variables
 				if ( ! empty( $merge_variables['merge_fields'] ) ) {
 					$available_merge_variables = wp_list_pluck( $merge_variables['merge_fields'], 'tag' );
+					$mailchimp_merge_field_ids = wp_list_pluck( $merge_variables['merge_fields'], 'merge_id' );
+					
+					// Array will look like $merge_tag => $merge_id
+					foreach( $available_merge_variables as $index => $merge_tag ) { 
+						$merge_field_ids[$merge_tag] = $mailchimp_merge_field_ids[$index];
+					}
 				}
 
 				// loop over interest groups
@@ -1794,11 +1809,16 @@ class Yikes_Inc_Easy_Mailchimp_Forms_Admin {
 						<section class="draggable" id="<?php echo $field['merge']; ?>">
 							<!-- top -->
 							<a href="#" class="expansion-section-title settings-sidebar">
-								<span class="dashicons dashicons-plus"></span><?php echo stripslashes( $field['label'] ); ?>
+								<span class="dashicons dashicons-plus yikes-mc-expansion-toggle"></span>
+								<span class="yikes-mc-expansion-section-field-label"> <?php echo stripslashes( $field['label'] ); ?> </span>
 								<?php if ( $excluded_field ) { ?>
 									<img src="<?php echo YIKES_MC_URL . 'includes/images/warning.svg'; ?>" class="field-doesnt-exist-notice" title="<?php _e( 'Field no longer exists.' , 'yikes-inc-easy-mailchimp-extender' ); ?>" alt="<?php _e( 'Field no longer exists.' , 'yikes-inc-easy-mailchimp-extender' ); ?>">
 								<?php } ?>
 								<span class="field-type-text"><small><?php echo __( 'type' , 'yikes-inc-easy-mailchimp-extender' ) . ' : ' . $field['type']; ?></small></span>
+								<input maxlength="45" type="text" class="yikes-mc-edit-field-label-input" value="<?php echo stripslashes( $field['label'] ); ?>" />
+								<span class="dashicons dashicons-yes yikes-mc-save-field-label-edits-icon" title="<?php _e( 'Click to save changes.' , 'yikes-inc-easy-mailchimp-extender' ); ?>"></span>
+								<span class="dashicons dashicons-edit yikes-mc-edit-field-label-icon" title="<?php _e( 'Click to edit the label' , 'yikes-inc-easy-mailchimp-extender' ); ?>"></span>
+								<span class="yikes-mc-edit-field-label-message"></span>
 							</a>
 							<!-- expansion section -->
 							<div class="yikes-mc-settings-expansion-section">
@@ -1807,11 +1827,14 @@ class Yikes_Inc_Easy_Mailchimp_Forms_Admin {
 									<p class="yikes-mc-warning-message"><?php _e( "This field no longer exists in this list. Delete this field from the form to prevent issues on your website." , 'yikes-inc-easy-mailchimp-extender' ); ?></p>
 								<?php } ?>
 
-								<!-- store the label -->
-								<input type="hidden" name="field[<?php echo $field['merge']; ?>][label]" value="<?php echo $field['label']; ?>" />
-								<input type="hidden" name="field[<?php echo $field['merge']; ?>][type]" value="<?php echo $field['type']; ?>" />
-								<input type="hidden" name="field[<?php echo $field['merge']; ?>][merge]" value="<?php echo $field['merge']; ?>" />
+								<!-- store field data -->
+								<input type="hidden" class="yikes-mc-merge-field-label" name="field[<?php echo $field['merge']; ?>][label]" value="<?php echo $field['label']; ?>" />
+								<input type="hidden" class="yikes-mc-merge-field-type" name="field[<?php echo $field['merge']; ?>][type]" value="<?php echo $field['type']; ?>" />
+								<input type="hidden" class="yikes-mc-merge-field-tag" name="field[<?php echo $field['merge']; ?>][merge]" value="<?php echo $field['merge']; ?>" />
 								<input type="hidden" class="field-<?php echo $field['merge']; ?>-position position-input" name="field[<?php echo $field['merge']; ?>][position]" value="<?php echo $i++; ?>" />
+								<?php if ( isset( $merge_field_ids[ $field['merge'] ] ) && is_int( $merge_field_ids[ $field['merge'] ] ) ) { ?> 
+									<input type="hidden" class="yikes-mc-merge-field-id" name="field[<?php echo $field['merge']; ?>][id]" value="<?php echo $merge_field_ids[ $field['merge'] ] ?>" />  
+								<?php } ?>
 
 								<?php if ( $field['type'] == 'radio' || $field['type'] == 'dropdown' || $field['type'] == 'select' ) {
 									$choices = json_decode( $field['choices'], true );
@@ -2097,7 +2120,7 @@ class Yikes_Inc_Easy_Mailchimp_Forms_Admin {
 						<section class="draggable" id="<?php echo $field['group_id']; ?>">
 							<!-- top -->
 							<a href="#" class="expansion-section-title settings-sidebar">
-								<span class="dashicons dashicons-plus"></span><?php echo stripslashes( $field['label'] ); ?>
+								<span class="dashicons dashicons-plus yikes-mc-expansion-toggle"></span><?php echo stripslashes( $field['label'] ); ?>
 								<?php if( in_array( $field['group_id'] , $excluded_fields ) ) { ?>
 									<img src="<?php echo YIKES_MC_URL . 'includes/images/warning.svg'; ?>" class="field-no-longer-exists-warning" title="<?php _e( 'Field no longer exists.' , 'yikes-inc-easy-mailchimp-extender' ); ?>" alt="<?php _e( 'Field no longer exists.' , 'yikes-inc-easy-mailchimp-extender' ); ?>">
 								<?php } ?>
