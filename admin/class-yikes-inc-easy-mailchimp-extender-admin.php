@@ -1808,7 +1808,7 @@ class Yikes_Inc_Easy_Mailchimp_Forms_Admin {
 						?>
 						<section class="draggable" id="<?php echo $field['merge']; ?>">
 							<!-- top -->
-							<a href="#" class="expansion-section-title settings-sidebar">
+							<a class="expansion-section-title settings-sidebar">
 								<span class="dashicons dashicons-plus yikes-mc-expansion-toggle"></span>
 								<span class="yikes-mc-expansion-section-field-label"> <?php echo stripslashes( $field['label'] ); ?> </span>
 								<?php if ( $excluded_field ) { ?>
