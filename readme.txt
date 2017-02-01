@@ -3,8 +3,8 @@ Contributors: yikesinc, eherman24, liljimmi, hiwhatsup, JPry
 Donate link: https://yikesplugins.com/?utm_source=wp_plugin_repo&utm_medium=donate_link&utm_campaign=easy_forms_for_mailchimp
 Tags: MailChimp, MailChimp forms, MailChimp lists, opt-in forms, sign up form, MailChimp, email, forms, mailing lists, marketing, newsletter, sign up
 Requires at least: 4.0
-Tested up to: 4.7.1
-Stable tag: 6.3.2
+Tested up to: 4.7.2
+Stable tag: 6.3.3
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -242,16 +242,21 @@ Below you'll find a complete list of the hooks and filters available in Easy For
 
 == Changelog ==
 
-= Easy Forms for MailChimp 6.3.2 - January 25th, 2016 = 
+= Easy Forms for MailChimp 6.3.3 - February 1st, 2017 = 
+* Security vulnerability patched - props to @nathan-hermit for bringing this to our attention
+* New feature: the ability to edit field labels
+* Generated new .pot file
+
+= Easy Forms for MailChimp 6.3.2 - January 25th, 2017 = 
 * Custom message visibility is now dictated by your opt-in settings
 * Fixed an issue with the PHP `array_keys` function that breaks PHP versions < 5.4
 * Hidden interest groups now work properly and are defined as checkboxes for consistency with MailChimp
 * Some minor copy changes and a new .pot file
 
-= Easy Forms for MailChimp 6.3.1 - January 18th, 2016 = 
+= Easy Forms for MailChimp 6.3.1 - January 18th, 2017 = 
 * Generated new .pot file for proper i18n/l10n
 
-= Easy Forms for MailChimp 6.3.0 - January 17th, 2016 = 
+= Easy Forms for MailChimp 6.3.0 - January 17th, 2017 = 
 * Version 6.3.0's biggest change is migrating the plugin to use MailChimp's v3 API.
 * Created API classes to interact with the MailChimp API
 * Converted all supported v2 endpoints to the corresponding v3 endpoint
