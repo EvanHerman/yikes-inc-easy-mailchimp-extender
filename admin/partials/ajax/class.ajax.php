@@ -129,7 +129,7 @@
 			$field_id	= isset( $field_data['field_id'] ) ? $field_data['field_id'] : '';
 
 			// Make sure we have our required variables before continuing
-			if ( empty( $list_id ) || empty( $field_name ) || empty( $field_id ) ) {
+			if ( $list_id === '' || $field_name === '' || $field_id === '' ) {
 				wp_send_json_error( array(
 						'message' => __( 'Could not update the field label: missing required field.', 'yikes-inc-easy-mailchimp-extender' ),
 						'developer-info' => "One of the following variables was empty: list_id: $list_id, field_name: $field_name, field_id: $field_id."
