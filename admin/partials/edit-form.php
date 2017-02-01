@@ -209,7 +209,7 @@
 												<div class="postbox yikes-easy-mc-postbox">
 													<!-- container title -->
 													<h3 class="edit-form-title" id="form-builder-div" data-list-id="<?php echo $form['list_id'] ?>" ><?php _e( 'Form Builder' , 'yikes-inc-easy-mailchimp-extender' ); ?></h3>
-													<p id="edit-form-description" class="description"><?php _e( 'Select fields from the right to add to this form, you can click a field to reveal advanced options, or drag it to re-arrange its position in the form.' , 'yikes-inc-easy-mailchimp-extender' );?></p>
+													<p id="edit-form-description" class="description"><?php _e( 'Click <span class="dashicons dashicons-plus"></span> on a field to show its advanced options or drag fields to re-arrange them. Click <span class="dashicons dashicons-edit"></span> to edit a field label. Make sure you hit "Update Form" to save all of your changes.' , 'yikes-inc-easy-mailchimp-extender' );?></p>
 													<div id="form-builder-container" class="inside">
 														<!-- #poststuff -->
 														<?php echo $this->generate_form_editor( $form['fields'], $form['list_id'] , $available_merge_variables , isset( $interest_groupings ) ? $interest_groupings : array() ); ?>
