@@ -4,7 +4,7 @@ Donate link: https://yikesplugins.com/?utm_source=wp_plugin_repo&utm_medium=dona
 Tags: MailChimp, MailChimp forms, MailChimp lists, opt-in forms, sign up form, MailChimp, email, forms, mailing lists, marketing, newsletter, sign up
 Requires at least: 4.0
 Tested up to: 4.7.2
-Stable tag: 6.3.3
+Stable tag: 6.3.4
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -115,7 +115,7 @@ Please read the MailChimp article [Manage List and Signup Form Fields](http://kb
 After you’ve added fields, they may not show up immediately in our plugin’s Form Builder. Our plugin pulls the information from MailChimp and stores it for a period of time before pulling it again. To get the new information immediately you will need to clear the MailChimp API cache. Please read our article [API Cache Settings](https://yikesplugins.com/support/knowledge-base/api-cache-settings/) for instructions on how to clear the MailChimp API cache.
 
 = How do I change the field labels? =
-The text next to or above each field of a form is called a “label” and you may want to change them. For instance by default MailChimp uses “First” instead of “First Name” and you may want to change it to make more sense. These labels are controlled on the MailChimp end, you will need to log into your MailChimp account to edit them. Please read the MailChimp Knowledge Base article, [Manage List and Signup Form Fields](http://kb.mailchimp.com/lists/managing-subscribers/manage-list-and-signup-form-fields) for detailed info on how to edit field labels.
+The text next to or above each field of a form is called a “label” and you may want to change them. For instance by default MailChimp uses “First” instead of “First Name” and you may want to change it to make more sense. In the form builder, you will find a little pencil icon next to each form label. Click that icon to edit the label and hit the check icon to save it. After you are done editing field labels you will need to hit the "Update Form" button to save all of your changes.
 
 = I’m not seeing all my lists on the drop-down menu when I go to make a new form, why? =
 Our plugin fetches your list information from MailChimp and stores it on your site in a cache. If you make changes to your MailChimp lists, our plugin will update your site with those changes within an hour. If you want it updated immediately (for instance if you add a new list), you can delete the MailChimp cache. Please read [our Knowledge Base Article](https://yikesplugins.com/support/knowledge-base/im-not-seeing-all-my-lists-on-the-drop-down-menu-when-i-go-to-make-a-new-form/?utm_source=wp_plugin_repo&utm_medium=link&utm_campaign=easy_forms_for_mailchimp) for more info.
@@ -241,6 +241,9 @@ Below you'll find a complete list of the hooks and filters available in Easy For
 * `yikes-mailchimp-list-interest-groups-metabox` - Add additional content inside of the interest groups metabox on the view list page.
 
 == Changelog ==
+
+= Easy Forms for MailChimp 6.3.4 - February 2nd, 2017 = 
+* CSS update to fix an issue with interest groups displaying in the form builder caused by 6.3.3
 
 = Easy Forms for MailChimp 6.3.3 - February 1st, 2017 = 
 * Security vulnerability patched - props to @nathan-hermit for bringing this to our attention

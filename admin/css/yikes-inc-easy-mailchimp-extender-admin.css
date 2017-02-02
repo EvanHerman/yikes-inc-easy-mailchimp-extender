@@ -1127,8 +1127,7 @@ ul.support-option-list {
 		width: 18px;
 	}
 	/* Form Field Raiods/Checkboxes */
-	.form-field-container td input[type="checkbox"],
-	.form-field-container td input[type="radio"] {
+	.form-field-container tr.yikes-checkbox-container input[type="checkbox"] {
 	    float: left;
 	    margin: 5px;
 	}
