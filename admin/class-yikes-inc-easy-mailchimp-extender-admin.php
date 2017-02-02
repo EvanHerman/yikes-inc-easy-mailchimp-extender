@@ -2002,7 +2002,7 @@ class Yikes_Inc_Easy_Mailchimp_Forms_Admin {
 											</td>
 										</tr>
 										<!-- Required Toggle -->
-										<tr valign="top">
+										<tr valign="top" class="yikes-checkbox-container">
 											<td scope="row">
 												<label for="field-required">
 													<?php _e( 'Field Required?' , 'yikes-inc-easy-mailchimp-extender' ); ?>
@@ -2015,7 +2015,7 @@ class Yikes_Inc_Easy_Mailchimp_Forms_Admin {
 											</td>
 										</tr>
 										<!-- Visible Toggle -->
-										<tr valign="top">
+										<tr valign="top" class="yikes-checkbox-container">
 											<td scope="row">
 												<label for="hide-field">
 													<?php _e( 'Hide Field' , 'yikes-inc-easy-mailchimp-extender' ); ?>
@@ -2028,7 +2028,7 @@ class Yikes_Inc_Easy_Mailchimp_Forms_Admin {
 											</td>
 										</tr>
 										<!-- Toggle Field Label Visibility -->
-										<tr valign="top">
+										<tr valign="top" class="yikes-checkbox-container">
 											<td scope="row">
 												<label for="placeholder">
 													<?php _e( 'Hide Label' , 'yikes-inc-easy-mailchimp-extender' ); ?>
