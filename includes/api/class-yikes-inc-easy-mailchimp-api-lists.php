@@ -179,6 +179,36 @@ class Yikes_Inc_Easy_MailChimp_API_Lists extends Yikes_Inc_Easy_MailChimp_API_Ab
 	}
 
 	/**
+	* Update a merge field for a particular list
+	*
+	* @author Kevin Utz
+	*
+	* @since 6.3.3
+	*
+	* @param string | $list_id			| The ID of the MailChimp list
+	* @param string | $field_id			| The ID of the merge field
+	* @param array  | $field_data		| An array of field data constituting the body of our API request
+	* @param bool	| $clear_transient	| Flag whether we should delete the transients associated with this list
+	*
+	* @return array | WP_Error
+	*/
+	public function update_merge_field( $list_id, $field_id, $field_data, $clear_transient = true ) {
+		$path	= "{$this->base_path}/{$list_id}/merge-fields/{$field_id}";
+		$field	= $this->patch_to_api( $path, $field_data );
+
+		if ( is_wp_error( $field ) ) {
+			return $field;
+		}
+
+		if ( $clear_transient === true ) {
+			delete_transient( "yikes_eme_merge_variables_{$list_id}" );
+		}
+
+		return $field;
+	}
+
+
+	/**
 	 * Get the Interest Categories for a particular list.
 	 *
 	 * @author Jeremy Pry

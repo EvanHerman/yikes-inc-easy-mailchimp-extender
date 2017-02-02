@@ -685,10 +685,21 @@ ul.support-option-list {
 	-moz-box-sizing: border-box;
  }
 
- .yikes-mc-settings-expansion-section {
+.yikes-mc-settings-expansion-section {
 	display: none;
 	background: rgba(241, 241, 241, 0.75);
- }
+}
+
+ 	.yikes-mc-settings-expansion-section .form-table td {
+ 		padding: 10px 10px;
+ 		vertical-align: top;
+ 	}
+
+		.yikes-mc-settings-expansion-section .form-table td p.description {
+ 			line-height: 1;
+			margin-top: 2px;
+		}
+
 	.expansion-section-title {
 		background: #ffffff;
 	}
@@ -1098,6 +1109,8 @@ ul.support-option-list {
 	}
 	.field-type-text {
 		display: inline-block;
+		float: right;
+		margin-right: 1em;
 	}
 	.type-container {
 		margin-top: 0;
@@ -1116,7 +1129,8 @@ ul.support-option-list {
 	/* Form Field Raiods/Checkboxes */
 	.form-field-container td input[type="checkbox"],
 	.form-field-container td input[type="radio"] {
-		margin: 0 5px;
+	    float: left;
+	    margin: 5px;
 	}
 		.form-field-container td input[type="checkbox"]:first-child,
 		.form-field-container td input[type="radio"]:first-child {
@@ -1129,7 +1143,9 @@ ul.support-option-list {
 		border: none;
 	}
 	.pre-defined-tag-link {
+		display: block;
 		font-size: 11px;
+		margin-top: -2px;
 	}
 	/* Close/Delete Buttons */
 	.toggle-container {
@@ -2310,6 +2326,24 @@ body.wp-customizer #available-widgets [id*="_yikes_easy_mc_widget"]>div.widget-t
 	-webkit-animation-delay: 0.3s;
 	 animation: dot 1.3s infinite;
 	 animation-delay: 0.3s;
+}
+
+.yikes-mc-edit-field-label-icon {
+	display: inline;
+}
+
+.yikes-mc-edit-field-label-input {
+	display: none;
+	width: auto;
+	border-radius: 5px;
+}
+.yikes-mc-save-field-label-edits-icon {
+	display: none;
+}
+.yikes-mc-edit-field-label-message {
+	display: none;
+	color: #F56060;
+	margin-left: 26px;
 }
 
 /* Animations */
