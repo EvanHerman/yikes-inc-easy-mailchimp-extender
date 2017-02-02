@@ -1110,7 +1110,7 @@ ul.support-option-list {
 	.field-type-text {
 		display: inline-block;
 		float: right;
-		margin-right: 1em;
+		margin-right: 0.1em;
 	}
 	.type-container {
 		margin-top: 0;
@@ -1197,7 +1197,7 @@ ul.support-option-list {
 	}
 /* Merge Variable / Interest Group Toggle */
 .mv_ig_list {
-	width:94%;
+	width: 100%;
 	margin-bottom: 8px !important;
 	border: none !important;
 	background: transparent !important;
@@ -1243,11 +1243,11 @@ ul.support-option-list {
 
 #container-container {
 	display: inline-block;
-	width: 521px;
+	width: 540px;
 }
 	#container-container .list-container {
 		float: left;
-		width: 240px;
+		width: 254px;
 		position: relative;
 	}
 	#container-container .list-container:last-child {
