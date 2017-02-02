@@ -2002,7 +2002,7 @@ class Yikes_Inc_Easy_Mailchimp_Forms_Admin {
 											</td>
 										</tr>
 										<!-- Required Toggle -->
-										<tr valign="top" class="yikes-checkbox-container">
+										<tr valign="top" class="yikes-checkbox-container yikes-checkbox-container-first">
 											<td scope="row">
 												<label for="field-required">
 													<?php _e( 'Field Required?' , 'yikes-inc-easy-mailchimp-extender' ); ?>
