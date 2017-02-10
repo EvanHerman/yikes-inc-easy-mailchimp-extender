@@ -180,7 +180,7 @@ Below you'll find a complete list of the hooks and filters available in Easy For
 * `yikes-mailchimp-user-role-access` - Alter who can access this plugin page by capability. Default: `manage_options` - @params: $capability
 * `yikes-mailchimp-international-phone-pattern` - Alter the regex pattern for acceptable international phone number formats. Default: `'[0-9,-,+]{1,}'` - @params: $regex_pattern
 * `yikes-mailchimp-us-phone-pattern` - Alter the regex pattern for acceptable US phone number formats. Default: `^(\([0-9]{3}\)|[0-9]{3}-)[0-9]{3}-[0-9]{4}$` - @params: $regex_pattern
-* `yikes-mailchimp-zip-pattern` - Alter the zip code regex pattern. Default: `\d{5,5}(-\d{4,4})?` - @params: $regex_pattern
+* `yikes-mailchimp-zip-pattern` - Alter the zip code regex pattern. Default: `\d{5,5}(-\d{4,4})?` - @params: $regex_pattern, $form_id
 * `yikes-mailchimp-process-default-tag` - Alter the default form field value for text fields. @params: $default_value
 * `yikes-mailchimp-{$merge_tag}-label` - Alter the specified form field's or interest group's label text. @params: $label
 * `yikes-mailchimp-{$merge_tag}-description` - Alter the specified form field's or interest group's description text (note: if targeting an interest group, it will be the group_id instead of the merge tag). @params: $description_content, $form_id.
@@ -222,8 +222,6 @@ Below you'll find a complete list of the hooks and filters available in Easy For
 * `yikesinc_eme_api_timeout` - Filter the timeout (in *seconds*) used when sending an API request. Default: `15` @params: $timeout
 * `yikesinc_eme_api_args` - Filter the arguments used for a request to the MailChimp API. @params: $args, $path, $method, $params
 * Version 6.3.5:
-* `yikes-mailchimp-display-state-field` - Filter controlling the visibility of the state field. @params: $show_state_field, $form_id
-* `yikes-mailchimp-state-field-dropdown` - Filter which dropdown appears for the state field ('US' for state dropdown, 'CA' for provinces dropdown, 'custom' for custom HTML). Default: `'US'` - @params: $country_slug, $form_id
 * `yikes-mailchimp-default-zip-code` - Filter to set the default zip code value. Default: `''` - @params $default_zip_code_value, $form_id
 
 **Actions**
@@ -243,18 +241,13 @@ Below you'll find a complete list of the hooks and filters available in Easy For
 * `yikes-mailchimp-custom-form-actions` - Add custom action links on the manage forms page (alongside Edit, Duplicate, Shortcode, Delete). @params: $form_id
 * `yikes-mailchimp-list-form-fields-metabox` - Add additional content to the 'Form Fields' metabox on the view list page.
 * `yikes-mailchimp-list-interest-groups-metabox` - Add additional content inside of the interest groups metabox on the view list page.
-* Version 6.3.5:
-* `yikes-mailchimp-custom-state-field-html` - Create and insert your own state field HTML (please visit our Knowledge Base for information on how to leverage this feature). @params: $field_array, $form_id
 
 == Changelog ==
 
 = Easy Forms for MailChimp 6.3.5 - February 10th, 2017 =
-* Added filters and logic to support a Canadian provinces dropdown (using filters, users can now use a provinces dropdown instead of a state dropdown)
-* Added hooks and logic to support custom HTML for the state field (please visit our Knowledge Base for information on how to leverage this feature)
-* Added the filters: `yikes-mailchimp-default-zip-code`, `yikes-mailchimp-display-state-field`, and `yikes-mailchimp-state-field-dropdown`
-* Added the action: `yikes-mailchimp-custom-state-field-html`
-* Added the variable $form_id to the `yikes-mailchimp-default-country-value` and `yikes-mailchimp-address-{$type}-label` filters
-* Minor JS refactoring
+* Added Canadian provinces to the state dropdown list. If you choose "Canada" as your country, you will see only the provinces. If you choose U.S. you will see only the states. For all other countries, the dropdown will fade out.
+* Added the filter: `yikes-mailchimp-default-zip-code` for defaulting the zip code (here's a knowledge base article on why you might need this)
+* Added the variable $form_id to the `yikes-mailchimp-default-country-value`, `yikes-mailchimp-address-{$type}-label`, and `yikes-mailchimp-zip-pattern` filters
 
 = Easy Forms for MailChimp 6.3.4 - February 2nd, 2017 = 
 * CSS update to fix an issue with interest groups displaying in the form builder caused by 6.3.3
