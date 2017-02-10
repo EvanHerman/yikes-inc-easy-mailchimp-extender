@@ -354,11 +354,11 @@ function process_mailchimp_shortcode( $atts ) {
 			) );
 		}
 
-		// If update account details is set, we need to include our script to send out the update email
-		wp_enqueue_script( 'update-existing-subscriber.js', YIKES_MC_URL . 'public/js/yikes-update-existing-subscriber.min.js' , array( 'jquery' ), 'all' );
-		wp_localize_script( 'update-existing-subscriber.js', 'update_subscriber_details_data', array(
+		// Generic JavaScript functions for interacting with the form
+		wp_enqueue_script( 'form-submission-helpers', YIKES_MC_URL . 'public/js/form-submission-helpers.min.js' , array( 'jquery' ), 'all' );
+		wp_localize_script( 'form-submission-helpers', 'form_submission_helpers', array(
 			'ajax_url' => esc_url( admin_url( 'admin-ajax.php' ) ),
-			'preloader_url' => apply_filters( 'yikes-mailchimp-preloader', esc_url_raw( admin_url( 'images/wpspin_light.gif' ) ) ),
+			'preloader_url' => apply_filters( 'yikes-mailchimp-preloader', esc_url_raw( admin_url( 'images/wpspin_light.gif' ) ) )
 		) );
 
 		/*
@@ -705,19 +705,61 @@ function process_mailchimp_shortcode( $atts ) {
 
 										case 'state':
 
+											// A filter'able boolean, deciding whether we display the state field as a whole
+											$show_state_field = ( $default_country === 'US' ) ? true : false;
+
+											/**
+											* A filter controlling the visibility of the state field.
+											*
+											*	'yikes-mailchimp-display-state-field'
+											*
+											* @param boolean | $show_state_field | True if default country is U.S., otherwise false
+											*/
+											$show_state_field = apply_filters( 'yikes-mailchimp-display-state-field', $show_state_field );
+
+											/**
+											* A filter controlling which dropdown field to show for the state field.
+											*
+											*	'yikes-mailchimp-state-field-dropdown'
+											*
+											* @param string | $country_slug | 'US' for states, 'CA' for provinces, 'custom' for custom HTML
+											*/
+											$state_dropdown_type = apply_filters( 'yikes-mailchimp-state-field-dropdown', 'US' );
+
 											?>
-											<label for="<?php echo esc_attr( $field['merge'] ); ?>" <?php echo implode( ' ' , $label_array ); ?> data-attr-name="state-dropdown"<?php if( ! in_array( $default_country, array( 'US' ) ) ) { ?> style="display: none;"<?php } ?>>
+											<label for="<?php echo esc_attr( $field['merge'] ); ?>" <?php echo implode( ' ' , $label_array ); ?> data-attr-name="state-dropdown"<?php if( $show_state_field === false ) { ?> style="display: none;"<?php } ?>>
 
 												<!-- dictate label visibility -->
 												<?php if( ! isset( $field['hide-label'] ) ) { ?>
 													<span class="<?php echo esc_attr( $field['merge'] ) . '-label'; ?>">
 														<?php echo ucwords( apply_filters( 'yikes-mailchimp-address-' . $type . '-label' , esc_attr( $label ) ) ); ?>
 													</span>
-												<?php } ?>
+												<?php }
 
-												<select <?php echo implode( ' ' , $field_array ); ?>>
-													<?php include( YIKES_MC_PATH . 'public/partials/shortcodes/templates/state-dropdown.php' ); ?>
-												</select>
+													switch( $state_dropdown_type ) {
+														case 'US':
+															echo '<select ' . implode( ' ', $field_array ) . '>';
+																include( YIKES_MC_PATH . 'public/partials/shortcodes/templates/state-dropdown.php' ); 
+															echo '</select>';
+															break;
+														case 'CA': 
+															echo '<select ' . implode( ' ', $field_array ) . '>';
+																include( YIKES_MC_PATH . 'public/partials/shortcodes/templates/province-dropdown.php' ); 
+															echo '</select>';
+															break;
+														case 'custom':
+
+															/**
+															* An action allowing users to write their own HTML for the state field.
+															*
+															*	'yikes-mailchimp-custom-state-field-html'
+															*
+															* @param array | $field_array | An array of HTML field-level data (see implode( ' ', $field_array ))
+															*/
+															do_action( 'yikes-mailchimp-custom-state-field-html', $field_array );
+															break;
+													}
+												?>
 
 											</label>
 											<?php
@@ -739,16 +781,28 @@ function process_mailchimp_shortcode( $atts ) {
 													// If zip lookup plugin is installed, the ZIP field comes back as an array and we need to handle it differently...
 													if( isset( $_POST[$field['merge']] ) && $form_submitted != 1 ) {
 														if ( is_array( $_POST[$field['merge']] ) && isset( $_POST[$field['merge']]['zip'] ) ) {
-															$zip_value_to_echo = $_POST[$field['merge']]['zip'];
+															$zip_value = $_POST[$field['merge']]['zip'];
 														} else {
-															$zip_value_to_echo = $_POST[$field['merge']]; 
+															$zip_value = $_POST[$field['merge']]; 
 														}
 													} else { 
-														$zip_value_to_echo = $default_value;
+
+														/**
+														* A filter to set the default zip code value.
+														*
+														* U.S. users may want to default their subscribers. 
+														* However, this filter is more for non-U.S. users, where the zip field is hidden. 
+														* MailChimp requires a zip code (for all submissions/countries), so this filter allows users users to set a default value.
+														*
+														*	'yikes-mailchimp-default-zip-code'
+														*
+														* @param string | $zip | A value to pre-populate the zip code with.
+														*/
+														$zip_value = apply_filters( 'yikes-mailchimp-default-zip-code', '' );
 													}
 												?>
 
-												<input <?php echo implode( ' ' , $field_array ); ?> type="text" pattern="<?php echo apply_filters( 'yikes-mailchimp-zip-pattern', '\d{5,5}(-\d{4,4})?' ); ?>" title="<?php _e( '5 digit zip code, numbers only' , 'yikes-inc-easy-mailchimp-extender' ); ?>" value="<?php echo esc_attr( $zip_value_to_echo ); ?>">
+												<input <?php echo implode( ' ' , $field_array ); ?> type="text" pattern="<?php echo apply_filters( 'yikes-mailchimp-zip-pattern', '\d{5,5}(-\d{4,4})?' ); ?>" title="<?php _e( '5 digit zip code, numbers only' , 'yikes-inc-easy-mailchimp-extender' ); ?>" value="<?php echo esc_attr( $zip_value ); ?>">
 
 											</label>
 											<?php
@@ -756,34 +810,6 @@ function process_mailchimp_shortcode( $atts ) {
 										break;
 
 										case 'country':
-											?>
-
-											<script type="text/javascript">
-												function checkCountry( e ) {
-													var country_value = jQuery( e ).val();
-													if( country_value != 'US' ) {
-														// fade out the non-US fields
-														jQuery( e ).parents( '.yikes-mailchimp-container' ).find( jQuery( 'label[data-attr-name="state-dropdown"]' ) ).fadeOut();
-														// Great Britain / UK should allow 'zip/postal code'
-														if( country_value != 'GB' ) {
-															jQuery( e ).parents( '.yikes-mailchimp-container' ).find( jQuery( 'label[data-attr-name="zip-input"]' ) ).fadeOut();
-														} else {
-															jQuery( e ).parents( '.yikes-mailchimp-container' ).find( jQuery( 'label[data-attr-name="zip-input"]' ) ).fadeIn();
-														}
-													} else {
-														if( country_value == 'GB' ) {
-															jQuery( e ).parents( '.yikes-mailchimp-container' ).find( jQuery( 'label[data-attr-name="zip-input"]' ) ).fadeIn();
-														} else {
-															jQuery( e ).parents( '.yikes-mailchimp-container' ).find( jQuery( 'label[data-attr-name="state-dropdown"]' ) ).fadeIn();
-															jQuery( e ).parents( '.yikes-mailchimp-container' ).find( jQuery( 'label[data-attr-name="zip-input"]' ) ).fadeIn();
-														}
-													}
-												}
-											</script>
-
-											<?php
-												// setup the default country value
-												$default_country = apply_filters( 'yikes-mailchimp-default-country-value', 'US' );
 											?>
 
 											<label for="<?php echo esc_attr( $field['merge'] ); ?>" data-attr-name="<?php echo esc_attr( $type ); ?>-field" <?php echo implode( ' ' , $label_array ); ?>>
@@ -795,7 +821,7 @@ function process_mailchimp_shortcode( $atts ) {
 													</span>
 												<?php } ?>
 
-												<select <?php echo implode( ' ' , $field_array ); ?> onchange="checkCountry(this);return false;">
+												<select <?php echo implode( ' ' , $field_array ); ?> data-country="true" data-show-state="<?php echo $show_state_field ?>">
 													<?php include( YIKES_MC_PATH . 'public/partials/shortcodes/templates/country-dropdown.php' ); ?>
 												</select>
 											</label>

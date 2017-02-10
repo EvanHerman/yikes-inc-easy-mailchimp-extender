@@ -1,0 +1,70 @@
+
+jQuery( document ).ready( function() {
+
+	// Listener for the country field
+	jQuery( 'select[data-country="true"]' ).change( function() {
+		var country_value = jQuery( this ).val();
+		var show_state_field = jQuery( this ).data( 'show-state' );
+		yikes_mc_check_country( this, country_value, show_state_field );
+	});
+
+
+	/**
+	*	Trigger an email to be sent over to the user to update existing details
+	*	- fires when the 'click here' link is clicked
+	*	@since 6.0.4.1
+	*/
+	jQuery( 'body' ).on( 'click', '.send-update-email', function() {
+
+		/* Submit an ajax request to send off the update email */
+		var data = {
+			'action': 'easy_forms_send_email',
+			'user_email': jQuery( this ).attr( 'data-user-email' ),
+			'list_id': jQuery( this ).attr( 'data-list-id' ),
+			'form_id': jQuery( this ).attr( 'data-form-id' ),
+		};
+		jQuery( this ).parent( 'p' ).fadeTo( 'fast', .75 ).append( '<img src="' + update_subscriber_details_data.preloader_url + '" class="update-email-preloader" />' );
+		jQuery.post( update_subscriber_details_data.ajax_url, data, function(response) {
+			if( response.success ) {
+				jQuery( '.yikes-easy-mc-error-message' ).removeClass( 'yikes-easy-mc-error-message' ).addClass( 'yikes-easy-mc-success-message' ).html( response.data.response_text );
+			} else {
+				jQuery( '.yikes-easy-mc-error-message' ).fadeTo( 'fast', 1 ).html( response.data.response_text );
+			}
+		});
+		return false;
+	});
+});
+
+/**
+* Show/Hide address fields based on the chosen country.
+*
+* This function currently controls the visibility of the state and zip fields.
+* U.S.: show state and zip fields
+* G.B.: do not show state, show zip
+* All other countries: do not show state, do not show zip 
+*
+* @param object | clicked_element	| A reference to the clicked element - the country dropdown (JavaScript's `this`)
+* @param string | country_value		| The value of the country dropdown
+* @param boolean| show_state_field	| A boolean indicating whether we should show/hide the state field. This overrides the chosen country.
+*/
+function yikes_mc_check_country( clicked_element, country_value, show_state_field ) {
+	if( country_value !== 'US' ) {
+
+		// Our filter 'yikes_mc_show_state_field' controls whether we hide the state dropdown for non-US countries
+		if (show_state_field !== 1 ) {
+
+			// Fade out the state dropdown field
+			jQuery( clicked_element ).parents( '.yikes-mailchimp-container' ).find( jQuery( 'label[data-attr-name="state-dropdown"]' ) ).fadeOut();
+		}
+		
+		// Great Britain / UK should allow 'zip/postal code'
+		if( country_value !== 'GB' ) {
+			jQuery( clicked_element ).parents( '.yikes-mailchimp-container' ).find( jQuery( 'label[data-attr-name="zip-input"]' ) ).fadeOut();
+		} else {
+			jQuery( clicked_element ).parents( '.yikes-mailchimp-container' ).find( jQuery( 'label[data-attr-name="zip-input"]' ) ).fadeIn();
+		}
+	} else {
+		jQuery( clicked_element ).parents( '.yikes-mailchimp-container' ).find( jQuery( 'label[data-attr-name="state-dropdown"]' ) ).fadeIn();
+		jQuery( clicked_element ).parents( '.yikes-mailchimp-container' ).find( jQuery( 'label[data-attr-name="zip-input"]' ) ).fadeIn();
+	}
+}
