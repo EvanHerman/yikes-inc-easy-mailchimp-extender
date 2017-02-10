@@ -5,8 +5,9 @@ jQuery( document ).ready( function() {
 	jQuery( 'select[data-country="true"]' ).change( function() {
 		var country_value = jQuery( this ).val();
 		var show_state_field = jQuery( this ).data( 'show-state' );
-		yikes_mc_toggle_address_fields_visibility( this, country_value, show_state_field );
 		yikes_mc_toggle_state_fields_dropdown( this, country_value );
+		yikes_mc_toggle_zip_field_visibility( this, country_value, show_state_field );
+		yikes_mc_toggle_state_field_visibility( this, country_value, show_state_field );
 	});
 	jQuery( 'select[data-country="true"]' ).trigger( 'change' );
 
@@ -38,36 +39,37 @@ jQuery( document ).ready( function() {
 });
 
 /**
-* Show/Hide address fields based on the chosen country.
+* Show/Hide zip-address field based on the chosen country.
 *
-* This function currently controls the visibility of the state and zip fields.
-* U.S.: show state and zip fields
-* G.B.: do not show state, show zip
-* All other countries: do not show state, do not show zip 
+* U.S. & G.B.: show zip
+* All other countries: do not show zip 
 *
 * @param object | clicked_element	| A reference to the clicked element - the country dropdown (JavaScript's `this`)
 * @param string | country_value		| The value of the country dropdown
-* @param boolean| show_state_field	| A boolean indicating whether we should show/hide the state field. This overrides the chosen country.
 */
-function yikes_mc_toggle_address_fields_visibility( clicked_element, country_value, show_state_field ) {
-	if( country_value !== 'US' ) {
-
-		// Our filter 'yikes_mc_show_state_field' controls whether we hide the state dropdown for non-US countries
-		if (show_state_field !== 1 ) {
-
-			// Fade out the state dropdown field
-			jQuery( clicked_element ).parents( '.yikes-mailchimp-container' ).find( jQuery( 'label[data-attr-name="state-dropdown"]' ) ).fadeOut();
-		}
-		
-		// Great Britain / UK should allow 'zip/postal code'
-		if( country_value !== 'GB' ) {
-			jQuery( clicked_element ).parents( '.yikes-mailchimp-container' ).find( jQuery( 'label[data-attr-name="zip-input"]' ) ).fadeOut();
-		} else {
-			jQuery( clicked_element ).parents( '.yikes-mailchimp-container' ).find( jQuery( 'label[data-attr-name="zip-input"]' ) ).fadeIn();
-		}
+function yikes_mc_toggle_zip_field_visibility( clicked_element, country_value ) {
+	if( country_value !== 'US' && country_value !== 'GB' ) {
+		jQuery( clicked_element ).parents( '.yikes-mailchimp-container' ).find( jQuery( 'label[data-attr-name="zip-input"]' ) ).fadeOut();
 	} else {
-		jQuery( clicked_element ).parents( '.yikes-mailchimp-container' ).find( jQuery( 'label[data-attr-name="state-dropdown"]' ) ).fadeIn();
 		jQuery( clicked_element ).parents( '.yikes-mailchimp-container' ).find( jQuery( 'label[data-attr-name="zip-input"]' ) ).fadeIn();
+	}
+}
+
+/**
+* Show/Hide state-address field based on the chosen country.
+*
+* If the country has states in the dropdown: show states field
+* If the country does not have states in the dropdown: do not show states field 
+*
+* @param object | clicked_element	| A reference to the clicked element - the country dropdown (JavaScript's `this`)
+* @param string | country_value		| The value of the country dropdown
+*/
+function yikes_mc_toggle_state_field_visibility( clicked_element, country_value ) {
+	var country_has_states = yikes_mc_does_country_have_states( clicked_element, country_value );
+	if ( country_has_states === true ) {
+		jQuery( clicked_element ).parents( '.yikes-mailchimp-container' ).find( jQuery( 'label[data-attr-name="state-dropdown"]' ) ).fadeIn();
+	} else {
+		jQuery( clicked_element ).parents( '.yikes-mailchimp-container' ).find( jQuery( 'label[data-attr-name="state-dropdown"]' ) ).fadeOut();
 	}
 }
 
@@ -82,10 +84,31 @@ function yikes_mc_toggle_state_fields_dropdown( clicked_element, country_value )
 
 	// Loop through all of the options in the state dropdown
 	jQuery( clicked_element ).parents( '.yikes-mailchimp-container' ).find( jQuery( 'label[data-attr-name="state-dropdown"]' ) ).children( 'select' ).children( 'option' ).each( function() {
-		if ( jQuery( this ).data( 'country' ) === country_value || jQuery( this ).data( 'always-show' ) === true ) {
+		if ( jQuery( this ).data( 'country' ) === country_value ) {
 			jQuery( this ).show();
 		} else {
 			jQuery( this ).hide();
 		}
 	});
+}
+
+/**
+* Check if the country has states in the dropdown.
+*
+*
+* @param object | clicked_element	| A reference to the clicked element - the country dropdown (JavaScript's `this`)
+* @param string | country_value		| The value of the country dropdown
+* @return bool	| 					| True if the country has states, false if the country does not
+*/
+function yikes_mc_does_country_have_states( clicked_element, country_value ) {
+	var country_has_states = false;
+	jQuery( clicked_element ).parents( '.yikes-mailchimp-container' ).find( jQuery( 'label[data-attr-name="state-dropdown"]' ) ).children( 'select' ).children( 'option' ).each( function() {
+		if ( jQuery( this ).data( 'country' ) === country_value ) {
+			country_has_states = true;
+
+			// To exit the anonymous function (terminate the .each loop)
+			return false;
+		}
+	});
+	return country_has_states;
 }

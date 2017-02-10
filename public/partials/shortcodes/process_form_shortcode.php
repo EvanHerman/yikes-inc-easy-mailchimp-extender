@@ -711,22 +711,8 @@ function process_mailchimp_shortcode( $atts ) {
 										break;
 
 										case 'state':
-
-											// A filter'able boolean, deciding whether we display the state field as a whole
-											$show_state_field = ( $default_country === 'US' ) ? true : false;
-
-											/**
-											* A filter controlling the visibility of the state field.
-											*
-											*	'yikes-mailchimp-display-state-field'
-											*
-											* @param boolean	| $show_state_field | True if default country is U.S., otherwise false
-											* @param int		| $form_id			| ID of the form
-											*/
-											$show_state_field = apply_filters( 'yikes-mailchimp-display-state-field', $show_state_field, $form_id );
-
 											?>
-											<label for="<?php echo esc_attr( $field['merge'] ); ?>" <?php echo implode( ' ' , $label_array ); ?> data-attr-name="state-dropdown"<?php if( $show_state_field === false ) { ?> style="display: none;"<?php } ?>>
+											<label for="<?php echo esc_attr( $field['merge'] ); ?>" <?php echo implode( ' ' , $label_array ); ?> data-attr-name="state-dropdown">
 
 												<!-- dictate label visibility -->
 												<?php if( ! isset( $field['hide-label'] ) ) { ?>
