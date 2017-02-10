@@ -699,7 +699,7 @@ function process_mailchimp_shortcode( $atts ) {
 												<!-- dictate label visibility -->
 												<?php if( ! isset( $field['hide-label'] ) ) { ?>
 													<span class="<?php echo esc_attr( $field['merge'] ) . '-label'; ?>">
-														<?php echo ucwords( apply_filters( 'yikes-mailchimp-address-' . $type . '-label' , esc_attr( $label ) ) ); ?>
+														<?php echo ucwords( apply_filters( 'yikes-mailchimp-address-' . $type . '-label' , esc_attr( $label ), $form_id ) ); ?>
 													</span>
 												<?php } ?>
 												
@@ -725,51 +725,19 @@ function process_mailchimp_shortcode( $atts ) {
 											*/
 											$show_state_field = apply_filters( 'yikes-mailchimp-display-state-field', $show_state_field, $form_id );
 
-											/**
-											* A filter controlling which dropdown field to show for the state field.
-											*
-											*	'yikes-mailchimp-state-field-dropdown'
-											*
-											* @param string | $country_slug | 'US' for states, 'CA' for provinces, 'custom' for custom HTML
-											* @param int	| $form_id		| ID of the form
-											*/
-											$state_dropdown_type = apply_filters( 'yikes-mailchimp-state-field-dropdown', 'US', $form_id );
-
 											?>
 											<label for="<?php echo esc_attr( $field['merge'] ); ?>" <?php echo implode( ' ' , $label_array ); ?> data-attr-name="state-dropdown"<?php if( $show_state_field === false ) { ?> style="display: none;"<?php } ?>>
 
 												<!-- dictate label visibility -->
 												<?php if( ! isset( $field['hide-label'] ) ) { ?>
 													<span class="<?php echo esc_attr( $field['merge'] ) . '-label'; ?>">
-														<?php echo ucwords( apply_filters( 'yikes-mailchimp-address-' . $type . '-label' , esc_attr( $label ) ) ); ?>
+														<?php echo ucwords( apply_filters( 'yikes-mailchimp-address-' . $type . '-label' , esc_attr( $label ), $form_id ) ); ?>
 													</span>
-												<?php }
+												<?php } ?>
 
-													switch( $state_dropdown_type ) {
-														case 'US':
-															echo '<select ' . implode( ' ', $field_array ) . '>';
-																include( YIKES_MC_PATH . 'public/partials/shortcodes/templates/state-dropdown.php' ); 
-															echo '</select>';
-															break;
-														case 'CA': 
-															echo '<select ' . implode( ' ', $field_array ) . '>';
-																include( YIKES_MC_PATH . 'public/partials/shortcodes/templates/province-dropdown.php' ); 
-															echo '</select>';
-															break;
-														case 'custom':
-
-															/**
-															* An action allowing users to write their own HTML for the state field.
-															*
-															*	'yikes-mailchimp-custom-state-field-html'
-															*
-															* @param array 	| $field_array	| An array of HTML field-level data (see implode( ' ', $field_array ))
-															* @param int	| $form_id		| ID of the form
-															*/
-															do_action( 'yikes-mailchimp-custom-state-field-html', $field_array, $form_id );
-															break;
-													}
-												?>
+													<select <?php echo implode( ' ' , $field_array ); ?>>
+														<?php include( YIKES_MC_PATH . 'public/partials/shortcodes/templates/state-and-province-dropdown.php' ); ?>
+													</select>
 
 											</label>
 											<?php
@@ -783,7 +751,7 @@ function process_mailchimp_shortcode( $atts ) {
 
 												<?php if( ! isset( $field['hide-label'] ) ) { ?>
 													<span class="<?php echo esc_attr( $field['merge'] ) . '-label'; ?>">
-														<?php echo ucwords( apply_filters( 'yikes-mailchimp-address-' . $type . '-label' , esc_attr( $label ) ) ); ?>
+														<?php echo ucwords( apply_filters( 'yikes-mailchimp-address-' . $type . '-label' , esc_attr( $label ), $form_id ) ); ?>
 													</span>
 												<?php } ?>
 
@@ -813,7 +781,7 @@ function process_mailchimp_shortcode( $atts ) {
 													}
 												?>
 
-												<input <?php echo implode( ' ' , $field_array ); ?> type="text" pattern="<?php echo apply_filters( 'yikes-mailchimp-zip-pattern', '\d{5,5}(-\d{4,4})?' ); ?>" title="<?php _e( '5 digit zip code, numbers only' , 'yikes-inc-easy-mailchimp-extender' ); ?>" value="<?php echo esc_attr( $zip_value ); ?>">
+												<input <?php echo implode( ' ' , $field_array ); ?> type="text" pattern="<?php echo apply_filters( 'yikes-mailchimp-zip-pattern', '\d{5,5}(-\d{4,4})?', $form_id ); ?>" title="<?php _e( '5 digit zip code, numbers only' , 'yikes-inc-easy-mailchimp-extender' ); ?>" value="<?php echo esc_attr( $zip_value ); ?>">
 
 											</label>
 											<?php
@@ -828,7 +796,7 @@ function process_mailchimp_shortcode( $atts ) {
 												<!-- dictate label visibility -->
 												<?php if( !isset( $field['hide-label'] ) ) { ?>
 													<span class="<?php echo esc_attr( $field['merge'] ) . '-label'; ?>">
-														<?php echo ucwords( apply_filters( 'yikes-mailchimp-address-'.$type.'-label' , esc_attr( $label ) ) ); ?>
+														<?php echo ucwords( apply_filters( 'yikes-mailchimp-address-' . $type . '-label' , esc_attr( $label ), $form_id ) ); ?>
 													</span>
 												<?php } ?>
 

@@ -5,8 +5,10 @@ jQuery( document ).ready( function() {
 	jQuery( 'select[data-country="true"]' ).change( function() {
 		var country_value = jQuery( this ).val();
 		var show_state_field = jQuery( this ).data( 'show-state' );
-		yikes_mc_check_country( this, country_value, show_state_field );
+		yikes_mc_toggle_address_fields_visibility( this, country_value, show_state_field );
+		yikes_mc_toggle_state_fields_dropdown( this, country_value );
 	});
+	jQuery( 'select[data-country="true"]' ).trigger( 'change' );
 
 
 	/**
@@ -47,7 +49,7 @@ jQuery( document ).ready( function() {
 * @param string | country_value		| The value of the country dropdown
 * @param boolean| show_state_field	| A boolean indicating whether we should show/hide the state field. This overrides the chosen country.
 */
-function yikes_mc_check_country( clicked_element, country_value, show_state_field ) {
+function yikes_mc_toggle_address_fields_visibility( clicked_element, country_value, show_state_field ) {
 	if( country_value !== 'US' ) {
 
 		// Our filter 'yikes_mc_show_state_field' controls whether we hide the state dropdown for non-US countries
@@ -67,4 +69,23 @@ function yikes_mc_check_country( clicked_element, country_value, show_state_fiel
 		jQuery( clicked_element ).parents( '.yikes-mailchimp-container' ).find( jQuery( 'label[data-attr-name="state-dropdown"]' ) ).fadeIn();
 		jQuery( clicked_element ).parents( '.yikes-mailchimp-container' ).find( jQuery( 'label[data-attr-name="zip-input"]' ) ).fadeIn();
 	}
+}
+
+/**
+* Control which items display in the state dropdown.
+*
+*
+* @param object | clicked_element	| A reference to the clicked element - the country dropdown (JavaScript's `this`)
+* @param string | country_value		| The value of the country dropdown
+*/
+function yikes_mc_toggle_state_fields_dropdown( clicked_element, country_value ) {
+
+	// Loop through all of the options in the state dropdown
+	jQuery( clicked_element ).parents( '.yikes-mailchimp-container' ).find( jQuery( 'label[data-attr-name="state-dropdown"]' ) ).children( 'select' ).children( 'option' ).each( function() {
+		if ( jQuery( this ).data( 'country' ) === country_value || jQuery( this ).data( 'always-show' ) === true ) {
+			jQuery( this ).show();
+		} else {
+			jQuery( this ).hide();
+		}
+	});
 }
