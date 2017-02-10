@@ -654,8 +654,15 @@ function process_mailchimp_shortcode( $atts ) {
 								// required fields
 								$required_fields = array( 'addr1' => 'address' , 'addr2' => 'address 2', 'city' => 'city', 'state' =>'state', 'zip' =>'zip' , 'country' => 'country' );
 
-								// setup the default country value
-								$default_country = apply_filters( 'yikes-mailchimp-default-country-value', 'US' );
+								/**
+								* Filter to control the default country (the option pre-selected in the country dropdown).
+								*
+								*	'yikes-mailchimp-default-country-value'
+								*
+								* @param string | $country_slug | The slug of the desired default country. Default: 'US'
+								* @param int	| $form_id		| ID of the form
+								*/
+								$default_country = apply_filters( 'yikes-mailchimp-default-country-value', 'US', $form_id );
 
 								// store number for looping
 								$x = 1;
@@ -713,9 +720,10 @@ function process_mailchimp_shortcode( $atts ) {
 											*
 											*	'yikes-mailchimp-display-state-field'
 											*
-											* @param boolean | $show_state_field | True if default country is U.S., otherwise false
+											* @param boolean	| $show_state_field | True if default country is U.S., otherwise false
+											* @param int		| $form_id			| ID of the form
 											*/
-											$show_state_field = apply_filters( 'yikes-mailchimp-display-state-field', $show_state_field );
+											$show_state_field = apply_filters( 'yikes-mailchimp-display-state-field', $show_state_field, $form_id );
 
 											/**
 											* A filter controlling which dropdown field to show for the state field.
@@ -723,8 +731,9 @@ function process_mailchimp_shortcode( $atts ) {
 											*	'yikes-mailchimp-state-field-dropdown'
 											*
 											* @param string | $country_slug | 'US' for states, 'CA' for provinces, 'custom' for custom HTML
+											* @param int	| $form_id		| ID of the form
 											*/
-											$state_dropdown_type = apply_filters( 'yikes-mailchimp-state-field-dropdown', 'US' );
+											$state_dropdown_type = apply_filters( 'yikes-mailchimp-state-field-dropdown', 'US', $form_id );
 
 											?>
 											<label for="<?php echo esc_attr( $field['merge'] ); ?>" <?php echo implode( ' ' , $label_array ); ?> data-attr-name="state-dropdown"<?php if( $show_state_field === false ) { ?> style="display: none;"<?php } ?>>
@@ -754,9 +763,10 @@ function process_mailchimp_shortcode( $atts ) {
 															*
 															*	'yikes-mailchimp-custom-state-field-html'
 															*
-															* @param array | $field_array | An array of HTML field-level data (see implode( ' ', $field_array ))
+															* @param array 	| $field_array	| An array of HTML field-level data (see implode( ' ', $field_array ))
+															* @param int	| $form_id		| ID of the form
 															*/
-															do_action( 'yikes-mailchimp-custom-state-field-html', $field_array );
+															do_action( 'yikes-mailchimp-custom-state-field-html', $field_array, $form_id );
 															break;
 													}
 												?>
@@ -796,9 +806,10 @@ function process_mailchimp_shortcode( $atts ) {
 														*
 														*	'yikes-mailchimp-default-zip-code'
 														*
-														* @param string | $zip | A value to pre-populate the zip code with.
+														* @param string | $zip		| A value to pre-populate the zip code with.
+														* @param int	| $form_id	| ID of the form
 														*/
-														$zip_value = apply_filters( 'yikes-mailchimp-default-zip-code', '' );
+														$zip_value = apply_filters( 'yikes-mailchimp-default-zip-code', '', $form_id );
 													}
 												?>
 
