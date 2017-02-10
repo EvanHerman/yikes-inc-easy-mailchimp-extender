@@ -4,10 +4,9 @@ jQuery( document ).ready( function() {
 	// Listener for the country field
 	jQuery( 'select[data-country="true"]' ).change( function() {
 		var country_value = jQuery( this ).val();
-		var show_state_field = jQuery( this ).data( 'show-state' );
 		yikes_mc_toggle_state_fields_dropdown( this, country_value );
-		yikes_mc_toggle_zip_field_visibility( this, country_value, show_state_field );
-		yikes_mc_toggle_state_field_visibility( this, country_value, show_state_field );
+		yikes_mc_toggle_zip_field_visibility( this, country_value );
+		yikes_mc_toggle_state_field_visibility( this, country_value );
 	});
 	jQuery( 'select[data-country="true"]' ).trigger( 'change' );
 

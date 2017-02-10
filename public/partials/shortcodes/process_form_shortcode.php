@@ -786,7 +786,7 @@ function process_mailchimp_shortcode( $atts ) {
 													</span>
 												<?php } ?>
 
-												<select <?php echo implode( ' ' , $field_array ); ?> data-country="true" data-show-state="<?php echo $show_state_field ?>">
+												<select <?php echo implode( ' ' , $field_array ); ?> data-country="true">
 													<?php include( YIKES_MC_PATH . 'public/partials/shortcodes/templates/country-dropdown.php' ); ?>
 												</select>
 											</label>

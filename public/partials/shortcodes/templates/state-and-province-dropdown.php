@@ -1,4 +1,4 @@
-<option data-always-show="true" value="">---</option>
+<option data-country="US" value="">---</option>
 <option data-country="US" value="AL">Alabama</option>
 <option data-country="US" value="AK">Alaska</option>
 <option data-country="US" value="AZ">Arizona</option>
@@ -50,6 +50,7 @@
 <option data-country="US" value="WV">West Virginia</option>
 <option data-country="US" value="WI">Wisconsin</option>
 <option data-country="US" value="WY">Wyoming</option>
+<option data-country="CA" value="">---</option>
 <option data-country="CA" value="AB">Alberta</option>
 <option data-country="CA" value="BC">British Columbia</option>
 <option data-country="CA" value="MB">Manitoba</option>
