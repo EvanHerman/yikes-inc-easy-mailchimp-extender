@@ -60,7 +60,8 @@ foreach( $interest_groups as $group ) {
 	<section class="draggable" id="<?php echo $group['group_id']; ?>">
 		<!-- top -->
 		<a href="#" class="expansion-section-title settings-sidebar">
-			<span class="dashicons dashicons-plus yikes-mc-expansion-toggle" title="<?php _e( 'Expand Field' , 'yikes-inc-easy-mailchimp-extender' ); ?>"></span><?php echo stripslashes( $group['field_name'] ); ?>
+			<span class="dashicons dashicons-plus yikes-mc-expansion-toggle" title="<?php _e( 'Expand Field' , 'yikes-inc-easy-mailchimp-extender' ); ?>"></span>
+			<?php echo stripslashes( $group['field_name'] ); ?>
 			<span class="field-type-text"><small><?php echo __( 'type' , 'yikes-inc-easy-mailchimp-extender' ) . ' : ' . $group['field_type']; ?></small></span>
 		</a>
 		<!-- expansion section -->
@@ -69,7 +70,7 @@ foreach( $interest_groups as $group ) {
 			<!-- Single or Double Opt-in -->
 			<p class="type-container"><!-- necessary to prevent skipping on slideToggle(); -->
 				<!-- store the label -->
-				<input type="hidden" name="field[<?php echo $group['group_id']; ?>][label]" value="<?php echo $group['field_name']; ?>" />
+				<input type="hidden" name="field[<?php echo $group['group_id']; ?>][label]" value="<?php echo htmlspecialchars( $group['field_name'] ); ?>" />
 				<input type="hidden" name="field[<?php echo $group['group_id']; ?>][type]" value="<?php echo $group['field_type']; ?>" />
 				<input type="hidden" name="field[<?php echo $group['group_id']; ?>][group_id]" value="<?php echo $group['group_id']; ?>" />
 				<input type="hidden" name="field[<?php echo $group['group_id']; ?>][groups]" value='<?php echo str_replace( '\'' , '~' , json_encode( $groups ) ); ?>' />

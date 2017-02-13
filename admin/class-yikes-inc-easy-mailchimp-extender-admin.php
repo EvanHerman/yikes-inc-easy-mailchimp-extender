@@ -1828,7 +1828,7 @@ class Yikes_Inc_Easy_Mailchimp_Forms_Admin {
 								<?php } ?>
 
 								<!-- store field data -->
-								<input type="hidden" class="yikes-mc-merge-field-label" name="field[<?php echo $field['merge']; ?>][label]" value="<?php echo $field['label']; ?>" />
+								<input type="hidden" class="yikes-mc-merge-field-label" name="field[<?php echo $field['merge']; ?>][label]" value="<?php echo htmlspecialchars( $field['label'] ); ?>" />
 								<input type="hidden" class="yikes-mc-merge-field-type" name="field[<?php echo $field['merge']; ?>][type]" value="<?php echo $field['type']; ?>" />
 								<input type="hidden" class="yikes-mc-merge-field-tag" name="field[<?php echo $field['merge']; ?>][merge]" value="<?php echo $field['merge']; ?>" />
 								<input type="hidden" class="field-<?php echo $field['merge']; ?>-position position-input" name="field[<?php echo $field['merge']; ?>][position]" value="<?php echo $i++; ?>" />
@@ -2114,7 +2114,9 @@ class Yikes_Inc_Easy_Mailchimp_Forms_Admin {
 
 
 
-					} else { // THIS IS AN INTEREST GROUP!
+					} else {
+
+						/**** Interest Group ****/
 
 						?>
 						<section class="draggable" id="<?php echo $field['group_id']; ?>">
@@ -2135,7 +2137,7 @@ class Yikes_Inc_Easy_Mailchimp_Forms_Admin {
 								<?php } ?>
 
 								<!-- store the label -->
-								<input type="hidden" name="field[<?php echo $field['group_id']; ?>][label]" value="<?php echo $field['label']; ?>" />
+								<input type="hidden" name="field[<?php echo $field['group_id']; ?>][label]" value="<?php echo htmlspecialchars( $field['label'] ); ?>" />
 								<input type="hidden" name="field[<?php echo $field['group_id']; ?>][type]" value="<?php echo $field['type']; ?>" />
 								<input type="hidden" name="field[<?php echo $field['group_id']; ?>][group_id]" value="<?php echo $field['group_id']; ?>" />
 								<input type="hidden" name="field[<?php echo $field['group_id']; ?>][groups]" value='<?php echo esc_attr( json_encode( json_decode( $field['groups'], true ) ) ); ?>' />
@@ -2314,7 +2316,7 @@ class Yikes_Inc_Easy_Mailchimp_Forms_Admin {
 							</div>
 						</section>
 						<?php
-					}	// its an interest group!
+					}
 				}
 			} else {
 				?>
@@ -2480,13 +2482,26 @@ class Yikes_Inc_Easy_Mailchimp_Forms_Admin {
 				foreach ( $available_interest_groups as $interest_group ) {
 					if ( isset( $fields_assigned_to_form[ $interest_group['id'] ] ) ) {
 						?>
-						<li class="available-interest-group not-available" alt="<?php echo $interest_group['id']; ?>" data-attr-field-name="<?php echo stripslashes( $interest_group['title'] ); ?>" data-attr-field-type="<?php echo $interest_group['type']; ?>" data-attr-form-id="<?php echo $list_id; ?>" title="<?php _e( 'Already assigned to your form', 'yikes-inc-easy-mailchimp-extender' ); ?>" disabled="disabled"><?php echo stripslashes( $interest_group['title'] ); ?>
+						<li class="available-interest-group not-available" 
+							alt="<?php echo $interest_group['id']; ?>" 
+							data-attr-field-name="<?php echo htmlspecialchars( $interest_group['title'] ); ?>" 
+							data-attr-field-type="<?php echo $interest_group['type']; ?>" 
+							data-attr-form-id="<?php echo $list_id; ?>" title="<?php _e( 'Already assigned to your form', 'yikes-inc-easy-mailchimp-extender' ); ?>" 
+							disabled="disabled"
+						>
+							<?php echo stripslashes( $interest_group['title'] ); ?>
 							<small class="field-type-text"><?php echo $interest_group['type']; ?></small>
 						</li>
 						<?php
 					} else {
 						?>
-						<li class="available-interest-group" alt="<?php echo $interest_group['id']; ?>" data-attr-field-name="<?php echo stripslashes( $interest_group['title'] ); ?>" data-attr-field-type="<?php echo $interest_group['type']; ?>" data-attr-form-id="<?php echo $list_id; ?>"><?php echo stripslashes( $interest_group['title'] ); ?>
+						<li class="available-interest-group" 
+							alt="<?php echo $interest_group['id']; ?>" 
+							data-attr-field-name="<?php echo htmlspecialchars( $interest_group['title'] ); ?>" 
+							data-attr-field-type="<?php echo $interest_group['type']; ?>" 
+							data-attr-form-id="<?php echo $list_id; ?>"
+						>
+							<?php echo stripslashes( $interest_group['title'] ); ?>
 							<small class="field-type-text"><?php echo $interest_group['type']; ?></small>
 						</li>
 						<?php

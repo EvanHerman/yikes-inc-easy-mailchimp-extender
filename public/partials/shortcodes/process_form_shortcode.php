@@ -1025,7 +1025,9 @@ function process_mailchimp_shortcode( $atts ) {
 							break;
 						}
 
-					} else { // Loop over interest groups
+					} else {
+
+						/**** Interest Groups ***/
 
 						// Get the default choice(s) from the field settings and turn them into an array if not already
 						$default_choice = ( isset( $field['default_choice'] ) ) ? $field['default_choice'] : '';
@@ -1055,7 +1057,7 @@ function process_mailchimp_shortcode( $atts ) {
 										<?php if( ! isset( $field['hide-label'] ) ) { ?>
 											<!-- dictate label visibility -->
 											<span class="<?php echo esc_attr( $field['group_id'] ) . '-label'; ?> checkbox-parent-label">
-												<?php echo apply_filters( 'yikes-mailchimp-' . $field['group_id'] . '-label' , esc_attr( $field['label'] ) ); ?>
+												<?php echo apply_filters( 'yikes-mailchimp-' . $field['group_id'] . '-label' , esc_attr( stripslashes( $field['label'] ) ) ); ?>
 											</span>
 									<?php
 										}
@@ -1119,7 +1121,7 @@ function process_mailchimp_shortcode( $atts ) {
 										<!-- dictate label visibility -->
 										<?php if( ! isset( $field['hide-label'] ) ) { ?>
 											<span class="<?php echo esc_attr( $field['group_id'] ) . '-label'; ?>">
-												<?php echo apply_filters( 'yikes-mailchimp-' . $field['group_id'] . '-label' , esc_attr( $field['label'] ) ); ?>
+												<?php echo apply_filters( 'yikes-mailchimp-' . $field['group_id'] . '-label' , esc_attr( stripslashes( $field['label'] ) ) ); ?>
 											</span>
 										<?php } ?>
 
