@@ -364,7 +364,7 @@ class Yikes_Inc_Easy_MailChimp_Extender_Process_Submission_Handler {
 		// loop to push variables to our array
 		foreach ( $data as $merge_tag => $value ) {
 
-			$skip_merge_tags = $this->get_skipped_merge_tags(); // Tested
+			$skip_merge_tags = $this->get_skipped_merge_tags();
 
 			// Skip any merge tags that aren't in the field settings, or that should be skipped.
 			if ( ! isset( $form_fields[ $merge_tag ] ) || isset( $skip_merge_tags[ $merge_tag ] ) ) {

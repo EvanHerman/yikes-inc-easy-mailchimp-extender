@@ -354,11 +354,11 @@ function process_mailchimp_shortcode( $atts ) {
 			) );
 		}
 
-		// If update account details is set, we need to include our script to send out the update email
-		wp_enqueue_script( 'update-existing-subscriber.js', YIKES_MC_URL . 'public/js/yikes-update-existing-subscriber.min.js' , array( 'jquery' ), 'all' );
-		wp_localize_script( 'update-existing-subscriber.js', 'update_subscriber_details_data', array(
+		// Generic JavaScript functions for interacting with the form
+		wp_enqueue_script( 'form-submission-helpers', YIKES_MC_URL . 'public/js/form-submission-helpers.min.js' , array( 'jquery' ), 'all' );
+		wp_localize_script( 'form-submission-helpers', 'form_submission_helpers', array(
 			'ajax_url' => esc_url( admin_url( 'admin-ajax.php' ) ),
-			'preloader_url' => apply_filters( 'yikes-mailchimp-preloader', esc_url_raw( admin_url( 'images/wpspin_light.gif' ) ) ),
+			'preloader_url' => apply_filters( 'yikes-mailchimp-preloader', esc_url_raw( admin_url( 'images/wpspin_light.gif' ) ) )
 		) );
 
 		/*
@@ -654,8 +654,15 @@ function process_mailchimp_shortcode( $atts ) {
 								// required fields
 								$required_fields = array( 'addr1' => 'address' , 'addr2' => 'address 2', 'city' => 'city', 'state' =>'state', 'zip' =>'zip' , 'country' => 'country' );
 
-								// setup the default country value
-								$default_country = apply_filters( 'yikes-mailchimp-default-country-value', 'US' );
+								/**
+								* Filter to control the default country (the option pre-selected in the country dropdown).
+								*
+								*	'yikes-mailchimp-default-country-value'
+								*
+								* @param string | $country_slug | The slug of the desired default country. Default: 'US'
+								* @param int	| $form_id		| ID of the form
+								*/
+								$default_country = apply_filters( 'yikes-mailchimp-default-country-value', 'US', $form_id );
 
 								// store number for looping
 								$x = 1;
@@ -692,7 +699,7 @@ function process_mailchimp_shortcode( $atts ) {
 												<!-- dictate label visibility -->
 												<?php if( ! isset( $field['hide-label'] ) ) { ?>
 													<span class="<?php echo esc_attr( $field['merge'] ) . '-label'; ?>">
-														<?php echo ucwords( apply_filters( 'yikes-mailchimp-address-' . $type . '-label' , esc_attr( $label ) ) ); ?>
+														<?php echo ucwords( apply_filters( 'yikes-mailchimp-address-' . $type . '-label' , esc_attr( $label ), $form_id ) ); ?>
 													</span>
 												<?php } ?>
 												
@@ -704,20 +711,19 @@ function process_mailchimp_shortcode( $atts ) {
 										break;
 
 										case 'state':
-
 											?>
-											<label for="<?php echo esc_attr( $field['merge'] ); ?>" <?php echo implode( ' ' , $label_array ); ?> data-attr-name="state-dropdown"<?php if( ! in_array( $default_country, array( 'US' ) ) ) { ?> style="display: none;"<?php } ?>>
+											<label for="<?php echo esc_attr( $field['merge'] ); ?>" <?php echo implode( ' ' , $label_array ); ?> data-attr-name="state-dropdown">
 
 												<!-- dictate label visibility -->
 												<?php if( ! isset( $field['hide-label'] ) ) { ?>
 													<span class="<?php echo esc_attr( $field['merge'] ) . '-label'; ?>">
-														<?php echo ucwords( apply_filters( 'yikes-mailchimp-address-' . $type . '-label' , esc_attr( $label ) ) ); ?>
+														<?php echo ucwords( apply_filters( 'yikes-mailchimp-address-' . $type . '-label' , esc_attr( $label ), $form_id ) ); ?>
 													</span>
 												<?php } ?>
 
-												<select <?php echo implode( ' ' , $field_array ); ?>>
-													<?php include( YIKES_MC_PATH . 'public/partials/shortcodes/templates/state-dropdown.php' ); ?>
-												</select>
+													<select <?php echo implode( ' ' , $field_array ); ?>>
+														<?php include( YIKES_MC_PATH . 'public/partials/shortcodes/templates/state-and-province-dropdown.php' ); ?>
+													</select>
 
 											</label>
 											<?php
@@ -731,7 +737,7 @@ function process_mailchimp_shortcode( $atts ) {
 
 												<?php if( ! isset( $field['hide-label'] ) ) { ?>
 													<span class="<?php echo esc_attr( $field['merge'] ) . '-label'; ?>">
-														<?php echo ucwords( apply_filters( 'yikes-mailchimp-address-' . $type . '-label' , esc_attr( $label ) ) ); ?>
+														<?php echo ucwords( apply_filters( 'yikes-mailchimp-address-' . $type . '-label' , esc_attr( $label ), $form_id ) ); ?>
 													</span>
 												<?php } ?>
 
@@ -739,16 +745,29 @@ function process_mailchimp_shortcode( $atts ) {
 													// If zip lookup plugin is installed, the ZIP field comes back as an array and we need to handle it differently...
 													if( isset( $_POST[$field['merge']] ) && $form_submitted != 1 ) {
 														if ( is_array( $_POST[$field['merge']] ) && isset( $_POST[$field['merge']]['zip'] ) ) {
-															$zip_value_to_echo = $_POST[$field['merge']]['zip'];
+															$zip_value = $_POST[$field['merge']]['zip'];
 														} else {
-															$zip_value_to_echo = $_POST[$field['merge']]; 
+															$zip_value = $_POST[$field['merge']]; 
 														}
 													} else { 
-														$zip_value_to_echo = $default_value;
+
+														/**
+														* A filter to set the default zip code value.
+														*
+														* U.S. users may want to default their subscribers. 
+														* However, this filter is more for non-U.S. users, where the zip field is hidden. 
+														* MailChimp requires a zip code (for all submissions/countries), so this filter allows users users to set a default value.
+														*
+														*	'yikes-mailchimp-default-zip-code'
+														*
+														* @param string | $zip		| A value to pre-populate the zip code with.
+														* @param int	| $form_id	| ID of the form
+														*/
+														$zip_value = apply_filters( 'yikes-mailchimp-default-zip-code', '', $form_id );
 													}
 												?>
 
-												<input <?php echo implode( ' ' , $field_array ); ?> type="text" pattern="<?php echo apply_filters( 'yikes-mailchimp-zip-pattern', '\d{5,5}(-\d{4,4})?' ); ?>" title="<?php _e( '5 digit zip code, numbers only' , 'yikes-inc-easy-mailchimp-extender' ); ?>" value="<?php echo esc_attr( $zip_value_to_echo ); ?>">
+												<input <?php echo implode( ' ' , $field_array ); ?> type="text" pattern="<?php echo apply_filters( 'yikes-mailchimp-zip-pattern', '\d{5,5}(-\d{4,4})?', $form_id ); ?>" title="<?php _e( '5 digit zip code, numbers only' , 'yikes-inc-easy-mailchimp-extender' ); ?>" value="<?php echo esc_attr( $zip_value ); ?>">
 
 											</label>
 											<?php
@@ -758,44 +777,16 @@ function process_mailchimp_shortcode( $atts ) {
 										case 'country':
 											?>
 
-											<script type="text/javascript">
-												function checkCountry( e ) {
-													var country_value = jQuery( e ).val();
-													if( country_value != 'US' ) {
-														// fade out the non-US fields
-														jQuery( e ).parents( '.yikes-mailchimp-container' ).find( jQuery( 'label[data-attr-name="state-dropdown"]' ) ).fadeOut();
-														// Great Britain / UK should allow 'zip/postal code'
-														if( country_value != 'GB' ) {
-															jQuery( e ).parents( '.yikes-mailchimp-container' ).find( jQuery( 'label[data-attr-name="zip-input"]' ) ).fadeOut();
-														} else {
-															jQuery( e ).parents( '.yikes-mailchimp-container' ).find( jQuery( 'label[data-attr-name="zip-input"]' ) ).fadeIn();
-														}
-													} else {
-														if( country_value == 'GB' ) {
-															jQuery( e ).parents( '.yikes-mailchimp-container' ).find( jQuery( 'label[data-attr-name="zip-input"]' ) ).fadeIn();
-														} else {
-															jQuery( e ).parents( '.yikes-mailchimp-container' ).find( jQuery( 'label[data-attr-name="state-dropdown"]' ) ).fadeIn();
-															jQuery( e ).parents( '.yikes-mailchimp-container' ).find( jQuery( 'label[data-attr-name="zip-input"]' ) ).fadeIn();
-														}
-													}
-												}
-											</script>
-
-											<?php
-												// setup the default country value
-												$default_country = apply_filters( 'yikes-mailchimp-default-country-value', 'US' );
-											?>
-
 											<label for="<?php echo esc_attr( $field['merge'] ); ?>" data-attr-name="<?php echo esc_attr( $type ); ?>-field" <?php echo implode( ' ' , $label_array ); ?>>
 
 												<!-- dictate label visibility -->
 												<?php if( !isset( $field['hide-label'] ) ) { ?>
 													<span class="<?php echo esc_attr( $field['merge'] ) . '-label'; ?>">
-														<?php echo ucwords( apply_filters( 'yikes-mailchimp-address-'.$type.'-label' , esc_attr( $label ) ) ); ?>
+														<?php echo ucwords( apply_filters( 'yikes-mailchimp-address-' . $type . '-label' , esc_attr( $label ), $form_id ) ); ?>
 													</span>
 												<?php } ?>
 
-												<select <?php echo implode( ' ' , $field_array ); ?> onchange="checkCountry(this);return false;">
+												<select <?php echo implode( ' ' , $field_array ); ?> data-country="true">
 													<?php include( YIKES_MC_PATH . 'public/partials/shortcodes/templates/country-dropdown.php' ); ?>
 												</select>
 											</label>
@@ -1034,7 +1025,9 @@ function process_mailchimp_shortcode( $atts ) {
 							break;
 						}
 
-					} else { // Loop over interest groups
+					} else {
+
+						/**** Interest Groups ***/
 
 						// Get the default choice(s) from the field settings and turn them into an array if not already
 						$default_choice = ( isset( $field['default_choice'] ) ) ? $field['default_choice'] : '';
@@ -1064,7 +1057,7 @@ function process_mailchimp_shortcode( $atts ) {
 										<?php if( ! isset( $field['hide-label'] ) ) { ?>
 											<!-- dictate label visibility -->
 											<span class="<?php echo esc_attr( $field['group_id'] ) . '-label'; ?> checkbox-parent-label">
-												<?php echo apply_filters( 'yikes-mailchimp-' . $field['group_id'] . '-label' , esc_attr( $field['label'] ) ); ?>
+												<?php echo apply_filters( 'yikes-mailchimp-' . $field['group_id'] . '-label' , esc_attr( stripslashes( $field['label'] ) ) ); ?>
 											</span>
 									<?php
 										}
@@ -1128,7 +1121,7 @@ function process_mailchimp_shortcode( $atts ) {
 										<!-- dictate label visibility -->
 										<?php if( ! isset( $field['hide-label'] ) ) { ?>
 											<span class="<?php echo esc_attr( $field['group_id'] ) . '-label'; ?>">
-												<?php echo apply_filters( 'yikes-mailchimp-' . $field['group_id'] . '-label' , esc_attr( $field['label'] ) ); ?>
+												<?php echo apply_filters( 'yikes-mailchimp-' . $field['group_id'] . '-label' , esc_attr( stripslashes( $field['label'] ) ) ); ?>
 											</span>
 										<?php } ?>
 

@@ -60,12 +60,12 @@ if ( is_wp_error( $members ) ) {
 }
 
 // setup pagination variables
-$paged    = isset( $_REQUEST['paged'] ) ? $_REQUEST['paged'] : '0';
-$limit    = apply_filters( 'yikes_admin_list_subscriber_limit', '20' );
-$sort_dir = isset( $_REQUEST['sort'] ) ? $_REQUEST['sort'] : 'DESC';
+$paged			= isset( $_REQUEST['paged'] ) ? filter_var( $_REQUEST['paged'], FILTER_SANITIZE_NUMBER_INT ) : 0;
+$limit			= apply_filters( 'yikes_admin_list_subscriber_limit', 20 );
+$page_offset	= (int) $paged * (int) $limit;
+$sort_dir		= isset( $_REQUEST['sort'] ) ? $_REQUEST['sort'] : 'DESC';
 
-
-if ( $sort_dir == 'DESC' ) {
+if ( $sort_dir === 'DESC' ) {
 	$opposite_sort_dir = 'ASC';
 	$icon              = '<span class="dashicons dashicons-arrow-down"></span>';
 	$sort_function     = 'krsort';
@@ -80,12 +80,12 @@ $sort_function( $members );
 
 // Maybe split the array into pages
 $total_pages = ceil( count( $members ) / $limit );
-if ( $total_pages == 0 ) {
+if ( (int) $total_pages === 0 ) {
 	$total_pages = '1';
 }
 
 // Segment the members based on the page and limit
-$subscribers_list = array_slice( $members, $paged, $limit );
+$subscribers_list = array_slice( $members, $page_offset, $limit );
 
 ?>
 <div class="wrap">

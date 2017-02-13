@@ -272,7 +272,7 @@ window.yikes_mailchimp_edit_form = window.yikes_mailchimp_edit_form || {};
 					$( '.mv_ig_list .nav-tab' ).removeClass( 'nav-tab-disabled' );
 				});
 				$( '#interest-groups-container' ).stop().animate({
-					left: '+=268px'
+					left: '+=278px'
 				}, function() {
 					$( '.mv_ig_list .nav-tab' ).removeClass( 'nav-tab-disabled' );
 				});
@@ -283,7 +283,7 @@ window.yikes_mailchimp_edit_form = window.yikes_mailchimp_edit_form || {};
 					$( '.mv_ig_list .nav-tab' ).removeClass( 'nav-tab-disabled' );
 				});
 				$( '#interest-groups-container' ).stop().animate({
-					left: '-=268px'
+					left: '-=278px'
 				}, function() {
 					$( '.mv_ig_list .nav-tab' ).removeClass( 'nav-tab-disabled' );
 				});

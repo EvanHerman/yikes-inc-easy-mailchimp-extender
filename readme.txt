@@ -1,10 +1,10 @@
 ﻿=== Easy Forms for MailChimp ===
-Contributors: yikesinc, eherman24, liljimmi, hiwhatsup, JPry
+Contributors: yikesinc, eherman24, liljimmi, hiwhatsup, JPry, yikesitskevin
 Donate link: https://yikesplugins.com/?utm_source=wp_plugin_repo&utm_medium=donate_link&utm_campaign=easy_forms_for_mailchimp
 Tags: MailChimp, MailChimp forms, MailChimp lists, opt-in forms, sign up form, MailChimp, email, forms, mailing lists, marketing, newsletter, sign up
 Requires at least: 4.0
 Tested up to: 4.7.2
-Stable tag: 6.3.4
+Stable tag: 6.3.5
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -180,11 +180,11 @@ Below you'll find a complete list of the hooks and filters available in Easy For
 * `yikes-mailchimp-user-role-access` - Alter who can access this plugin page by capability. Default: `manage_options` - @params: $capability
 * `yikes-mailchimp-international-phone-pattern` - Alter the regex pattern for acceptable international phone number formats. Default: `'[0-9,-,+]{1,}'` - @params: $regex_pattern
 * `yikes-mailchimp-us-phone-pattern` - Alter the regex pattern for acceptable US phone number formats. Default: `^(\([0-9]{3}\)|[0-9]{3}-)[0-9]{3}-[0-9]{4}$` - @params: $regex_pattern
-* `yikes-mailchimp-zip-pattern` - Alter the zip code regex pattern. Default: `\d{5,5}(-\d{4,4})?` - @params: $regex_pattern
+* `yikes-mailchimp-zip-pattern` - Alter the zip code regex pattern. Default: `\d{5,5}(-\d{4,4})?` - @params: $regex_pattern, $form_id
 * `yikes-mailchimp-process-default-tag` - Alter the default form field value for text fields. @params: $default_value
 * `yikes-mailchimp-{$merge_tag}-label` - Alter the specified form field's or interest group's label text. @params: $label
 * `yikes-mailchimp-{$merge_tag}-description` - Alter the specified form field's or interest group's description text (note: if targeting an interest group, it will be the group_id instead of the merge tag). @params: $description_content, $form_id.
-* `yikes-mailchimp-address-{$type}-label` - Alter the field sub-label text for a specific address field (e.g. addr1). @params: $label
+* `yikes-mailchimp-address-{$type}-label` - Alter the field sub-label text for a specific address field (e.g. addr1). @params: $label, $form_id
 * `yikes-mailchimp-form-submit-button` - Alter the submit button to your liking. @params: $submit_button, $form_id
 * `yikes-mailchimp-form-submit-button-text` - Alter the submit button text. Default: `submit` - @params: $submit_button_text, $form_id
 * `yikes-mailchimp-form-submit-button-classes` - Add additional classes to the submit button for further styling. @params: $classes, $form_id
@@ -201,9 +201,10 @@ Below you'll find a complete list of the hooks and filters available in Easy For
 * `yikes-mailchimp-update-email-subject` - Filter the subject line for the email that is generated and sent when a user needs to update their subscription info. @params: $email_subject
 * `yikes-mailchimp-update-email-content` - Filter the content of the email that is generated and sent when a user needs to update their subscription info. @params: $email_body
 * `yikes-mailchimp-success-response` - Alter *any* success response text. @params: $response_text, $form_id, $submitted_form_variables
-* `yikes-mailchimp-default-country-value` - Alter the default country selected in the country dropdown. Default: `US` - @params: $country_slug
+* `yikes-mailchimp-default-country-value` - Alter the default country selected in the country dropdown. Default: `US` - @params: $country_slug, $form_id
 * `yikes-mailchimp-recaptcha-required-error` - Filter the error displayed back to the user when an error occurs during the reCAPTCHA submission process. @params: $error_text, $form_id
 * `yikes-mailchimp-sslverify` - Toggle sslverify on/off when attempting to validate your API key with the MailChimp API servers. Default: `true` (on) - @params: $use_ssl
+* `yikes_admin_list_subscriber_limit` - Filter the number of subscribers per page when viewing a list's subscribers. Default: `20` - @params: $limit
 * Version 6.3.0:
 * `yikes-mailchimp-success-double-optin-response` - Filter the "Success: Double opt-in" custom message. @params: $message, $form_id
 * `yikes-mailchimp-success-single-optin-response` - Filter the "Success: Single opt-in" custom message. @params: $message, $form_id
@@ -221,6 +222,8 @@ Below you'll find a complete list of the hooks and filters available in Easy For
 * `yikesinc_eme_api_headers` - Filter the headers used for a request to the MailChimp API. @params: $headers, $path, $method, $params
 * `yikesinc_eme_api_timeout` - Filter the timeout (in *seconds*) used when sending an API request. Default: `15` @params: $timeout
 * `yikesinc_eme_api_args` - Filter the arguments used for a request to the MailChimp API. @params: $args, $path, $method, $params
+* Version 6.3.5:
+* `yikes-mailchimp-default-zip-code` - Filter to set the default zip code value. Default: `''` - @params $default_zip_code_value, $form_id
 
 **Actions**
 
@@ -241,6 +244,13 @@ Below you'll find a complete list of the hooks and filters available in Easy For
 * `yikes-mailchimp-list-interest-groups-metabox` - Add additional content inside of the interest groups metabox on the view list page.
 
 == Changelog ==
+
+= Easy Forms for MailChimp 6.3.5 - February 13th, 2017 =
+* Added Canadian provinces to the state dropdown list. If you choose "Canada" as your country, you will see only the provinces. If you choose U.S. you will see only the states. For all other countries, the dropdown will fade out.
+* Added the filter: `yikes-mailchimp-default-zip-code` for defaulting the zip code
+* Added the variable $form_id to the `yikes-mailchimp-default-country-value`, `yikes-mailchimp-address-{$type}-label`, and `yikes-mailchimp-zip-pattern` filters
+* Fixed an issue with pagination when viewing a list's subscribers. By default, each page jumps ahead 20 subscribers. This can be changed with the filter `yikes_admin_list_subscriber_limit`.
+* Fixed an issue where using double/single quotes in field names could break the field name.
 
 = Easy Forms for MailChimp 6.3.4 - February 2nd, 2017 = 
 * CSS update to fix an issue with interest groups displaying in the form builder caused by 6.3.3
