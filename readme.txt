@@ -247,7 +247,7 @@ Below you'll find a complete list of the hooks and filters available in Easy For
 
 = Easy Forms for MailChimp 6.3.5 - February 13th, 2017 =
 * Added Canadian provinces to the state dropdown list. If you choose "Canada" as your country, you will see only the provinces. If you choose U.S. you will see only the states. For all other countries, the dropdown will fade out.
-* Added the filter: `yikes-mailchimp-default-zip-code` for defaulting the zip code (here's a knowledge base article on why you might need this)
+* Added the filter: `yikes-mailchimp-default-zip-code` for defaulting the zip code
 * Added the variable $form_id to the `yikes-mailchimp-default-country-value`, `yikes-mailchimp-address-{$type}-label`, and `yikes-mailchimp-zip-pattern` filters
 * Fixed an issue with pagination when viewing a list's subscribers. By default, each page jumps ahead 20 subscribers. This can be changed with the filter `yikes_admin_list_subscriber_limit`.
 * Fixed an issue where using double/single quotes in field names could break the field name.
