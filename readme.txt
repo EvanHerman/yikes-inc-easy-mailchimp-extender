@@ -204,6 +204,7 @@ Below you'll find a complete list of the hooks and filters available in Easy For
 * `yikes-mailchimp-default-country-value` - Alter the default country selected in the country dropdown. Default: `US` - @params: $country_slug, $form_id
 * `yikes-mailchimp-recaptcha-required-error` - Filter the error displayed back to the user when an error occurs during the reCAPTCHA submission process. @params: $error_text, $form_id
 * `yikes-mailchimp-sslverify` - Toggle sslverify on/off when attempting to validate your API key with the MailChimp API servers. Default: `true` (on) - @params: $use_ssl
+* `yikes_admin_list_subscriber_limit` - Filter the number of subscribers per page when viewing a list's subscribers. Default: `20` - @params: $limit
 * Version 6.3.0:
 * `yikes-mailchimp-success-double-optin-response` - Filter the "Success: Double opt-in" custom message. @params: $message, $form_id
 * `yikes-mailchimp-success-single-optin-response` - Filter the "Success: Single opt-in" custom message. @params: $message, $form_id
@@ -244,10 +245,11 @@ Below you'll find a complete list of the hooks and filters available in Easy For
 
 == Changelog ==
 
-= Easy Forms for MailChimp 6.3.5 - February 10th, 2017 =
+= Easy Forms for MailChimp 6.3.5 - February 13th, 2017 =
 * Added Canadian provinces to the state dropdown list. If you choose "Canada" as your country, you will see only the provinces. If you choose U.S. you will see only the states. For all other countries, the dropdown will fade out.
 * Added the filter: `yikes-mailchimp-default-zip-code` for defaulting the zip code (here's a knowledge base article on why you might need this)
 * Added the variable $form_id to the `yikes-mailchimp-default-country-value`, `yikes-mailchimp-address-{$type}-label`, and `yikes-mailchimp-zip-pattern` filters
+* Fixed an issue with pagination when viewing a list's subscribers. By default, each page jumps ahead 20 subscribers. This can be changed with the filter `yikes_admin_list_subscriber_limit`.
 
 = Easy Forms for MailChimp 6.3.4 - February 2nd, 2017 = 
 * CSS update to fix an issue with interest groups displaying in the form builder caused by 6.3.3
