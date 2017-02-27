@@ -1616,10 +1616,24 @@ class Yikes_Inc_Easy_Mailchimp_Forms_Admin {
 					<?php _e( "Select A Page or Post" , 'yikes-inc-easy-mailchimp-extender' ); ?>
 					<select id="redirect-user-to-selection" name="redirect-user-to-selection" onchange="shouldWeDisplayCustomURL( this );return;">
 				<?php
+
+					/**
+					*	yikes-mailchimp-excluded-redirect-post-types
+					*
+					*	Filter the post types that will not show on the redirect list dropdown.
+					*
+					* 	@param array | $excluded_post_types | The array of default excluded post types
+					*	@return array| $excluded_post_types | The array of user-defined excluded post types
+					*/
+					$excluded_post_types = array( 'attachment' , 'revision' , 'nav_menu_item', 'shop_order', 'shop_order_refund', 'custom_css', 'customize_changeset' );
+					$excluded_post_types = apply_filters( 'yikes-mailchimp-excluded-redirect-post-types', $excluded_post_types );
+
 					// loop over registered post types, and query!
 						foreach( $post_types as $registered_post_type ) {
+
 							// exclude a few built in custom post types
-							if( ! in_array( $registered_post_type , array( 'attachment' , 'revision' , 'nav_menu_item' ) ) ) {
+							if( ! in_array( $registered_post_type, $excluded_post_types ) ) {
+
 								// run our query, to retreive the posts
 								$pages = get_posts( array(
 									'order' => 'ASC',
@@ -1628,6 +1642,7 @@ class Yikes_Inc_Easy_Mailchimp_Forms_Admin {
 									'post_status' => 'publish',
 									'numberposts' => -1
 								) );
+
 								// only show cpt's that have posts assigned
 								if( !empty( $pages ) ) {
 									?>
