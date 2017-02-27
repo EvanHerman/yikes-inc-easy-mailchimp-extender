@@ -247,7 +247,7 @@ Below you'll find a complete list of the hooks and filters available in Easy For
 
 == Changelog ==
 
-= Easy Forms for MailChimp 6.3.6 - February 27th, 2017 
+= Easy Forms for MailChimp 6.3.6 - February 27th, 2017 =
 * Removing the following post types from our dropdown of potential redirect pages: `custom_css`, `customize_changeset`, and WooCommerce's `shop_order` and `shop_order_refund`.
 * Adding a filter (`yikes-mailchimp-excluded-redirect-post-types`) to allow users to define which CPTs will be excluded from the list of potential redirect pages. See the "Other Notes" section for the default list of excluded post types.
 
