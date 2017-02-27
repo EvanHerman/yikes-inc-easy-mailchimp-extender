@@ -4,7 +4,7 @@ Donate link: https://yikesplugins.com/?utm_source=wp_plugin_repo&utm_medium=dona
 Tags: MailChimp, MailChimp forms, MailChimp lists, opt-in forms, sign up form, MailChimp, email, forms, mailing lists, marketing, newsletter, sign up
 Requires at least: 4.0
 Tested up to: 4.7.2
-Stable tag: 6.3.5
+Stable tag: 6.3.6
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -224,6 +224,8 @@ Below you'll find a complete list of the hooks and filters available in Easy For
 * `yikesinc_eme_api_args` - Filter the arguments used for a request to the MailChimp API. @params: $args, $path, $method, $params
 * Version 6.3.5:
 * `yikes-mailchimp-default-zip-code` - Filter to set the default zip code value. Default: `''` - @params $default_zip_code_value, $form_id
+* Version 6.3.6:
+* `yikes-mailchimp-excluded-redirect-post-types` - Filter which post types will *not* be included in the dropdown of pages that you can redirect to. Some post types will never need to be redirected to, and for convenience (e.g. a smaller and easier to navigate dropdown) these can be added to the excluded post types array. Default: `array( 'attachment' , 'revision' , 'nav_menu_item', 'shop_order', 'shop_order_refund', 'custom_css', 'customize_changeset' );` - @params: $excluded_post_types (the default array)
 
 **Actions**
 
@@ -244,6 +246,10 @@ Below you'll find a complete list of the hooks and filters available in Easy For
 * `yikes-mailchimp-list-interest-groups-metabox` - Add additional content inside of the interest groups metabox on the view list page.
 
 == Changelog ==
+
+= Easy Forms for MailChimp 6.3.6 - February 27th, 2017 
+* Removing the following post types from our dropdown of potential redirect pages: `custom_css`, `customize_changeset`, and WooCommerce's `shop_order` and `shop_order_refund`.
+* Adding a filter (`yikes-mailchimp-excluded-redirect-post-types`) to allow users to define which CPTs will be excluded from the list of potential redirect pages. See the "Other Notes" section for the default list of excluded post types.
 
 = Easy Forms for MailChimp 6.3.5 - February 13th, 2017 =
 * Added Canadian provinces to the state dropdown list. If you choose "Canada" as your country, you will see only the provinces. If you choose U.S. you will see only the states. For all other countries, the dropdown will fade out.
