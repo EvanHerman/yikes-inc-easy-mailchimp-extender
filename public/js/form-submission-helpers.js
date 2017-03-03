@@ -25,8 +25,8 @@ jQuery( document ).ready( function() {
 			'list_id': jQuery( this ).attr( 'data-list-id' ),
 			'form_id': jQuery( this ).attr( 'data-form-id' ),
 		};
-		jQuery( this ).parent( 'p' ).fadeTo( 'fast', .75 ).append( '<img src="' + update_subscriber_details_data.preloader_url + '" class="update-email-preloader" />' );
-		jQuery.post( update_subscriber_details_data.ajax_url, data, function(response) {
+		jQuery( this ).parent( 'p' ).fadeTo( 'fast', .75 ).append( '<img src="' + form_submission_helpers.preloader_url + '" class="update-email-preloader" />' );
+		jQuery.post( form_submission_helpers.ajax_url, data, function(response) {
 			if( response.success ) {
 				jQuery( '.yikes-easy-mc-error-message' ).removeClass( 'yikes-easy-mc-error-message' ).addClass( 'yikes-easy-mc-success-message' ).html( response.data.response_text );
 			} else {

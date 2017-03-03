@@ -4,7 +4,7 @@ Donate link: https://yikesplugins.com/?utm_source=wp_plugin_repo&utm_medium=dona
 Tags: MailChimp, MailChimp forms, MailChimp lists, opt-in forms, sign up form, MailChimp, email, forms, mailing lists, marketing, newsletter, sign up
 Requires at least: 4.0
 Tested up to: 4.7.2
-Stable tag: 6.3.6
+Stable tag: 6.3.7
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -247,7 +247,10 @@ Below you'll find a complete list of the hooks and filters available in Easy For
 
 == Changelog ==
 
-= Easy Forms for MailChimp 6.3.6 - February 27th, 2017 
+= Easy Forms for MailChimp 6.3.7 - March 3rd, 2017 =
+* Fixed an issue with the JavaScript helper file that was updated in 6.3.5 - the update profile link should now work as expected (shout out to @manouallouon on GitHub for pointing this out)
+
+= Easy Forms for MailChimp 6.3.6 - February 27th, 2017 =
 * Removing the following post types from our dropdown of potential redirect pages: `custom_css`, `customize_changeset`, and WooCommerce's `shop_order` and `shop_order_refund`.
 * Adding a filter (`yikes-mailchimp-excluded-redirect-post-types`) to allow users to define which CPTs will be excluded from the list of potential redirect pages. See the "Other Notes" section for the default list of excluded post types.
 
