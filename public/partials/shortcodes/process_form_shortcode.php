@@ -468,21 +468,13 @@ function process_mailchimp_shortcode( $atts ) {
 					if( $field['type'] == 'email' ) {
 						$field_array['required'] = 'required="required"';
 						$label_array['visible'] = '';
-						// $label_array['required'] = 'class="' . $field['merge'] . '-label yikes-mailchimp-field-required"';
 						$label_class_array[] = $field['merge'] . '-label';
 						$label_class_array[] = 'yikes-mailchimp-field-required';
 					} else {
-						if( $tag == 'merge' ) {
-							$field_array['required'] = isset( $field['require'] ) ? 'required="required"' : '';
-							$label_array['visible'] = isset( $field['hide'] ) ? 'style="display:none;"' : '';
-							// $label_array['required'] = isset( $field['require'] ) ? 'class="' . $field['merge'] . '-label yikes-mailchimp-field-required"' : 'class="' . $field['merge'] . '-label"';
-							$label_class_array[] = isset( $field['require'] ) ? $field['merge'] . '-label yikes-mailchimp-field-required' : $field['merge'] . '-label';
-						} else {
-							$field_array['required'] = isset( $field['require'] ) ? 'required="required"' : '';
-							$label_array['visible'] = isset( $field['hide'] ) ? 'style="display:none;"' : '';
-							// $label_array['required'] = isset( $field['require'] ) ? 'class="' . $field['group_id'] . '-label yikes-mailchimp-field-required"' : 'class="' . $field['group_id'] . '-label"';
-							$label_class_array[] = isset( $field['require'] ) ? $field['group_id'] . '-label yikes-mailchimp-field-required' : $field['group_id'] . '-label';
-						}
+						$field_array['required'] = isset( $field['require'] ) ? 'required="required"' : '';
+						$label_array['visible'] = isset( $field['hide'] ) ? 'style="display:none;"' : '';
+						$label_class_array[] = ( $tag === 'merge' ) ? $field['merge'] . '-label' : $field['group_id'] . '-label';
+						if ( isset( $field['require'] ) ) $label_class_array[] = 'yikes-mailchimp-field-required';
 					}
 
 					// if both hide label and hide field are checked, we gotta hide the field!
@@ -493,8 +485,10 @@ function process_mailchimp_shortcode( $atts ) {
 					}
 
 					// Sanitize the classes
-					$label_class_array = array_map( 'sanitize_html_class', $label_class_array );
-					$label_array['classes'] = 'class="' . implode( ' ', $label_class_array ) . '"';
+					$label_class_array = function_exists( 'sanitize_html_class' ) ? array_map( 'sanitize_html_class', $label_class_array ) : $label_class_array;
+
+					// Turn the clases into a string
+					$label_array['classes'] = 'class="' . implode( ' ', $label_class_array ) . ' "';
 
 					// Filter the field array data
 					$field_array = apply_filters( 'yikes-mailchimp-field-data', $field_array, $field, $form_id );
@@ -1182,7 +1176,7 @@ function process_mailchimp_shortcode( $atts ) {
 
 										foreach( $groups as $group_id => $name ) { 
 											?>
-											<label for="<?php echo esc_attr( $field['group_id'] ) . '-' . $i; ?>" class="yikes-easy-mc-checkbox-label <?php echo implode( ' ' , $custom_classes ); if ( $x === $count ) { echo 'last-selection'; } ?>" style="display:none;">
+											<label for="<?php echo esc_attr( $field['group_id'] ) . '-' . $i; ?>" class="yikes-easy-mc-checkbox-label <?php echo implode( ' ' , $custom_classes ); if ( $x === $count ) { echo ' last-selection'; } ?>" style="display:none;">
 												<input 
 													type="checkbox" 
 													name="group-<?php echo esc_attr( $field['group_id'] ); ?>[]" 
