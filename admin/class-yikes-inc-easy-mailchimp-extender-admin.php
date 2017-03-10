@@ -540,7 +540,7 @@ class Yikes_Inc_Easy_Mailchimp_Forms_Admin {
 
 			$stop_bugging_me = get_option( 'yikes_easy_mailchimp_review_stop_bugging_me' );
 
-			if( !$stop_bugging_me ) {
+			if ( ! $stop_bugging_me ) {
 				$install_date = get_option( 'yikes_easy_mailchimp_activation_date' );
 				$past_date = strtotime( '-14 days' );
 				if ( $past_date >= $install_date && current_user_can( 'install_plugins' ) ) {
@@ -559,11 +559,17 @@ class Yikes_Inc_Easy_Mailchimp_Forms_Admin {
 			/* Lets only display our admin notice on YT4WP pages to not annoy the hell out of people :) */
 			if ( in_array( get_current_screen()->base , array( 'dashboard' , 'post' , 'edit' ) ) || strpos( get_current_screen()->base ,'yikes-inc-easy-mailchimp') !== false ) {
 
+				// The URL of the page the user is currently on 
+				$current_uri  	  = isset( $_SERVER['REQUEST_URI'] ) && ! empty( $_SERVER['REQUEST_URI'] ) ? $_SERVER['REQUEST_URI'] : false;
+				$current_host	  = isset( $_SERVER['HTTP_HOST'] ) && ! empty( $_SERVER['HTTP_HOST'] ) ? $_SERVER['HTTP_HOST'] : false;
+				$current_protocol = is_ssl() === true ? 'https://' : 'http://';
+				$current_url	  = ( $current_uri !== false && $current_host !== false ) ? $current_protocol . $current_host . $current_uri : admin_url();
+
 				$plugin_name = '<strong>Easy Forms for MailChimp</strong>';
 				// Review URL - Change to the URL of your plugin on WordPress.org
 				$reviewurl = 'https://wordpress.org/support/view/plugin-reviews/yikes-inc-easy-mailchimp-extender';
 				$addons_url = esc_url( admin_url( 'admin.php?page=yikes-inc-easy-mailchimp-addons' ) );
-				$nobugurl = esc_url_raw( add_query_arg( 'yikes_easy_mc_icons_nobug', '1', admin_url() ) );
+				$nobugurl = esc_url_raw( add_query_arg( 'yikes_easy_mc_icons_nobug', '1', $current_url ) );
 
 				// Make sure all of our variables have values
 				$reviewurl  = ( ! empty( $reviewurl ) ) ? $reviewurl : '';
