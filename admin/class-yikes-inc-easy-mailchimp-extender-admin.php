@@ -2693,6 +2693,7 @@ class Yikes_Inc_Easy_Mailchimp_Forms_Admin {
 				'redirect_on_submission' => $_POST['redirect-user-on-submission'],
 				'redirect_page'          => $_POST['redirect-user-to-selection'],
 				'custom_redirect_url'    => esc_url( $_POST['custom-redirect-url'] ),
+				'redirect_new_window'	 => $_POST['redirect_new_window'],
 				'hide_form_post_signup'  => $_POST['hide-form-post-signup'],
 				'replace_interests'      => $_POST['replace-interest-groups'],
 			);

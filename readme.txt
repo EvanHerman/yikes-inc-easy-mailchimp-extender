@@ -4,7 +4,7 @@ Donate link: https://yikesplugins.com/?utm_source=wp_plugin_repo&utm_medium=dona
 Tags: MailChimp, MailChimp forms, MailChimp lists, opt-in forms, sign up form, MailChimp, email, forms, mailing lists, marketing, newsletter, sign up
 Requires at least: 4.0
 Tested up to: 4.7.3
-Stable tag: 6.3.9
+Stable tag: 6.3.9.1
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -246,6 +246,10 @@ Below you'll find a complete list of the hooks and filters available in Easy For
 * `yikes-mailchimp-list-interest-groups-metabox` - Add additional content inside of the interest groups metabox on the view list page.
 
 == Changelog ==
+
+= Easy Forms for MailChimp 6.3.9.1 - March 14th, 2017 =
+* Added a new option for AJAX submissions with redirect set: open in new window/tab. (Note: some browsers may detect the redirect as a popup and block it by default)
+* Refactored the way the redirect logic worked
 
 = Easy Forms for MailChimp 6.3.9 - March 10th, 2017 =
 * The dismiss button for the "Please Review Us" box now redirects you to your current page instead of the admin home page.
