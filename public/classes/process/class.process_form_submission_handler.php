@@ -504,7 +504,7 @@ class Yikes_Inc_Easy_MailChimp_Extender_Process_Submission_Handler {
 	*/
 	public function get_default_interest_groups( $replace_interests, $list_class ) {
 
-		// If $replace_interests flag is true then loop through interst groups and set them all to false to start.
+		// If $replace_interests flag is true then loop through interest groups and set them all to false to start.
 		// If $replace_interests flag is false, return an empty array
 
 		// Set up our return array 
@@ -582,7 +582,7 @@ class Yikes_Inc_Easy_MailChimp_Extender_Process_Submission_Handler {
 	/**** Functions to Handle Subscribe API Response ****/
 
 	/**
-	* Handle a successful subscribe request
+	* Handle the response to a successful subscribe request
 	*
 	* @since 6.3.0
 	*
@@ -595,7 +595,7 @@ class Yikes_Inc_Easy_MailChimp_Extender_Process_Submission_Handler {
 	*/
 	public function handle_submission_response_success( $submission_settings, $page_data, $merge_variables, $notifications, $optin_settings, $new_subscriber ) {
 
-		// Check if we should redirect
+		// Check if we should redirect, and collect the redirect info in an array
 		$redirect_array = $this->handle_submission_response_success_redirect( $submission_settings, $page_data );
 
 		// Fire off our actions
@@ -656,11 +656,13 @@ class Yikes_Inc_Easy_MailChimp_Extender_Process_Submission_Handler {
 
 		// Construct our success array variables
 		$return_success_array = array(
-			'hide'        => $submission_settings['hide_form_post_signup'],
-			'error'       => 0,
-			'response'    => $response_message,
-			'redirection' => $redirect_array['redirection'],
-			'redirect'    => $redirect_array['redirect']
+			'hide'        		=> $submission_settings['hide_form_post_signup'],
+			'error'       		=> 0,
+			'response'    		=> $response_message,
+			'redirection' 		=> $redirect_array['redirection'],
+			'redirect'    		=> $redirect_array['redirect'],
+			'new_window' 		=> $redirect_array['new_window'],
+			'redirect_timer'	=> $redirect_array['redirect_timer'],
 		);
 
 		// Return success array
@@ -723,8 +725,10 @@ class Yikes_Inc_Easy_MailChimp_Extender_Process_Submission_Handler {
 
 		// Set up our return array with default values
 		$redirect_array = array(
-			'redirection' 	=> 0,
-			'redirect'		=> ''
+			'redirection' 	 => 0,
+			'redirect'		 => '',
+			'new_window'	 => false,
+			'redirect_timer' => 1500,
 		);
 
 		// Let's confirm we have a value before trying to use it
@@ -733,15 +737,15 @@ class Yikes_Inc_Easy_MailChimp_Extender_Process_Submission_Handler {
 		// Check the redirect flag
 		if ( '1' === $redirect_setting ) {
 
-			// Set up our return array
-			$redirect_array = array();
-
 			// Supply return array with default value of 1
 			$redirect_array['redirection']	= 1;
 
-			// Let's confirm we have redirect_page/custom_redirect_url values
+			// Let's confirm we have redirect_page/custom_redirect_url/new_window values
 			$redirect_page_setting	 = isset( $submission_settings['redirect_page'] ) ? $submission_settings['redirect_page'] : false;
 			$custom_redirect_setting = isset( $submission_settings['custom_redirect_url'] ) ? $submission_settings['custom_redirect_url'] : false;
+			$redirect_new_window	 = isset( $submission_settings['redirect_new_window'] ) ? $submission_settings['redirect_new_window'] : false;
+
+			$redirect_array['new_window'] = $redirect_new_window;
 
 			// Check if we're redirecting to a custom_url or just the redirect_page
 			$redirect_url = ( 'custom_url' !== $redirect_page_setting ) ? get_permalink( $redirect_page_setting ) : $custom_redirect_setting;
@@ -766,8 +770,10 @@ class Yikes_Inc_Easy_MailChimp_Extender_Process_Submission_Handler {
 			*/
 			$redirect_timer = apply_filters( 'yikes-mailchimp-redirect-timer', $this->default_redirect_time_ms, $this->form_id );
 
+			$redirect_array['redirect_timer'] = $redirect_timer;
+
 			// Well this definitely has to change... why are we writing JavaScript in PHP?
-			$redirect_array['redirect'] = '<script type="text/javascript">setTimeout(function() { window.location="' . $redirect_url . '"; }, ' . $redirect_timer . ');</script>';	
+			$redirect_array['redirect'] = $redirect_url;
 		}
 
 		return $redirect_array;

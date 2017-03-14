@@ -396,6 +396,19 @@ window.yikes_mailchimp_edit_form = window.yikes_mailchimp_edit_form || {};
 		*/
 		initialize_form_schedule_time_pickers();
 
+		// If ajax is disabled, hide the 'redirect-new-window' option
+		// Is ajax is enabled and redirect is enabled, show the 'redirect-new-window' option
+		$( '.yikes-enable-disable-ajax' ).click( function() {
+			var is_ajax  = $( '#enable-ajax' ).is( ':checked' );
+			var redirect = $( '#redirect-user' ).is( ':checked' );
+			if ( is_ajax === true && redirect === true ) {
+				$( '.redirect-new-window-div' ).fadeIn();	
+			} else {
+				$( '.redirect-new-window-div' ).fadeOut();
+			}
+			
+		});
+
 	});
 
 
@@ -406,10 +419,18 @@ window.yikes_mailchimp_edit_form = window.yikes_mailchimp_edit_form || {};
 
 /* Toggle Page Slection for form submission redirection */
 function togglePageRedirection( e ) {
+
+	var is_ajax = jQuery( '#enable-ajax' ).is( ':checked' );
+
 	if( e.value == 1 ) {
 		jQuery( '#redirect-user-to-selection-label' ).fadeIn();
+
+		if ( is_ajax === true ) {
+			jQuery( '.redirect-new-window-div' ).fadeIn();
+		}
+
 	} else {
-		jQuery( '#redirect-user-to-selection-label' ).fadeOut();
+		jQuery( '#redirect-user-to-selection-label, .redirect-new-window-div' ).fadeOut();
 	}
 }
 /* Pass the clicked element for proper populating */

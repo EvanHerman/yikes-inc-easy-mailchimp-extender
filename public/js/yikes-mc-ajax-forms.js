@@ -138,8 +138,19 @@ window.Yikes_Mailchimp_Ajax = window.Yikes_Mailchimp_Ajax || {};
 						$( '.yikes-mailchimp-required-interest-group-error' ).remove();
 
 						/* redirect if setup */
-						if( response.redirection == 1 ) {
-							submitted_form.before( response.redirect );
+						if( response.redirection === 1 ) {
+
+							var redirect_url 	= response.redirect;
+							var redirect_timer  = response.redirect_timer;
+							var new_window		= response.new_window;
+							var new_window_code = new_window === '1' ? '_blank' : '_self';
+
+							setTimeout( 
+								function() {
+									window.open( redirect_url, new_window_code );
+								},
+								redirect_timer
+							);
 						}
 						/* clear the inputs - but don't clear submit button, radio, select, list_id, or form */
 						submitted_form.find( 'input' ).not( '.yikes-easy-mc-submit-button, input[type="radio"], input[type="select"], input[type="checkbox"], #yikes-mailchimp-associated-list-id, #yikes-mailchimp-submitted-form' ).val( '' );

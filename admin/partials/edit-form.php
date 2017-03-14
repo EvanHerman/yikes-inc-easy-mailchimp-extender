@@ -789,8 +789,8 @@
 								?>
 								<p class="form-field-container"><!-- necessary to prevent skipping on slideToggle(); --><label for="form-ajax-submission"><strong><?php _e( 'Enable AJAX Submission' , 'yikes-inc-easy-mailchimp-extender' ); ?></strong>
 									<span class="form-field-container-span">
-										<label for="enable-ajax"><input type="radio" id="enable-ajax" name="form-ajax-submission" value="1" <?php checked( $submission_settings['ajax'] , '1' ); ?>><?php _e( 'Yes' , 'yikes-inc-easy-mailchimp-extender' ); ?></label>
-										&nbsp;<label for="disable-ajax"><input type="radio" id="disable-ajax"  name="form-ajax-submission" value="0" <?php checked( $submission_settings['ajax'] , '0' ); ?>><?php _e( 'No' , 'yikes-inc-easy-mailchimp-extender' ); ?></label>
+										<label for="enable-ajax"><input type="radio" id="enable-ajax" name="form-ajax-submission" class="yikes-enable-disable-ajax" value="1" <?php checked( $submission_settings['ajax'] , '1' ); ?>><?php _e( 'Yes' , 'yikes-inc-easy-mailchimp-extender' ); ?></label>
+										&nbsp;<label for="disable-ajax"><input type="radio" id="disable-ajax"  name="form-ajax-submission" class="yikes-enable-disable-ajax" value="0" <?php checked( $submission_settings['ajax'] , '0' ); ?>><?php _e( 'No' , 'yikes-inc-easy-mailchimp-extender' ); ?></label>
 									</span>
 									<p class="description"><?php _e( "AJAX form submissions transmit data without requiring the page to refresh." , 'yikes-inc-easy-mailchimp-extender' ); ?></p>
 								</label></p>
@@ -810,6 +810,25 @@
 									<?php $this->generate_page_redirect_dropdown( $submission_settings['redirect_on_submission'] , $submission_settings['redirect_page'], ( isset( $submission_settings['custom_redirect_url'] ) ) ? esc_url( $submission_settings['custom_redirect_url'] ) : '' ); ?>
 									<p class="description"><?php _e( "When the user signs up would you like to redirect them to another page?" , 'yikes-inc-easy-mailchimp-extender' ); ?></p>
 								</label></p>
+
+								<?php
+									if ( ! isset( $submission_settings['redirect_new_window'] ) ) {
+										$submission_settings['redirect_new_window'] = '0';
+									}
+								?>
+
+								<!-- Option to open the redirect URL in a new window -->
+								<div class="redirect-new-window-div" <?php if ( ( ! isset( $submission_settings['redirect_on_submission'] ) || $submission_settings['redirect_on_submission'] === '0' ) || ( ! isset( $submission_settings['ajax'] ) || $submission_settings['ajax'] !== '1' )  ) { echo 'style="display:none;"'; } ?>>
+										<p><strong><?php _e( "Open Redirect URL in a New Window" , 'yikes-inc-easy-mailchimp-extender' ); ?></strong></p>
+										<label for="redirect-new-window-yes">
+											<input type="radio" class="widefat custom-redirect-new-window" id="redirect-new-window-yes" name="redirect_new_window" value="1" <?php checked( $submission_settings['redirect_new_window'], '1' ); ?>/><?php _e( 'Yes' , 'yikes-inc-easy-mailchimp-extender' ); ?>
+										</label>
+										&nbsp;
+										<label for="redirect-new-window-no">
+											<input type="radio" class="widefat redirect-new-window" id="redirect-new-window-no" name="redirect_new_window" value="0" <?php checked( $submission_settings['redirect_new_window'] , '0' ); ?>/><?php _e( 'No' , 'yikes-inc-easy-mailchimp-extender' ); ?>
+										</label>
+										<p class="description"><?php _e( "Should the redirect URL open in a new window/tab?" , 'yikes-inc-easy-mailchimp-extender' ); ?></p>
+								</div>
 
 								<!-- Hide Form On Submission -->
 								<?php
