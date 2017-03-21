@@ -79,7 +79,11 @@
 			$interest_groupings = yikes_get_mc_api_manager()->get_list_handler()->get_interest_categories( $list_id );
 			if ( is_wp_error( $interest_groupings ) ) {
 				$error_logging = new Yikes_Inc_Easy_Mailchimp_Error_Logging();
-				$error_logging->maybe_write_to_log( $interest_groupings['error'], __( "Get Interest Groups" , 'yikes-inc-easy-mailchimp-extender' ), "class.ajax.php" );
+				$error_logging->maybe_write_to_log( 
+					$interest_groupings->get_error_code(), 
+					__( "Get Interest Groups" , 'yikes-inc-easy-mailchimp-extender' ), 
+					"class.ajax.php" 
+				);
 				$interest_groupings = array();
 			}
 
@@ -142,9 +146,12 @@
 			
 			// Check for an error. If error, log it and return error
 			if ( is_wp_error( $merge_field ) ) {
-				$error = isset( $merge_field['error'] ) ? $merge_field['error'] : __( 'API request failed. Unknown error.', 'yikes-inc-easy-mailchimp-extender' );
 				$error_logging = new Yikes_Inc_Easy_Mailchimp_Error_Logging();
-				$error_logging->maybe_write_to_log( $error, __( "Updating merge field" , 'yikes-inc-easy-mailchimp-extender' ), "class.ajax.php" );
+				$error_logging->maybe_write_to_log( 
+					$merge_field->get_error_code(), 
+					__( "Updating merge field" , 'yikes-inc-easy-mailchimp-extender' ), 
+					"class.ajax.php"
+				);
 				wp_send_json_error( array(
 						'message' => __( 'Could not update the field label: API request failed.', 'yikes-inc-easy-mailchimp-extender' ),
 						'developer-info' => $error

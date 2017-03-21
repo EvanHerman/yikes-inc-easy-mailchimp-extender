@@ -40,17 +40,18 @@ jQuery( document ).ready( function() {
 /**
 * Show/Hide zip-address field based on the chosen country.
 *
-* U.S. & G.B.: show zip
-* All other countries: do not show zip 
-*
 * @param object | clicked_element	| A reference to the clicked element - the country dropdown (JavaScript's `this`)
 * @param string | country_value		| The value of the country dropdown
 */
 function yikes_mc_toggle_zip_field_visibility( clicked_element, country_value ) {
-	if( country_value !== 'US' && country_value !== 'GB' ) {
-		jQuery( clicked_element ).parents( '.yikes-mailchimp-container' ).find( jQuery( 'label[data-attr-name="zip-input"]' ) ).fadeOut();
-	} else {
+
+	// form_submission_helpers.countries_with_zip is a filterable array, passed through via the wp_localize_script function
+	var countries_with_zip_code_field = form_submission_helpers.countries_with_zip;
+
+	if ( typeof( countries_with_zip_code_field[ country_value ] ) !== 'undefined' ) {
 		jQuery( clicked_element ).parents( '.yikes-mailchimp-container' ).find( jQuery( 'label[data-attr-name="zip-input"]' ) ).fadeIn();
+	} else {
+		jQuery( clicked_element ).parents( '.yikes-mailchimp-container' ).find( jQuery( 'label[data-attr-name="zip-input"]' ) ).fadeOut();
 	}
 }
 

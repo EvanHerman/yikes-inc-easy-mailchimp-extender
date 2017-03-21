@@ -286,6 +286,28 @@ function process_mailchimp_shortcode( $atts ) {
 	// custom action hook to enqueue scripts & styles wherever the shortcode is used
 	do_action( 'yikes-mailchimp-shortcode-enqueue-scripts-styles', $form_id );
 
+
+	/**** Set up any filter'able content (that needs to be filtered before the rest of the logic kicks off) ****/
+
+	/**
+	*	yikes-mailchimp-countries-with-zip
+	*
+	*	Filter which countries show the zip field
+	*
+	*	@param array | An array of country codes that the zip field will appear for - default: US, GB, CA
+	*				   Note: please return the array with the country code as the KEY! This allows for optimal searching. 
+	*	@param int   | $form_id
+	*/
+	$countries_with_zip_code_field = apply_filters( 'yikes-mailchimp-countries-with-zip', 
+										array( 'US' => 'US', 'GB' => 'GB', 'CA' => 'CA', 
+											   'IE' => 'IE', 'CN' => 'CN', 'IN' => 'IN', 
+											   'AU' => 'AU', 'BR' => 'BR', 'MX' => 'MX',
+											   'IT' => 'IT', 'NZ' => 'NZ', 'JP' => 'JP',
+											   'FR' => 'FR', 'GR' => 'GR', 'DE' => 'DE',
+											   'NL' => 'NL', 'PT' => 'PT', 'ES' => 'ES'
+										), $form_id
+									);
+
 	// object buffer
 	ob_start();
 
@@ -343,7 +365,7 @@ function process_mailchimp_shortcode( $atts ) {
 		if( ( ! empty( $atts['ajax'] ) && $atts['ajax'] == 1 ) || $form_data['submission_settings']['ajax'] == 1 ) {
 			// enqueue our ajax script
 			$min = defined( 'SCRIPT_DEBUG' ) && SCRIPT_DEBUG ? '' : '.min';
-			wp_enqueue_script( 'yikes-easy-mc-ajax' , YIKES_MC_URL . "public/js/yikes-mc-ajax-forms{$min}.js" , array( 'jquery' ) , YIKES_MC_VERSION, false );
+			wp_enqueue_script( 'yikes-easy-mc-ajax' , YIKES_MC_URL . "public/js/yikes-mc-ajax-forms{$min}.js" , array( 'jquery' ), YIKES_MC_VERSION, false );
 			wp_localize_script( 'yikes-easy-mc-ajax', 'yikes_mailchimp_ajax', array(
 				'ajax_url'                      => esc_url( admin_url( 'admin-ajax.php' ) ),
 				'page_data'                     => $page_data,
@@ -355,10 +377,11 @@ function process_mailchimp_shortcode( $atts ) {
 		}
 
 		// Generic JavaScript functions for interacting with the form
-		wp_enqueue_script( 'form-submission-helpers', YIKES_MC_URL . 'public/js/form-submission-helpers.min.js' , array( 'jquery' ), 'all' );
+		wp_enqueue_script( 'form-submission-helpers', YIKES_MC_URL . 'public/js/form-submission-helpers.min.js' , array( 'jquery' ), YIKES_MC_VERSION, false );
 		wp_localize_script( 'form-submission-helpers', 'form_submission_helpers', array(
 			'ajax_url' => esc_url( admin_url( 'admin-ajax.php' ) ),
-			'preloader_url' => apply_filters( 'yikes-mailchimp-preloader', esc_url_raw( admin_url( 'images/wpspin_light.gif' ) ) )
+			'preloader_url' => apply_filters( 'yikes-mailchimp-preloader', esc_url_raw( admin_url( 'images/wpspin_light.gif' ) ) ),
+			'countries_with_zip' => $countries_with_zip_code_field
 		) );
 
 		/*
@@ -716,7 +739,21 @@ function process_mailchimp_shortcode( $atts ) {
 												<?php } ?>
 
 													<select <?php echo implode( ' ' , $field_array ); ?>>
-														<?php include( YIKES_MC_PATH . 'public/partials/shortcodes/templates/state-and-province-dropdown.php' ); ?>
+														<?php
+															$state_and_province_list = file_get_contents( YIKES_MC_PATH . 'public/partials/shortcodes/templates/state-and-province-dropdown.php' ); 
+															/**
+															*	'yikes-mailchimp-state-province-list'
+															*
+															*	Filter the HTML options for the states dropdown
+															*
+															* 	@param string  | $state_and_province_list | HTML string of state/province options
+															*	@param int	   | $form_id				 | The form ID
+															*
+															*	@return string | $state_and_province_list | Filtered HTML string of state/province options
+															*/
+															echo apply_filters( 'yikes-mailchimp-state-province-list', $state_and_province_list, $form_id );
+															
+														?>
 													</select>
 
 											</label>
@@ -727,7 +764,7 @@ function process_mailchimp_shortcode( $atts ) {
 										case 'zip':
 
 											?>
-											<label for="<?php echo esc_attr( $field['merge'] ); ?>" <?php echo implode( ' ' , $label_array ); ?> data-attr-name="zip-input"<?php if( ! in_array( $default_country, array( 'US', 'GB' ) ) ) { ?> style="display: none;"<?php } ?>>
+											<label for="<?php echo esc_attr( $field['merge'] ); ?>" <?php echo implode( ' ' , $label_array ); ?> data-attr-name="zip-input"<?php if ( ! isset( $countries_with_zip_code_field[ $default_country ] ) ) { ?> style="display: none;"<?php } ?>>
 
 												<?php if( ! isset( $field['hide-label'] ) ) { ?>
 													<span class="<?php echo esc_attr( $field['merge'] ) . '-label'; ?>">
