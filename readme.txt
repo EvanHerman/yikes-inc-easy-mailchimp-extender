@@ -4,7 +4,7 @@ Donate link: https://yikesplugins.com/?utm_source=wp_plugin_repo&utm_medium=dona
 Tags: MailChimp, MailChimp forms, MailChimp lists, opt-in forms, sign up form, MailChimp, email, forms, mailing lists, marketing, newsletter, sign up
 Requires at least: 4.0
 Tested up to: 4.7.3
-Stable tag: 6.3.9.1
+Stable tag: 6.3.10
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -226,6 +226,9 @@ Below you'll find a complete list of the hooks and filters available in Easy For
 * `yikes-mailchimp-default-zip-code` - Filter to set the default zip code value. Default: `''` - @params $default_zip_code_value, $form_id
 * Version 6.3.6:
 * `yikes-mailchimp-excluded-redirect-post-types` - Filter which post types will *not* be included in the dropdown of pages that you can redirect to. Some post types will never need to be redirected to, and for convenience (e.g. a smaller and easier to navigate dropdown) these can be added to the excluded post types array. Default: `array( 'attachment' , 'revision' , 'nav_menu_item', 'shop_order', 'shop_order_refund', 'custom_css', 'customize_changeset' );` - @params: $excluded_post_types (the default array)
+* Version 6.3.10:
+* `yikes-mailchimp-countries-with-zip` - Control which countries the zip field displays for. If the chosen country is not in this array, the zip field will fade out. @params: $countries_with_zip, $form_id
+* `yikes-mailchimp-state-province-list` - Add or remove options from the states dropdown list. Default: All U.S. States and Canadian Provinces - @params: $state_and_province_list, $form_id
 
 **Actions**
 
@@ -246,6 +249,11 @@ Below you'll find a complete list of the hooks and filters available in Easy For
 * `yikes-mailchimp-list-interest-groups-metabox` - Add additional content inside of the interest groups metabox on the view list page.
 
 == Changelog ==
+
+= Easy Forms for MailChimp 6.3.10 - March 21st, 2017 =
+* Added a filter to customize the options in the states' dropdown. You can now add your own states/provinces, or remove the default ones. Use `yikes-mailchimp-state-province-list`
+* Added a filter to customize the behavior of the zip code field. There are now around 20 different countries that the zip code field will be displayed for. Use the filter `yikes-mailchimp-countries-with-zip` to add/remove.
+* Fixed an error handling bug that occurred when interest groups were empty for certain integrations
 
 = Easy Forms for MailChimp 6.3.9.1 - March 14th, 2017 =
 * Added a new option for AJAX submissions with redirect set: open in new window/tab. (Note: some browsers may detect the redirect as a popup and block it by default)
