@@ -1653,15 +1653,17 @@ class Yikes_Inc_Easy_Mailchimp_Forms_Admin {
 
 								$post_ids = ! empty( $wp_query_result->posts ) ? $wp_query_result->posts : array();
 
-								?>
-									<optgroup label="<?php echo ucwords( str_replace( '_' , ' ' , $registered_post_type ) ); ?>">
-								<?php
-										foreach( $post_ids as $post_id ) {
-											?><option <?php selected( $redirect_page , $post_id ); ?> value="<?php echo $post_id; ?>"><?php echo get_the_title( $post_id ) ?></option><?php
-										}
-								?>
-									</optgroup>
-								<?php
+								if ( ! empty ( $post_ids ) ) {
+									?>
+										<optgroup label="<?php echo ucwords( str_replace( '_' , ' ' , $registered_post_type ) ); ?>">
+									<?php
+											foreach( $post_ids as $post_id ) {
+												?><option <?php selected( $redirect_page , $post_id ); ?> value="<?php echo $post_id; ?>"><?php echo get_the_title( $post_id ) ?></option><?php
+											}
+									?>
+										</optgroup>
+									<?php
+								}
 							}
 						}
 					?>
