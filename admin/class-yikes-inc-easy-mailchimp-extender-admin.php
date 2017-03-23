@@ -1634,33 +1634,34 @@ class Yikes_Inc_Easy_Mailchimp_Forms_Admin {
 					$excluded_post_types = array( 'attachment' , 'revision' , 'nav_menu_item', 'shop_order', 'shop_order_refund', 'custom_css', 'customize_changeset' );
 					$excluded_post_types = apply_filters( 'yikes-mailchimp-excluded-redirect-post-types', $excluded_post_types );
 
-					// loop over registered post types, and query!
+						// loop over registered post types, and query!
 						foreach( $post_types as $registered_post_type ) {
 
-							// exclude a few built in custom post types
+							// exclude a few built in custom post types and any defined by the filter
 							if( ! in_array( $registered_post_type, $excluded_post_types ) ) {
 
-								// run our query, to retreive the posts
-								$pages = get_posts( array(
+								// Grab only the post IDs - in the past we've created timeout issues on some servers with lots of posts
+								$wp_query_args = array(
+									'post_status' => 'publish',
+									'post_type' => $registered_post_type,
+									'posts_per_page' => -1,
+									'fields' => 'ids',
 									'order' => 'ASC',
 									'orderby' => 'post_title',
-									'post_type' => $registered_post_type,
-									'post_status' => 'publish',
-									'numberposts' => -1
-								) );
+								);
+								$wp_query_result = new WP_Query( $wp_query_args );
 
-								// only show cpt's that have posts assigned
-								if( !empty( $pages ) ) {
-									?>
+								$post_ids = ! empty( $wp_query_result->posts ) ? $wp_query_result->posts : array();
+
+								?>
 									<optgroup label="<?php echo ucwords( str_replace( '_' , ' ' , $registered_post_type ) ); ?>">
-									<?php
-										foreach( $pages as $page ) {
-											?><option <?php selected( $redirect_page , $page->ID ); ?> value="<?php echo $page->ID; ?>"><?php echo $page->post_title; ?></option><?php
+								<?php
+										foreach( $post_ids as $post_id ) {
+											?><option <?php selected( $redirect_page , $post_id ); ?> value="<?php echo $post_id; ?>"><?php echo get_the_title( $post_id ) ?></option><?php
 										}
-									?>
+								?>
 									</optgroup>
-									<?php
-								}
+								<?php
 							}
 						}
 					?>
