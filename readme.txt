@@ -4,7 +4,7 @@ Donate link: https://yikesplugins.com/?utm_source=wp_plugin_repo&utm_medium=dona
 Tags: MailChimp, MailChimp forms, MailChimp lists, opt-in forms, sign up form, MailChimp, email, forms, mailing lists, marketing, newsletter, sign up
 Requires at least: 4.0
 Tested up to: 4.7.3
-Stable tag: 6.3.12
+Stable tag: 6.3.13
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -229,6 +229,9 @@ Below you'll find a complete list of the hooks and filters available in Easy For
 * Version 6.3.10:
 * `yikes-mailchimp-countries-with-zip` - Control which countries the zip field displays for. If the chosen country is not in this array, the zip field will fade out. @params: $countries_with_zip, $form_id
 * `yikes-mailchimp-state-province-list` - Add or remove options from the states dropdown list. Default: All U.S. States and Canadian Provinces - @params: $state_and_province_list, $form_id
+* Version 6.3.13:
+* `yikes-mailchimp-use-nonce-verification` - Control whether we verify the nonce on form submissions. Default: `true` (by default, we check the nonce). @params: $use_nonce, $form_id
+* `yikes-mailchimp-wp-comment-integration-placement` - Control the placement of the subscription checkbox for the WP Comment Form integration. Default: `comment_form_field_comment` (after the comment textarea box) - @params: $comment_form_field. This filter allows you to choose which WP Comment Form filter to use, and for the full list of WP Comment Form filters, check the documentation: https://codex.wordpress.org/Function_Reference/comment_form.
 
 **Actions**
 
@@ -249,6 +252,11 @@ Below you'll find a complete list of the hooks and filters available in Easy For
 * `yikes-mailchimp-list-interest-groups-metabox` - Add additional content inside of the interest groups metabox on the view list page.
 
 == Changelog ==
+
+= Easy Forms for MailChimp 6.3.13 - April 17th, 2017 = 
+* Two new filters: `yikes-mailchimp-wp-comment-integration-placement` and `yikes-mailchimp-use-nonce-verification`.
+* `yikes-mailchimp-use-nonce-verification` - Control whether we verify the nonce on form submissions. Default: `true` (by default, we check the nonce). @params: $use_nonce, $form_id
+* `yikes-mailchimp-wp-comment-integration-placement` - Control the placement of the subscription checkbox for the WP Comment Form integration. Default: `comment_form_field_comment` (after the comment textarea box) - @params: $comment_form_field. This filter allows you to choose which WP Comment Form filter to use, and for the full list of WP Comment Form filters, check the documentation: https://codex.wordpress.org/Function_Reference/comment_form.
 
 = Easy Forms for MailChimp 6.3.12 - April 6th, 2017 = 
 * Security vulnerability patched - Discovered with DefenseCode ThunderScan Source Code Security Analyzer by Neven Biruski

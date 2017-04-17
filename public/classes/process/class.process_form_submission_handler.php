@@ -969,8 +969,24 @@ class Yikes_Inc_Easy_MailChimp_Extender_Process_Submission_Handler {
 	* @param string | $nonce_name  | The name of the nonce
 	*/
 	public function handle_nonce( $nonce_value, $nonce_name ) {
-		if ( wp_verify_nonce( $nonce_value, $nonce_name ) === false ) {
-			return $this->yikes_fail( $hide = 0, $error = 1, $this->handle_nonce_message );
+
+		/**
+		*	yikes-mailchimp-use-nonce-verification
+		*
+		*	Decide if we're going to check the nonce value.
+		*	The reason we filter this is that some users are experiencing nonce issues repeatedly.
+		*	The default will always be to use the nonce.
+		*
+		*	@param  int  | $form_id  | The form id
+		*
+		*	@return bool | True if we should check the nonce
+		*/
+		$use_nonce = apply_filters( 'yikes-mailchimp-use-nonce-verification', true, $this->form_id );
+
+		if ( $use_nonce === true ) {
+			if ( wp_verify_nonce( $nonce_value, $nonce_name ) === false ) {
+				return $this->yikes_fail( $hide = 0, $error = 1, $this->handle_nonce_message );
+			}
 		}
 	}
 

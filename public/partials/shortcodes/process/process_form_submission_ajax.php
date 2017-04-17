@@ -10,9 +10,6 @@ $submission_handler = new Yikes_Inc_Easy_MailChimp_Extender_Process_Submission_H
 // parse our form data
 parse_str( $_POST['form_data'], $data );
 
-// Check our nonce
-$submission_handler->handle_nonce( $_POST['ajax_security_nonce'], 'yikes_mc_form_submission_security_nonce' );
-
 // Get the form_id
 $form_id   = absint( $_POST['form_id'] );
 
@@ -21,6 +18,9 @@ $submission_handler->handle_empty_form_id( $form_id );
 
 // Set the form id in our class
 $submission_handler->set_form_id( $form_id ); 
+
+// Check our nonce
+$submission_handler->handle_nonce( $_POST['ajax_security_nonce'], 'yikes_mc_form_submission_security_nonce' );
 
 // Get the form data
 $interface = yikes_easy_mailchimp_extender_get_form_interface();
