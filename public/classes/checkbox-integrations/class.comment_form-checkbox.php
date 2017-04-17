@@ -16,10 +16,28 @@
 		public function __construct() {	
 			// hooks for outputting the checkbox
 			add_action( 'thesis_hook_after_comment_box', array( $this, 'output_checkbox' ), 10 );
-			add_action( 'comment_form_field_comment', array( $this, 'output_checkbox' ), 10 );
+			
 			// hooks for checking if we should subscribe the commenter
 			add_action( 'comment_post', array( $this, 'subscribe_from_comment' ), 40, 2 );
-			// setup the type
+
+			add_action( 'init', array( $this, 'init_filters' ) );
+		}
+
+		/**
+		* Allows us to apply_filters for the filters we're adding
+		*/
+		public function init_filters() {
+
+			/**
+			*	yikes-mailchimp-wp-comment-integration-placement
+			*
+			*	Decide the placement of the subscription checkbox. Default is after the "Comment" box.
+			*
+			*	@return string | The name of a WP comment field's filter
+			*/
+			$checkbox_placement = apply_filters( 'yikes-mailchimp-wp-comment-integration-placement', 'comment_form_field_comment' );
+
+			add_action( $checkbox_placement, array( $this, 'output_checkbox' ), 10 );
 		}
 			
 		

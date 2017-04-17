@@ -13,12 +13,6 @@ $submission_handler = new Yikes_Inc_Easy_MailChimp_Extender_Process_Submission_H
 // Capture our form data
 $data = $_POST;
 
-// Check our nonce
-if ( $submission_handler->handle_nonce( $_POST['yikes_easy_mc_new_subscriber'], 'yikes_easy_mc_form_submit' ) === false ) {
-	$process_submission_response = $submission_handler->wrap_form_submission_response( $submission_handler->handle_nonce_message, $is_success = false );
-	return;
-}
-
 // Confirm we have a form id to work with
 $form_id = ( isset( $data['yikes-mailchimp-submitted-form'] ) ) ? absint( $data['yikes-mailchimp-submitted-form'] ) : false;
 
@@ -30,6 +24,12 @@ $submission_handler->set_form_id( $form_id );
 // Send an error if for some reason we can't find the $form_id
 if ( $submission_handler->handle_empty_form_id( $form_id ) === false ) {
 	$process_submission_response = $submission_handler->wrap_form_submission_response( $submission_handler->handle_empty_form_id_message, $is_success = false );
+	return;
+}
+
+// Check our nonce
+if ( $submission_handler->handle_nonce( $_POST['yikes_easy_mc_new_subscriber'], 'yikes_easy_mc_form_submit' ) === false ) {
+	$process_submission_response = $submission_handler->wrap_form_submission_response( $submission_handler->handle_nonce_message, $is_success = false );
 	return;
 }
 
