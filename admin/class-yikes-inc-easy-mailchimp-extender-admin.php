@@ -298,7 +298,7 @@ class Yikes_Inc_Easy_Mailchimp_Forms_Admin {
 		public function yikes_easy_forms_admin_disclaimer( $footer_text ) {
 			$page = get_current_screen();
 			$base = $page->base;
-			if ( strpos( $base, 'yikes-' ) !== false ) {
+			if ( strpos( $base, 'yikes-inc-easy-mailchimp' ) !== false || strpos( $base, 'yikes-mailchimp' ) !== false ) {
 				$disclaimer_text = sprintf( '<em>' . __( 'Disclaimer: <strong>Easy Forms for MailChimp</strong> is in no way endorsed, affiliated or backed by MailChimp, or its parent company Rocket Science Group.', 'yikes-inc-easy-mailchimp-extender' ), '<a href="https://wordpress.org/support/view/plugin-reviews/give?filter=5#postform" target="_blank" class="give-rating-link" data-rated="' . __( 'Thanks :)', 'yikes-inc-easy-mailchimp-extender' ) . '">', '</a></em>' );
 				return $disclaimer_text;
 			} else {
