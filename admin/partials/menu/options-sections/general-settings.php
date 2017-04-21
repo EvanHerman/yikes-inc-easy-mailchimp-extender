@@ -38,7 +38,19 @@ $yikes_mc_api_constant = ( defined( 'YIKES_MC_API_KEY' ) ) ? true : false;
 			<?php } ?>
 		</label>
 
+		<!-- Use Nonce Validation Field -->		
+		<p><strong><?php _e( 'Enable nonce validation on this site?' , 'yikes-inc-easy-mailchimp-extender' ); ?></strong></p>
+		<label for="yikes-mailchimp-use-nonce-yes">
+			Yes
+			<input type="radio" name="yikes-mailchimp-use-nonce" id="yikes-mailchimp-use-nonce-yes" class="settings-page-input" value="1" <?php checked( get_option( 'yikes-mailchimp-use-nonce', '1' ) , '1' ); ?> />
+		</label>
+		<label for="yikes-mailchimp-use-nonce-no">
+			No
+			<input type="radio" name="yikes-mailchimp-use-nonce" id="yikes-mailchimp-use-nonce-no" class="settings-page-input" value="0" <?php checked( get_option( 'yikes-mailchimp-use-nonce', '1' ) , '0' ); ?> />
+		</label>
+
 	<?php submit_button(); ?>
 
 	</form>
+
 </div> <!-- .inside -->
