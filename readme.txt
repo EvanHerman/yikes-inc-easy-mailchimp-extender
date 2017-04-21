@@ -3,8 +3,8 @@ Contributors: yikesinc, eherman24, liljimmi, hiwhatsup, JPry, yikesitskevin
 Donate link: https://yikesplugins.com/?utm_source=wp_plugin_repo&utm_medium=donate_link&utm_campaign=easy_forms_for_mailchimp
 Tags: MailChimp, MailChimp forms, MailChimp lists, opt-in forms, sign up form, MailChimp, email, forms, mailing lists, marketing, newsletter, sign up
 Requires at least: 4.0
-Tested up to: 4.7.3
-Stable tag: 6.3.13
+Tested up to: 4.7.4
+Stable tag: 6.3.14
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -232,6 +232,8 @@ Below you'll find a complete list of the hooks and filters available in Easy For
 * Version 6.3.13:
 * `yikes-mailchimp-use-nonce-verification` - Control whether we verify the nonce on form submissions. Default: `true` (by default, we check the nonce). @params: $use_nonce, $form_id
 * `yikes-mailchimp-wp-comment-integration-placement` - Control the placement of the subscription checkbox for the WP Comment Form integration. Default: `comment_form_field_comment` (after the comment textarea box) - @params: $comment_form_field. This filter allows you to choose which WP Comment Form filter to use, and for the full list of WP Comment Form filters, check the documentation: https://codex.wordpress.org/Function_Reference/comment_form.
+* 6.3.14:
+* `yikes-mailchimp-wooco-integration-checkbox-classes` - Control the classes that are added to the checkbox for the WooCommerce Checkout Integration. Default: 'form-row-wide' - @params: $classes
 
 **Actions**
 
@@ -252,6 +254,10 @@ Below you'll find a complete list of the hooks and filters available in Easy For
 * `yikes-mailchimp-list-interest-groups-metabox` - Add additional content inside of the interest groups metabox on the view list page.
 
 == Changelog ==
+
+= Easy Forms for MailChimp 6.3.14 - April 21st, 2017 =
+* Updating the WooCommerce Checkout integration checkbox with a new class and a filter for the classes (yikes-mailchimp-wooco-integration-checkbox-classes). The checkbox should now align correctly. 
+* Added a new setting to the General Setting page that controls using the nonce validation. The nonce has caused numerous people issues, and the filter is difficult for some people. This new setting will turn off the nonce validation for all forms on the website. The previously added filter, yikes-mailchimp-use-nonce-verification, can still turn off nonce validation on a per-form basis.
 
 = Easy Forms for MailChimp 6.3.13 - April 17th, 2017 = 
 * Two new filters: `yikes-mailchimp-wp-comment-integration-placement` and `yikes-mailchimp-use-nonce-verification`.

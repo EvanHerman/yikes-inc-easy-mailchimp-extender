@@ -1125,6 +1125,8 @@ class Yikes_Inc_Easy_Mailchimp_Forms_Admin {
 
 		register_setting( 'yikes_inc_easy_mc_general_settings_page', 'yikes-mc-api-key', array( $this , 'yikes_mc_validate_api_key' ) );
 
+		register_setting( 'yikes_inc_easy_mc_general_settings_page', 'yikes-mailchimp-use-nonce' );
+
 		add_settings_section(
 			'yikes_easy_mc_settings_general_section_callback',
 			'',

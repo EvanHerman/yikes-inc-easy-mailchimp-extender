@@ -807,13 +807,13 @@ class Yikes_Inc_Easy_MailChimp_Extender_Process_Submission_Handler {
 			}
 
 			// check if this field is required
-			if (isset( $form_fields[ $merge_tag ] ) && isset( $form_fields[ $merge_tag ]['require'] ) && $form_fields[ $merge_tag ]['require'] === '1' ) {
+			if ( isset( $form_fields[ $merge_tag ] ) && isset( $form_fields[ $merge_tag ]['require'] ) && $form_fields[ $merge_tag ]['require'] === '1' ) {
 
 				// Check if the field(s) are empty
 				if ( is_array( $value ) ) {
 
 					// Loop through the data and check if any are empty
-					foreach( $value as $val ) {
+					foreach( $value as $field => $val ) {
 						if ( empty( $val ) ) {
 							$field_is_missing = true;
 
@@ -970,22 +970,27 @@ class Yikes_Inc_Easy_MailChimp_Extender_Process_Submission_Handler {
 	*/
 	public function handle_nonce( $nonce_value, $nonce_name ) {
 
-		/**
-		*	yikes-mailchimp-use-nonce-verification
-		*
-		*	Decide if we're going to check the nonce value.
-		*	The reason we filter this is that some users are experiencing nonce issues repeatedly.
-		*	The default will always be to use the nonce.
-		*
-		*	@param  int  | $form_id  | The form id
-		*
-		*	@return bool | True if we should check the nonce
-		*/
-		$use_nonce = apply_filters( 'yikes-mailchimp-use-nonce-verification', true, $this->form_id );
+		// First, check our option - this is set in the general settings page
+		if ( get_option( 'yikes-mailchimp-use-nonce' ) === '1' ) {
 
-		if ( $use_nonce === true ) {
-			if ( wp_verify_nonce( $nonce_value, $nonce_name ) === false ) {
-				return $this->yikes_fail( $hide = 0, $error = 1, $this->handle_nonce_message );
+			/**
+			*	yikes-mailchimp-use-nonce-verification
+			*
+			*	Decide if we're going to check the nonce value.
+			*	The reason we filter this is that some users are experiencing nonce issues repeatedly.
+			*	The default will always be to use the nonce.
+			*
+			*	@param  int  | $form_id  | The form id
+			*
+			*	@return bool | True if we should check the nonce
+			*/
+			$use_nonce = apply_filters( 'yikes-mailchimp-use-nonce-verification', true, $this->form_id );
+
+			// We let the filter override the option because the filter is on a per-form basis 
+			if ( $use_nonce === true ) {
+				if ( wp_verify_nonce( $nonce_value, $nonce_name ) === false ) {
+					return $this->yikes_fail( $hide = 0, $error = 1, $this->handle_nonce_message );
+				}
 			}
 		}
 	}
