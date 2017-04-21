@@ -57,12 +57,11 @@ class Yikes_Easy_MC_WooCommerce_Checkbox_Class extends Yikes_Easy_MC_Checkbox_In
 			$fields[ 'billing' ]['yikes_mailchimp_checkbox_'.$this->type] = array(
 				'id' 	  => 'yikes_mailchimp_checkbox_'.$this->type,
 				'type'    => 'checkbox',
-				'class'   => apply_filters( 'yikes-mailhimp-wooco-integration-field-classes', array( 'form-row-wide' ) ),
+				'class'   => apply_filters( 'yikes-mailchimp-wooco-integration-checkbox-classes', array( 'form-row-wide' ) ),
 				'label'   => $checkbox_options[$this->type]['label'],
 				'default' => $precheck,
 			);
 		}
-		echo '<pre>'; var_dump( $fields ); echo '</pre>';
 
 		return $fields;
 	}
