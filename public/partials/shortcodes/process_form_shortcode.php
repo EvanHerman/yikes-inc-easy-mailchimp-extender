@@ -384,6 +384,8 @@ function process_mailchimp_shortcode( $atts ) {
 			'countries_with_zip' => $countries_with_zip_code_field
 		) );
 
+		do_action( 'yikes-mailchimp-google-analytics', $form_id );
+
 		/*
 		*	If a form was submitted, and the response was returned
 		*	let's display it back to the user
@@ -699,8 +701,7 @@ function process_mailchimp_shortcode( $atts ) {
 
 									// Never force addr2 to be required
 									if ( $type === 'addr2' ) {
-										$addr2_field_array = $field_array;
-										$addr2_field_array['required'] = apply_filters( 'yikes-mailchimp-address-2-required', '', $form_id );
+										$field_array['required'] = apply_filters( 'yikes-mailchimp-address-2-required', '', $form_id );
 									}
 
 									switch( $type ) {
@@ -720,7 +721,7 @@ function process_mailchimp_shortcode( $atts ) {
 													</span>
 												<?php } ?>
 												
-												<input <?php if ( $type === 'addr2' ) { echo implode( ' ' , $addr2_field_array ); } else { echo implode( ' ' , $field_array ); } ?> type="text" value="<?php if( isset( $_POST[$field['merge']][$type] ) && $form_submitted != 1 ) { echo esc_attr( $_POST[$field['merge']][$type] ); } ?>">
+												<input <?php echo implode( ' ' , $field_array ); ?> type="text" value="<?php if( isset( $_POST[$field['merge']][$type] ) && $form_submitted != 1 ) { echo esc_attr( $_POST[$field['merge']][$type] ); } ?>">
 
 											</label>
 											<?php

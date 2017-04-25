@@ -120,6 +120,12 @@ window.Yikes_Mailchimp_Ajax = window.Yikes_Mailchimp_Ajax || {};
 					/* Success */
 					if( response.success ) {
 						response = response.data;
+
+						// Fire off our Google Analytics for a successful submission
+						if ( typeof( yikes_mailchimp_google_analytics_success ) === 'function' ) { 
+							yikes_mailchimp_google_analytics_success( response ); 
+						}
+
 						if( response.hide == 1 ) {
 							/* hide the description if visible */
 							if( $( '.yikes-easy-mc-form-description-'+form_id ).length > 0 ) {
@@ -174,6 +180,12 @@ window.Yikes_Mailchimp_Ajax = window.Yikes_Mailchimp_Ajax || {};
 						/* console.log( 'Successfully submit subscriber data to MailChimp.' ); */
 					} else {
 						response = response.data;
+
+						// Fire off our Google Analytics for an unsuccessful submission
+						if ( typeof( yikes_mailchimp_google_analytics_failure ) === 'function' ) { 
+							yikes_mailchimp_google_analytics_failure( response ); 
+						}
+
 						if( $( '.yikes-easy-mc-form-description-' + form_id ).length > 0 ) {
 							$( '.yikes-easy-mc-form-description-' + form_id ).before( '<p class="yikes-easy-mc-error-message yikes-easy-mc-error-message-' + form_id + '" yikes-easy-mc-hidden"> ' + response.response + '</p>' );
 						} else {

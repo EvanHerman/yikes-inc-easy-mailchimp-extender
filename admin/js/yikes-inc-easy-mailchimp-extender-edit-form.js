@@ -8,6 +8,13 @@ window.yikes_mailchimp_edit_form = window.yikes_mailchimp_edit_form || {};
 
 	 $( document ).ready( function() {
 
+	 	// On page load, check if there are any fields in the form builder
+	 	// If we find fields, show the field instructions
+	 	// If we don't find fields, hide the field instructions
+	 	if ( jQuery( '#form-builder-container' ).children().length > 0 ) {
+	 		jQuery( '.edit-form-description-form-builder' ).hide();
+	 	}
+
 		/* Initialize Sortable Container */
 		/* Sortable Form Builder - re-arrange field order (edit-form.php) */
 		$( 'body' ).find( '#form-builder-container' ).sortable({
@@ -62,6 +69,9 @@ window.yikes_mailchimp_edit_form = window.yikes_mailchimp_edit_form || {};
 		* and disable it from the available fields list
 		*/
 		$( 'body' ).on( 'click' , '.add-field-to-editor' , function() {
+
+			// Display our form instructions (we hide these if there are no fields)
+			jQuery( '.edit-form-description-form-builder' ).show();
 
 			$( '.field-to-add-to-form' ).each( function() {
 				/* get the length, to decide if we should clear the html and append, or just append */
