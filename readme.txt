@@ -4,7 +4,7 @@ Donate link: https://yikesplugins.com/?utm_source=wp_plugin_repo&utm_medium=dona
 Tags: MailChimp, MailChimp forms, MailChimp lists, opt-in forms, sign up form, MailChimp, email, forms, mailing lists, marketing, newsletter, sign up
 Requires at least: 4.0
 Tested up to: 4.7.4
-Stable tag: 6.3.14
+Stable tag: 6.3.15
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -252,8 +252,14 @@ Below you'll find a complete list of the hooks and filters available in Easy For
 * `yikes-mailchimp-custom-form-actions` - Add custom action links on the manage forms page (alongside Edit, Duplicate, Shortcode, Delete). @params: $form_id
 * `yikes-mailchimp-list-form-fields-metabox` - Add additional content to the 'Form Fields' metabox on the view list page.
 * `yikes-mailchimp-list-interest-groups-metabox` - Add additional content inside of the interest groups metabox on the view list page.
+* 6.3.15:
+* `yikes-mailchimp-google-analytics` - Add Google Analytics JS functions. Check our Knowledge Base for instructions.
 
 == Changelog ==
+
+= Easy Forms for MailChimp 6.3.15 - April 25th, 2017 =
+* Google Analytics Event Tracking is here! We've added an action - `yikes-mailchimp-google-analytics` - where you can add Google Analytics JavaScript. Check out our knowledge base article (https://yikesplugins.com/support/knowledge-base/add-google-analytics-event-tracking/) for more instructions.
+* Hiding the form builder field instructions when there are no fields added to the form.
 
 = Easy Forms for MailChimp 6.3.14 - April 21st, 2017 =
 * Updating the WooCommerce Checkout integration checkbox with a new class and a filter for the classes (yikes-mailchimp-wooco-integration-checkbox-classes). The checkbox should now align correctly. 
