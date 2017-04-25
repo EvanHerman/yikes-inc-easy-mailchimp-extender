@@ -209,7 +209,7 @@
 												<div class="postbox yikes-easy-mc-postbox">
 													<!-- container title -->
 													<h3 class="edit-form-title" id="form-builder-div" data-list-id="<?php echo $form['list_id'] ?>" ><?php _e( 'Form Builder' , 'yikes-inc-easy-mailchimp-extender' ); ?></h3>
-													<p id="edit-form-description" class="description"><?php _e( 'Click a field to show its advanced options or drag fields to re-arrange them. Click <span class="dashicons dashicons-edit"></span> to edit a field label. Make sure you hit "Update Form" to save all of your changes.' , 'yikes-inc-easy-mailchimp-extender' );?></p>
+													<p id="edit-form-description" class="description edit-form-description-form-builder"><?php _e( 'Click a field to show its advanced options or drag fields to re-arrange them. Click <span class="dashicons dashicons-edit"></span> to edit a field label. Make sure you hit "Update Form" to save all of your changes.' , 'yikes-inc-easy-mailchimp-extender' );?></p>
 													<div id="form-builder-container" class="inside">
 														<!-- #poststuff -->
 														<?php echo $this->generate_form_editor( $form['fields'], $form['list_id'] , $available_merge_variables , isset( $interest_groupings ) ? $interest_groupings : array() ); ?>
@@ -695,35 +695,45 @@
 							</a>
 							<div class="yikes-mc-settings-expansion-section">
 								<!-- Associated List -->
-								<p class="form-field-container"><!-- necessary to prevent skipping on slideToggle(); --><label for="associated-list"><strong><?php _e( 'Associated List' , 'yikes-inc-easy-mailchimp-extender' ); ?></strong>
-									<select name="associated-list" id="associated-list" <?php if ( empty( $list_data ) ) { echo 'disabled="disabled"'; } ?> onchange="jQuery('.view-list-link').attr( 'href', '<?php echo esc_url( admin_url( 'admin.php?page=yikes-mailchimp-view-list&list-id=' ) ); ?>' + jQuery( this ).val() );">
-										<?php
-										if ( ! empty( $list_data ) ) {
-											foreach( $list_data as $mailing_list ) {
+								<p class="form-field-container">
+									<!-- necessary to prevent skipping on slideToggle(); -->
+									<label for="associated-list"><strong><?php _e( 'Associated List' , 'yikes-inc-easy-mailchimp-extender' ); ?></strong>
+										<select name="associated-list" id="associated-list" <?php if ( empty( $list_data ) ) { echo 'disabled="disabled"'; } ?> onchange="jQuery('.view-list-link').attr( 'href', '<?php echo esc_url( admin_url( 'admin.php?page=yikes-mailchimp-view-list&list-id=' ) ); ?>' + jQuery( this ).val() );">
+											<?php
+											if ( ! empty( $list_data ) ) {
+												foreach( $list_data as $mailing_list ) {
+													?>
+													<option <?php selected( $form['list_id'] , $mailing_list['id'] ); ?> value="<?php echo $mailing_list['id']; ?>"><?php echo stripslashes( $mailing_list['name'] ) . ' (' . $mailing_list['stats']['member_count'] . ') '; ?></option>
+													<?php
+												}
+											} else {
 												?>
-												<option <?php selected( $form['list_id'] , $mailing_list['id'] ); ?> value="<?php echo $mailing_list['id']; ?>"><?php echo stripslashes( $mailing_list['name'] ) . ' (' . $mailing_list['stats']['member_count'] . ') '; ?></option>
+												<option value="no-forms"><?php _e( 'No Lists Found' , 'yikes-inc-easy-mailchimp-extender' ); ?></option>
 												<?php
 											}
-										} else {
 											?>
-											<option value="no-forms"><?php _e( 'No Lists Found' , 'yikes-inc-easy-mailchimp-extender' ); ?></option>
-											<?php
-										}
-										?>
-									</select>
-									<?php if( ! empty( $form['list_id'] ) ) { ?>
-										<p class="description view-list">
-											<a href="<?php echo esc_url( admin_url( 'admin.php?page=yikes-mailchimp-view-list&list-id=' . $form['list_id'] ) ); ?>" class="view-list-link"><?php _e( 'View List', 'yikes-inc-easy-mailchimp-extender' ); ?></a>
-										</p>
-										<p class="description">
-											<?php _e( "Users who sign up via this form will be added to the list selected above." , 'yikes-inc-easy-mailchimp-extender' ); ?>
-										</p>
-									<?php } else { ?>
-										<p class="description">
-											<?php _e( "It looks like you first need to create a list to assign this form to. Head over to" , 'yikes-inc-easy-mailchimp-extender' ); ?> <a href="http://www.MailChimp.com" title="<?php _e( 'Create a new list' , 'yikes-inc-easy-mailchimp-extender' ); ?>">MailChimp</a> <?php _e( 'to create your first list' , 'yikes-inc-easy-mailchimp-extender' ); ?>.
-										</p>
-									<?php } ?>
-								</label></p>
+										</select>
+										<?php if( ! empty( $form['list_id'] ) ) { ?>
+											<p class="description view-list">
+												<a href="<?php echo esc_url( admin_url( 'admin.php?page=yikes-mailchimp-view-list&list-id=' . $form['list_id'] ) ); ?>" class="view-list-link"><?php _e( 'View List', 'yikes-inc-easy-mailchimp-extender' ); ?></a>
+											</p>
+											<p class="description">
+												<?php _e( "Users who sign up via this form will be added to the list selected above." , 'yikes-inc-easy-mailchimp-extender' ); ?>
+											</p>
+										<?php } else { ?>
+											<p class="description">
+												<?php _e( "It looks like you first need to create a list to assign this form to. Head over to" , 'yikes-inc-easy-mailchimp-extender' ); ?> <a href="http://www.MailChimp.com" title="<?php _e( 'Create a new list' , 'yikes-inc-easy-mailchimp-extender' ); ?>">MailChimp</a> <?php _e( 'to create your first list' , 'yikes-inc-easy-mailchimp-extender' ); ?>.
+											</p>
+										<?php } ?>
+
+										<!-- Display our Clear API Cache button -->
+										<?php if ( false === get_transient( 'yikes-easy-mailchimp-list-data' ) && false === get_transient( 'yikes-easy-mailchimp-profile-data' ) && false === get_transient( 'yikes-easy-mailchimp-account-data' ) && false === get_transient( 'yikesinc_eme_list_ids' ) && false === get_transient( 'yikes_eme_lists' ) ) { ?>
+											<p><a href="#" class="button-secondary" disabled="disabled" title="<?php _e( 'No MailChimp data found in temporary cache storage.' , 'yikes-inc-easy-mailchimp-extender' ); ?>"><?php _e( 'Clear MailChimp API Cache' , 'yikes-inc-easy-mailchimp-extender' ); ?></a></p>
+										<?php } else { ?>
+											<p><a href="<?php echo esc_url_raw( add_query_arg( array( 'action' => 'yikes-easy-mc-clear-transient-data' , 'nonce' => wp_create_nonce( 'clear-mc-transient-data' ) ) ) ); ?>" class="button-primary"><?php _e( 'Clear MailChimp API Cache' , 'yikes-inc-easy-mailchimp-extender' ); ?></a></p>
+										<?php } ?>
+									</label>
+								</p>
 							</div>
 
 							<a href="#" class="expansion-section-title settings-sidebar">

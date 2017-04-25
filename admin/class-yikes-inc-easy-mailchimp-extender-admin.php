@@ -1472,6 +1472,7 @@ class Yikes_Inc_Easy_Mailchimp_Forms_Admin {
 				$selected = $_REQUEST['section'];
 			}
 			$installed_addons = get_option( 'yikes-easy-mc-active-addons' , array() );
+
 			// sort our addons array alphabetically so they appear in similar orders across all sites
 			asort( $installed_addons );
 			?>
@@ -2880,11 +2881,16 @@ class Yikes_Inc_Easy_Mailchimp_Forms_Admin {
 			$referer = wp_get_referer();
 			if ( $referer && ( strpos( $referer, 'yikes-inc-easy-mailchimp-settings' ) > 0 ) ) {
 				wp_redirect( esc_url_raw( admin_url( 'admin.php?page=yikes-inc-easy-mailchimp-settings&section=api-cache-settings&transient-cleared=true' ) ) );
+			} elseif ( isset( $_REQUEST['page'] ) && $_REQUEST['page'] === 'yikes-mailchimp-edit-form' && isset( $_REQUEST['id'] ) && ! empty( $_REQUEST['id'] ) ) {
+
+				// else check if we were editing a form
+				$id = filter_var( $_REQUEST['id'], FILTER_SANITIZE_NUMBER_INT );
+				wp_redirect( esc_url_raw( admin_url( 'admin.php?page=yikes-mailchimp-edit-form&id=' . $id ) ) );
 			} else {
 				// else redirect to the manage forms page
 				wp_redirect( esc_url_raw( admin_url( 'admin.php?page=yikes-inc-easy-mailchimp&transient-cleared=true' ) ) );
 			}
-			// redirect the user to the manage forms page, display confirmation
+
 			exit;
 		}
 
