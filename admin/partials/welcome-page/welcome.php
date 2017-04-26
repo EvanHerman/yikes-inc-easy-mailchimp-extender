@@ -29,8 +29,13 @@
 	
 	function yikes_easy_mc_welcome_body() {
 
-		$allowed_sections = array( 'add-ons', 'getting-started', 'knowledge-base', 'whats-new' );
-		$section = isset( $_GET['section'] ) && in_array( $_GET['section'], $allowed_sections ) ? $_GET['section'] : 'getting-started';
+		$allowed_sections = array( 
+			'add-ons' => true, 
+			'getting-started' => true,
+			'knowledge-base' => true, 
+			'whats-new' => true 
+		);
+		$section = isset( $_GET['section'], $allowed_sections[ $_GET['section'] ] ) ? $_GET['section'] : 'getting-started';
 		include_once( plugin_dir_path( dirname( __FILE__ ) ) . '/welcome-page/welcome-sections/' . $section . '-section.php' );
 	}
 		

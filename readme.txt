@@ -260,7 +260,7 @@ Below you'll find a complete list of the hooks and filters available in Easy For
 
 == Changelog ==
 
-= Easy Forms for MailChimp 6.3.15 - April 25th, 2017 =
+= Easy Forms for MailChimp 6.3.15 - April 26th, 2017 =
 * Google Analytics Event Tracking is here! We've added an action - `yikes-mailchimp-google-analytics` - where you can add Google Analytics JavaScript. Check out our knowledge base article (https://yikesplugins.com/support/knowledge-base/add-google-analytics-event-tracking/) for more instructions.
 * The form builder field instructions are now hidden when there are no fields added to the form.
 * Added the Clear API Cache button to the form builder - you can find the button in the Associated List Settings box.
