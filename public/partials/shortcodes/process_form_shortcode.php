@@ -541,8 +541,6 @@ function process_mailchimp_shortcode( $atts ) {
 							$description = apply_filters( 'yikes-mailchimp-' . $field['merge'] . '-description-html', $description, esc_attr( stripslashes( $field['description'] ) ), $form_id );
 						}
 
-						// echo '<pre>'; echo 'yikes-mailchimp-' . $field['merge'] . '-description-html'; echo '</pre>';
-
 						// loop over our fields by Type
 						switch ( $field['type'] ) {
 
