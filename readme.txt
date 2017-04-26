@@ -234,6 +234,9 @@ Below you'll find a complete list of the hooks and filters available in Easy For
 * `yikes-mailchimp-wp-comment-integration-placement` - Control the placement of the subscription checkbox for the WP Comment Form integration. Default: `comment_form_field_comment` (after the comment textarea box) - @params: $comment_form_field. This filter allows you to choose which WP Comment Form filter to use, and for the full list of WP Comment Form filters, check the documentation: https://codex.wordpress.org/Function_Reference/comment_form.
 * 6.3.14:
 * `yikes-mailchimp-wooco-integration-checkbox-classes` - Control the classes that are added to the checkbox for the WooCommerce Checkout Integration. Default: 'form-row-wide' - @params: $classes
+* 6.3.15:
+* `yikes-mailchimp-{$merge_tag}-description-html` - Filter the full block of HTML that will be used for the form field's description. @params: $description_full, $description_text, $form_id
+* `yikes-mailchimp-{$interest_group_id}-description-html` - Filter the full block of HTML that will be used for the interest group field's description. @params: $description_full, $description_text, $form_id
 
 **Actions**
 
@@ -259,8 +262,10 @@ Below you'll find a complete list of the hooks and filters available in Easy For
 
 = Easy Forms for MailChimp 6.3.15 - April 25th, 2017 =
 * Google Analytics Event Tracking is here! We've added an action - `yikes-mailchimp-google-analytics` - where you can add Google Analytics JavaScript. Check out our knowledge base article (https://yikesplugins.com/support/knowledge-base/add-google-analytics-event-tracking/) for more instructions.
-* The form builder field instructions are now hidden wen there are no fields added to the form.
+* The form builder field instructions are now hidden when there are no fields added to the form.
 * Added the Clear API Cache button to the form builder - you can find the button in the Associated List Settings box.
+* Added a new option to the fields in the form builder: the ability to place the description above the field. This also comes with some minor style changes and a couple new filters: `'yikes-mailchimp-{$interest_group_id}-description-html'` to filter the interest group's description HTML, and `'yikes-mailchimp-{$merge_tag}-description-html'` to filter a form/merge field's description HTML.
+* Added HTML so that labels will work properly in the form builder. You can now select input fields by clicking on the field's label.
 
 = Easy Forms for MailChimp 6.3.14 - April 21st, 2017 =
 * Updating the WooCommerce Checkout integration checkbox with a new class and a filter for the classes (yikes-mailchimp-wooco-integration-checkbox-classes). The checkbox should now align correctly. 

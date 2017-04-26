@@ -521,6 +521,26 @@ function process_mailchimp_shortcode( $atts ) {
 					/* Loop Over Standard Fields (aka merge variables) */
 					if( isset( $field['merge'] ) ) {
 
+						// Handle the Description logic in one spot, here:
+						$show_description = isset( $field['description'] ) && trim( $field['description'] ) !== '' ? true : false;
+						$description_above = isset( $field['description_above'] ) && $field['description_above'] === '1' ? true : false;
+						if ( $show_description === true ) {
+							$description = '<p class="form-field-description" id="form-field-description-' . $field['merge'] . '">';
+							$description .= apply_filters( 'yikes-mailchimp-' . $field['merge'] . '-description', esc_attr( stripslashes( $field['description'] ) ), $form_id );
+							$description .= '</p>';
+
+							/**
+							*	'yikes-mailchimp-' . $field['merge'] . '-description-html' (e.g. yikes-mailchimp-FNAME-description-html)
+							*
+							* 	Filter the description HTML block
+							*	
+							*	@param string | $description 			| The full HTML description block
+							*	@param string | $field['description']	| The field's description text
+							*	@param int	  | $form_id
+							*/
+							$description = apply_filters( 'yikes-mailchimp-' . $field['merge'] . '-description-html', $description, esc_attr( stripslashes( $field['description'] ) ), $form_id );
+						}
+
 						// loop over our fields by Type
 						switch ( $field['type'] ) {
 
@@ -543,16 +563,13 @@ function process_mailchimp_shortcode( $atts ) {
 											</span>
 										<?php } ?>
 
+										<!-- Description Above -->
+										<?php if ( $show_description === true && $description_above === true ) { echo $description; } ?>
+
 										<input <?php echo implode( ' ' , $field_array ); if( $field['type'] != 'email' && $field['type'] != 'number' ) { ?> type="text" <?php } else if( $field['type'] == 'email' ) { ?> type="email" <?php } else { ?> type="number" <?php } ?> value="<?php if( isset( $_POST[$field['merge']] ) && $form_submitted != 1 ) { echo esc_attr( $_POST[$field['merge']] ); } else { echo esc_attr( $default_value ); } ?>">
 
-										<!-- description -->
-										<?php if( isset( $field['description'] ) && trim( $field['description'] ) != '' ) { ?>
-											<p class="form-field-description">
-												<small>
-													<?php echo apply_filters( 'yikes-mailchimp-' . $field['merge'] . '-description', esc_attr( stripslashes( $field['description'] ) ), $form_id ); ?>
-												</small>
-											</p>
-										<?php } ?>
+										<!-- Description Below -->
+										<?php if ( $show_description === true && $description_above === false ) { echo $description; } ?>
 
 									</label>
 									<?php
@@ -585,16 +602,13 @@ function process_mailchimp_shortcode( $atts ) {
 											</span>
 										<?php } ?>
 
+										<!-- Description Above -->
+										<?php if ( $show_description === true && $description_above === true ) { echo $description; } ?>
+
 										<input <?php echo implode( ' ' , $field_array ); ?> type="url" <?php if( $field['type'] == 'url' ) { ?> title="<?php _e( 'Please enter a valid URL to the website.' , 'yikes-inc-easy-mailchimp-extender' ); ?>" <?php } else { ?> title="<?php _e( 'Please enter a valid URL to the image.' , 'yikes-inc-easy-mailchimp-extender' ); ?>" <?php } ?> value="<?php if( isset( $_POST[$field['merge']] ) && $form_submitted != 1 ) { echo esc_attr( $_POST[$field['merge']] ); } else { echo esc_attr( $default_value ); } ?>" onblur="properlyFormatURLField(this);return false;">
 
-										<!-- description -->
-										<?php if( isset( $field['description'] ) && trim( $field['description'] ) != '' ) { ?>
-											<p class="form-field-description">
-												<small>
-													<?php echo apply_filters( 'yikes-mailchimp-' . $field['merge'] . '-description', esc_attr( stripslashes( $field['description'] ) ), $form_id ); ?>
-												</small>
-											</p>
-										<?php } ?>
+										<!-- Description Below -->
+										<?php if ( $show_description === true && $description_above === false ) { echo $description; } ?>
 
 									</label>
 									<?php
@@ -625,16 +639,13 @@ function process_mailchimp_shortcode( $atts ) {
 											</span>
 										<?php } ?>
 
+										<!-- Description Above -->
+										<?php if ( $show_description === true && $description_above === true ) { echo $description; } ?>
+
 										<input <?php echo implode( ' ' , $field_array ); ?> type="text" <?php if( $phone_format != 'US' ) { ?>  title="<?php _e( 'International Phone Number' , 'yikes-inc-easy-mailchimp-extender' ); ?>" pattern="<?php echo apply_filters( 'yikes-mailchimp-international-phone-pattern' , '[0-9,-,+]{1,}' ); ?>" <?php } else { ?> title="<?php _e( 'US Phone Number (###) ### - ####' , 'yikes-inc-easy-mailchimp-extender' ); ?>" pattern="<?php echo apply_filters( 'yikes-mailchimp-us-phone-pattern' , '^(\([0-9]{3}\)|[0-9]{3}-)[0-9]{3}-[0-9]{4}$' ); ?>" onblur="formatUSPhoneNumber(this);"<?php } ?> value="<?php if( isset( $_POST[$field['merge']] ) && $form_submitted != 1 ) { echo esc_attr( $_POST[$field['merge']] ); } else { echo esc_attr( $default_value ); } ?>">
 
-										<!-- description -->
-										<?php if( isset( $field['description'] ) && trim( $field['description'] ) != '' ) { ?>
-											<p class="form-field-description">
-												<small>
-													<?php echo apply_filters( 'yikes-mailchimp-' . esc_attr( $field['merge'] ) . '-description', stripslashes( $field['description'] ), $form_id ); ?>
-												</small>
-											</p>
-										<?php } ?>
+										<!-- Description Below -->
+										<?php if ( $show_description === true && $description_above === false ) { echo $description; } ?>
 
 									</label>
 									<?php
@@ -653,16 +664,13 @@ function process_mailchimp_shortcode( $atts ) {
 										</span>
 									<?php } ?>
 
+									<!-- Description Above -->
+									<?php if ( $show_description === true && $description_above === true ) { echo $description; } ?>
+
 									<input <?php echo implode( ' ' , $field_array ); ?> type="text" pattern="\d{5,5}(-\d{4,4})?" title="<?php _e( '5 digit zip code, numbers only' , 'yikes-inc-easy-mailchimp-extender' ); ?>" value="<?php if( isset( $_POST[$field['merge']] ) && $form_submitted != 1 ) { echo esc_attr( $_POST[$field['merge']] ); } else { echo esc_attr( $default_value ); } ?>">
 
-									<!-- description -->
-									<?php if( isset( $field['description'] ) ) { ?>
-										<p class="form-field-description">
-											<small>
-												<?php echo apply_filters( 'yikes-mailchimp-' . $field['merge'] . '-description', esc_attr( stripslashes( $field['description'] ) ), $form_id ); ?>
-											</small>
-										</p>
-									<?php } ?>
+									<!-- Description Below -->
+									<?php if ( $show_description === true && $description_above === false ) { echo $description; } ?>
 
 									</label>
 									<?php
@@ -682,6 +690,9 @@ function process_mailchimp_shortcode( $atts ) {
 								* @param int	| $form_id		| ID of the form
 								*/
 								$default_country = apply_filters( 'yikes-mailchimp-default-country-value', 'US', $form_id );
+
+								// <!-- Description Above -->
+								if ( $show_description === true && $description_above === true ) { echo $description; }
 
 								// store number for looping
 								$x = 1;
@@ -828,14 +839,8 @@ function process_mailchimp_shortcode( $atts ) {
 									$x++;
 								}
 
-								// description
-								if( isset( $field['description'] ) && trim( $field['description'] ) != '' ) { ?>
-									<p class="form-field-description">
-										<small>
-											<?php echo apply_filters( 'yikes-mailchimp-' . $field['merge'] . '-description', esc_attr( trim( stripslashes( $field['description'] ) ) ), $form_id ); ?>
-										</small>
-									</p>
-									<?php }
+									// <!-- Description Below -->
+									if ( $show_description === true && $description_above === false ) { echo $description; }
 								break;
 
 							case 'date':
@@ -929,16 +934,13 @@ function process_mailchimp_shortcode( $atts ) {
 											</span>
 										<?php } ?>
 
+										<!-- Description Above -->
+										<?php if ( $show_description === true && $description_above === true ) { echo $description; } ?>
+
 										<input <?php echo implode( ' ' , $field_array ); ?> type="text" <?php if( $field['type'] == 'date' ) { ?> data-attr-type="date" <?php } else { ?> data-attr-type="birthday" <?php } ?> value="<?php if( isset( $_POST[$field['merge']] ) && $form_submitted != 1 ) { echo esc_attr( $_POST[$field['merge']] ); } else { echo esc_attr( $default_value ); } ?>">
 
-										<!-- description -->
-										<?php if( isset( $field['description'] ) && trim( $field['description'] ) != '' ) { ?>
-											<p class="form-field-description">
-												<small>
-													<?php echo apply_filters( 'yikes-mailchimp-' . $field['merge'] . '-description', esc_attr( trim( stripslashes( $field['description'] ) ) ), $form_id ); ?>
-												</small>
-											</p>
-										<?php } ?>
+										<!-- Description Below -->
+										<?php if ( $show_description === true && $description_above === false ) { echo $description; } ?>
 
 									</label>
 									<?php
@@ -969,6 +971,10 @@ function process_mailchimp_shortcode( $atts ) {
 											}
 
 										?>
+
+										<!-- Description Above -->
+										<?php if ( $show_description === true && $description_above === true ) { echo $description; } ?>
+
 										<select <?php echo implode( ' ' , $field_array ); ?>>
 											<?php
 												foreach( $choices as $choice ) { ?>
@@ -982,14 +988,8 @@ function process_mailchimp_shortcode( $atts ) {
 											?>
 										</select>
 
-										<!-- description -->
-										<?php if( isset( $field['description'] ) && trim( $field['description'] ) != '' ) { ?>
-											<p class="form-field-description">
-												<small>
-													<?php echo apply_filters( 'yikes-mailchimp-' . $field['merge'] . '-description', esc_attr( trim( stripslashes( $field['description'] ) ) ), $form_id ); ?>
-												</small>
-											</p>
-										<?php } ?>
+										<!-- Description Below -->
+										<?php if ( $show_description === true && $description_above === false ) { echo $description; } ?>
 
 									</label>
 									<?php
@@ -1026,6 +1026,9 @@ function process_mailchimp_shortcode( $atts ) {
 										</span>
 									<?php }
 
+									// <!-- Description Above -->
+									if ( $show_description === true && $description_above === true ) { echo $description; }
+
 									foreach( $choices as $choice ) {
 										?>
 										<label for="<?php echo esc_attr( $field['merge'] ) . '-' . $i; ?>" class="yikes-easy-mc-checkbox-label <?php echo implode( ' ' , $custom_classes ); if( $i === $count ) { ?> last-selection<?php } ?>" <?php if( $i == 1 ) { echo $field_array['required']; } ?>>
@@ -1042,14 +1045,8 @@ function process_mailchimp_shortcode( $atts ) {
 										$x++;
 									}
 
-									// description
-									if( isset( $field['description'] ) && trim( $field['description'] ) != '' ) { ?>
-										<p class="form-field-description">
-											<small>
-												<?php echo apply_filters( 'yikes-mailchimp-' . $field['merge'] . '-description', esc_attr( trim( stripslashes( $field['description'] ) ) ), $form_id ); ?>
-											</small>
-										</p>
-									<?php } ?>
+									// <!-- Description Below -->
+									if ( $show_description === true && $description_above === false ) { echo $description; } ?>
 
 								</label>
 								<?php
@@ -1059,7 +1056,27 @@ function process_mailchimp_shortcode( $atts ) {
 
 					} else {
 
-						/**** Interest Groups ***/
+						/**** Interest Groups ****/
+
+						// Handle the Description logic in one spot, here:
+						$show_description = isset( $field['description'] ) && trim( $field['description'] ) !== '' ? true : false;
+						$description_above = isset( $field['description_above'] ) && $field['description_above'] === '1' ? true : false;
+						if ( $show_description === true ) {
+							$description = '<p class="form-field-description" id="form-field-description-' . $field['group_id'] . '">';
+							$description .= apply_filters( 'yikes-mailchimp-' . $field['group_id'] . '-description', esc_attr( stripslashes( $field['description'] ) ), $form_id );
+							$description .= '</p>';
+
+							/**
+							*	'yikes-mailchimp-' . $field['group_id'] . '-description-html' (e.g. yikes-mailchimp-0ab8f8c84b-description-html)
+							*
+							* 	Filter the description HTML block
+							*	
+							*	@param string | $description 			| The full HTML description block
+							*	@param string | $field['description']	| The field's description text
+							*	@param int	  | $form_id
+							*/
+							$description = apply_filters( 'yikes-mailchimp-' . $field['group_id'] . '-description-html', $description, esc_attr( stripslashes( $field['description'] ) ), $form_id );
+						}
 
 						// Get the default choice(s) from the field settings and turn them into an array if not already
 						$default_choice = ( isset( $field['default_choice'] ) ) ? $field['default_choice'] : '';
@@ -1093,6 +1110,9 @@ function process_mailchimp_shortcode( $atts ) {
 											</span>
 									<?php
 										}
+
+										// <!-- Description Above -->
+										if ( $show_description === true && $description_above === true ) { echo $description; }
 
 										// Display Submission Errors
 										if( ! empty( $missing_required_checkbox_interest_groups ) ) {
@@ -1131,14 +1151,8 @@ function process_mailchimp_shortcode( $atts ) {
 											$x++;
 										}
 
-										// description
-										if( isset( $field['description'] ) && trim( $field['description'] ) != '' ) { ?>
-											<p class="form-field-description">
-												<small>
-													<?php echo apply_filters( 'yikes-mailchimp-' . $field['group_id'] . '-description', esc_attr( trim( $field['description'] ) ), $form_id ); ?>
-												</small>
-											</p>
-										<?php } ?>
+										// <!-- Description Below -->
+										if ( $show_description === true && $description_above === false ) { echo $description; } ?>
 
 									</label>
 									<?php
@@ -1156,6 +1170,9 @@ function process_mailchimp_shortcode( $atts ) {
 												<?php echo apply_filters( 'yikes-mailchimp-' . $field['group_id'] . '-label' , esc_attr( stripslashes( $field['label'] ) ) ); ?>
 											</span>
 										<?php } ?>
+
+										<!-- Description Above -->
+										<?php if ( $show_description === true && $description_above === true ) { echo $description; } ?>
 
 										<select <?php echo implode( ' ' , $field_array ); ?>>
 											<?php
@@ -1180,14 +1197,8 @@ function process_mailchimp_shortcode( $atts ) {
 											?>
 										</select>
 
-										<?php if( isset( $field['description'] ) && trim( $field['description'] ) != '' ) { ?>
-											<p class="form-field-description">
-												<small>
-													<?php echo apply_filters( 'yikes-mailchimp-' . $field['group_id'] . '-description', esc_attr( trim( $field['description'] ) ), $form_id ); ?>
-												</small>
-											</p>
-										<?php } ?>
-
+										<!-- Description Below -->
+										<?php if ( $show_description === true && $description_above === false ) { echo $description; } ?>
 
 									</label><?php
 
@@ -1209,6 +1220,9 @@ function process_mailchimp_shortcode( $atts ) {
 											</span>
 										<?php }
 
+										// <!-- Description Above -->
+										if ( $show_description === true && $description_above === true ) { echo $description; }
+
 										// Turn $default_choice into an array if it isn't already
 										$default_choice = ( isset( $default_choice ) && is_array( $default_choice ) ) ? $default_choice : array( $default_choice );
 
@@ -1229,17 +1243,10 @@ function process_mailchimp_shortcode( $atts ) {
 											$x++;
 										}
 
-										// description
-										if( isset( $field['description'] ) && trim( $field['description'] ) != '' ) { ?>
-											<p class="form-field-description">
-												<small>
-													<?php echo apply_filters( 'yikes-mailchimp-' . $field['group_id'] . '-description', esc_attr( trim( stripslashes( $field['description'] ) ) ), $form_id ); ?>
-												</small>
-											</p>
-										<?php }
+										// <!-- Description Below -->
+										if ( $show_description === true && $description_above === false ) { echo $description; } ?>
 
-
-									?></label><?php
+									</label><?php
 
 								break;
 
