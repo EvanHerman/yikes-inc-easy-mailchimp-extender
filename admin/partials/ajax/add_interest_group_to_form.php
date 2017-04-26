@@ -170,6 +170,19 @@ foreach( $interest_groups as $group ) {
 						</td>
 					</tr>
 
+					<!-- Description Above Field -->
+					<tr valign="top">
+						<td scope="row">
+							<label for="description_above_<?php echo esc_attr( $group['group_id'] ); ?>">
+								<?php _e( 'Description Above Field' , 'yikes-inc-easy-mailchimp-extender' ); ?>
+							</label>
+						</td>
+						<td>
+							<input type="checkbox" id="description_above_<?php echo esc_attr( $group['group_id'] ); ?>" class="widefat field-description-input" name="field[<?php echo $group['group_id']; ?>][description_above]" value="1" />
+							<span class="description"><small><?php _e( "By default the description will appear undearneath the field. Check this box if you'd like the description to appear above the field.", 'yikes-inc-easy-mailchimp-extender' );?></small></span>
+						</td>
+					</tr>
+
 					<!-- Additional Classes -->
 					<tr valign="top">
 						<td scope="row">

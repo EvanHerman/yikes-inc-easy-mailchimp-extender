@@ -224,6 +224,18 @@ $merge_field_data = $available_merge_variables['merge_fields'][ $index ];
 						<p class="description"><small><?php _e( "Enter the description for the form field. This will be displayed to the user and provide some direction on how the field should be filled out or selected.", 'yikes-inc-easy-mailchimp-extender' );?></small></p>
 					</td>
 				</tr>
+				<!-- Description Above Field -->
+				<tr valign="top">
+					<td scope="row">
+						<label for="description_above_<?php echo esc_attr( $merge_field_data['tag'] ); ?>">
+							<?php _e( 'Description Above Field' , 'yikes-inc-easy-mailchimp-extender' ); ?>
+						</label>
+					</td>
+					<td>
+						<input type="checkbox" id="description_above_<?php echo esc_attr( $merge_field_data['tag'] ); ?>" class="widefat field-description-input" name="field[<?php echo $merge_field_data['tag']; ?>][description_above]" value="1" />
+						<span class="description"><small><?php _e( "By default the description will appear undearneath the field. Check this box if you'd like the description to appear above the field.", 'yikes-inc-easy-mailchimp-extender' );?></small></span>
+					</td>
+				</tr>
 				<!-- Additional Classes -->
 				<tr valign="top">
 					<td scope="row">
