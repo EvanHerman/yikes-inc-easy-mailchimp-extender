@@ -1473,6 +1473,13 @@ class Yikes_Inc_Easy_Mailchimp_Forms_Admin {
 			}
 			$installed_addons = get_option( 'yikes-easy-mc-active-addons' , array() );
 
+			// Make sure we don't have any duplicates by mistake
+			$installed_addons = array_unique( $installed_addons );
+
+			// v1.2.6 of popups plugin had a bug that expanded the array indefinitely, so let's trim it in one place here.
+			// This can be removed within a few weeks
+			update_option( 'yikes-easy-mc-active-addons' , $installed_addons );
+
 			// sort our addons array alphabetically so they appear in similar orders across all sites
 			asort( $installed_addons );
 			?>

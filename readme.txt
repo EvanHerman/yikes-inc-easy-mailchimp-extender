@@ -4,7 +4,7 @@ Donate link: https://yikesplugins.com/?utm_source=wp_plugin_repo&utm_medium=dona
 Tags: MailChimp, MailChimp forms, MailChimp lists, opt-in forms, sign up form, MailChimp, email, forms, mailing lists, marketing, newsletter, sign up
 Requires at least: 4.0
 Tested up to: 4.7.4
-Stable tag: 6.3.16
+Stable tag: 6.3.17
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -259,6 +259,9 @@ Below you'll find a complete list of the hooks and filters available in Easy For
 * `yikes-mailchimp-google-analytics` - Add Google Analytics JS functions. Check our Knowledge Base for instructions.
 
 == Changelog ==
+
+= Easy Forms for MailChimp 6.3.17 - May 1st, 2017 =
+* Added a quick fix for the Addon Settings list 
 
 = Easy Forms for MailChimp 6.3.16 - April 26th, 2017 =
 * Quick fix to 6.3.15 - forgot to add a couple of files that handle the "Description Above Field" when a form field/interest group is initially added to the form.
