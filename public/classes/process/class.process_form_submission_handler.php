@@ -814,7 +814,20 @@ class Yikes_Inc_Easy_MailChimp_Extender_Process_Submission_Handler {
 
 					// Loop through the data and check if any are empty
 					foreach( $value as $field => $val ) {
-						if ( empty( $val ) ) {
+
+						/**
+						*	'yikes-mailchimp-ignore-required-array-field'
+						*
+						* 	Filter the default array of fields we're ignoring. As of now, this is only for address fields because no other field is an array.
+						*
+						*	@param array | Array of fields to ignore. Key of the array should be the field name.
+						*	@param int   | $form_id
+						*
+						*	@return Array of fields to ignore.
+						*/
+						$ignored_fields = apply_filters( 'yikes-mailchimp-ignore-required-array-field', array( 'addr2' => true ), $this->form_id );
+
+						if ( empty( $val ) && ! isset( $ignored_fields[ $field ] ) ) {
 							$field_is_missing = true;
 
 							// Set the merge label (e.g. MMERGE6) as the key so we don't get the same field multiple times

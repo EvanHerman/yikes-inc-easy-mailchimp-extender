@@ -176,6 +176,16 @@
 				$data['interests'] = $groups;
 			}
 
+			/**
+			*	'yikes-mailchimp-checkbox-integration-body'
+			*
+			*	Filter the request body for a MailChimp subscription via the checkbox integrations
+			*
+			*	@param array  | $data | The request body
+			*	@param string | $type | The integration type, e.g. 'contact_form_7'
+			*/
+			$data = apply_filters( 'yikes-mailchimp-checkbox-integration-body', $data, $type );
+
 			// Subscribe the user to the list via the API.
 			$response = yikes_get_mc_api_manager()->get_list_handler()->member_subscribe( $list_id, $id, $data );
 			if ( is_wp_error( $response ) ) {
