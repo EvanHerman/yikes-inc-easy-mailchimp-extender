@@ -4,7 +4,7 @@ Donate link: https://yikesplugins.com/?utm_source=wp_plugin_repo&utm_medium=dona
 Tags: MailChimp, MailChimp forms, MailChimp lists, opt-in forms, sign up form, MailChimp, email, forms, mailing lists, marketing, newsletter, sign up
 Requires at least: 4.0
 Tested up to: 4.7.4
-Stable tag: 6.3.17
+Stable tag: 6.3.18
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -237,6 +237,9 @@ Below you'll find a complete list of the hooks and filters available in Easy For
 * 6.3.15:
 * `yikes-mailchimp-{$merge_tag}-description-html` - Filter the full block of HTML that will be used for the form field's description. @params: $description_full, $description_text, $form_id
 * `yikes-mailchimp-{$interest_group_id}-description-html` - Filter the full block of HTML that will be used for the interest group field's description. @params: $description_full, $description_text, $form_id
+* 6.3.18:
+* `yikes-mailchimp-checkbox-integration-body` - Filter the full request body of a checkbox integration subscribe API call. @params: $data, $type
+* `yikes-mailchimp-ignore-required-array-field` - For server side validation, filter the required/unrequired fields. Due to the way MailChimp requires addresses, this is only useful for address 2 at the moment. @params: $non_required_fields, $form_id
 
 **Actions**
 
@@ -259,6 +262,10 @@ Below you'll find a complete list of the hooks and filters available in Easy For
 * `yikes-mailchimp-google-analytics` - Add Google Analytics JS functions. Check our Knowledge Base for instructions.
 
 == Changelog ==
+
+= Easy Forms for MailChimp 6.3.18 - May 3rd, 2017 =
+* Added a filter, `yikes-mailchimp-checkbox-integration-body`, for the checkbox integrations. You can now filter the entire request body before it's sent to MailChimp.
+* Fixed up the code that was requiring address 2. By default, the address 2 field will never be required (can be changed with filters `yikes-mailchimp-address-2-required` and `yikes-mailchimp-ignore-required-array-field`).
 
 = Easy Forms for MailChimp 6.3.17 - May 1st, 2017 =
 * Added a quick fix for the Addon Settings list 
