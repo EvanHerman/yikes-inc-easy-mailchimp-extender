@@ -4,7 +4,7 @@ Donate link: https://yikesplugins.com/?utm_source=wp_plugin_repo&utm_medium=dona
 Tags: MailChimp, MailChimp forms, MailChimp lists, opt-in forms, sign up form, MailChimp, email, forms, mailing lists, marketing, newsletter, sign up
 Requires at least: 4.0
 Tested up to: 4.7.4
-Stable tag: 6.3.18
+Stable tag: 6.3.19
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -240,6 +240,8 @@ Below you'll find a complete list of the hooks and filters available in Easy For
 * 6.3.18:
 * `yikes-mailchimp-checkbox-integration-body` - Filter the full request body of a checkbox integration subscribe API call. @params: $data, $type
 * `yikes-mailchimp-ignore-required-array-field` - For server side validation, filter the required/unrequired fields. Due to the way MailChimp requires addresses, this is only useful for address 2 at the moment. @params: $non_required_fields, $form_id
+* 6.3.19:
+* `yikes-mailchimp-save-form-filter - Filter all of a form's data before it gets saved. @params: $form_updates, $form_id. 
 
 **Actions**
 
@@ -262,6 +264,10 @@ Below you'll find a complete list of the hooks and filters available in Easy For
 * `yikes-mailchimp-google-analytics` - Add Google Analytics JS functions. Check our Knowledge Base for instructions.
 
 == Changelog ==
+
+= Easy Forms for MailChimp 6.3.19 - May 15th, 2017 =
+* Fixed a bug where hidden form fields were being counted as visible.
+* Added a new filter - yikes-mailchimp-save-form-filter - that allows you to filter all of a form's data before it gets saved
 
 = Easy Forms for MailChimp 6.3.18 - May 3rd, 2017 =
 * Added a filter, `yikes-mailchimp-checkbox-integration-body`, for the checkbox integrations. You can now filter the entire request body before it's sent to MailChimp.

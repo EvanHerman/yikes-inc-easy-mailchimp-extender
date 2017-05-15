@@ -146,7 +146,7 @@ function process_mailchimp_shortcode( $atts ) {
 		// loop over each field, if it's set to hidden -- subtract it from the field count
 		// this throws off the layout for inline forms setup below
 		foreach ( $form_data['fields'] as $form_field ) {
-			if ( isset( $form_field->hide ) && $form_field->hide == 1 ) {
+			if ( isset( $form_field['hide'] ) && (string) $form_field['hide'] === '1' ) {
 				$field_count --;
 			}
 		}
@@ -227,7 +227,7 @@ function process_mailchimp_shortcode( $atts ) {
 	/**
 	*	Check for form inline parameter
 	*/
-	$form_inline = ( $atts['inline'] == 1 || $atts['inline'] == 'true' );
+	$form_inline = ( $atts['inline'] == 1 || $atts['inline'] == 'true' || get_theme_mod( 'form-inline-' . $form_id, '' ) === true ); // form-inline-{$form_id} comes from customizer extension
 	// recheck from our form options
 	if ( ! $form_inline ) {
 		$form_inline = (bool) $additional_form_settings['yikes-easy-mc-inline-form'];
@@ -905,9 +905,9 @@ function process_mailchimp_shortcode( $atts ) {
 												isRTL: <?php echo (int) $isRTL; ?>,
 												showButtonPanel: true,
 												numberOfMonths: 1,
-												today: '<?php _e( 'Today', 'yikes-inc-easy-mailchimp-extender' ); ?>'
+												today: '<?php _e( 'Today', 'yikes-inc-easy-mailchimp-extender' ); ?>',
 											};
-											jQuery('input[data-attr-type="<?php echo $field['type']; ?>"]').datepicker().on( 'show', function( e ) {
+											jQuery('input[data-attr-type="<?php echo $field['type']; ?>"]').datepicker( { minDate: -10, maxDate: 10 } ).on( 'show', function( e ) {
 												var date_picker_height = jQuery('input[data-attr-type="<?php echo $field['type']; ?>"]').css( 'height' );
 												date_picker_height = parseInt( date_picker_height.replace( 'px', '' ) ) + parseInt( 15 ) + 'px';
 												var date_picker_width = jQuery('input[data-attr-type="<?php echo $field['type']; ?>"]').css( 'width' ).replace( 'px', '' );

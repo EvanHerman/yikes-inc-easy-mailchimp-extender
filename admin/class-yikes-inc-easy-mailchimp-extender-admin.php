@@ -2802,6 +2802,8 @@ class Yikes_Inc_Easy_Mailchimp_Forms_Admin {
 				$this->form_interface->get_form_defaults()
 			);
 
+			$form_updates = apply_filters( 'yikes-mailchimp-save-form-filter', $form_updates, $form_id );
+
 			$this->form_interface->update_form( $form_id, $form_updates );
 
 			/* Custom action hook which allows users to update specific options when a form is updated - used in add ons */
