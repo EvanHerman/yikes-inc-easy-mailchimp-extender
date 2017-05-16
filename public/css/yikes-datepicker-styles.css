@@ -1,0 +1,4 @@
+/* Hide the year on the datepicker */
+.yikes-datepicker-hide-year .ui-datepicker-header .ui-datepicker-title .ui-datepicker-year {
+    display: none;
+}
