@@ -241,7 +241,8 @@ Below you'll find a complete list of the hooks and filters available in Easy For
 * `yikes-mailchimp-checkbox-integration-body` - Filter the full request body of a checkbox integration subscribe API call. @params: $data, $type
 * `yikes-mailchimp-ignore-required-array-field` - For server side validation, filter the required/unrequired fields. Due to the way MailChimp requires addresses, this is only useful for address 2 at the moment. @params: $non_required_fields, $form_id
 * 6.3.19:
-* `yikes-mailchimp-save-form-filter - Filter all of a form's data before it gets saved. @params: $form_updates, $form_id. 
+* `yikes-mailchimp-save-form-filter - Filter all of a form's data before it gets saved. @params: $form_updates, $form_id
+* `yikes-mailchimp-datepicker-options` - Filter all of the options for the jQuery datepicker. @params: $datepicker_options, $form_id
 
 **Actions**
 
@@ -265,9 +266,11 @@ Below you'll find a complete list of the hooks and filters available in Easy For
 
 == Changelog ==
 
-= Easy Forms for MailChimp 6.3.19 - May 15th, 2017 =
+= Easy Forms for MailChimp 6.3.19 - May 16th, 2017 =
 * Fixed a bug where hidden form fields were being counted as visible.
-* Added a new filter - yikes-mailchimp-save-form-filter - that allows you to filter all of a form's data before it gets saved
+* Added a new filter - yikes-mailchimp-save-form-filter - that allows you to filter all of a form's data before it gets saved.
+* Replaced the current datepicker with the standard jQuery core datepicker. Added styles and custom code to support this.
+* Added a new filter - yikes-mailchimp-datepicker-options - that allows you to filter the datepicker options.
 
 = Easy Forms for MailChimp 6.3.18 - May 3rd, 2017 =
 * Added a filter, `yikes-mailchimp-checkbox-integration-body`, for the checkbox integrations. You can now filter the entire request body before it's sent to MailChimp.
