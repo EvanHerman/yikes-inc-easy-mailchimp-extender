@@ -68,7 +68,7 @@ class YIKES_Inc_Easy_MailChimp_Dashboard_Widgets {
 		// Get our list data!
 		$list_data = yikes_get_mc_api_manager()->get_list_handler()->get_lists();
 		
-		if ( isset( $list_data['error'] ) ) {
+		if ( is_wp_error( $list_data ) ) {
 			$error_logging = new Yikes_Inc_Easy_Mailchimp_Error_Logging();
 			$error_logging->maybe_write_to_log( $list_data['error'], __( "Get Account Lists", 'yikes-inc-easy-mailchimp-extender' ), "Dashboard Activity Widget" );
 		}

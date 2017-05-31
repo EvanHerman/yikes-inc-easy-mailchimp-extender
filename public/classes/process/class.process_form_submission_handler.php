@@ -935,6 +935,20 @@ class Yikes_Inc_Easy_MailChimp_Extender_Process_Submission_Handler {
 	*/
 	public function handle_recaptcha( $recaptcha_response ) {
 
+		// Before we the hit the API, let's check that we actually got a response.
+		// If the user did not fill anything in (e.g. did not hit the checkbox), then the response will be empty.
+		if ( empty( $recaptcha_response ) ) {
+
+			/**
+			*	yikes-mailchimp-recaptcha-required-error
+			*
+			*	Catch the recaptcha errors before they're returned to the user
+			*	@param string | $recaptcha_errors | A string of recaptcha errors separated by a space
+			*/
+			$response = apply_filters( 'yikes-mailchimp-recaptcha-required-error', $this->handle_non_filled_recaptcha_message_message, $this->form_id );
+			return $this->yikes_fail( $hide = 0, $error = 1, $response, false, $return_response_non_ajax = true );
+		}
+
 		// Construct the API URL
 		$url           = esc_url_raw( 'https://www.google.com/recaptcha/api/siteverify?secret=' . get_option( 'yikes-mc-recaptcha-secret-key', '' ) . '&response=' . $recaptcha_response . '&remoteip=' . $_SERVER['REMOTE_ADDR'] );
 		$response      = wp_remote_get( $url );

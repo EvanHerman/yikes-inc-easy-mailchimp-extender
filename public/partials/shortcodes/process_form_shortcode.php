@@ -146,7 +146,7 @@ function process_mailchimp_shortcode( $atts ) {
 		// loop over each field, if it's set to hidden -- subtract it from the field count
 		// this throws off the layout for inline forms setup below
 		foreach ( $form_data['fields'] as $form_field ) {
-			if ( isset( $form_field->hide ) && $form_field->hide == 1 ) {
+			if ( isset( $form_field['hide'] ) && (string) $form_field['hide'] === '1' ) {
 				$field_count --;
 			}
 		}
@@ -227,7 +227,7 @@ function process_mailchimp_shortcode( $atts ) {
 	/**
 	*	Check for form inline parameter
 	*/
-	$form_inline = ( $atts['inline'] == 1 || $atts['inline'] == 'true' );
+	$form_inline = ( $atts['inline'] == 1 || $atts['inline'] == 'true' || get_theme_mod( 'form-inline-' . $form_id, '' ) === true ); // form-inline-{$form_id} comes from customizer extension
 	// recheck from our form options
 	if ( ! $form_inline ) {
 		$form_inline = (bool) $additional_form_settings['yikes-easy-mc-inline-form'];
@@ -846,79 +846,48 @@ function process_mailchimp_shortcode( $atts ) {
 							case 'date':
 							case 'birthday':
 
-								// bootstrap datepicker requirements
-								wp_enqueue_script( 'bootstrap-hover-dropdown' , YIKES_MC_URL . 'public/js/bootstrap-hover-dropdown.min.js' , array( 'jquery' ) );
-								wp_enqueue_script( 'bootstrap-datepicker-script' , YIKES_MC_URL . 'public/js/bootstrap-datepicker.min.js' , array( 'jquery' , 'bootstrap-hover-dropdown' ) );
-								wp_enqueue_style( 'bootstrap-datepicker-styles' , YIKES_MC_URL . 'public/css/bootstrap-datepicker3.standalone.min.css' );
-								wp_enqueue_style( 'override-datepicker-styles' , YIKES_MC_URL . 'public/css/yikes-inc-easy-mailchimp-datepicker-styles.css' , array( 'bootstrap-datepicker-styles' ) );
+								// Localize the calendar
+								global $wp_locale;
+								$datepicker_options = array(
+									'rtl' 					=> $wp_locale->is_rtl(),
+									'month_names' 			=> array_values( $wp_locale->month ),
+									'month_names_short' 	=> array_values( $wp_locale->month_abbrev ),
+									'day_names' 			=> array_values( $wp_locale->weekday ),
+									'day_names_short' 		=> array_values( $wp_locale->weekday_abbrev ),
+									'day_names_min' 		=> array_values( $wp_locale->weekday_initial ),
+									'first_day' 			=> get_option( 'start_of_week' ),
+									'change_month'			=> false,
+									'change_year'			=> false,
+									'min_date'				=> null,
+									'max_date'				=> null,
+									'default_date'			=> null,
+									'number_of_months'		=> 1,
+									'show_other_months' 	=> false,
+									'select_other_months' 	=> null,
+									'show_anim'				=> '',
+									'show_button_panel'		=> false,
+								);
+
+								// Allow the options to be filtered
+								$datepicker_options = apply_filters( 'yikes-mailchimp-datepicker-options', $datepicker_options, $form_id );
+
+								// Enqueue our custom datepicker support scripts and styles, and jQuery UI Style Sheet (these styles are not included in Core)
+								wp_register_script( 'yikes-datepicker-scripts', YIKES_MC_URL . 'public/js/yikes-datepicker-scripts.min.js', array( 'jquery-ui-datepicker' ), YIKES_MC_VERSION, false );
+								wp_localize_script( 'yikes-datepicker-scripts', 'datepicker_settings', $datepicker_options );
+								wp_enqueue_script( 'yikes-datepicker-scripts' );
+								wp_enqueue_style( 'jquery-datepicker-styles' , YIKES_MC_URL . 'public/css/jquery-ui.min.css' );
+								wp_enqueue_style( 'yikes-datepicker-styles' , YIKES_MC_URL . 'public/css/yikes-datepicker-styles.min.css' );
 
 								switch ( $field['type'] ) {
 									default:
 									case 'date':
-										$date_format = ( isset( $field['date_format'] ) ) ? $field['date_format'] : 'mm/dd';
+										$date_format = ( isset( $field['date_format'] ) ) ? $field['date_format'] : 'mm/dd/yyyy';
 										break;
 
 									case 'birthday':
 										$date_format = ( isset( $field['date_format'] ) ) ? strtolower( $field['date_format'] ) : 'mm/dd';
 										break;
 								}
-								// initialize the datepicker
-								?>
-									<style>
-										.datepicker-dropdown {
-											width: 20%;
-											padding: .85em .5em !important;
-										}
-										<?php
-											if( wp_is_mobile() ) {
-												?>
-												.datepicker-dropdown {
-													margin-top: 0px;
-												}
-												<?php
-											}
-											// isntantiate our admin class to localize our calendar data
-											global $wp_locale;
-											$admin_class = new Yikes_Inc_Easy_Mailchimp_Forms_Admin( '', '', yikes_easy_mailchimp_extender_get_form_interface() );
-											$admin_class->hooks();
-											$month_names = array_values( $wp_locale->month );
-											$month_names_short = array_values( $wp_locale->month_abbrev );
-											$day_names = array_values( $wp_locale->weekday );
-											$day_names_short = array_values( $wp_locale->weekday_abbrev );
-											$day_names_min = array_values( $wp_locale->weekday_initial );
-											$date_format = $admin_class->yikes_jQuery_datepicker_date_format_php_to_js( $date_format, $field['type'] );
-											$first_day = get_option( 'start_of_week' );
-											$isRTL = $wp_locale->is_rtl();
-										?>
-									</style>
-									<script type="text/javascript">
-										jQuery(document).ready(function() {
-											jQuery.fn.datepicker.dates['en'] = {
-												months: <?php echo json_encode( $month_names ); ?>,
-												monthsShort: <?php echo json_encode( $month_names_short ); ?>,
-												days: <?php echo json_encode( $day_names ); ?>,
-												daysShort: <?php echo json_encode( $day_names_short ); ?>,
-												daysMin: <?php echo json_encode( $day_names_min ); ?>,
-												dateFormat: <?php echo json_encode( $date_format ); ?>,
-												firstDay: <?php echo json_encode( $first_day ); ?>,
-												format: <?php echo json_encode( $date_format ); ?>,
-												isRTL: <?php echo (int) $isRTL; ?>,
-												showButtonPanel: true,
-												numberOfMonths: 1,
-												today: '<?php _e( 'Today', 'yikes-inc-easy-mailchimp-extender' ); ?>'
-											};
-											jQuery('input[data-attr-type="<?php echo $field['type']; ?>"]').datepicker().on( 'show', function( e ) {
-												var date_picker_height = jQuery('input[data-attr-type="<?php echo $field['type']; ?>"]').css( 'height' );
-												date_picker_height = parseInt( date_picker_height.replace( 'px', '' ) ) + parseInt( 15 ) + 'px';
-												var date_picker_width = jQuery('input[data-attr-type="<?php echo $field['type']; ?>"]').css( 'width' ).replace( 'px', '' );
-												if( date_picker_width > 500 ) {
-													date_picker_width = 500;
-												}
-												jQuery( '.datepicker-dropdown' ).css( 'margin-top', date_picker_height  ).css( 'width', date_picker_width + 'px' );
-											});
-										});
-									</script>
-								<?php
 
 								$default_value = ( isset( $field['default'] ) ? esc_attr( $field['default'] ) : '' );
 								// store empty number for looping
@@ -937,7 +906,7 @@ function process_mailchimp_shortcode( $atts ) {
 										<!-- Description Above -->
 										<?php if ( $show_description === true && $description_above === true ) { echo $description; } ?>
 
-										<input <?php echo implode( ' ' , $field_array ); ?> type="text" <?php if( $field['type'] == 'date' ) { ?> data-attr-type="date" <?php } else { ?> data-attr-type="birthday" <?php } ?> value="<?php if( isset( $_POST[$field['merge']] ) && $form_submitted != 1 ) { echo esc_attr( $_POST[$field['merge']] ); } else { echo esc_attr( $default_value ); } ?>">
+										<input <?php echo implode( ' ' , $field_array ); ?> type="text" <?php if( $field['type'] == 'date' ) { ?> data-attr-type="date" <?php } else { ?> data-attr-type="birthday" <?php } ?> value="<?php if( isset( $_POST[$field['merge']] ) && $form_submitted != 1 ) { echo esc_attr( $_POST[$field['merge']] ); } else { echo esc_attr( $default_value ); } ?>" data-date-format="<?php echo esc_attr( strtolower( $date_format ) ); ?>">
 
 										<!-- Description Below -->
 										<?php if ( $show_description === true && $description_above === false ) { echo $description; } ?>
