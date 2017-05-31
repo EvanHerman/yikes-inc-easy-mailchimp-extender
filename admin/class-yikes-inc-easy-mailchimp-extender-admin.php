@@ -1641,7 +1641,7 @@ class Yikes_Inc_Easy_Mailchimp_Forms_Admin {
 					* 	@param array | $excluded_post_types | The array of default excluded post types
 					*	@return array| $excluded_post_types | The array of user-defined excluded post types
 					*/
-					$excluded_post_types = array( 'attachment' , 'revision' , 'nav_menu_item', 'shop_order', 'shop_order_refund', 'custom_css', 'customize_changeset' );
+					$excluded_post_types = array( 'attachment' , 'revision' , 'nav_menu_item', 'shop_order', 'shop_order_refund', 'custom_css', 'customize_changeset', 'forum', 'topic', 'reply' );
 					$excluded_post_types = apply_filters( 'yikes-mailchimp-excluded-redirect-post-types', $excluded_post_types );
 
 						// loop over registered post types, and query!

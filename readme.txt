@@ -3,8 +3,8 @@ Contributors: yikesinc, eherman24, liljimmi, hiwhatsup, JPry, yikesitskevin
 Donate link: https://yikesplugins.com/?utm_source=wp_plugin_repo&utm_medium=donate_link&utm_campaign=easy_forms_for_mailchimp
 Tags: MailChimp, MailChimp forms, MailChimp lists, opt-in forms, sign up form, MailChimp, email, forms, mailing lists, marketing, newsletter, sign up
 Requires at least: 4.0
-Tested up to: 4.7.4
-Stable tag: 6.3.19
+Tested up to: 4.7.5
+Stable tag: 6.3.20
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -243,6 +243,8 @@ Below you'll find a complete list of the hooks and filters available in Easy For
 * 6.3.19:
 * `yikes-mailchimp-save-form-filter - Filter all of a form's data before it gets saved. @params: $form_updates, $form_id
 * `yikes-mailchimp-datepicker-options` - Filter all of the options for the jQuery datepicker. @params: $datepicker_options, $form_id
+* 6.3.20:
+* `yikes-mailchimp-integration-is-user-subscribed` - Override the integration checkbox for already subscribed users. @params: $subscribed, $integration_type.
 
 **Actions**
 
@@ -265,6 +267,11 @@ Below you'll find a complete list of the hooks and filters available in Easy For
 * `yikes-mailchimp-google-analytics` - Add Google Analytics JS functions. Check our Knowledge Base for instructions.
 
 == Changelog ==
+
+= Easy Forms for MailChimp 6.3.20 - May 31st, 2017 =
+* Added a filter - `yikes-mailchimp-integration-is-user-subscribed` - for the integration checkbox. You can override whether the checkbox will display for already subscribed users (by default, the checkbox will not display).
+* Updated the way we're logging errors for the homepage dashboard widgets - an error should no longer break your dashboard!
+* Added some default excluded post types for our post query on the form builder (CPTS are forum, topic, and reply). This should help people who use bbPress and are experiencing timeout issues. (These can be filtered with the `yikes-mailchimp-excluded-redirect-post-types`).
 
 = Easy Forms for MailChimp 6.3.19 - May 16th, 2017 =
 * Fixed a bug where hidden form fields were being counted as visible.
