@@ -61,22 +61,27 @@
 		 *	@since 6.0.0
 		**/
 		public function subscribe_from_comment( $comment_id , $comment_approved ) {	
+
 			// was sign-up checkbox checked?
 			if ( $this->was_checkbox_checked( $this->type ) === false ) {
 				return false;
 			}
+
 			// is this a spam comment?
-			if ( $comment_approved === 'spam' ) {
+			if ( $comment_approved === 0 ) {
 				return false;
 			}
-			// store comment data
+
+			// Fetch comment data
 			$comment_data = get_comment( $comment_id );
-			// create merge variable array
+
+			// Create merge variables based on comment data
 			$merge_vars = array(
-				'NAME' => $comment_data->comment_author,
+				'FNAME' => $comment_data->comment_author,
 				'OPTIN_IP' => $comment_data->comment_author_IP,
 			);
-			// subscribe the user 
+
+			// Subscribe the user 
 			$this->subscribe_user_integration( sanitize_email( $comment_data->comment_author_email ) , $this->type , $merge_vars );
 		}
 		
