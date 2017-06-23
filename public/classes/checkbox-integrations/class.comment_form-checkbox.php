@@ -60,7 +60,7 @@
 		 *
 		 *	@since 6.0.0
 		**/
-		public function subscribe_from_comment( $comment_id , $comment_approved ) {	
+		public function subscribe_from_comment( $comment_id, $comment_approved ) {	
 
 			// was sign-up checkbox checked?
 			if ( $this->was_checkbox_checked( $this->type ) === false ) {
@@ -68,7 +68,7 @@
 			}
 
 			// is this a spam comment?
-			if ( $comment_approved === 0 ) {
+			if ( $comment_approved === 'spam' ) {
 				return false;
 			}
 
