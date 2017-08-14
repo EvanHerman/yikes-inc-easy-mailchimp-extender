@@ -185,21 +185,21 @@ if( $this->is_user_mc_api_valid_form( false ) == 'valid' ) {
 											<td class="column-columnname num stat-container">
 												<?php
 													if( $impressions != 0 ) {
-														$conversion_rate = '%' . ( round( $form['submissions'] / $form['impressions'] , 2 ) * 100 );
-														if( $conversion_rate >= '%15' ) {
+														$conversion_rate = ( round( $form['submissions'] / $form['impressions'] , 2 ) * 100 );
+														if( $conversion_rate >= '15' ) {
 															$conversion_color = '#00cc00'; // green (unicorn!)
-														} else if( $conversion_rate < '%15' && $conversion_rate >= '%10' ) {
+														} else if( $conversion_rate < '15' && $conversion_rate >= '10' ) {
 															$conversion_color = '#0080FF'; // light blue (good)
-														} else if( $conversion_rate < '%10' && $conversion_rate >= '%5' ) {
+														} else if( $conversion_rate < '10' && $conversion_rate >= '5' ) {
 															$conversion_color = '#FFFF32'; // yellow (ok)
 														} else {
 															$conversion_color = '#FF0000'; // red (no bueno)
 														}
 													} else {
-														$conversion_rate = '%0';
+														$conversion_rate = '0';
 														$conversion_color = '#333333';
 													}
-													echo '<span style="color:' . esc_attr( $conversion_color ) . ';" title="' . esc_attr__( 'Conversion Rate' , 'yikes-inc-easy-mailchimp-extender' ) . '">' . $conversion_rate . '</span>';
+													echo '<span style="color:' . esc_attr( $conversion_color ) . ';" title="' . esc_attr__( 'Conversion Rate' , 'yikes-inc-easy-mailchimp-extender' ) . '">' . $conversion_rate . '%</span>';
 												?>
 											</td>
 											<!-- shortcode -->

@@ -759,7 +759,7 @@ class Yikes_Inc_Easy_MailChimp_Extender_Process_Submission_Handler {
 			*	@param string | $form_id		| The ID of the current form being subscribed to
 			*	@param array  | $page_data		| An array of data related to the page the form is on
 			*/
-			$redirect_url = apply_filters( 'yikes-mailchimp-redirect-url', esc_url( $redirect_url ), $this->form_id, $page_data );
+			$redirect_url = apply_filters( 'yikes-mailchimp-redirect-url', $redirect_url, $this->form_id, $page_data );
 
 			/**
 			*	yikes-mailchimp-redirect-timer
@@ -772,7 +772,6 @@ class Yikes_Inc_Easy_MailChimp_Extender_Process_Submission_Handler {
 
 			$redirect_array['redirect_timer'] = $redirect_timer;
 
-			// Well this definitely has to change... why are we writing JavaScript in PHP?
 			$redirect_array['redirect'] = $redirect_url;
 		}
 
@@ -1281,8 +1280,10 @@ class Yikes_Inc_Easy_MailChimp_Extender_Process_Submission_Handler {
 
 			case 'general-error':
 
+				$original_response_text = $response_text;
+
 				if ( isset( $this->error_messages['general-error'] ) && ! empty( $this->error_messages['general-error'] ) ) {
-					$response_text = $this->error_messages['general-error'];
+					$user_defined_response_text = $this->error_messages['general-error'];
 				}
 
 				/**
@@ -1290,11 +1291,13 @@ class Yikes_Inc_Easy_MailChimp_Extender_Process_Submission_Handler {
 				*
 				*	Filter the error message displayed to the user
 				*
-				*	@param string | $response_text	| The response message that will be shown to the user
-				*	@param string | $form_id 		| The form ID
+				*	@param string | $original_response_text     | The original response message returned from the API
+				*	@param string | $user_defined_response_text | The response message defined by the user
+				*	@param string | $form_id                    | The form ID
 				*
+				* 	@return string | $response_text | The message that will be shown to the user 
 				*/
-				$response_text = apply_filters( 'yikes-mailchimp-general-error-response', $response_text, $this->form_id );
+				$response_text = apply_filters( 'yikes-mailchimp-general-error-response', $original_response_text, $user_defined_response_text, $this->form_id );
 
 				return $response_text;
 			break;
