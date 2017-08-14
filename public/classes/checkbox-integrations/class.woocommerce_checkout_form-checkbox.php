@@ -43,9 +43,10 @@ class Yikes_Easy_MC_WooCommerce_Checkbox_Class extends Yikes_Easy_MC_Checkbox_In
 	public function add_checkout_field( $fields ) {
 
 		// get checkbox data
-		$checkbox_options = get_option( 'optin-checkbox-init' , '' );
+		$checkbox_options = get_option( 'optin-checkbox-init' , array() );
+
 		// only display the field if a list is set
-		if( isset( $checkbox_options ) && $checkbox_options[$this->type]['associated-list'] != '-' ) {
+		if( isset( $checkbox_options[$this->type] ) && isset( $checkbox_options[$this->type]['associated-list'] ) && $checkbox_options[$this->type]['associated-list'] != '-' ) {
 			if( $this->is_user_already_subscribed( $this->type ) ) {
 				return $fields;
 			}
