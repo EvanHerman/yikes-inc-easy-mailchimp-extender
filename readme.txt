@@ -462,7 +462,7 @@ If you find that you *need* to do this, please contact us to let us know what yo
 
 = Easy Forms for MailChimp 6.1 - July 11th, 2016 =
 * Sanitized section request on the options page properly.
-* Fixed the apostraphes converted to tildes.
+* Fixed the apostrophes converted to tildes.
 * Added the missing space in the form field classes when labels were hidden.
 * Added preloaders to the submit button and the form overlay. Lowered opacity during AJAX processing.
 * Fixed the 'Duplicate' form function.
