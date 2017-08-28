@@ -4,7 +4,7 @@ Donate link: https://yikesplugins.com/?utm_source=wp_plugin_repo&utm_medium=dona
 Tags: MailChimp, MailChimp forms, MailChimp lists, opt-in forms, sign up form, MailChimp, email, forms, mailing lists, marketing, newsletter, sign up
 Requires at least: 4.0
 Tested up to: 4.8.1
-Stable tag: 6.3.23
+Stable tag: 6.3.24
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -268,8 +268,14 @@ Below you'll find a complete list of the hooks and filters available in Easy For
 
 == Changelog ==
 
+= Easy Forms for MailChimp 6.3.24 - August 28th, 2017 =
+* If a subscriber has unsubscribed, the signup form will re-send them a confirmation email (double opt-in only)
+* If a subscriber received the double confirmation email but never subscribed (pending status), the signup form will re-send them a confirmation email (double opt-in only)
+
 = Easy Forms for MailChimp 6.3.23 - August 14th, 2017 =
 * Removed an additional `esc_url` call on the redirect URL. Redirect URLs should now be able to accept characters like ampersands without encoding them.
+* Fixed the way the `yikes-mailchimp-general-error-response` filter works. You can now use the original response as the first argument in the function. This should allow you to change a MailChimp response w/ str parsing.
+* Some minor code cleanup
 
 = Easy Forms for MailChimp 6.3.22 - June 23rd, 2017 =
 * Fixed an issue with comment integration subscriptions - comments will now be spam checked correctly

@@ -117,7 +117,6 @@ $member_data = array(
 	'email_address' => $sanitized_email,
 	'merge_fields'  => $merge_variables,
 	'timestamp_opt' => current_time( 'Y-m-d H:i:s', 1 ),
-	'status'		=> 'subscribed'
 );
 
 // Only add groups if they exist
@@ -126,10 +125,15 @@ if ( ! empty( $groups ) ) {
 }
 
 // Check if this member already exists
-$member_exists = $list_handler->get_member( $list_id, md5( strtolower( $sanitized_email ) ), $use_transient = true );
+$member_exists = $list_handler->get_member( $list_id, md5( strtolower( $sanitized_email ) ), $use_transient = false );
 
 // If this member does not exist, then we need to add the status_if_new flag and set our $new_subscriber variable
-if ( is_wp_error( $member_exists ) ) {
+// Likewise, if this member exists but their status is 'pending' it means we're dealing with a double opt-in list and they never confirmed
+// Or, if this member but their status is 'unsubscribed' it means we're dealing with someone who unsubscribed and they need to re-subscribe
+// Continue as if they're a new member to force another double opt-in email
+$double_optin_resubscribe = is_array( $member_exists ) && isset( $member_exists['status'] ) && ( $member_exists['status'] === 'pending' || $member_exists['status'] === 'unsubscribed' ) ? true : false;
+
+if ( is_wp_error( $member_exists ) || $double_optin_resubscribe === true ) {
 
 	$new_subscriber = true;
 
@@ -141,18 +145,21 @@ if ( is_wp_error( $member_exists ) ) {
 
 		// Double opt-in
 		$member_data['status_if_new'] = 'pending';
+		$member_data['status']        = 'pending';
 	} else {
 
 		// Single opt-in
 		$member_data['status_if_new'] = 'subscribed';
+		$member_data['status']        = 'subscribed';
 	}
 	
 } else {
 
 	// If this member already exists, then we need to go through our optin settings and run some more logic
 
-	// But first let's set our flag
+	// But first let's set our flag, and set the MailChimp status flag
 	$new_subscriber = false;
+	$member_data['status'] = 'subscribed';
 
 	// Check our update_existing_user optin setting
 	$update_existing_user = ( $optin_settings['update_existing_user'] === '1' ) ? true : false;
@@ -197,3 +204,4 @@ if ( is_wp_error( $subscribe_response ) ) {
 }
 
 // That's all folks.
+// :)
