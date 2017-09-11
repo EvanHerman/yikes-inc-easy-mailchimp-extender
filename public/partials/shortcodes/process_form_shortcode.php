@@ -91,7 +91,7 @@ function process_mailchimp_shortcode( $atts ) {
 			wp_register_script( 'google-recaptcha-js' , 'https://www.google.com/recaptcha/api.js?hl=' . $recaptcha_shortcode_params['language'] . '&onload=renderReCaptchaCallback&render=explicit', array( 'jquery' ) , 'all' );
 			wp_enqueue_script( 'google-recaptcha-js' );
 			$recaptcha_site_key = get_option( 'yikes-mc-recaptcha-site-key' , '' );
-			$recaptcha_box = '<div name="g-recaptcha" class="g-recaptcha" data-sitekey="' . $recaptcha_site_key . '" data-theme="' . $recaptcha_shortcode_params['theme'] . '" data-type="' . $recaptcha_shortcode_params['type'] . '" data-size="' . $recaptcha_shortcode_params['size'] . '" data-callback="' . $recaptcha_shortcode_params['success_callback'] . '" data-expired-callback="' . $recaptcha_shortcode_params['expired_callback'] . '"></div>';
+			$recaptcha_box = '<div class="g-recaptcha" data-sitekey="' . $recaptcha_site_key . '" data-theme="' . $recaptcha_shortcode_params['theme'] . '" data-type="' . $recaptcha_shortcode_params['type'] . '" data-size="' . $recaptcha_shortcode_params['size'] . '" data-callback="' . $recaptcha_shortcode_params['success_callback'] . '" data-expired-callback="' . $recaptcha_shortcode_params['expired_callback'] . '"></div>';
 			?>
 			<script type="text/javascript">
 				/* Script Callback to init. multiple recaptchas on a single page */
@@ -117,8 +117,9 @@ function process_mailchimp_shortcode( $atts ) {
 		}
 	}
 
-	// place our results into a seperate variable for easy looping
+	// place our results into a separate variable for easy looping
 	$additional_form_settings = ( isset( $form_data['form_settings'] ) ) ? $form_data['form_settings'] : false;
+	
 	// store our options from the additional form settings array
 	$form_classes = ( $additional_form_settings ) ? $additional_form_settings['yikes-easy-mc-form-class-names'] : '';
 	$inline_form = ( $additional_form_settings ) ? $additional_form_settings['yikes-easy-mc-inline-form'] : '';
@@ -319,7 +320,7 @@ function process_mailchimp_shortcode( $atts ) {
 		*  pre-form action hooks
 		*  check readme for usage examples
 		*/
-		do_action( 'yikes-mailchimp-before-form', $form_id );
+		do_action( 'yikes-mailchimp-before-form', $form_id, $form_data );
 
 		/*
 		*	Set a custom title using custom_title="lorem ipsum" parameter in the shortcode
@@ -484,7 +485,8 @@ function process_mailchimp_shortcode( $atts ) {
 					}
 
 					// build up our array
-					$field_array['id'] = 'id="yikes-easy-mc-form-' . $form_id . '-' . esc_attr( $field[$tag] ) . '" ';
+					$field_id_string   = 'yikes-easy-mc-form-' . $form_id . '-' . $field[ $tag ];
+					$field_array['id'] = 'id="' . esc_attr( $field_id_string ) . '" ';
 					$field_array['name'] = 'name="' . $group . esc_attr( $field[ $tag ] ) . '" ';
 					$field_array['placeholder'] = isset( $field['placeholder'] ) ? 'placeholder="' . esc_attr( stripslashes( $field['placeholder'] ) ) . '" ' : '';
 					$field_array['classes'] = 'class="yikes-easy-mc-'.$field['type'] . ' ' .  esc_attr( trim( implode( ' ' , $custom_classes ) ) ) . '" ';
@@ -554,7 +556,7 @@ function process_mailchimp_shortcode( $atts ) {
 								$default_value = apply_filters( 'yikes-mailchimp-process-default-tag', $default_value );
 
 									?>
-									<label for="<?php echo esc_attr( $field['merge'] ); ?>" <?php echo implode( ' ' , $label_array ); ?>>
+									<label for="<?php echo esc_attr( $field_id_string ); ?>" <?php echo implode( ' ' , $label_array ); ?>>
 
 										<!-- dictate label visibility -->
 										<?php if( !isset( $field['hide-label'] ) ) { ?>
@@ -593,7 +595,7 @@ function process_mailchimp_shortcode( $atts ) {
 										}
 									</script>
 
-									<label for="<?php echo esc_attr( $field['merge'] ); ?>" <?php echo implode( ' ' , $label_array ); ?>>
+									<label for="<?php echo esc_attr( $field_id_string ); ?>" <?php echo implode( ' ' , $label_array ); ?>>
 
 										<!-- dictate label visibility -->
 										<?php if( !isset( $field['hide-label'] ) ) { ?>
@@ -630,7 +632,7 @@ function process_mailchimp_shortcode( $atts ) {
 										}
 									</script>
 
-									<label for="<?php echo esc_attr( $field['merge'] ) ?>" <?php echo implode( ' ' , $label_array ); ?>>
+									<label for="<?php echo esc_attr( $field_id_string ) ?>" <?php echo implode( ' ' , $label_array ); ?>>
 
 										<!-- dictate label visibility -->
 										<?php if( !isset( $field['hide-label'] ) ) { ?>
@@ -655,7 +657,7 @@ function process_mailchimp_shortcode( $atts ) {
 								$default_value = ( isset( $field['default'] ) ? esc_attr( $field['default'] ) : '' );
 
 									?>
-									<label for="<?php echo esc_attr( $field['merge'] ); ?>" <?php echo implode( ' ' , $label_array ); ?>>
+									<label for="<?php echo esc_attr( $field_id_string ); ?>" <?php echo implode( ' ' , $label_array ); ?>>
 
 									<!-- dictate label visibility -->
 									<?php if( ! isset( $field['hide-label'] ) ) { ?>
@@ -759,7 +761,7 @@ function process_mailchimp_shortcode( $atts ) {
 															*	Filter the HTML options for the states dropdown
 															*
 															* 	@param string  | $state_and_province_list | HTML string of state/province options
-															*	@param int	   | $form_id				 | The form ID
+															*	@param int	   | $form_id				  | The form ID
 															*
 															*	@return string | $state_and_province_list | Filtered HTML string of state/province options
 															*/
@@ -894,7 +896,7 @@ function process_mailchimp_shortcode( $atts ) {
 								$x = 0;
 
 								?>
-									<label for="<?php echo esc_attr( $field['merge'] ); ?>" <?php echo implode( ' ' , $label_array ); ?>>
+									<label for="<?php echo esc_attr( $field_id_string ); ?>" <?php echo implode( ' ' , $label_array ); ?>>
 
 										<!-- dictate label visibility -->
 										<?php if( !isset( $field['hide-label'] ) ) { ?>
@@ -923,7 +925,7 @@ function process_mailchimp_shortcode( $atts ) {
 								// hidden labels
 
 									?>
-									<label for="<?php echo esc_attr( $field['merge'] ); ?>" <?php echo implode( ' ' , $label_array ); ?>>
+									<label for="<?php echo esc_attr( $field_id_string ); ?>" <?php echo implode( ' ' , $label_array ); ?>>
 										<!-- dictate label visibility -->
 										<?php if( ! isset( $field['hide-label'] ) ) { ?>
 											<span class="<?php echo esc_attr( $field['merge'] ) . '-label'; ?>">
@@ -986,7 +988,7 @@ function process_mailchimp_shortcode( $atts ) {
 								$x = 0;
 
 								?>
-								<label for="<?php echo esc_attr( $field['merge'] ); ?>" <?php echo implode( ' ' , $label_array ); ?>>
+								<label for="<?php echo esc_attr( $field_id_string ); ?>" <?php echo implode( ' ' , $label_array ); ?>>
 
 									<!-- dictate label visibility -->
 									<?php if( ! isset( $field['hide-label'] ) ) { ?>
@@ -1284,7 +1286,7 @@ function process_mailchimp_shortcode( $atts ) {
 		*  post-form action hooks
 		*  check readme for usage examples
 		*/
-		do_action( 'yikes-mailchimp-after-form', $form_id );
+		do_action( 'yikes-mailchimp-after-form', $form_id, $form_data );
 
 		/*
 		*	Update the impressions count
