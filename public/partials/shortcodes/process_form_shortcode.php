@@ -554,6 +554,7 @@ function process_mailchimp_shortcode( $atts ) {
 								// pass our default value through our filter to parse dynamic data by tag (used solely for 'text' type)
 								$default_value = ( isset( $field['default'] ) ? esc_attr( $field['default'] ) : '' );
 								$default_value = apply_filters( 'yikes-mailchimp-process-default-tag', $default_value );
+								$default_value = apply_filters( 'yikes-mailchimp-' . $field['merge'] . '-default-value', $default_value, $field, $form_id );
 
 									?>
 									<label for="<?php echo esc_attr( $field_id_string ); ?>" <?php echo implode( ' ' , $label_array ); ?>>
@@ -581,6 +582,7 @@ function process_mailchimp_shortcode( $atts ) {
 							case 'url':
 							case 'imageurl':
 								$default_value = ( isset( $field['default'] ) ) ? $field['default'] : '';
+								$default_value = apply_filters( 'yikes-mailchimp-' . $field['merge'] . '-default-value', $default_value, $field, $form_id );
 									?>
 
 									<script type="text/javascript">
@@ -619,6 +621,7 @@ function process_mailchimp_shortcode( $atts ) {
 
 							case 'phone':
 								$default_value = ( isset( $field['default'] ) ? esc_attr( $field['default'] ) : '' );
+								$default_value = apply_filters( 'yikes-mailchimp-' . $field['merge'] . '-default-value', $default_value, $field, $form_id );
 								$phone_format = $field['phone_format'];
 								?>
 									<script type="text/javascript">
@@ -655,6 +658,7 @@ function process_mailchimp_shortcode( $atts ) {
 
 							case 'zip':
 								$default_value = ( isset( $field['default'] ) ? esc_attr( $field['default'] ) : '' );
+								$default_value = apply_filters( 'yikes-mailchimp-' . $field['merge'] . '-default-value', $default_value, $field, $form_id );
 
 									?>
 									<label for="<?php echo esc_attr( $field_id_string ); ?>" <?php echo implode( ' ' , $label_array ); ?>>
@@ -892,6 +896,8 @@ function process_mailchimp_shortcode( $atts ) {
 								}
 
 								$default_value = ( isset( $field['default'] ) ? esc_attr( $field['default'] ) : '' );
+								$default_value = apply_filters( 'yikes-mailchimp-' . $field['merge'] . '-default-value', $default_value, $field, $form_id );
+								
 								// store empty number for looping
 								$x = 0;
 

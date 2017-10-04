@@ -361,6 +361,9 @@ class Yikes_Inc_Easy_MailChimp_Extender_Process_Submission_Handler {
 	*/
 	public function get_submitted_merge_values( $data, $form_fields ) {
 
+		// Array to return
+		$merge_variables = array();
+
 		// loop to push variables to our array
 		foreach ( $data as $merge_tag => $value ) {
 

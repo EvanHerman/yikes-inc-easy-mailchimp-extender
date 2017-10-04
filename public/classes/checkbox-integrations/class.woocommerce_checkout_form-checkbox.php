@@ -55,7 +55,17 @@ class Yikes_Easy_MC_WooCommerce_Checkbox_Class extends Yikes_Easy_MC_Checkbox_In
 			} else {
 				$precheck = '0';
 			}
-			$fields[ 'billing' ]['yikes_mailchimp_checkbox_'.$this->type] = array(
+
+			/**
+			* Filter where the checkbox goes.
+			*
+			* See this WooCo article for possible values: https://docs.woocommerce.com/document/tutorial-customising-checkout-fields-using-actions-and-filters/
+			*
+			* @param string | Which set of fields the checkbox should go into
+			*/
+			$field_placement = apply_filters( 'yikes-mailchimp-wooco-integration-checkbox-placement', 'billing' );
+
+			$fields[ $field_placement ][1] = array(
 				'id' 	  => 'yikes_mailchimp_checkbox_'.$this->type,
 				'type'    => 'checkbox',
 				'class'   => apply_filters( 'yikes-mailchimp-wooco-integration-checkbox-classes', array( 'form-row-wide' ) ),
