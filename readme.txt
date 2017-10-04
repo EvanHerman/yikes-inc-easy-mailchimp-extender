@@ -3,8 +3,8 @@ Contributors: yikesinc, eherman24, liljimmi, hiwhatsup, JPry, yikesitskevin
 Donate link: https://yikesplugins.com/?utm_source=wp_plugin_repo&utm_medium=donate_link&utm_campaign=easy_forms_for_mailchimp
 Tags: MailChimp, MailChimp forms, MailChimp lists, opt-in forms, sign up form, MailChimp, email, forms, mailing lists, marketing, newsletter, sign up
 Requires at least: 4.0
-Tested up to: 4.8.1
-Stable tag: 6.3.25
+Tested up to: 4.8.2
+Stable tag: 6.3.26
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -245,6 +245,9 @@ Below you'll find a complete list of the hooks and filters available in Easy For
 * `yikes-mailchimp-datepicker-options` - Filter all of the options for the jQuery datepicker. @params: $datepicker_options, $form_id
 * 6.3.20:
 * `yikes-mailchimp-integration-is-user-subscribed` - Override the integration checkbox for already subscribed users. @params: $subscribed, $integration_type.
+* 6.3.26:
+* `yikes-mailchimp-{$merge_tag}-default-value` - Set the default value for a field based on its merge tag. @params: $default_value, $field, $form_id
+* `yikes-mailchimp-wooco-integration-checkbox-placement` - Filter where the subscribe checkbox is placed for the WooCommerce integration. @params: $placement
 
 **Actions**
 
@@ -267,6 +270,9 @@ Below you'll find a complete list of the hooks and filters available in Easy For
 * `yikes-mailchimp-google-analytics` - Add Google Analytics JS functions. Check our Knowledge Base for instructions.
 
 == Changelog ==
+
+= Easy Forms for MailChimp 6.3.26 - October 4th, 2017 =
+* Added two new filters: `yikes-mailchimp-{$merge_tag}-default-value` and `yikes-mailchimp-wooco-integration-checkbox-placement`.
 
 = Easy Forms for MailChimp 6.3.25 - September 11th, 2017 =
 * Fixing some HTML validation/markup errors related to labels. Thanks to @upekshapriya for bringing these to our attention.
