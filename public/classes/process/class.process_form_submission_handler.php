@@ -521,9 +521,9 @@ class Yikes_Inc_Easy_MailChimp_Extender_Process_Submission_Handler {
 
 			// Loop through the interest groups and create a single array like {group_id} => false
 			foreach ( $interest_groupings as $group_data ) {
-				$item_ids = array_keys( $group_data['items'] );
-				$keyed    = array_fill_keys( $item_ids, false );
-				$groups   = array_merge( $groups, $keyed );
+				foreach ( $group_data['items'] as $item ) {
+					$groups[$item['id']] = false;
+				}
 			}
 			return $groups;
 		} else {
