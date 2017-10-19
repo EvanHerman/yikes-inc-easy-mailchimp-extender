@@ -601,12 +601,8 @@ class Yikes_Inc_Easy_Mailchimp_Forms_Admin {
 			@since v3.1.1
 		*/
 		public function yikes_easy_mailchimp_stop_bugging_me() {
-			$nobug = "";
-			if ( isset( $_GET['yikes_easy_mc_icons_nobug'] ) ) {
-				$nobug = (int) esc_attr( $_GET['yikes_easy_mc_icons_nobug'] );
-			}
-			if ( 1 == $nobug ) {
-				add_option( 'yikes_easy_mailchimp_review_stop_bugging_me', TRUE );
+			if ( isset( $_GET['yikes_easy_mc_icons_nobug'] ) && (int) filter_var( $_GET['yikes_easy_mc_icons_nobug'], FILTER_SANITIZE_NUMBER_INT ) === 1 ) {
+				add_option( 'yikes_easy_mailchimp_review_stop_bugging_me', true );
 			}
 		}
 
@@ -1919,6 +1915,24 @@ class Yikes_Inc_Easy_Mailchimp_Forms_Admin {
 										</tr>
 										<?php
 											break;
+
+											// Custom address placeholder field
+											case 'address':
+											?>
+												<tr valign="top">
+													<td scope="row">
+														<label for="placeholder_<?php echo esc_attr( $field['merge'] ); ?>">
+															<?php _e( 'Placeholder' , 'yikes-inc-easy-mailchimp-extender' ); ?>
+														</label>
+													</td>
+													<td>
+														<input type="checkbox" id="placeholder_<?php echo esc_attr( $field['merge'] ); ?>" class="widefat" name="field[<?php echo $field['merge']; ?>][placeholder]" value="1" <?php echo isset( $field['placeholder'] ) && ! empty( $field['placeholder'] ) ? 'checked="checked"' : '' ; ?> />
+														<span class="description"><small><?php _e( "Use placeholders for this field (these will be automatically filled in with field names).", 'yikes-inc-easy-mailchimp-extender' );?></small></span>
+													</td>
+												</tr>
+											<?php
+											break;
+
 										}
 										?>
 
@@ -2722,6 +2736,7 @@ class Yikes_Inc_Easy_Mailchimp_Forms_Admin {
 
 			// stripslashes_deep on save, to prevent foreign languages from added excessive backslashes
 			$assigned_fields = isset( $_POST['field'] ) ? stripslashes_deep( $_POST['field'] ): array();
+
 
 			// setup our submission settings serialized array
 			$submission_settings = array(
