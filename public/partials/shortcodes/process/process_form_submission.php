@@ -177,8 +177,12 @@ if ( is_wp_error( $member_exists ) || $double_optin_resubscribe === true ) {
 	// Check the opt-in value - is it double or single?
 	// Double opt-in means 'status_if_new' => 'pending'
 	$double_optin = isset( $optin_settings['optin'] ) ? (int) $optin_settings['optin'] : 0;
+        $was_unsubscribed = isset($member_exists['status']) && $member_exists['status'] == 'unsubscribed';
 
-	if ( $double_optin === 1 ) {
+        // If the user was unsubscribed and is re-subscribing, we set the status to 'pending', which
+        // causes Mailchimp to send them a confirmation email.  This is the only way Mailchimp will
+        // allow us to re-subscribe the user.
+	if ( $double_optin === 1 || $was_unsubscribed) {
 
 		// Double opt-in
 		$member_data['status_if_new'] = 'pending';
