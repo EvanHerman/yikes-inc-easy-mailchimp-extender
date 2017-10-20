@@ -171,14 +171,14 @@ $member_exists = $list_handler->get_member( $list_id, md5( strtolower( $sanitize
 // Continue as if they're a new member to force another double opt-in email
 $was_subscribed = is_array( $member_exists ) && isset( $member_exists['status'] ) && ( $member_exists['status'] === 'pending' || $member_exists['status'] === 'unsubscribed' ) ? true : false;
 
-if ( is_wp_error( $member_exists ) || $member_exists === true ) {
+if ( is_wp_error( $member_exists ) || $was_subscribed === true ) {
 	$new_subscriber = true;
 
 	// Check the opt-in value - is it double or single?
 	// Double opt-in means 'status_if_new' => 'pending'
 	$double_optin = isset( $optin_settings['optin'] ) ? (int) $optin_settings['optin'] : 0;
 
-	if ( $double_optin === 1 || $member_exists === true ) {
+	if ( $double_optin === 1 || $was_subscribed === true ) {
 
 		// Double opt-in or re-subscribe
 		$member_data['status_if_new'] = 'pending';
