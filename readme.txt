@@ -4,7 +4,7 @@ Donate link: https://yikesplugins.com/?utm_source=wp_plugin_repo&utm_medium=dona
 Tags: MailChimp, MailChimp forms, MailChimp lists, opt-in forms, sign up form, MailChimp, email, forms, mailing lists, marketing, newsletter, sign up
 Requires at least: 4.0
 Tested up to: 4.8.2
-Stable tag: 6.3.26
+Stable tag: 6.3.27
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -248,6 +248,8 @@ Below you'll find a complete list of the hooks and filters available in Easy For
 * 6.3.26:
 * `yikes-mailchimp-{$merge_tag}-default-value` - Set the default value for a field based on its merge tag. @params: $default_value, $field, $form_id
 * `yikes-mailchimp-wooco-integration-checkbox-placement` - Filter where the subscribe checkbox is placed for the WooCommerce integration. @params: $placement
+* 6.3.27:
+* `yikes-mailchimp-address-{$addr_type}-placeholder` - Filter the placeholder values for the address fields. Available values for $addr_type are 'address', 'address2', 'city', 'zip'. @params: $placeholder_value 
 
 **Actions**
 
@@ -270,6 +272,13 @@ Below you'll find a complete list of the hooks and filters available in Easy For
 * `yikes-mailchimp-google-analytics` - Add Google Analytics JS functions. Check our Knowledge Base for instructions.
 
 == Changelog ==
+
+= Easy Forms for MailChimp 6.3.27 - October 20th, 2017 =
+* Replaced the current loading gifs with SVGs
+* Added support for address field placeholder values. You can filter these values with the filter `yikes-mailchimp-address-{$addr_type}-placeholder`.
+* Added support for single opt-in unsubscribed users to re-subscribe. Shout out to @jasonhildebrand for adding this functionality. 
+* Fixed an issue with interest groups. This should fix the "Invalid Interest Group: 0" error some users saw. Another really big shoutout to @jasonhildebrand for fixing this directly.
+* Fixed up some PHP warnings - thanks to @szepeviktor on GitHub for reporting these.
 
 = Easy Forms for MailChimp 6.3.26 - October 4th, 2017 =
 * Added two new filters: `yikes-mailchimp-{$merge_tag}-default-value` and `yikes-mailchimp-wooco-integration-checkbox-placement`.
@@ -477,7 +486,7 @@ If you find that you *need* to do this, please contact us to let us know what yo
 
 = Easy Forms for MailChimp 6.1 - July 11th, 2016 =
 * Sanitized section request on the options page properly.
-* Fixed the apostrophes converted to tildes.
+* Fixed the apostraphes converted to tildes.
 * Added the missing space in the form field classes when labels were hidden.
 * Added preloaders to the submit button and the form overlay. Lowered opacity during AJAX processing.
 * Fixed the 'Duplicate' form function.

@@ -131,7 +131,7 @@ $member_exists = $list_handler->get_member( $list_id, md5( strtolower( $sanitize
 // Likewise, if this member exists but their status is 'pending' it means we're dealing with a double opt-in list and they never confirmed
 // Or, if this member but their status is 'unsubscribed' it means we're dealing with someone who unsubscribed and they need to re-subscribe
 // Continue as if they're a new member to force another double opt-in email
-$double_optin_resubscribe = is_array( $member_exists ) && isset( $member_exists['status'] ) && ( $member_exists['status'] === 'pending' || $member_exists['status'] === 'unsubscribed' ) ? true : false;
+$double_optin_resubscribe = is_array( $member_exists ) && isset( $member_exists['status'] ) && ( $member_exists['status'] === 'pending' || $member_exists['status'] === 'unsubscribed' );
 
 if ( is_wp_error( $member_exists ) || $double_optin_resubscribe === true ) {
 
@@ -141,7 +141,12 @@ if ( is_wp_error( $member_exists ) || $double_optin_resubscribe === true ) {
 	// Double opt-in means 'status_if_new' => 'pending'
 	$double_optin = isset( $optin_settings['optin'] ) ? (int) $optin_settings['optin'] : 0;
 
-	if ( $double_optin === 1 ) {
+	// If the user was unsubscribed and is re-subscribing, we set the status to 'pending', which
+	// causes Mailchimp to send them a confirmation email.  This is the only way Mailchimp will
+	// allow us to re-subscribe the user.
+	$was_unsubscribed = isset( $member_exists['status'] ) && $member_exists['status'] === 'unsubscribed';
+
+	if ( $double_optin === 1 || $was_unsubscribed === true ) {
 
 		// Double opt-in
 		$member_data['status_if_new'] = 'pending';

@@ -79,7 +79,6 @@ $merge_field_data = $available_merge_variables['merge_fields'][ $index ];
 					case 'number':
 					case 'url':
 					case 'email':
-					case 'address':
 					case 'phone':
 					case 'birthday':
 					case 'zip':
@@ -127,6 +126,22 @@ $merge_field_data = $available_merge_variables['merge_fields'][ $index ];
 						break;
 					}
 
+					break;
+
+					case 'address':
+						?>
+							<tr valign="top">
+								<td scope="row">
+									<label for="placeholder_<?php echo esc_attr( $field['merge'] ); ?>">
+										<?php _e( 'Placeholder' , 'yikes-inc-easy-mailchimp-extender' ); ?>
+									</label>
+								</td>
+								<td>
+									<input type="checkbox" class="widefat" name="field[<?php echo $merge_field_data['tag']; ?>][placeholder]" value="1" />
+									<span class="description"><small><?php _e( "Use placeholders for this field (these will be automatically filled in with field names).", 'yikes-inc-easy-mailchimp-extender' );?></small></span>
+								</td>
+							</tr>
+						<?php
 					break;
 
 				}
@@ -208,9 +223,8 @@ $merge_field_data = $available_merge_variables['merge_fields'][ $index ];
 
 						<?php
 							break;
-						?>
 
-					<?php } // end switch field type ?>
+					} // end switch field type ?>
 
 				<!-- Field Description -->
 				<tr valign="top">

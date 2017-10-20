@@ -521,9 +521,9 @@ class Yikes_Inc_Easy_MailChimp_Extender_Process_Submission_Handler {
 
 			// Loop through the interest groups and create a single array like {group_id} => false
 			foreach ( $interest_groupings as $group_data ) {
-				$item_ids = array_keys( $group_data['items'] );
-				$keyed    = array_fill_keys( $item_ids, false );
-				$groups   = array_merge( $groups, $keyed );
+				foreach ( $group_data['items'] as $item ) {
+					$groups[$item['id']] = false;
+				}
 			}
 			return $groups;
 		} else {
@@ -948,7 +948,7 @@ class Yikes_Inc_Easy_MailChimp_Extender_Process_Submission_Handler {
 			*	@param string | $recaptcha_errors | A string of recaptcha errors separated by a space
 			*/
 			$response = apply_filters( 'yikes-mailchimp-recaptcha-required-error', $this->handle_non_filled_recaptcha_message_message, $this->form_id );
-			return $this->yikes_fail( $hide = 0, $error = 1, $response, false, $return_response_non_ajax = true );
+			return $this->yikes_fail( $hide = 0, $error = 1, $response, array(), $return_response_non_ajax = true );
 		}
 
 		// Construct the API URL
@@ -985,7 +985,7 @@ class Yikes_Inc_Easy_MailChimp_Extender_Process_Submission_Handler {
 			*	@param string | $recaptcha_errors | A string of recaptcha errors separated by a space
 			*/
 			$response = apply_filters( 'yikes-mailchimp-recaptcha-required-error', implode( ' ', $recaptcha_errors ), $this->form_id );
-			return $this->yikes_fail( $hide = 0, $error = 1, $response, false, $return_response_non_ajax = true );
+			return $this->yikes_fail( $hide = 0, $error = 1, $response, array(), $return_response_non_ajax = true );
 		}
 	}
 
@@ -1033,7 +1033,7 @@ class Yikes_Inc_Easy_MailChimp_Extender_Process_Submission_Handler {
 	* @param string | $message  | The message shown to the user
 	*/
 	public function handle_merge_variables_error( $error, $message ) {
-		return $this->yikes_fail( $hide = 0, $error, $message, false, $return_response_non_ajax = true );
+		return $this->yikes_fail( $hide = 0, $error, $message, array(), $return_response_non_ajax = true );
 	}
 
 	/**
@@ -1129,7 +1129,7 @@ class Yikes_Inc_Easy_MailChimp_Extender_Process_Submission_Handler {
 		// Run the default response through our function to check for a user-defined response message
 		$response = $this->check_for_user_defined_response_message( 'already-subscribed', $default_response );
 
-		return $this->yikes_fail( $hide = 0, $error = 1, $response, false, $return_response_non_ajax = true );	
+		return $this->yikes_fail( $hide = 0, $error = 1, $response, array(), $return_response_non_ajax = true );	
 	}
 
 	/**
@@ -1155,7 +1155,7 @@ class Yikes_Inc_Easy_MailChimp_Extender_Process_Submission_Handler {
 		// Check for a user-defined message
 		$response = $this->check_for_user_defined_response_message( 'update-link', $response, $link_array );
 
-		return $this->yikes_fail( $hide = 0, $error = 1, $response, false, $return_response_non_ajax = true );
+		return $this->yikes_fail( $hide = 0, $error = 1, $response, array(), $return_response_non_ajax = true );
 	}
 
 	/**** Helper Functions ****/
@@ -1386,6 +1386,7 @@ class Yikes_Inc_Easy_MailChimp_Extender_Process_Submission_Handler {
 	* @param int	| $error					| Flag whether this is an error (1 = error, 0 = no error)
 	* @param string | $translated_string		| The response message to display to the user
 	* @param array  | $additional_fields		| An array of additional fields to return
+	*
 	* @return func  | wp_send_json_error()
 	*/
 	protected function yikes_send_json_error( $hide, $error, $translated_string, $additional_fields = array() ) {
@@ -1398,8 +1399,11 @@ class Yikes_Inc_Easy_MailChimp_Extender_Process_Submission_Handler {
 		);
 
 		// Add additional fields we've been supplied
-		foreach( $additional_fields as $key => $value ) {
-			$response_array[$key] = $value;
+		if ( ! empty( $additional_fields ) ) {
+
+			foreach( $additional_fields as $key => $value ) {
+				$response_array[$key] = $value;
+			}
 		}
 
 		wp_send_json_error( $response_array );
