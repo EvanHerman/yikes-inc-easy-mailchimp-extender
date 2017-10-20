@@ -131,7 +131,7 @@ $member_exists = $list_handler->get_member( $list_id, md5( strtolower( $sanitize
 // Likewise, if this member exists but their status is 'pending' it means we're dealing with a double opt-in list and they never confirmed
 // Or, if this member exists but their status is 'unsubscribed' it means we're dealing with someone who unsubscribed and they need to re-subscribe (this could be single opt-in or double opt-in)
 // Continue as if they're a new member to force another double opt-in email
-$was_subscribed = is_array( $member_exists ) && isset( $member_exists['status'] ) && ( $member_exists['status'] === 'pending' || $member_exists['status'] === 'unsubscribed' ) ? true : false;
+$was_subscribed = is_array( $member_exists ) && isset( $member_exists['status'] ) && ( $member_exists['status'] === 'pending' || $member_exists['status'] === 'unsubscribed' );
 
 if ( is_wp_error( $member_exists ) || $was_subscribed === true ) {
 
