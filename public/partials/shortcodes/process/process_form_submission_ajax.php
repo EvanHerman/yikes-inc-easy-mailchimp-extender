@@ -144,7 +144,7 @@ if ( is_wp_error( $member_exists ) || $double_optin_resubscribe === true ) {
 	// If the user was unsubscribed and is re-subscribing, we set the status to 'pending', which
 	// causes Mailchimp to send them a confirmation email.  This is the only way Mailchimp will
 	// allow us to re-subscribe the user.
-	$was_unsubscribed = isset( $member_exists['status'] ) && $member_exists['status'] === 'unsubscribed';
+	$was_unsubscribed = is_array( $member_exists ) && isset( $member_exists['status'] ) && $member_exists['status'] === 'unsubscribed';
 
 	if ( $double_optin === 1 || $was_unsubscribed === true ) {
 
