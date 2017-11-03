@@ -262,8 +262,8 @@ class Yikes_Inc_Easy_Mailchimp_Forms_Admin {
 		/* Alter the color scheme based on the users selection */
 		add_action( 'admin_print_scripts', array( $this, 'alter_yikes_easy_mc_color_scheme' ) );
 
-		// hook in and display our knowledge base articles on the support page
-		add_action( 'yikes-mailchimp-support-page', array( $this, 'hook_and_display_kb_article_RSS' ) );
+		// Display our premium support page if we have add-ons
+		add_action( 'yikes-mailchimp-support-page', array( $this, 'display_support_page_content' ), 40 );
 
 		// ensure that the upgrade went smoothly, else we have to let the user know we need to upgrade the database
 		// after upgrading f rom 6.0.3.7 users need to upgrade the database as well
@@ -449,46 +449,62 @@ class Yikes_Inc_Easy_Mailchimp_Forms_Admin {
 				return __( 'We encountered an error. Please contact the YIKES Inc. support team.' , 'yikes-inc-easy-mailchimp-extender' );
 			}
 
-			$license = $_POST['license_key'];
-			$user_email = $_POST['user-email'];
-			$support_topic = $_POST['support-topic'];
-			$support_priority = $_POST['support-priority'];
-			$support_content = $_POST['support-content'];
+			$email       = isset( $_POST['user-email'] ) ? $_POST['user-email'] : '';
+			$topic       = isset( $_POST['support-topic'] ) ? $_POST['support-topic'] : '';
+			$issue       = isset( $_POST['support-content'] ) ? $_POST['support-content'] : '';
+			$priority    = isset( $_POST['support-priority'] ) ? $_POST['support-priority'] : 1;
+			$license     = isset( $_POST['license_key'] ) ? $_POST['license_key'] : '';
+			$plugin_name = isset( $_POST['plugin-name'] ) ? $_POST['plugin-name'] : '';
+			$plugin_slug = isset( $_POST['plugin-slug'] ) ? $_POST['plugin-slug'] : '';
+			$name        = ! empty( $plugin_name ) ? $plugin_name : 'MailChimp Support';
 
-			// wp_die( print_r( $support_content) );
+			$edd_item_id = $this->get_premium_license( $plugin_slug );
 
 			$ticket_array = array(
-				'action' => 'yikes-support-request',
-				'license_key' => urlencode( base64_encode( $license ) ),
-				'user_email' => urlencode( $user_email ),
-				'site_url' => urlencode( esc_url( home_url() ) ),
-				'support_topic' => urlencode( $support_topic ),
-				'support_priority' => $support_priority,
-				'support_content' => $support_content,
+				'action'           => 'yikes-support-request',
+				'license_key'      => base64_encode( $license ),
+				'plugin_name'      => $plugin_name,
+				'edd_item_id'      => $edd_item_id,
+				'user_email'       => $email,
+				'site_url'         => esc_url( home_url() ),
+				'support_name'     => $name,
+				'support_topic'    => $topic,
+				'support_priority' => $priority,
+				'support_content'  => $issue,
+				'api_version'      => '2'
 			);
 
-			$yikes_plugin_support_url = 'https://yikesplugins.com';
-
-			// Call the custom API.
-			$response = wp_remote_post( esc_url( $yikes_plugin_support_url ), array(
+			$response = wp_remote_post( 'https://yikesplugins.com', array(
 				'timeout'   => 30,
 				'sslverify' => false,
 				'body'      => $ticket_array
 			) );
 
-			// catch the error
+			// Catch the error
 			if( is_wp_error( $response ) ) {
-				wp_die( $response->getMessage() );
-				return;
+				wp_send_json_error( $response->getMessage() );
 			}
 
-			// retrieve our body
-			$create_ticket_response = wp_remote_retrieve_body( $response );
+			// Retrieve our body
+			$response_body = json_decode( wp_remote_retrieve_body( $response ) );
+		}
 
-			// display it
-			if( $create_ticket_response )
-				echo $create_ticket_response;
+		public function get_premium_license( $plugin_slug ) {
 
+			switch( $plugin_slug ) {
+
+				case 'form-customizer':
+					return defined( 'YIKES_CUSTOMIZER_EDD_ITEM_ID' ) ? YIKES_CUSTOMIZER_EDD_ITEM_ID : '';
+				break;
+
+				case 'incentive-attachments':
+					return defined( 'YIKES_INCENTIVES_EDD_ITEM_ID' ) ? YIKES_INCENTIVES_EDD_ITEM_ID : '';
+				break;
+
+				case 'popups':
+					return defined( 'YIKES_MC_POPUP_EDD_ITEM_ID' ) ? YIKES_MC_POPUP_EDD_ITEM_ID : '';
+				break;
+			}
 		}
 
 		/**
@@ -1071,7 +1087,9 @@ class Yikes_Inc_Easy_Mailchimp_Forms_Admin {
 	* @since    1.0.0
 	*/
 	function generateSupportPage() {
-		require_once YIKES_MC_PATH . 'admin/partials/menu/support.php'; // include our options page
+
+		wp_enqueue_script( 'yikes-inc-easy-mailchimp-extender-support-scripts', plugin_dir_url( __FILE__ ) . 'js/support.js', array( 'jquery' ), $this->version, false );	
+		require_once YIKES_MC_PATH . 'admin/partials/menu/support.php';
 	}
 
 	/**
@@ -2737,7 +2755,6 @@ class Yikes_Inc_Easy_Mailchimp_Forms_Admin {
 			// stripslashes_deep on save, to prevent foreign languages from added excessive backslashes
 			$assigned_fields = isset( $_POST['field'] ) ? stripslashes_deep( $_POST['field'] ): array();
 
-
 			// setup our submission settings serialized array
 			$submission_settings = array(
 				'ajax'                   => $_POST['form-ajax-submission'],
@@ -3036,13 +3053,22 @@ class Yikes_Inc_Easy_Mailchimp_Forms_Admin {
 		}
 
 		/**
-		*	Hook in and display our support page/knowledge base articles
-		*	on the support page
-		*	@since 6.0.3.8
+		*	Display premium support page if any add-ons are installed, otherwise display free support page
 		*/
-		public function hook_and_display_kb_article_RSS() {
-			// include_once( YIKES_MC_PATH . 'admin/partials/helpers/knowledge-base-articles-RSS.php' );
-			include_once( YIKES_MC_PATH . 'admin/partials/helpers/knowledge-base-article-links.php' );
+		public function display_support_page_content() {
+
+			$addons = get_option( 'yikes-easy-mc-active-addons', array() );
+
+			// If we have premium add-ons...
+			if ( ! empty( $addons ) ) { 
+
+				// Add our premium support partial
+				include_once( YIKES_MC_PATH . 'admin/partials/helpers/premium-support.php' );
+			} else {
+
+				// Otherwise add our free support partial
+				include_once( YIKES_MC_PATH . 'admin/partials/helpers/free-support.php' );
+			}
 		}
 
 		/**
