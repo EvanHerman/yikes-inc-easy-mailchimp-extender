@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: yikes-inc-easy-mailchimp-extender 6.3.29\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-11-08 14:18+0000\n"
+"POT-Creation-Date: 2017-11-08 14:34+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -1917,54 +1917,62 @@ msgid "Select the add-on that you are looking for help with."
 msgstr ""
 
 #: admin/partials/helpers/premium-support.php:40
-msgid "Contact Email:"
+msgid "Name:"
 msgstr ""
 
 #: admin/partials/helpers/premium-support.php:42
-msgid "Enter the email address you would prefer to be contact at."
+msgid "Enter your name."
 msgstr ""
 
 #: admin/partials/helpers/premium-support.php:45
-msgid "Topic:"
+msgid "Contact Email:"
 msgstr ""
 
 #: admin/partials/helpers/premium-support.php:47
-msgid "Pleae enter the topic of your support request."
+msgid "Enter the email address you would prefer to be contact at."
 msgstr ""
 
 #: admin/partials/helpers/premium-support.php:50
-msgid "Priority:"
+msgid "Topic:"
 msgstr ""
 
 #: admin/partials/helpers/premium-support.php:52
-msgid "Low"
-msgstr ""
-
-#: admin/partials/helpers/premium-support.php:53
-msgid "Medium"
-msgstr ""
-
-#: admin/partials/helpers/premium-support.php:54
-msgid "High"
+msgid "Pleae enter the topic of your support request."
 msgstr ""
 
 #: admin/partials/helpers/premium-support.php:55
-msgid "Urgent"
+msgid "Priority:"
 msgstr ""
 
 #: admin/partials/helpers/premium-support.php:57
-msgid "Select the priority of this ticket."
+msgid "Low"
 msgstr ""
 
-#: admin/partials/helpers/premium-support.php:57
-msgid "Note: Please do not abuse \"urgent\"."
+#: admin/partials/helpers/premium-support.php:58
+msgid "Medium"
 msgstr ""
 
 #: admin/partials/helpers/premium-support.php:59
+msgid "High"
+msgstr ""
+
+#: admin/partials/helpers/premium-support.php:60
+msgid "Urgent"
+msgstr ""
+
+#: admin/partials/helpers/premium-support.php:62
+msgid "Select the priority of this ticket."
+msgstr ""
+
+#: admin/partials/helpers/premium-support.php:62
+msgid "Note: Please do not abuse \"urgent\"."
+msgstr ""
+
+#: admin/partials/helpers/premium-support.php:64
 msgid "Issue:"
 msgstr ""
 
-#: admin/partials/helpers/premium-support.php:61
+#: admin/partials/helpers/premium-support.php:66
 msgid ""
 "Enter as much detail about the issue you are encontering as possible. After "
 "we make initial contact you can attach any screenshots necessary."

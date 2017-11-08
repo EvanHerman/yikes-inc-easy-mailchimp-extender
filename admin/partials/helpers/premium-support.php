@@ -37,6 +37,11 @@
 					<input type="hidden" name="plugin-name" id="plugin-name" value="">
 				</label>
 
+				<label><?php _e( 'Name:', 'yikes-inc-easy-mailchimp-extender' ); ?>
+					<input type="text" name="user-name" required>
+					<p class="description"><?php _e( 'Enter your name.' , 'yikes-inc-easy-mailchimp-extender' ); ?></p>
+				</label>
+
 				<label><?php _e( 'Contact Email:', 'yikes-inc-easy-mailchimp-extender' ); ?>
 					<input type="email" name="user-email" required>
 					<p class="description"><?php _e( 'Enter the email address you would prefer to be contact at.' , 'yikes-inc-easy-mailchimp-extender' ); ?></p>
