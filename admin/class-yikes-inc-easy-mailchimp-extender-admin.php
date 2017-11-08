@@ -456,7 +456,7 @@ class Yikes_Inc_Easy_Mailchimp_Forms_Admin {
 			$license     = isset( $_POST['license_key'] ) ? $_POST['license_key'] : '';
 			$plugin_name = isset( $_POST['plugin-name'] ) ? $_POST['plugin-name'] : '';
 			$plugin_slug = isset( $_POST['plugin-slug'] ) ? $_POST['plugin-slug'] : '';
-			$name        = ! empty( $plugin_name ) ? $plugin_name : 'MailChimp Support';
+			$name        = isset( $_POST['user-name'] ) ? $_POST['user-name'] : 'MailChimp Support';
 
 			$edd_item_id = $this->get_premium_license( $plugin_slug );
 
