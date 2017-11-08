@@ -73,7 +73,7 @@ foreach( $interest_groups as $group ) {
 				<input type="hidden" name="field[<?php echo $group['group_id']; ?>][label]" value="<?php echo htmlspecialchars( $group['field_name'] ); ?>" />
 				<input type="hidden" name="field[<?php echo $group['group_id']; ?>][type]" value="<?php echo $group['field_type']; ?>" />
 				<input type="hidden" name="field[<?php echo $group['group_id']; ?>][group_id]" value="<?php echo $group['group_id']; ?>" />
-				<input type="hidden" name="field[<?php echo $group['group_id']; ?>][groups]" value='<?php echo str_replace( '\'' , '~' , json_encode( $groups ) ); ?>' />
+				<input type="hidden" name="field[<?php echo $group['group_id']; ?>][groups]" value='<?php echo esc_attr( json_encode( $groups, true ) ); ?>' />
 
 
 				<table class="form-table form-field-container">

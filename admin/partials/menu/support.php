@@ -27,33 +27,8 @@
 
 	<hr />
 	
-	<div id="col-container" class="free-support-container">
 
-		<div id="col-left">
 
-			<div class="col-wrap">
-				<h1><span class="dashicons dashicons-wordpress-alt support-page-wordpress-font"></span>&nbsp;<?php _e( 'WordPress.org Plugin Directory' , 'yikes-inc-easy-mailchimp-extender' ); ?></h1>
-				<div class="inside">
-					<p><?php _e( 'Use your WordPress.org username to submit support requests on the WordPress Directory support forum.', 'yikes-inc-easy-mailchimp-extender' ); ?></p>
-					<img class="support-page-logo" src="<?php echo YIKES_MC_URL; ?>includes/images/Support_Page/wordpress-issue-screenshot.png" title="<?php esc_attr_e( 'WordPress.org Issue Tracker Screenshot' , 'yikes-inc-easy-mailchimp-extender' ); ?>" >
-					<a href="https://wordpress.org/support/plugin/yikes-inc-easy-mailchimp-extender" target="_blank" class="button-secondary support-page-button"><?php _e( 'Submit a New WordPress.org Support Request', 'yikes-inc-easy-mailchimp-extender' ); ?></a>
-				</div>
-			</div>
-			<!-- /col-wrap -->
-
-		</div>
-		<!-- /col-left -->
-				
-	</div>
-	<!-- /col-container -->
-
-	<!-- support container -->
-	<div id="col-container">							
-		<div id="col-left">
-			<div class="col-wrap">		
-				<?php do_action( 'yikes-mailchimp-support-page' ); ?>					
-			</div>
-		</div>
-	</div>
+	<?php do_action( 'yikes-mailchimp-support-page' ); ?>
 	
 </div> <!-- .wrap -->
