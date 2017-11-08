@@ -2925,21 +2925,7 @@ class Yikes_Inc_Easy_Mailchimp_Forms_Admin {
 				wp_die( __( "We've run into an error. The security check didn't pass. Please try again." , 'yikes-inc-easy-mailchimp-extender' ) , __( "Failed nonce validation" , 'yikes-inc-easy-mailchimp-extender' ) , array( 'response' => 500 , 'back_link' => true ) );
 			}
 
-			// delete all of the list_id transients
-			$list_ids = $this->get_mailchimp_list_ids_on_account();
-			foreach ( $list_ids as $id ) {
-				delete_transient( "yikes_eme_list_{$id}" );
-				delete_transient( "yikes_eme_merge_variables_{$id}" );
-				delete_transient( "yikes_eme_interest_categories_{$id}" );
-				delete_transient( "yikes_eme_segments_{$id}" );
-				delete_transient( "yikes_eme_members_{$id}" );
-			}
-
-			delete_transient( 'yikes-easy-mailchimp-list-data' );
-			delete_transient( 'yikes-easy-mailchimp-account-data' );
-			delete_transient( 'yikes-easy-mailchimp-profile-data' );
-			delete_transient( 'yikesinc_eme_list_ids' );
-			delete_transient( 'yikes_eme_lists' );
+			$this->delete_yikes_mailchimp_transients();
 
 			// if the request came from the settings page, redirect to the settings page
 			$referer = wp_get_referer();
@@ -3118,15 +3104,22 @@ class Yikes_Inc_Easy_Mailchimp_Forms_Admin {
 		 * @since 6.1.3
 		 */
 		public function delete_yikes_mailchimp_transients() {
-			/* Clear All Transient Data */
-			// Delete list data transient data
+
+			// delete all of the list_id transients
+			$list_ids = $this->get_mailchimp_list_ids_on_account();
+			foreach ( $list_ids as $id ) {
+				delete_transient( "yikes_eme_list_{$id}" );
+				delete_transient( "yikes_eme_merge_variables_{$id}" );
+				delete_transient( "yikes_eme_interest_categories_{$id}" );
+				delete_transient( "yikes_eme_segments_{$id}" );
+				delete_transient( "yikes_eme_members_{$id}" );
+			}
+
 			delete_transient( 'yikes-easy-mailchimp-list-data' );
-			// Delete list account data transient data
 			delete_transient( 'yikes-easy-mailchimp-account-data' );
-			// Delete profile data transient data
 			delete_transient( 'yikes-easy-mailchimp-profile-data' );
-			// Delete account activity transient data
-			delete_transient( 'yikes-easy-mailchimp-account-activity' );
+			delete_transient( 'yikesinc_eme_list_ids' );
+			delete_transient( 'yikes_eme_lists' );
 		}
 
 	/**
