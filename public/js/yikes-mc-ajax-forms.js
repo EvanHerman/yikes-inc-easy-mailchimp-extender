@@ -21,7 +21,9 @@ window.Yikes_Mailchimp_Ajax = window.Yikes_Mailchimp_Ajax || {};
 			submitted_form.find( 'input, label, button' ).not( ':hidden' ).fadeTo( 'fast', .5 );
 
 			// Append our preloader
-			submitted_form.append( '<img src="' + app.l10n.preloader_url + '" class="yikes-mailchimp-preloader" />')
+			if ( typeof app.l10n.preloader_url === 'string' && app.l10n.preloader_url.length > 1 ) {
+				submitted_form.append( '<img src="' + app.l10n.preloader_url + '" class="yikes-mailchimp-preloader" />' );
+			}
 
 			// Remove the missing required fields class
 			$( '.yikes-mc-required-field-not-filled' ).removeClass( 'yikes-mc-required-field-not-filled' );
@@ -30,7 +32,9 @@ window.Yikes_Mailchimp_Ajax = window.Yikes_Mailchimp_Ajax || {};
 			$( '.yikes-mailchimp-submit-button-span-text' ).hide();
 
 			// And then append the loading dots gif
-			submitted_form.find( '.yikes-easy-mc-submit-button' ).append( '<img src="' + app.l10n.loading_dots + '" class="loading-dots yikes-mc-loading-dots" />' );
+			if ( typeof app.l10n.loading_dots === 'string' && app.l10n.loading_dots.length > 1 ) {
+				submitted_form.find( '.yikes-easy-mc-submit-button' ).append( '<img src="' + app.l10n.loading_dots + '" class="loading-dots yikes-mc-loading-dots" />' );
+			}
 
 			// Get the form id
 			var form_id = submitted_form.attr( 'data-attr-form-id' );

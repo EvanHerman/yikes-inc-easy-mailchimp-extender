@@ -3,8 +3,8 @@ Contributors: yikesinc, eherman24, liljimmi, hiwhatsup, JPry, yikesitskevin
 Donate link: https://yikesplugins.com/?utm_source=wp_plugin_repo&utm_medium=donate_link&utm_campaign=easy_forms_for_mailchimp
 Tags: MailChimp, MailChimp forms, MailChimp lists, opt-in forms, sign up form, MailChimp, email, forms, mailing lists, marketing, newsletter, sign up
 Requires at least: 4.0
-Tested up to: 4.8.2
-Stable tag: 6.3.29
+Tested up to: 4.9.4
+Stable tag: 6.3.30
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -252,6 +252,9 @@ Below you'll find a complete list of the hooks and filters available in Easy For
 * `yikes-mailchimp-address-{$addr_type}-placeholder` - Filter the placeholder values for the address fields. Available values for $addr_type are 'address', 'address2', 'city', 'zip'. @params: $placeholder_value 
 * 6.3.29:
 * `yikes-mailchimp-page-data` - Filter the page data being passed to the JS during a subscription request. @params: $page_data, $form_id
+* 6.3.30:
+* `yikes-easy-mailchimp-email-address-field` - Filter the email field. You can use this field to change the email field's label. @params: $email_field, $list_id.
+* `yikes_mailchimp_widget_shortcode_attributes` - Filter the shortcode attributes for the Easy Forms widget. @params: $shortcode_attributes, $instance
 
 **Actions**
 
@@ -274,6 +277,12 @@ Below you'll find a complete list of the hooks and filters available in Easy For
 * `yikes-mailchimp-google-analytics` - Add Google Analytics JS functions. Check our Knowledge Base for instructions.
 
 == Changelog ==
+
+= Easy Forms for MailChimp 6.3.30 - February 15th, 2018 =
+* Added a new filter: `yikes_mailchimp_widget_shortcode_attributes`. You can use this filter to customize the shortcode arguments for your Easy Forms widget. For example, you can remove the recaptcha from a widget.
+* Added a new filter: `yikes-easy-mailchimp-email-address-field`. You can use this filter to customize the email merge field. For example, you can rename the field to something other than "Email Address."
+* Fixed the way the loading SVGs were added in JavaScript. You can now use the existing filters to safely remove them.
+* Removed the dependency from the Public MailChimp CSS file.
 
 = Easy Forms for MailChimp 6.3.29 - November 8th, 2017 =
 * Refactored the way the support form works and integrates with add-ons

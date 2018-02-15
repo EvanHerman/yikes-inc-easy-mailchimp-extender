@@ -51,6 +51,8 @@ class Yikes_Inc_Easy_Mailchimp_Extender_Widget extends WP_Widget {
 			'description' => ( ! empty( $form_description ) ) ? '1' : '',
 		);
 
+		$shortcode_attributes = apply_filters( 'yikes_mailchimp_widget_shortcode_attributes', $shortcode_attributes, $instance );
+
 		// before and after widget arguments are defined by themes
 		echo $args['before_widget'];
 
