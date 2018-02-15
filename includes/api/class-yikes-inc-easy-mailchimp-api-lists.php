@@ -171,6 +171,8 @@ class Yikes_Inc_Easy_MailChimp_API_Lists extends Yikes_Inc_Easy_MailChimp_API_Ab
 			'_links'        => array(),
 		);
 
+		$email_field = apply_filters( 'yikes-easy-mailchimp-email-address-field', $email_field, $list_id );
+
 		array_unshift( $merge_fields, $email_field );
 		$merge_object['merge_fields'] = $merge_fields;
 		set_transient( "yikes_eme_merge_variables_{$list_id}", $merge_object, HOUR_IN_SECONDS );

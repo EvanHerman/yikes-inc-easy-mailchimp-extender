@@ -206,15 +206,6 @@ function process_mailchimp_shortcode( $atts ) {
 		unset( $page_data->post_password );
 	}
 
-	// grab the last enqueued style, so we can use it as a dependency of our styles (for override)
-	global $wp_styles;
-	
-	$last_key = '';
-	if ( isset( $wp_styles ) && isset( $wp_styles->groups ) ) {
-		end( $wp_styles->groups );	
-		$last_key = key( $wp_styles->groups );
-	}
-
 	/*
 	*	Check for the constant to prevent styles from loading
 	*	to exclude styles from loading, add `define( 'YIKES_MAILCHIMP_EXCLUDE_STYLES', true );` to functions.php
@@ -222,7 +213,7 @@ function process_mailchimp_shortcode( $atts ) {
 	*/
 	if( ! defined( 'YIKES_MAILCHIMP_EXCLUDE_STYLES' ) ) {
 		// enqueue the form styles
-		wp_enqueue_style( 'yikes-inc-easy-mailchimp-public-styles', YIKES_MC_URL . 'public/css/yikes-inc-easy-mailchimp-extender-public.min.css', array( $last_key ) );
+		wp_enqueue_style( 'yikes-inc-easy-mailchimp-public-styles', YIKES_MC_URL . 'public/css/yikes-inc-easy-mailchimp-extender-public.min.css' );
 	}
 
 	/**
