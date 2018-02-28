@@ -80,9 +80,6 @@ class Yikes_Inc_Easy_Mailchimp_Forms_Admin {
 		// register our plugin settings
 		add_action( 'admin_init', array( $this, 'yikes_easy_mc_settings_init' ) );
 
-		// plugin redirect on activation
-		add_action( 'admin_init', array( $this, 'yikes_easy_mc_activation_redirect' ) );
-
 		// Include Third Party Extensions
 		new YIKES_MailChimp_ThirdParty_Integrations();
 
@@ -705,24 +702,6 @@ class Yikes_Inc_Easy_Mailchimp_Forms_Admin {
 	/* End TinyMCE Functions */
 
 	/*
-	*	Redirect the user to our Welcome page
-	*	when they activate the plug in, if they haven't been redirected before
-	*/
-	public function yikes_easy_mc_activation_redirect() {
-		if ( get_option( 'yikes_mailchimp_activation_redirect', 'true' ) == 'true' ) {
-			update_option( 'yikes_mailchimp_activation_redirect', 'false' );
-			/* If the user had this plugin activated prior to today, redirect to 'Whats New' */
-			if( get_option( 'yikes_easy_mailchimp_activation_date', strtotime( 'now' ) ) == strtotime( 'now' ) ) {
-				wp_redirect( esc_url( admin_url( 'admin.php?page=yikes-mailchimp-welcome' ) ) );
-			} else {
-				/* Else redirect the user over to the 'Getting Started' tab */
-				wp_redirect( esc_url_raw( admin_url( 'admin.php?page=yikes-mailchimp-welcome&section=whats-new' ) ) );
-			}
-			exit();
-		}
-	}
-
-	/*
 	*  Fix the MailChimp icon spacing in the admin menu
 	*/
 	public function fix_menu_icon_spacing() {
@@ -1013,16 +992,6 @@ class Yikes_Inc_Easy_Mailchimp_Forms_Admin {
 			array( $this, 'migrate_old_yks_mc_options' )
 		);
 
-		/* Add Hidden Welcome Page */
-		add_submenu_page(
-			'options.php',
-			__( 'Welcome', 'yikes-inc-easy-mailchimp-extender' ),
-			__( 'Welcome', 'yikes-inc-easy-mailchimp-extender' ),
-			apply_filters( 'yikes-mailchimp-user-role-access', 'manage_options' ),
-			'yikes-mailchimp-welcome',
-			array( $this, 'generateWelcomePage' )
-		);
-
 		/* Add Hidden 'View List' Page */
 		add_submenu_page(
 			'options.php',
@@ -1099,15 +1068,6 @@ class Yikes_Inc_Easy_Mailchimp_Forms_Admin {
 	*/
 	function generateEditFormPage() {
 		require_once YIKES_MC_PATH . 'admin/partials/edit-form.php'; // include our options page
-	}
-
-	/**
-	* Generate Us Easy MailChimp Welcome Page
-	*
-	* @since    1.0.0
-	*/
-	function generateWelcomePage() {
-		require_once YIKES_MC_PATH . 'admin/partials/welcome-page/welcome.php'; // include our options page
 	}
 
 	/**

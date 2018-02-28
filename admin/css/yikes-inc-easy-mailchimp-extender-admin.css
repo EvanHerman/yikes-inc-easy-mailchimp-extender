@@ -303,12 +303,6 @@
 	width: 80px;
 }
 
-.about-wrap img.yikes-easy-mc-feature-image.yikes-easy-mc-feature-image-left, .yikes-easy-mc-feature-image-left {
-	float: left;
-	margin-right: 30px;
-	margin-left: 0 !important;
-}
-
 .need-support-icon {
 	line-height: 1.5;
 }
@@ -330,76 +324,12 @@ ul.support-option-list {
 	width: 80pt;
 }
 
-.yikes-easy-mc-whats-new-section-image {
-	float: none;
-	width: 100%;
-	margin-left: 0 !important;
-}
-
-.welcome-page-tabs {
-	margin-top: 2em !important;
-}
-
-/* Welcome Page */
-.welcome-page-about-wrap .about-text,
-.welcome-page-about-wrap h2.welcome-title {
-	margin-left: 115px;
-}
-
-.whats-new-wrap img.yikes-easy-mc-whats-new-section-image {
-	margin-top: 10px;
-}
-
-.whats-new-wrap .feature-section:nth-child(1) img {
-	float: left;
-}
-
-.whats-new-wrap .feature-section:nth-child(3) img {
-	float: right;
-	width: 250px;
-	margin-right: 0 !important;
-	margin-left: 30px;
-}
-
-.whats-new-wrap .feature-section:nth-child(4) img {
-	margin-left: 0 !important;
-}
-
-
 #yikes-mailchimp-logo {
 	height: 132px;
 	width: 132px;
 	font-size: 14px;
 	text-align: center;
 	background: url('../../includes/images/Welcome_Page/yikes-mailchimp-welcome-logo.png') no-repeat;
-}
-
-.about-wrap #yikes-mailchimp-logo {
-	position: absolute;
-	top: 0;
-	left: 0;
-}
-
-.about-wrap h2 {
-	text-align: left;
-}
-
-.edd-welcome-screenshots {
-	float: right;
-	margin-left: 10px!important;
-}
-
-.about-wrap .feature-section {
-	margin-top: 20px;
-}
-
-.about-wrap .feature-section p {
-	max-width: 40em;
-}
-
-.about-wrap img.yikes-easy-mc-feature-image {
-	float: right;
-	margin-left: 30px;
 }
 
 .yikes-easy-mc-feature-image.yikes-easy-mc-feature-v3-image {
@@ -409,59 +339,6 @@ ul.support-option-list {
 	max-height: 340px;
 	width: auto;
 }
-
-#credit-container,
-#translators-container {
-	display: inline-block;
-	width: 100%;
-}
-
-#credit-container h2,
-#translators-container h2 {
-	margin: 0 0 .5em 1em;
-}
-
-#translators-container {
-	margin-top: 5em;
-}
-
-#translators-container .translation-language {
-	color: #333;
-}
-
-	#credit-container .team-member,
-	#translators-container .translator {
-		margin: 1em 0;
-		margin-right: 5%;
-		text-align: center;
-	}
-
-	#credit-container .team-member img,
-	#translators-container .translator img	{
-		border-radius: 50%;
-	}
-
-	.admin_page_yikes-mailchimp-welcome .about-wrap div.error,
-	.admin_page_yikes-mailchimp-welcome .about-wrap div.updated {
-		display: block;
-		margin-left: 115px;
-	}
-
-	.github-avatar-image {
-		width: 100px;
-	}
-
-	.github-avatar-url {
-		display: inline-block;
-		width: 20%;
-		text-decoration: none;
-	}
-
-	github-avatar-url:focus {
-		outline: 0; /* remove blue outline around avatars when clicked */
-	}
-
-/* End Welcome Page */
 
 	/* Form Customizer Upsell */
 	div.show-some-love-container img.customizer-upsell-banner,
@@ -481,84 +358,6 @@ ul.support-option-list {
 		font-size: 17px;
 		line-height: 1.5;
 	}
-
-
-	/**
-	*	Knowledge base tab
-	*/
-	body.admin_page_yikes-mailchimp-welcome #kb-container,
-	body.easy-forms_page_yikes-inc-easy-mailchimp-support .knowledge-base-articles {
-		display: inline-block;
-		margin-top: 1em;
-	}
-
-		body.admin_page_yikes-mailchimp-welcome #kb-container h1 {
-			font-size: 20px;
-			margin-top: -1em;
-		}
-
-	body.admin_page_yikes-mailchimp-welcome #kb-container .knowledge-base-listing,
-	body.easy-forms_page_yikes-inc-easy-mailchimp-support .knowledge-base-articles .knowledge-base-listing {
-		width: 45%;
-		margin-right: 2%;
-		float: left;
-		min-height: 260px;
-	}
-
-	body.admin_page_yikes-mailchimp-welcome #kb-container .knowledge-base-listing li,
-	body.easy-forms_page_yikes-inc-easy-mailchimp-support .knowledge-base-articles .knowledge-base-listing li {
-		margin: 12px 0;
-		text-decoration: none;
-	}
-
-	body.admin_page_yikes-mailchimp-welcome #kb-container .knowledge-base-listing li:before,
-	body.easy-forms_page_yikes-inc-easy-mailchimp-support .knowledge-base-articles .knowledge-base-listing li:before {
-		font-family: "dashicons";
-		content: "\f123";
-		vertical-align: middle;
-		display: block;
-		float: left;
-		margin: 0 5px 5px 0;
-	}
-
-		body.admin_page_yikes-mailchimp-welcome #kb-container .knowledge-base-listing li a,
-		body.easy-forms_page_yikes-inc-easy-mailchimp-support .knowledge-base-articles .knowledge-base-listing li a {
-			text-decoration: none;
-		}
-
-		body.admin_page_yikes-mailchimp-welcome #kb-container .knowledge-base-listing li.list-title,
-		body.easy-forms_page_yikes-inc-easy-mailchimp-support .knowledge-base-articles .knowledge-base-listing li.list-title {
-			font-size: 17px;
-			font-weight: 200;
-			text-decoration: underline;
-		}
-
-		body.admin_page_yikes-mailchimp-welcome #kb-container .knowledge-base-listing li.list-title:before,
-		body.easy-forms_page_yikes-inc-easy-mailchimp-support .knowledge-base-articles .knowledge-base-listing li.list-title:before {
-			content: "";
-			padding-left: 12px;
-		}
-
-		body.admin_page_yikes-mailchimp-welcome .new-feature-list {
-			list-style: none;
-			line-height: middle;
-		}
-
-			body.admin_page_yikes-mailchimp-welcome .new-feature-list li {
-				margin-bottom: 10px;
-			}
-
-			body.admin_page_yikes-mailchimp-welcome .new-feature-list li:before {
-				font-family: "dashicons";
-				content: "\f139";
-				padding-right: 2px;
-				font-size: 20px;
-				vertical-align: middle;
-			}
-
-	/*
-	*	End knowledge base listings
-	*/
 
 	/* Button Container in Review Us Container */
 	#review-yikes-easy-mailchimp-notice .button-container {
@@ -1669,10 +1468,6 @@ a.yikes-delete-subscriber,
 
 .edit-segment-description {
 	padding: 0 0 10px 15px;
-}
-
-#credit-container {
-	margin-top:1.5em;
 }
 
 /***********************/
