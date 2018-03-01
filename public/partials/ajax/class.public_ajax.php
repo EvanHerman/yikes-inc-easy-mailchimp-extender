@@ -81,15 +81,6 @@ class YIKES_Inc_Easy_MailChimp_Public_Ajax {
 			$errors[] = $list_details->get_error_message();
 		}
 
-		// Account details API call
-		$account_details = $manager->get_account_handler()->get_account( false );
-		if ( is_wp_error( $account_details ) ) {
-			$error_logging = new Yikes_Inc_Easy_Mailchimp_Error_Logging();
-			$error_logging->maybe_write_to_log( $account_details->get_error_code(), __( "Send Update Profile Email - Get Account Details", 'yikes-inc-easy-mailchimp-extender' ), "class.public_ajax.php" );
-			$is_error = true;
-			$errors[] = $account_details->get_error_message();
-		}
-
 		// Subscriber details API call
 		$subscriber_account_details = $manager->get_list_handler()->get_member( $list_id, $user_id );
 		if ( is_wp_error( $subscriber_account_details ) ) {

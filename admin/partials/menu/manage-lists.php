@@ -1,19 +1,29 @@
 <?php
-// lets confirm the user has a valid API key stored
-if ( $this->is_user_mc_api_valid_form( false ) == 'valid' ) {
-	$list_data = yikes_get_mc_api_manager()->get_list_handler()->get_lists();
-	if ( is_wp_error( $list_data ) ) {
-		$error_logging = new Yikes_Inc_Easy_Mailchimp_Error_Logging();
-		$error_logging->maybe_write_to_log(
-			$list_data->get_error_code(),
-			__( "Get Account Lists", 'yikes-inc-easy-mailchimp-extender' ),
-			"Manage Lists Page"
-		);
-		$list_data = array();
-	}
-} else {
+
+// Let's confirm the user has a valid API key stored
+if ( ! $this->is_user_mc_api_valid_form( false ) ) {
+	wp_die( __( 'It looks like you need to re-validate your MailChimp API key before you can continue.', 'yikes-inc-easy-mailchimp-extender' ), 500 );
+}
+
+$manager = yikes_get_mc_api_manager();
+
+// MailChimp Account/Profile info
+$account_details = $manager->get_account_handler()->get_account();
+
+// List data
+$list_data = $manager->get_list_handler()->get_lists();
+if ( is_wp_error( $list_data ) ) {
+	$error_logging = new Yikes_Inc_Easy_Mailchimp_Error_Logging();
+	$error_logging->maybe_write_to_log(
+		$list_data->get_error_code(),
+		__( "Get Account Lists", 'yikes-inc-easy-mailchimp-extender' ),
+		"Manage Lists Page"
+	);
 	$list_data = array();
 }
+
+
+
 ?>
 <div class="wrap">
 	<!-- Freddie Logo -->
@@ -122,17 +132,73 @@ if ( $this->is_user_mc_api_valid_form( false ) == 'valid' ) {
 
 				<!-- sidebar -->
 				<div id="postbox-container-1" class="postbox-container">
+				<div class="meta-box-sortables">
 
-					<div class="meta-box-sortables">
+					<div class="postbox yikes-easy-mc-postbox">
+						<div class="inside">
 
-						<?php
-							// display, show some love container
-							$this->generate_show_some_love_container();
-						?>
+							<a href="https://us3.admin.mailchimp.com/" title="<?php _e( 'MailChimp Site' , 'yikes-inc-easy-mailchimp-extender' ); ?>" target="_blank">
+								<img src="<?php echo YIKES_MC_URL . 'includes/images/Welcome_Page/mailchimp-logo.png'; ?>" title="<?php _e( 'MailChimp Site' , 'yikes-inc-easy-mailchimp-extender' ); ?>" class="list-page-mailchimp-logo">
+							</a>
 
-					</div> <!-- .meta-box-sortables -->
+						</div>
+						<!-- .inside -->
+					</div>
 
-				</div> <!-- #postbox-container-1 .postbox-container -->
+					<div class="postbox yikes-easy-mc-postbox list-page-sidebar">
+						<div class="inside">
+
+							<h2 class="account-status"><?php echo $account_details['username']; ?> <small>(<?php echo $account_details['role']; ?>)</small></h2>
+
+							<img class="mailchimp-avatar" src="<?php echo esc_url_raw( $account_details['avatar_url'] ); ?>" title="<?php echo $account_details['username'] . ' ' . __( "MailChimp avatar" , 'yikes-inc-easy-mailchimp-extender' ); ?>">
+
+							<table class="form-table" id="account-details-table">
+								<tr valign="top">
+									<td scope="row">
+										<label for="tablecell">
+											<strong><?php _e( 'Company' , 'yikes-inc-easy-mailchimp-extender' ); ?></strong>
+										</label>
+									</td>
+									<td><?php echo $account_details['contact']['company']; ?><br /><?php echo $account_details['contact']['city'] . ', ' . $account_details['contact']['state']; ?></td>
+								</tr>
+								<tr valign="top">
+									<td scope="row">
+										<label for="tablecell">
+											<strong><?php _e( 'Industry' , 'yikes-inc-easy-mailchimp-extender' ); ?></strong>
+										</label>
+									</td>
+									<td><?php echo $account_details['account_industry']; ?></td>
+								</tr>
+								<tr valign="top">
+									<td scope="row">
+										<label for="tablecell">
+											<strong><?php _e( 'Member Since' , 'yikes-inc-easy-mailchimp-extender' ); ?></strong>
+										</label>
+									</td>
+									<td><?php echo date( get_option('date_format') , strtotime( $account_details['member_since'] ) ); ?></td>
+								</tr>
+								<tr valign="top">
+									<td scope="row">
+										<label for="tablecell">
+											<strong><?php _e( 'Plan Type' , 'yikes-inc-easy-mailchimp-extender' ); ?></strong>
+										</label>
+									</td>
+									<td><?php echo ucwords( $account_details['pricing_plan_type'] ); ?></td>
+								</tr>
+							</table>
+
+						</div>
+						<!-- .inside -->
+					</div>
+					<!-- .postbox -->
+					<?php
+						// Generate Show Some Love!
+						$this->generate_show_some_love_container();
+					?>
+
+				</div>
+				<!-- .meta-box-sortables -->
+			</div> <!-- #postbox-container-1 .postbox-container -->
 
 			</div> <!-- #post-body .metabox-holder .columns-2 -->
 

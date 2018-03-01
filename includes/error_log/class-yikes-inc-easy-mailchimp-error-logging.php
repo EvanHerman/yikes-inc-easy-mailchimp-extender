@@ -35,6 +35,20 @@ class Yikes_Inc_Easy_Mailchimp_Error_Logging {
 	protected $is_debugging;
 
 	/**
+	 * The path to the error log file.
+	 *
+	 * @var string
+	 */
+	public $error_log_file_path;
+
+	/**
+	 * The path to the error log folder.
+	 *
+	 * @var string
+	 */
+	protected $error_log_folder_path;	
+
+	/**
 	 * Define the core functionality of the plugin.
 	 *
 	 * Set the plugin name and the plugin version that can be used throughout the plugin.
@@ -44,7 +58,13 @@ class Yikes_Inc_Easy_Mailchimp_Error_Logging {
 	 * @since    1.0.0
 	 */
 	public function __construct() {
-		$this->is_debugging = WP_DEBUG || get_option( 'yikes-mailchimp-debug-status', '' ) == '1';
+		$this->is_debugging          = WP_DEBUG || get_option( 'yikes-mailchimp-debug-status', '' ) == '1';
+		$this->error_log_file_path   = $this->get_error_log_file_path();
+		$this->error_log_folder_path = $this->get_error_log_folder();
+
+		// Create our error log folder and file
+		$this->create_error_log_folder();
+		$this->create_error_log_file();
 	}
 
 	/**
@@ -64,6 +84,30 @@ class Yikes_Inc_Easy_Mailchimp_Error_Logging {
 		}
 
 		$this->yikes_easy_mailchimp_write_to_error_log( $returned_error, $error_type, $page );
+	}
+
+	public function create_error_log_folder() {
+
+		// If our directory doesn't exist, make it.
+		if ( ! file_exists( $this->get_error_log_folder() ) ) {
+			mkdir( $this->get_error_log_folder() );
+		}
+	}
+
+	public function create_error_log_file() {
+
+		// If our error log doesn't exist, make it.
+		if ( ! file_exists( $this->error_log_file_path ) ) {
+			file_put_contents( $this->error_log_file_path, '' );
+		}
+	}
+
+	private function get_error_log_folder() {
+		return WP_CONTENT_DIR . '/uploads/yikes-log/';
+	}
+
+	private function get_error_log_file_path() {
+		return WP_CONTENT_DIR . '/uploads/yikes-log/yikes-easy-mailchimp-error-log.txt';
 	}
 	
 	
@@ -85,16 +129,13 @@ class Yikes_Inc_Easy_Mailchimp_Error_Logging {
 			return;
 		}
 		
-		$contents = file_get_contents( YIKES_MC_PATH . 'includes/error_log/yikes-easy-mailchimp-error-log.php' , true );
+		$contents = file_get_contents( $this->error_log_file_path, true );
 		
 		// if we pass in a custom page, don't set things up
-		if( empty( $page ) ) {
+		if ( empty( $page ) ) {
+
 			// get the current page, admin or front end?
-			if( is_admin() ) {
-				$page = __( 'Admin', 'yikes-inc-easy-mailchimp-extender' );
-			} else {
-				$page = __( 'Front End', 'yikes-inc-easy-mailchimp-extender' );
-			}
+			$page = is_admin() ? __( 'Admin', 'yikes-inc-easy-mailchimp-extender' ) : __( 'Front End', 'yikes-inc-easy-mailchimp-extender' );
 		}
 		
 		ob_start();
@@ -106,19 +147,19 @@ class Yikes_Inc_Easy_Mailchimp_Error_Logging {
 					</label>
 				</td>
 				<td>
-					<?php _e( 'Page:' , 'yikes-inc-easy-mailchimp-extender' ); echo ' ' . $page; ?> || <?php _e( 'Type:' , 'yikes-inc-easy-mailchimp-extender' ); echo ' ' . $error_type; ?> || <?php _e( 'Time:' , 'yikes-inc-easy-mailchimp-extender' ); echo ' ' . date( get_option( 'date_format' ) . ' ' . get_option( 'time_format' ) , current_time('timestamp') ); ?>
+					<?php _e( 'Page:', 'yikes-inc-easy-mailchimp-extender' ); echo ' ' . $page; ?> || 
+					<?php _e( 'Type:', 'yikes-inc-easy-mailchimp-extender' ); echo ' ' . $error_type; ?> || 
+					<?php _e( 'Time:', 'yikes-inc-easy-mailchimp-extender' ); echo ' ' . date( get_option( 'date_format' ) . ' ' . get_option( 'time_format' ), current_time( 'timestamp' ) ); ?>
 				</td>
 			</tr>
 		<?php
 		$new_contents = ob_get_clean() . $contents;
 		
 		// file put contents $returned error + other data
-		if( file_exists( YIKES_MC_PATH . 'includes/error_log/yikes-easy-mailchimp-error-log.php' ) ) {
-			file_put_contents( 
-				YIKES_MC_PATH . 'includes/error_log/yikes-easy-mailchimp-error-log.php',
-				$new_contents
-			);
-		}
+		file_put_contents( 
+			$this->error_log_file_path,
+			$new_contents
+		);
 	}
 	
 	/*
@@ -128,11 +169,12 @@ class Yikes_Inc_Easy_Mailchimp_Error_Logging {
 	*  @since 5.6
 	*/	
 	public function yikes_easy_mailchimp_generate_error_log_table() {		
+
 		// ensure file_get_contents exists
 		if( function_exists( 'file_get_contents' ) ) {	
 			// confirm that our file exists
-			if( file_exists( YIKES_MC_PATH . 'includes/error_log/yikes-easy-mailchimp-error-log.php' ) ) {
-				$error_log_contents = file_get_contents( YIKES_MC_PATH . 'includes/error_log/yikes-easy-mailchimp-error-log.php' , true );							
+			if( file_exists( $this->error_log_file_path ) ) {
+				$error_log_contents = file_get_contents( $this->error_log_file_path, true );							
 				if( $error_log_contents === FALSE ) {
 					return _e( 'File get contents not available' , 'yikes-inc-easy-mailchimp-extender' );
 				}

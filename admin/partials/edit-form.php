@@ -64,7 +64,7 @@
 			// current date & time + 1 day
 			'yikes-easy-mc-form-restriction-end'             => strtotime( current_time( 'm/d/Y g:iA' ) ) + ( 3600 * 24 ),
 			'yikes-easy-mc-form-restriction-pending-message' => sprintf( __( 'Signup is not yet open, and will be available on %s. Please come back then to signup.', 'yikes-inc-easy-mailchimp-extender' ), current_time( str_replace( '-', '/', get_option( 'date_format' ) ) ) . ' ' . __( 'at', 'yikes-inc-easy-mailchimp-extender' ) . ' ' . current_time( 'g:iA' ) ),
-			'yikes-easy-mc-form-restriction-expired-message' => sprintf( __( 'This signup for this form ended on %s.', 'yikes-inc-easy-mailchimp-extender' ), date( str_replace( '-', '/', get_option( 'date_format' ) ), strtotime( current_time( str_replace( '-', '/', get_option( 'date_format' ) ) ) ) + ( 3600 * 24 ) ) . ' ' . __( 'at', 'yikes-inc-easy-mailchimp-extender' ) . ' ' . date( 'g:iA', strtotime( current_time( 'g:iA' ) ) + ( 3600 * 24 ) ) ),
+			'yikes-easy-mc-form-restriction-expired-message' => sprintf( __( 'The signup period for this form ended on %s.', 'yikes-inc-easy-mailchimp-extender' ), date( str_replace( '-', '/', get_option( 'date_format' ) ), strtotime( current_time( str_replace( '-', '/', get_option( 'date_format' ) ) ) ) + ( 3600 * 24 ) ) . ' ' . __( 'at', 'yikes-inc-easy-mailchimp-extender' ) . ' ' . date( 'g:iA', strtotime( current_time( 'g:iA' ) ) + ( 3600 * 24 ) ) ),
 			'yikes-easy-mc-form-login-required'              => '0',
 			'yikes-easy-mc-form-restriction-login-message'   => __( 'You need to be logged in to sign up for this mailing list.', 'yikes-inc-easy-mailchimp-extender' ),
 		);
@@ -400,32 +400,32 @@
 															<p class="description" style="margin-bottom:0;"><?php _e( 'Set a time period that this form should be active on your site. (mm/dd/yyyy)', 'yikes-inc-easy-mailchimp-extender' ); ?></p>
 															<p class="description" style="margin: 0 0 .5em 0;"><?php _e( 'Once the end date & time have passed, users will no longer be able to signup for your mailing list.', 'yikes-inc-easy-mailchimp-extender' ); ?></p>
 																<!-- Start Date Limitation Nested -->
-																<section class="date-restirction-section nested-child<?php if( $form_settings['yikes-easy-mc-form-schedule'] == '0' ) { echo ' hidden'; } ?>">
+																<section class="date-restriction-section nested-child<?php if( $form_settings['yikes-easy-mc-form-schedule'] == '0' ) { echo ' hidden'; } ?>">
 																	<!-- Start Date -->
 																	<label for="yikes-easy-mc-form-restriction-start-date"><strong><?php _e( 'Start Date' , 'yikes-inc-easy-mailchimp-extender' ); ?></strong>
-																		<input type="text" class="date-picker" name="yikes-easy-mc-form-restriction-start-date" id="yikes-easy-mc-form-restriction-start-date" value="<?php echo date( $this->yikes_jQuery_datepicker_date_format( get_option( 'date_format' ) ), $form_settings['yikes-easy-mc-form-restriction-start'] ); ?>" >
+																		<input type="text" class="date-picker" name="yikes-easy-mc-form-restriction-start-date" id="yikes-easy-mc-form-restriction-start-date" value="<?php echo ! empty($form_settings['yikes-easy-mc-form-restriction-start'] ) ? date( $this->yikes_jQuery_datepicker_date_format( get_option( 'date_format' ) ), $form_settings['yikes-easy-mc-form-restriction-start'] ) : ''; ?>" >
 																		<?php _e( 'at', 'yikes-inc-easy-mailchimp-extender' ); ?>
 																	</label>
 
 																	<!-- Start Time -->
 																	<label for="yikes-easy-mc-form-restriction-start-time"><strong><?php _e( 'Start Time' , 'yikes-inc-easy-mailchimp-extender' ); ?></strong>
-																		<input type="text" class="time-picker" name="yikes-easy-mc-form-restriction-start-time" id="yikes-easy-mc-form-restriction-start-time" value="<?php echo date( 'g:iA', $form_settings['yikes-easy-mc-form-restriction-start'] ); ?>" >
+																		<input type="text" class="time-picker" name="yikes-easy-mc-form-restriction-start-time" id="yikes-easy-mc-form-restriction-start-time" value="<?php echo ! empty( $form_settings['yikes-easy-mc-form-restriction-start'] ) ? date( 'g:iA', $form_settings['yikes-easy-mc-form-restriction-start'] ) : ''; ?>" >
 																	</label>
 																	<p class="description"><?php _e( 'Set the dates that this form should display on your site.', 'yikes-inc-easy-mailchimp-extender' ); ?></p>
 																</section>
 																<!-- end Start Date Limitation Nested -->
 
 																<!-- End Date Limitation Nested -->
-																<section class="date-restirction-section nested-child<?php if( $form_settings['yikes-easy-mc-form-schedule'] == '0' ) { echo ' hidden'; } ?> last">
+																<section class="date-restriction-section nested-child<?php if( $form_settings['yikes-easy-mc-form-schedule'] == '0' ) { echo ' hidden'; } ?> last">
 																	<!-- End Date -->
 																	<label for="yikes-easy-mc-form-restriction-end-date"><strong><?php _e( 'End Date' , 'yikes-inc-easy-mailchimp-extender' ); ?></strong>
-																		<input type="text" class="date-picker" name="yikes-easy-mc-form-restriction-end-date" id="yikes-easy-mc-form-restriction-end-date" value="<?php echo date( $this->yikes_jQuery_datepicker_date_format( get_option( 'date_format' ) ), $form_settings['yikes-easy-mc-form-restriction-end'] ); ?>" >
+																		<input type="text" class="date-picker" name="yikes-easy-mc-form-restriction-end-date" id="yikes-easy-mc-form-restriction-end-date" value="<?php echo ! empty(  $form_settings['yikes-easy-mc-form-restriction-end'] ) ? date( $this->yikes_jQuery_datepicker_date_format( get_option( 'date_format' ) ), $form_settings['yikes-easy-mc-form-restriction-end'] ) : ''; ?>" >
 																		<?php _e( 'at', 'yikes-inc-easy-mailchimp-extender' ); ?>
 																	</label>
 
 																	<!-- End Time -->
 																	<label for="yikes-easy-mc-form-restriction-end-time"><strong><?php _e( 'End Time' , 'yikes-inc-easy-mailchimp-extender' ); ?></strong>
-																		<input type="text" class="time-picker" name="yikes-easy-mc-form-restriction-end-time" id="yikes-easy-mc-form-restriction-end-time" value="<?php echo date( 'g:iA', $form_settings['yikes-easy-mc-form-restriction-end'] ); ?>" >
+																		<input type="text" class="time-picker" name="yikes-easy-mc-form-restriction-end-time" id="yikes-easy-mc-form-restriction-end-time" value="<?php echo ! empty( $form_settings['yikes-easy-mc-form-restriction-end'] ) ? date( 'g:iA', $form_settings['yikes-easy-mc-form-restriction-end'] ) : ''; ?>" >
 																	</label>
 																	<p class="description"><?php _e( 'Set the dates that this form should no longer display on your site.', 'yikes-inc-easy-mailchimp-extender' ); ?></p>
 
@@ -468,7 +468,7 @@
 																<p class="description"><?php _e( 'Require users to be logged in before they can view and submit this opt-in form.', 'yikes-inc-easy-mailchimp-extender' ); ?></p>
 
 																<!-- Require Login Message -->
-																<section class="login-restirction-section nested-child<?php if( $form_settings['yikes-easy-mc-form-login-required'] == '0' ) { echo ' hidden'; } ?>">
+																<section class="login-restriction-section nested-child<?php if( $form_settings['yikes-easy-mc-form-login-required'] == '0' ) { echo ' hidden'; } ?>">
 																	<label for="yikes-easy-mc-form-restriction-login-message"><strong><?php _e( 'Required Login Message' , 'yikes-inc-easy-mailchimp-extender' ); ?></strong>
 																		<?php
 																			wp_editor(

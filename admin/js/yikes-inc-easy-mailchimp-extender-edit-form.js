@@ -487,10 +487,10 @@ function toggle_nested_section( clicked_option ) {
 		case '1':
 			/* Schedule toggle */
 			if( jQuery( clicked_option ).attr( 'name' ) == 'yikes-easy-mc-form-schedule' ) {
-				jQuery( '.date-restirction-section' ).fadeToggle();
+				jQuery( '.date-restriction-section' ).fadeToggle();
 			} else {
 				/* login required toggle */
-				jQuery( '.login-restirction-section' ).fadeToggle();
+				jQuery( '.login-restriction-section' ).fadeToggle();
 			}
 			break;
 	}
@@ -517,6 +517,11 @@ function initialize_form_schedule_time_pickers() {
 		firstDay: window.yikes_mailchimp_edit_form.firstDay,
 		isRTL: window.yikes_mailchimp_edit_form.isRTL,
 		onSelect: function( newDate, instance ) {
+
+			// Prevent the browser from jumping to the top of a page when a date is selected.
+			event.preventDefault();
+
+			// Validate the date.
 			var prevDate = instance.lastVal;
 			var changed_object_id = instance.id;
 			yikes_check_valid_date( newDate, prevDate, changed_object_id );
@@ -527,7 +532,7 @@ function initialize_form_schedule_time_pickers() {
 		scrollDefault: 'now',
 		timeFormat: 'h:i A'
 	});
-	jQuery( '.time-picker' ).on( 'changeTime', function() {
+	jQuery( '.time-picker' ).on( 'changeTime', function( event ) {
 		var changed_object_id = jQuery( this ).attr( 'id' );
 		var newDate = jQuery( '#yikes-easy-mc-form-restriction-start-date' ).val();
 		var prevDate = jQuery( '#yikes-easy-mc-form-restriction-end-date' ).val();
@@ -540,9 +545,11 @@ function initialize_form_schedule_time_pickers() {
 *	@since 6.0.3.8
 */
 function yikes_check_valid_date( new_date, previous_date, changed_object_id ) {
+
 	var start_date = jQuery( '#yikes-easy-mc-form-restriction-start-date' ).val();
-	var end_date = jQuery( '#yikes-easy-mc-form-restriction-end-date' ).val();
 	var start_time = yikes_12_to_24_hour_time_conversion( jQuery( '#yikes-easy-mc-form-restriction-start-time' ).val() );
+
+	var end_date = jQuery( '#yikes-easy-mc-form-restriction-end-date' ).val();
 	var end_time = yikes_12_to_24_hour_time_conversion( jQuery( '#yikes-easy-mc-form-restriction-end-time' ).val() );
 
 	var start_date_time = new Date( start_date + ' ' + start_time );
@@ -558,17 +565,22 @@ function yikes_check_valid_date( new_date, previous_date, changed_object_id ) {
 			jQuery( '#' + changed_object_id ).val( previous_date );
 		}
 		/* if error is present, abort */
-		if( jQuery( '.date-restirction-section' ).find( 'p.description.error' ).length ) {
+		if( jQuery( '.date-restriction-section' ).find( 'p.description.error' ).length ) {
 			return;
 		}
 		/* display an error message */
-		jQuery( '.date-restirction-section' ).first().find( 'p.description' ).after( '<p class="description error">' + window.yikes_mailchimp_edit_form.start_date_exceeds_end_date_error + '</p>' );
+		jQuery( '.date-restriction-section' ).first().find( 'p.description' ).after( '<p class="description error">' + window.yikes_mailchimp_edit_form.start_date_exceeds_end_date_error + '</p>' );
 	} else {
-		jQuery( '.date-restirction-section' ).find( 'p.description.error' ).remove();
+		jQuery( '.date-restriction-section' ).find( 'p.description.error' ).remove();
 	}
 }
 
 function yikes_12_to_24_hour_time_conversion( time ) {
+
+	if ( ! time ) {
+		return '';
+	}
+
     var hours = Number(time.match(/^(\d+)/)[1]);
     var minutes = Number(time.match(/:(\d+)/)[1]);
     var AMPM = time.match(/\s(.*)$/)[1];

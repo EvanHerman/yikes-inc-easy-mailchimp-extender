@@ -180,14 +180,14 @@ function process_mailchimp_shortcode( $atts ) {
 
 		// the the current date is less than the form scheduled start date
 		if( $current_date < $form_schedule_start ) {
-			echo apply_filters( 'yikes-mailchimp-frontend-content', $form_pending_message );
+			echo apply_filters( 'yikes-mailchimp-frontend-content', $form_pending_message, $form_id, $form_schedule_start );
 			return;
 			// abort
 		}
 
 		// The current date is past or equal to the end date, aka form has now expired
 		if( $current_date >= $form_schedule_end ) {
-			echo apply_filters( 'yikes-mailchimp-frontend-content', $form_expired_message );
+			echo apply_filters( 'yikes-mailchimp-frontend-content', $form_expired_message, $form_id, $form_schedule_end );
 			return;
 			// abort
 		}
@@ -576,18 +576,6 @@ function process_mailchimp_shortcode( $atts ) {
 								$default_value = apply_filters( 'yikes-mailchimp-' . $field['merge'] . '-default-value', $default_value, $field, $form_id );
 									?>
 
-									<script type="text/javascript">
-										function properlyFormatURLField( e ) {
-											var url_value = jQuery( e ).val();
-
-											if ( url_value.indexOf( "http://" ) === -1 && url_value.indexOf( "https://" ) === -1 ) {
-
-												jQuery( e ).val( 'http://' + url_value );
-
-											}
-										}
-									</script>
-
 									<label for="<?php echo esc_attr( $field_id_string ); ?>" <?php echo implode( ' ' , $label_array ); ?>>
 
 										<!-- dictate label visibility -->
@@ -600,7 +588,7 @@ function process_mailchimp_shortcode( $atts ) {
 										<!-- Description Above -->
 										<?php if ( $show_description === true && $description_above === true ) { echo $description; } ?>
 
-										<input <?php echo implode( ' ' , $field_array ); ?> type="url" <?php if( $field['type'] == 'url' ) { ?> title="<?php _e( 'Please enter a valid URL to the website.' , 'yikes-inc-easy-mailchimp-extender' ); ?>" <?php } else { ?> title="<?php _e( 'Please enter a valid URL to the image.' , 'yikes-inc-easy-mailchimp-extender' ); ?>" <?php } ?> value="<?php if( isset( $_POST[$field['merge']] ) && $form_submitted != 1 ) { echo esc_attr( $_POST[$field['merge']] ); } else { echo esc_attr( $default_value ); } ?>" onblur="properlyFormatURLField(this);return false;">
+										<input <?php echo implode( ' ' , $field_array ); ?> type="url" <?php if( $field['type'] == 'url' ) { ?> title="<?php _e( 'Please enter a valid URL to the website.' , 'yikes-inc-easy-mailchimp-extender' ); ?>" <?php } else { ?> title="<?php _e( 'Please enter a valid URL to the image.' , 'yikes-inc-easy-mailchimp-extender' ); ?>" <?php } ?> value="<?php if( isset( $_POST[$field['merge']] ) && $form_submitted != 1 ) { echo esc_attr( $_POST[$field['merge']] ); } else { echo esc_attr( $default_value ); } ?>" >
 
 										<!-- Description Below -->
 										<?php if ( $show_description === true && $description_above === false ) { echo $description; } ?>
@@ -615,16 +603,6 @@ function process_mailchimp_shortcode( $atts ) {
 								$default_value = apply_filters( 'yikes-mailchimp-' . $field['merge'] . '-default-value', $default_value, $field, $form_id );
 								$phone_format = $field['phone_format'];
 								?>
-									<script type="text/javascript">
-										/* Replace incorrect values and format it correctly for MailChimp API */
-										function formatUSPhoneNumber( e ) {
-											var phone_number = e.value;
-											var new_phone_number = phone_number.replace(/\(|\)/g, "").replace(/-/g, "").trim(); // replace all '-,' '(' and ')'
-											formatted_us_number = new_phone_number.substring( 0, 10 ); // strip all characters after 10th number (10 = length of US numbers 215-555-5555
-											formatted_us_number = formatted_us_number.replace(/(\d\d\d)(\d\d\d)(\d\d\d\d)/, "$1-$2-$3"); // split the string into the proper format
-											jQuery( e ).val( formatted_us_number );
-										}
-									</script>
 
 									<label for="<?php echo esc_attr( $field_id_string ) ?>" <?php echo implode( ' ' , $label_array ); ?>>
 
@@ -638,7 +616,7 @@ function process_mailchimp_shortcode( $atts ) {
 										<!-- Description Above -->
 										<?php if ( $show_description === true && $description_above === true ) { echo $description; } ?>
 
-										<input <?php echo implode( ' ' , $field_array ); ?> type="text" <?php if( $phone_format != 'US' ) { ?>  title="<?php _e( 'International Phone Number' , 'yikes-inc-easy-mailchimp-extender' ); ?>" pattern="<?php echo apply_filters( 'yikes-mailchimp-international-phone-pattern' , '[0-9,-,+]{1,}' ); ?>" <?php } else { ?> title="<?php _e( 'US Phone Number (###) ### - ####' , 'yikes-inc-easy-mailchimp-extender' ); ?>" pattern="<?php echo apply_filters( 'yikes-mailchimp-us-phone-pattern' , '^(\([0-9]{3}\)|[0-9]{3}-)[0-9]{3}-[0-9]{4}$' ); ?>" onblur="formatUSPhoneNumber(this);"<?php } ?> value="<?php if( isset( $_POST[$field['merge']] ) && $form_submitted != 1 ) { echo esc_attr( $_POST[$field['merge']] ); } else { echo esc_attr( $default_value ); } ?>">
+										<input <?php echo implode( ' ' , $field_array ); ?> type="text" <?php if( $phone_format != 'US' ) { ?> data-phone-type="international" title="<?php _e( 'International Phone Number' , 'yikes-inc-easy-mailchimp-extender' ); ?>" pattern="<?php echo apply_filters( 'yikes-mailchimp-international-phone-pattern' , '[0-9,-,+]{1,}' ); ?>" <?php } else { ?> title="<?php _e( 'US Phone Number (###) ### - ####' , 'yikes-inc-easy-mailchimp-extender' ); ?>" data-phone-type="us" pattern="<?php echo apply_filters( 'yikes-mailchimp-us-phone-pattern' , '^(\([0-9]{3}\)|[0-9]{3}-)[0-9]{3}-[0-9]{4}$' ); ?>" <?php } ?> value="<?php if( isset( $_POST[$field['merge']] ) && $form_submitted != 1 ) { echo esc_attr( $_POST[$field['merge']] ); } else { echo esc_attr( $default_value ); } ?>">
 
 										<!-- Description Below -->
 										<?php if ( $show_description === true && $description_above === false ) { echo $description; } ?>

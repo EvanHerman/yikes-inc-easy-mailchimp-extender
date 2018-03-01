@@ -350,16 +350,21 @@ class Yikes_Inc_Easy_Mailchimp_Forms_Admin {
 		*	is used to clear the data out of our php file.
 		*/
 		public function yikes_easy_mailchimp_clear_error_log() {
+
+			// Get our error log class
+			$error_logging = new Yikes_Inc_Easy_Mailchimp_Error_Logging();
+
 			// file put contents $returned error + other data
-			if( file_exists( YIKES_MC_PATH . 'includes/error_log/yikes-easy-mailchimp-error-log.php' ) ) {
-				$clear_log = file_put_contents(
-					YIKES_MC_PATH . 'includes/error_log/yikes-easy-mailchimp-error-log.php',
-					''
-				);
-				if( $clear_log === false ) {
+			if ( file_exists( $error_logging->error_log_file_path ) ) {
+
+				$clear_log = file_put_contents( $error_logging->error_log_file_path, '' );
+
+				if ( $clear_log === false ) {
+
 					// redirect the user to the manage forms page, display error message
 					wp_redirect( esc_url_raw( admin_url( 'admin.php?page=yikes-inc-easy-mailchimp-settings&section=debug-settings&error-log-cleared=false' ) ) );
 				} else {
+
 					// redirect the user to the manage forms page, display confirmation
 					wp_redirect( esc_url_raw( admin_url( 'admin.php?page=yikes-inc-easy-mailchimp-settings&section=debug-settings&error-log-cleared=true' ) ) );
 				}
@@ -925,21 +930,6 @@ class Yikes_Inc_Easy_Mailchimp_Forms_Admin {
 		*/
 		do_action( 'yikes-mailchimp-menu' );
 
-
-		/* Easy MailChimp Account Overview */
-		if ( get_option( 'yikes-mc-api-validation' ) == 'valid_api_key' ) {
-			/* Easy MailChimp Settings */
-			add_submenu_page(
-				'yikes-inc-easy-mailchimp',
-				__( 'Account', 'yikes-inc-easy-mailchimp-extender' ),
-				__( 'Account', 'yikes-inc-easy-mailchimp-extender' ),
-				apply_filters( 'yikes-mailchimp-user-role-access', 'manage_options' ),
-				'yikes-inc-easy-mailchimp-account-overview',
-				array( $this, 'generateAccountDetailsPage' )
-			);
-		}
-
-
 		/* Easy MailChimp Settings */
 		add_submenu_page(
 			'yikes-inc-easy-mailchimp',
@@ -1039,15 +1029,6 @@ class Yikes_Inc_Easy_Mailchimp_Forms_Admin {
 	*/
 	function generateManageListsPage() {
 		require_once YIKES_MC_PATH . 'admin/partials/menu/manage-lists.php'; // include our lists page
-	}
-
-	/**
-	* Generate Us Easy MailChimp Account Details Page
-	*
-	* @since    1.0.0
-	*/
-	function generateAccountDetailsPage() {
-		require_once YIKES_MC_PATH . 'admin/partials/menu/account-details.php'; // include our account details page
 	}
 
 	/**
