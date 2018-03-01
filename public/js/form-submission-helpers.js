@@ -38,7 +38,7 @@ jQuery( document ).ready( function() {
 
 	jQuery( '.yikes-easy-mc-url' ).blur( yikes_mc_format_url_field );
 
-	jQuery( '.yikes-easy-mc-phone[data-phone-type="us"]' ).blur( yikes_mc_form_us_phone_number_field );
+	jQuery( '.yikes-easy-mc-phone[data-phone-type="us"]' ).blur( yikes_mc_format_us_phone_number_field );
 });
 
 /**
@@ -125,7 +125,7 @@ function yikes_mc_format_url_field() {
 	}
 }
 
-function yikes_mc_form_us_phone_number_field() {
+function yikes_mc_format_us_phone_number_field() {
 	var phone_number     = this.value;
 	var new_phone_number = phone_number.replace(/\(|\)/g, "").replace(/-/g, "").trim(); // replace all '-,' '(' and ')'
 	formatted_us_number  = new_phone_number.substring( 0, 10 ); // strip all characters after 10th number (10 = length of US numbers 215-555-5555
