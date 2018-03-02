@@ -438,6 +438,8 @@ ul.support-option-list {
  .error-message-container label[for="yikes-easy-mc-general-error-message"],
  .error-message-container label[for="yikes-easy-mc-user-subscribed-message"],
  .error-message-container label[for="yikes-easy-mc-user-subscribed-update-link"],
+ .error-message-container label[for="yikes-easy-mc-update-email-successful"],
+ .error-message-container label[for="yikes-easy-mc-update-email-failure"],
  .error-message-container label[for="yikes-easy-mc-user-email-subject"],
  .error-message-container label[for="yikes-easy-mc-user-email-body"] {
 	padding: .5em 1em;

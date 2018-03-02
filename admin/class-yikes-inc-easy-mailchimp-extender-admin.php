@@ -2724,6 +2724,8 @@ class Yikes_Inc_Easy_Mailchimp_Forms_Admin {
 				'update-link'			=> trim( $_POST['yikes-easy-mc-user-update-link'] ) ? trim( stripslashes( $_POST['yikes-easy-mc-user-update-link'] ) ) : '',
 				'email-subject'			=> trim( $_POST['yikes-easy-mc-user-email-subject'] ) ? trim( stripslashes( $_POST['yikes-easy-mc-user-email-subject'] ) ) : '',
 				'email-body'			=> trim( $_POST['yikes-easy-mc-user-email-body'] ) ? trim( stripslashes( $_POST['yikes-easy-mc-user-email-body'] ) ) : '',
+				'update-email-success'  => trim( $_POST['yikes-easy-mc-update-email-successful'] ) ? trim( stripslashes( $_POST['yikes-easy-mc-update-email-successful'] ) ) : '',
+				'update-email-failure'  => trim( $_POST['yikes-easy-mc-update-email-failure'] ) ? trim( stripslashes( $_POST['yikes-easy-mc-update-email-failure'] ) ) : '',
 			);
 
 			// Setup the new form settings array

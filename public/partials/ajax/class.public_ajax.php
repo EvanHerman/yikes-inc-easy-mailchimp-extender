@@ -96,11 +96,21 @@ class YIKES_Inc_Easy_MailChimp_Public_Ajax {
 			$form_data = $interface->get_form( $form_id );
 			if ( ! empty( $form_data ) ) {
 				if ( isset( $form_data['error_messages'] ) ) {
+
 					if ( isset( $form_data['error_messages']['email-body'] ) && ! empty( $form_data['error_messages']['email-body'] ) ) {
 						$email_body = apply_filters( 'the_content', $form_data['error_messages']['email-body'] );
 					}
+
 					if ( isset( $form_data['error_messages']['email-subject'] ) && ! empty( $form_data['error_messages']['email-subject'] ) ) {
 						$email_subject = $form_data['error_messages']['email-subject'];
+					}
+
+					if ( isset( $form_data['error_messages']['update-email-success'] ) && ! empty( $form_data['error_messages']['update-email-success'] ) ) {
+						$update_email_success_message = $form_data['error_messages']['update-email-success'];
+					}
+
+					if ( isset( $form_data['error_messages']['update-email-failure'] ) && ! empty( $form_data['error_messages']['update-email-failure'] ) ) {
+						$update_email_failed_message = $form_data['error_messages']['update-email-failure'];
 					}
 				}
 			}
@@ -138,6 +148,14 @@ class YIKES_Inc_Easy_MailChimp_Public_Ajax {
 			$email_body = Yikes_Inc_Easy_Mailchimp_Forms_Admin::generate_default_email_body();
 		}
 
+		if ( ! isset( $update_email_success_message ) ) {
+			$update_email_success_message = sprintf( __( '%s Update email successfully sent. Please check your inbox for the message.', 'yikes-inc-easy-mailchimp-extender' ), '&#10004;' );
+		}
+
+		if ( ! isset( $update_email_failed_message ) ) {
+			$update_email_failed_message = sprintf( __( '%s Email failed to send. Please contact the site administrator.', 'yikes-inc-easy-mailchimp-extender' ), '&#10005;' );
+		}
+
 		// Run our replacement strings for the email body
 
 		// We let the user use [link] text [/link] for the update profile link
@@ -153,15 +171,21 @@ class YIKES_Inc_Easy_MailChimp_Public_Ajax {
 
 		/* Confirm that the email was sent */
 		if ( wp_mail( $user_email, apply_filters( 'yikes-mailchimp-update-email-subject', $email_subject ), apply_filters( 'yikes-mailchimp-update-email-content', $email_body, $update_link_href ), $headers ) ) {
+
+			$update_email_success_message = apply_filters( 'yikes-mailchimp-update-email-success-message', $update_email_success_message, $form_id, $user_email );
+
 			wp_send_json_success(
 				array(
-					'response_text' => '<div class="yikes-easy-mc-success-message">' . sprintf( __( '%s Update email successfully sent. Please check your inbox for the message.', 'yikes-inc-easy-mailchimp-extender' ), '&#10004;' ) . '</div>',
+					'response_text' => '<div class="yikes-easy-mc-success-message">' . $update_email_success_message . '</div>',
 				)
 			);
 		} else {
+
+			$update_email_failed_message = apply_filters( 'yikes-mailchimp-update-email-failed-message', $update_email_failed_message, $form_id, $user_email );
+
 			wp_send_json_error(
 				array(
-					'response_text' => '<div class="yikes-easy-mc-error-message">' . sprintf( __( '%s Email failed to send. Please contact the site administrator.', 'yikes-inc-easy-mailchimp-extender' ), '&#10005;' ) . '</div>',
+					'response_text' => '<div class="yikes-easy-mc-error-message">' . $update_email_failed_message . '</div>',
 				)
 			);
 		}

@@ -549,6 +549,8 @@
 																'email-exists-error' => __( "The email you entered is already a subscriber to this list." , 'yikes-inc-easy-mailchimp-extender' ),
 																'update-link' => __( "You're already subscribed. To update your MailChimp profile, please [link]click to send yourself an update link[/link].", 'yikes-inc-easy-mailchimp-extender' ),
 																'email-subject' => __( 'MailChimp Profile Update', 'yikes-inc-easy-mailchimp-extender' ),
+																'update-email-success' => sprintf( __( '%s Update email successfully sent. Please check your inbox for the message.', 'yikes-inc-easy-mailchimp-extender' ), '&#10004;' ),
+																'update-email-failure' => sprintf( __( '%s Email failed to send. Please contact the site administrator.', 'yikes-inc-easy-mailchimp-extender' ), '&#10005;' ),
 
 															);
 															$global_error_messages = get_option( 'yikes-easy-mc-global-error-messages' , $error_message_array );
@@ -567,14 +569,27 @@
 														<label for="yikes-easy-mc-user-resubscribed-success-message"><strong><?php _e( 'Success: Re-subscriber' , 'yikes-inc-easy-mailchimp-extender' ); ?></strong>
 															<input type="text" class="widefat" name="yikes-easy-mc-user-resubscribed-success-message" id="yikes-easy-mc-user-resubscribed-success-message" value="<?php echo isset( $error_messages['success-resubscribed'] ) ? stripslashes( esc_html( $error_messages['success-resubscribed'] ) ) : ''; ?>" placeholder="<?php echo $global_error_messages['success-resubscribed']; ?>">
 														</label>
+
 														<!-- Click the link to update user profile etc. etc. -->
 														<label for="yikes-easy-mc-user-subscribed-update-link"><strong><?php _e( 'Success: Re-subscriber with link to email profile update message' , 'yikes-inc-easy-mailchimp-extender' ); ?></strong>
 															<input type="text" class="widefat" name="yikes-easy-mc-user-update-link" id="yikes-easy-mc-user-update-link" value="<?php echo isset( $error_messages['update-link'] ) ? stripslashes( esc_html( $error_messages['update-link'] ) ) : ''; ?>" placeholder="<?php echo $global_error_messages['update-link']; ?>">
 														</label>
+
 														<!-- Email Address is already subscribed -->
 														<label for="yikes-easy-mc-user-subscribed-message"><strong><?php _e( 'Error: Re-subscribers not permitted' , 'yikes-inc-easy-mailchimp-extender' ); ?></strong>
 															<input type="text" class="widefat" name="yikes-easy-mc-user-subscribed-message" id="yikes-easy-mc-user-subscribed-message" value="<?php echo isset( $error_messages['already-subscribed'] ) ? stripslashes( esc_html( $error_messages['already-subscribed'] ) ) : ''; ?>" placeholder="<?php echo $global_error_messages['email-exists-error']; ?>">
 														</label>
+
+														<!-- Update email successfully sent -->
+														<label for="yikes-easy-mc-update-email-successful"><strong><?php _e( 'Success: Update email successfully sent' , 'yikes-inc-easy-mailchimp-extender' ); ?></strong>
+															<input type="text" class="widefat" name="yikes-easy-mc-update-email-successful" id="yikes-easy-mc-update-email-successful" value="<?php echo isset( $error_messages['update-email-success'] ) ? stripslashes( esc_attr( $error_messages['update-email-success'] ) ) : ''; ?>" placeholder="<?php echo $global_error_messages['update-email-success']; ?>" >
+														</label>
+
+														<!-- Update email failed to send -->
+														<label for="yikes-easy-mc-update-email-failure"><strong><?php _e( 'Error: Update email failed to send' , 'yikes-inc-easy-mailchimp-extender' ); ?></strong>
+															<input type="text" class="widefat" name="yikes-easy-mc-update-email-failure" id="yikes-easy-mc-update-email-failure" value="<?php echo isset( $error_messages['update-email-failure'] ) ? stripslashes( esc_attr( $error_messages['update-email-failure'] ) ) : ''; ?>" placeholder="<?php echo $global_error_messages['update-email-failure']; ?>" >
+														</label>
+
 														<!-- General Error Message -->
 														<label for="yikes-easy-mc-general-error-message"><strong><?php _e( 'Error: General' , 'yikes-inc-easy-mailchimp-extender' ); ?></strong>
 															<input type="text" class="widefat" name="yikes-easy-mc-general-error-message" id="yikes-easy-mc-general-error-message" value="<?php echo isset( $error_messages['general-error'] ) ? stripslashes( esc_html( $error_messages['general-error'] ) ) : ''; ?>" placeholder="<?php echo $global_error_messages['general-error']; ?>" >
@@ -617,6 +632,8 @@
 															<li class="yikes-easy-mc-success-single-optin-message-help"><strong><?php _e( 'Success Message: Single opt-in' , 'yikes-inc-easy-mailchimp-extender' ); ?></strong> <?php _e( 'The message displayed after a single opt-in form has been submitted.' , 'yikes-inc-easy-mailchimp-extender' ); ?></li>
 															<li class="yikes-easy-mc-user-resubscribed-success-message-help"><strong><?php _e( 'Success: Re-subscriber' , 'yikes-inc-easy-mailchimp-extender' ); ?></strong> <?php _e( 'The message displayed after a subscriber submits a form for a list they are already subscribed to.' , 'yikes-inc-easy-mailchimp-extender' ); ?></li>
 															<li class="yikes-easy-mc-user-subscribed-update-link-help"><strong><?php _e( 'Success: Re-subscriber with link to email profile update message' , 'yikes-inc-easy-mailchimp-extender' ); ?></strong> <?php _e( 'The message displayed after a subscriber submits a form for a list they are already subscribed to. Wrap the text you want to be the link in <code>[link][/link]</code> tags.' , 'yikes-inc-easy-mailchimp-extender' ); ?></li>
+															<li class="yikes-easy-mc-update-email-successful-help"><strong><?php _e( 'Success: Update email successfully sent', 'yikes-inc-easy-mailchimp-extender' ); ?></strong> <?php _e( 'The message displayed after an update profile email is successfully sent.' , 'yikes-inc-easy-mailchimp-extender' ); ?></li>
+															<li class="yikes-easy-mc-update-email-failure-help"><strong><?php _e( 'Error: Update email failed to send' , 'yikes-inc-easy-mailchimp-extender' ); ?></strong> <?php _e( 'The message displayed after an update profile email failed to send.' , 'yikes-inc-easy-mailchimp-extender' ); ?></li>
 															<li class="yikes-easy-mc-user-subscribed-message-help"><strong><?php _e( 'Error: Re-subscribers not permitted' , 'yikes-inc-easy-mailchimp-extender' ); ?></strong> <?php _e( 'The message displayed after a subscriber tries to join a list they are already subscribed to. You can display the user\'s email in the message  using an <code>[email]</code> tag.' , 'yikes-inc-easy-mailchimp-extender' ); ?></li>
 															<li class="yikes-easy-mc-general-error-message-help"><strong><?php _e( 'Error: General' , 'yikes-inc-easy-mailchimp-extender' ); ?></strong> <?php _e( 'The message displayed if a form error has occurred.' , 'yikes-inc-easy-mailchimp-extender' ); ?></li>
 														</ul>
