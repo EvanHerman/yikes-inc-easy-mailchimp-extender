@@ -16,7 +16,6 @@ class Yikes_Easy_MC_Registration_Checkbox_Class extends Yikes_Easy_MC_Checkbox_I
 	protected $type = 'registration_form';
 	
 	public function __construct() {
-		parent::__construct();
 		add_action( 'register_form', array( $this, 'output_checkbox' ), 20 );
 		add_action( 'user_register', array( $this, 'subscribe_from_registration' ), 90, 1 );
 		// alter the error message, if there was an error with the users email address

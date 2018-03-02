@@ -11,14 +11,11 @@
 
 		// declare our integration type
 		protected $type = 'integration';
-		private $text_domain = 'yikes-inc-easy-mailchimp-extender';
 
-		public function __construct() {
-
-		}
+		// public function __construct() {}
 
 		/**
-		 * Determine whether the current user is already subscribed to a given list.
+		 * Determine whether the current user is subscribed to all of the lists.
 		 *
 		 * @author Jeremy Pry
 		 *
@@ -52,7 +49,19 @@
 				return false;
 			}
 
-			return $this->is_user_subscribed( $email, $checkbox_options[ $type ]['associated-list'], $type );
+			$list_ids = $checkbox_options[ $type ]['associated-list'];
+			$list_ids = is_array( $list_ids ) ? $list_ids : array( $list_ids );
+
+			// Go through each list...
+			foreach ( $list_ids as $list_id ) {
+
+				if ( ! $this->is_user_subscribed( $email, $list_id, $type ) ) {
+					return false;
+				}
+
+			}
+
+			return true;
 		}
 
 		/**
@@ -91,7 +100,7 @@
 			}
 
 			// Look at the status from the API
-			$subscribed = 'subscribed' == $response['status'] ? true : false;
+			$subscribed = 'subscribed' === $response['status'];
 
 			return apply_filters( 'yikes-mailchimp-integration-is-user-subscribed', $subscribed, $type );
 		}
@@ -102,11 +111,18 @@
 		*	@since 6.0.0
 		*/
 		public function yikes_get_checkbox() {
-			// enqueue our checkbox styles whenever the checkbox is displayed
+
+			// Enqueue our checkbox styles whenever the checkbox is displayed
 			wp_enqueue_style( 'yikes-easy-mailchimp-checkbox-integration-styles', plugin_dir_url( __FILE__ ) . '../css/yikes-inc-easy-mailchimp-checkbox-integration.min.css' );
-			// store our options
+
+			// Get our options
 			$checkbox_options = get_option( 'optin-checkbox-init' , '' );
-			if( isset( $checkbox_options[$this->type]['associated-list'] ) && $checkbox_options[$this->type]['associated-list'] != '-' ) {
+			$has_list_ids     = isset( $checkbox_options[$this->type]['associated-list'] ) && $checkbox_options[$this->type]['associated-list'] != '-';
+			$has_list_ids     = $has_list_ids && ! in_array( '-', $checkbox_options[$this->type]['associated-list'] );
+
+			// We need to make sure we have a legit list ID right here. I don't think it will ever equal '-'
+
+			if ( $has_list_ids ) {
 				$checked = ( $checkbox_options[$this->type]['precheck'] == 'true' ) ? 'checked' : '';
 				// before checkbox HTML (comment, ...)
 				$before = '<!-- Easy Forms for MailChimp - https://www.yikesplugins.com/ -->';
@@ -151,8 +167,11 @@
 			}
 
 			// Build our data
-			$list_id   = $options[ $type ]['associated-list'];
-			$interests = isset( $options[ $type ]['interest-groups'] ) ? $options[ $type ]['interest-groups'] : array();
+			$list_ids  = $options[ $type ]['associated-list'];
+			$list_ids  = is_array( $options[ $type ]['associated-list'] ) ? $options[ $type ]['associated-list'] : array( $options[ $type ]['associated-list'] );
+
+			// $interests = 
+
 			$id        = md5( $email );
 			$data      = array(
 				'email_address'    => sanitize_email( $email ),
@@ -162,42 +181,48 @@
 				'ip_signup'        => $user_ip,
 			);
 
-			// Only re-format and add interest groups if not empty
-			if ( ! empty( $interests ) ) {
+			foreach ( $list_ids as $list_id ) {
 
-				$groups = array();
+				$interests = isset( $options[ $type ]['interest-groups'] ) ? $options[ $type ]['interest-groups'] : array();
+				$interests = isset( $interests[$list_id] ) ? $interests[$list_id] : $interests;
 
-				// Need to reformat interest groups array as $interest_group_ID => true
-				foreach( $interests as $interest ) {
-					if ( is_array( $interest ) ) {
-						foreach( $interest as $group_id ) {
-							$groups[ $group_id ] = true;
+				// Only re-format and add interest groups if not empty
+				if ( ! empty( $interests ) ) {
+
+					$groups = array();
+
+					// Need to reformat interest groups array as $interest_group_ID => true
+					foreach( $interests as $interest ) {
+						if ( is_array( $interest ) ) {
+							foreach( $interest as $group_id ) {
+								$groups[ $group_id ] = true;
+							}
 						}
 					}
+
+					$data['interests'] = $groups;
 				}
 
-				$data['interests'] = $groups;
-			}
+				/**
+				*	'yikes-mailchimp-checkbox-integration-body'
+				*
+				*	Filter the request body for a MailChimp subscription via the checkbox integrations
+				*
+				*	@param array  | $data | The request body
+				*	@param string | $type | The integration type, e.g. 'contact_form_7'
+				*/
+				$data = apply_filters( 'yikes-mailchimp-checkbox-integration-body', $data, $type );
 
-			/**
-			*	'yikes-mailchimp-checkbox-integration-body'
-			*
-			*	Filter the request body for a MailChimp subscription via the checkbox integrations
-			*
-			*	@param array  | $data | The request body
-			*	@param string | $type | The integration type, e.g. 'contact_form_7'
-			*/
-			$data = apply_filters( 'yikes-mailchimp-checkbox-integration-body', $data, $type );
-
-			// Subscribe the user to the list via the API.
-			$response = yikes_get_mc_api_manager()->get_list_handler()->member_subscribe( $list_id, $id, $data );
-			if ( is_wp_error( $response ) ) {
-				$error_logging = new Yikes_Inc_Easy_Mailchimp_Error_Logging();
-				$error_logging->maybe_write_to_log(
-					$response->get_error_code(),
-					__( "Checkbox Integration Subscribe User", 'yikes-inc-easy-mailchimp-extender' ),
-					"Checkbox Integrations"
-				);
+				// Subscribe the user to the list via the API.
+				$response = yikes_get_mc_api_manager()->get_list_handler()->member_subscribe( $list_id, $id, $data );
+				if ( is_wp_error( $response ) ) {
+					$error_logging = new Yikes_Inc_Easy_Mailchimp_Error_Logging();
+					$error_logging->maybe_write_to_log(
+						$response->get_error_code(),
+						__( "Checkbox Integration Subscribe User", 'yikes-inc-easy-mailchimp-extender' ),
+						"Checkbox Integrations"
+					);
+				}
 			}
 
 			return;
@@ -240,7 +265,6 @@
 		*	@since 6.0.0
 		*/
 		public function was_checkbox_checked( $type ) {
-			// was sign-up checkbox checked - return the value
 			return ( isset( $_POST[ 'yikes_mailchimp_checkbox_'.$type ] ) && $_POST[ 'yikes_mailchimp_checkbox_'.$type ] == 1 );
 		}
 

@@ -1030,6 +1030,19 @@ ul.support-option-list {
 	width: 250px;
 }
 
+.yikes-mailchimp-checkbox-integration-list {
+	display: block;
+}
+
+.integration-checkbox-interest-groups p, .integration-checkbox-interest-groups section {
+    padding-left: 25px;
+}
+
+.yikes-mailchimp-checkbox-integration-list {
+    margin-top: 5px;
+    padding-left: 10px;
+}
+
 /*****************************/
 /* Manage Forms Page */
 /***************************/

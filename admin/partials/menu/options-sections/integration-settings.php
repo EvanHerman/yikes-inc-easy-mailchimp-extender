@@ -116,16 +116,19 @@
 
 	<ul>
 		<?php
-			if( !empty( $active_plugins ) ) {
+			if ( ! empty( $active_plugins ) ) {
 
 				foreach( $active_plugins as $class => $value ) {
-					// echo  $class;
-					$checked = isset( $options[$class]['value'] ) ? 'checked="checked"' : '';
-					$hidden =  !isset( $options[$class]['value'] ) ? 'yikes-easy-mc-hidden' : '';
-					$checkbox_label = isset( $options[$class]['label'] ) ? esc_attr__( $options[$class]['label'] ) : '';
-					$precheck_checkbox = isset( $options[$class]['precheck'] ) ? $options[$class]['precheck'] : '';
-					$selected_list = isset( $options[$class]['associated-list'] ) ? $options[$class]['associated-list'] : '-';
+
+					$checked              = isset( $options[$class]['value'] ) ? 'checked="checked"' : '';
+					$hidden               = ! isset( $options[$class]['value'] ) ? 'yikes-easy-mc-hidden' : '';
+					$checkbox_label       = isset( $options[$class]['label'] ) ? esc_attr( $options[$class]['label'] ) : '';
+					$precheck_checkbox    = isset( $options[$class]['precheck'] ) ? $options[$class]['precheck'] : '';
+					$selected_list        = isset( $options[$class]['associated-list'] ) ? $options[$class]['associated-list'] : '-';
 					$list_interest_groups = isset( $options[$class]['interest-groups'] ) ? $options[$class]['interest-groups'] : false;
+
+					// Force the selected list to be an array (@since 6.4)
+					$selected_list        = is_array( $selected_list ) ? $selected_list : array( $selected_list );
 					?>
 						<li>
 							<label>
@@ -138,52 +141,52 @@
 								<p style="margin-top:0;"><small class="contact-form-7-notice"><?php printf( __( 'Use %s in Contact Form 7 to display the checkbox.', 'yikes-inc-easy-mailchimp-extender' ), '<code>[yikes_mailchimp_checkbox]</code>' ); ?></small></p>
 							<?php } ?>
 							<p style="margin-top:0;padding-top:0;margin-bottom:0;padding-bottom:0;">
-								<!-- checkbox associated list -->
-								<label><?php _e( 'Associated List' , 'yikes-inc-easy-mailchimp-extender' ); ?>
+
+								<!-- Associated Lists -->
+								<div class="checkbox-lists"><strong><?php _e( 'Associated Lists' , 'yikes-inc-easy-mailchimp-extender' ); ?></strong>
 									<?php
 										if ( count( $list_data ) > 0 ) {
 											?>
-											<select class="optin-checkbox-init[<?php echo $class; ?>][associated-list] checkbox-settings-list-dropdown"
-											        data-attr-integration="<?php echo $class; ?>"
-											        name="optin-checkbox-init[<?php echo $class; ?>][associated-list]"
-											        onchange="checkForInterestGroups( jQuery( this ), jQuery( this ).find( 'option:selected' ).val(), jQuery( this ).attr( 'data-attr-integration' ) );return false;">
-												<option value="-" <?php selected( $selected_list , '-' ); ?>><?php _e( 'Select a List' , 'yikes-inc-easy-mailchimp-extender' ); ?></option>
 												<?php foreach( $list_data as $list ) { ?>
-													<option value="<?php echo $list['id']; ?>" <?php selected( $selected_list , $list['id'] ); ?>><?php echo $list['name']; ?></option>
+
+													<?php 
+														$list_interest_groups = isset( $list_interest_groups[ $list['id'] ] ) ? $list_interest_groups[ $list['id'] ] : $list_interest_groups;
+													?>
+
+													<label class="yikes-mailchimp-checkbox-integration-list" for="list-<?php echo $class ?>-<?php echo $list['id']; ?>">
+														<input type="checkbox" class="checkbox-settings-list-item" data-integration="<?php echo $class; ?>" 
+												        	name="optin-checkbox-init[<?php echo $class; ?>][associated-list][]"
+												        	value="<?php echo $list['id']; ?>" <?php echo in_array( $list['id'], $selected_list ) ? 'checked="checked"' : ''; ?> 
+												        	id="list-<?php echo $class ?>-<?php echo $list['id']; ?>">
+														<?php echo $list['name']; ?>
+													</label>
+
+													<!-- If interest groups have been selected already, load them here -->
+													<?php
+														if ( in_array( $list['id'], $selected_list ) && $list_interest_groups ) {
+															YIKES_Inc_Easy_MailChimp_Process_Ajax::check_list_for_interest_groups( $list['id'], $class, true );
+														}
+													?>
+
 												<?php } ?>
-											</select>
 											<?php
 										} else {
 											echo '<p class="description no-lists-setup-notice"><strong>' . __( 'You have not setup any lists. You should head over to MailChimp and setup your first list.' , 'yikes-inc-easy-mailchimp-extender' ) . '</strong></p>';
 										}
 									?>
-								</label>
+								</div>
+
 								<!-- checkbox text label -->
-								<label><?php _e( 'Checkbox Label' , 'yikes-inc-easy-mailchimp-extender' ); ?>
+								<label><strong><?php _e( 'Checkbox Label' , 'yikes-inc-easy-mailchimp-extender' ); ?></strong>
 									<input type="text" class="optin-checkbox-init[<?php echo $class; ?>][label] optin-checkbox-label-input" name="optin-checkbox-init[<?php echo $class; ?>][label]" value="<?php echo $checkbox_label; ?>">
 								</label>
 								<!-- prechecked? -->
-								<label><?php _e( 'Precheck Checkbox' , 'yikes-inc-easy-mailchimp-extender' ); ?>
+								<label><strong><?php _e( 'Precheck Checkbox' , 'yikes-inc-easy-mailchimp-extender' ); ?></strong>
 									<select id="optin-checkbox-init[<?php echo $class; ?>][precheck]" name="optin-checkbox-init[<?php echo $class; ?>][precheck]" class="optin-checkbox-init[<?php echo $class; ?>][precheck] checkbox-settings-list-dropdown">
 										<option value="true" <?php selected( $precheck_checkbox , 'true' ); ?>><?php _e( 'Yes' , 'yikes-inc-easy-mailchimp-extender' ); ?></option>
 										<option value="false" <?php selected( $precheck_checkbox , 'false' ); ?>><?php _e( 'No' , 'yikes-inc-easy-mailchimp-extender' ); ?></option>
 									</select>
 								</label>
-
-								<!-- Interest Group -- precheck/pre-select -->
-								<div class="interest-groups-container">
-									<?php
-										if ( $selected_list != '-' && get_transient( $selected_list . '_interest_group' ) ) {
-											$interest_groupings = get_transient( $selected_list . '_interest_group' );
-											$integration_type = $class;
-											require( YIKES_MC_PATH . 'admin/partials/menu/options-sections/templates/integration-interest-groups.php' );
-										} else if( $selected_list != '-' && $list_interest_groups ) {
-											$list_id = $options[$class]['associated-list'];
-											$integration_type = $class;
-											YIKES_Inc_Easy_MailChimp_Process_Ajax::check_list_for_interest_groups( $list_id, $integration_type, true );
-										}
-									?>
-								</div>
 
 							</p>
 							<br />

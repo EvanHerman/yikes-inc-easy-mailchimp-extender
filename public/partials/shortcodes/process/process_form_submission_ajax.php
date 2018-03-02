@@ -182,7 +182,7 @@ if ( is_wp_error( $member_exists ) || $double_optin_resubscribe === true ) {
 		$submission_handler->handle_updating_existing_user();
 	}
 	
-	// If $send_update_email is false (we don't send the email) then simply continue (we allow them to update their profile via only an email)
+	// If $send_update_email is false (we don't send the email) then simply continue (we allow them to update their profile via the form using their email address)
 }
 
 /**
