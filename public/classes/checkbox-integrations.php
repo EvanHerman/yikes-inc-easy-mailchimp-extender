@@ -233,20 +233,23 @@
 		*	@since 6.0.0
 		*/
 		public function user_merge_vars( WP_User $user ) {
-			// start with user_login as name, since that's always known
+
+			// Start with user_login as name, since that's always known
 			$merge_vars = array(
 				'NAME' => $user->user_login,
 			);
-			if( '' !== $user->first_name ) {
+			
+			if ( ! empty( $user->first_name ) ) {
 				$merge_vars['NAME'] = $user->first_name;
 				$merge_vars['FNAME'] = $user->first_name;
 			}
-			if( '' !== $user->last_name ) {
+			if ( ! empty( $user->last_name ) ) {
 				$merge_vars['LNAME'] = $user->last_name;
 			}
-			if( '' !== $user->first_name && '' !== $user->last_name ) {
+			if ( ! empty( $user->first_name ) && ! empty( $user->last_name ) ) {
 				$merge_vars['NAME'] = sprintf( '%s %s', $user->first_name, $user->last_name );
 			}
+
 			/**
 			 * @filter `yikes-mailchimp-user-merge-vars`
 			 * @expects array
@@ -256,6 +259,7 @@
 			 * Use this to filter the merge vars of a user
 			 */
 			$merge_vars = (array) apply_filters( 'yikes-mailchimp-user-merge-vars', $merge_vars, $user );
+
 			return $merge_vars;
 		}
 

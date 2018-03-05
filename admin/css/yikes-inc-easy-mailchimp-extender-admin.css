@@ -1011,6 +1011,16 @@ ul.support-option-list {
 /*********************************/
 /* Checkbox Settings Page */
 /********************************/
+.integreation-checkbox-interest-groups-header {
+	display: inline;
+}
+.yikes-mailchimp-toggle-ig {
+	padding-left: 25px;
+}
+.integration-checkbox-interest-groups-hr {
+	margin-top: 10px; 
+	margin-bottom: 10px;
+}
 #checkbox-settings-form .dashicons-editor-help {
 	 font-size: 15px;
 	 line-height: 1.6;
