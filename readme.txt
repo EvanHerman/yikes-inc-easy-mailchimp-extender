@@ -4,7 +4,7 @@ Donate link: https://yikesplugins.com/?utm_source=wp_plugin_repo&utm_medium=dona
 Tags: MailChimp, MailChimp forms, MailChimp lists, opt-in forms, sign up form, MailChimp, email, forms, mailing lists, marketing, newsletter, sign up
 Requires at least: 4.0
 Tested up to: 4.9.4
-Stable tag: 6.3.30
+Stable tag: 6.4.0
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -171,8 +171,16 @@ Below you'll find a complete list of the hooks and filters available.
 
 == Changelog ==
 
-= 6.3.30 - February 15th, 2018 =
-* Added a new filter: `yikes_mailchimp_widget_shortcode_attributes`. You can use this filter to customize the shortcode arguments for your Easy Forms widget. For example, you can remove the recaptcha from a widget.
-* Added a new filter: `yikes-easy-mailchimp-email-address-field`. You can use this filter to customize the email merge field. For example, you can rename the field to something other than "Email Address."
-* Fixed the way the loading SVGs were added in JavaScript. You can now use the existing filters to safely remove them.
-* Removed the dependency from the Public CSS file.
+= 6.4.0 - March 5th, 2018 =
+* All calls to the MailChimp v2 API have been removed or updated to the v3 API where possible.
+* The Account page has been removed because it was relying on V2 API endpoints. Some account data from this page has been moved to the Manage Lists page.
+* The ChimpChatter dashboard widget has been removed.
+* The List Activity dashboard widget has a new filter, `yikes-mailchimp-dashboard-widgets-enabled`, that controls whether the widget is loaded or not.
+* The welcome screen you see on plugin activation/updates has been removed.
+* The error log now lives in a new place outside the plugin: wp-content/uploads/yikes-log/yikes-easy-mailchimp-error-log.php.
+* The changelog is now in its own file, changelog.txt, and has been removed from the readme. 
+* The inline form styles should now handle a theme's default padding/margin better. There are also a bunch of new filters for customizing a form's inline styles. 
+* Setting up a scheduled form should be a much smoother process now.
+* Some inline JavaScript for processing a form's shortcode has been moved into the form-submission-helpers.js file.
+* You can now customize the message displayed to the user after an update profile email is requested. You'll see a new custom message section has been added to the form builder.
+* Our checkbox integrations (e.g. Contact Form 7, WooCommerce) now allow you to choose multiple lists (and corresponding interest groups) for your subscribers to sign up to. 
