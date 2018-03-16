@@ -197,20 +197,6 @@ function process_mailchimp_shortcode( $atts ) {
 	// shortcode parameter takes precedence over option
 	$submit = ( ! empty( $atts['submit'] ) ) ? $atts['submit'] : $submit_button_text;
 
-	// used in yikes-mailchimp-redirect-url filter
-	global $post;
-	$page_data = $post;
-
-	$page_data = apply_filters( 'yikes-mailchimp-page-data', $page_data, $form_id );
-
-	if ( ! empty ( $page_data ) ) {
-
-		// Remove the post_password from this for security
-		if ( isset( $page_data->post_password ) ) {
-			unset( $page_data->post_password );
-		}
-	}
-
 	/*
 	*	Check for the constant to prevent styles from loading
 	*	to exclude styles from loading, add `define( 'YIKES_MAILCHIMP_EXCLUDE_STYLES', true );` to functions.php
@@ -366,6 +352,12 @@ function process_mailchimp_shortcode( $atts ) {
 
 		// Check for AJAX
 		if( ( ! empty( $atts['ajax'] ) && $atts['ajax'] == 1 ) || $form_data['submission_settings']['ajax'] == 1 ) {
+
+			// Used in `yikes-mailchimp-redirect-url` filter
+			// Note: as of 6.4, this is now just the post ID - not the entire post object.
+			global $post;
+			$page_data = $post->ID;
+
 			// enqueue our ajax script
 			$min = defined( 'SCRIPT_DEBUG' ) && SCRIPT_DEBUG ? '' : '.min';
 			wp_enqueue_script( 'yikes-easy-mc-ajax' , YIKES_MC_URL . "public/js/yikes-mc-ajax-forms{$min}.js" , array( 'jquery' ), YIKES_MC_VERSION, false );
