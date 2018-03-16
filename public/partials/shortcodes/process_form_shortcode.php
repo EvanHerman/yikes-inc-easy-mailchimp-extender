@@ -201,9 +201,14 @@ function process_mailchimp_shortcode( $atts ) {
 	global $post;
 	$page_data = $post;
 
-	// Remove the post_password from this for security
-	if( isset( $page_data->post_password ) ) {
-		unset( $page_data->post_password );
+	$page_data = apply_filters( 'yikes-mailchimp-page-data', $page_data, $form_id );
+
+	if ( ! empty ( $page_data ) ) {
+
+		// Remove the post_password from this for security
+		if ( isset( $page_data->post_password ) ) {
+			unset( $page_data->post_password );
+		}
 	}
 
 	/*
