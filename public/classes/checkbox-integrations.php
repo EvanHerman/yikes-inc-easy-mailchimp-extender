@@ -208,10 +208,23 @@
 				*
 				*	Filter the request body for a MailChimp subscription via the checkbox integrations
 				*
-				*	@param array  | $data | The request body
-				*	@param string | $type | The integration type, e.g. 'contact_form_7'
+				*	@param array  | $data    | The request body
+				*	@param string | $type    | The integration type, e.g. 'contact_form_7'
+				*	@param string | $list_id | The list ID
 				*/
-				$data = apply_filters( 'yikes-mailchimp-checkbox-integration-body', $data, $type );
+				$data = apply_filters( 'yikes-mailchimp-checkbox-integration-body', $data, $type, $list_id );
+
+				/**
+				*	'yikes-mailchimp-checkbox-integration-list-id'
+				*
+				*	Filter the list ID for a MailChimp subscription via the checkbox integrations
+				*
+				*	@param string | $list_id | The list ID
+				*	@param array  | $data    | The request body
+				*	@param string | $type    | The integration type, e.g. 'contact_form_7'
+				*/
+				$list_id = apply_filters( 'yikes-mailchimp-checkbox-integration-list-id', $list_id, $data, $type );
+
 
 				// Subscribe the user to the list via the API.
 				$response = yikes_get_mc_api_manager()->get_list_handler()->member_subscribe( $list_id, $id, $data );
