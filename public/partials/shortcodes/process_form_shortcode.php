@@ -87,33 +87,12 @@ function process_mailchimp_shortcode( $atts ) {
 				'success_callback' => $data_callback,
 				'expired_callback' => $expired_callback,
 			), $atts['form'] );
+
 			// enqueue Google recaptcha JS
-			wp_register_script( 'google-recaptcha-js' , 'https://www.google.com/recaptcha/api.js?hl=' . $recaptcha_shortcode_params['language'] . '&onload=renderReCaptchaCallback&render=explicit', array( 'jquery' ) , 'all' );
+			wp_register_script( 'google-recaptcha-js' , 'https://www.google.com/recaptcha/api.js?hl=' . $recaptcha_shortcode_params['language'] . '&onload=renderReCaptchaCallback&render=explicit', array( 'jquery', 'form-submission-helpers' ) , 'all' );
 			wp_enqueue_script( 'google-recaptcha-js' );
 			$recaptcha_site_key = get_option( 'yikes-mc-recaptcha-site-key' , '' );
-			$recaptcha_box = '<div class="g-recaptcha" data-sitekey="' . $recaptcha_site_key . '" data-theme="' . $recaptcha_shortcode_params['theme'] . '" data-type="' . $recaptcha_shortcode_params['type'] . '" data-size="' . $recaptcha_shortcode_params['size'] . '" data-callback="' . $recaptcha_shortcode_params['success_callback'] . '" data-expired-callback="' . $recaptcha_shortcode_params['expired_callback'] . '"></div>';
-			?>
-			<script type="text/javascript">
-				/* Script Callback to init. multiple recaptchas on a single page */
-				function renderReCaptchaCallback() {
-					var x = 1;
-					jQuery( '.g-recaptcha' ).each( function() {
-						jQuery( this ).attr( 'id', 'recaptcha-' + x );
-						recaptcha_paramaters = {
-							'sitekey' : '<?php echo $recaptcha_site_key; ?>',
-							'lang' : '<?php echo $lang; ?>',
-							'type' : '<?php echo $type; ?>',
-							'theme' : '<?php echo $theme; ?>',
-							'size' : '<?php echo $size; ?>',
-							'data_callback' : '<?php echo $data_callback; ?>',
-							'expired_callback' : '<?php echo $expired_callback; ?>'
-						};
-						grecaptcha.render( 'recaptcha-' + x, recaptcha_paramaters );
-						x++;
-					});
-				}
-			</script>
-			<?php
+			$recaptcha_box = '<div class="g-recaptcha" data-sitekey="' . esc_attr( $recaptcha_site_key ) . '" data-theme="' . esc_attr( $recaptcha_shortcode_params['theme'] ) . '" data-type="' . esc_attr( $recaptcha_shortcode_params['type'] ) . '" data-size="' . esc_attr( $recaptcha_shortcode_params['size'] ) . '" data-callback="' . esc_attr( $recaptcha_shortcode_params['success_callback'] ) . '" data-expired-callback="' . esc_attr( $recaptcha_shortcode_params['expired_callback'] ) . '"></div>';
 		}
 	}
 

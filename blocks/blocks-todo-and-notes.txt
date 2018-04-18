@@ -1,0 +1,83 @@
+/*
+TO DO:
+- Clean up the public styles
+- Redo the way inline styles work so we can easily re-create it on the admin
+- How should we handle scheduled forms? 
+- How should we handle password protected forms?
+- Add ons:
+	- How to handle form customizer CSS?
+	- How to handle EU Opt-in compliance
+	- How to handle zip code lookup (lol...)
+
+Open Questions:
+- Zip & phone form fields -> do we need the Title & pattern attributes? 
+
+Bugs:
+- Why aren't the default InspectorControl values not saving? They need to be toggled before they're "defined." This is breaking the shortcode attributes.
+	-> At the moment, we're just setting all defaults to the same as the shortcode so if it's not toggled it's the same value as the default shortcode's value
+
+- How can we "reset" all of a block's attributes on page-load? The issue is that changes in the form builder aren't being recognized in a post (but if you make a new block it works)
+
+- Can't create more than one Easy Forms block on the same page. Prolly key conflicts?
+
+- Recaptcha isn't always picking up language on-load
+
+- field-no-label isn't working
+
+*/
+
+
+/*
+add_action( 'wp_ajax_yikes_get_form_shortcode', array( $this, 'get_form_shortcode' ) );
+add_action( 'wp_ajax_yikes_get_lists', array( $this, 'get_lists' ) );
+
+public function get_lists() {
+	if ( $this->is_user_mc_api_valid_form( false ) ) {
+		$list_data = yikes_get_mc_api_manager()->get_list_handler()->get_lists();
+
+		if ( is_wp_error( $list_data ) ) {
+			$error_logging = new Yikes_Inc_Easy_Mailchimp_Error_Logging();
+			$error_logging->maybe_write_to_log(
+				$list_data->get_error_code(),
+				__( "Get Account Lists" , 'yikes-inc-easy-mailchimp-extender' ),
+				"Manage Forms Page"
+			);
+			wp_send_json_error( '1' );
+		}
+
+	} else {
+		wp_send_json_error( '2' );
+	}
+
+	wp_send_json_success( array_values( $list_data ) );
+}
+
+public function get_form_shortcode() {
+	$form_id = isset( $_POST['form_id'] ) ? $_POST['form_id'] : '';
+
+	if ( empty( $form_id ) ) {
+		wp_send_json_error( '1' );
+	}
+
+	$shortcode_attributes = array(
+		'form'                       => $form_id,
+		'submit'                     => '',
+		'title'                      => '0',
+		'custom_title'               => '',
+		'description'                => '0',
+		'custom_description'         => '',
+		'ajax'                       => '',
+		'recaptcha'                  => '',
+		'recaptcha_lang'             => '',
+		'recaptcha_type'             => '',
+		'recaptcha_theme'            => '',
+		'recaptcha_size'             => '',
+		'recaptcha_data_callback'    => '',
+		'recaptcha_expired_callback' => '',
+		'inline'                     => '0',
+	);
+
+	echo process_mailchimp_shortcode( $shortcode_attributes );
+	exit;
+}
+*/

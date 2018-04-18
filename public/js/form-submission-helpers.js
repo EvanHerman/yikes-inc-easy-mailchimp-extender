@@ -132,3 +132,24 @@ function yikes_mc_format_us_phone_number_field() {
 	formatted_us_number  = formatted_us_number.replace(/(\d\d\d)(\d\d\d)(\d\d\d\d)/, "$1-$2-$3"); // split the string into the proper format
 	jQuery( this ).val( formatted_us_number );
 }
+
+function renderReCaptchaCallback() {
+	var x = 1;
+	jQuery( '.g-recaptcha' ).each( function() {
+
+		jQuery( this ).attr( 'id', 'recaptcha-' + x );
+
+		var recaptcha_parameters = {
+			'sitekey' : jQuery( this ).data( 'sitekey' ),
+			'type' : jQuery( this ).data( 'type' ),
+			'theme' : jQuery( this ).data( 'theme' ),
+			'size' : jQuery( this ).data( 'size' ),
+			'callback' : jQuery( this ).data( 'callback' ),
+			'expired-callback' : jQuery( this ).data( 'expired-callback' ),
+		};
+
+		grecaptcha.render( 'recaptcha-' + x, recaptcha_parameters );
+
+		x++;
+	});
+}
