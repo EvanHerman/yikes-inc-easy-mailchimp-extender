@@ -219,14 +219,13 @@
 	body.easy-forms_page_yikes-inc-easy-mailchimp-settings .interest-group-section {
 		display: block;
 		width: 100%;
-		margin: 1.5em 0;
+		margin: 0 0 1.5em 0;
 	}
 
 	body.easy-forms_page_yikes-inc-easy-mailchimp-settings .interest-group-section .interest-group-section-title {
 		display: block;
 		width: 100%;
-		margin: .5em 0;
-		text-decoration: underline;
+		margin: .5em 0 0;
 	}
 
 	body.easy-forms_page_yikes-inc-easy-mailchimp-settings .interest-group-section input {
@@ -1014,9 +1013,7 @@ ul.support-option-list {
 .integreation-checkbox-interest-groups-header {
 	display: inline;
 }
-.yikes-mailchimp-toggle-ig {
-	padding-left: 25px;
-}
+.yikes-mailchimp-toggle-ig {}
 .integration-checkbox-interest-groups-hr {
 	margin-top: 10px; 
 	margin-bottom: 10px;
@@ -1049,9 +1046,38 @@ ul.support-option-list {
 }
 
 .yikes-mailchimp-checkbox-integration-list {
-    margin-top: 5px;
-    padding-left: 10px;
+	display: inline-block;
+    margin-bottom: 5px;
+    padding: 0 16px 0 2px;
+    vertical-align: top;
 }
+
+.yikes-mailchimp-checkbox-integration-item {
+	font-size: 14px;
+	font-weight: 600;
+	margin-bottom: 10px;
+}
+
+	.yikes-mailchimp-checkbox-integration-list input[type="checkbox"] {
+		margin-right: 0;
+	}
+
+	label.optin-checkbox-label {
+		display: block;
+		margin: 4px 0;
+	}
+
+		label.optin-checkbox-label input.optin-checkbox-label-input, 
+		label.optin-checkbox-label select {
+			display: inline-block;
+		}
+
+		label.optin-checkbox-label select {
+			margin-left: 17px;
+			width: auto;
+		}
+
+
 
 /*****************************/
 /* Manage Forms Page */
