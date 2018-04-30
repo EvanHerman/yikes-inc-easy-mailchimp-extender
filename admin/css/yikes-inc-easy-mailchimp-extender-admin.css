@@ -1037,10 +1037,6 @@ ul.support-option-list {
 	width: 250px;
 }
 
-.yikes-mailchimp-checkbox-integration-list {
-	display: block;
-}
-
 .integration-checkbox-interest-groups {
 	margin-bottom: 10px;
 }
@@ -1050,7 +1046,9 @@ ul.support-option-list {
 }
 
 .yikes-mailchimp-checkbox-integration-list {
+	color: #006799;
 	display: inline-block;
+	font-weight: 600;
     margin-bottom: 5px;
     padding: 0 16px 8px 2px;
     vertical-align: top;
