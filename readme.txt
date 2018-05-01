@@ -169,7 +169,7 @@ For information and code examples on how to implement the hooks and filters prov
 
 == Changelog ==
 
-= 6.4.0 - March 5th, 2018 =
+= 6.4.0 - May 1st, 2018 =
 * All calls to the MailChimp v2 API have been removed or updated to the v3 API where possible.
 * The Account page has been removed because it was relying on V2 API endpoints. Some account data from this page has been moved to the Manage Lists page.
 * The ChimpChatter dashboard widget has been removed.
@@ -182,3 +182,4 @@ For information and code examples on how to implement the hooks and filters prov
 * Some inline JavaScript for processing a form's shortcode has been moved into the form-submission-helpers.js file.
 * You can now customize the message displayed to the user after an update profile email is requested. You'll see a new custom message section has been added to the form builder.
 * Our checkbox integrations (e.g. Contact Form 7, WooCommerce) now allow you to choose multiple lists (and corresponding interest groups) for your subscribers to sign up to. 
+* Added some initial support for Easy Forms in Gutenberg. Feel free to download the Gutenberg plugin and test out the Easy Forms Block!
