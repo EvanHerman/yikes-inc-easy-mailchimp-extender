@@ -606,8 +606,9 @@ ul.support-option-list {
 	}
 
 	input.recaptcha-setting-checkbox {
-		display: block;
+		display: inline-block;
 		margin-top: .5em;
+		vertical-align: bottom;
 	}
 
 	.recaptcha-preview-link {
