@@ -1,5 +1,5 @@
 {
-  "name": "ez-forms-4-gutenberg",
+  "name": "yikes-inc-easy-mailchimp-extender",
   "version": "6.4.0",
   "devDependencies": {
     "autoprefixer": "^8.3.0",
@@ -31,6 +31,8 @@
   "dependencies": {
     "babel-plugin-syntax-jsx": "^6.18.0",
     "classnames": "^2.2.5",
+    "grunt": "^1.0.2",
+    "grunt-pot": "^0.3.0",
     "react-recaptcha": "^2.3.7",
     "uglify-js": "^3.3.21"
   }

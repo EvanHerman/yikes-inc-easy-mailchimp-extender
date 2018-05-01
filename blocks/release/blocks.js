@@ -136,33 +136,6 @@ var __ = wp.i18n.__;
 
 var registerBlockType = wp.blocks.registerBlockType;
 
-/*
-TO DO:
-- Clean up the public styles
-- Redo the way inline styles work so we can easily re-create it on the admin
-- How should we handle scheduled forms? 
-- How should we handle password protected forms?
-- Add ons:
-	- How to handle form customizer CSS?
-	- How to handle EU Opt-in compliance
-	- How to handle zip code lookup (lol...)
-
-Open Questions:
-- Zip & phone form fields -> do we need the Title & pattern attributes? 
-
-Bugs:
-- Why aren't the default InspectorControl values not saving? They need to be toggled before they're "defined." This is breaking the shortcode attributes.
-	-> At the moment, we're just setting all defaults to the same as the shortcode so if it's not toggled it's the same value as the default shortcode's value
-
-- How can we "reset" all of a block's attributes on page-load? The issue is that changes in the form builder aren't being recognized in a post (but if you make a new block it works)
-
-- Can't create more than one Easy Forms block on the same page. Prolly key conflicts?
-
-- Recaptcha isn't always picking up language on-load
-
-- field-no-label isn't working
-
-*/
 
 var edit_easy_form = function edit_easy_form(props) {
 
@@ -462,7 +435,6 @@ var MailChimpForms = function (_Component) {
     });
 
     (0, _getRecaptcha2.default)().then(function (recaptcha_data) {
-      console.log(recaptcha_data);
       return _this.setState({ recaptcha_data: recaptcha_data });
     });
     return _this;
@@ -626,15 +598,15 @@ var MailChimpForms = function (_Component) {
           {
             htmlFor: 'recaptcha-language-form-toggle',
             className: 'blocks-base-control__label',
-            title: 'The default language for your locale is ' + _locales2.default[this.state.recaptcha_data.data.locale]
+            title: this.state.recaptcha_data.data ? 'The default language for your locale is ' + _locales2.default[this.state.recaptcha_data.data.locale] : ''
           },
           __('reCAPTCHA Language')
         ),
         wp.element.createElement(SelectControl, {
           id: 'recaptcha-language-form-toggle',
-          value: this.props.recaptchaLang.length > 0 ? this.props.recaptchaLang : this.state.recaptcha_data.data.locale,
+          value: this.props.recaptchaLang.length > 0 ? this.props.recaptchaLang : this.state.recaptcha_data.data ? this.state.recaptcha_data.data.locale : '',
           onChange: this.props.toggleRecaptchaLang,
-          title: 'The default language for your locale is ' + _locales2.default[this.state.recaptcha_data.data.locale],
+          title: this.state.recaptcha_data.data ? 'The default language for your locale is ' + _locales2.default[this.state.recaptcha_data.data.locale] : '',
           options: Object.keys(_locales2.default).map(function (key) {
             return { value: key, label: _locales2.default[key] };
           })
