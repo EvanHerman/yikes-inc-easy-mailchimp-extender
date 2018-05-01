@@ -335,7 +335,7 @@ function process_mailchimp_shortcode( $atts ) {
 			// Used in `yikes-mailchimp-redirect-url` filter
 			// Note: as of 6.4, this is now just the post ID - not the entire post object.
 			global $post;
-			$page_data = $post->ID;
+			$page_data = isset( $post->ID ) ? $post->ID : 0;
 
 			// enqueue our ajax script
 			$min = defined( 'SCRIPT_DEBUG' ) && SCRIPT_DEBUG ? '' : '.min';
