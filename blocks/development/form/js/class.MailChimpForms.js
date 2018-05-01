@@ -45,7 +45,6 @@ export default class MailChimpForms extends Component {
 
     get_recaptcha()
       .then( recaptcha_data => {
-        console.log( recaptcha_data );
         return this.setState( { recaptcha_data: recaptcha_data });
     });
   }
@@ -193,15 +192,15 @@ export default class MailChimpForms extends Component {
         <label
           htmlFor="recaptcha-language-form-toggle"
           className="blocks-base-control__label"
-          title={ 'The default language for your locale is ' + locales[ this.state.recaptcha_data.data.locale ] }
+          title={ this.state.recaptcha_data.data ? 'The default language for your locale is ' + locales[ this.state.recaptcha_data.data.locale ] : '' }
         >
           { __( 'reCAPTCHA Language' ) }
         </label>
         <SelectControl
           id="recaptcha-language-form-toggle"
-          value={ this.props.recaptchaLang.length > 0 ? this.props.recaptchaLang : this.state.recaptcha_data.data.locale }
+          value={ this.props.recaptchaLang.length > 0 ? this.props.recaptchaLang : ( this.state.recaptcha_data.data ? this.state.recaptcha_data.data.locale : '' ) }
           onChange={ this.props.toggleRecaptchaLang }
-          title={ 'The default language for your locale is ' + locales[ this.state.recaptcha_data.data.locale ] }
+          title={ this.state.recaptcha_data.data ? 'The default language for your locale is ' + locales[ this.state.recaptcha_data.data.locale ] : '' }
           options={ Object.keys( locales ).map( ( key ) => { return { value: key, label: locales[key] } }) }
         />
       </PanelRow>
