@@ -1,0 +1,1 @@
+import './development/form/js/block-form.js';

@@ -54,10 +54,15 @@ $notifications       = isset( $form_data['custom_notifications'] ) ? $form_data[
 $submission_handler->set_error_messages( $error_messages );
 
 // Some other variables we'll need.
-$page_data       = $_POST['page_data'];
+$page_data       = isset( $_POST['page_data'] ) ? $_POST['page_data'] : '';
 $merge_variables = array();
 $error           = 0;
 $list_handler    = yikes_get_mc_api_manager()->get_list_handler();
+
+// As of 6.4 we no longer pass the post object, only the ID.
+// For any users relying on the $post object for their `yikes-mailchimp-redirect-url` filter we'll grab the post object here.
+// Eventually we should just pass the $post_id into the filter instead of the whole object.
+$page_data       = ! empty( $page_data ) ? get_post( $page_data ) : '';
 
 // Send an error if for some reason we can't find the list_handler
 $submission_handler->handle_empty_list_handler( $list_handler ); 
@@ -182,7 +187,7 @@ if ( is_wp_error( $member_exists ) || $double_optin_resubscribe === true ) {
 		$submission_handler->handle_updating_existing_user();
 	}
 	
-	// If $send_update_email is false (we don't send the email) then simply continue (we allow them to update their profile via only an email)
+	// If $send_update_email is false (we don't send the email) then simply continue (we allow them to update their profile via the form using their email address)
 }
 
 /**

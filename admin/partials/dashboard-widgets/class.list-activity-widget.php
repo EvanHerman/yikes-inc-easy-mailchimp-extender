@@ -8,11 +8,15 @@ class YIKES_Inc_Easy_MailChimp_Dashboard_Widgets {
 
 	// Construction
 	public function __construct() {
-		if ( yikes_get_mc_api_key() != '' && get_option( 'yikes-mc-api-validation', 'invalid_api_key' ) == 'valid_api_key' ) {
+
+		if ( apply_filters( 'yikes-mailchimp-dashboard-widgets-enabled', true ) === true &&  yikes_get_mc_api_key() != '' && get_option( 'yikes-mc-api-validation', 'invalid_api_key' ) == 'valid_api_key' ) {
+
 			// hook in and display our list stats dashboard widget
-			add_action( 'wp_dashboard_setup', array( $this, 'yks_mc_add_chimp_chatter_dashboard_widget' ), 10 );
+			add_action( 'wp_dashboard_setup', array( $this, 'yks_mc_add_dashboard_widget' ), 10 );
+
+			add_action( 'admin_enqueue_scripts', array( $this, 'enqueue_dashboard_widget_script' ) );
 		}
-		add_action( 'admin_enqueue_scripts', array( $this, 'enqueue_dashboard_widget_script' ) );
+		
 	}
 
 	/**
@@ -43,20 +47,16 @@ class YIKES_Inc_Easy_MailChimp_Dashboard_Widgets {
 	 *
 	 * This function is hooked into the 'wp_dashboard_setup' action below.
 	 */
-	function yks_mc_add_chimp_chatter_dashboard_widget() {
+	function yks_mc_add_dashboard_widget() {
+
 		// If the current user is not an admin, abort
 		if ( current_user_can( apply_filters( 'yikes-mailchimp-admin-widget-capability', apply_filters( 'yikes-mailchimp-user-role-access', 'manage_options' ) ) ) ) {
+
 			/* List Stats Dashboard Widget */
 			wp_add_dashboard_widget(
 				'yikes_easy_mc_list_stats_widget',         // Widget slug.
 				__( 'MailChimp List Stats', 'yikes-inc-easy-mailchimp-extender' ),         // Title.
 				array( $this, 'list_stats_dashboard_widget' ) // Display function.
-			);
-			/* Chimp Chatter Dashboard Widget */
-			wp_add_dashboard_widget(
-				'yikes_easy_mc_account_activity_widget',         // Widget slug.
-				__( 'MailChimp Account Activity', 'yikes-inc-easy-mailchimp-extender' ),         // Title.
-				array( $this, 'account_activity_dashboard_widget' ) // Display function.
 			);
 		}
 	}
@@ -99,26 +99,5 @@ class YIKES_Inc_Easy_MailChimp_Dashboard_Widgets {
 				<p class="no-lists-error"><?php _e( "Whoops, you don't have any lists set up. Head over to MailChimp to set up lists.", 'yikes-inc-easy-mailchimp-extender' ); ?></p>
 			</section>
 		<?php }
-	}
-
-	/**
-	 * Create the function to output our account activity dashboard widget
-	 */
-	function account_activity_dashboard_widget() {
-		$chimp_chatter    = yikes_get_mc_api_manager()->get_chimp_chatter();
-		$account_activity = $chimp_chatter->chimp_chatter();
-
-		if ( is_wp_error( $account_activity ) ) {
-			$error_logging = new Yikes_Inc_Easy_Mailchimp_Error_Logging();
-			$error_logging->maybe_write_to_log(
-				$account_activity->get_error_code(),
-				__( "Get Account Activity", 'yikes-inc-easy-mailchimp-extender' ),
-				"Dashboard Activity Widget"
-			);
-		}
-
-		if ( ! empty( $account_activity ) ) {
-			include_once( YIKES_MC_PATH . 'admin/partials/dashboard-widgets/templates/account-activity-template.php' );
-		}
 	}
 }

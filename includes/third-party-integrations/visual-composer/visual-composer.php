@@ -13,8 +13,12 @@ class YIKES_MailChimp_Visual_Composer_Extension {
 	 * @since 6.0.3
 	 */
 	function __construct() {
+		
 		add_action( 'admin_init', array( $this, 'extend_visual_composer' ) );
-		vc_add_shortcode_param( 'yikes_mailchimp_logo', array( $this, 'yikes_mailchimp_logo_vc_section' ) );
+
+		if ( function_exists( 'vc_add_shortcode_param' ) ) {
+			vc_add_shortcode_param( 'yikes_mailchimp_logo', array( $this, 'yikes_mailchimp_logo_vc_section' ) );
+		}
 	}
 
 	/**
@@ -23,6 +27,11 @@ class YIKES_MailChimp_Visual_Composer_Extension {
 	 * @since 6.0.3
 	 */
 	public function extend_visual_composer() {
+
+		if ( ! function_exists( 'vc_map' ) ) {
+			return;
+		}
+
 		vc_map( array(
 			'name'        => __( 'Easy Forms for MailChimp', 'yikes-inc-easy-mailchimp-extender' ),
 			'base'        => 'yikes-mailchimp',

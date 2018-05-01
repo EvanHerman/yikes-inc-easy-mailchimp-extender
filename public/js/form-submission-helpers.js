@@ -35,6 +35,10 @@ jQuery( document ).ready( function() {
 		});
 		return false;
 	});
+
+	jQuery( '.yikes-easy-mc-url' ).blur( yikes_mc_format_url_field );
+
+	jQuery( '.yikes-easy-mc-phone[data-phone-type="us"]' ).blur( yikes_mc_format_us_phone_number_field );
 });
 
 /**
@@ -111,4 +115,41 @@ function yikes_mc_does_country_have_states( clicked_element, country_value ) {
 		}
 	});
 	return country_has_states;
+}
+
+function yikes_mc_format_url_field() {
+	var url_value = jQuery( this ).val();
+
+	if ( typeof url_value.length === 'number' && url_value.length > 0 && url_value.indexOf( "http://" ) === -1 && url_value.indexOf( "https://" ) === -1 ) {
+		jQuery( this ).val( 'http://' + url_value );
+	}
+}
+
+function yikes_mc_format_us_phone_number_field() {
+	var phone_number     = this.value;
+	var new_phone_number = phone_number.replace(/\(|\)/g, "").replace(/-/g, "").trim(); // replace all '-,' '(' and ')'
+	formatted_us_number  = new_phone_number.substring( 0, 10 ); // strip all characters after 10th number (10 = length of US numbers 215-555-5555
+	formatted_us_number  = formatted_us_number.replace(/(\d\d\d)(\d\d\d)(\d\d\d\d)/, "$1-$2-$3"); // split the string into the proper format
+	jQuery( this ).val( formatted_us_number );
+}
+
+function renderReCaptchaCallback() {
+	var x = 1;
+	jQuery( '.g-recaptcha' ).each( function() {
+
+		jQuery( this ).attr( 'id', 'recaptcha-' + x );
+
+		var recaptcha_parameters = {
+			'sitekey' : jQuery( this ).data( 'sitekey' ),
+			'type' : jQuery( this ).data( 'type' ),
+			'theme' : jQuery( this ).data( 'theme' ),
+			'size' : jQuery( this ).data( 'size' ),
+			'callback' : jQuery( this ).data( 'callback' ),
+			'expired-callback' : jQuery( this ).data( 'expired-callback' ),
+		};
+
+		grecaptcha.render( 'recaptcha-' + x, recaptcha_parameters );
+
+		x++;
+	});
 }

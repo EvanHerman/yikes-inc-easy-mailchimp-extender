@@ -87,33 +87,12 @@ function process_mailchimp_shortcode( $atts ) {
 				'success_callback' => $data_callback,
 				'expired_callback' => $expired_callback,
 			), $atts['form'] );
+
 			// enqueue Google recaptcha JS
-			wp_register_script( 'google-recaptcha-js' , 'https://www.google.com/recaptcha/api.js?hl=' . $recaptcha_shortcode_params['language'] . '&onload=renderReCaptchaCallback&render=explicit', array( 'jquery' ) , 'all' );
+			wp_register_script( 'google-recaptcha-js' , 'https://www.google.com/recaptcha/api.js?hl=' . $recaptcha_shortcode_params['language'] . '&onload=renderReCaptchaCallback&render=explicit', array( 'jquery', 'form-submission-helpers' ) , 'all' );
 			wp_enqueue_script( 'google-recaptcha-js' );
 			$recaptcha_site_key = get_option( 'yikes-mc-recaptcha-site-key' , '' );
-			$recaptcha_box = '<div class="g-recaptcha" data-sitekey="' . $recaptcha_site_key . '" data-theme="' . $recaptcha_shortcode_params['theme'] . '" data-type="' . $recaptcha_shortcode_params['type'] . '" data-size="' . $recaptcha_shortcode_params['size'] . '" data-callback="' . $recaptcha_shortcode_params['success_callback'] . '" data-expired-callback="' . $recaptcha_shortcode_params['expired_callback'] . '"></div>';
-			?>
-			<script type="text/javascript">
-				/* Script Callback to init. multiple recaptchas on a single page */
-				function renderReCaptchaCallback() {
-					var x = 1;
-					jQuery( '.g-recaptcha' ).each( function() {
-						jQuery( this ).attr( 'id', 'recaptcha-' + x );
-						recaptcha_paramaters = {
-							'sitekey' : '<?php echo $recaptcha_site_key; ?>',
-							'lang' : '<?php echo $lang; ?>',
-							'type' : '<?php echo $type; ?>',
-							'theme' : '<?php echo $theme; ?>',
-							'size' : '<?php echo $size; ?>',
-							'data_callback' : '<?php echo $data_callback; ?>',
-							'expired_callback' : '<?php echo $expired_callback; ?>'
-						};
-						grecaptcha.render( 'recaptcha-' + x, recaptcha_paramaters );
-						x++;
-					});
-				}
-			</script>
-			<?php
+			$recaptcha_box = '<div class="g-recaptcha" data-sitekey="' . esc_attr( $recaptcha_site_key ) . '" data-theme="' . esc_attr( $recaptcha_shortcode_params['theme'] ) . '" data-type="' . esc_attr( $recaptcha_shortcode_params['type'] ) . '" data-size="' . esc_attr( $recaptcha_shortcode_params['size'] ) . '" data-callback="' . esc_attr( $recaptcha_shortcode_params['success_callback'] ) . '" data-expired-callback="' . esc_attr( $recaptcha_shortcode_params['expired_callback'] ) . '"></div>';
 		}
 	}
 
@@ -180,14 +159,14 @@ function process_mailchimp_shortcode( $atts ) {
 
 		// the the current date is less than the form scheduled start date
 		if( $current_date < $form_schedule_start ) {
-			echo apply_filters( 'yikes-mailchimp-frontend-content', $form_pending_message );
+			echo apply_filters( 'yikes-mailchimp-frontend-content', $form_pending_message, $form_id, $form_schedule_start );
 			return;
 			// abort
 		}
 
 		// The current date is past or equal to the end date, aka form has now expired
 		if( $current_date >= $form_schedule_end ) {
-			echo apply_filters( 'yikes-mailchimp-frontend-content', $form_expired_message );
+			echo apply_filters( 'yikes-mailchimp-frontend-content', $form_expired_message, $form_id, $form_schedule_end );
 			return;
 			// abort
 		}
@@ -196,15 +175,6 @@ function process_mailchimp_shortcode( $atts ) {
 	// setup the submit button text
 	// shortcode parameter takes precedence over option
 	$submit = ( ! empty( $atts['submit'] ) ) ? $atts['submit'] : $submit_button_text;
-
-	// used in yikes-mailchimp-redirect-url filter
-	global $post;
-	$page_data = $post;
-
-	// Remove the post_password from this for security
-	if( isset( $page_data->post_password ) ) {
-		unset( $page_data->post_password );
-	}
 
 	/*
 	*	Check for the constant to prevent styles from loading
@@ -259,8 +229,13 @@ function process_mailchimp_shortcode( $atts ) {
 	}
 
 	if( $form_inline ) {
-		$field_width = (float) ( 100 / $field_count );
-		$submit_button_width = (float) ( 20 / $field_count );
+		$field_width          = (float) ( 100 / $field_count );
+		$submit_button_width  = (float) ( 20 / $field_count );
+		$inline_offset        = apply_filters( 'yikes-mailchimp-inline-offset', 1.0, $form_id );
+		$total_inline_offset  = (float) $submit_button_width + $inline_offset;
+		$inline_padding_right = apply_filters( 'yikes-mailchimp-inline-padding-right', '10px', $form_id );
+		$inline_field_width   = apply_filters( 'yikes-mailchimp-inline-field-width', $field_width - $total_inline_offset, $form_id );
+		$custom_inline_styles = apply_filters( 'yikes-mailchimp-custom-inline-styles', '', $form_id );
 		/*
 		*	Add inline styles after calculating the percentage etc.
 		*	@since 6.0.3.8
@@ -268,8 +243,9 @@ function process_mailchimp_shortcode( $atts ) {
 		 $inline_label_css = "
 			.yikes-easy-mc-form label.label-inline {
 				float: left;
-				width: calc( {$field_width}% - {$submit_button_width}% );
-				padding-right: 10px;
+				width: {$inline_field_width}%;
+				padding-right: {$inline_padding_right};
+				{$custom_inline_styles}
 			 }
 		";
 		wp_add_inline_style( 'yikes-inc-easy-mailchimp-public-styles', $inline_label_css );
@@ -355,6 +331,12 @@ function process_mailchimp_shortcode( $atts ) {
 
 		// Check for AJAX
 		if( ( ! empty( $atts['ajax'] ) && $atts['ajax'] == 1 ) || $form_data['submission_settings']['ajax'] == 1 ) {
+
+			// Used in `yikes-mailchimp-redirect-url` filter
+			// Note: as of 6.4, this is now just the post ID - not the entire post object.
+			global $post;
+			$page_data = isset( $post->ID ) ? $post->ID : 0;
+
 			// enqueue our ajax script
 			$min = defined( 'SCRIPT_DEBUG' ) && SCRIPT_DEBUG ? '' : '.min';
 			wp_enqueue_script( 'yikes-easy-mc-ajax' , YIKES_MC_URL . "public/js/yikes-mc-ajax-forms{$min}.js" , array( 'jquery' ), YIKES_MC_VERSION, false );
@@ -576,18 +558,6 @@ function process_mailchimp_shortcode( $atts ) {
 								$default_value = apply_filters( 'yikes-mailchimp-' . $field['merge'] . '-default-value', $default_value, $field, $form_id );
 									?>
 
-									<script type="text/javascript">
-										function properlyFormatURLField( e ) {
-											var url_value = jQuery( e ).val();
-
-											if ( url_value.indexOf( "http://" ) === -1 && url_value.indexOf( "https://" ) === -1 ) {
-
-												jQuery( e ).val( 'http://' + url_value );
-
-											}
-										}
-									</script>
-
 									<label for="<?php echo esc_attr( $field_id_string ); ?>" <?php echo implode( ' ' , $label_array ); ?>>
 
 										<!-- dictate label visibility -->
@@ -600,7 +570,7 @@ function process_mailchimp_shortcode( $atts ) {
 										<!-- Description Above -->
 										<?php if ( $show_description === true && $description_above === true ) { echo $description; } ?>
 
-										<input <?php echo implode( ' ' , $field_array ); ?> type="url" <?php if( $field['type'] == 'url' ) { ?> title="<?php _e( 'Please enter a valid URL to the website.' , 'yikes-inc-easy-mailchimp-extender' ); ?>" <?php } else { ?> title="<?php _e( 'Please enter a valid URL to the image.' , 'yikes-inc-easy-mailchimp-extender' ); ?>" <?php } ?> value="<?php if( isset( $_POST[$field['merge']] ) && $form_submitted != 1 ) { echo esc_attr( $_POST[$field['merge']] ); } else { echo esc_attr( $default_value ); } ?>" onblur="properlyFormatURLField(this);return false;">
+										<input <?php echo implode( ' ' , $field_array ); ?> type="url" <?php if( $field['type'] == 'url' ) { ?> title="<?php _e( 'Please enter a valid URL to the website.' , 'yikes-inc-easy-mailchimp-extender' ); ?>" <?php } else { ?> title="<?php _e( 'Please enter a valid URL to the image.' , 'yikes-inc-easy-mailchimp-extender' ); ?>" <?php } ?> value="<?php if( isset( $_POST[$field['merge']] ) && $form_submitted != 1 ) { echo esc_attr( $_POST[$field['merge']] ); } else { echo esc_attr( $default_value ); } ?>" >
 
 										<!-- Description Below -->
 										<?php if ( $show_description === true && $description_above === false ) { echo $description; } ?>
@@ -615,16 +585,6 @@ function process_mailchimp_shortcode( $atts ) {
 								$default_value = apply_filters( 'yikes-mailchimp-' . $field['merge'] . '-default-value', $default_value, $field, $form_id );
 								$phone_format = $field['phone_format'];
 								?>
-									<script type="text/javascript">
-										/* Replace incorrect values and format it correctly for MailChimp API */
-										function formatUSPhoneNumber( e ) {
-											var phone_number = e.value;
-											var new_phone_number = phone_number.replace(/\(|\)/g, "").replace(/-/g, "").trim(); // replace all '-,' '(' and ')'
-											formatted_us_number = new_phone_number.substring( 0, 10 ); // strip all characters after 10th number (10 = length of US numbers 215-555-5555
-											formatted_us_number = formatted_us_number.replace(/(\d\d\d)(\d\d\d)(\d\d\d\d)/, "$1-$2-$3"); // split the string into the proper format
-											jQuery( e ).val( formatted_us_number );
-										}
-									</script>
 
 									<label for="<?php echo esc_attr( $field_id_string ) ?>" <?php echo implode( ' ' , $label_array ); ?>>
 
@@ -638,7 +598,7 @@ function process_mailchimp_shortcode( $atts ) {
 										<!-- Description Above -->
 										<?php if ( $show_description === true && $description_above === true ) { echo $description; } ?>
 
-										<input <?php echo implode( ' ' , $field_array ); ?> type="text" <?php if( $phone_format != 'US' ) { ?>  title="<?php _e( 'International Phone Number' , 'yikes-inc-easy-mailchimp-extender' ); ?>" pattern="<?php echo apply_filters( 'yikes-mailchimp-international-phone-pattern' , '[0-9,-,+]{1,}' ); ?>" <?php } else { ?> title="<?php _e( 'US Phone Number (###) ### - ####' , 'yikes-inc-easy-mailchimp-extender' ); ?>" pattern="<?php echo apply_filters( 'yikes-mailchimp-us-phone-pattern' , '^(\([0-9]{3}\)|[0-9]{3}-)[0-9]{3}-[0-9]{4}$' ); ?>" onblur="formatUSPhoneNumber(this);"<?php } ?> value="<?php if( isset( $_POST[$field['merge']] ) && $form_submitted != 1 ) { echo esc_attr( $_POST[$field['merge']] ); } else { echo esc_attr( $default_value ); } ?>">
+										<input <?php echo implode( ' ' , $field_array ); ?> type="text" <?php if( $phone_format != 'US' ) { ?> data-phone-type="international" title="<?php _e( 'International Phone Number' , 'yikes-inc-easy-mailchimp-extender' ); ?>" pattern="<?php echo apply_filters( 'yikes-mailchimp-international-phone-pattern' , '[0-9,-,+]{1,}' ); ?>" <?php } else { ?> title="<?php _e( 'US Phone Number (###) ### - ####' , 'yikes-inc-easy-mailchimp-extender' ); ?>" data-phone-type="us" pattern="<?php echo apply_filters( 'yikes-mailchimp-us-phone-pattern' , '^(\([0-9]{3}\)|[0-9]{3}-)[0-9]{3}-[0-9]{4}$' ); ?>" <?php } ?> value="<?php if( isset( $_POST[$field['merge']] ) && $form_submitted != 1 ) { echo esc_attr( $_POST[$field['merge']] ); } else { echo esc_attr( $default_value ); } ?>">
 
 										<!-- Description Below -->
 										<?php if ( $show_description === true && $description_above === false ) { echo $description; } ?>
