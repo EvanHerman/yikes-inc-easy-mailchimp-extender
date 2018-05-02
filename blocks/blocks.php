@@ -136,9 +136,9 @@ class YIKES_Easy_Forms_Blocks {
 	public function register_easy_forms_block() {
 
 		// Hook server side rendering into render callback
-		register_block_type( 'yikes-inc-easy-forms/easy-forms-block', [
+		register_block_type( 'yikes-inc-easy-forms/easy-forms-block', array(
 		    'render_callback' => array( $this, 'render_easy_forms_block' ),
-		] );	
+		) );	
 	}
 
 	public function render_easy_forms_block( $attributes ) {

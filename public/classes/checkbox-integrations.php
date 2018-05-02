@@ -116,8 +116,8 @@
 			wp_enqueue_style( 'yikes-easy-mailchimp-checkbox-integration-styles', plugin_dir_url( __FILE__ ) . '../css/yikes-inc-easy-mailchimp-checkbox-integration.min.css' );
 
 			// Get our options
-			$checkbox_options = get_option( 'optin-checkbox-init' , '' );
-			$has_list_ids     = isset( $checkbox_options[$this->type]['associated-list'] ) && $checkbox_options[$this->type]['associated-list'] != '-';
+			$checkbox_options = get_option( 'optin-checkbox-init' , array() );
+			$has_list_ids     = isset( $checkbox_options[$this->type] ) && isset( $checkbox_options[$this->type]['associated-list'] ) && $checkbox_options[$this->type]['associated-list'] != '-';
 			$has_list_ids     = $has_list_ids && ! in_array( '-', $checkbox_options[$this->type]['associated-list'] );
 
 			// We need to make sure we have a legit list ID right here. I don't think it will ever equal '-'
