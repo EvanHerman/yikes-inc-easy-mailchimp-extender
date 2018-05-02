@@ -3,8 +3,8 @@ Contributors: yikesinc, eherman24, liljimmi, hiwhatsup, JPry, yikesitskevin
 Donate link: https://yikesplugins.com/?utm_source=wp_plugin_repo&utm_medium=donate_link&utm_campaign=easy_forms_for_mailchimp
 Tags: MailChimp, MailChimp forms, MailChimp lists, opt-in forms, sign up form, MailChimp, email, forms, mailing lists, marketing, newsletter, sign up
 Requires at least: 4.0
-Tested up to: 4.9.4
-Stable tag: 6.4.0
+Tested up to: 4.9.5
+Stable tag: 6.4.1
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -169,17 +169,5 @@ For information and code examples on how to implement the hooks and filters prov
 
 == Changelog ==
 
-= 6.4.0 - May 1st, 2018 =
-* All calls to the MailChimp v2 API have been removed or updated to the v3 API where possible.
-* The Account page has been removed because it was relying on V2 API endpoints. Some account data from this page has been moved to the Manage Lists page.
-* The ChimpChatter dashboard widget has been removed.
-* The List Activity dashboard widget has a new filter, `yikes-mailchimp-dashboard-widgets-enabled`, that controls whether the widget is loaded or not.
-* The welcome screen you see on plugin activation/updates has been removed.
-* The error log now lives in a new place outside the plugin: wp-content/uploads/yikes-log/yikes-easy-mailchimp-error-log.php.
-* The changelog is now in its own file, changelog.txt, and has been removed from the readme. 
-* The inline form styles should now handle a theme's default padding/margin better. There are also a bunch of new filters for customizing a form's inline styles. 
-* Setting up a scheduled form should be a much smoother process now.
-* Some inline JavaScript for processing a form's shortcode has been moved into the form-submission-helpers.js file.
-* You can now customize the message displayed to the user after an update profile email is requested. You'll see a new custom message section has been added to the form builder.
-* Our checkbox integrations (e.g. Contact Form 7, WooCommerce) now allow you to choose multiple lists (and corresponding interest groups) for your subscribers to sign up to. 
-* Added some initial support for Easy Forms in Gutenberg. Feel free to download the Gutenberg plugin and test out the Easy Forms Block!
+= 6.4.1 - May 2nd, 2018 =
+- Fixing a syntax error in Easy Forms v6.4.0 related to PHP Versions < 5.4
