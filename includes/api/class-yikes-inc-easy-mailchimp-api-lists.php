@@ -423,6 +423,24 @@ class Yikes_Inc_Easy_MailChimp_API_Lists extends Yikes_Inc_Easy_MailChimp_API_Ab
 	}
 
 	/**
+	 * Add a note to a member's profile
+	 *
+	 * @author Kevin Utz
+	 *
+	 * @param string $list_id    The list ID.
+	 * @param string $member_id  The member ID. This is the MD5 hash of the email address.
+	 * @param array  $notes_data The data for the user's note
+	 *
+	 * @return array|WP_Error
+	 */
+	public function create_member_note( $list_id, $member_id, $notes_data ) {
+		$path     = "{$this->base_path}/{$list_id}/members/{$member_id}/notes";
+		$response = $this->post_to_api( $path, $notes_data );
+
+		return $this->maybe_return_error( $response );
+	}
+
+	/**
 	 * Ensure that an array of limit fields includes defaults.
 	 *
 	 * Both the $fields and $required arrays should be key-based arrays.
