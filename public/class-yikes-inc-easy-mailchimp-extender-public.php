@@ -48,6 +48,8 @@ class Yikes_Inc_Easy_Mailchimp_Extender_Public {
 		include_once( YIKES_MC_PATH . 'public/helpers.php' );
 
 		// Include our Shortcode & Processing functions (public folder)
+		require_once( YIKES_MC_PATH . 'public/partials/shortcodes/unsubscribe/process-unsubscribe.php' );
+		include_once( YIKES_MC_PATH . 'public/partials/shortcodes/unsubscribe/shortcode-unsubscribe.php' );
 		include_once( YIKES_MC_PATH . 'public/partials/shortcodes/process_form_shortcode.php' );
 		include_once( YIKES_MC_PATH . 'public/partials/shortcodes/yikes-mailchimp-subscriber-count.php' );
 

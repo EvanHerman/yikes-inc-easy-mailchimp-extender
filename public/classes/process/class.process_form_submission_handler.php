@@ -562,6 +562,10 @@ class Yikes_Inc_Easy_MailChimp_Extender_Process_Submission_Handler {
 					continue;
 				}
 
+				if ( empty( $sanitized ) ) {
+					continue;
+				}
+
 				$groups[ $sanitized ] = true;
 				continue;
 			}

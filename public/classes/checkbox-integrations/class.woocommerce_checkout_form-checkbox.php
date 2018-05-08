@@ -21,10 +21,45 @@ class Yikes_Easy_MC_WooCommerce_Checkbox_Class extends Yikes_Easy_MC_Checkbox_In
 	 * Constructor
 	 */
 	public function __construct() {
-		
-		add_filter( 'woocommerce_checkout_fields', array( $this, 'add_checkout_field' ), 20 );
+
+		add_action( 'init', array( $this, 'determine_checkbox_placement' ), 1000 );
 		add_action( 'woocommerce_checkout_update_order_meta', array( $this, 'save_woocommerce_checkout_checkbox_value' ) );
 		add_action( 'woocommerce_checkout_order_processed', array( $this, 'subscribe_from_woocommerce_checkout' ) );
+
+	}
+
+	public function determine_checkbox_placement() {
+
+		$checkbox_placement = apply_filters( 'yikes-mailchimp-woocommerce-integration-checkbox-placement', true );
+
+		if ( $checkbox_placement ) {
+			add_filter( 'woocommerce_checkout_fields', array( $this, 'add_checkout_field' ), 20 );
+		} else {
+			add_action( 'woocommerce_checkout_after_order_review', array( $this, 'add_checkout_field_html' ) );	
+		}
+	}
+
+	public function add_checkout_field_html() {
+
+		// Get checkbox data
+		$checkbox_options = get_option( 'optin-checkbox-init' , array() );
+
+		// Only display the field if a list is set
+		if ( isset( $checkbox_options[$this->type] ) && isset( $checkbox_options[$this->type]['associated-list'] ) && $checkbox_options[$this->type]['associated-list'] != '-' ) {
+
+			if ( $this->is_user_already_subscribed( $this->type ) ) {
+				return $fields;
+			}
+
+			$precheck = isset( $checkbox_options[$this->type]['precheck'] ) && $checkbox_options[$this->type]['precheck'] == 'true';
+
+			?>
+				<label class="checkbox yikes-mailchimp-woocommerce-checkout-form-checkbox">
+					<input type="checkbox" class="input-checkbox " name="yikes_mailchimp_checkbox_woocommerce_checkout_form" id="yikes_mailchimp_checkbox_woocommerce_checkout_form" value="1" <?php echo $precheck ? 'checked="checked"' : ''; ?>> 
+					<?php echo $checkbox_options[$this->type]['label']; ?>
+				</label>
+			<?php
+		}
 	}
 	
 	/**
@@ -34,10 +69,10 @@ class Yikes_Easy_MC_WooCommerce_Checkbox_Class extends Yikes_Easy_MC_Checkbox_In
 	 */
 	public function add_checkout_field( $fields ) {
 
-		// get checkbox data
+		// Get checkbox data
 		$checkbox_options = get_option( 'optin-checkbox-init' , array() );
 
-		// only display the field if a list is set
+		// Only display the field if a list is set
 		if ( isset( $checkbox_options[$this->type] ) && isset( $checkbox_options[$this->type]['associated-list'] ) && $checkbox_options[$this->type]['associated-list'] != '-' ) {
 
 			if ( $this->is_user_already_subscribed( $this->type ) ) {
@@ -55,8 +90,8 @@ class Yikes_Easy_MC_WooCommerce_Checkbox_Class extends Yikes_Easy_MC_Checkbox_In
 			*/
 			$field_placement = apply_filters( 'yikes-mailchimp-wooco-integration-checkbox-placement', 'billing' );
 
-			$fields[ $field_placement ]['yikes_mailchimp_checkbox_'.$this->type] = array(
-				'id' 	  => 'yikes_mailchimp_checkbox_'.$this->type,
+			$fields[ $field_placement ]['yikes_mailchimp_checkbox_' . $this->type] = array(
+				'id' 	  => 'yikes_mailchimp_checkbox_' . $this->type,
 				'type'    => 'checkbox',
 				'class'   => apply_filters( 'yikes-mailchimp-wooco-integration-checkbox-classes', array( 'form-row-wide' ) ),
 				'label'   => $checkbox_options[$this->type]['label'],
@@ -72,7 +107,7 @@ class Yikes_Easy_MC_WooCommerce_Checkbox_Class extends Yikes_Easy_MC_Checkbox_In
 	*/
 	public function save_woocommerce_checkout_checkbox_value( $order_id ) {
 
-		// update the order post meta
+		// Update the order post meta
 		update_post_meta( $order_id, 'yikes_easy_mailchimp_optin', $this->was_checkbox_checked( $this->type ) );
 	}
 	
@@ -92,10 +127,9 @@ class Yikes_Easy_MC_WooCommerce_Checkbox_Class extends Yikes_Easy_MC_Checkbox_In
 				'LNAME' => $order->billing_last_name,
 			);
 
-			// subscribe the user
-			$this->subscribe_user_integration( sanitize_email( $email ) , $this->type , $merge_vars );
+			// Subscribe the user
+			$this->subscribe_user_integration( sanitize_email( $email ), $this->type, $merge_vars );
 		}
-		return false;
 	}
 	
 }

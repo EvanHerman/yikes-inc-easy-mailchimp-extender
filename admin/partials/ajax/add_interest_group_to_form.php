@@ -81,7 +81,6 @@ foreach( $interest_groups as $group ) {
 					<!-- Default Value -->
 					<?php switch( $group['field_type'] ) {
 
-						default:
 						case 'radio':
 						?>
 							<tr valign="top">
@@ -91,22 +90,25 @@ foreach( $interest_groups as $group ) {
 									</label>
 								</td>
 								<td>
-									<?php
-									foreach ( $field_data['items'] as $id => $interest_group ) {
-										$pre_selected = ! empty( $field_data['default_choice'] ) ? $field_data['default_choice'] : '0';
-										?>
-										<input type="radio" name="field[<?php echo $group['group_id']; ?>][default_choice][]" value="<?php echo esc_attr( $id ); ?>" <?php checked( $pre_selected, $id ); ?>><?php echo stripslashes( $interest_group['name'] ); ?>
-										<?php
 
-									}
-									?>
+									<?php $pre_selected = ! empty( $field_data['default_choice'] ) ? $field_data['default_choice'] : 'no-default'; ?>
+
+									<!-- No Default option for radio buttons -->
+									<input type="radio" name="field[<?php echo $group['group_id']; ?>][default_choice][]" value="no-default" <?php checked( $pre_selected, 'no-default' ); ?>>No Default
+
+									<?php foreach ( $field_data['items'] as $id => $interest_group ) { ?>
+										<input type="radio" name="field[<?php echo $group['group_id']; ?>][default_choice][]" value="<?php echo esc_attr( $id ); ?>" <?php checked( $pre_selected, $id ); ?>><?php echo stripslashes( $interest_group['name'] );
+									} ?>
+
 									<p class="description"><small><?php _e( "Select the option that should be selected by default.", 'yikes-inc-easy-mailchimp-extender' );?></small></p>
 								</td>
 							</tr>
 
-							<?php
-							break;
+						<?php
+						break;
 
+						case 'default':
+						case 'hidden':
 						case 'checkboxes':
 						?>
 							<tr valign="top">
@@ -128,8 +130,8 @@ foreach( $interest_groups as $group ) {
 								</td>
 							</tr>
 
-							<?php
-							break;
+						<?php
+						break;
 
 						case 'dropdown':
 							?>
@@ -141,13 +143,11 @@ foreach( $interest_groups as $group ) {
 								</td>
 								<td>
 									<select type="default" name="field[<?php echo $group['group_id']; ?>][default_choice]">
-										<?php
-										foreach ( $field_data['items'] as $id => $interest_group ) {
-											$pre_selected = ! empty( $field_data['default_choice'] ) ? $field_data['default_choice'] : '0';
-											?>
+										<?php $pre_selected = ! empty( $field_data['default_choice'] ) ? $field_data['default_choice'] : 'no-default'; ?>
+										<option value="no-default">No Default</option>
+										<?php foreach ( $field_data['items'] as $id => $interest_group ) { ?>
 											<option value="<?php echo $id; ?>" <?php selected( $pre_selected, $id ); ?>><?php echo $interest_group['name']; ?></option>
-											<?php
-										} ?>
+										<?php } ?>
 									</select>
 									<p class="description"><small><?php _e( "Which option should be selected by default?", 'yikes-inc-easy-mailchimp-extender' );?></small></p>
 								</td>

@@ -117,7 +117,7 @@
 
 			// Get our options
 			$checkbox_options = get_option( 'optin-checkbox-init' , array() );
-			$has_list_ids     = isset( $checkbox_options[$this->type] ) && isset( $checkbox_options[$this->type]['associated-list'] ) && $checkbox_options[$this->type]['associated-list'] != '-';
+			$has_list_ids     = isset( $checkbox_options[$this->type]['associated-list'] ) && $checkbox_options[$this->type]['associated-list'] != '-';
 			$has_list_ids     = $has_list_ids && ! in_array( '-', $checkbox_options[$this->type]['associated-list'] );
 
 			// We need to make sure we have a legit list ID right here. I don't think it will ever equal '-'
@@ -282,7 +282,7 @@
 		*	@since 6.0.0
 		*/
 		public function was_checkbox_checked( $type ) {
-			return ( isset( $_POST[ 'yikes_mailchimp_checkbox_'.$type ] ) && $_POST[ 'yikes_mailchimp_checkbox_'.$type ] == 1 );
+			return ( isset( $_POST[ 'yikes_mailchimp_checkbox_' . $type ] ) && $_POST[ 'yikes_mailchimp_checkbox_' . $type ] == 1 );
 		}
 
 

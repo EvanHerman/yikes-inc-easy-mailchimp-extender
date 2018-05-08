@@ -184,15 +184,22 @@ $merge_field_data = $available_merge_variables['merge_fields'][ $index ];
 									</label>
 								</td>
 								<td>
+									<?php $pre_selected = ! empty( $merge_field_data['default_choice'] ) ? $merge_field_data['default_choice'] : 'no-default'; ?>
+									<label for="<?php echo $merge_field_data['tag'] . '-no-default'; ?>">
+										<input id="<?php echo $merge_field_data['tag'] . '-no-default'; ?>"
+										       type="radio"
+										       name="field[<?php echo $merge_field_data['tag']; ?>][default_choice]"
+										       value="no-default" <?php checked( $pre_selected, 'no-default' ); ?>
+										>
+										No Default&nbsp;
+									</label>
 									<?php
 									$x = 0;
-									foreach ( $merge_field_data['options']['choices'] as $choice => $value ) {
-										$pre_selected = ! empty( $merge_field_data['default_choice'] ) ? $merge_field_data['default_choice'] : '0';
-										?>
+									foreach ( $merge_field_data['options']['choices'] as $choice => $value ) { ?>
 										<label>
 											<input type="radio" name="field[<?php echo $merge_field_data['tag']; ?>][default_choice]" value="<?php echo $x; ?>" <?php checked( $pre_selected, $choice ); ?>><?php echo $value; ?>
 										</label>
-										<?php $x ++;
+										<?php $x++;
 									} ?>
 									<p class="description"><small><?php _e( "Select the option that should be selected by default.", 'yikes-inc-easy-mailchimp-extender' );?></small></p>
 								</td>
@@ -211,9 +218,9 @@ $merge_field_data = $available_merge_variables['merge_fields'][ $index ];
 								</td>
 								<td>
 									<select type="default" name="field[<?php echo $merge_field_data['tag']; ?>][default_choice]">
-										<?php foreach ( $merge_field_data['options']['choices'] as $choice => $value ) {
-											$pre_selected = ! empty( $merge_field_data['default_choice'] ) ? $merge_field_data['default_choice'] : '0';
-											?>
+										<?php $pre_selected = ! empty( $merge_field_data['default_choice'] ) ? $merge_field_data['default_choice'] : 'no-default'; ?>
+										<option value="no-default" <?php selected( $pre_selected, $choice ); ?>>No Default</option>
+										<?php foreach ( $merge_field_data['options']['choices'] as $choice => $value ) { ?>
 											<option value="<?php echo $choice; ?>" <?php selected( $pre_selected, $choice ); ?>><?php echo stripslashes( $value ); ?></option>
 										<?php } ?>
 									</select>
