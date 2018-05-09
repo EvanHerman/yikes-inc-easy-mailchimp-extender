@@ -12,9 +12,9 @@ The ultimate MailChimp WordPress plugin. Easily build unlimited forms for your M
 
 == Description ==
 
-Easy Forms for MailChimp allows you to add **unlimited** MailChimp sign up forms to your WordPress site. You can add forms to posts, pages, sidebars and other widgetized areas. Your MailChimp API Key connects your site to your account and pulls in all of your list information.
+Easy Forms for MailChimp allows you to add **unlimited** MailChimp sign up forms to your WordPress site. You can add forms to posts, pages, sidebars and other widgetized areas. Your MailChimp API Key connects your site to your account and pulls in all of your list information. List statistics can be viewed right from your dashboard.
 
-List statistics and user activity can be viewed right from your dashboard. From there, you can manage users and list settings.
+> Note: For GDPR compliance, use our free add-on [EU Opt-In Compliance for MailChimp](https://wordpress.org/plugins/eu-opt-in-compliance-for-mailchimp/).
 
 You can also extend the plugin's functionality with our [free and paid add-ons](https://yikesplugins.com/?utm_source=wp_plugin_repo&utm_medium=link&utm_campaign=easy_forms_for_mailchimp).
 
@@ -93,7 +93,7 @@ Yes, you must have a MailChimp account and at least 1 list set up in order to us
 Our plugin uses an API Key to allow your site to communicate with your account. After you enter your API key into the plugin settings your site is connected to your account and ready to make forms.
 
 = How do I create a MailChimp API key? =
-Go to the article [About MailChimp API Keys](http://kb.mailchimp.com/accounts/management/about-api-keys) for detailed information on creating API keys.
+For GDPR compliance, use our free add-on [EU Opt-In Compliance for MailChimp](https://wordpress.org/plugins/eu-opt-in-compliance-for-mailchimp/).
 
 Step-by-step instructions:
 
@@ -103,6 +103,9 @@ Step-by-step instructions:
 4. Name your key descriptively, so you know what application uses that key.
 
 Copy your API key so you can paste it into the plugin General Settings.
+
+= How do I make my forms GDPR compliant? =
+Yes, you must have a MailChimp account and at least 1 list set up in order to use the plugin. You can register for one for free at [their website](https://login.mailchimp.com/signup?).
 
 = How do I change the submit button text? =
 The submit button text can be customized to use any text you like. This is done via the shortcode. Please visit our How-to article [How do I change the submit button text](https://yikesplugins.com/support/knowledge-base/how-do-i-change-the-submit-button-text/) for step-by-step instructions.
