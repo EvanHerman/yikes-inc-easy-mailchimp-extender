@@ -2189,16 +2189,6 @@ class Yikes_Inc_Easy_Mailchimp_Forms_Admin {
 													<td>
 														<?php
 														$field['default_choice'] = isset( $field['default_choice'] ) ? $field['default_choice'] : array();
-														// if ( $field['type'] != 'checkboxes' ) {
-														// 	if ( ! isset( $field['default_choice'] ) ) {
-														// 		$group_options           = json_decode( stripslashes( $field['groups'] ), true );
-														// 		$field['default_choice'] = key( $group_options );
-														// 	}
-														// } else {
-														// 	if ( ! isset( $field['default_choice'] ) ) {
-														// 		$field['default_choice'] = array();
-														// 	}
-														// }
 
 														$default_shown = false;
 
@@ -2231,10 +2221,10 @@ class Yikes_Inc_Easy_Mailchimp_Forms_Admin {
 																?>
 																<label for="<?php echo $field_id . 'no-default'; ?>">
 																	<input id="<?php echo $field_id . 'no-default'; ?>"
-																	       type="<?php echo $field_type; ?>"
-																	       name="<?php echo $field_name; ?>"
-																	       value="no-default" 
-																	       <?php checked( $field['default_choice'], 'no-default' ); ?>>
+																	    type="<?php echo $field_type; ?>"
+																	    name="<?php echo $field_name; ?>"
+																	    value="no-default" 
+																	    <?php checked( $field['default_choice'], 'no-default' ); ?>>
 																	No Default&nbsp;
 																</label>
 																<?php
@@ -2243,9 +2233,9 @@ class Yikes_Inc_Easy_Mailchimp_Forms_Admin {
 															?>
 															<label for="<?php echo $field_id; ?>">
 																<input id="<?php echo $field_id; ?>"
-																       type="<?php echo $field_type; ?>"
-																       name="<?php echo $field_name; ?>"
-																       value="<?php echo $id; ?>" <?php echo $checked; ?>>
+																    type="<?php echo $field_type; ?>"
+																    name="<?php echo $field_name; ?>"
+																    value="<?php echo $id; ?>" <?php echo $checked; ?>>
 																<?php echo stripslashes( str_replace( '\'', '', $group ) ); ?>&nbsp;
 															</label>
 															<?php

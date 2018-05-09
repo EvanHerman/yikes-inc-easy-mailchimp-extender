@@ -13,12 +13,13 @@
 			let list_id  = form.find( '.yikes-mailchimp-unsubscribe-list-id' ).val();
 			let hp       = form.find( '.yikes-mailchimp-honeypot' ).val();
 			let feedback = form.siblings( '.yikes-mailchimp-unsubscribe-feedback' );
+			let button   = form.find( '.yikes-mailchimp-unsubscribe-submit-button' );
 
 			// Hide the feedback area
 			feedback.removeClass( 'yikes-mailchimp-unsubscribe-error yikes-mailchimp-unsubscribe-success' ).fadeOut( function() {
 
 				// Add the spinner gif
-				$( this ).after( '<img class="unsubscribe-loader" alt="form loading..." src="' + yikes_unsubscribe_data.loader + '"/>' );
+				button.after( '<img class="unsubscribe-loader" alt="form loading..." src="' + yikes_unsubscribe_data.loader + '"/>' );
 			});
 
 			let data = {
@@ -33,7 +34,7 @@
 				console.log( response );
 
 				// Remove spinner
-				form.siblings( '.unsubscribe-loader' ).remove();
+				form.find( '.unsubscribe-loader' ).remove();
 
 				if ( typeof response.success === 'boolean' ) {
 

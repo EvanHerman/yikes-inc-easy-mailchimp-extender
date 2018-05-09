@@ -5,6 +5,8 @@ function process_yikes_unsubscribe_shortcode( $args ) {
 	$defaults = array(
 		'list'              => '',
 		'form'              => '',
+		'title'             => '',
+		'description'       => '',
 		'email_label'       => 'Email Address',
 		'submit_label'      => 'Unsubscribe',
 		'email_placeholder' => ''
@@ -51,6 +53,14 @@ function process_yikes_unsubscribe_shortcode( $args ) {
 	ob_start();
 	?>
 		<section id="yikes-mailchimp-unsubscribe-container-<?php echo $list_id; ?>" class="yikes-mailchimp-unsubscribe-container">
+
+			<div id="yikes-mailchimp-unsubscribe-title-<?php echo $list_id; ?>" class="yikes-mailchimp-unsubscribe-title">
+				<h2><?php echo apply_filters( 'yikes-mailchimp-unsubscribe-title', $values['title'] ); ?></h2>
+			</div>
+
+			<div id="yikes-mailchimp-unsubscribe-description-<?php echo $list_id; ?>" class="yikes-mailchimp-unsubscribe-description">
+				<?php echo apply_filters( 'yikes-mailchimp-unsubscribe-description', $values['description'] ); ?>
+			</div>
 
 			<?php do_action( 'yikes-mailchimp-unsubscribe-before-form' ); ?>
 
