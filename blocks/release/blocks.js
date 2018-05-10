@@ -218,7 +218,7 @@ var edit_easy_form = function edit_easy_form(props) {
 		descriptionValue: props.attributes.form_description,
 		showDescription: props.attributes.show_description,
 		toggleShowDescription: toggleShowDescription,
-		focus: !!props.focus,
+		focus: !!props.isSelected,
 		inline: props.attributes.inline,
 		toggleInline: toggleInline,
 		formTitle: props.attributes.form_title,

@@ -1936,10 +1936,18 @@ class Yikes_Inc_Easy_Mailchimp_Forms_Admin {
 													</td>
 													<td>
 														<?php
-														if ( ! isset( $field['default_choice'] ) ) {
-															$field['default_choice'] = 0;
-														}
-														$x = 0;
+															$field['default_choice'] = ! isset( $field['default_choice'] ) ? 'no-default' : $field['default_choice'];
+															$x = 0;
+														?>
+														<label for="<?php echo $field['merge'] . '-no-default'; ?>">
+															<input id="<?php echo $field['merge'] . '-no-default'; ?>"
+															       type="radio"
+															       name="field[<?php echo $field['merge']; ?>][default_choice]"
+															       value="no-default" <?php checked( $field['default_choice'], 'no-default' ); ?>
+															>
+															No Default&nbsp;
+														</label>
+														<?php
 														foreach ( $choices as $choice => $value ) { ?>
 															<label for="<?php echo $field['merge'].'-'.$x; ?>">
 																<input id="<?php echo $field['merge'].'-'.$x; ?>"
@@ -1966,6 +1974,7 @@ class Yikes_Inc_Easy_Mailchimp_Forms_Admin {
 													</td>
 													<td>
 														<select type="default" name="field[<?php echo $field['merge']; ?>][default_choice]">
+															<option value="no-default" <?php selected( $field['default_choice'] , 'no-default' ); ?>>No Default</option>
 															<?php foreach( json_decode( $field['choices'], true ) as $choice => $value ) { ?>
 																<option value="<?php echo $choice; ?>" <?php selected( $field['default_choice'] , $choice ); ?>><?php echo $value; ?></option>
 															<?php } ?>
@@ -2179,18 +2188,11 @@ class Yikes_Inc_Easy_Mailchimp_Forms_Admin {
 													</td>
 													<td>
 														<?php
-														if ( $field['type'] != 'checkboxes' ) {
-															if ( ! isset( $field['default_choice'] ) ) {
-																$group_options           = json_decode( stripslashes( $field['groups'] ), true );
-																$field['default_choice'] = key( $group_options );
-															}
-														} else {
-															if ( ! isset( $field['default_choice'] ) ) {
-																$field['default_choice'] = array();
-															}
-														}
+														$field['default_choice'] = isset( $field['default_choice'] ) ? $field['default_choice'] : array();
 
-														foreach( json_decode( $field['groups'], true ) as $id => $group ) {
+														$default_shown = false;
+
+														foreach ( json_decode( $field['groups'], true ) as $id => $group ) {
 															$field_id   = "{$field['group_id']}-{$id}";
 															$field_type = 'hidden' == $field['type'] ? 'checkbox' : $field['type'];
 															$field_type = 'checkboxes' == $field_type ? 'checkbox' : $field_type;
@@ -2203,21 +2205,37 @@ class Yikes_Inc_Easy_Mailchimp_Forms_Admin {
 																case 'radio':
 																default:
 																	$checked = checked( $field['default_choice'], $id, false );
-																	break;
+																break;
 
 																case 'checkbox':
 																case 'hidden':
 																	if ( in_array( $id, (array) $field['default_choice'] ) ) {
 																		$checked = checked( true, true, false );
 																	}
+																break;
+															}
+
+															// Allow users to not set a default choice for radio buttons.
+															if ( $field_type === 'radio' && $default_shown === false ) {
+																$default_shown = true;
+																?>
+																<label for="<?php echo $field_id . 'no-default'; ?>">
+																	<input id="<?php echo $field_id . 'no-default'; ?>"
+																	    type="<?php echo $field_type; ?>"
+																	    name="<?php echo $field_name; ?>"
+																	    value="no-default" 
+																	    <?php checked( $field['default_choice'], 'no-default' ); ?>>
+																	No Default&nbsp;
+																</label>
+																<?php
 															}
 
 															?>
 															<label for="<?php echo $field_id; ?>">
 																<input id="<?php echo $field_id; ?>"
-																       type="<?php echo $field_type; ?>"
-																       name="<?php echo $field_name; ?>"
-																       value="<?php echo $id; ?>" <?php echo $checked; ?>>
+																    type="<?php echo $field_type; ?>"
+																    name="<?php echo $field_name; ?>"
+																    value="<?php echo $id; ?>" <?php echo $checked; ?>>
 																<?php echo stripslashes( str_replace( '\'', '', $group ) ); ?>&nbsp;
 															</label>
 															<?php
@@ -2239,6 +2257,7 @@ class Yikes_Inc_Easy_Mailchimp_Forms_Admin {
 													</td>
 													<td>
 														<select type="default" name="field[<?php echo $field['group_id']; ?>][default_choice]">
+															<option value="no-default">No Default</option>
 															<?php foreach( json_decode( stripslashes_deep( $field['groups'] ) , true ) as $id => $group ) { ?>
 																<option value="<?php echo $id; ?>" <?php selected( $field['default_choice'] , $id ); ?>><?php echo stripslashes( $group ); ?></option>
 															<?php } ?>
@@ -2673,8 +2692,8 @@ class Yikes_Inc_Easy_Mailchimp_Forms_Admin {
 		*	Probably Move these to its own file,
 		*/
 		public function yikes_easy_mailchimp_update_form() {
-			// grab & store our variables ( associated list & form name )
-			$nonce = $_REQUEST['nonce'];
+
+			$nonce   = $_REQUEST['nonce'];
 			$form_id = $_REQUEST['id'];
 
 			// verify our nonce
@@ -2688,7 +2707,7 @@ class Yikes_Inc_Easy_Mailchimp_Forms_Admin {
 				) );
 			}
 
-			// store our values!
+			// Store our values!
 			$list_id                 = $_POST['associated-list'];
 			$form_name               = stripslashes( $_POST['form-name'] );
 			$form_description        = sanitize_text_field( stripslashes( $_POST['form-description'] ) );

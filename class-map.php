@@ -35,4 +35,5 @@ return array (
   'yikes_easy_mc_checkbox_integration_class' => 'public/classes/checkbox-integrations.php',
   'yikes_inc_easy_mailchimp_public_ajax' => 'public/partials/ajax/class.public_ajax.php',
   'yikes_inc_easy_mailchimp_extender_process_submission_handler' => 'public/classes/process/class.process_form_submission_handler.php',
+  'yikes_mailchimp_process_unsubscribe' => 'public/partials/shortcodes/unsubscribe/process-unsubscribe.php',
 );

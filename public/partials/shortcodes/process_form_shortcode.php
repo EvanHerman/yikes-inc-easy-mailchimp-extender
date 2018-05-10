@@ -888,11 +888,11 @@ function process_mailchimp_shortcode( $atts ) {
 							break;
 
 							case 'dropdown':
-								$default_choice = ( is_array( $field['default_choice'] ) ) ? $field['default_choice'] : array( $field['default_choice'] );
+								$no_default     = $field['default_choice'] === 'no-default' || isset( $field['default_choice'][0] ) && $field['default_choice'][0] === 'no-default';
+								$default_choice = is_array( $field['default_choice'] ) ? $field['default_choice'] : array( $field['default_choice'] );
+
 								// store empty number for looping
 								$x = 0;
-								// hidden labels
-
 									?>
 									<label for="<?php echo esc_attr( $field_id_string ); ?>" <?php echo implode( ' ' , $label_array ); ?>>
 										<!-- dictate label visibility -->
@@ -917,10 +917,12 @@ function process_mailchimp_shortcode( $atts ) {
 
 										<select <?php echo implode( ' ' , $field_array ); ?>>
 											<?php
+												$no_default_name = apply_filters( 'yikes-mailchimp-dropdown-field-no-default-option-name', __( 'Select...', 'yikes-inc-easy-mailchimp-extender' ), $form_id );
+												echo $no_default === true ? '<option value="">' . $no_default_name . '</option>' : '';
 												foreach( $choices as $choice ) { ?>
 													<option 
 														value="<?php echo esc_attr( $choice ); ?>"
-														<?php if ( in_array( $x, $default_choice ) || in_array( $choice, $default_choice, true ) ) { echo 'selected="selected"'; } ?>>
+														<?php if ( $no_default !== true && in_array( $x, $default_choice ) || in_array( $choice, $default_choice, true ) ) { echo 'selected="selected"'; } ?>>
 														<?php echo esc_attr( stripslashes( $choice ) ); ?>
 													</option><?php
 													$x++;
@@ -944,6 +946,7 @@ function process_mailchimp_shortcode( $atts ) {
 								$choices = json_decode( $field['choices'], true );
 
 								// assign a default choice
+								$no_default     = $field['default_choice'] === 'no-default' || isset( $field['default_choice'][0] ) && $field['default_choice'][0] === 'no-default';
 								$default_choice = ( isset( $field['default_choice'] ) && ! empty( $field['default_choice'] ) ) ? $field['default_choice'] : $choices[0];
 								$default_choice = ( is_array( $default_choice ) ) ? $default_choice : array( $default_choice );
 
@@ -976,7 +979,7 @@ function process_mailchimp_shortcode( $atts ) {
 												type="<?php echo esc_attr( $field['type'] ); ?>" 
 												name="<?php echo esc_attr( $field['merge'] ); ?>" 
 												id="<?php echo esc_attr( $field['merge'] . '-' . $i ); ?>" 
-												<?php if ( in_array( $x, $default_choice ) || in_array( $choice, $default_choice, true ) ) { echo 'checked="checked"'; } ?> 
+												<?php if ( $no_default !== true && in_array( $x, $default_choice ) || in_array( $choice, $default_choice, true ) ) { echo 'checked="checked"'; } ?> 
 												value="<?php echo esc_attr( $choice ); ?>">
 											<span class="<?php echo esc_attr( $field['merge'] ). '-label'; ?>"><?php echo stripslashes( $choice ); ?></span>
 										</label>
@@ -1115,7 +1118,12 @@ function process_mailchimp_shortcode( $atts ) {
 										<?php if ( $show_description === true && $description_above === true ) { echo $description; } ?>
 
 										<select <?php echo implode( ' ' , $field_array ); ?>>
+
 											<?php
+												$no_default      = $field['default_choice'] === 'no-default' || isset( $field['default_choice'][0] ) && $field['default_choice'][0] === 'no-default';
+												$no_default_name = apply_filters( 'yikes-mailchimp-dropdown-ig-no-default-option-name', __( 'Select...', 'yikes-inc-easy-mailchimp-extender' ), $form_id );
+												echo $no_default === true ? '<option value="">' . $no_default_name . '</option>' : '';
+
 												$i = 0;
 												foreach( $groups as $group_id => $name ) { 
 

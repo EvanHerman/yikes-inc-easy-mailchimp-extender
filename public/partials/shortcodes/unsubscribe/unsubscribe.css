@@ -1,0 +1,24 @@
+.yikes-mailchimp-unsubscribe-container .yikes-mailchimp-unsubscribe-feedback {
+    border-left: 1px solid rgb(14, 53, 87);
+    margin-bottom: 15px;
+    display: inline-block;
+    color: #575656;
+    font-weight: 600;
+    padding-left: 10px;
+    padding-top: 10px;
+    padding-right: 20px;
+    padding-bottom: 10px;
+}
+
+.yikes-mailchimp-unsubscribe-container .yikes-mailchimp-unsubscribe-feedback.yikes-mailchimp-unsubscribe-error {
+	background-color: #e8f4ff;
+}
+
+.yikes-mailchimp-unsubscribe-container .yikes-mailchimp-unsubscribe-feedback.yikes-mailchimp-unsubscribe-success {
+	background-color: #daffdb;	
+}
+
+.unsubscribe-loader {
+	position: absolute;
+	height: 50px;
+}

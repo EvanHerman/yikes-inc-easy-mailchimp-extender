@@ -1,10 +1,10 @@
 ﻿=== Easy Forms for MailChimp ===
-Contributors: yikesinc, eherman24, liljimmi, hiwhatsup, JPry, yikesitskevin
+Contributors: yikesinc, eherman24, liljimmi, JPry, yikesitskevin
 Donate link: https://yikesplugins.com/?utm_source=wp_plugin_repo&utm_medium=donate_link&utm_campaign=easy_forms_for_mailchimp
 Tags: MailChimp, MailChimp forms, MailChimp lists, opt-in forms, sign up form, MailChimp, email, forms, mailing lists, marketing, newsletter, sign up
 Requires at least: 4.0
 Tested up to: 4.9.5
-Stable tag: 6.4.1
+Stable tag: 6.4.2
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -12,9 +12,9 @@ The ultimate MailChimp WordPress plugin. Easily build unlimited forms for your M
 
 == Description ==
 
-Easy Forms for MailChimp allows you to add **unlimited** MailChimp sign up forms to your WordPress site. You can add forms to posts, pages, sidebars and other widgetized areas. Your MailChimp API Key connects your site to your account and pulls in all of your list information.
+Easy Forms for MailChimp allows you to add **unlimited** MailChimp sign up forms to your WordPress site. You can add forms to posts, pages, sidebars and other widgetized areas. Your MailChimp API Key connects your site to your account and pulls in all of your list information. List statistics can be viewed right from your dashboard.
 
-List statistics and user activity can be viewed right from your dashboard. From there, you can manage users and list settings.
+> Note: For GDPR compliance, use our free add-on [EU Opt-In Compliance for MailChimp](https://wordpress.org/plugins/eu-opt-in-compliance-for-mailchimp/).
 
 You can also extend the plugin's functionality with our [free and paid add-ons](https://yikesplugins.com/?utm_source=wp_plugin_repo&utm_medium=link&utm_campaign=easy_forms_for_mailchimp).
 
@@ -93,7 +93,7 @@ Yes, you must have a MailChimp account and at least 1 list set up in order to us
 Our plugin uses an API Key to allow your site to communicate with your account. After you enter your API key into the plugin settings your site is connected to your account and ready to make forms.
 
 = How do I create a MailChimp API key? =
-Go to the article [About MailChimp API Keys](http://kb.mailchimp.com/accounts/management/about-api-keys) for detailed information on creating API keys.
+For GDPR compliance, use our free add-on [EU Opt-In Compliance for MailChimp](https://wordpress.org/plugins/eu-opt-in-compliance-for-mailchimp/).
 
 Step-by-step instructions:
 
@@ -103,6 +103,9 @@ Step-by-step instructions:
 4. Name your key descriptively, so you know what application uses that key.
 
 Copy your API key so you can paste it into the plugin General Settings.
+
+= How do I make my forms GDPR compliant? =
+Yes, you must have a MailChimp account and at least 1 list set up in order to use the plugin. You can register for one for free at [their website](https://login.mailchimp.com/signup?).
 
 = How do I change the submit button text? =
 The submit button text can be customized to use any text you like. This is done via the shortcode. Please visit our How-to article [How do I change the submit button text](https://yikesplugins.com/support/knowledge-base/how-do-i-change-the-submit-button-text/) for step-by-step instructions.
@@ -169,5 +172,10 @@ For information and code examples on how to implement the hooks and filters prov
 
 == Changelog ==
 
-= 6.4.1 - May 2nd, 2018 =
-- Fixing a syntax error in Easy Forms v6.4.0 related to PHP Versions < 5.4
+= 6.4.2 - May 9th, 2018 =
+* Added a new API function to create notes on a subscriber's profile
+* Added no default options for radio buttons and dropdowns (both merge fields and interest groups).
+* Added a basic unsubscribe shortcode and all of the JS/CSS/API functions that support this.
+* Added a filter, `yikes-mailchimp-wooco-integration-checkbox-checkout-fields`, that allows you to move the placement of the WooCommerce checkout integration checkbox to the bottom of the form.
+* Fixed an issue where hidden interest groups required a default value
+* Fixed an issue with the Easy Forms Gutenberg block

@@ -6,9 +6,9 @@
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: yikes-inc-easy-mailchimp-extender 6.4.0\n"
+"Project-Id-Version: yikes-inc-easy-mailchimp-extender 6.4.2\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-05-01 13:20+0000\n"
+"POT-Creation-Date: 2018-05-09 19:52+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -41,14 +41,14 @@ msgstr ""
 #: admin/class-yikes-inc-easy-mailchimp-extender-admin.php:387
 #: admin/class-yikes-inc-easy-mailchimp-extender-admin.php:409
 #: admin/class-yikes-inc-easy-mailchimp-extender-admin.php:429
-#: admin/class-yikes-inc-easy-mailchimp-extender-admin.php:2561
-#: admin/class-yikes-inc-easy-mailchimp-extender-admin.php:2596
-#: admin/class-yikes-inc-easy-mailchimp-extender-admin.php:2616
-#: admin/class-yikes-inc-easy-mailchimp-extender-admin.php:2649
-#: admin/class-yikes-inc-easy-mailchimp-extender-admin.php:2683
-#: admin/class-yikes-inc-easy-mailchimp-extender-admin.php:2824
-#: admin/class-yikes-inc-easy-mailchimp-extender-admin.php:2846
-#: admin/class-yikes-inc-easy-mailchimp-extender-admin.php:2870
+#: admin/class-yikes-inc-easy-mailchimp-extender-admin.php:2580
+#: admin/class-yikes-inc-easy-mailchimp-extender-admin.php:2615
+#: admin/class-yikes-inc-easy-mailchimp-extender-admin.php:2635
+#: admin/class-yikes-inc-easy-mailchimp-extender-admin.php:2668
+#: admin/class-yikes-inc-easy-mailchimp-extender-admin.php:2702
+#: admin/class-yikes-inc-easy-mailchimp-extender-admin.php:2843
+#: admin/class-yikes-inc-easy-mailchimp-extender-admin.php:2865
+#: admin/class-yikes-inc-easy-mailchimp-extender-admin.php:2889
 msgid ""
 "We've run into an error. The security check didn't pass. Please try again."
 msgstr ""
@@ -56,13 +56,13 @@ msgstr ""
 #: admin/class-yikes-inc-easy-mailchimp-extender-admin.php:387
 #: admin/class-yikes-inc-easy-mailchimp-extender-admin.php:409
 #: admin/class-yikes-inc-easy-mailchimp-extender-admin.php:429
-#: admin/class-yikes-inc-easy-mailchimp-extender-admin.php:2596
-#: admin/class-yikes-inc-easy-mailchimp-extender-admin.php:2616
-#: admin/class-yikes-inc-easy-mailchimp-extender-admin.php:2649
-#: admin/class-yikes-inc-easy-mailchimp-extender-admin.php:2684
-#: admin/class-yikes-inc-easy-mailchimp-extender-admin.php:2824
-#: admin/class-yikes-inc-easy-mailchimp-extender-admin.php:2846
-#: admin/class-yikes-inc-easy-mailchimp-extender-admin.php:2870
+#: admin/class-yikes-inc-easy-mailchimp-extender-admin.php:2615
+#: admin/class-yikes-inc-easy-mailchimp-extender-admin.php:2635
+#: admin/class-yikes-inc-easy-mailchimp-extender-admin.php:2668
+#: admin/class-yikes-inc-easy-mailchimp-extender-admin.php:2703
+#: admin/class-yikes-inc-easy-mailchimp-extender-admin.php:2843
+#: admin/class-yikes-inc-easy-mailchimp-extender-admin.php:2865
+#: admin/class-yikes-inc-easy-mailchimp-extender-admin.php:2889
 msgid "Failed nonce validation"
 msgstr ""
 
@@ -513,7 +513,7 @@ msgid ""
 msgstr ""
 
 #: admin/class-yikes-inc-easy-mailchimp-extender-admin.php:1806
-#: admin/class-yikes-inc-easy-mailchimp-extender-admin.php:2146
+#: admin/class-yikes-inc-easy-mailchimp-extender-admin.php:2155
 msgid "Field no longer exists."
 msgstr ""
 
@@ -522,7 +522,7 @@ msgid "Click to save changes."
 msgstr ""
 
 #: admin/class-yikes-inc-easy-mailchimp-extender-admin.php:1812
-#: admin/class-yikes-inc-easy-mailchimp-extender-admin.php:2148
+#: admin/class-yikes-inc-easy-mailchimp-extender-admin.php:2157
 #: admin/partials/ajax/add_field_to_form.php:41
 #: admin/partials/ajax/add_interest_group_to_form.php:65
 msgid "type"
@@ -575,155 +575,155 @@ msgid "View Pre-Defined Tags"
 msgstr ""
 
 #: admin/class-yikes-inc-easy-mailchimp-extender-admin.php:1934
-#: admin/class-yikes-inc-easy-mailchimp-extender-admin.php:1964
-#: admin/class-yikes-inc-easy-mailchimp-extender-admin.php:2177
-#: admin/class-yikes-inc-easy-mailchimp-extender-admin.php:2237
+#: admin/class-yikes-inc-easy-mailchimp-extender-admin.php:1972
+#: admin/class-yikes-inc-easy-mailchimp-extender-admin.php:2186
+#: admin/class-yikes-inc-easy-mailchimp-extender-admin.php:2255
 #: admin/partials/ajax/add_field_to_form.php:183
-#: admin/partials/ajax/add_field_to_form.php:209
-#: admin/partials/ajax/add_interest_group_to_form.php:90
-#: admin/partials/ajax/add_interest_group_to_form.php:115
-#: admin/partials/ajax/add_interest_group_to_form.php:139
+#: admin/partials/ajax/add_field_to_form.php:216
+#: admin/partials/ajax/add_interest_group_to_form.php:89
+#: admin/partials/ajax/add_interest_group_to_form.php:117
+#: admin/partials/ajax/add_interest_group_to_form.php:141
 msgid "Default Selection"
 msgstr ""
 
-#: admin/class-yikes-inc-easy-mailchimp-extender-admin.php:1952
-#: admin/class-yikes-inc-easy-mailchimp-extender-admin.php:2225
-#: admin/partials/ajax/add_field_to_form.php:197
+#: admin/class-yikes-inc-easy-mailchimp-extender-admin.php:1960
+#: admin/class-yikes-inc-easy-mailchimp-extender-admin.php:2243
+#: admin/partials/ajax/add_field_to_form.php:204
 #: admin/partials/ajax/add_interest_group_to_form.php:103
-#: admin/partials/ajax/add_interest_group_to_form.php:127
+#: admin/partials/ajax/add_interest_group_to_form.php:129
 msgid "Select the option that should be selected by default."
 msgstr ""
 
-#: admin/class-yikes-inc-easy-mailchimp-extender-admin.php:1973
-#: admin/class-yikes-inc-easy-mailchimp-extender-admin.php:2246
-#: admin/partials/ajax/add_field_to_form.php:220
+#: admin/class-yikes-inc-easy-mailchimp-extender-admin.php:1982
+#: admin/class-yikes-inc-easy-mailchimp-extender-admin.php:2265
+#: admin/partials/ajax/add_field_to_form.php:227
 #: admin/partials/ajax/add_interest_group_to_form.php:152
 msgid "Which option should be selected by default?"
 msgstr ""
 
-#: admin/class-yikes-inc-easy-mailchimp-extender-admin.php:1991
-#: admin/class-yikes-inc-easy-mailchimp-extender-admin.php:2260
-#: admin/partials/ajax/add_field_to_form.php:233
+#: admin/class-yikes-inc-easy-mailchimp-extender-admin.php:2000
+#: admin/class-yikes-inc-easy-mailchimp-extender-admin.php:2279
+#: admin/partials/ajax/add_field_to_form.php:240
 #: admin/partials/ajax/add_interest_group_to_form.php:164
 msgid "Description"
 msgstr ""
 
-#: admin/class-yikes-inc-easy-mailchimp-extender-admin.php:1996
+#: admin/class-yikes-inc-easy-mailchimp-extender-admin.php:2005
 msgid ""
 "Enter the description for the form field. This will be displayed to the user "
 "and will provide some direction on how the field should be filled out or "
 "selected."
 msgstr ""
 
-#: admin/class-yikes-inc-easy-mailchimp-extender-admin.php:2003
-#: admin/class-yikes-inc-easy-mailchimp-extender-admin.php:2273
-#: admin/partials/ajax/add_field_to_form.php:245
+#: admin/class-yikes-inc-easy-mailchimp-extender-admin.php:2012
+#: admin/class-yikes-inc-easy-mailchimp-extender-admin.php:2292
+#: admin/partials/ajax/add_field_to_form.php:252
 #: admin/partials/ajax/add_interest_group_to_form.php:177
 msgid "Description Above Field"
 msgstr ""
 
-#: admin/class-yikes-inc-easy-mailchimp-extender-admin.php:2008
-#: admin/class-yikes-inc-easy-mailchimp-extender-admin.php:2278
-#: admin/partials/ajax/add_field_to_form.php:250
+#: admin/class-yikes-inc-easy-mailchimp-extender-admin.php:2017
+#: admin/class-yikes-inc-easy-mailchimp-extender-admin.php:2297
+#: admin/partials/ajax/add_field_to_form.php:257
 #: admin/partials/ajax/add_interest_group_to_form.php:182
 msgid ""
 "By default the description will appear undearneath the field. Check this box "
 "if you'd like the description to appear above the field."
 msgstr ""
 
-#: admin/class-yikes-inc-easy-mailchimp-extender-admin.php:2015
-#: admin/class-yikes-inc-easy-mailchimp-extender-admin.php:2286
-#: admin/partials/ajax/add_field_to_form.php:257
+#: admin/class-yikes-inc-easy-mailchimp-extender-admin.php:2024
+#: admin/class-yikes-inc-easy-mailchimp-extender-admin.php:2305
+#: admin/partials/ajax/add_field_to_form.php:264
 #: admin/partials/ajax/add_interest_group_to_form.php:190
 msgid "Additional Classes"
 msgstr ""
 
-#: admin/class-yikes-inc-easy-mailchimp-extender-admin.php:2020
-#: admin/class-yikes-inc-easy-mailchimp-extender-admin.php:2291
-#: admin/partials/ajax/add_field_to_form.php:262
+#: admin/class-yikes-inc-easy-mailchimp-extender-admin.php:2029
+#: admin/class-yikes-inc-easy-mailchimp-extender-admin.php:2310
+#: admin/partials/ajax/add_field_to_form.php:269
 #: admin/partials/ajax/add_interest_group_to_form.php:195
 #, php-format
 msgid "Assign additional classes to this field. %s."
 msgstr ""
 
-#: admin/class-yikes-inc-easy-mailchimp-extender-admin.php:2020
-#: admin/class-yikes-inc-easy-mailchimp-extender-admin.php:2291
-#: admin/partials/ajax/add_field_to_form.php:262
+#: admin/class-yikes-inc-easy-mailchimp-extender-admin.php:2029
+#: admin/class-yikes-inc-easy-mailchimp-extender-admin.php:2310
+#: admin/partials/ajax/add_field_to_form.php:269
 #: admin/partials/ajax/add_interest_group_to_form.php:195
 msgid "View bundled classes"
 msgstr ""
 
-#: admin/class-yikes-inc-easy-mailchimp-extender-admin.php:2027
-#: admin/class-yikes-inc-easy-mailchimp-extender-admin.php:2298
-#: admin/partials/ajax/add_field_to_form.php:269
+#: admin/class-yikes-inc-easy-mailchimp-extender-admin.php:2036
+#: admin/class-yikes-inc-easy-mailchimp-extender-admin.php:2317
+#: admin/partials/ajax/add_field_to_form.php:276
 #: admin/partials/ajax/add_interest_group_to_form.php:202
 msgid "Field Required?"
 msgstr ""
 
-#: admin/class-yikes-inc-easy-mailchimp-extender-admin.php:2032
-#: admin/partials/ajax/add_field_to_form.php:273
+#: admin/class-yikes-inc-easy-mailchimp-extender-admin.php:2041
+#: admin/partials/ajax/add_field_to_form.php:280
 msgid "Email is a required field."
 msgstr ""
 
-#: admin/class-yikes-inc-easy-mailchimp-extender-admin.php:2033
-#: admin/class-yikes-inc-easy-mailchimp-extender-admin.php:2304
-#: admin/partials/ajax/add_field_to_form.php:274
+#: admin/class-yikes-inc-easy-mailchimp-extender-admin.php:2042
+#: admin/class-yikes-inc-easy-mailchimp-extender-admin.php:2323
+#: admin/partials/ajax/add_field_to_form.php:281
 #: admin/partials/ajax/add_interest_group_to_form.php:207
 msgid "Require this field to be filled in before the form can be submitted."
 msgstr ""
 
-#: admin/class-yikes-inc-easy-mailchimp-extender-admin.php:2040
-#: admin/class-yikes-inc-easy-mailchimp-extender-admin.php:2311
-#: admin/partials/ajax/add_field_to_form.php:281
+#: admin/class-yikes-inc-easy-mailchimp-extender-admin.php:2049
+#: admin/class-yikes-inc-easy-mailchimp-extender-admin.php:2330
+#: admin/partials/ajax/add_field_to_form.php:288
 #: admin/partials/ajax/add_interest_group_to_form.php:214
 msgid "Hide Field"
 msgstr ""
 
-#: admin/class-yikes-inc-easy-mailchimp-extender-admin.php:2045
-#: admin/partials/ajax/add_field_to_form.php:285
+#: admin/class-yikes-inc-easy-mailchimp-extender-admin.php:2054
+#: admin/partials/ajax/add_field_to_form.php:292
 msgid "Cannot toggle email field visibility."
 msgstr ""
 
-#: admin/class-yikes-inc-easy-mailchimp-extender-admin.php:2046
-#: admin/class-yikes-inc-easy-mailchimp-extender-admin.php:2317
-#: admin/partials/ajax/add_field_to_form.php:286
+#: admin/class-yikes-inc-easy-mailchimp-extender-admin.php:2055
+#: admin/class-yikes-inc-easy-mailchimp-extender-admin.php:2336
+#: admin/partials/ajax/add_field_to_form.php:293
 #: admin/partials/ajax/add_interest_group_to_form.php:219
 msgid "Hide this field from being displayed on the front end."
 msgstr ""
 
-#: admin/class-yikes-inc-easy-mailchimp-extender-admin.php:2053
-#: admin/class-yikes-inc-easy-mailchimp-extender-admin.php:2324
-#: admin/partials/ajax/add_field_to_form.php:293
+#: admin/class-yikes-inc-easy-mailchimp-extender-admin.php:2062
+#: admin/class-yikes-inc-easy-mailchimp-extender-admin.php:2343
+#: admin/partials/ajax/add_field_to_form.php:300
 #: admin/partials/ajax/add_interest_group_to_form.php:226
 msgid "Hide Label"
 msgstr ""
 
-#: admin/class-yikes-inc-easy-mailchimp-extender-admin.php:2059
-#: admin/class-yikes-inc-easy-mailchimp-extender-admin.php:2330
-#: admin/partials/ajax/add_field_to_form.php:298
+#: admin/class-yikes-inc-easy-mailchimp-extender-admin.php:2068
+#: admin/class-yikes-inc-easy-mailchimp-extender-admin.php:2349
+#: admin/partials/ajax/add_field_to_form.php:305
 #: admin/partials/ajax/add_interest_group_to_form.php:231
 msgid "Toggle field label visibility."
 msgstr ""
 
-#: admin/class-yikes-inc-easy-mailchimp-extender-admin.php:2078
-#: admin/class-yikes-inc-easy-mailchimp-extender-admin.php:2084
-#: admin/partials/ajax/add_field_to_form.php:317
-#: admin/partials/ajax/add_field_to_form.php:323
+#: admin/class-yikes-inc-easy-mailchimp-extender-admin.php:2087
+#: admin/class-yikes-inc-easy-mailchimp-extender-admin.php:2093
+#: admin/partials/ajax/add_field_to_form.php:324
+#: admin/partials/ajax/add_field_to_form.php:330
 msgid "Date Format"
 msgstr ""
 
-#: admin/class-yikes-inc-easy-mailchimp-extender-admin.php:2090
-#: admin/partials/ajax/add_field_to_form.php:329
+#: admin/class-yikes-inc-easy-mailchimp-extender-admin.php:2099
+#: admin/partials/ajax/add_field_to_form.php:336
 msgid "Phone Format"
 msgstr ""
 
-#: admin/class-yikes-inc-easy-mailchimp-extender-admin.php:2091
-#: admin/partials/ajax/add_field_to_form.php:330
+#: admin/class-yikes-inc-easy-mailchimp-extender-admin.php:2100
+#: admin/partials/ajax/add_field_to_form.php:337
 msgid "International"
 msgstr ""
 
-#: admin/class-yikes-inc-easy-mailchimp-extender-admin.php:2103
-#: admin/partials/ajax/add_field_to_form.php:342
+#: admin/class-yikes-inc-easy-mailchimp-extender-admin.php:2112
+#: admin/partials/ajax/add_field_to_form.php:349
 #, php-format
 msgid ""
 "To change the %s please head over to <a href=\"%s\" title=\"MailChimp\" "
@@ -731,166 +731,166 @@ msgid ""
 "import this field."
 msgstr ""
 
-#: admin/class-yikes-inc-easy-mailchimp-extender-admin.php:2122
-#: admin/class-yikes-inc-easy-mailchimp-extender-admin.php:2340
-#: admin/partials/ajax/add_field_to_form.php:361
+#: admin/class-yikes-inc-easy-mailchimp-extender-admin.php:2131
+#: admin/class-yikes-inc-easy-mailchimp-extender-admin.php:2359
+#: admin/partials/ajax/add_field_to_form.php:368
 #: admin/partials/ajax/add_interest_group_to_form.php:241
 msgid "Close"
 msgstr ""
 
-#: admin/class-yikes-inc-easy-mailchimp-extender-admin.php:2123
-#: admin/class-yikes-inc-easy-mailchimp-extender-admin.php:2341
-#: admin/partials/ajax/add_field_to_form.php:362
+#: admin/class-yikes-inc-easy-mailchimp-extender-admin.php:2132
+#: admin/class-yikes-inc-easy-mailchimp-extender-admin.php:2360
+#: admin/partials/ajax/add_field_to_form.php:369
 #: admin/partials/ajax/add_interest_group_to_form.php:242
 msgid "Remove Field"
 msgstr ""
 
-#: admin/class-yikes-inc-easy-mailchimp-extender-admin.php:2155
+#: admin/class-yikes-inc-easy-mailchimp-extender-admin.php:2164
 msgid ""
 "This field no longer exists in this list. Delete this field from the form to "
 "prevent issues on the front end."
 msgstr ""
 
-#: admin/class-yikes-inc-easy-mailchimp-extender-admin.php:2265
-#: admin/partials/ajax/add_field_to_form.php:238
+#: admin/class-yikes-inc-easy-mailchimp-extender-admin.php:2284
+#: admin/partials/ajax/add_field_to_form.php:245
 #: admin/partials/ajax/add_interest_group_to_form.php:169
 msgid ""
 "Enter the description for the form field. This will be displayed to the user "
 "and provide some direction on how the field should be filled out or selected."
 msgstr ""
 
-#: admin/class-yikes-inc-easy-mailchimp-extender-admin.php:2355
+#: admin/class-yikes-inc-easy-mailchimp-extender-admin.php:2374
 msgid ""
 "No fields are assigned to this form. Select fields from the right hand "
 "column to add to this form."
 msgstr ""
 
-#: admin/class-yikes-inc-easy-mailchimp-extender-admin.php:2366
-#: admin/class-yikes-inc-easy-mailchimp-extender-admin.php:2367
+#: admin/class-yikes-inc-easy-mailchimp-extender-admin.php:2385
+#: admin/class-yikes-inc-easy-mailchimp-extender-admin.php:2386
 msgid "Page Title"
 msgstr ""
 
-#: admin/class-yikes-inc-easy-mailchimp-extender-admin.php:2366
+#: admin/class-yikes-inc-easy-mailchimp-extender-admin.php:2385
 msgid ""
 "Pre-populate the field with the current page or post title that the user is "
 "on when opting in to your mailing list."
 msgstr ""
 
-#: admin/class-yikes-inc-easy-mailchimp-extender-admin.php:2371
-#: admin/class-yikes-inc-easy-mailchimp-extender-admin.php:2372
+#: admin/class-yikes-inc-easy-mailchimp-extender-admin.php:2390
+#: admin/class-yikes-inc-easy-mailchimp-extender-admin.php:2391
 msgid "Page ID"
 msgstr ""
 
-#: admin/class-yikes-inc-easy-mailchimp-extender-admin.php:2371
+#: admin/class-yikes-inc-easy-mailchimp-extender-admin.php:2390
 msgid ""
 "Pre-populate the field with the current page or post ID that the user is on "
 "when opting in to your mailing list."
 msgstr ""
 
-#: admin/class-yikes-inc-easy-mailchimp-extender-admin.php:2376
-#: admin/class-yikes-inc-easy-mailchimp-extender-admin.php:2377
+#: admin/class-yikes-inc-easy-mailchimp-extender-admin.php:2395
+#: admin/class-yikes-inc-easy-mailchimp-extender-admin.php:2396
 msgid "Page URL"
 msgstr ""
 
-#: admin/class-yikes-inc-easy-mailchimp-extender-admin.php:2376
+#: admin/class-yikes-inc-easy-mailchimp-extender-admin.php:2395
 msgid ""
 "Pre-populate the field with the current page URL that the user is on when "
 "opting in to your mailing list."
 msgstr ""
 
-#: admin/class-yikes-inc-easy-mailchimp-extender-admin.php:2381
-#: admin/class-yikes-inc-easy-mailchimp-extender-admin.php:2382
+#: admin/class-yikes-inc-easy-mailchimp-extender-admin.php:2400
+#: admin/class-yikes-inc-easy-mailchimp-extender-admin.php:2401
 msgid "Blog Name"
 msgstr ""
 
-#: admin/class-yikes-inc-easy-mailchimp-extender-admin.php:2381
+#: admin/class-yikes-inc-easy-mailchimp-extender-admin.php:2400
 msgid ""
 "Pre-populate the field with the current blog name that the user is on when "
 "opting in to your mailing list. This is especially helpful for multi-site "
 "networks."
 msgstr ""
 
-#: admin/class-yikes-inc-easy-mailchimp-extender-admin.php:2386
-#: admin/class-yikes-inc-easy-mailchimp-extender-admin.php:2387
+#: admin/class-yikes-inc-easy-mailchimp-extender-admin.php:2405
+#: admin/class-yikes-inc-easy-mailchimp-extender-admin.php:2406
 msgid "User Logged In"
 msgstr ""
 
-#: admin/class-yikes-inc-easy-mailchimp-extender-admin.php:2386
+#: admin/class-yikes-inc-easy-mailchimp-extender-admin.php:2405
 msgid ""
 "Detects if a user is logged in and pre-populates the field with an "
 "appropriate value."
 msgstr ""
 
-#: admin/class-yikes-inc-easy-mailchimp-extender-admin.php:2414
+#: admin/class-yikes-inc-easy-mailchimp-extender-admin.php:2433
 msgid "Pre Defined Tags"
 msgstr ""
 
-#: admin/class-yikes-inc-easy-mailchimp-extender-admin.php:2415
+#: admin/class-yikes-inc-easy-mailchimp-extender-admin.php:2434
 msgid ""
 "You can use any of the following tags to populate a MailChimp text field "
 "with dynamic content. This can be used to determine which page the user "
 "signed up on, if the user was logged in and more."
 msgstr ""
 
-#: admin/class-yikes-inc-easy-mailchimp-extender-admin.php:2459
-#: admin/class-yikes-inc-easy-mailchimp-extender-admin.php:2521
+#: admin/class-yikes-inc-easy-mailchimp-extender-admin.php:2478
+#: admin/class-yikes-inc-easy-mailchimp-extender-admin.php:2540
 msgid "Already assigned to your form"
 msgstr ""
 
-#: admin/class-yikes-inc-easy-mailchimp-extender-admin.php:2463
-#: admin/class-yikes-inc-easy-mailchimp-extender-admin.php:2477
+#: admin/class-yikes-inc-easy-mailchimp-extender-admin.php:2482
+#: admin/class-yikes-inc-easy-mailchimp-extender-admin.php:2496
 msgid "required field"
 msgstr ""
 
-#: admin/class-yikes-inc-easy-mailchimp-extender-admin.php:2487
-#: admin/class-yikes-inc-easy-mailchimp-extender-admin.php:2545
+#: admin/class-yikes-inc-easy-mailchimp-extender-admin.php:2506
+#: admin/class-yikes-inc-easy-mailchimp-extender-admin.php:2564
 msgid "Add to Form Builder"
 msgstr ""
 
-#: admin/class-yikes-inc-easy-mailchimp-extender-admin.php:2575
-#: admin/class-yikes-inc-easy-mailchimp-extender-admin.php:2576
+#: admin/class-yikes-inc-easy-mailchimp-extender-admin.php:2594
+#: admin/class-yikes-inc-easy-mailchimp-extender-admin.php:2595
 msgid "Error creating a new form"
 msgstr ""
 
-#: admin/class-yikes-inc-easy-mailchimp-extender-admin.php:2575
+#: admin/class-yikes-inc-easy-mailchimp-extender-admin.php:2594
 msgid "Creating a new form"
 msgstr ""
 
-#: admin/class-yikes-inc-easy-mailchimp-extender-admin.php:2575
+#: admin/class-yikes-inc-easy-mailchimp-extender-admin.php:2594
 msgid "Forms"
 msgstr ""
 
-#: admin/class-yikes-inc-easy-mailchimp-extender-admin.php:2795
+#: admin/class-yikes-inc-easy-mailchimp-extender-admin.php:2814
 msgid "Greetings,"
 msgstr ""
 
-#: admin/class-yikes-inc-easy-mailchimp-extender-admin.php:2798
+#: admin/class-yikes-inc-easy-mailchimp-extender-admin.php:2817
 msgid ""
 "A request has been made to update your MailChimp account profile information."
 msgstr ""
 
-#: admin/class-yikes-inc-easy-mailchimp-extender-admin.php:2799
+#: admin/class-yikes-inc-easy-mailchimp-extender-admin.php:2818
 msgid " To do so please use the following link: "
 msgstr ""
 
-#: admin/class-yikes-inc-easy-mailchimp-extender-admin.php:2801
+#: admin/class-yikes-inc-easy-mailchimp-extender-admin.php:2820
 msgid "Update MailChimp Profile Info"
 msgstr ""
 
-#: admin/class-yikes-inc-easy-mailchimp-extender-admin.php:2805
+#: admin/class-yikes-inc-easy-mailchimp-extender-admin.php:2824
 msgid "If you did not request this update, please disregard this email."
 msgstr ""
 
-#: admin/class-yikes-inc-easy-mailchimp-extender-admin.php:2808
+#: admin/class-yikes-inc-easy-mailchimp-extender-admin.php:2827
 #, php-format
 msgid "This email was sent from: %s"
 msgstr ""
 
-#: admin/class-yikes-inc-easy-mailchimp-extender-admin.php:2832
+#: admin/class-yikes-inc-easy-mailchimp-extender-admin.php:2851
 msgid "Unsubscribe User"
 msgstr ""
 
-#: admin/class-yikes-inc-easy-mailchimp-extender-admin.php:2833
+#: admin/class-yikes-inc-easy-mailchimp-extender-admin.php:2852
 msgid "Manage List Page"
 msgstr ""
 
@@ -2370,7 +2370,7 @@ msgid ""
 "An opt-in checkbox will be added to the forms generated by the checked off "
 "items below. For example, checking off \"WordPress Comment Form\" will "
 "generate a checkbox below the WordPress comment form to add new commenters "
-"to a pre-determined MailChimp mailing list."
+"to your MailChimp mailing lists."
 msgstr ""
 
 #: admin/partials/menu/options-sections/integration-settings.php:141
@@ -2404,7 +2404,7 @@ msgstr ""
 msgid "reCAPTCHA Settings"
 msgstr ""
 
-#: admin/partials/menu/options-sections/recaptcha-settings.php:20
+#: admin/partials/menu/options-sections/recaptcha-settings.php:19
 msgid ""
 "reCAPTCHA is a free CAPTCHA service, from Google, that helps protect your "
 "site against spam, malicious registrations and other forms of attacks where "
@@ -2412,15 +2412,15 @@ msgid ""
 "spammers and bots from submitting data through your MailChimp forms."
 msgstr ""
 
-#: admin/partials/menu/options-sections/recaptcha-settings.php:24
+#: admin/partials/menu/options-sections/recaptcha-settings.php:23
 msgid "Get your reCAPTCHA API Key"
 msgstr ""
 
-#: admin/partials/menu/options-sections/recaptcha-settings.php:24
+#: admin/partials/menu/options-sections/recaptcha-settings.php:23
 msgid "Get Your reCAPTCHA API Key"
 msgstr ""
 
-#: admin/partials/menu/options-sections/recaptcha-settings.php:32
+#: admin/partials/menu/options-sections/recaptcha-settings.php:33
 msgid "Enable reCAPTCHA Protection"
 msgstr ""
 
@@ -2604,7 +2604,7 @@ msgid ""
 msgstr ""
 
 #: admin/partials/view-list.php:99
-#: public/classes/process/class.process_form_submission_handler.php:707
+#: public/classes/process/class.process_form_submission_handler.php:711
 msgid "New Subscriber"
 msgstr ""
 
@@ -3212,7 +3212,7 @@ msgid "Whoops, it looks like you forgot to assign fields to this form."
 msgstr ""
 
 #: public/partials/shortcodes/process_form_shortcode.php:346
-#: public/partials/shortcodes/process_form_shortcode.php:1062
+#: public/partials/shortcodes/process_form_shortcode.php:1065
 msgid "This field is required."
 msgstr ""
 
@@ -3235,6 +3235,27 @@ msgstr ""
 #: public/partials/shortcodes/process_form_shortcode.php:627
 #: public/partials/shortcodes/process_form_shortcode.php:782
 msgid "5 digit zip code, numbers only"
+msgstr ""
+
+#: public/partials/shortcodes/process_form_shortcode.php:920
+#: public/partials/shortcodes/process_form_shortcode.php:1124
+msgid "Select..."
+msgstr ""
+
+#: public/partials/shortcodes/unsubscribe/process-unsubscribe.php:48
+msgid "Member Unsubscribe"
+msgstr ""
+
+#: public/partials/shortcodes/unsubscribe/shortcode-unsubscribe.php:42
+msgid "An error occurred."
+msgstr ""
+
+#: public/partials/shortcodes/unsubscribe/shortcode-unsubscribe.php:43
+msgid "It looks like you're already unsubscribed."
+msgstr ""
+
+#: public/partials/shortcodes/unsubscribe/shortcode-unsubscribe.php:44
+msgid "Success! You've been unsubscribed from this list."
 msgstr ""
 
 #: public/partials/shortcodes/yikes-mailchimp-subscriber-count.php:23
