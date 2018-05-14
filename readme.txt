@@ -14,7 +14,7 @@ The ultimate MailChimp WordPress plugin. Easily build unlimited forms for your M
 
 Easy Forms for MailChimp allows you to add **unlimited** MailChimp sign up forms to your WordPress site. You can add forms to posts, pages, sidebars and other widgetized areas. Your MailChimp API Key connects your site to your account and pulls in all of your list information. List statistics can be viewed right from your dashboard.
 
-> Note: For GDPR compliance, use our free add-on [EU Opt-In Compliance for MailChimp](https://wordpress.org/plugins/eu-opt-in-compliance-for-mailchimp/).
+> Note: For assistance with GDPR compliance, use our free add-on [GDPR Compliance for MailChimp](https://wordpress.org/plugins/eu-opt-in-compliance-for-mailchimp/).
 
 You can also extend the plugin's functionality with our [free and paid add-ons](https://yikesplugins.com/?utm_source=wp_plugin_repo&utm_medium=link&utm_campaign=easy_forms_for_mailchimp).
 
