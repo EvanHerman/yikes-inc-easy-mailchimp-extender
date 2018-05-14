@@ -974,12 +974,13 @@ function process_mailchimp_shortcode( $atts ) {
 
 									foreach( $choices as $choice ) {
 										?>
-										<label for="<?php echo esc_attr( $field['merge'] ) . '-' . $i; ?>" class="yikes-easy-mc-checkbox-label <?php echo implode( ' ' , $custom_classes ); if( $i === $count ) { ?> last-selection<?php } ?>" <?php if( $i == 1 ) { echo $field_array['required']; } ?>>
+										<label for="<?php echo esc_attr( $field['merge'] ) . '-' . $i; ?>" class="yikes-easy-mc-checkbox-label <?php echo implode( ' ' , $custom_classes ); if( $i === $count ) { ?> last-selection<?php } ?>">
 											<input 
 												type="<?php echo esc_attr( $field['type'] ); ?>" 
 												name="<?php echo esc_attr( $field['merge'] ); ?>" 
 												id="<?php echo esc_attr( $field['merge'] . '-' . $i ); ?>" 
-												<?php if ( $no_default !== true && in_array( $x, $default_choice ) || in_array( $choice, $default_choice, true ) ) { echo 'checked="checked"'; } ?> 
+												<?php if ( $no_default !== true && in_array( $x, $default_choice ) || in_array( $choice, $default_choice, true ) ) { echo 'checked="checked"'; } ?>
+												<?php echo $field_array['required']; ?>
 												value="<?php echo esc_attr( $choice ); ?>">
 											<span class="<?php echo esc_attr( $field['merge'] ). '-label'; ?>"><?php echo stripslashes( $choice ); ?></span>
 										</label>
