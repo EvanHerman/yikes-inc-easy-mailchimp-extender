@@ -2188,7 +2188,7 @@ class Yikes_Inc_Easy_Mailchimp_Forms_Admin {
 													</td>
 													<td>
 														<?php
-														$field['default_choice'] = isset( $field['default_choice'] ) ? $field['default_choice'] : array();
+														$field['default_choice'] = isset( $field['default_choice'] ) ? $field['default_choice'] : '';
 
 														$default_shown = false;
 
@@ -2209,7 +2209,7 @@ class Yikes_Inc_Easy_Mailchimp_Forms_Admin {
 
 																case 'checkbox':
 																case 'hidden':
-																	if ( in_array( $id, (array) $field['default_choice'] ) ) {
+																	if ( is_array( $field['default_choice'] ) && in_array( $id, $field['default_choice'] ) ) {
 																		$checked = checked( true, true, false );
 																	}
 																break;
