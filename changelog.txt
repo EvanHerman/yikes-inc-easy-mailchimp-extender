@@ -1,5 +1,13 @@
 == Changelog ==
 
+= 6.4.3 - May 21st, 2018 =
+* Fixed some issues with the readme
+* Fixed an issue with required radio button fields that had no default value; they will now be required.
+* Fixed a PHP warning related to interest groups in the form builder.
+* Fixed a PHP warning related to error messages.
+* Fixed a PHP notice on the integration checkbox page.
+* Added a new action when a form is duplicated: `'yikes-mailchimp-after-duplicating-form'`
+
 = 6.4.2 - May 9th, 2018 =
 * Added a new API function to create notes on a subscriber's profile
 * Added no default options for radio buttons and dropdowns (both merge fields and interest groups).
