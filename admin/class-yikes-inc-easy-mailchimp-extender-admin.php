@@ -2188,7 +2188,7 @@ class Yikes_Inc_Easy_Mailchimp_Forms_Admin {
 													</td>
 													<td>
 														<?php
-														$field['default_choice'] = isset( $field['default_choice'] ) ? $field['default_choice'] : array();
+														$field['default_choice'] = isset( $field['default_choice'] ) ? $field['default_choice'] : '';
 
 														$default_shown = false;
 
@@ -2209,7 +2209,7 @@ class Yikes_Inc_Easy_Mailchimp_Forms_Admin {
 
 																case 'checkbox':
 																case 'hidden':
-																	if ( in_array( $id, (array) $field['default_choice'] ) ) {
+																	if ( is_array( $field['default_choice'] ) && in_array( $id, $field['default_choice'] ) ) {
 																		$checked = checked( true, true, false );
 																	}
 																break;
@@ -2639,11 +2639,21 @@ class Yikes_Inc_Easy_Mailchimp_Forms_Admin {
 			$form_data = $this->form_interface->get_form( $post_id_to_clone );
 
 			// Update some of the data before duplication
-			$form_data['form_name'] .= ' - Copy - ';
+			$form_data['form_name'] .= ' - Copy';
 			$form_data['impressions'] = $form_data['submissions'] = 0;
 
 			// Create the new form, and handle the result.
 			$result = $this->form_interface->create_form( $form_data );
+
+			/**
+			* `yikes-mailchimp-after-duplicating-form`
+			*
+			* @param $post_id_to_clone | int   | ID of the original form
+			* @param $result           | mixed | ID of the new form OR false if the operation failed
+			* @param $form_data        | array | Array of the form data 
+			*
+			*/
+			do_action( 'yikes-mailchimp-after-duplicating-form', $post_id_to_clone, $result, $form_data );
 
 			if ( false === $result ) {
 				// redirect the user to the manage forms page, display error

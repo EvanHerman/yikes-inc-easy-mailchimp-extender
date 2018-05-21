@@ -1287,7 +1287,8 @@ class Yikes_Inc_Easy_MailChimp_Extender_Process_Submission_Handler {
 
 			case 'general-error':
 
-				$original_response_text = $response_text;
+				$original_response_text     = $response_text;
+				$user_defined_response_text = '';
 
 				if ( isset( $this->error_messages['general-error'] ) && ! empty( $this->error_messages['general-error'] ) ) {
 					$user_defined_response_text = $this->error_messages['general-error'];

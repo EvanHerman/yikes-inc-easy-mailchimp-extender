@@ -3,8 +3,8 @@ Contributors: yikesinc, eherman24, liljimmi, JPry, yikesitskevin
 Donate link: https://yikesplugins.com/?utm_source=wp_plugin_repo&utm_medium=donate_link&utm_campaign=easy_forms_for_mailchimp
 Tags: MailChimp, MailChimp forms, MailChimp lists, opt-in forms, sign up form, MailChimp, email, forms, mailing lists, marketing, newsletter, sign up
 Requires at least: 4.0
-Tested up to: 4.9.5
-Stable tag: 6.4.2
+Tested up to: 4.9.6
+Stable tag: 6.4.3
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -14,7 +14,7 @@ The ultimate MailChimp WordPress plugin. Easily build unlimited forms for your M
 
 Easy Forms for MailChimp allows you to add **unlimited** MailChimp sign up forms to your WordPress site. You can add forms to posts, pages, sidebars and other widgetized areas. Your MailChimp API Key connects your site to your account and pulls in all of your list information. List statistics can be viewed right from your dashboard.
 
-> Note: For GDPR compliance, use our free add-on [EU Opt-In Compliance for MailChimp](https://wordpress.org/plugins/eu-opt-in-compliance-for-mailchimp/).
+> Note: For assistance with GDPR compliance, use our free add-on [GDPR Compliance for MailChimp](https://wordpress.org/plugins/eu-opt-in-compliance-for-mailchimp/).
 
 You can also extend the plugin's functionality with our [free and paid add-ons](https://yikesplugins.com/?utm_source=wp_plugin_repo&utm_medium=link&utm_campaign=easy_forms_for_mailchimp).
 
@@ -93,7 +93,6 @@ Yes, you must have a MailChimp account and at least 1 list set up in order to us
 Our plugin uses an API Key to allow your site to communicate with your account. After you enter your API key into the plugin settings your site is connected to your account and ready to make forms.
 
 = How do I create a MailChimp API key? =
-For GDPR compliance, use our free add-on [EU Opt-In Compliance for MailChimp](https://wordpress.org/plugins/eu-opt-in-compliance-for-mailchimp/).
 
 Step-by-step instructions:
 
@@ -105,7 +104,7 @@ Step-by-step instructions:
 Copy your API key so you can paste it into the plugin General Settings.
 
 = How do I make my forms GDPR compliant? =
-Yes, you must have a MailChimp account and at least 1 list set up in order to use the plugin. You can register for one for free at [their website](https://login.mailchimp.com/signup?).
+For assistance with GDPR compliance, use our free add-on [EU Opt-In Compliance for MailChimp](https://wordpress.org/plugins/eu-opt-in-compliance-for-mailchimp/).
 
 = How do I change the submit button text? =
 The submit button text can be customized to use any text you like. This is done via the shortcode. Please visit our How-to article [How do I change the submit button text](https://yikesplugins.com/support/knowledge-base/how-do-i-change-the-submit-button-text/) for step-by-step instructions.
@@ -172,10 +171,10 @@ For information and code examples on how to implement the hooks and filters prov
 
 == Changelog ==
 
-= 6.4.2 - May 9th, 2018 =
-* Added a new API function to create notes on a subscriber's profile
-* Added no default options for radio buttons and dropdowns (both merge fields and interest groups).
-* Added a basic unsubscribe shortcode and all of the JS/CSS/API functions that support this.
-* Added a filter, `yikes-mailchimp-wooco-integration-checkbox-checkout-fields`, that allows you to move the placement of the WooCommerce checkout integration checkbox to the bottom of the form.
-* Fixed an issue where hidden interest groups required a default value
-* Fixed an issue with the Easy Forms Gutenberg block
+= 6.4.3 - May 21st, 2018 =
+* Fixed some issues with the readme
+* Fixed an issue with required radio button fields that had no default value; they will now be required.
+* Fixed a PHP warning related to interest groups in the form builder.
+* Fixed a PHP warning related to error messages.
+* Fixed a PHP notice on the integration checkbox page.
+* Added a new action when a form is duplicated: `'yikes-mailchimp-after-duplicating-form'`
