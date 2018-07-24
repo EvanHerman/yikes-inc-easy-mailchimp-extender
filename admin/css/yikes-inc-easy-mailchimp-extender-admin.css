@@ -2081,7 +2081,7 @@ body.wp-customizer #available-widgets [id*="_yikes_easy_mc_widget"]>div.widget-t
 
 .yikes-mc-edit-field-label-input {
 	display: none;
-	width: auto;
+	width: 80%;
 	border-radius: 5px;
 }
 .yikes-mc-save-field-label-edits-icon {

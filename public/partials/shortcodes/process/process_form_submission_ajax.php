@@ -67,7 +67,7 @@ $page_data       = ! empty( $page_data ) ? get_post( $page_data ) : '';
 // Send an error if for some reason we can't find the list_handler
 $submission_handler->handle_empty_list_handler( $list_handler ); 
 
-// Get and sanitize the email
+// Get, sanitize and lowercasify the email
 $submitted_email = isset( $data['EMAIL'] ) ? $data['EMAIL'] : '';
 $sanitized_email = $submission_handler->get_sanitized_email( $submitted_email ); 
 $submission_handler->set_email( $sanitized_email );
@@ -130,7 +130,7 @@ if ( ! empty( $groups ) ) {
 }
 
 // Check if this member already exists
-$member_exists = $list_handler->get_member( $list_id, md5( strtolower( $sanitized_email ) ), $use_transient = false );
+$member_exists = $list_handler->get_member( $list_id, md5( $sanitized_email ), $use_transient = false );
 
 // If this member does not exist, then we need to add the status_if_new flag and set our $new_subscriber variable
 // Likewise, if this member exists but their status is 'pending' it means we're dealing with a double opt-in list and they never confirmed
@@ -202,7 +202,7 @@ $member_data = apply_filters( 'yikes-mailchimp-filter-subscribe-request', $membe
 $member_data = apply_filters( "yikes-mailchimp-filter-subscribe-request-{$form_id}", $member_data, $form_id );
 
 // Send the API request to create a new subscriber! (Or update an existing one)
-$subscribe_response = $list_handler->member_subscribe( $list_id, md5( strtolower( $sanitized_email ) ), $member_data );
+$subscribe_response = $list_handler->member_subscribe( $list_id, md5( $sanitized_email ), $member_data );
 
 // Handle the response 
 

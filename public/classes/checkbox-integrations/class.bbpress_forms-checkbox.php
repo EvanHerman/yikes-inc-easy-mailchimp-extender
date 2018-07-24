@@ -48,7 +48,6 @@
 			return $this->subscribe_user_integration( $user_data->user_email, $this->type , array(
 				'FNAME' => $user_data->first_name,
 				'LNAME' => $user_data->last_name,
-				'NAE' => $user_data->first_name,
 			) );
 		}
 

@@ -20,15 +20,22 @@ jQuery( document ).ready( function() {
 
 		/* Submit an ajax request to send off the update email */
 		var data = {
-			'action': 'easy_forms_send_email',
+			'action'    : 'easy_forms_send_email',
 			'user_email': jQuery( this ).attr( 'data-user-email' ),
-			'list_id': jQuery( this ).attr( 'data-list-id' ),
-			'form_id': jQuery( this ).attr( 'data-form-id' ),
+			'list_id'   : jQuery( this ).attr( 'data-list-id' ),
+			'form_id'   : jQuery( this ).attr( 'data-form-id' ),
+			'page_id'   : form_submission_helpers.page_data,
 		};
 		jQuery( this ).parent( 'p' ).fadeTo( 'fast', .75 ).append( '<img src="' + form_submission_helpers.preloader_url + '" class="update-email-preloader" />' );
 		jQuery.post( form_submission_helpers.ajax_url, data, function(response) {
 			if( response.success ) {
 				jQuery( '.yikes-easy-mc-error-message' ).removeClass( 'yikes-easy-mc-error-message' ).addClass( 'yikes-easy-mc-success-message' ).html( response.data.response_text );
+
+				// Check for a form redirect...
+				if ( response.data.redirection === 1 ) {
+					yikes_mc_redirect_after_submission( response.data.redirect, response.data.redirect_timer, response.data.new_window );
+				}
+
 			} else {
 				jQuery( '.yikes-easy-mc-error-message' ).fadeTo( 'fast', 1 ).html( response.data.response_text );
 			}
@@ -40,6 +47,20 @@ jQuery( document ).ready( function() {
 
 	jQuery( '.yikes-easy-mc-phone[data-phone-type="us"]' ).blur( yikes_mc_format_us_phone_number_field );
 });
+
+/**
+* Redirect to the specified URL.
+*/
+function yikes_mc_redirect_after_submission( redirect_url, redirect_timer, new_window ) {
+	var new_window_code = new_window === '1' ? '_blank' : '_self';
+
+	setTimeout( 
+		function() {
+			window.open( redirect_url, new_window_code );
+		},
+		redirect_timer
+	);
+}
 
 /**
 * Show/Hide zip-address field based on the chosen country.
