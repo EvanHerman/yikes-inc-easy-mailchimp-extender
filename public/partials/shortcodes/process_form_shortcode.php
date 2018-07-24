@@ -329,20 +329,22 @@ function process_mailchimp_shortcode( $atts ) {
 			echo sprintf( '<section class="yikes-mailchimp-form-description yikes-mailchimp-form-description-%1$s">%2$s</section>', $form_id, $description );
 		}
 
+		// Used in `yikes-mailchimp-redirect-url` filter
+		// Note: as of 6.4, this is now just the post ID - not the entire post object.
+		global $post;
+		$page_data = isset( $post->ID ) ? $post->ID : 0;
+		$page_data = apply_filters( 'yikes-mailchimp-page-data', $page_data, $form_id );
+
+		$min = defined( 'SCRIPT_DEBUG' ) && SCRIPT_DEBUG ? '' : '.min';
+
 		// Check for AJAX
 		if( ( ! empty( $atts['ajax'] ) && $atts['ajax'] == 1 ) || $form_data['submission_settings']['ajax'] == 1 ) {
 
-			// Used in `yikes-mailchimp-redirect-url` filter
-			// Note: as of 6.4, this is now just the post ID - not the entire post object.
-			global $post;
-			$page_data = isset( $post->ID ) ? $post->ID : 0;
-
-			// enqueue our ajax script
-			$min = defined( 'SCRIPT_DEBUG' ) && SCRIPT_DEBUG ? '' : '.min';
+			// Enqueue our ajax script
 			wp_enqueue_script( 'yikes-easy-mc-ajax' , YIKES_MC_URL . "public/js/yikes-mc-ajax-forms{$min}.js" , array( 'jquery' ), YIKES_MC_VERSION, false );
 			wp_localize_script( 'yikes-easy-mc-ajax', 'yikes_mailchimp_ajax', array(
 				'ajax_url'                      => esc_url( admin_url( 'admin-ajax.php' ) ),
-				'page_data'                     => apply_filters( 'yikes-mailchimp-page-data', $page_data, $form_id ),
+				'page_data'                     => $page_data,
 				'interest_group_checkbox_error' => apply_filters( 'yikes-mailchimp-interest-group-checkbox-error', __( 'This field is required.', 'yikes-inc-easy-mailchimp-extender' ), $form_id ),
 				'preloader_url'                 => apply_filters( 'yikes-mailchimp-preloader', YIKES_MC_URL . 'includes/images/ripple.svg' ),
 				'loading_dots'                  => apply_filters( 'yikes-mailchimp-loading-dots', YIKES_MC_URL . 'includes/images/bars.svg' ),
@@ -351,11 +353,12 @@ function process_mailchimp_shortcode( $atts ) {
 		}
 
 		// Generic JavaScript functions for interacting with the form
-		wp_enqueue_script( 'form-submission-helpers', YIKES_MC_URL . 'public/js/form-submission-helpers.min.js' , array( 'jquery' ), YIKES_MC_VERSION, false );
+		wp_enqueue_script( 'form-submission-helpers', YIKES_MC_URL . "public/js/form-submission-helpers{$min}.js" , array( 'jquery' ), YIKES_MC_VERSION, false );
 		wp_localize_script( 'form-submission-helpers', 'form_submission_helpers', array(
-			'ajax_url' => esc_url( admin_url( 'admin-ajax.php' ) ),
-			'preloader_url' => apply_filters( 'yikes-mailchimp-preloader', esc_url_raw( admin_url( 'images/wpspin_light.gif' ) ) ),
-			'countries_with_zip' => $countries_with_zip_code_field
+			'ajax_url'           => esc_url( admin_url( 'admin-ajax.php' ) ),
+			'preloader_url'      => apply_filters( 'yikes-mailchimp-preloader', esc_url_raw( admin_url( 'images/wpspin_light.gif' ) ) ),
+			'countries_with_zip' => $countries_with_zip_code_field,
+			'page_data'          => $page_data,
 		) );
 
 		do_action( 'yikes-mailchimp-google-analytics', $form_id );

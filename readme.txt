@@ -4,7 +4,7 @@ Donate link: https://yikesplugins.com/?utm_source=wp_plugin_repo&utm_medium=dona
 Tags: MailChimp, MailChimp forms, MailChimp lists, opt-in forms, sign up form, MailChimp, email, forms, mailing lists, marketing, newsletter, sign up
 Requires at least: 4.0
 Tested up to: 4.9.6
-Stable tag: 6.4.3
+Stable tag: 6.4.4
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -171,10 +171,8 @@ For information and code examples on how to implement the hooks and filters prov
 
 == Changelog ==
 
-= 6.4.3 - May 21st, 2018 =
-* Fixed some issues with the readme
-* Fixed an issue with required radio button fields that had no default value; they will now be required.
-* Fixed a PHP warning related to interest groups in the form builder.
-* Fixed a PHP warning related to error messages.
-* Fixed a PHP notice on the integration checkbox page.
-* Added a new action when a form is duplicated: `'yikes-mailchimp-after-duplicating-form'`
+= 6.4.4 - July 24th, 2018 =
+* Fixed an issue where the Update Profile Email would not send when the submitted email address contained capital letters.
+* Users will now be redirected in accordance with their submission settings after the Update Profile Email is successfully sent.
+* The max character length of a MERGE field's label is now 50 characters to match MailChimp's max length.
+* The input field for editing a MERGE field's label has been increased.

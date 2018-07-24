@@ -1805,7 +1805,7 @@ class Yikes_Inc_Easy_Mailchimp_Forms_Admin {
 								<?php if ( $excluded_field ) { ?>
 									<img src="<?php echo YIKES_MC_URL . 'includes/images/warning.svg'; ?>" class="field-doesnt-exist-notice" title="<?php _e( 'Field no longer exists.', 'yikes-inc-easy-mailchimp-extender' ); ?>" alt="<?php _e( 'Field no longer exists.', 'yikes-inc-easy-mailchimp-extender' ); ?>">
 								<?php } ?>
-								<input maxlength="45" type="text" class="yikes-mc-edit-field-label-input" value="<?php echo stripslashes( $field['label'] ); ?>" />
+								<input maxlength="50" type="text" class="yikes-mc-edit-field-label-input" value="<?php echo stripslashes( $field['label'] ); ?>" />
 								<span class="dashicons dashicons-yes yikes-mc-save-field-label-edits-icon" title="<?php _e( 'Click to save changes.', 'yikes-inc-easy-mailchimp-extender' ); ?>"></span>
 								<span class="dashicons dashicons-edit yikes-mc-edit-field-label-icon" title="<?php _e( 'Click to edit the label', 'yikes-inc-easy-mailchimp-extender' ); ?>"></span>
 								<span class="yikes-mc-edit-field-label-message"></span>

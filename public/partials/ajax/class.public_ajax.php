@@ -62,6 +62,7 @@ class YIKES_Inc_Easy_MailChimp_Public_Ajax {
 		$user_id		= md5( $user_email );
 		$list_id		= $_POST['list_id'];
 		$form_id		= $_POST['form_id'];
+		$page_id        = $_POST['page_id'];
 		$full_site_url	= get_bloginfo( 'url' );
 		$manager		= yikes_get_mc_api_manager();
 
@@ -173,10 +174,16 @@ class YIKES_Inc_Easy_MailChimp_Public_Ajax {
 		if ( wp_mail( $user_email, apply_filters( 'yikes-mailchimp-update-email-subject', $email_subject ), apply_filters( 'yikes-mailchimp-update-email-content', $email_body, $update_link_href ), $headers ) ) {
 
 			$update_email_success_message = apply_filters( 'yikes-mailchimp-update-email-success-message', $update_email_success_message, $form_id, $user_email );
+			$submission_settings          = isset( $form_data['submission_settings'] ) ? $form_data['submission_settings'] : null;
+			$redirect_settings            = Yikes_Inc_Easy_MailChimp_Extender_Process_Submission_Handler::handle_submission_response_success_redirect( $form_id, $submission_settings, $page_id );
 
 			wp_send_json_success(
 				array(
-					'response_text' => '<div class="yikes-easy-mc-success-message">' . $update_email_success_message . '</div>',
+					'response_text'  => '<div class="yikes-easy-mc-success-message">' . $update_email_success_message . '</div>',
+					'redirection'    => $redirect_settings['redirection'],
+					'redirect'       => $redirect_settings['redirect'],
+					'redirect_timer' => $redirect_settings['redirect_timer'],
+					'new_window'     => $redirect_settings['new_window'],
 				)
 			);
 		} else {
