@@ -1,5 +1,8 @@
 == Changelog ==
 
+= 6.4.5 - July 25th, 2018 =
+* Fixed an issue where subscriptions would not be processed if only an email field was sent. Shoutout to Kamil (@paszczak000) for reporting this issue and working with us to resolve it, thank you!
+
 = 6.4.4 - July 24th, 2018 =
 * Fixed an issue where the Update Profile Email would not send when the submitted email address contained capital letters.
 * Users will now be redirected in accordance with their submission settings after the Update Profile Email is successfully sent.
