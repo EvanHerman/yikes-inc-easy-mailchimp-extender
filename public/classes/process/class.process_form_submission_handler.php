@@ -380,9 +380,9 @@ class Yikes_Inc_Easy_MailChimp_Extender_Process_Submission_Handler {
 			$merge_variables[ $merge_tag ] = $sanitized;
 		}
 
-		// Do not send the email field twice
+		// Make sure we send the lower-cased, sanitized email so it matches the one we're sending in the body of the request.
 		if ( isset( $merge_variables['EMAIL'] ) ) {
-			unset( $merge_variables['EMAIL'] );
+			$merge_variables['EMAIL'] = $this->email;
 		}
 
 		/**

@@ -3,8 +3,8 @@ Contributors: yikesinc, eherman24, liljimmi, JPry, yikesitskevin
 Donate link: https://yikesplugins.com/?utm_source=wp_plugin_repo&utm_medium=donate_link&utm_campaign=easy_forms_for_mailchimp
 Tags: MailChimp, MailChimp forms, MailChimp lists, opt-in forms, sign up form, MailChimp, email, forms, mailing lists, marketing, newsletter, sign up
 Requires at least: 4.0
-Tested up to: 4.9.6
-Stable tag: 6.4.4
+Tested up to: 4.9.7
+Stable tag: 6.4.5
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -171,8 +171,5 @@ For information and code examples on how to implement the hooks and filters prov
 
 == Changelog ==
 
-= 6.4.4 - July 24th, 2018 =
-* Fixed an issue where the Update Profile Email would not send when the submitted email address contained capital letters.
-* Users will now be redirected in accordance with their submission settings after the Update Profile Email is successfully sent.
-* The max character length of a MERGE field's label is now 50 characters to match MailChimp's max length.
-* The input field for editing a MERGE field's label has been increased.
+= 6.4.5 - July 25th, 2018 =
+* Fixed an issue where subscriptions would not be processed if only an email field was sent. Shoutout to Kamil (@paszczak000) for reporting this issue and working with us to resolve it, thank you!
