@@ -243,6 +243,7 @@ function process_mailchimp_shortcode( $atts ) {
 		$inline_field_width   = apply_filters( 'yikes-mailchimp-inline-field-width', $field_width - $total_inline_offset, $form_id );
 		$custom_inline_styles = apply_filters( 'yikes-mailchimp-custom-inline-styles', '', $form_id );
 		$float_style          = apply_filters( 'yikes-mailchimp-inline-float', ! $inline_form_override ? 'left' : 'none', $form_id );
+		$mobile_width         = $field_width - $inline_offset;
 
 		/*
 		*	Add inline styles after calculating the percentage etc.
@@ -254,6 +255,20 @@ function process_mailchimp_shortcode( $atts ) {
 				width: {$inline_field_width}%;
 				padding-right: {$inline_padding_right};
 				{$custom_inline_styles}
+			 }
+
+			 @media (max-width: 768px) {
+			 	.yikes-easy-mc-form label.label-inline {
+					width: {$mobile_width}%;
+					padding-right: {$inline_padding_right};
+				}
+				.yikes-easy-mc-form .submit-button-inline-label {
+					width: 100%;
+					float: none;
+				}
+				.yikes-easy-mc-form .submit-button-inline-label .empty-label {
+					display: none;
+				}
 			 }
 		";
 		wp_add_inline_style( 'yikes-inc-easy-mailchimp-public-styles', $inline_label_css );
