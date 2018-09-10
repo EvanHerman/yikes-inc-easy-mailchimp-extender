@@ -239,7 +239,6 @@ class Yikes_Inc_Easy_MailChimp_Extender_Process_Submission_Handler {
 		// Define our hardcoded fields
 		$this->skipped_form_fields = array(
 			'yikes_easy_mc_new_subscriber' => 1,
-			'_wp_http_referer'             => 1,
 		);
 
 		// Define our error messages

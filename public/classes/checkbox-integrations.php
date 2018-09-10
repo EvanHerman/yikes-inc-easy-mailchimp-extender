@@ -177,6 +177,7 @@
 				'email_address'    => sanitize_email( $email ),
 				'merge_fields'     => apply_filters( 'yikes-mailchimp-checkbox-integration-merge-variables', $merge_vars, $type ),
 				'status_if_new'    => 'pending',
+				'status'           => 'pending',
 				'timestamp_signup' => (string) current_time( 'timestamp', true ),
 				'ip_signup'        => $user_ip,
 			);
