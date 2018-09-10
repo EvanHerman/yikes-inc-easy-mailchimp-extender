@@ -29,7 +29,7 @@
 		<?php settings_fields( 'yikes_inc_easy_mc_recaptcha_settings_page' ); ?>
 
 			<label for="yikes-mc-recaptcha-setting">
-				<input type="checkbox" name="yikes-mc-recaptcha-status" class="recaptcha-setting-checkbox" value="1" <?php checked( get_option( 'yikes-mc-recaptcha-status', '' ) , '1' ); ?>>
+				<input type="checkbox" id="yikes-mc-recaptcha-setting" name="yikes-mc-recaptcha-status" class="recaptcha-setting-checkbox" value="1" <?php checked( get_option( 'yikes-mc-recaptcha-status', '' ) , '1' ); ?>>
 				<strong><?php _e( 'Enable reCAPTCHA Protection', 'yikes-inc-easy-mailchimp-extender' ); ?></strong>
 			</label>
 
