@@ -153,7 +153,7 @@ window.Yikes_Mailchimp_Ajax = window.Yikes_Mailchimp_Ajax || {};
 						}
 
 						/* clear the inputs - but don't clear submit button, radio, select, list_id, or form */
-						submitted_form.find( 'input' ).not( '.yikes-easy-mc-submit-button, input[type="radio"], input[type="select"], input[type="checkbox"], #yikes-mailchimp-associated-list-id, #yikes-mailchimp-submitted-form' ).val( '' );
+						submitted_form.find( 'input' ).not( '.yikes-easy-mc-submit-button, input[type="radio"], input[type="select"], input[type="checkbox"], input[name="yikes-mailchimp-associated-list-id"], input[name="yikes-mailchimp-submitted-form"]' ).val( '' );
 						/* ajax to increase submission count by 1 */
 						var new_data = {
 							'action' : 'increase_submission_count',
