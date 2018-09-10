@@ -3,8 +3,8 @@ Contributors: yikesinc, eherman24, liljimmi, JPry, yikesitskevin
 Donate link: https://yikesplugins.com/?utm_source=wp_plugin_repo&utm_medium=donate_link&utm_campaign=easy_forms_for_mailchimp
 Tags: MailChimp, MailChimp forms, MailChimp lists, opt-in forms, sign up form, MailChimp, email, forms, mailing lists, marketing, newsletter, sign up
 Requires at least: 4.0
-Tested up to: 4.9.7
-Stable tag: 6.4.5
+Tested up to: 4.9.8
+Stable tag: 6.4.6
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -171,5 +171,8 @@ For information and code examples on how to implement the hooks and filters prov
 
 == Changelog ==
 
-= 6.4.5 - July 25th, 2018 =
-* Fixed an issue where subscriptions would not be processed if only an email field was sent. Shoutout to Kamil (@paszczak000) for reporting this issue and working with us to resolve it, thank you!
+= 6.4.6 - September 10th, 2018 =
+* Added the ability to re-subscribe to a list via an integration checkbox. Previously, users who were unsubscribed or pending confirmation were unable to re-subscribe. This only works when using the [default] double opt-in method.
+* Added a check for reCAPTCHA/[GDPR Compliance for MailChimp](https://wordpress.org/plugins/eu-opt-in-compliance-for-mailchimp/) when calculating inline styles. If you have the reCAPTCHA or [GDPR Compliance for MailChimp](https://wordpress.org/plugins/eu-opt-in-compliance-for-mailchimp/) plugin active, then the submit button will become full width, drop below these items, and the fields will take up 100% of the width. A similar conversion occurs when the screen size is below 768px regardless of the reCAPTCHA or [GDPR Compliance for MailChimp](https://wordpress.org/plugins/eu-opt-in-compliance-for-mailchimp/) plugin being active.
+* Changed the calculation and rounding of form conversion statistics to be slightly more accurate.
+* Cleaned up duplicate IDs in hidden HTML elements when multiple forms were on the same page.
