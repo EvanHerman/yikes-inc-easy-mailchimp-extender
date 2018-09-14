@@ -1048,12 +1048,14 @@ function process_mailchimp_shortcode( $atts ) {
 							$description = apply_filters( 'yikes-mailchimp-' . $field['group_id'] . '-description-html', $description, esc_attr( stripslashes( $field['description'] ) ), $form_id );
 						}
 
-						// Get the default choice(s) from the field settings and turn them into an array if not already
-						$default_choice = ( isset( $field['default_choice'] ) ) ? $field['default_choice'] : '';
-						$default_choice = ( is_array( $default_choice ) ) ? $default_choice : array( $default_choice );
+						// Get our groups
+						$groups = isset( $field['groups'] ) && ! empty( $field['groups'] ) ? json_decode( $field['groups'], true ) : array();
 
-						// get our groups
-						$groups = ( isset( $field['groups'] ) && ! empty( $field['groups'] ) ) ? json_decode( $field['groups'], true ) : array();
+						// Get the default choice(s) from the field settings and turn them into an array if not already
+						$default_choice = isset( $field['default_choice'] ) ? $field['default_choice'] : '';
+						$default_choice = is_array( $default_choice ) ? $default_choice : array( $default_choice );
+						$default_choice = apply_filters( 'yikes-mailchimp-' . $field['group_id'] . '-default', $default_choice, $groups, $field, $form_id );
+						
 
 						$count = count( $groups );
 
@@ -1085,7 +1087,7 @@ function process_mailchimp_shortcode( $atts ) {
 										if ( $show_description === true && $description_above === true ) { echo $description; }
 
 										// Display Submission Errors
-										if( ! empty( $missing_required_checkbox_interest_groups ) ) {
+										if ( ! empty( $missing_required_checkbox_interest_groups ) ) {
 											if( in_array( $field['group_id'], $missing_required_checkbox_interest_groups ) ) {
 												?>
 													<p class="yikes-mailchimp-required-interest-group-error">
@@ -1098,7 +1100,7 @@ function process_mailchimp_shortcode( $atts ) {
 										foreach ( $groups as $group_id => $name ) {
 
 											// If the form was submitted and failed, set the submitted/chosen values as the default
-											if( isset( $_POST[ 'group-' . $field['group_id'] ] ) && $form_submitted === 0 ) {
+											if ( isset( $_POST[ 'group-' . $field['group_id'] ] ) && $form_submitted === 0 ) {
 
 												// Format default choice as array
 												$default_choice = ( is_array( $_POST[ 'group-' . $field['group_id'] ] ) ) ? $_POST[ 'group-' . $field['group_id'] ] : array( $_POST[ 'group-' . $field['group_id'] ] );
