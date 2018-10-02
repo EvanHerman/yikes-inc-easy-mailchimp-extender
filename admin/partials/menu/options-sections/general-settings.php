@@ -36,6 +36,8 @@ $yikes_mc_api_constant = ( defined( 'YIKES_MC_API_KEY' ) ) ? true : false;
 			<?php if ( ! $yikes_mc_api_constant ) { ?>
 				<p class="description"><small><a href="https://admin.mailchimp.com/account/api" target="_blank" title="<?php _e( 'Get your API key here' , 'yikes-inc-easy-mailchimp-extender' ); ?>"><?php _e( 'Get your API key here' , 'yikes-inc-easy-mailchimp-extender' ); ?></a></small></p>
 			<?php } ?>
+
+			<p class="description">Warning: changing your API key will break your current forms.</p>
 		</label>
 
 		<!-- Use Nonce Validation Field -->		
