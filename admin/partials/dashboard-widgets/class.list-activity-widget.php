@@ -70,7 +70,11 @@ class YIKES_Inc_Easy_MailChimp_Dashboard_Widgets {
 		
 		if ( is_wp_error( $list_data ) ) {
 			$error_logging = new Yikes_Inc_Easy_Mailchimp_Error_Logging();
-			$error_logging->maybe_write_to_log( $list_data['error'], __( "Get Account Lists", 'yikes-inc-easy-mailchimp-extender' ), "Dashboard Activity Widget" );
+			$error_logging->maybe_write_to_log( $list_data->get_error_code(), __( "Get Account Lists", 'yikes-inc-easy-mailchimp-extender' ), "Dashboard Activity Widget" );
+			?>
+			<p class="yikes-dashboard-widget-section"><?php _e( "There was an error fetching your list data.", 'yikes-inc-easy-mailchimp-extender' ); ?></p>
+			<?php
+			return;
 		}
 
 		?>
@@ -78,17 +82,17 @@ class YIKES_Inc_Easy_MailChimp_Dashboard_Widgets {
 		<?php if ( ! empty( $list_data ) ) {
 			?>
 			<section class="inside-widget yikes-dashboard-widget-section">
-			<strong class="select-list-title"><?php _e( 'Select a list', 'yikes-inc-easy-mailchimp-extender' ) ?>:</strong>
-			<select id="yikes-easy-mc-dashboard-change-list" class="widefat">
-				<?php
-				foreach ( $list_data as $list ) {
-					?>
-					<option value="<?php echo $list['id']; ?>"><?php echo $list['name']; ?></option>
+				<strong class="select-list-title"><?php _e( 'Select a list', 'yikes-inc-easy-mailchimp-extender' ) ?>:</strong>
+				<select id="yikes-easy-mc-dashboard-change-list" class="widefat">
 					<?php
-				}
-				?>
-			</select>
-			<p class="description"><?php _e( 'Select a list from the dropdown above. View statistics related to this list below.', 'yikes-inc-easy-mailchimp-extender' ); ?></p>
+					foreach ( $list_data as $list ) {
+						?>
+						<option value="<?php echo $list['id']; ?>"><?php echo $list['name']; ?></option>
+						<?php
+					}
+					?>
+				</select>
+				<p class="description"><?php _e( 'Select a list from the dropdown above. View statistics related to this list below.', 'yikes-inc-easy-mailchimp-extender' ); ?></p>
 			</section>
 			<!-- display stats here! -->
 			<section id="yikes-easy-mc-dashboard-widget-stats">

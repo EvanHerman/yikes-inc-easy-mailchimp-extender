@@ -4,7 +4,7 @@ Donate link: https://yikesplugins.com/?utm_source=wp_plugin_repo&utm_medium=dona
 Tags: MailChimp, MailChimp forms, MailChimp lists, opt-in forms, sign up form, MailChimp, email, forms, mailing lists, marketing, newsletter, sign up
 Requires at least: 4.0
 Tested up to: 4.9.8
-Stable tag: 6.4.6
+Stable tag: 6.4.7
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -171,8 +171,8 @@ For information and code examples on how to implement the hooks and filters prov
 
 == Changelog ==
 
-= 6.4.6 - September 10th, 2018 =
-* Added the ability to re-subscribe to a list via an integration checkbox. Previously, users who were unsubscribed or pending confirmation were unable to re-subscribe. This only works when using the [default] double opt-in method.
-* Added a check for reCAPTCHA/[GDPR Compliance for MailChimp](https://wordpress.org/plugins/eu-opt-in-compliance-for-mailchimp/) when calculating inline styles. If you have the reCAPTCHA or [GDPR Compliance for MailChimp](https://wordpress.org/plugins/eu-opt-in-compliance-for-mailchimp/) plugin active, then the submit button will become full width, drop below these items, and the fields will take up 100% of the width. A similar conversion occurs when the screen size is below 768px regardless of the reCAPTCHA or [GDPR Compliance for MailChimp](https://wordpress.org/plugins/eu-opt-in-compliance-for-mailchimp/) plugin being active.
-* Changed the calculation and rounding of form conversion statistics to be slightly more accurate.
-* Cleaned up duplicate IDs in hidden HTML elements when multiple forms were on the same page.
+= 6.4.7 - October 2nd, 2018 =
+* Fixing an issue with logging an error from a dashboard widget.
+* Adding a warning to when changing an API key.
+* Re-adding WordPress' HTTP referer field to forms.
+* Adding a filter for default interest groups.
