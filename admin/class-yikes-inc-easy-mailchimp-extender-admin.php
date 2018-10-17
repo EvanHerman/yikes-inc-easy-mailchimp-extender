@@ -381,7 +381,7 @@ class Yikes_Inc_Easy_Mailchimp_Forms_Admin {
 			// grab our nonce.
 			$nonce = $_REQUEST['nonce'];
 			// grab the forms.
-			$forms = isset( $_REQUEST['export_forms'] ) ? $_REQUEST['export_forms'] : array();
+			$forms = isset( $_REQUEST['yikes_export_forms'] ) ? $_REQUEST['yikes_export_forms'] : array();
 			// validate nonce.
 			if ( ! wp_verify_nonce( $nonce, 'export-forms' ) ) {
 				wp_die( __( "We've run into an error. The security check didn't pass. Please try again." , 'yikes-inc-easy-mailchimp-extender' ) , __( "Failed nonce validation" , 'yikes-inc-easy-mailchimp-extender' ) , array( 'response' => 500 , 'back_link' => true ) );

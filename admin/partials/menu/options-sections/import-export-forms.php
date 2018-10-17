@@ -24,7 +24,7 @@ $all_forms = $form_interface->get_all_forms();
 			<ul class="export-custom-forms-list">
 				<p class="description"><?php _e( 'Select which forms to export. Leave all checkboxes unchecked to export all of your forms.' , 'yikes-inc-easy-mailchimp-extender' ); ?></p>
 				<?php foreach( $all_forms as $id => $form ) { ?>
-					<li><label><input type="checkbox" name="export_forms[]" value="<?php echo (int) $id; ?>"><?php echo esc_html( $form['form_name'] ); ?></label></li>
+					<li><label><input type="checkbox" name="yikes_export_forms[]" value="<?php echo (int) $id; ?>"><?php echo esc_html( $form['form_name'] ); ?></label></li>
 				<?php } ?>
 			</ul>
 		<?php } ?>
