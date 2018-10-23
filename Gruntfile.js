@@ -24,6 +24,9 @@ module.exports = function(grunt) {
 					'public/js/yikes-mc-ajax-forms.min.js': [ // public ajax script
 						'public/js/yikes-mc-ajax-forms.js'
 					],
+					'public/js/yikes-datepicker-scripts.min.js': [ // public ajax script
+						'public/js/yikes-datepicker-scripts.js'
+					],
 					'public/js/form-submission-helpers.min.js': [ // public ajax script
 						'public/js/form-submission-helpers.js'
 					],
@@ -91,7 +94,7 @@ module.exports = function(grunt) {
 	});
 
 	// load tasks
-	grunt.loadNpmTasks( 'grunt-contrib-uglify' );
+	grunt.loadNpmTasks( 'grunt-contrib-uglify-es' );
 	grunt.loadNpmTasks( 'grunt-contrib-cssmin' );
 	grunt.loadNpmTasks( 'grunt-pot' );
 

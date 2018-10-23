@@ -58,6 +58,33 @@ class Yikes_Easy_MC_Registration_Checkbox_Class extends Yikes_Easy_MC_Checkbox_I
 			add_option( 'yikes_register_subscription_error' , $user_already_subscribed_message );
 		}
 	}
+
+	/**
+	 *	Alter the registraton complete message
+	 *	if the registration form checkbox integration is toggled on
+	 * 	@since 6.0.0
+	 */
+	public function yikes_reg_complete_msg( $errors, $redirect_to ) {
+		if( isset( $errors->errors['registered'] ) ) {
+			$email_error = get_option( 'yikes_register_subscription_error' , '' );
+			if( isset( $email_error ) && $email_error != '' ) {
+				// Use the magic __get method to retrieve the errors array:
+				$tmp = $errors->errors;
+				$old = 'Registration complete. Please check your e-mail.';
+				foreach( $tmp['registered'] as $index => $msg ) {
+					if( $msg === $old ) {
+						$tmp['registered'][$index] = $old . ' <p class="message"><strong>' . __( 'Note' , 'yikes-inc-easy-mailchimp-extender' ) . '</strong>: ' . $email_error . '</p>';
+					}
+				}
+				// Use the magic __set method to override the errors property:
+				$errors->errors = $tmp;
+				// Cleanup:
+				unset( $tmp );
+				delete_option( 'yikes_register_subscription_error' );
+			}
+		}
+		return $errors;
+	}
 	
 	/* End registration form functions */
 }
