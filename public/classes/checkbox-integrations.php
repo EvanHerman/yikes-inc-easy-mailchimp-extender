@@ -268,6 +268,6 @@ class Yikes_Easy_MC_Checkbox_Integration_Class {
 	 * @return bool True if the checkbox was checked.
 	 */
 	public function was_checkbox_checked( $type ) {
-		return isset( $_POST[ 'yikes_mailchimp_checkbox_' . $type ] ) && '1' === (string) $_POST[ 'yikes_mailchimp_checkbox_' . $type ];
+		return isset( $_POST[ 'yikes_mailchimp_checkbox_' . $type ] ) && '1' === (string) filter_var( $_POST[ 'yikes_mailchimp_checkbox_' . $type ], FILTER_SANITIZE_STRING );
 	}
 }

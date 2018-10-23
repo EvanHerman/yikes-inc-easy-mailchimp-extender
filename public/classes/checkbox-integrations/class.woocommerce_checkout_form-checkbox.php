@@ -28,7 +28,6 @@ class Yikes_Easy_MC_WooCommerce_Checkbox_Class extends Yikes_Easy_MC_Checkbox_In
 		add_action( 'init', array( $this, 'determine_checkbox_placement' ), 1000 );
 		add_action( 'woocommerce_checkout_update_order_meta', array( $this, 'save_woocommerce_checkout_checkbox_value' ) );
 		add_action( 'woocommerce_checkout_order_processed', array( $this, 'subscribe_from_woocommerce_checkout' ) );
-
 	}
 
 	/**
@@ -92,9 +91,12 @@ class Yikes_Easy_MC_WooCommerce_Checkbox_Class extends Yikes_Easy_MC_Checkbox_In
 			/**
 			* Filter the checkbox data.
 			*
-			* @param string $yikes_checkbox The checkbox's fields.
+			* See this WooCo article for possible values: https://docs.woocommerce.com/document/tutorial-customising-checkout-fields-using-actions-and-filters/
+			*
+			* @param  array $yikes_checkbox The checkbox's fields.
+			* @return array $yikes_checkbox The checkbox's fields.
 			*/
-			$yikes_checkbox = apply_filters( 'yikes_mailchimp_wooco_integration_checkbox_field', $yikes_checkbox );
+			$yikes_checkbox = apply_filters( 'yikes_mailchimp_wooco_integration_checkbox_field', $yikes_checkbox, $checkbox_options[ $this->type ] );
 
 			$fields[ $field_placement ][ 'yikes_mailchimp_checkbox_' . $this->type ] = $yikes_checkbox;
 		}
