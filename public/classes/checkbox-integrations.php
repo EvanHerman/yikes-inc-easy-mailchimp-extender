@@ -75,6 +75,7 @@ class Yikes_Easy_MC_Checkbox_Integration_Class {
 	 * @return bool Whether the email is subscribed to the list.
 	 */
 	public function is_user_subscribed( $email, $list_id, $type ) {
+		$email      = sanitize_email( $email );
 		$email_hash = md5( $email );
 
 		// Check the API to see the status.
@@ -110,9 +111,6 @@ class Yikes_Easy_MC_Checkbox_Integration_Class {
 	 * @return string The HTML for the checkbox.
 	 */
 	public function yikes_get_checkbox() {
-
-		// Enqueue our checkbox styles whenever the checkbox is displayed.
-		wp_enqueue_style( 'yikes-easy-mailchimp-checkbox-integration-styles', plugin_dir_url( __FILE__ ) . '../css/yikes-inc-easy-mailchimp-checkbox-integration.min.css' );
 
 		// Get our options.
 		$checkbox_options = get_option( 'optin-checkbox-init', array() );
@@ -154,6 +152,8 @@ class Yikes_Easy_MC_Checkbox_Integration_Class {
 			return;
 		}
 
+		$email = sanitize_email( $email );
+
 		// Check for an IP address.
 		$user_ip = sanitize_text_field( $_SERVER['REMOTE_ADDR'] );
 		if ( isset( $merge_vars['OPTIN_IP'] ) ) {
@@ -165,7 +165,7 @@ class Yikes_Easy_MC_Checkbox_Integration_Class {
 		$list_ids = is_array( $options[ $type ]['associated-list'] ) ? $options[ $type ]['associated-list'] : array( $options[ $type ]['associated-list'] );
 		$id       = md5( $email );
 		$data     = array(
-			'email_address' => sanitize_email( $email ),
+			'email_address' => $email,
 			'merge_fields'  => apply_filters( 'yikes-mailchimp-checkbox-integration-merge-variables', $merge_vars, $type ),
 			'status_if_new' => 'pending',
 			'status'        => 'pending',
@@ -215,8 +215,14 @@ class Yikes_Easy_MC_Checkbox_Integration_Class {
 			 */
 			$list_id = apply_filters( 'yikes-mailchimp-checkbox-integration-list-id', $list_id, $data, $type );
 
+			// Don't send an empty merge fields array.
+			if ( empty( $data['merge_fields'] ) ) {
+				unset( $data['merge_fields'] );
+			}
+
 			// Subscribe the user to the list via the API.
 			$response = yikes_get_mc_api_manager()->get_list_handler()->member_subscribe( $list_id, $id, $data );
+
 			if ( is_wp_error( $response ) ) {
 				$error_logging = new Yikes_Inc_Easy_Mailchimp_Error_Logging();
 				$error_logging->maybe_write_to_log(
@@ -239,7 +245,7 @@ class Yikes_Easy_MC_Checkbox_Integration_Class {
 
 		// Setup our array.
 		$merge_vars = array();
-		
+
 		if ( ! empty( $user->first_name ) ) {
 			$merge_vars['FNAME'] = $user->first_name;
 		}
@@ -255,7 +261,7 @@ class Yikes_Easy_MC_Checkbox_Integration_Class {
 		 *
 		 * @return array $merge_vars Merge variables to pass to MailChimp.
 		 */
-		$merge_vars = (array) apply_filters( 'yikes-mailchimp-user-merge-vars', $merge_vars, $user );
+		$merge_vars = apply_filters( 'yikes-mailchimp-user-merge-vars', $merge_vars, $user );
 
 		return $merge_vars;
 	}
@@ -268,6 +274,6 @@ class Yikes_Easy_MC_Checkbox_Integration_Class {
 	 * @return bool True if the checkbox was checked.
 	 */
 	public function was_checkbox_checked( $type ) {
-		return isset( $_POST[ 'yikes_mailchimp_checkbox_' . $type ] ) && '1' === (string) filter_var( $_POST[ 'yikes_mailchimp_checkbox_' . $type ], FILTER_SANITIZE_STRING );
+		return isset( $_POST[ 'yikes_mailchimp_checkbox_' . $type ] ) && '1' === filter_var( $_POST[ 'yikes_mailchimp_checkbox_' . $type ], FILTER_SANITIZE_STRING );
 	}
 }

@@ -1,7 +1,6 @@
 <?php
 /**
- * Main class file for the integration with core WooCommerce.
- * Takes care of the opt-in checkbox to integrate with WooCommerce on the checkout page
+ * Handle WooCommerce Integration: add a checkbox for subscribers on WooCommerce's checkout page.
  *
  * @since 6.0.0
  */
@@ -22,7 +21,7 @@ class Yikes_Easy_MC_WooCommerce_Checkbox_Class extends Yikes_Easy_MC_Checkbox_In
 	protected $type = 'woocommerce_checkout_form';
 
 	/**
-	 * Constructor
+	 * Constructor.
 	 */
 	public function __construct() {
 		add_action( 'init', array( $this, 'determine_checkbox_placement' ), 1000 );
@@ -40,14 +39,17 @@ class Yikes_Easy_MC_WooCommerce_Checkbox_Class extends Yikes_Easy_MC_Checkbox_In
 		if ( $default_checkbox_placement ) {
 			add_filter( 'woocommerce_checkout_fields', array( $this, 'add_checkout_field' ), 20 );
 		} else {
-			add_action( 'woocommerce_review_order_before_submit', array( $this, 'add_checkout_field_html' ) );
+			add_action( 'woocommerce_review_order_before_submit', array( $this, 'output_checkbox' ) );
 		}
 	}
 
 	/**
 	 * Print the checkbox to the page.
 	 */
-	public function add_checkout_field_html() {
+	public function output_checkbox() {
+		if ( $this->is_user_already_subscribed( $this->type ) ) {
+			return;
+		}
 		echo $this->yikes_get_checkbox();
 	}
 
@@ -116,10 +118,9 @@ class Yikes_Easy_MC_WooCommerce_Checkbox_Class extends Yikes_Easy_MC_Checkbox_In
 	}
 
 	/**
-	 * If the user subscribed, run their subscription request.
+	 * Subscribe the user if they so chose.
 	 *
-	 * @param int $order_id
-	 * @return boolean
+	 * @param int $order_id The WooCo Order ID.
 	 */
 	public function subscribe_from_woocommerce_checkout( $order_id ) {
 		$do_optin = get_post_meta( $order_id, 'yikes_easy_mailchimp_optin', true );
@@ -133,7 +134,7 @@ class Yikes_Easy_MC_WooCommerce_Checkbox_Class extends Yikes_Easy_MC_Checkbox_In
 			);
 
 			// Subscribe the user.
-			$this->subscribe_user_integration( sanitize_email( $email ), $this->type, $merge_vars );
+			$this->subscribe_user_integration( $email, $this->type, $merge_vars );
 		}
 	}
 }
