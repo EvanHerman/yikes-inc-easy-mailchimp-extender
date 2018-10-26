@@ -1,1 +1,1 @@
-import './development/form/js/block-form.js';
+import './easy-forms-block/dev-easy-forms-block.js';

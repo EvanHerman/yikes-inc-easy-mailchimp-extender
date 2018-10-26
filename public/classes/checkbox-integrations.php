@@ -118,12 +118,13 @@ class Yikes_Easy_MC_Checkbox_Integration_Class {
 		$has_list_ids     = $has_list_ids && ! in_array( '-', $checkbox_options[ $this->type ]['associated-list'], true );
 
 		if ( $has_list_ids ) {
+			$label    = isset( $checkbox_options[ $this->type ]['label'] ) && ! empty( trim( $checkbox_options[ $this->type ]['label'] ) ) ? trim( $checkbox_options[ $this->type ]['label'] ) : __( 'Sign me up for your mailing list.', 'yikes-inc-easy-mailchimp-extender' );
 			$checked  = 'true' === $checkbox_options[ $this->type ]['precheck'] ? 'checked="checked"' : '';
 			$before   = apply_filters( 'yikes-mailchimp-before-checkbox-html', '' );
 			$content  = '<p id="yikes-easy-mailchimp-' . esc_attr( $this->type ) . '-checkbox" class="yikes-easy-mailchimp-' . esc_attr( $this->type ) . '-checkbox">';
 			$content .= '<label>';
 			$content .= '<input type="checkbox" name="yikes_mailchimp_checkbox_' . esc_attr( $this->type ) . '" value="1" ' . $checked . '/>';
-			$content .= isset( $checkbox_options[ $this->type ]['label'] ) && ! empty( trim( $checkbox_options[ $this->type ]['label'] ) ) ? trim( $checkbox_options[ $this->type ]['label'] ) : __( 'Sign me up for your mailing list.', 'yikes-inc-easy-mailchimp-extender' );
+			$content .= apply_filters( 'yikes_mailchimp_checkbox_integration_checkbox_label', $label, $this->type, $checkbox_options );
 			$content .= '</label>';
 			$content .= '</p>';
 			$content  = apply_filters( 'yikes_mailchimp_checkbox_integration_checkbox_html', $content, $this->type, $checkbox_options );

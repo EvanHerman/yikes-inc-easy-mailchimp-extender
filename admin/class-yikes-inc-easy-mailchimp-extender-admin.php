@@ -1658,7 +1658,7 @@ class Yikes_Inc_Easy_Mailchimp_Forms_Admin {
 		public function generate_show_some_love_container() {
 			// if no active add-ons are installed,
 			// lets display our branding and add-on sidebar
-			if ( get_option( 'yikes-easy-mc-active-addons', array() ) == array() ) {
+			if ( empty( get_option( 'yikes-easy-mc-active-addons', array() ) ) ) {
 
 				/* On Edit Forms Page Display Upsell to Customizer */
 				$screen = get_current_screen();
@@ -1696,13 +1696,6 @@ class Yikes_Inc_Easy_Mailchimp_Forms_Admin {
 							<p class="sidebar-container">
 								<a href="https://twitter.com/share" class="twitter-share-button" data-url="https://wordpress.org/plugins/yikes-inc-easy-mailchimp-extender/" data-text="I'm using the Easy Forms for MailChimp plugin by @YikesInc to grow my mailing list - it's awesome! -" data-hashtags="MailChimp">Tweet</a>
 								<script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if (!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');</script>
-							</p>
-
-							<?php _e( 'Vote that the plugin works', 'yikes-inc-easy-mailchimp-extender' ); ?>
-							<p class="sidebar-container">
-								<a href="https://wordpress.org/plugins/yikes-inc-easy-mailchimp-extender/" target="_blank">
-									<?php _e( 'Vote for Compatibility', 'yikes-inc-easy-mailchimp-extender' ); ?>
-								</a>
 							</p>
 						</div>
 
@@ -2204,7 +2197,8 @@ class Yikes_Inc_Easy_Mailchimp_Forms_Admin {
 															switch ( $field_type ) {
 																case 'radio':
 																default:
-																	$checked = checked( $field['default_choice'], $id, false );
+																	$default = is_array( $field['default_choice'] ) ? current( $field['default_choice'] ) : $field['default_choice'];
+																	$checked = is_array( $field['default_choice'] ) ? checked( current( $field['default_choice'] ), $id, false ) : checked( $field['default_choice'], $id, false );
 																break;
 
 																case 'checkbox':
@@ -2224,7 +2218,7 @@ class Yikes_Inc_Easy_Mailchimp_Forms_Admin {
 																	    type="<?php echo $field_type; ?>"
 																	    name="<?php echo $field_name; ?>"
 																	    value="no-default" 
-																	    <?php checked( $field['default_choice'], 'no-default' ); ?>>
+																	    <?php is_array( $field['default_choice'] ) ? checked( current( $field['default_choice'] ), 'no-default' ) : checked( $field['default_choice'], 'no-default' ); ?>>
 																	No Default&nbsp;
 																</label>
 																<?php
