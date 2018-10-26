@@ -171,7 +171,7 @@ For information and code examples on how to implement the hooks and filters prov
 
 == Changelog ==
 
-= 6.4.8 - October 24th, 2018 =
+= 6.4.8 - October 29th, 2018 =
 * Fixed a plugin conflict between Easy Forms and Contact Form 7 when exporting forms.
 * Fixed an issue with the bbPress integration where users were being subscribed regardless of checking the box.
 * Fixed an issue with datepickers conflicting when the same form (with date pickers) is on the same page twice.
@@ -179,4 +179,6 @@ For information and code examples on how to implement the hooks and filters prov
 * Cleaned/Standardized/Code Sniffed the checkbox integration classes.
 * Removed checkbox integration CSS file.
 * Moved the WooCommerce integration checkbox's placement on the checkout page (it now uses the filter `woocommerce_review_order_before_submit` instead of `woocommerce_checkout_after_order_review`).
-* Added/Fixed several filters: `yikes_mailchimp_checkbox_integration_checkbox_html`, `yikes-mailchimp-filter-before-submission-$form_id`, `yikes-mailchimp-redirection`, `yikes-mailchimp-redirect-new-window`, `yikes_mailchimp_inline_stack_fields_width`
+* Added/Fixed several filters: `yikes_mailchimp_checkbox_integration_checkbox_html`, `yikes-mailchimp-filter-before-submission-$form_id`, `yikes-mailchimp-redirection`, `yikes-mailchimp-redirect-new-window`, `yikes_mailchimp_inline_stack_fields_width`, `yikes_mailchimp_checkbox_integration_checkbox_label`
+* Removed "Vote that the plugin works" callout.
+* Fixed & reorganized MailChimp Gutenberg block.
