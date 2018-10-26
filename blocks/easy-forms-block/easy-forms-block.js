@@ -191,18 +191,15 @@ var MailChimpForms = function (_Component) {
   }, {
     key: 'handleFormFieldChanges',
     value: function handleFormFieldChanges(event) {
-      console.log(event);
+      // console.log( event );
 
-      console.log(value);
+      // console.log( value );
       // console.log( this );
       // console.log( typeof this.setState );
 
-      var target = event.target;
-      var value = target.type === 'checkbox' ? target.checked : target.value;
-      var name = target.name;
-      console.log(target);
-      console.log(value);
-      console.log(name);
+      // const target = event.target;
+      //  const value  = target.type === 'checkbox' ? target.checked : target.value;
+      //  const name   = target.name;
 
       // return this.setState( { [name]: value } );
     }
