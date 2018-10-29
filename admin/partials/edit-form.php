@@ -648,7 +648,20 @@
 
 														<ul>
 															<li class="yikes-easy-mc-user-email-subject-help"><strong><?php _e( 'Email Subject' , 'yikes-inc-easy-mailchimp-extender' ); ?></strong> <?php _e( 'The subject of the email sent to the user.' , 'yikes-inc-easy-mailchimp-extender' ); ?></li>
-															<li class="yikes-easy-mc-user-email-body-help"><strong><?php _e( 'Email Body' , 'yikes-inc-easy-mailchimp-extender' ); ?></strong> <?php echo sprintf( __( 'The text in the profile update verification email sent to the subscriber. Wrap the text you want to be the link in <code>[link][/link]</code> tags. The link is required in the email, please don\'t leave these tags out. You can also use <code>[url]</code> tag to display your website\'s URL (e.g. %s).', 'yikes-inc-easy-mailchimp-extender' ), get_home_url() ); ?></li>
+															<li class="yikes-easy-mc-user-email-body-help">
+																<strong><?php _e( 'Email Body' , 'yikes-inc-easy-mailchimp-extender' ); ?></strong> 
+																<?php echo __( 'The text in the profile update verification email sent to the subscriber. Wrap the text you want to be the link in <code>[link][/link]</code> tags. The link is required in the email, please don\'t leave these tags out.', 'yikes-inc-easy-mailchimp-extender' ); ?>
+															</li>
+															<li class="yikes-easy-mc-user-email-body-help">
+																<strong><?php echo __( 'Tags', 'yikes-inc-easy-mailchimp-extender' ); ?></strong> 
+																<?php echo __( 'You can also use these tags in your email:', 'yikes-inc-easy-mailchimp-extender' ); ?>
+																<ul>
+																	<li><?php echo sprintf( __( '<code>[url]</code> displays your website\'s URL (i.e. %s).', 'yikes-inc-easy-mailchimp-extender' ), get_home_url() ); ?></li>
+																	<li><?php echo __( '<code>[email]</code> displays the subscriber\'s email address.', 'yikes-inc-easy-mailchimp-extender' ); ?></li>
+																	<li><?php echo __( '<code>[subscriber_id]</code> displays the subscriber\'s unique email ID.', 'yikes-inc-easy-mailchimp-extender' ); ?></li>
+																	<li><?php echo sprintf( __( '<code>[form_name]</code> displays your form\'s name (i.e. %s).', 'yikes-inc-easy-mailchimp-extender' ), $form['form_name'] ); ?></li>
+																</ul>
+															</li>
 														</ul>
 
 													</div>

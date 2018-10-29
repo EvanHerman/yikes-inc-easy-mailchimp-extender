@@ -71,272 +71,10 @@
 /************************************************************************/
 /******/ ({
 
-/***/ "./blocks/development/form/css/blocks.scss":
-/*!*************************************************!*\
-  !*** ./blocks/development/form/css/blocks.scss ***!
-  \*************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-
-var content = __webpack_require__(/*! !../../../../node_modules/css-loader!../../../../node_modules/sass-loader/lib/loader.js!./blocks.scss */ "./node_modules/css-loader/index.js!./node_modules/sass-loader/lib/loader.js!./blocks/development/form/css/blocks.scss");
-
-if(typeof content === 'string') content = [[module.i, content, '']];
-
-var transform;
-var insertInto;
-
-
-
-var options = {"hmr":true}
-
-options.transform = transform
-options.insertInto = undefined;
-
-var update = __webpack_require__(/*! ../../../../node_modules/style-loader/lib/addStyles.js */ "./node_modules/style-loader/lib/addStyles.js")(content, options);
-
-if(content.locals) module.exports = content.locals;
-
-if(false) {}
-
-/***/ }),
-
-/***/ "./blocks/development/form/js/block-form.js":
-/*!**************************************************!*\
-  !*** ./blocks/development/form/js/block-form.js ***!
-  \**************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-var _classnames = __webpack_require__(/*! classnames */ "./node_modules/classnames/index.js");
-
-var _classnames2 = _interopRequireDefault(_classnames);
-
-var _getForm = __webpack_require__(/*! ./get-form.js */ "./blocks/development/form/js/get-form.js");
-
-var _getForm2 = _interopRequireDefault(_getForm);
-
-var _classMailChimpForms = __webpack_require__(/*! ./class.MailChimpForms.js */ "./blocks/development/form/js/class.MailChimpForms.js");
-
-var _classMailChimpForms2 = _interopRequireDefault(_classMailChimpForms);
-
-__webpack_require__(/*! ../css/blocks.scss */ "./blocks/development/form/css/blocks.scss");
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-__webpack_require__(/*! ./enable-submit-button-editing.js */ "./blocks/development/form/js/enable-submit-button-editing.js");
-
-// Get just the __() localization function from wp.i18n
-var __ = wp.i18n.__;
-
-// Get registerBlockType and other methods from wp.blocks
-
-var registerBlockType = wp.blocks.registerBlockType;
-
-
-var edit_easy_form = function edit_easy_form(props) {
-
-	var onChangeForm = function onChangeForm(event) {
-		props.setAttributes({ form_id: event.target.value });
-
-		if (event.target.value.length > 0) {
-			(0, _getForm2.default)(event.target.value).then(function (form) {
-				props.setAttributes({ form: form.data });
-				props.setAttributes({ form_description: form.data.form_description });
-				props.setAttributes({ form_title: form.data.form_name });
-				props.setAttributes({ is_ajax: form.data.submission_settings.ajax === '1' });
-				props.setAttributes({ submit_button_text: form.data.form_settings['yikes-easy-mc-submit-button-text'] });
-			});
-		}
-	};
-
-	var onChangeDescription = function onChangeDescription(value) {
-		props.setAttributes({ form_description: value });
-	};
-
-	var toggleShowDescription = function toggleShowDescription(event) {
-		props.setAttributes({ show_description: !!event.target.checked });
-	};
-
-	var toggleInline = function toggleInline(event) {
-		props.setAttributes({ inline: !!event.target.checked });
-	};
-
-	var toggleShowTitle = function toggleShowTitle(event) {
-		props.setAttributes({ show_title: !!event.target.checked });
-	};
-
-	var toggleFormTitle = function toggleFormTitle(value) {
-		props.setAttributes({ form_title: value });
-	};
-
-	var toggleIsAjax = function toggleIsAjax(event) {
-		props.setAttributes({ is_ajax: !!event.target.checked });
-	};
-
-	var toggleRecaptcha = function toggleRecaptcha(event) {
-		props.setAttributes({ recaptcha: !!event.target.checked });
-	};
-
-	var toggleRecaptchaTheme = function toggleRecaptchaTheme(value) {
-		props.setAttributes({ recaptcha_theme: value });
-	};
-
-	var toggleRecaptchaLang = function toggleRecaptchaLang(value) {
-		props.setAttributes({ recaptcha_lang: value });
-	};
-
-	var toggleRecaptchaType = function toggleRecaptchaType(value) {
-		props.setAttributes({ recaptcha_type: value });
-	};
-
-	var toggleRecaptchaSize = function toggleRecaptchaSize(value) {
-		props.setAttributes({ recaptcha_size: value });
-	};
-
-	var toggleRecaptchaVerifyCallback = function toggleRecaptchaVerifyCallback(value) {
-		props.setAttributes({ recaptcha_verify_callback: value });
-	};
-
-	var toggleRecaptchaExpiredCallback = function toggleRecaptchaExpiredCallback(value) {
-		props.setAttributes({ recaptcha_expired_callback: value });
-	};
-
-	var toggleSubmitButtonText = function toggleSubmitButtonText(value) {
-		props.setAttributes({ submit_button_text: value });
-	};
-
-	return wp.element.createElement(_classMailChimpForms2.default, {
-		className: (0, _classnames2.default)(props.className),
-		onChangeForm: onChangeForm,
-		formID: props.attributes.form_id,
-		formData: props.attributes.form,
-		onChangeDescription: onChangeDescription,
-		descriptionValue: props.attributes.form_description,
-		showDescription: props.attributes.show_description,
-		toggleShowDescription: toggleShowDescription,
-		focus: !!props.isSelected,
-		inline: props.attributes.inline,
-		toggleInline: toggleInline,
-		formTitle: props.attributes.form_title,
-		toggleFormTitle: toggleFormTitle,
-		showTitle: props.attributes.show_title,
-		toggleShowTitle: toggleShowTitle,
-		isAjax: props.attributes.is_ajax,
-		toggleIsAjax: toggleIsAjax,
-		recaptcha: props.attributes.recaptcha,
-		toggleRecaptcha: toggleRecaptcha,
-		recaptchaTheme: props.attributes.recaptcha_theme,
-		toggleRecaptchaTheme: toggleRecaptchaTheme,
-		recaptchaLang: props.attributes.recaptcha_lang,
-		toggleRecaptchaLang: toggleRecaptchaLang,
-		recaptchaType: props.attributes.recaptcha_type,
-		toggleRecaptchaType: toggleRecaptchaType,
-		recaptchaSize: props.attributes.recaptcha_size,
-		toggleRecaptchaSize: toggleRecaptchaSize,
-		recaptchaVerifyCallback: props.attributes.recaptcha_verify_callback,
-		toggleRecaptchaVerifyCallback: toggleRecaptchaVerifyCallback,
-		recaptchaExpiredCallback: props.attributes.recaptcha_expired_callback,
-		toggleRecaptchaExpiredCallback: toggleRecaptchaExpiredCallback,
-		submitButtonText: props.attributes.submit_button_text,
-		toggleSubmitButtonText: toggleSubmitButtonText
-	});
-};
-
-var save_easy_form = function save_easy_form(props) {
-	return null;
-};
-
-var settings = {
-	title: __('Easy Forms for MailChimp'),
-	category: 'common', // Options include "common", "formatting", "layout", "widgets" and "embed."
-	icon: 'email-alt',
-	keywords: ['mailchimp', 'easy forms for mailchimp', 'yikes'],
-	attributes: {
-		form_id: {
-			type: 'number'
-		},
-		form: {
-			type: 'object'
-		},
-		form_description: {
-			type: 'string',
-			default: ''
-		},
-		show_description: {
-			type: 'boolean',
-			default: false
-		},
-		inline: {
-			type: 'boolean',
-			default: false
-		},
-		show_title: {
-			type: 'boolean',
-			default: false
-		},
-		form_title: {
-			type: 'string',
-			default: ''
-		},
-		is_ajax: {
-			type: 'boolean',
-			default: true
-		},
-		recaptcha: {
-			type: 'boolean',
-			default: true
-		},
-		recaptcha_theme: {
-			type: 'string',
-			default: 'light'
-		},
-		recaptcha_lang: {
-			type: 'string',
-			default: ''
-		},
-		recaptcha_type: {
-			type: 'string',
-			default: 'image'
-		},
-		recaptcha_size: {
-			type: 'string',
-			default: 'normal'
-		},
-		recaptcha_verify_callback: {
-			type: 'string',
-			default: ''
-		},
-		recaptcha_expired_callback: {
-			type: 'string',
-			default: ''
-		},
-		submit_button_text: {
-			type: 'string',
-			default: ''
-		}
-	},
-	edit: edit_easy_form,
-	save: save_easy_form
-};
-
-var EasyFormsBlock = registerBlockType(
-
-// Name
-'yikes-inc-easy-forms/easy-forms-block',
-
-// Settings
-settings);
-
-/***/ }),
-
-/***/ "./blocks/development/form/js/class.MailChimpForms.js":
-/*!************************************************************!*\
-  !*** ./blocks/development/form/js/class.MailChimpForms.js ***!
-  \************************************************************/
+/***/ "./blocks/components/class.MailChimpForms.js":
+/*!***************************************************!*\
+  !*** ./blocks/components/class.MailChimpForms.js ***!
+  \***************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -353,27 +91,27 @@ var _classnames2 = _interopRequireDefault(_classnames);
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
-var _getForms = __webpack_require__(/*! ./get-forms.js */ "./blocks/development/form/js/get-forms.js");
+var _getForms = __webpack_require__(/*! ./get-forms.js */ "./blocks/components/get-forms.js");
 
 var _getForms2 = _interopRequireDefault(_getForms);
 
-var _getRecaptcha = __webpack_require__(/*! ./get-recaptcha.js */ "./blocks/development/form/js/get-recaptcha.js");
+var _getRecaptcha = __webpack_require__(/*! ./get-recaptcha.js */ "./blocks/components/get-recaptcha.js");
 
 var _getRecaptcha2 = _interopRequireDefault(_getRecaptcha);
 
-var _slugify = __webpack_require__(/*! ./slugify.js */ "./blocks/development/form/js/slugify.js");
+var _slugify = __webpack_require__(/*! ./slugify.js */ "./blocks/components/slugify.js");
 
 var _slugify2 = _interopRequireDefault(_slugify);
 
-var _countries = __webpack_require__(/*! ./countries.js */ "./blocks/development/form/js/countries.js");
+var _countries = __webpack_require__(/*! ./countries.js */ "./blocks/components/countries.js");
 
 var _countries2 = _interopRequireDefault(_countries);
 
-var _states = __webpack_require__(/*! ./states.js */ "./blocks/development/form/js/states.js");
+var _states = __webpack_require__(/*! ./states.js */ "./blocks/components/states.js");
 
 var _states2 = _interopRequireDefault(_states);
 
-var _locales = __webpack_require__(/*! ./locales.js */ "./blocks/development/form/js/locales.js");
+var _locales = __webpack_require__(/*! ./locales.js */ "./blocks/components/locales.js");
 
 var _locales2 = _interopRequireDefault(_locales);
 
@@ -391,11 +129,11 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
 // Get functions / blocks / components
 var Recaptcha = __webpack_require__(/*! react-recaptcha */ "./node_modules/react-recaptcha/dist/react-recaptcha.js");
 var __ = wp.i18n.__;
-var _wp$blocks = wp.blocks,
-    registerBlockType = _wp$blocks.registerBlockType,
-    RichText = _wp$blocks.RichText,
-    InspectorControls = _wp$blocks.InspectorControls,
-    PlainText = _wp$blocks.PlainText;
+var registerBlockType = wp.blocks.registerBlockType;
+var _wp$editor = wp.editor,
+    RichText = _wp$editor.RichText,
+    InspectorControls = _wp$editor.InspectorControls,
+    PlainText = _wp$editor.PlainText;
 var _wp$components = wp.components,
     Spinner = _wp$components.Spinner,
     TextControl = _wp$components.TextControl,
@@ -429,18 +167,28 @@ var MailChimpForms = function (_Component) {
       'zip': 'Zip',
       'country': 'Country'
     };
-
-    (0, _getForms2.default)().then(function (forms) {
-      return _this.setState({ forms: forms.data });
-    });
-
-    (0, _getRecaptcha2.default)().then(function (recaptcha_data) {
-      return _this.setState({ recaptcha_data: recaptcha_data });
-    });
     return _this;
   }
 
+  /**
+   * Run our API calls after the component has mounted. You can't use setState before a component is mounted.
+   */
+
+
   _createClass(MailChimpForms, [{
+    key: 'componentDidMount',
+    value: function componentDidMount() {
+      var _this2 = this;
+
+      (0, _getForms2.default)().then(function (forms) {
+        _this2.setState({ forms: forms.data });
+      });
+
+      (0, _getRecaptcha2.default)().then(function (recaptcha_data) {
+        _this2.setState({ recaptcha_data: recaptcha_data });
+      });
+    }
+  }, {
     key: 'handleFormFieldChanges',
     value: function handleFormFieldChanges(event) {
       // console.log( event );
@@ -824,7 +572,7 @@ var MailChimpForms = function (_Component) {
   }, {
     key: 'get_radio_field',
     value: function get_radio_field(field) {
-      var _this2 = this;
+      var _this3 = this;
 
       var ii = 0;
 
@@ -843,7 +591,7 @@ var MailChimpForms = function (_Component) {
             id: field.merge + '-' + ii,
             key: field.merge + '-' + ii + '-input-key',
             value: key,
-            onChange: _this2.handleFormFieldChanges,
+            onChange: _this3.handleFormFieldChanges,
             checked: parseInt(field.default_choice) === ii - 1
           }),
           wp.element.createElement(
@@ -898,17 +646,17 @@ var MailChimpForms = function (_Component) {
         type: 'text',
         value: field.default,
         name: field.merge,
-        className: (0, _classnames2.default)('yikes-easy-mc-' + field.type + ' hasDatepicker ' + field['additional-classes']),
+        className: (0, _classnames2.default)('yikes-easy-mc-' + field.type + ' ' + field['additional-classes']),
         key: 'yikes-mailchimp-field-' + field.merge,
         required: field.merge === 'EMAIL' || field.require === '1' ? 'required' : false,
         'data-attr-type': field.type,
-        'data-date-format': field.date_format
+        'data-date-format': field.date_format.toLowerCase()
       });
     }
   }, {
     key: 'get_radio_interest_group',
     value: function get_radio_interest_group(field) {
-      var _this3 = this;
+      var _this4 = this;
 
       var ii = -1;
       var cn = "yikes-easy-mc-checkbox-label " + field['additional-classes'];
@@ -931,7 +679,7 @@ var MailChimpForms = function (_Component) {
             id: field.group_id + '-' + ii,
             key: field.group_id + '-' + ii + '-input-key',
             value: key,
-            onChange: _this3.handleFormFieldChanges,
+            onChange: _this4.handleFormFieldChanges,
             checked: key === field.default_choice,
             className: (0, _classnames2.default)({ 'yikes-interest-group-required': field.require === '1' })
           }),
@@ -942,7 +690,7 @@ var MailChimpForms = function (_Component) {
   }, {
     key: 'get_hidden_interest_group',
     value: function get_hidden_interest_group(field) {
-      var _this4 = this;
+      var _this5 = this;
 
       var ii = -1;
 
@@ -953,7 +701,7 @@ var MailChimpForms = function (_Component) {
           'label',
           {
             htmlFor: field.group_id + '-' + ii,
-            className: (0, _classnames2.default)("yikes-easy-mc-checkbox-label " + field['additional-classes']),
+            className: (0, _classnames2.default)('yikes-easy-mc-checkbox-label ' + field['additional-classes']),
             key: field.group_id + '-' + ii + '-label-key'
           },
           wp.element.createElement('input', {
@@ -962,7 +710,7 @@ var MailChimpForms = function (_Component) {
             id: field.group_id + '-' + ii,
             key: field.group_id + '-' + ii + '-input-key',
             value: key,
-            onChange: _this4.handleFormFieldChanges,
+            onChange: _this5.handleFormFieldChanges,
             checked: field.default_choice.indexOf(key) !== -1
           }),
           choice
@@ -972,10 +720,10 @@ var MailChimpForms = function (_Component) {
   }, {
     key: 'get_checkboxes_interest_group',
     value: function get_checkboxes_interest_group(field) {
-      var _this5 = this;
+      var _this6 = this;
 
       var ii = -1;
-      var cn = "yikes-easy-mc-checkbox-label " + field['additional-classes'];
+      var cn = 'yikes-easy-mc-checkbox-label ' + field['additional-classes'];
 
       return Object.keys(JSON.parse(field.groups)).map(function (key) {
         var _classNames3;
@@ -992,12 +740,12 @@ var MailChimpForms = function (_Component) {
           wp.element.createElement('input', {
             className: (0, _classnames2.default)({ 'yikes-interest-group-required': field.require === '1' }),
             type: 'checkbox',
-            name: "group-" + field.group_id + '[]',
+            name: 'group-' + field.group_id + '[]',
             id: field.group_id + '-' + ii,
             key: field.group_id + '-' + ii + '-input-key',
             value: key,
-            onChange: _this5.handleFormFieldChanges,
-            checked: field.default_choice.indexOf(key) !== -1,
+            onChange: _this6.handleFormFieldChanges,
+            checked: typeof field.default_choice !== 'undefined' && field.default_choice.indexOf(key) !== -1,
             required: field.require === '1' ? 'required' : false
           }),
           choice
@@ -1033,11 +781,11 @@ var MailChimpForms = function (_Component) {
   }, {
     key: 'form_fields',
     value: function form_fields() {
-      var _this6 = this;
+      var _this7 = this;
 
       return this.props.formData && this.props.formData.fields ? Object.keys(this.props.formData.fields).map(function (key) {
 
-        var field = _this6.props.formData.fields[key];
+        var field = _this7.props.formData.fields[key];
 
         // Form Fields (aka merge variables)
         if (typeof field.merge !== 'undefined') {
@@ -1059,37 +807,37 @@ var MailChimpForms = function (_Component) {
 
           if (field.type === 'address') {
 
-            return [field.description_above === '1' && field.description.length > 0 && desc, Object.keys(_this6.address_fields).map(function (addr_field) {
+            return [field.description_above === '1' && field.description.length > 0 && desc, Object.keys(_this7.address_fields).map(function (addr_field) {
               label = field['hide-label'] !== '1' ? wp.element.createElement(
                 'span',
                 { className: (0, _classnames2.default)(field.merge + '-label'), key: field.merge + '-label-span-key-' + addr_field },
-                _this6.address_fields[addr_field]
+                _this7.address_fields[addr_field]
               ) : '';
 
               return wp.element.createElement(
                 'label',
                 {
-                  htmlFor: "yikes-easy-mc-form-" + _this6.props.formID + "-" + field.merge + '-' + addr_field,
+                  htmlFor: "yikes-easy-mc-form-" + _this7.props.formID + "-" + field.merge + '-' + addr_field,
                   className: (0, _classnames2.default)(classes),
                   key: field.merge + '-label-key-' + addr_field,
                   style: field.hide === '1' ? { 'display': 'none' } : {}
                 },
                 label,
-                _this6.get_address_field(addr_field, field)
+                _this7.get_address_field(addr_field, field)
               );
             }), field.description_above !== '1' && field.description.length > 0 && desc];
           } else {
             return wp.element.createElement(
               'label',
               {
-                htmlFor: "yikes-easy-mc-form-" + _this6.props.formID + "-" + field.merge,
+                htmlFor: "yikes-easy-mc-form-" + _this7.props.formID + "-" + field.merge,
                 className: (0, _classnames2.default)(classes),
                 key: field.merge + '-label-key',
                 style: field.hide === '1' ? { 'display': 'none' } : {}
               },
               label,
               field.description_above === '1' && field.description.length > 0 && desc,
-              field.type === 'dropdown' ? _this6.get_dropdown_field(field) : field.type === 'radio' ? _this6.get_radio_field(field) : field.type === 'url' || field.type === 'imageurl' ? _this6.get_url_field(field) : field.type === 'date' || field.type === 'birthday' ? _this6.get_date_field(field) : _this6.get_default_field(field),
+              field.type === 'dropdown' ? _this7.get_dropdown_field(field) : field.type === 'radio' ? _this7.get_radio_field(field) : field.type === 'url' || field.type === 'imageurl' ? _this7.get_url_field(field) : field.type === 'date' || field.type === 'birthday' ? _this7.get_date_field(field) : _this7.get_default_field(field),
               field.description_above !== '1' && field.description.length > 0 && desc
             );
           }
@@ -1120,7 +868,7 @@ var MailChimpForms = function (_Component) {
             },
             label,
             field.description_above === '1' && field.description.length > 0 && desc,
-            field.type === 'radio' ? _this6.get_radio_interest_group(field) : field.type === 'hidden' ? _this6.get_hidden_interest_group(field) : field.type === 'checkboxes' ? _this6.get_checkboxes_interest_group(field) : field.type === 'dropdown' ? _this6.get_dropdown_interest_group(field) : '',
+            field.type === 'radio' ? _this7.get_radio_interest_group(field) : field.type === 'hidden' ? _this7.get_hidden_interest_group(field) : field.type === 'checkboxes' ? _this7.get_checkboxes_interest_group(field) : field.type === 'dropdown' ? _this7.get_dropdown_interest_group(field) : '',
             field.description_above !== '1' && field.description.length > 0 && desc
           );
         }
@@ -1273,10 +1021,10 @@ exports.default = MailChimpForms;
 
 /***/ }),
 
-/***/ "./blocks/development/form/js/countries.js":
-/*!*************************************************!*\
-  !*** ./blocks/development/form/js/countries.js ***!
-  \*************************************************/
+/***/ "./blocks/components/countries.js":
+/*!****************************************!*\
+  !*** ./blocks/components/countries.js ***!
+  \****************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -1537,10 +1285,10 @@ exports.default = countries;
 
 /***/ }),
 
-/***/ "./blocks/development/form/js/enable-submit-button-editing.js":
-/*!********************************************************************!*\
-  !*** ./blocks/development/form/js/enable-submit-button-editing.js ***!
-  \********************************************************************/
+/***/ "./blocks/components/enable-submit-button-editing.js":
+/*!***********************************************************!*\
+  !*** ./blocks/components/enable-submit-button-editing.js ***!
+  \***********************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -1566,10 +1314,10 @@ exports.default = countries;
 
 /***/ }),
 
-/***/ "./blocks/development/form/js/get-form.js":
-/*!************************************************!*\
-  !*** ./blocks/development/form/js/get-form.js ***!
-  \************************************************/
+/***/ "./blocks/components/get-form.js":
+/*!***************************************!*\
+  !*** ./blocks/components/get-form.js ***!
+  \***************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -1594,10 +1342,10 @@ function yikes_easy_forms_fetch_form(form_id) {
 
 /***/ }),
 
-/***/ "./blocks/development/form/js/get-forms.js":
-/*!*************************************************!*\
-  !*** ./blocks/development/form/js/get-forms.js ***!
-  \*************************************************/
+/***/ "./blocks/components/get-forms.js":
+/*!****************************************!*\
+  !*** ./blocks/components/get-forms.js ***!
+  \****************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -1622,10 +1370,10 @@ function yikes_easy_forms_fetch_forms() {
 
 /***/ }),
 
-/***/ "./blocks/development/form/js/get-recaptcha.js":
-/*!*****************************************************!*\
-  !*** ./blocks/development/form/js/get-recaptcha.js ***!
-  \*****************************************************/
+/***/ "./blocks/components/get-recaptcha.js":
+/*!********************************************!*\
+  !*** ./blocks/components/get-recaptcha.js ***!
+  \********************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -1650,10 +1398,10 @@ function get_recaptcha() {
 
 /***/ }),
 
-/***/ "./blocks/development/form/js/locales.js":
-/*!***********************************************!*\
-  !*** ./blocks/development/form/js/locales.js ***!
-  \***********************************************/
+/***/ "./blocks/components/locales.js":
+/*!**************************************!*\
+  !*** ./blocks/components/locales.js ***!
+  \**************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -1740,10 +1488,10 @@ exports.default = locales;
 
 /***/ }),
 
-/***/ "./blocks/development/form/js/slugify.js":
-/*!***********************************************!*\
-  !*** ./blocks/development/form/js/slugify.js ***!
-  \***********************************************/
+/***/ "./blocks/components/slugify.js":
+/*!**************************************!*\
+  !*** ./blocks/components/slugify.js ***!
+  \**************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -1777,10 +1525,10 @@ function slugify(text) {
 
 /***/ }),
 
-/***/ "./blocks/development/form/js/states.js":
-/*!**********************************************!*\
-  !*** ./blocks/development/form/js/states.js ***!
-  \**********************************************/
+/***/ "./blocks/components/states.js":
+/*!*************************************!*\
+  !*** ./blocks/components/states.js ***!
+  \*************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -1862,6 +1610,269 @@ exports.default = states;
 
 /***/ }),
 
+/***/ "./blocks/easy-forms-block/dev-easy-forms-block.js":
+/*!*********************************************************!*\
+  !*** ./blocks/easy-forms-block/dev-easy-forms-block.js ***!
+  \*********************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+var _classnames = __webpack_require__(/*! classnames */ "./node_modules/classnames/index.js");
+
+var _classnames2 = _interopRequireDefault(_classnames);
+
+var _getForm = __webpack_require__(/*! ../components/get-form.js */ "./blocks/components/get-form.js");
+
+var _getForm2 = _interopRequireDefault(_getForm);
+
+var _classMailChimpForms = __webpack_require__(/*! ../components/class.MailChimpForms.js */ "./blocks/components/class.MailChimpForms.js");
+
+var _classMailChimpForms2 = _interopRequireDefault(_classMailChimpForms);
+
+__webpack_require__(/*! ./easy-forms-block.scss */ "./blocks/easy-forms-block/easy-forms-block.scss");
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+__webpack_require__(/*! ../components/enable-submit-button-editing.js */ "./blocks/components/enable-submit-button-editing.js");
+
+// Get just the __() localization function from wp.i18n
+var __ = wp.i18n.__;
+
+// Get registerBlockType and other methods from wp.blocks
+
+var registerBlockType = wp.blocks.registerBlockType;
+
+
+var edit_easy_form = function edit_easy_form(props) {
+
+  var onChangeForm = function onChangeForm(event) {
+    props.setAttributes({ form_id: event.target.value });
+
+    if (event.target.value.length > 0) {
+      (0, _getForm2.default)(event.target.value).then(function (form) {
+        props.setAttributes({ form: form.data });
+        props.setAttributes({ form_description: form.data.form_description });
+        props.setAttributes({ form_title: form.data.form_name });
+        props.setAttributes({ is_ajax: form.data.submission_settings.ajax === '1' });
+        props.setAttributes({ submit_button_text: form.data.form_settings['yikes-easy-mc-submit-button-text'] });
+      });
+    }
+  };
+
+  var onChangeDescription = function onChangeDescription(value) {
+    props.setAttributes({ form_description: value });
+  };
+
+  var toggleShowDescription = function toggleShowDescription(event) {
+    props.setAttributes({ show_description: !!event.target.checked });
+  };
+
+  var toggleInline = function toggleInline(event) {
+    props.setAttributes({ inline: !!event.target.checked });
+  };
+
+  var toggleShowTitle = function toggleShowTitle(event) {
+    props.setAttributes({ show_title: !!event.target.checked });
+  };
+
+  var toggleFormTitle = function toggleFormTitle(value) {
+    props.setAttributes({ form_title: value });
+  };
+
+  var toggleIsAjax = function toggleIsAjax(event) {
+    props.setAttributes({ is_ajax: !!event.target.checked });
+  };
+
+  var toggleRecaptcha = function toggleRecaptcha(event) {
+    props.setAttributes({ recaptcha: !!event.target.checked });
+  };
+
+  var toggleRecaptchaTheme = function toggleRecaptchaTheme(value) {
+    props.setAttributes({ recaptcha_theme: value });
+  };
+
+  var toggleRecaptchaLang = function toggleRecaptchaLang(value) {
+    props.setAttributes({ recaptcha_lang: value });
+  };
+
+  var toggleRecaptchaType = function toggleRecaptchaType(value) {
+    props.setAttributes({ recaptcha_type: value });
+  };
+
+  var toggleRecaptchaSize = function toggleRecaptchaSize(value) {
+    props.setAttributes({ recaptcha_size: value });
+  };
+
+  var toggleRecaptchaVerifyCallback = function toggleRecaptchaVerifyCallback(value) {
+    props.setAttributes({ recaptcha_verify_callback: value });
+  };
+
+  var toggleRecaptchaExpiredCallback = function toggleRecaptchaExpiredCallback(value) {
+    props.setAttributes({ recaptcha_expired_callback: value });
+  };
+
+  var toggleSubmitButtonText = function toggleSubmitButtonText(value) {
+    props.setAttributes({ submit_button_text: value });
+  };
+
+  return wp.element.createElement(_classMailChimpForms2.default, {
+    className: (0, _classnames2.default)(props.className),
+    onChangeForm: onChangeForm,
+    formID: props.attributes.form_id,
+    formData: props.attributes.form,
+    onChangeDescription: onChangeDescription,
+    descriptionValue: props.attributes.form_description,
+    showDescription: props.attributes.show_description,
+    toggleShowDescription: toggleShowDescription,
+    focus: !!props.isSelected,
+    inline: props.attributes.inline,
+    toggleInline: toggleInline,
+    formTitle: props.attributes.form_title,
+    toggleFormTitle: toggleFormTitle,
+    showTitle: props.attributes.show_title,
+    toggleShowTitle: toggleShowTitle,
+    isAjax: props.attributes.is_ajax,
+    toggleIsAjax: toggleIsAjax,
+    recaptcha: props.attributes.recaptcha,
+    toggleRecaptcha: toggleRecaptcha,
+    recaptchaTheme: props.attributes.recaptcha_theme,
+    toggleRecaptchaTheme: toggleRecaptchaTheme,
+    recaptchaLang: props.attributes.recaptcha_lang,
+    toggleRecaptchaLang: toggleRecaptchaLang,
+    recaptchaType: props.attributes.recaptcha_type,
+    toggleRecaptchaType: toggleRecaptchaType,
+    recaptchaSize: props.attributes.recaptcha_size,
+    toggleRecaptchaSize: toggleRecaptchaSize,
+    recaptchaVerifyCallback: props.attributes.recaptcha_verify_callback,
+    toggleRecaptchaVerifyCallback: toggleRecaptchaVerifyCallback,
+    recaptchaExpiredCallback: props.attributes.recaptcha_expired_callback,
+    toggleRecaptchaExpiredCallback: toggleRecaptchaExpiredCallback,
+    submitButtonText: props.attributes.submit_button_text,
+    toggleSubmitButtonText: toggleSubmitButtonText
+  });
+};
+
+var save_easy_form = function save_easy_form(props) {
+  return null;
+};
+
+var settings = {
+  title: __('Easy Forms for MailChimp'),
+  category: 'common', // Options include "common", "formatting", "layout", "widgets" and "embed."
+  icon: 'email-alt',
+  keywords: ['mailchimp', 'easy forms for mailchimp', 'yikes'],
+  attributes: {
+    form_id: {
+      type: 'string',
+      default: ''
+    },
+    form: {
+      type: 'object'
+    },
+    form_description: {
+      type: 'string',
+      default: ''
+    },
+    show_description: {
+      type: 'boolean',
+      default: false
+    },
+    inline: {
+      type: 'boolean',
+      default: false
+    },
+    show_title: {
+      type: 'boolean',
+      default: false
+    },
+    form_title: {
+      type: 'string',
+      default: ''
+    },
+    is_ajax: {
+      type: 'boolean',
+      default: true
+    },
+    recaptcha: {
+      type: 'boolean',
+      default: true
+    },
+    recaptcha_theme: {
+      type: 'string',
+      default: 'light'
+    },
+    recaptcha_lang: {
+      type: 'string',
+      default: ''
+    },
+    recaptcha_type: {
+      type: 'string',
+      default: 'image'
+    },
+    recaptcha_size: {
+      type: 'string',
+      default: 'normal'
+    },
+    recaptcha_verify_callback: {
+      type: 'string',
+      default: ''
+    },
+    recaptcha_expired_callback: {
+      type: 'string',
+      default: ''
+    },
+    submit_button_text: {
+      type: 'string',
+      default: ''
+    }
+  },
+  edit: edit_easy_form,
+  save: save_easy_form
+};
+
+var EasyFormsBlock = registerBlockType(
+
+// Name
+ez_forms_gb_data.block_namespace + ez_forms_gb_data.block_name,
+
+// Settings
+settings);
+
+/***/ }),
+
+/***/ "./blocks/easy-forms-block/easy-forms-block.scss":
+/*!*******************************************************!*\
+  !*** ./blocks/easy-forms-block/easy-forms-block.scss ***!
+  \*******************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+
+var content = __webpack_require__(/*! !../../node_modules/css-loader!../../node_modules/sass-loader/lib/loader.js!./easy-forms-block.scss */ "./node_modules/css-loader/index.js!./node_modules/sass-loader/lib/loader.js!./blocks/easy-forms-block/easy-forms-block.scss");
+
+if(typeof content === 'string') content = [[module.i, content, '']];
+
+var transform;
+var insertInto;
+
+
+
+var options = {"hmr":true}
+
+options.transform = transform
+options.insertInto = undefined;
+
+var update = __webpack_require__(/*! ../../node_modules/style-loader/lib/addStyles.js */ "./node_modules/style-loader/lib/addStyles.js")(content, options);
+
+if(content.locals) module.exports = content.locals;
+
+if(false) {}
+
+/***/ }),
+
 /***/ "./blocks/index.js":
 /*!*************************!*\
   !*** ./blocks/index.js ***!
@@ -1872,7 +1883,7 @@ exports.default = states;
 "use strict";
 
 
-__webpack_require__(/*! ./development/form/js/block-form.js */ "./blocks/development/form/js/block-form.js");
+__webpack_require__(/*! ./easy-forms-block/dev-easy-forms-block.js */ "./blocks/easy-forms-block/dev-easy-forms-block.js");
 
 /***/ }),
 
@@ -1940,14 +1951,14 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
 
 /***/ }),
 
-/***/ "./node_modules/css-loader/index.js!./node_modules/sass-loader/lib/loader.js!./blocks/development/form/css/blocks.scss":
-/*!********************************************************************************************************************!*\
-  !*** ./node_modules/css-loader!./node_modules/sass-loader/lib/loader.js!./blocks/development/form/css/blocks.scss ***!
-  \********************************************************************************************************************/
+/***/ "./node_modules/css-loader/index.js!./node_modules/sass-loader/lib/loader.js!./blocks/easy-forms-block/easy-forms-block.scss":
+/*!**************************************************************************************************************************!*\
+  !*** ./node_modules/css-loader!./node_modules/sass-loader/lib/loader.js!./blocks/easy-forms-block/easy-forms-block.scss ***!
+  \**************************************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-exports = module.exports = __webpack_require__(/*! ../../../../node_modules/css-loader/lib/css-base.js */ "./node_modules/css-loader/lib/css-base.js")(false);
+exports = module.exports = __webpack_require__(/*! ../../node_modules/css-loader/lib/css-base.js */ "./node_modules/css-loader/lib/css-base.js")(false);
 // imports
 
 
@@ -4548,4 +4559,4 @@ module.exports = function (module) {
 /***/ })
 
 /******/ });
-//# sourceMappingURL=blocks.js.map
+//# sourceMappingURL=easy-forms-block.js.map

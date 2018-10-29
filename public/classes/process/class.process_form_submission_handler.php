@@ -394,7 +394,7 @@ class Yikes_Inc_Easy_MailChimp_Extender_Process_Submission_Handler {
 		*	@param array | $merge_variables | The user submitted form data
 		*/
 		$merge_variables = apply_filters( 'yikes-mailchimp-filter-before-submission', $merge_variables );
-		$merge_variables = apply_filters( 'yikes-mailchimp-filter-before-submission-{$this->form_id}', $merge_variables );
+		$merge_variables = apply_filters( "yikes-mailchimp-filter-before-submission-{$this->form_id}", $merge_variables );
 
 		return $merge_variables;
 	}
@@ -613,8 +613,8 @@ class Yikes_Inc_Easy_MailChimp_Extender_Process_Submission_Handler {
 		*
 		*	@param array | $merge_variables | The array of user submitted form data
 		*/
-		do_action( 'yikes-mailchimp-after-submission', $merge_variables );
-		do_action( "yikes-mailchimp-after-submission-{$this->form_id}", $merge_variables );
+		do_action( 'yikes-mailchimp-after-submission', $merge_variables, $this->form_id );
+		do_action( "yikes-mailchimp-after-submission-{$this->form_id}", $merge_variables, $this->form_id );
 
 		/**
 		*	yikes-mailchimp-form-submission || yikes-mailchimp-form-submission-{$form_id}
@@ -1376,17 +1376,17 @@ class Yikes_Inc_Easy_MailChimp_Extender_Process_Submission_Handler {
 		if ( '1' === $redirect_setting ) {
 
 			// Supply return array with default value of 1
-			$redirect_array['redirection']	= 1;
+			$redirect_array['redirection']	= apply_filters( 'yikes-mailchimp-redirection', 1, $form_id, $page_data );
 
 			// Let's confirm we have redirect_page/custom_redirect_url/new_window values
 			$redirect_page_setting	 = isset( $submission_settings['redirect_page'] ) ? $submission_settings['redirect_page'] : false;
 			$custom_redirect_setting = isset( $submission_settings['custom_redirect_url'] ) ? $submission_settings['custom_redirect_url'] : false;
 			$redirect_new_window	 = isset( $submission_settings['redirect_new_window'] ) ? $submission_settings['redirect_new_window'] : false;
 
-			$redirect_array['new_window'] = $redirect_new_window;
+			$redirect_array['new_window'] = apply_filters( 'yikes-mailchimp-redirect-new-window', $redirect_new_window, $form_id, $page_data );
 
 			// Check if we're redirecting to a custom_url or just the redirect_page
-			$redirect_url = ( 'custom_url' !== $redirect_page_setting ) ? get_permalink( $redirect_page_setting ) : $custom_redirect_setting;
+			$redirect_url = 'custom_url' !== $redirect_page_setting ? get_permalink( $redirect_page_setting ) : $custom_redirect_setting;
 
 			/**
 			*	yikes-mailchimp-redirect-url
@@ -1406,7 +1406,7 @@ class Yikes_Inc_Easy_MailChimp_Extender_Process_Submission_Handler {
 			*
 			*	@param int | $default_redirect_time_ms | The default time (1500 milliseconds) to wait before redirecting
 			*/
-			$redirect_timer = apply_filters( 'yikes-mailchimp-redirect-timer', $default_redirect_time_ms, $form_id );
+			$redirect_timer = apply_filters( 'yikes-mailchimp-redirect-timer', $default_redirect_time_ms, $form_id, $page_data );
 
 			$redirect_array['redirect_timer'] = $redirect_timer;
 

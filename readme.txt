@@ -4,7 +4,7 @@ Donate link: https://yikesplugins.com/?utm_source=wp_plugin_repo&utm_medium=dona
 Tags: MailChimp, MailChimp forms, MailChimp lists, opt-in forms, sign up form, MailChimp, email, forms, mailing lists, marketing, newsletter, sign up
 Requires at least: 4.0
 Tested up to: 4.9.8
-Stable tag: 6.4.7
+Stable tag: 6.4.8
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -171,8 +171,15 @@ For information and code examples on how to implement the hooks and filters prov
 
 == Changelog ==
 
-= 6.4.7 - October 2nd, 2018 =
-* Fixing an issue with logging an error from a dashboard widget.
-* Adding a warning to when changing an API key.
-* Re-adding WordPress' HTTP referer field to forms.
-* Adding a filter for default interest groups.
+= 6.4.8 - October 29th, 2018 =
+* Fixed a plugin conflict between Easy Forms and Contact Form 7 when exporting forms.
+* Fixed an issue with the bbPress integration where users were being subscribed regardless of checking the box.
+* Fixed an issue with datepickers conflicting when the same form (with date pickers) is on the same page twice.
+* Inline forms will now stack when the screen size is less than 650px.
+* Cleaned/Standardized/Code Sniffed the checkbox integration classes.
+* Removed checkbox integration CSS file.
+* Moved the WooCommerce integration checkbox's placement on the checkout page (it now uses the filter `woocommerce_review_order_before_submit` instead of `woocommerce_checkout_after_order_review`).
+* Added/Fixed several filters: `yikes_mailchimp_checkbox_integration_checkbox_html`, `yikes-mailchimp-filter-before-submission-$form_id`, `yikes-mailchimp-redirection`, `yikes-mailchimp-redirect-new-window`, `yikes_mailchimp_inline_stack_fields_width`, `yikes_mailchimp_checkbox_integration_checkbox_label`
+* Removed "Vote that the plugin works" callout.
+* Fixed & reorganized MailChimp Gutenberg block.
+* Added new tags for the update profile email: `[email]`, `[subscriber_id]`, and `[form_name]`.

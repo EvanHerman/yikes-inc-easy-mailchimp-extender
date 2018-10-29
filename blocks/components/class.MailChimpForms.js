@@ -14,7 +14,8 @@ import locales from './locales.js';
 // Get functions / blocks / components
 const Recaptcha = require( 'react-recaptcha' );
 const { __ } = wp.i18n;
-const { registerBlockType, RichText, InspectorControls, PlainText } = wp.blocks;
+const { registerBlockType } = wp.blocks;
+const { RichText, InspectorControls, PlainText } = wp.editor;
 const { Spinner, TextControl, PanelBody, PanelRow, FormToggle, SelectControl } = wp.components;
 const { Component } = wp.element;
 
@@ -24,28 +25,33 @@ export default class MailChimpForms extends Component {
     this.state = {
       forms         : [],
       recaptcha_data: {
-        data: {},
+        data   : {},
         success: false
       }
     }
 
     this.address_fields = {
-      'addr1': 'Address 1', 
-      'addr2': 'Address 2', 
-      'city' : 'City', 
-      'state': 'State', 
-      'zip'  : 'Zip',
+      'addr1'  : 'Address 1', 
+      'addr2'  : 'Address 2', 
+      'city'   : 'City', 
+      'state'  : 'State', 
+      'zip'    : 'Zip',
       'country': 'Country'
     }
+  }
 
+  /**
+   * Run our API calls after the component has mounted. You can't use setState before a component is mounted.
+   */
+  componentDidMount() {
     yikes_easy_forms_fetch_forms()
       .then( forms => {
-        return this.setState( { forms: forms.data } );
+        this.setState( { forms: forms.data } );
     });
 
     get_recaptcha()
       .then( recaptcha_data => {
-        return this.setState( { recaptcha_data: recaptcha_data });
+        this.setState( { recaptcha_data: recaptcha_data } );
     });
   }
 
@@ -476,11 +482,11 @@ export default class MailChimpForms extends Component {
         type='text'
         value={ field.default }
         name={ field.merge }
-        className={ 'yikes-easy-mc-' + field.type + ' hasDatepicker ' + field['additional-classes'] }
+        className={ 'yikes-easy-mc-' + field.type + ' ' + field['additional-classes'] }
         key= { 'yikes-mailchimp-field-' + field.merge }
         required={ field.merge === 'EMAIL' || field.require === '1' ? 'required' : false }
         data-attr-type={ field.type }
-        data-date-format={ field.date_format }
+        data-date-format={ field.date_format.toLowerCase() }
       />
     )
   }
@@ -526,7 +532,7 @@ export default class MailChimpForms extends Component {
         return (
           <label
             htmlFor={ field.group_id + '-' + ii }
-            className={ "yikes-easy-mc-checkbox-label " + field['additional-classes'] }
+            className={ 'yikes-easy-mc-checkbox-label ' + field['additional-classes'] }
             key={ field.group_id + '-' + ii + '-label-key' }
           >
             <input
@@ -547,7 +553,7 @@ export default class MailChimpForms extends Component {
 
   get_checkboxes_interest_group( field ) {
     var ii = -1;
-    var cn = "yikes-easy-mc-checkbox-label " + field['additional-classes'];
+    var cn = 'yikes-easy-mc-checkbox-label ' + field['additional-classes'];
 
     return (
       Object.keys( JSON.parse( field.groups ) ).map( ( key ) => {
@@ -562,12 +568,12 @@ export default class MailChimpForms extends Component {
             <input
               className={ { 'yikes-interest-group-required': field.require === '1' } }
               type="checkbox"
-              name={"group-" + field.group_id + '[]' }
+              name={ 'group-' + field.group_id + '[]' }
               id={ field.group_id + '-' + ii }
               key={ field.group_id + '-' + ii + '-input-key' }
               value={ key }
               onChange={ this.handleFormFieldChanges }
-              checked={ field.default_choice.indexOf( key ) !== -1 }
+              checked={ typeof field.default_choice !== 'undefined' && field.default_choice.indexOf( key ) !== -1 }
               required={ field.require === '1' ? 'required' : false }
             />
             { choice }

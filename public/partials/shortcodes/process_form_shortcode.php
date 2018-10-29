@@ -244,6 +244,7 @@ function process_mailchimp_shortcode( $atts ) {
 		$custom_inline_styles = apply_filters( 'yikes-mailchimp-custom-inline-styles', '', $form_id );
 		$float_style          = apply_filters( 'yikes-mailchimp-inline-float', ! $inline_form_override ? 'left' : 'none', $form_id );
 		$mobile_width         = $field_width - $inline_offset;
+		$stack_forms_width    = apply_filters( 'yikes_mailchimp_inline_stack_fields_width', '650px', $form_id );
 
 		/*
 		*	Add inline styles after calculating the percentage etc.
@@ -257,7 +258,8 @@ function process_mailchimp_shortcode( $atts ) {
 				{$custom_inline_styles}
 			 }
 
-			 @media (max-width: 768px) {
+			 /* Drop the submit button (100% width) below the fields */
+			 @media ( max-width: 768px ) {
 			 	.yikes-easy-mc-form label.label-inline {
 					width: {$mobile_width}%;
 					padding-right: {$inline_padding_right};
@@ -269,7 +271,14 @@ function process_mailchimp_shortcode( $atts ) {
 				.yikes-easy-mc-form .submit-button-inline-label .empty-label {
 					display: none;
 				}
-			 }
+			}
+
+			/* Stack all fields @ 100% */
+			@media ( max-width: {$stack_forms_width} ) {
+				.yikes-easy-mc-form label.label-inline {
+					width: 100%;
+				}
+			}
 		";
 		wp_add_inline_style( 'yikes-inc-easy-mailchimp-public-styles', $inline_label_css );
 	}
@@ -375,8 +384,8 @@ function process_mailchimp_shortcode( $atts ) {
 			) );
 		}
 
-		// Generic JavaScript functions for interacting with the form
-		wp_enqueue_script( 'form-submission-helpers', YIKES_MC_URL . "public/js/form-submission-helpers{$min}.js" , array( 'jquery' ), YIKES_MC_VERSION, false );
+		// Generic JavaScript functions for interacting with the form.
+		wp_enqueue_script( 'form-submission-helpers', YIKES_MC_URL . "public/js/form-submission-helpers{$min}.js", array( 'jquery' ), YIKES_MC_VERSION, false );
 		wp_localize_script( 'form-submission-helpers', 'form_submission_helpers', array(
 			'ajax_url'           => esc_url( admin_url( 'admin-ajax.php' ) ),
 			'preloader_url'      => apply_filters( 'yikes-mailchimp-preloader', esc_url_raw( admin_url( 'images/wpspin_light.gif' ) ) ),
@@ -867,7 +876,7 @@ function process_mailchimp_shortcode( $atts ) {
 								$datepicker_options = apply_filters( 'yikes-mailchimp-datepicker-options', $datepicker_options, $form_id );
 
 								// Enqueue our custom datepicker support scripts and styles, and jQuery UI Style Sheet (these styles are not included in Core)
-								wp_register_script( 'yikes-datepicker-scripts', YIKES_MC_URL . 'public/js/yikes-datepicker-scripts.min.js', array( 'jquery-ui-datepicker' ), YIKES_MC_VERSION, false );
+								wp_register_script( 'yikes-datepicker-scripts', YIKES_MC_URL . "public/js/yikes-datepicker-scripts{$min}.js", array( 'jquery-ui-datepicker' ), YIKES_MC_VERSION, false );
 								wp_localize_script( 'yikes-datepicker-scripts', 'datepicker_settings', $datepicker_options );
 								wp_enqueue_script( 'yikes-datepicker-scripts' );
 								wp_enqueue_style( 'jquery-datepicker-styles' , YIKES_MC_URL . 'public/css/jquery-ui.min.css' );
@@ -1055,7 +1064,6 @@ function process_mailchimp_shortcode( $atts ) {
 						$default_choice = isset( $field['default_choice'] ) ? $field['default_choice'] : '';
 						$default_choice = is_array( $default_choice ) ? $default_choice : array( $default_choice );
 						$default_choice = apply_filters( 'yikes-mailchimp-' . $field['group_id'] . '-default', $default_choice, $groups, $field, $form_id );
-						
 
 						$count = count( $groups );
 
