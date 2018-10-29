@@ -182,3 +182,4 @@ For information and code examples on how to implement the hooks and filters prov
 * Added/Fixed several filters: `yikes_mailchimp_checkbox_integration_checkbox_html`, `yikes-mailchimp-filter-before-submission-$form_id`, `yikes-mailchimp-redirection`, `yikes-mailchimp-redirect-new-window`, `yikes_mailchimp_inline_stack_fields_width`, `yikes_mailchimp_checkbox_integration_checkbox_label`
 * Removed "Vote that the plugin works" callout.
 * Fixed & reorganized MailChimp Gutenberg block.
+* Added new tags for the update profile email: `[email]`, `[subscriber_id]`, and `[form_name]`.
