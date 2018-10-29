@@ -46,7 +46,7 @@ class Yikes_Inc_Easy_Mailchimp_Error_Logging {
 	 *
 	 * @var string
 	 */
-	protected $error_log_folder_path;	
+	protected $error_log_folder_path;
 
 	/**
 	 * Define the core functionality of the plugin.
@@ -58,11 +58,11 @@ class Yikes_Inc_Easy_Mailchimp_Error_Logging {
 	 * @since    1.0.0
 	 */
 	public function __construct() {
-		$this->is_debugging          = WP_DEBUG || get_option( 'yikes-mailchimp-debug-status', '' ) == '1';
+		$this->is_debugging          = WP_DEBUG || (string) get_option( 'yikes-mailchimp-debug-status', '' ) === '1';
 		$this->error_log_file_path   = $this->get_error_log_file_path();
 		$this->error_log_folder_path = $this->get_error_log_folder();
 
-		// Create our error log folder and file
+		// Create our error log folder and file.
 		$this->create_error_log_folder();
 		$this->create_error_log_file();
 	}
