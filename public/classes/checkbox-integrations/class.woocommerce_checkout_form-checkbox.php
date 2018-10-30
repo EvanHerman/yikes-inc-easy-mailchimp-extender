@@ -39,7 +39,8 @@ class Yikes_Easy_MC_WooCommerce_Checkbox_Class extends Yikes_Easy_MC_Checkbox_In
 		if ( $default_checkbox_placement ) {
 			add_filter( 'woocommerce_checkout_fields', array( $this, 'add_checkout_field' ), 20 );
 		} else {
-			add_action( 'woocommerce_review_order_before_submit', array( $this, 'output_checkbox' ) );
+			$checkbox_location = apply_filters( 'yikes_mailchimp_wooco_integration_placement_filter', 'woocommerce_review_order_before_submit' );
+			add_action( $checkbox_location, array( $this, 'output_checkbox' ) );
 		}
 	}
 

@@ -1658,7 +1658,8 @@ class Yikes_Inc_Easy_Mailchimp_Forms_Admin {
 		public function generate_show_some_love_container() {
 			// if no active add-ons are installed,
 			// lets display our branding and add-on sidebar
-			if ( empty( get_option( 'yikes-easy-mc-active-addons', array() ) ) ) {
+			$options = get_option( 'yikes-easy-mc-active-addons', array() );
+			if ( empty( $options ) ) {
 
 				/* On Edit Forms Page Display Upsell to Customizer */
 				$screen = get_current_screen();
