@@ -118,7 +118,7 @@ class Yikes_Easy_MC_Checkbox_Integration_Class {
 		$has_list_ids     = $has_list_ids && ! in_array( '-', $checkbox_options[ $this->type ]['associated-list'], true );
 
 		if ( $has_list_ids ) {
-			$label    = isset( $checkbox_options[ $this->type ]['label'] ) && ! empty( trim( $checkbox_options[ $this->type ]['label'] ) ) ? trim( $checkbox_options[ $this->type ]['label'] ) : __( 'Sign me up for your mailing list.', 'yikes-inc-easy-mailchimp-extender' );
+			$label    = isset( $checkbox_options[ $this->type ]['label'] ) && ! empty( $checkbox_options[ $this->type ]['label'] ) ? trim( $checkbox_options[ $this->type ]['label'] ) : __( 'Sign me up for your mailing list.', 'yikes-inc-easy-mailchimp-extender' );
 			$checked  = 'true' === $checkbox_options[ $this->type ]['precheck'] ? 'checked="checked"' : '';
 			$before   = apply_filters( 'yikes-mailchimp-before-checkbox-html', '' );
 			$content  = '<p id="yikes-easy-mailchimp-' . esc_attr( $this->type ) . '-checkbox" class="yikes-easy-mailchimp-' . esc_attr( $this->type ) . '-checkbox">';

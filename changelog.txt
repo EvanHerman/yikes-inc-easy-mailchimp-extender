@@ -1,5 +1,10 @@
 == Changelog ==
 
+= 6.4.9 - October 30th, 2018 =
+* Fixed PHP version compatibility issues.
+* Added a new filter to customize the placement of the WooCommerce checkbox integrations.
+* PHP Version >= 5.2.13 is now explicitly required and supported for this plugin. Note: The Gutenberg features in this plugin require PHP >=5.6.
+
 = 6.4.8 - October 29th, 2018 =
 * Fixed a plugin conflict between Easy Forms and Contact Form 7 when exporting forms.
 * Fixed an issue with the bbPress integration where users were being subscribed regardless of checking the box.
