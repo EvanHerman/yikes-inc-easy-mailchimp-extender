@@ -11,6 +11,24 @@ class YIKES_Easy_Forms_Blocks_API {
 		add_action( 'wp_ajax_yikes_get_forms', array( $this, 'get_forms' ) );
 		add_action( 'wp_ajax_yikes_get_form', array( $this, 'get_form' ) );
 		add_action( 'wp_ajax_yikes_get_recaptcha', array( $this, 'get_recaptcha' ) );
+		add_action( 'wp_ajax_yikes_get_api_key_status', array( $this, 'get_api_key_status' ) );
+	}
+
+	/**
+	 * Verify API Key.
+	 */
+	public function get_api_key_status() {
+
+		// Verify Nonce.
+		if ( ! check_ajax_referer( 'get_api_key_status', 'nonce', false ) ) {
+			wp_send_json_error( '1' );
+		}
+
+		// Get our API key's status.
+		$status = get_option( 'yikes-mc-api-validation', false );
+		$status = empty( $status ) ? 'empty' : ( 'invalid_api_key' === $status ? 'invalid' : 'valid' );
+
+		wp_send_json_success( $status );
 	}
 
 	/**

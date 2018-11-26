@@ -1,15 +1,7 @@
 // Import dependencies
-import yikes_easy_forms_fetch_forms from './get-forms.js';
-
-import get_recaptcha from './get-recaptcha.js';
-
 import slugify from './slugify.js';
-
-import countries from './countries.js';
-
-import states from './states.js';
-
-import locales from './locales.js';
+import constants from './constants.js';
+import EasyFormsAPI from './api.js';
 
 // Get functions / blocks / components
 const Recaptcha = require( 'react-recaptcha' );
@@ -23,12 +15,16 @@ export default class MailChimpForms extends Component {
   constructor( props ) {
     super( ...arguments );
     this.state = {
+      api_key_status: 'valid',
       forms         : [],
       recaptcha_data: {
         data   : {},
         success: false
-      }
+      },
+      'forms_loaded': false
     }
+    
+    this.api = new EasyFormsAPI();
 
     this.address_fields = {
       'addr1'  : 'Address 1', 
@@ -44,14 +40,17 @@ export default class MailChimpForms extends Component {
    * Run our API calls after the component has mounted. You can't use setState before a component is mounted.
    */
   componentDidMount() {
-    yikes_easy_forms_fetch_forms()
-      .then( forms => {
-        this.setState( { forms: forms.data } );
+    this.api.get_api_key_status().then( status => {
+      this.setState( { api_key_status: status.data } );
     });
 
-    get_recaptcha()
-      .then( recaptcha_data => {
-        this.setState( { recaptcha_data: recaptcha_data } );
+    this.api.get_forms().then( forms => {
+      this.setState( { forms: forms.data, forms_loaded: true } );
+    });
+
+    this.api.get_recaptcha().then( recaptcha_data => {
+      this.setState( { recaptcha_data: recaptcha_data } );
+      this.props.toggleRecaptchaAbstract( this.state.recaptcha_data.success );
     });
   }
 
@@ -198,7 +197,7 @@ export default class MailChimpForms extends Component {
         <label
           htmlFor="recaptcha-language-form-toggle"
           className="blocks-base-control__label"
-          title={ this.state.recaptcha_data.data ? 'The default language for your locale is ' + locales[ this.state.recaptcha_data.data.locale ] : '' }
+          title={ this.state.recaptcha_data.data ? 'The default language for your locale is ' + constants.locales[ this.state.recaptcha_data.data.locale ] : '' }
         >
           { __( 'reCAPTCHA Language' ) }
         </label>
@@ -206,8 +205,8 @@ export default class MailChimpForms extends Component {
           id="recaptcha-language-form-toggle"
           value={ this.props.recaptchaLang.length > 0 ? this.props.recaptchaLang : ( this.state.recaptcha_data.data ? this.state.recaptcha_data.data.locale : '' ) }
           onChange={ this.props.toggleRecaptchaLang }
-          title={ this.state.recaptcha_data.data ? 'The default language for your locale is ' + locales[ this.state.recaptcha_data.data.locale ] : '' }
-          options={ Object.keys( locales ).map( ( key ) => { return { value: key, label: locales[key] } }) }
+          title={ this.state.recaptcha_data.data ? 'The default language for your locale is ' + constants.locales[ this.state.recaptcha_data.data.locale ] : '' }
+          options={ Object.keys( constants.locales ).map( ( key ) => { return { value: key, label: constants.locales[key] } }) }
         />
       </PanelRow>
     )
@@ -359,8 +358,8 @@ export default class MailChimpForms extends Component {
           value=''
           required={ field.merge === 'EMAIL' || field.require === '1' ? 'required' : false }
         >
-          { Object.keys( states ).map( ( key ) => {
-            var choice = states[ key ];
+          { Object.keys( constants.states ).map( ( key ) => {
+            var choice = constants.states[ key ];
             return <option key={ 'state-' + key } value={ key }>{ choice }</option>
           })}
             
@@ -379,8 +378,8 @@ export default class MailChimpForms extends Component {
             value=''
             required={ field.merge === 'EMAIL' || field.require === '1' ? 'required' : false }
           >
-            { Object.keys( countries ).map( ( key ) => {
-              var choice = countries[ key ];
+            { Object.keys( constants.countries ).map( ( key ) => {
+              var choice = constants.countries[ key ];
               return <option key={ 'country-' + key } value={ key }>{ choice }</option>
             })}
               
@@ -842,12 +841,28 @@ export default class MailChimpForms extends Component {
         </div>
       );
 
-  	} else {
+  	} else if ( this.state.api_key_status !== 'valid' ) {
 
-      // Show loading... & spinner
+      // If the API key is invalid, show a message.
+      return ( 
+        <p className="yikes-mailchimp-api-key-warning" key="yikes-mailchimp-api-key-warning">
+         <em>{ this.state.api_key_status === 'empty' ? <a href={ constants.settings_url }> { __( 'To use this block, please enter an API key on the Easy Forms\' settings page.' ) } </a> : __( 'Your API key is invalid.' ) }</em>
+        </p>
+      );
+    } else if ( this.state.forms_loaded === true && this.state.forms.length === 0 ) {
+
+      // No forms.
+      return (
+        <p key="no-forms-found" className={ this.props.className }>
+          <em>{ __( 'No forms were found.' ) }</em>
+        </p>
+      );
+    } else {
+
+      // Show loading... & spinner.
   		return (
         <p key="loading-easy-forms" className={ this.props.className }>
-          <span key="yikes-easy-forms-loading-text">Loading...</span>
+          <span key="yikes-easy-forms-loading-text">{ __( 'Loading...' ) }</span>
           <Spinner key="yikes-easy-forms-loading-spinner" />
         </p>
       );

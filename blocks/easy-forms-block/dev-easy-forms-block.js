@@ -1,4 +1,4 @@
-import yikes_easy_forms_fetch_form from '../components/get-form.js'
+import EasyFormsAPI from '../components/api.js'
 
 import MailChimpForms from '../components/class.MailChimpForms.js';
 
@@ -18,7 +18,8 @@ const edit_easy_form = function( props ) {
     props.setAttributes( { form_id: event.target.value } );
 
     if ( event.target.value.length > 0 ) {
-      yikes_easy_forms_fetch_form( event.target.value ).then( function( form ) {
+      const api = new EasyFormsAPI();
+      api.get_form( event.target.value ).then( function( form ) {
         props.setAttributes( { form: form.data } );
         props.setAttributes( { form_description: form.data.form_description } );
         props.setAttributes( { form_title: form.data.form_name } );
@@ -52,8 +53,13 @@ const edit_easy_form = function( props ) {
     props.setAttributes( { is_ajax: !! event.target.checked } );
   }
 
+  /* Allow this function to be called via a checkbox handler or directly by passing in a boolean */
+  const toggleRecaptchaAbstract = ( checked ) => {
+    props.setAttributes( { recaptcha: checked } );
+  }
+
   const toggleRecaptcha = ( event ) => {
-    props.setAttributes( { recaptcha: !! event.target.checked } );  
+    toggleRecaptchaAbstract( !! event.target.checked )
   }
 
   const toggleRecaptchaTheme = ( value ) => {
@@ -103,6 +109,7 @@ const edit_easy_form = function( props ) {
       toggleShowTitle={ toggleShowTitle }
       isAjax={ props.attributes.is_ajax }
       toggleIsAjax={ toggleIsAjax }
+      toggleRecaptchaAbstract={ toggleRecaptchaAbstract }
       recaptcha={ props.attributes.recaptcha }
       toggleRecaptcha={ toggleRecaptcha }
       recaptchaTheme={ props.attributes.recaptcha_theme }
@@ -167,7 +174,7 @@ const settings = {
     },
     recaptcha: {
       type: 'boolean',
-      default: true,
+      default: false,
     },
     recaptcha_theme: {
       type: 'string',

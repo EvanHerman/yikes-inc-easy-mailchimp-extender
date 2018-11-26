@@ -36,17 +36,32 @@
 /******/ 	// define getter function for harmony exports
 /******/ 	__webpack_require__.d = function(exports, name, getter) {
 /******/ 		if(!__webpack_require__.o(exports, name)) {
-/******/ 			Object.defineProperty(exports, name, {
-/******/ 				configurable: false,
-/******/ 				enumerable: true,
-/******/ 				get: getter
-/******/ 			});
+/******/ 			Object.defineProperty(exports, name, { enumerable: true, get: getter });
 /******/ 		}
 /******/ 	};
 /******/
 /******/ 	// define __esModule on exports
 /******/ 	__webpack_require__.r = function(exports) {
+/******/ 		if(typeof Symbol !== 'undefined' && Symbol.toStringTag) {
+/******/ 			Object.defineProperty(exports, Symbol.toStringTag, { value: 'Module' });
+/******/ 		}
 /******/ 		Object.defineProperty(exports, '__esModule', { value: true });
+/******/ 	};
+/******/
+/******/ 	// create a fake namespace object
+/******/ 	// mode & 1: value is a module id, require it
+/******/ 	// mode & 2: merge all properties of value into the ns
+/******/ 	// mode & 4: return value when already ns object
+/******/ 	// mode & 8|1: behave like require
+/******/ 	__webpack_require__.t = function(value, mode) {
+/******/ 		if(mode & 1) value = __webpack_require__(value);
+/******/ 		if(mode & 8) return value;
+/******/ 		if((mode & 4) && typeof value === 'object' && value && value.__esModule) return value;
+/******/ 		var ns = Object.create(null);
+/******/ 		__webpack_require__.r(ns);
+/******/ 		Object.defineProperty(ns, 'default', { enumerable: true, value: value });
+/******/ 		if(mode & 2 && typeof value != 'string') for(var key in value) __webpack_require__.d(ns, key, function(key) { return value[key]; }.bind(null, key));
+/******/ 		return ns;
 /******/ 	};
 /******/
 /******/ 	// getDefaultExport function for compatibility with non-harmony modules
@@ -71,6 +86,89 @@
 /************************************************************************/
 /******/ ({
 
+/***/ "./blocks/components/api.js":
+/*!**********************************!*\
+  !*** ./blocks/components/api.js ***!
+  \**********************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+	value: true
+});
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+var EasyFormsAPI = function () {
+	function EasyFormsAPI() {
+		_classCallCheck(this, EasyFormsAPI);
+
+		this.ajaxurl = window.ajaxurl;
+	}
+
+	_createClass(EasyFormsAPI, [{
+		key: 'get_api_key_status',
+		value: function get_api_key_status() {
+			var data = {
+				action: 'yikes_get_api_key_status',
+				nonce: ez_forms_gb_data.get_api_key_status
+			};
+
+			var status = $.post(this.ajaxurl, data);
+
+			return status;
+		}
+	}, {
+		key: 'get_recaptcha',
+		value: function get_recaptcha() {
+			var data = {
+				action: 'yikes_get_recaptcha',
+				nonce: ez_forms_gb_data.fetch_recaptcha_nonce
+			};
+
+			var recaptcha_data = $.post(this.ajaxurl, data);
+
+			return recaptcha_data;
+		}
+	}, {
+		key: 'get_forms',
+		value: function get_forms() {
+			var data = {
+				action: 'yikes_get_forms',
+				nonce: ez_forms_gb_data.fetch_forms_nonce
+			};
+
+			var forms = $.post(this.ajaxurl, data);
+
+			return forms;
+		}
+	}, {
+		key: 'get_form',
+		value: function get_form(form_id) {
+			var data = {
+				action: 'yikes_get_form',
+				form_id: form_id,
+				nonce: ez_forms_gb_data.fetch_form_nonce
+			};
+
+			var form = $.post(this.ajaxurl, data);
+
+			return form;
+		}
+	}]);
+
+	return EasyFormsAPI;
+}();
+
+exports.default = EasyFormsAPI;
+
+/***/ }),
+
 /***/ "./blocks/components/class.MailChimpForms.js":
 /*!***************************************************!*\
   !*** ./blocks/components/class.MailChimpForms.js ***!
@@ -91,29 +189,17 @@ var _classnames2 = _interopRequireDefault(_classnames);
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
-var _getForms = __webpack_require__(/*! ./get-forms.js */ "./blocks/components/get-forms.js");
-
-var _getForms2 = _interopRequireDefault(_getForms);
-
-var _getRecaptcha = __webpack_require__(/*! ./get-recaptcha.js */ "./blocks/components/get-recaptcha.js");
-
-var _getRecaptcha2 = _interopRequireDefault(_getRecaptcha);
-
 var _slugify = __webpack_require__(/*! ./slugify.js */ "./blocks/components/slugify.js");
 
 var _slugify2 = _interopRequireDefault(_slugify);
 
-var _countries = __webpack_require__(/*! ./countries.js */ "./blocks/components/countries.js");
+var _constants = __webpack_require__(/*! ./constants.js */ "./blocks/components/constants.js");
 
-var _countries2 = _interopRequireDefault(_countries);
+var _constants2 = _interopRequireDefault(_constants);
 
-var _states = __webpack_require__(/*! ./states.js */ "./blocks/components/states.js");
+var _api = __webpack_require__(/*! ./api.js */ "./blocks/components/api.js");
 
-var _states2 = _interopRequireDefault(_states);
-
-var _locales = __webpack_require__(/*! ./locales.js */ "./blocks/components/locales.js");
-
-var _locales2 = _interopRequireDefault(_locales);
+var _api2 = _interopRequireDefault(_api);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -152,12 +238,16 @@ var MailChimpForms = function (_Component) {
     var _this = _possibleConstructorReturn(this, (MailChimpForms.__proto__ || Object.getPrototypeOf(MailChimpForms)).apply(this, arguments));
 
     _this.state = {
+      api_key_status: 'valid',
       forms: [],
       recaptcha_data: {
         data: {},
         success: false
-      }
+      },
+      'forms_loaded': false
     };
+
+    _this.api = new _api2.default();
 
     _this.address_fields = {
       'addr1': 'Address 1',
@@ -180,12 +270,17 @@ var MailChimpForms = function (_Component) {
     value: function componentDidMount() {
       var _this2 = this;
 
-      (0, _getForms2.default)().then(function (forms) {
-        _this2.setState({ forms: forms.data });
+      this.api.get_api_key_status().then(function (status) {
+        _this2.setState({ api_key_status: status.data });
       });
 
-      (0, _getRecaptcha2.default)().then(function (recaptcha_data) {
+      this.api.get_forms().then(function (forms) {
+        _this2.setState({ forms: forms.data, forms_loaded: true });
+      });
+
+      this.api.get_recaptcha().then(function (recaptcha_data) {
         _this2.setState({ recaptcha_data: recaptcha_data });
+        _this2.props.toggleRecaptchaAbstract(_this2.state.recaptcha_data.success);
       });
     }
   }, {
@@ -346,7 +441,7 @@ var MailChimpForms = function (_Component) {
           {
             htmlFor: 'recaptcha-language-form-toggle',
             className: 'blocks-base-control__label',
-            title: this.state.recaptcha_data.data ? 'The default language for your locale is ' + _locales2.default[this.state.recaptcha_data.data.locale] : ''
+            title: this.state.recaptcha_data.data ? 'The default language for your locale is ' + _constants2.default.locales[this.state.recaptcha_data.data.locale] : ''
           },
           __('reCAPTCHA Language')
         ),
@@ -354,9 +449,9 @@ var MailChimpForms = function (_Component) {
           id: 'recaptcha-language-form-toggle',
           value: this.props.recaptchaLang.length > 0 ? this.props.recaptchaLang : this.state.recaptcha_data.data ? this.state.recaptcha_data.data.locale : '',
           onChange: this.props.toggleRecaptchaLang,
-          title: this.state.recaptcha_data.data ? 'The default language for your locale is ' + _locales2.default[this.state.recaptcha_data.data.locale] : '',
-          options: Object.keys(_locales2.default).map(function (key) {
-            return { value: key, label: _locales2.default[key] };
+          title: this.state.recaptcha_data.data ? 'The default language for your locale is ' + _constants2.default.locales[this.state.recaptcha_data.data.locale] : '',
+          options: Object.keys(_constants2.default.locales).map(function (key) {
+            return { value: key, label: _constants2.default.locales[key] };
           })
         })
       ) : '';
@@ -510,8 +605,8 @@ var MailChimpForms = function (_Component) {
               value: '',
               required: field.merge === 'EMAIL' || field.require === '1' ? 'required' : false
             },
-            Object.keys(_states2.default).map(function (key) {
-              var choice = _states2.default[key];
+            Object.keys(_constants2.default.states).map(function (key) {
+              var choice = _constants2.default.states[key];
               return wp.element.createElement(
                 'option',
                 { key: 'state-' + key, value: key },
@@ -533,8 +628,8 @@ var MailChimpForms = function (_Component) {
               value: '',
               required: field.merge === 'EMAIL' || field.require === '1' ? 'required' : false
             },
-            Object.keys(_countries2.default).map(function (key) {
-              var choice = _countries2.default[key];
+            Object.keys(_constants2.default.countries).map(function (key) {
+              var choice = _constants2.default.countries[key];
               return wp.element.createElement(
                 'option',
                 { key: 'country-' + key, value: key },
@@ -997,16 +1092,46 @@ var MailChimpForms = function (_Component) {
           { className: (0, _classnames2.default)(this.props.className) },
           this.forms_dropdown()
         );
+      } else if (this.state.api_key_status !== 'valid') {
+
+        // If the API key is invalid, show a message.
+        return wp.element.createElement(
+          'p',
+          { className: 'yikes-mailchimp-api-key-warning', key: 'yikes-mailchimp-api-key-warning' },
+          wp.element.createElement(
+            'em',
+            null,
+            this.state.api_key_status === 'empty' ? wp.element.createElement(
+              'a',
+              { href: _constants2.default.settings_url },
+              ' ',
+              __('To use this block, please enter an API key on the Easy Forms\' settings page.'),
+              ' '
+            ) : __('Your API key is invalid.')
+          )
+        );
+      } else if (this.state.forms_loaded === true && this.state.forms.length === 0) {
+
+        // No forms.
+        return wp.element.createElement(
+          'p',
+          { key: 'no-forms-found', className: (0, _classnames2.default)(this.props.className) },
+          wp.element.createElement(
+            'em',
+            null,
+            __('No forms were found.')
+          )
+        );
       } else {
 
-        // Show loading... & spinner
+        // Show loading... & spinner.
         return wp.element.createElement(
           'p',
           { key: 'loading-easy-forms', className: (0, _classnames2.default)(this.props.className) },
           wp.element.createElement(
             'span',
             { key: 'yikes-easy-forms-loading-text' },
-            'Loading...'
+            __('Loading...')
           ),
           wp.element.createElement(Spinner, { key: 'yikes-easy-forms-loading-spinner' })
         );
@@ -1021,9 +1146,9 @@ exports.default = MailChimpForms;
 
 /***/ }),
 
-/***/ "./blocks/components/countries.js":
+/***/ "./blocks/components/constants.js":
 /*!****************************************!*\
-  !*** ./blocks/components/countries.js ***!
+  !*** ./blocks/components/constants.js ***!
   \****************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
@@ -1034,254 +1159,400 @@ exports.default = MailChimpForms;
 Object.defineProperty(exports, "__esModule", {
 	value: true
 });
-var countries = {
-	'US': 'United States',
-	'GB': 'United Kingdom',
-	'AF': 'Afghanistan',
-	'AX': 'Aland Islands',
-	'AL': 'Albania',
-	'DZ': 'Algeria',
-	'AS': 'American Samoa',
-	'AD': 'Andorra',
-	'AO': 'Angola',
-	'AI': 'Anguilla',
-	'AQ': 'Antarctica',
-	'AG': 'Antigua and Barbuda',
-	'AR': 'Argentina',
-	'AM': 'Armenia',
-	'AW': 'Aruba',
-	'AU': 'Australia',
-	'AT': 'Austria',
-	'AZ': 'Azerbaijan',
-	'BS': 'Bahamas',
-	'BH': 'Bahrain',
-	'BD': 'Bangladesh',
-	'BB': 'Barbados',
-	'BY': 'Belarus',
-	'BE': 'Belgium',
-	'BZ': 'Belize',
-	'BJ': 'Benin',
-	'BM': 'Bermuda',
-	'BT': 'Bhutan',
-	'BO': 'Bolivia',
-	'BA': 'Bosnia and Herzegovina',
-	'BW': 'Botswana',
-	'BV': 'Bouvet Island',
-	'BR': 'Brazil',
-	'IO': 'British Indian Ocean Territory',
-	'BN': 'Brunei Darussalam',
-	'BG': 'Bulgaria',
-	'BF': 'Burkina Faso',
-	'BI': 'Burundi',
-	'KH': 'Cambodia',
-	'CM': 'Cameroon',
-	'CA': 'Canada',
-	'CV': 'Cape Verde',
-	'KY': 'Cayman Islands',
-	'CF': 'Central African Republic',
-	'TD': 'Chad',
-	'CL': 'Chile',
-	'CN': 'China',
-	'CX': 'Christmas Island',
-	'CC': 'Cocos (Keeling) Islands',
-	'CO': 'Colombia',
-	'KM': 'Comoros',
-	'CG': 'Congo',
-	'CD': 'Congo, The Democratic Republic of The',
-	'CK': 'Cook Islands',
-	'CR': 'Costa Rica',
-	'CI': 'Cote D’ivoire',
-	'HR': 'Croatia',
-	'CU': 'Cuba',
-	'CY': 'Cyprus',
-	'CZ': 'Czech Republic',
-	'DK': 'Denmark',
-	'DJ': 'Djibouti',
-	'DM': 'Dominica',
-	'DO': 'Dominican Republic',
-	'EC': 'Ecuador',
-	'EG': 'Egypt',
-	'SV': 'El Salvador',
-	'GQ': 'Equatorial Guinea',
-	'ER': 'Eritrea',
-	'EE': 'Estonia',
-	'ET': 'Ethiopia',
-	'FK': 'Falkland Islands (Malvinas)',
-	'FO': 'Faroe Islands',
-	'FJ': 'Fiji',
-	'FI': 'Finland',
-	'FR': 'France',
-	'GF': 'French Guiana',
-	'PF': 'French Polynesia',
-	'TF': 'French Southern Territories',
-	'GA': 'Gabon',
-	'GM': 'Gambia',
-	'GE': 'Georgia',
-	'DE': 'Germany',
-	'GH': 'Ghana',
-	'GI': 'Gibraltar',
-	'GR': 'Greece',
-	'GL': 'Greenland',
-	'GD': 'Grenada',
-	'GP': 'Guadeloupe',
-	'GU': 'Guam',
-	'GT': 'Guatemala',
-	'GG': 'Guernsey',
-	'GN': 'Guinea',
-	'GW': 'Guinea-bissau',
-	'GY': 'Guyana',
-	'HT': 'Haiti',
-	'HM': 'Heard Island and Mcdonald Islands',
-	'VA': 'Holy See (Vatican City State)',
-	'HN': 'Honduras',
-	'HK': 'Hong Kong',
-	'HU': 'Hungary',
-	'IS': 'Iceland',
-	'IN': 'India',
-	'ID': 'Indonesia',
-	'IR': 'Iran, Islamic Republic of',
-	'IQ': 'Iraq',
-	'IE': 'Ireland',
-	'IM': 'Isle of Man',
-	'IL': 'Israel',
-	'IT': 'Italy',
-	'JM': 'Jamaica',
-	'JP': 'Japan',
-	'JE': 'Jersey',
-	'JO': 'Jordan',
-	'KZ': 'Kazakhstan',
-	'KE': 'Kenya',
-	'KI': 'Kiribati',
-	'KP': 'Korea, Democratic People’s Republic of',
-	'KR': 'Korea, Republic of',
-	'KW': 'Kuwait',
-	'KG': 'Kyrgyzstan',
-	'LA': 'Lao People’s Democratic Republic',
-	'LV': 'Latvia',
-	'LB': 'Lebanon',
-	'LS': 'Lesotho',
-	'LR': 'Liberia',
-	'LY': 'Libyan Arab Jamahiriya',
-	'LI': 'Liechtenstein',
-	'LT': 'Lithuania',
-	'LU': 'Luxembourg',
-	'MO': 'Macao',
-	'MK': 'Macedonia, The Former Yugoslav Republic of',
-	'MG': 'Madagascar',
-	'MW': 'Malawi',
-	'MY': 'Malaysia',
-	'MV': 'Maldives',
-	'ML': 'Mali',
-	'MT': 'Malta',
-	'MH': 'Marshall Islands',
-	'MQ': 'Martinique',
-	'MR': 'Mauritania',
-	'MU': 'Mauritius',
-	'YT': 'Mayotte',
-	'MX': 'Mexico',
-	'FM': 'Micronesia, Federated States of',
-	'MD': 'Moldova, Republic of',
-	'MC': 'Monaco',
-	'MN': 'Mongolia',
-	'ME': 'Montenegro',
-	'MS': 'Montserrat',
-	'MA': 'Morocco',
-	'MZ': 'Mozambique',
-	'MM': 'Myanmar',
-	'NA': 'Namibia',
-	'NR': 'Nauru',
-	'NP': 'Nepal',
-	'NL': 'Netherlands',
-	'AN': 'Netherlands Antilles',
-	'NC': 'New Caledonia',
-	'NZ': 'New Zealand',
-	'NI': 'Nicaragua',
-	'NE': 'Niger',
-	'NG': 'Nigeria',
-	'NU': 'Niue',
-	'NF': 'Norfolk Island',
-	'MP': 'Northern Mariana Islands',
-	'NO': 'Norway',
-	'OM': 'Oman',
-	'PK': 'Pakistan',
-	'PW': 'Palau',
-	'PS': 'Palestinian Territory, Occupied',
-	'PA': 'Panama',
-	'PG': 'Papua New Guinea',
-	'PY': 'Paraguay',
-	'PE': 'Peru',
-	'PH': 'Philippines',
-	'PN': 'Pitcairn',
-	'PL': 'Poland',
-	'PT': 'Portugal',
-	'PR': 'Puerto Rico',
-	'QA': 'Qatar',
-	'RE': 'Reunion',
-	'RO': 'Romania',
-	'RU': 'Russian Federation',
-	'RW': 'Rwanda',
-	'SH': 'Saint Helena',
-	'KN': 'Saint Kitts and Nevis',
-	'LC': 'Saint Lucia',
-	'PM': 'Saint Pierre and Miquelon',
-	'VC': 'Saint Vincent and The Grenadines',
-	'WS': 'Samoa',
-	'SM': 'San Marino',
-	'ST': 'Sao Tome and Principe',
-	'SA': 'Saudi Arabia',
-	'SN': 'Senegal',
-	'RS': 'Serbia',
-	'SC': 'Seychelles',
-	'SL': 'Sierra Leone',
-	'SG': 'Singapore',
-	'SK': 'Slovakia',
-	'SI': 'Slovenia',
-	'SB': 'Solomon Islands',
-	'SO': 'Somalia',
-	'ZA': 'South Africa',
-	'GS': 'South Georgia and The South Sandwich Islands',
-	'ES': 'Spain',
-	'LK': 'Sri Lanka',
-	'SD': 'Sudan',
-	'SR': 'Suriname',
-	'SJ': 'Svalbard and Jan Mayen',
-	'SZ': 'Swaziland',
-	'SE': 'Sweden',
-	'CH': 'Switzerland',
-	'SY': 'Syrian Arab Republic',
-	'TW': 'Taiwan, Province of China',
-	'TJ': 'Tajikistan',
-	'TZ': 'Tanzania, United Republic of',
-	'TH': 'Thailand',
-	'TL': 'Timor-leste',
-	'TG': 'Togo',
-	'TK': 'Tokelau',
-	'TO': 'Tonga',
-	'TT': 'Trinidad and Tobago',
-	'TN': 'Tunisia',
-	'TR': 'Turkey',
-	'TM': 'Turkmenistan',
-	'TC': 'Turks and Caicos Islands',
-	'TV': 'Tuvalu',
-	'UG': 'Uganda',
-	'UA': 'Ukraine',
-	'AE': 'United Arab Emirates',
-	'UM': 'United States Minor Outlying Islands',
-	'UY': 'Uruguay',
-	'UZ': 'Uzbekistan',
-	'VU': 'Vanuatu',
-	'VE': 'Venezuela',
-	'VN': 'Viet Nam',
-	'VG': 'Virgin Islands, British',
-	'VI': 'Virgin Islands, U.S.',
-	'WF': 'Wallis and Futuna',
-	'EH': 'Western Sahara',
-	'YE': 'Yemen',
-	'ZM': 'Zambia',
-	'ZW': 'Zimbabwe'
+var constants = {
+
+	states: {
+		'': '—',
+		'AL': 'Alabama',
+		'AK': 'Alaska',
+		'AZ': 'Arizona',
+		'AR': 'Arkansas',
+		'CA': 'California',
+		'CO': 'Colorado',
+		'CT': 'Connecticut',
+		'DE': 'Delaware',
+		'DC': 'District Of Columbia',
+		'FL': 'Florida',
+		'GA': 'Georgia',
+		'HI': 'Hawaii',
+		'ID': 'Idaho',
+		'IL': 'Illinois',
+		'IN': 'Indiana',
+		'IA': 'Iowa',
+		'KS': 'Kansas',
+		'KY': 'Kentucky',
+		'LA': 'Louisiana',
+		'ME': 'Maine',
+		'MD': 'Maryland',
+		'MA': 'Massachusetts',
+		'MI': 'Michigan',
+		'MN': 'Minnesota',
+		'MS': 'Mississippi',
+		'MO': 'Missouri',
+		'MT': 'Montana',
+		'NE': 'Nebraska',
+		'NV': 'Nevada',
+		'NH': 'New Hampshire',
+		'NJ': 'New Jersey',
+		'NM': 'New Mexico',
+		'NY': 'New York',
+		'NC': 'North Carolina',
+		'ND': 'North Dakota',
+		'OH': 'Ohio',
+		'OK': 'Oklahoma',
+		'OR': 'Oregon',
+		'PA': 'Pennsylvania',
+		'RI': 'Rhode Island',
+		'SC': 'South Carolina',
+		'SD': 'South Dakota',
+		'TN': 'Tennessee',
+		'TX': 'Texas',
+		'UT': 'Utah',
+		'VT': 'Vermont',
+		'VA': 'Virginia',
+		'WA': 'Washington',
+		'WV': 'West Virginia',
+		'WI': 'Wisconsin',
+		'WY': 'Wyoming',
+		'AB': 'Alberta',
+		'BC': 'British Columbia',
+		'MB': 'Manitoba',
+		'NB': 'New Brunswick',
+		'NL': 'Newfoundland and Labrador',
+		'NS': 'Nova Scotia',
+		'ON': 'Ontario',
+		'PE': 'Prince Edward Island',
+		'QC': 'Quebec',
+		'SK': 'Saskatchewan',
+		'NT': 'Northwest Territories',
+		'NU': 'Nunavut',
+		'YT': 'Yukon'
+	},
+
+	countries: {
+		'US': 'United States',
+		'GB': 'United Kingdom',
+		'AF': 'Afghanistan',
+		'AX': 'Aland Islands',
+		'AL': 'Albania',
+		'DZ': 'Algeria',
+		'AS': 'American Samoa',
+		'AD': 'Andorra',
+		'AO': 'Angola',
+		'AI': 'Anguilla',
+		'AQ': 'Antarctica',
+		'AG': 'Antigua and Barbuda',
+		'AR': 'Argentina',
+		'AM': 'Armenia',
+		'AW': 'Aruba',
+		'AU': 'Australia',
+		'AT': 'Austria',
+		'AZ': 'Azerbaijan',
+		'BS': 'Bahamas',
+		'BH': 'Bahrain',
+		'BD': 'Bangladesh',
+		'BB': 'Barbados',
+		'BY': 'Belarus',
+		'BE': 'Belgium',
+		'BZ': 'Belize',
+		'BJ': 'Benin',
+		'BM': 'Bermuda',
+		'BT': 'Bhutan',
+		'BO': 'Bolivia',
+		'BA': 'Bosnia and Herzegovina',
+		'BW': 'Botswana',
+		'BV': 'Bouvet Island',
+		'BR': 'Brazil',
+		'IO': 'British Indian Ocean Territory',
+		'BN': 'Brunei Darussalam',
+		'BG': 'Bulgaria',
+		'BF': 'Burkina Faso',
+		'BI': 'Burundi',
+		'KH': 'Cambodia',
+		'CM': 'Cameroon',
+		'CA': 'Canada',
+		'CV': 'Cape Verde',
+		'KY': 'Cayman Islands',
+		'CF': 'Central African Republic',
+		'TD': 'Chad',
+		'CL': 'Chile',
+		'CN': 'China',
+		'CX': 'Christmas Island',
+		'CC': 'Cocos (Keeling) Islands',
+		'CO': 'Colombia',
+		'KM': 'Comoros',
+		'CG': 'Congo',
+		'CD': 'Congo, The Democratic Republic of The',
+		'CK': 'Cook Islands',
+		'CR': 'Costa Rica',
+		'CI': 'Cote D’ivoire',
+		'HR': 'Croatia',
+		'CU': 'Cuba',
+		'CY': 'Cyprus',
+		'CZ': 'Czech Republic',
+		'DK': 'Denmark',
+		'DJ': 'Djibouti',
+		'DM': 'Dominica',
+		'DO': 'Dominican Republic',
+		'EC': 'Ecuador',
+		'EG': 'Egypt',
+		'SV': 'El Salvador',
+		'GQ': 'Equatorial Guinea',
+		'ER': 'Eritrea',
+		'EE': 'Estonia',
+		'ET': 'Ethiopia',
+		'FK': 'Falkland Islands (Malvinas)',
+		'FO': 'Faroe Islands',
+		'FJ': 'Fiji',
+		'FI': 'Finland',
+		'FR': 'France',
+		'GF': 'French Guiana',
+		'PF': 'French Polynesia',
+		'TF': 'French Southern Territories',
+		'GA': 'Gabon',
+		'GM': 'Gambia',
+		'GE': 'Georgia',
+		'DE': 'Germany',
+		'GH': 'Ghana',
+		'GI': 'Gibraltar',
+		'GR': 'Greece',
+		'GL': 'Greenland',
+		'GD': 'Grenada',
+		'GP': 'Guadeloupe',
+		'GU': 'Guam',
+		'GT': 'Guatemala',
+		'GG': 'Guernsey',
+		'GN': 'Guinea',
+		'GW': 'Guinea-bissau',
+		'GY': 'Guyana',
+		'HT': 'Haiti',
+		'HM': 'Heard Island and Mcdonald Islands',
+		'VA': 'Holy See (Vatican City State)',
+		'HN': 'Honduras',
+		'HK': 'Hong Kong',
+		'HU': 'Hungary',
+		'IS': 'Iceland',
+		'IN': 'India',
+		'ID': 'Indonesia',
+		'IR': 'Iran, Islamic Republic of',
+		'IQ': 'Iraq',
+		'IE': 'Ireland',
+		'IM': 'Isle of Man',
+		'IL': 'Israel',
+		'IT': 'Italy',
+		'JM': 'Jamaica',
+		'JP': 'Japan',
+		'JE': 'Jersey',
+		'JO': 'Jordan',
+		'KZ': 'Kazakhstan',
+		'KE': 'Kenya',
+		'KI': 'Kiribati',
+		'KP': 'Korea, Democratic People’s Republic of',
+		'KR': 'Korea, Republic of',
+		'KW': 'Kuwait',
+		'KG': 'Kyrgyzstan',
+		'LA': 'Lao People’s Democratic Republic',
+		'LV': 'Latvia',
+		'LB': 'Lebanon',
+		'LS': 'Lesotho',
+		'LR': 'Liberia',
+		'LY': 'Libyan Arab Jamahiriya',
+		'LI': 'Liechtenstein',
+		'LT': 'Lithuania',
+		'LU': 'Luxembourg',
+		'MO': 'Macao',
+		'MK': 'Macedonia, The Former Yugoslav Republic of',
+		'MG': 'Madagascar',
+		'MW': 'Malawi',
+		'MY': 'Malaysia',
+		'MV': 'Maldives',
+		'ML': 'Mali',
+		'MT': 'Malta',
+		'MH': 'Marshall Islands',
+		'MQ': 'Martinique',
+		'MR': 'Mauritania',
+		'MU': 'Mauritius',
+		'YT': 'Mayotte',
+		'MX': 'Mexico',
+		'FM': 'Micronesia, Federated States of',
+		'MD': 'Moldova, Republic of',
+		'MC': 'Monaco',
+		'MN': 'Mongolia',
+		'ME': 'Montenegro',
+		'MS': 'Montserrat',
+		'MA': 'Morocco',
+		'MZ': 'Mozambique',
+		'MM': 'Myanmar',
+		'NA': 'Namibia',
+		'NR': 'Nauru',
+		'NP': 'Nepal',
+		'NL': 'Netherlands',
+		'AN': 'Netherlands Antilles',
+		'NC': 'New Caledonia',
+		'NZ': 'New Zealand',
+		'NI': 'Nicaragua',
+		'NE': 'Niger',
+		'NG': 'Nigeria',
+		'NU': 'Niue',
+		'NF': 'Norfolk Island',
+		'MP': 'Northern Mariana Islands',
+		'NO': 'Norway',
+		'OM': 'Oman',
+		'PK': 'Pakistan',
+		'PW': 'Palau',
+		'PS': 'Palestinian Territory, Occupied',
+		'PA': 'Panama',
+		'PG': 'Papua New Guinea',
+		'PY': 'Paraguay',
+		'PE': 'Peru',
+		'PH': 'Philippines',
+		'PN': 'Pitcairn',
+		'PL': 'Poland',
+		'PT': 'Portugal',
+		'PR': 'Puerto Rico',
+		'QA': 'Qatar',
+		'RE': 'Reunion',
+		'RO': 'Romania',
+		'RU': 'Russian Federation',
+		'RW': 'Rwanda',
+		'SH': 'Saint Helena',
+		'KN': 'Saint Kitts and Nevis',
+		'LC': 'Saint Lucia',
+		'PM': 'Saint Pierre and Miquelon',
+		'VC': 'Saint Vincent and The Grenadines',
+		'WS': 'Samoa',
+		'SM': 'San Marino',
+		'ST': 'Sao Tome and Principe',
+		'SA': 'Saudi Arabia',
+		'SN': 'Senegal',
+		'RS': 'Serbia',
+		'SC': 'Seychelles',
+		'SL': 'Sierra Leone',
+		'SG': 'Singapore',
+		'SK': 'Slovakia',
+		'SI': 'Slovenia',
+		'SB': 'Solomon Islands',
+		'SO': 'Somalia',
+		'ZA': 'South Africa',
+		'GS': 'South Georgia and The South Sandwich Islands',
+		'ES': 'Spain',
+		'LK': 'Sri Lanka',
+		'SD': 'Sudan',
+		'SR': 'Suriname',
+		'SJ': 'Svalbard and Jan Mayen',
+		'SZ': 'Swaziland',
+		'SE': 'Sweden',
+		'CH': 'Switzerland',
+		'SY': 'Syrian Arab Republic',
+		'TW': 'Taiwan, Province of China',
+		'TJ': 'Tajikistan',
+		'TZ': 'Tanzania, United Republic of',
+		'TH': 'Thailand',
+		'TL': 'Timor-leste',
+		'TG': 'Togo',
+		'TK': 'Tokelau',
+		'TO': 'Tonga',
+		'TT': 'Trinidad and Tobago',
+		'TN': 'Tunisia',
+		'TR': 'Turkey',
+		'TM': 'Turkmenistan',
+		'TC': 'Turks and Caicos Islands',
+		'TV': 'Tuvalu',
+		'UG': 'Uganda',
+		'UA': 'Ukraine',
+		'AE': 'United Arab Emirates',
+		'UM': 'United States Minor Outlying Islands',
+		'UY': 'Uruguay',
+		'UZ': 'Uzbekistan',
+		'VU': 'Vanuatu',
+		'VE': 'Venezuela',
+		'VN': 'Viet Nam',
+		'VG': 'Virgin Islands, British',
+		'VI': 'Virgin Islands, U.S.',
+		'WF': 'Wallis and Futuna',
+		'EH': 'Western Sahara',
+		'YE': 'Yemen',
+		'ZM': 'Zambia',
+		'ZW': 'Zimbabwe'
+	},
+
+	locales: {
+		"ar": "Arabic",
+		"af": "Afrikaans",
+		"am": "Amharic",
+		"hy": "Armenian",
+		"az": "Azerbaijani",
+		"eu": "Basque",
+		"bn": "Bengali",
+		"bg": "Bulgarian",
+		"ca": "Catalan",
+		"zh-HK": "Chinese (Hong Kong)",
+		"zh-CN": "Chinese (Simplified)",
+		"zh-TW": "Chinese (Traditional)",
+		"hr": "Croatian",
+		"cs": "Czech",
+		"da": "Danish",
+		"nl": "Dutch",
+		"en-GB": "English (UK)",
+		"en": "English (US)",
+		"et": "Estonian",
+		"fil": "Filipino",
+		"fi": "Finnish",
+		"fr": "French",
+		"fr-CA": "French (Canadian)",
+		"gl": "Galician",
+		"ka": "Georgian",
+		"de": "German",
+		"de-AT": "German (Austria)",
+		"de-CH": "German (Switzerland)",
+		"el": "Greek",
+		"gu": "Gujarati",
+		"iw": "Hebrew",
+		"hi": "Hindi",
+		"hu": "Hungarain",
+		"is": "Icelandic",
+		"id": "Indonesian",
+		"it": "Italian",
+		"ja": "Japanese",
+		"kn": "Kannada",
+		"ko": "Korean",
+		"lo": "Laothian",
+		"lv": "Latvian",
+		"lt": "Lithuanian",
+		"ms": "Malay",
+		"ml": "Malayalam",
+		"mr": "Marathi",
+		"mn": "Mongolian",
+		"no": "Norwegian",
+		"fa": "Persian",
+		"pl": "Polish",
+		"pt": "Portuguese",
+		"pt-BR": "Portuguese (Brazil)",
+		"pt-PT": "Portuguese (Portugal)",
+		"ro": "Romanian",
+		"ru": "Russian",
+		"sr": "Serbian",
+		"si": "Sinhalese",
+		"sk": "Slovak",
+		"sl": "Slovenian",
+		"es": "Spanish",
+		"es-419": "Spanish (Latin America)",
+		"sw": "Swahili",
+		"sv": "Swedish",
+		"ta": "Tamil",
+		"te": "Telugu",
+		"th": "Thai",
+		"tr": "Turkish",
+		"uk": "Ukrainian",
+		"ur": "Urdu",
+		"vi": "Vietnamese",
+		"zu": "Zulu"
+	},
+
+	settings_url: 'wp-admin/admin.php?page=yikes-inc-easy-mailchimp-settings'
 };
 
-exports.default = countries;
+exports.default = constants;
 
 /***/ }),
 
@@ -1311,180 +1582,6 @@ exports.default = countries;
 		});
 	});
 })(jQuery);
-
-/***/ }),
-
-/***/ "./blocks/components/get-form.js":
-/*!***************************************!*\
-  !*** ./blocks/components/get-form.js ***!
-  \***************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-	value: true
-});
-exports.default = yikes_easy_forms_fetch_form;
-function yikes_easy_forms_fetch_form(form_id) {
-	var data = {
-		action: 'yikes_get_form',
-		form_id: form_id,
-		nonce: ez_forms_gb_data.fetch_form_nonce
-	};
-
-	var form = $.post(ez_forms_gb_data.ajax_url, data);
-
-	return form;
-}
-
-/***/ }),
-
-/***/ "./blocks/components/get-forms.js":
-/*!****************************************!*\
-  !*** ./blocks/components/get-forms.js ***!
-  \****************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-	value: true
-});
-exports.default = yikes_easy_forms_fetch_forms;
-function yikes_easy_forms_fetch_forms() {
-
-	var data = {
-		action: 'yikes_get_forms',
-		nonce: ez_forms_gb_data.fetch_forms_nonce
-	};
-
-	var forms = $.post(ez_forms_gb_data.ajax_url, data);
-
-	return forms;
-}
-
-/***/ }),
-
-/***/ "./blocks/components/get-recaptcha.js":
-/*!********************************************!*\
-  !*** ./blocks/components/get-recaptcha.js ***!
-  \********************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-	value: true
-});
-exports.default = get_recaptcha;
-function get_recaptcha() {
-
-	var data = {
-		action: 'yikes_get_recaptcha',
-		nonce: ez_forms_gb_data.fetch_recaptcha_nonce
-	};
-
-	var recaptcha_data = $.post(ez_forms_gb_data.ajax_url, data);
-
-	return recaptcha_data;
-}
-
-/***/ }),
-
-/***/ "./blocks/components/locales.js":
-/*!**************************************!*\
-  !*** ./blocks/components/locales.js ***!
-  \**************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-	value: true
-});
-var locales = {
-	"ar": "Arabic",
-	"af": "Afrikaans",
-	"am": "Amharic",
-	"hy": "Armenian",
-	"az": "Azerbaijani",
-	"eu": "Basque",
-	"bn": "Bengali",
-	"bg": "Bulgarian",
-	"ca": "Catalan",
-	"zh-HK": "Chinese (Hong Kong)",
-	"zh-CN": "Chinese (Simplified)",
-	"zh-TW": "Chinese (Traditional)",
-	"hr": "Croatian",
-	"cs": "Czech",
-	"da": "Danish",
-	"nl": "Dutch",
-	"en-GB": "English (UK)",
-	"en": "English (US)",
-	"et": "Estonian",
-	"fil": "Filipino",
-	"fi": "Finnish",
-	"fr": "French",
-	"fr-CA": "French (Canadian)",
-	"gl": "Galician",
-	"ka": "Georgian",
-	"de": "German",
-	"de-AT": "German (Austria)",
-	"de-CH": "German (Switzerland)",
-	"el": "Greek",
-	"gu": "Gujarati",
-	"iw": "Hebrew",
-	"hi": "Hindi",
-	"hu": "Hungarain",
-	"is": "Icelandic",
-	"id": "Indonesian",
-	"it": "Italian",
-	"ja": "Japanese",
-	"kn": "Kannada",
-	"ko": "Korean",
-	"lo": "Laothian",
-	"lv": "Latvian",
-	"lt": "Lithuanian",
-	"ms": "Malay",
-	"ml": "Malayalam",
-	"mr": "Marathi",
-	"mn": "Mongolian",
-	"no": "Norwegian",
-	"fa": "Persian",
-	"pl": "Polish",
-	"pt": "Portuguese",
-	"pt-BR": "Portuguese (Brazil)",
-	"pt-PT": "Portuguese (Portugal)",
-	"ro": "Romanian",
-	"ru": "Russian",
-	"sr": "Serbian",
-	"si": "Sinhalese",
-	"sk": "Slovak",
-	"sl": "Slovenian",
-	"es": "Spanish",
-	"es-419": "Spanish (Latin America)",
-	"sw": "Swahili",
-	"sv": "Swedish",
-	"ta": "Tamil",
-	"te": "Telugu",
-	"th": "Thai",
-	"tr": "Turkish",
-	"uk": "Ukrainian",
-	"ur": "Urdu",
-	"vi": "Vietnamese",
-	"zu": "Zulu"
-};
-
-exports.default = locales;
 
 /***/ }),
 
@@ -1525,91 +1622,6 @@ function slugify(text) {
 
 /***/ }),
 
-/***/ "./blocks/components/states.js":
-/*!*************************************!*\
-  !*** ./blocks/components/states.js ***!
-  \*************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-	value: true
-});
-var states = {
-	'': '—',
-	'AL': 'Alabama',
-	'AK': 'Alaska',
-	'AZ': 'Arizona',
-	'AR': 'Arkansas',
-	'CA': 'California',
-	'CO': 'Colorado',
-	'CT': 'Connecticut',
-	'DE': 'Delaware',
-	'DC': 'District Of Columbia',
-	'FL': 'Florida',
-	'GA': 'Georgia',
-	'HI': 'Hawaii',
-	'ID': 'Idaho',
-	'IL': 'Illinois',
-	'IN': 'Indiana',
-	'IA': 'Iowa',
-	'KS': 'Kansas',
-	'KY': 'Kentucky',
-	'LA': 'Louisiana',
-	'ME': 'Maine',
-	'MD': 'Maryland',
-	'MA': 'Massachusetts',
-	'MI': 'Michigan',
-	'MN': 'Minnesota',
-	'MS': 'Mississippi',
-	'MO': 'Missouri',
-	'MT': 'Montana',
-	'NE': 'Nebraska',
-	'NV': 'Nevada',
-	'NH': 'New Hampshire',
-	'NJ': 'New Jersey',
-	'NM': 'New Mexico',
-	'NY': 'New York',
-	'NC': 'North Carolina',
-	'ND': 'North Dakota',
-	'OH': 'Ohio',
-	'OK': 'Oklahoma',
-	'OR': 'Oregon',
-	'PA': 'Pennsylvania',
-	'RI': 'Rhode Island',
-	'SC': 'South Carolina',
-	'SD': 'South Dakota',
-	'TN': 'Tennessee',
-	'TX': 'Texas',
-	'UT': 'Utah',
-	'VT': 'Vermont',
-	'VA': 'Virginia',
-	'WA': 'Washington',
-	'WV': 'West Virginia',
-	'WI': 'Wisconsin',
-	'WY': 'Wyoming',
-	'AB': 'Alberta',
-	'BC': 'British Columbia',
-	'MB': 'Manitoba',
-	'NB': 'New Brunswick',
-	'NL': 'Newfoundland and Labrador',
-	'NS': 'Nova Scotia',
-	'ON': 'Ontario',
-	'PE': 'Prince Edward Island',
-	'QC': 'Quebec',
-	'SK': 'Saskatchewan',
-	'NT': 'Northwest Territories',
-	'NU': 'Nunavut',
-	'YT': 'Yukon'
-};
-
-exports.default = states;
-
-/***/ }),
-
 /***/ "./blocks/easy-forms-block/dev-easy-forms-block.js":
 /*!*********************************************************!*\
   !*** ./blocks/easy-forms-block/dev-easy-forms-block.js ***!
@@ -1624,9 +1636,9 @@ var _classnames = __webpack_require__(/*! classnames */ "./node_modules/classnam
 
 var _classnames2 = _interopRequireDefault(_classnames);
 
-var _getForm = __webpack_require__(/*! ../components/get-form.js */ "./blocks/components/get-form.js");
+var _api = __webpack_require__(/*! ../components/api.js */ "./blocks/components/api.js");
 
-var _getForm2 = _interopRequireDefault(_getForm);
+var _api2 = _interopRequireDefault(_api);
 
 var _classMailChimpForms = __webpack_require__(/*! ../components/class.MailChimpForms.js */ "./blocks/components/class.MailChimpForms.js");
 
@@ -1652,7 +1664,8 @@ var edit_easy_form = function edit_easy_form(props) {
     props.setAttributes({ form_id: event.target.value });
 
     if (event.target.value.length > 0) {
-      (0, _getForm2.default)(event.target.value).then(function (form) {
+      var api = new _api2.default();
+      api.get_form(event.target.value).then(function (form) {
         props.setAttributes({ form: form.data });
         props.setAttributes({ form_description: form.data.form_description });
         props.setAttributes({ form_title: form.data.form_name });
@@ -1686,8 +1699,13 @@ var edit_easy_form = function edit_easy_form(props) {
     props.setAttributes({ is_ajax: !!event.target.checked });
   };
 
+  /* Allow this function to be called via a checkbox handler or directly by passing in a boolean */
+  var toggleRecaptchaAbstract = function toggleRecaptchaAbstract(checked) {
+    props.setAttributes({ recaptcha: checked });
+  };
+
   var toggleRecaptcha = function toggleRecaptcha(event) {
-    props.setAttributes({ recaptcha: !!event.target.checked });
+    toggleRecaptchaAbstract(!!event.target.checked);
   };
 
   var toggleRecaptchaTheme = function toggleRecaptchaTheme(value) {
@@ -1736,6 +1754,7 @@ var edit_easy_form = function edit_easy_form(props) {
     toggleShowTitle: toggleShowTitle,
     isAjax: props.attributes.is_ajax,
     toggleIsAjax: toggleIsAjax,
+    toggleRecaptchaAbstract: toggleRecaptchaAbstract,
     recaptcha: props.attributes.recaptcha,
     toggleRecaptcha: toggleRecaptcha,
     recaptchaTheme: props.attributes.recaptcha_theme,
@@ -1798,7 +1817,7 @@ var settings = {
     },
     recaptcha: {
       type: 'boolean',
-      default: true
+      default: false
     },
     recaptcha_theme: {
       type: 'string',
@@ -1900,7 +1919,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;
 var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
 
 /*!
-  Copyright (c) 2016 Jed Watson.
+  Copyright (c) 2017 Jed Watson.
   Licensed under the MIT License (MIT), see
   http://jedwatson.github.io/classnames
 */
@@ -1922,8 +1941,11 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
 
 			if (argType === 'string' || argType === 'number') {
 				classes.push(arg);
-			} else if (Array.isArray(arg)) {
-				classes.push(classNames.apply(null, arg));
+			} else if (Array.isArray(arg) && arg.length) {
+				var inner = classNames.apply(null, arg);
+				if (inner) {
+					classes.push(inner);
+				}
 			} else if (argType === 'object') {
 				for (var key in arg) {
 					if (hasOwn.call(arg, key) && arg[key]) {
@@ -1937,6 +1959,7 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
 	}
 
 	if (typeof module !== 'undefined' && module.exports) {
+		classNames.default = classNames;
 		module.exports = classNames;
 	} else if ("function" === 'function' && _typeof(__webpack_require__(/*! !webpack amd options */ "./node_modules/webpack/buildin/amd-options.js")) === 'object' && __webpack_require__(/*! !webpack amd options */ "./node_modules/webpack/buildin/amd-options.js")) {
 		// register as 'classnames', consistent with npm package name
@@ -2054,218 +2077,6 @@ function toComment(sourceMap) {
 
 	return '/*# ' + data + ' */';
 }
-
-/***/ }),
-
-/***/ "./node_modules/fbjs/lib/emptyFunction.js":
-/*!************************************************!*\
-  !*** ./node_modules/fbjs/lib/emptyFunction.js ***!
-  \************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-/**
- * Copyright (c) 2013-present, Facebook, Inc.
- *
- * This source code is licensed under the MIT license found in the
- * LICENSE file in the root directory of this source tree.
- *
- * 
- */
-
-function makeEmptyFunction(arg) {
-  return function () {
-    return arg;
-  };
-}
-
-/**
- * This function accepts and discards inputs; it has no side effects. This is
- * primarily useful idiomatically for overridable function endpoints which
- * always need to be callable, since JS lacks a null-call idiom ala Cocoa.
- */
-var emptyFunction = function emptyFunction() {};
-
-emptyFunction.thatReturns = makeEmptyFunction;
-emptyFunction.thatReturnsFalse = makeEmptyFunction(false);
-emptyFunction.thatReturnsTrue = makeEmptyFunction(true);
-emptyFunction.thatReturnsNull = makeEmptyFunction(null);
-emptyFunction.thatReturnsThis = function () {
-  return this;
-};
-emptyFunction.thatReturnsArgument = function (arg) {
-  return arg;
-};
-
-module.exports = emptyFunction;
-
-/***/ }),
-
-/***/ "./node_modules/fbjs/lib/emptyObject.js":
-/*!**********************************************!*\
-  !*** ./node_modules/fbjs/lib/emptyObject.js ***!
-  \**********************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-/**
- * Copyright (c) 2013-present, Facebook, Inc.
- *
- * This source code is licensed under the MIT license found in the
- * LICENSE file in the root directory of this source tree.
- *
- */
-
-
-
-var emptyObject = {};
-
-if (true) {
-  Object.freeze(emptyObject);
-}
-
-module.exports = emptyObject;
-
-/***/ }),
-
-/***/ "./node_modules/fbjs/lib/invariant.js":
-/*!********************************************!*\
-  !*** ./node_modules/fbjs/lib/invariant.js ***!
-  \********************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-/**
- * Copyright (c) 2013-present, Facebook, Inc.
- *
- * This source code is licensed under the MIT license found in the
- * LICENSE file in the root directory of this source tree.
- *
- */
-
-
-
-/**
- * Use invariant() to assert state which your program assumes to be true.
- *
- * Provide sprintf-style format (only %s is supported) and arguments
- * to provide information about what broke and what you were
- * expecting.
- *
- * The invariant message will be stripped in production, but the invariant
- * will remain to ensure logic does not differ in production.
- */
-
-var validateFormat = function validateFormat(format) {};
-
-if (true) {
-  validateFormat = function validateFormat(format) {
-    if (format === undefined) {
-      throw new Error('invariant requires an error message argument');
-    }
-  };
-}
-
-function invariant(condition, format, a, b, c, d, e, f) {
-  validateFormat(format);
-
-  if (!condition) {
-    var error;
-    if (format === undefined) {
-      error = new Error('Minified exception occurred; use the non-minified dev environment ' + 'for the full error message and additional helpful warnings.');
-    } else {
-      var args = [a, b, c, d, e, f];
-      var argIndex = 0;
-      error = new Error(format.replace(/%s/g, function () {
-        return args[argIndex++];
-      }));
-      error.name = 'Invariant Violation';
-    }
-
-    error.framesToPop = 1; // we don't care about invariant's own frame
-    throw error;
-  }
-}
-
-module.exports = invariant;
-
-/***/ }),
-
-/***/ "./node_modules/fbjs/lib/warning.js":
-/*!******************************************!*\
-  !*** ./node_modules/fbjs/lib/warning.js ***!
-  \******************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-/**
- * Copyright (c) 2014-present, Facebook, Inc.
- *
- * This source code is licensed under the MIT license found in the
- * LICENSE file in the root directory of this source tree.
- *
- */
-
-
-
-var emptyFunction = __webpack_require__(/*! ./emptyFunction */ "./node_modules/fbjs/lib/emptyFunction.js");
-
-/**
- * Similar to invariant but only logs a warning if the condition is not met.
- * This can be used to log issues in development environments in critical
- * paths. Removing the logging code for production environments will keep the
- * same logic and follow the same code paths.
- */
-
-var warning = emptyFunction;
-
-if (true) {
-  var printWarning = function printWarning(format) {
-    for (var _len = arguments.length, args = Array(_len > 1 ? _len - 1 : 0), _key = 1; _key < _len; _key++) {
-      args[_key - 1] = arguments[_key];
-    }
-
-    var argIndex = 0;
-    var message = 'Warning: ' + format.replace(/%s/g, function () {
-      return args[argIndex++];
-    });
-    if (typeof console !== 'undefined') {
-      console.error(message);
-    }
-    try {
-      // --- Welcome to debugging React ---
-      // This error was thrown as a convenience so that you can use this stack
-      // to find the callsite that caused this warning to fire.
-      throw new Error(message);
-    } catch (x) {}
-  };
-
-  warning = function warning(condition, format) {
-    if (format === undefined) {
-      throw new Error('`warning(condition, format, ...args)` requires a warning ' + 'message argument');
-    }
-
-    if (format.indexOf('Failed Composite propType: ') === 0) {
-      return; // Ignore CompositeComponent proptype check.
-    }
-
-    if (!condition) {
-      for (var _len2 = arguments.length, args = Array(_len2 > 2 ? _len2 - 2 : 0), _key2 = 2; _key2 < _len2; _key2++) {
-        args[_key2 - 2] = arguments[_key2];
-      }
-
-      printWarning.apply(undefined, [format].concat(args));
-    }
-  };
-}
-
-module.exports = warning;
 
 /***/ }),
 
@@ -2389,11 +2200,24 @@ module.exports = shouldUseNative() ? Object.assign : function (target, source) {
 
 var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
 
+var printWarning = function printWarning() {};
+
 if (true) {
-  var invariant = __webpack_require__(/*! fbjs/lib/invariant */ "./node_modules/fbjs/lib/invariant.js");
-  var warning = __webpack_require__(/*! fbjs/lib/warning */ "./node_modules/fbjs/lib/warning.js");
   var ReactPropTypesSecret = __webpack_require__(/*! ./lib/ReactPropTypesSecret */ "./node_modules/prop-types/lib/ReactPropTypesSecret.js");
   var loggedTypeFailures = {};
+
+  printWarning = function printWarning(text) {
+    var message = 'Warning: ' + text;
+    if (typeof console !== 'undefined') {
+      console.error(message);
+    }
+    try {
+      // --- Welcome to debugging React ---
+      // This error was thrown as a convenience so that you can use this stack
+      // to find the callsite that caused this warning to fire.
+      throw new Error(message);
+    } catch (x) {}
+  };
 }
 
 /**
@@ -2418,12 +2242,18 @@ function checkPropTypes(typeSpecs, values, location, componentName, getStack) {
         try {
           // This is intentionally an invariant that gets caught. It's the same
           // behavior as without this statement except with a better message.
-          invariant(typeof typeSpecs[typeSpecName] === 'function', '%s: %s type `%s` is invalid; it must be a function, usually from ' + 'the `prop-types` package, but received `%s`.', componentName || 'React class', location, typeSpecName, _typeof(typeSpecs[typeSpecName]));
+          if (typeof typeSpecs[typeSpecName] !== 'function') {
+            var err = Error((componentName || 'React class') + ': ' + location + ' type `' + typeSpecName + '` is invalid; ' + 'it must be a function, usually from the `prop-types` package, but received `' + _typeof(typeSpecs[typeSpecName]) + '`.');
+            err.name = 'Invariant Violation';
+            throw err;
+          }
           error = typeSpecs[typeSpecName](values, typeSpecName, componentName, location, null, ReactPropTypesSecret);
         } catch (ex) {
           error = ex;
         }
-        warning(!error || error instanceof Error, '%s: type specification of %s `%s` is invalid; the type checker ' + 'function must return `null` or an `Error` but returned a %s. ' + 'You may have forgotten to pass an argument to the type checker ' + 'creator (arrayOf, instanceOf, objectOf, oneOf, oneOfType, and ' + 'shape all require an argument).', componentName || 'React class', location, typeSpecName, typeof error === 'undefined' ? 'undefined' : _typeof(error));
+        if (error && !(error instanceof Error)) {
+          printWarning((componentName || 'React class') + ': type specification of ' + location + ' `' + typeSpecName + '` is invalid; the type checker ' + 'function must return `null` or an `Error` but returned a ' + (typeof error === 'undefined' ? 'undefined' : _typeof(error)) + '. ' + 'You may have forgotten to pass an argument to the type checker ' + 'creator (arrayOf, instanceOf, objectOf, oneOf, oneOfType, and ' + 'shape all require an argument).');
+        }
         if (error instanceof Error && !(error.message in loggedTypeFailures)) {
           // Only monitor this failure once because there tends to be a lot of the
           // same error.
@@ -2431,7 +2261,7 @@ function checkPropTypes(typeSpecs, values, location, componentName, getStack) {
 
           var stack = getStack ? getStack() : '';
 
-          warning(false, 'Failed %s type: %s%s', location, error.message, stack != null ? stack : '');
+          printWarning('Failed ' + location + ' type: ' + error.message + (stack != null ? stack : ''));
         }
       }
     }
@@ -2497,7 +2327,7 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
       if (!e) throw new ReferenceError("this hasn't been initialised - super() hasn't been called");return !t || "object" != (typeof t === "undefined" ? "undefined" : _typeof(t)) && "function" != typeof t ? e : t;
     }function i(e, t) {
       if ("function" != typeof t && null !== t) throw new TypeError("Super expression must either be null or a function, not " + (typeof t === "undefined" ? "undefined" : _typeof(t)));e.prototype = Object.create(t && t.prototype, { constructor: { value: e, enumerable: !1, writable: !0, configurable: !0 } }), t && (Object.setPrototypeOf ? Object.setPrototypeOf(e, t) : e.__proto__ = t);
-    }Object.defineProperty(t, "__esModule", { value: !0 });var s = function () {
+    }Object.defineProperty(t, "__esModule", { value: !0 });var l = function () {
       function e(e, t) {
         for (var a = 0; a < t.length; a++) {
           var r = t[a];r.enumerable = r.enumerable || !1, r.configurable = !0, "value" in r && (r.writable = !0), Object.defineProperty(e, r.key, r);
@@ -2506,20 +2336,20 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
         return a && e(t.prototype, a), r && e(t, r), t;
       };
     }(),
-        l = a(6),
-        c = r(l),
+        s = a(6),
+        c = r(s),
         p = a(4),
         u = r(p),
-        d = { className: u.default.string, onloadCallbackName: u.default.string, elementID: u.default.string, onloadCallback: u.default.func, verifyCallback: u.default.func, expiredCallback: u.default.func, render: u.default.string, sitekey: u.default.string, theme: u.default.string, type: u.default.string, verifyCallbackName: u.default.string, expiredCallbackName: u.default.string, size: u.default.string, tabindex: u.default.string, hl: u.default.string, badge: u.default.string },
-        f = { elementID: "g-recaptcha", onloadCallback: void 0, onloadCallbackName: "onloadCallback", verifyCallback: void 0, verifyCallbackName: "verifyCallback", expiredCallback: void 0, expiredCallbackName: "expiredCallback", render: "onload", theme: "light", type: "image", size: "normal", tabindex: "0", hl: "en", badge: "bottomright" },
+        d = { className: u.default.string, onloadCallbackName: u.default.string, elementID: u.default.string, onloadCallback: u.default.func, verifyCallback: u.default.func, expiredCallback: u.default.func, render: u.default.oneOf(["onload", "explicit"]), sitekey: u.default.string, theme: u.default.oneOf(["light", "dark"]), type: u.default.string, verifyCallbackName: u.default.string, expiredCallbackName: u.default.string, size: u.default.oneOf(["invisible", "compact", "normal"]), tabindex: u.default.string, hl: u.default.string, badge: u.default.oneOf(["bottomright", "bottomleft", "inline"]) },
+        f = { elementID: "g-recaptcha", className: "g-recaptcha", onloadCallback: void 0, onloadCallbackName: "onloadCallback", verifyCallback: void 0, verifyCallbackName: "verifyCallback", expiredCallback: void 0, expiredCallbackName: "expiredCallback", render: "onload", theme: "light", type: "image", size: "normal", tabindex: "0", hl: "en", badge: "bottomright" },
         h = function h() {
-      return "undefined" != typeof window && "undefined" != typeof window.grecaptcha;
+      return "undefined" != typeof window && "undefined" != typeof window.grecaptcha && "function" == typeof window.grecaptcha.render;
     },
         y = void 0,
         b = function (e) {
       function t(e) {
-        n(this, t);var a = o(this, (t.__proto__ || Object.getPrototypeOf(t)).call(this, e));return a._renderGrecaptcha = a._renderGrecaptcha.bind(a), a.reset = a.reset.bind(a), a.state = { ready: h(), widget: null }, a.state.ready || (y = setInterval(a._updateReadyState.bind(a), 1e3)), a;
-      }return i(t, e), s(t, [{ key: "componentDidMount", value: function value() {
+        n(this, t);var a = o(this, (t.__proto__ || Object.getPrototypeOf(t)).call(this, e));return a._renderGrecaptcha = a._renderGrecaptcha.bind(a), a.reset = a.reset.bind(a), a.state = { ready: h(), widget: null }, a.state.ready || "undefined" == typeof window || (y = setInterval(a._updateReadyState.bind(a), 1e3)), a;
+      }return i(t, e), l(t, [{ key: "componentDidMount", value: function value() {
           this.state.ready && this._renderGrecaptcha();
         } }, { key: "componentDidUpdate", value: function value(e, t) {
           var a = this.props,
@@ -2540,9 +2370,9 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
         } }, { key: "_renderGrecaptcha", value: function value() {
           this.state.widget = grecaptcha.render(this.props.elementID, { sitekey: this.props.sitekey, callback: this.props.verifyCallback ? this.props.verifyCallback : void 0, theme: this.props.theme, type: this.props.type, size: this.props.size, tabindex: this.props.tabindex, hl: this.props.hl, badge: this.props.badge, "expired-callback": this.props.expiredCallback ? this.props.expiredCallback : void 0 }), this.props.onloadCallback && this.props.onloadCallback();
         } }, { key: "render", value: function value() {
-          return "explicit" === this.props.render && this.props.onloadCallback ? c.default.createElement("div", { id: this.props.elementID, "data-onloadcallbackname": this.props.onloadCallbackName, "data-verifycallbackname": this.props.verifyCallbackName }) : c.default.createElement("div", { id: this.props.elementID, className: "g-recaptcha", "data-sitekey": this.props.sitekey, "data-theme": this.props.theme, "data-type": this.props.type, "data-size": this.props.size, "data-badge": this.props.badge, "data-tabindex": this.props.tabindex });
+          return "explicit" === this.props.render && this.props.onloadCallback ? c.default.createElement("div", { id: this.props.elementID, "data-onloadcallbackname": this.props.onloadCallbackName, "data-verifycallbackname": this.props.verifyCallbackName }) : c.default.createElement("div", { id: this.props.elementID, className: this.props.className, "data-sitekey": this.props.sitekey, "data-theme": this.props.theme, "data-type": this.props.type, "data-size": this.props.size, "data-badge": this.props.badge, "data-tabindex": this.props.tabindex });
         } }]), t;
-    }(l.Component);t.default = b, b.propTypes = d, b.defaultProps = f, e.exports = t.default;
+    }(s.Component);t.default = b, b.propTypes = d, b.defaultProps = f, e.exports = t.default;
   }, function (e, t) {
     "use strict";
     function a(e) {
@@ -2556,10 +2386,10 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
     }, e.exports = r;
   }, function (e, t, a) {
     "use strict";
-    function r(e, t, a, r, o, i, s, l) {
+    function r(e, t, a, r, o, i, l, s) {
       if (n(t), !e) {
         var c;if (void 0 === t) c = new Error("Minified exception occurred; use the non-minified dev environment for the full error message and additional helpful warnings.");else {
-          var p = [a, r, o, i, s, l],
+          var p = [a, r, o, i, l, s],
               u = 0;c = new Error(t.replace(/%s/g, function () {
             return p[u++];
           })), c.name = "Invariant Violation";
@@ -2571,8 +2401,8 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
     var r = a(1),
         n = a(2),
         o = a(5);e.exports = function () {
-      function e(e, t, a, r, i, s) {
-        s !== o && n(!1, "Calling PropTypes validators directly is not supported by the `prop-types` package. Use PropTypes.checkPropTypes() to call them. Read more at http://fb.me/use-check-prop-types");
+      function e(e, t, a, r, i, l) {
+        l !== o && n(!1, "Calling PropTypes validators directly is not supported by the `prop-types` package. Use PropTypes.checkPropTypes() to call them. Read more at http://fb.me/use-check-prop-types");
       }function t() {
         return e;
       }e.isRequired = e;var a = { array: e, bool: e, func: e, number: e, object: e, string: e, symbol: e, any: e, arrayOf: t, element: e, instanceOf: t, node: e, objectOf: t, oneOf: t, oneOfType: t, shape: t };return a.checkPropTypes = r, a.PropTypes = a, a;
@@ -2598,10 +2428,10 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-/** @license React v16.3.1
+/** @license React v16.6.0
  * react.development.js
  *
- * Copyright (c) 2013-present, Facebook, Inc.
+ * Copyright (c) Facebook, Inc. and its affiliates.
  *
  * This source code is licensed under the MIT license found in the
  * LICENSE file in the root directory of this source tree.
@@ -2616,36 +2446,34 @@ if (true) {
     'use strict';
 
     var _assign = __webpack_require__(/*! object-assign */ "./node_modules/object-assign/index.js");
-    var emptyObject = __webpack_require__(/*! fbjs/lib/emptyObject */ "./node_modules/fbjs/lib/emptyObject.js");
-    var invariant = __webpack_require__(/*! fbjs/lib/invariant */ "./node_modules/fbjs/lib/invariant.js");
-    var warning = __webpack_require__(/*! fbjs/lib/warning */ "./node_modules/fbjs/lib/warning.js");
-    var emptyFunction = __webpack_require__(/*! fbjs/lib/emptyFunction */ "./node_modules/fbjs/lib/emptyFunction.js");
     var checkPropTypes = __webpack_require__(/*! prop-types/checkPropTypes */ "./node_modules/prop-types/checkPropTypes.js");
 
     // TODO: this is special because it gets imported during build.
 
-    var ReactVersion = '16.3.1';
+    var ReactVersion = '16.6.0';
 
     // The Symbol used to tag the ReactElement-like types. If there is no native Symbol
     // nor polyfill, then a plain number is used for performance.
-    var hasSymbol = typeof Symbol === 'function' && Symbol['for'];
+    var hasSymbol = typeof Symbol === 'function' && Symbol.for;
 
-    var REACT_ELEMENT_TYPE = hasSymbol ? Symbol['for']('react.element') : 0xeac7;
-    var REACT_CALL_TYPE = hasSymbol ? Symbol['for']('react.call') : 0xeac8;
-    var REACT_RETURN_TYPE = hasSymbol ? Symbol['for']('react.return') : 0xeac9;
-    var REACT_PORTAL_TYPE = hasSymbol ? Symbol['for']('react.portal') : 0xeaca;
-    var REACT_FRAGMENT_TYPE = hasSymbol ? Symbol['for']('react.fragment') : 0xeacb;
-    var REACT_STRICT_MODE_TYPE = hasSymbol ? Symbol['for']('react.strict_mode') : 0xeacc;
-    var REACT_PROVIDER_TYPE = hasSymbol ? Symbol['for']('react.provider') : 0xeacd;
-    var REACT_CONTEXT_TYPE = hasSymbol ? Symbol['for']('react.context') : 0xeace;
-    var REACT_ASYNC_MODE_TYPE = hasSymbol ? Symbol['for']('react.async_mode') : 0xeacf;
-    var REACT_FORWARD_REF_TYPE = hasSymbol ? Symbol['for']('react.forward_ref') : 0xead0;
+    var REACT_ELEMENT_TYPE = hasSymbol ? Symbol.for('react.element') : 0xeac7;
+    var REACT_PORTAL_TYPE = hasSymbol ? Symbol.for('react.portal') : 0xeaca;
+    var REACT_FRAGMENT_TYPE = hasSymbol ? Symbol.for('react.fragment') : 0xeacb;
+    var REACT_STRICT_MODE_TYPE = hasSymbol ? Symbol.for('react.strict_mode') : 0xeacc;
+    var REACT_PROFILER_TYPE = hasSymbol ? Symbol.for('react.profiler') : 0xead2;
+    var REACT_PROVIDER_TYPE = hasSymbol ? Symbol.for('react.provider') : 0xeacd;
+    var REACT_CONTEXT_TYPE = hasSymbol ? Symbol.for('react.context') : 0xeace;
+    var REACT_CONCURRENT_MODE_TYPE = hasSymbol ? Symbol.for('react.concurrent_mode') : 0xeacf;
+    var REACT_FORWARD_REF_TYPE = hasSymbol ? Symbol.for('react.forward_ref') : 0xead0;
+    var REACT_SUSPENSE_TYPE = hasSymbol ? Symbol.for('react.suspense') : 0xead1;
+    var REACT_MEMO_TYPE = hasSymbol ? Symbol.for('react.memo') : 0xead3;
+    var REACT_LAZY_TYPE = hasSymbol ? Symbol.for('react.lazy') : 0xead4;
 
     var MAYBE_ITERATOR_SYMBOL = typeof Symbol === 'function' && Symbol.iterator;
     var FAUX_ITERATOR_SYMBOL = '@@iterator';
 
     function getIteratorFn(maybeIterable) {
-      if (maybeIterable === null || typeof maybeIterable === 'undefined') {
+      if (maybeIterable === null || (typeof maybeIterable === 'undefined' ? 'undefined' : _typeof(maybeIterable)) !== 'object') {
         return null;
       }
       var maybeIterator = MAYBE_ITERATOR_SYMBOL && maybeIterable[MAYBE_ITERATOR_SYMBOL] || maybeIterable[FAUX_ITERATOR_SYMBOL];
@@ -2656,11 +2484,49 @@ if (true) {
     }
 
     /**
-     * WARNING: DO NOT manually require this module.
-     * This is a replacement for `invariant(...)` used by the error code system
-     * and will _only_ be required by the corresponding babel pass.
-     * It always throws.
+     * Use invariant() to assert state which your program assumes to be true.
+     *
+     * Provide sprintf-style format (only %s is supported) and arguments
+     * to provide information about what broke and what you were
+     * expecting.
+     *
+     * The invariant message will be stripped in production, but the invariant
+     * will remain to ensure logic does not differ in production.
      */
+
+    var validateFormat = function validateFormat() {};
+
+    {
+      validateFormat = function validateFormat(format) {
+        if (format === undefined) {
+          throw new Error('invariant requires an error message argument');
+        }
+      };
+    }
+
+    function invariant(condition, format, a, b, c, d, e, f) {
+      validateFormat(format);
+
+      if (!condition) {
+        var error = void 0;
+        if (format === undefined) {
+          error = new Error('Minified exception occurred; use the non-minified dev environment ' + 'for the full error message and additional helpful warnings.');
+        } else {
+          var args = [a, b, c, d, e, f];
+          var argIndex = 0;
+          error = new Error(format.replace(/%s/g, function () {
+            return args[argIndex++];
+          }));
+          error.name = 'Invariant Violation';
+        }
+
+        error.framesToPop = 1; // we don't care about invariant's own frame
+        throw error;
+      }
+    }
+
+    // Relying on the `invariant()` implementation lets us
+    // preserve the format and params in the www builds.
 
     /**
      * Forked from fbjs/warning:
@@ -2701,7 +2567,7 @@ if (true) {
 
       lowPriorityWarning = function lowPriorityWarning(condition, format) {
         if (format === undefined) {
-          throw new Error('`warning(condition, format, ...args)` requires a warning ' + 'message argument');
+          throw new Error('`lowPriorityWarning(condition, format, ...args)` requires a warning ' + 'message argument');
         }
         if (!condition) {
           for (var _len2 = arguments.length, args = Array(_len2 > 2 ? _len2 - 2 : 0), _key2 = 2; _key2 < _len2; _key2++) {
@@ -2715,6 +2581,95 @@ if (true) {
 
     var lowPriorityWarning$1 = lowPriorityWarning;
 
+    /**
+     * Similar to invariant but only logs a warning if the condition is not met.
+     * This can be used to log issues in development environments in critical
+     * paths. Removing the logging code for production environments will keep the
+     * same logic and follow the same code paths.
+     */
+
+    var warningWithoutStack = function warningWithoutStack() {};
+
+    {
+      warningWithoutStack = function warningWithoutStack(condition, format) {
+        for (var _len = arguments.length, args = Array(_len > 2 ? _len - 2 : 0), _key = 2; _key < _len; _key++) {
+          args[_key - 2] = arguments[_key];
+        }
+
+        if (format === undefined) {
+          throw new Error('`warningWithoutStack(condition, format, ...args)` requires a warning ' + 'message argument');
+        }
+        if (args.length > 8) {
+          // Check before the condition to catch violations early.
+          throw new Error('warningWithoutStack() currently supports at most 8 arguments.');
+        }
+        if (condition) {
+          return;
+        }
+        if (typeof console !== 'undefined') {
+          var _args$map = args.map(function (item) {
+            return '' + item;
+          }),
+              a = _args$map[0],
+              b = _args$map[1],
+              c = _args$map[2],
+              d = _args$map[3],
+              e = _args$map[4],
+              f = _args$map[5],
+              g = _args$map[6],
+              h = _args$map[7];
+
+          var message = 'Warning: ' + format;
+
+          // We intentionally don't use spread (or .apply) because it breaks IE9:
+          // https://github.com/facebook/react/issues/13610
+          switch (args.length) {
+            case 0:
+              console.error(message);
+              break;
+            case 1:
+              console.error(message, a);
+              break;
+            case 2:
+              console.error(message, a, b);
+              break;
+            case 3:
+              console.error(message, a, b, c);
+              break;
+            case 4:
+              console.error(message, a, b, c, d);
+              break;
+            case 5:
+              console.error(message, a, b, c, d, e);
+              break;
+            case 6:
+              console.error(message, a, b, c, d, e, f);
+              break;
+            case 7:
+              console.error(message, a, b, c, d, e, f, g);
+              break;
+            case 8:
+              console.error(message, a, b, c, d, e, f, g, h);
+              break;
+            default:
+              throw new Error('warningWithoutStack() currently supports at most 8 arguments.');
+          }
+        }
+        try {
+          // --- Welcome to debugging React ---
+          // This error was thrown as a convenience so that you can use this stack
+          // to find the callsite that caused this warning to fire.
+          var argIndex = 0;
+          var _message = 'Warning: ' + format.replace(/%s/g, function () {
+            return args[argIndex++];
+          });
+          throw new Error(_message);
+        } catch (x) {}
+      };
+    }
+
+    var warningWithoutStack$1 = warningWithoutStack;
+
     var didWarnStateUpdateForUnmountedComponent = {};
 
     function warnNoop(publicInstance, callerName) {
@@ -2725,7 +2680,7 @@ if (true) {
         if (didWarnStateUpdateForUnmountedComponent[warningKey]) {
           return;
         }
-        warning(false, "Can't call %s on a component that is not yet mounted. " + 'This is a no-op, but it might indicate a bug in your application. ' + 'Instead, assign to `this.state` directly or define a `state = {};` ' + 'class property with the desired state in the %s component.', callerName, componentName);
+        warningWithoutStack$1(false, "Can't call %s on a component that is not yet mounted. " + 'This is a no-op, but it might indicate a bug in your application. ' + 'Instead, assign to `this.state` directly or define a `state = {};` ' + 'class property with the desired state in the %s component.', callerName, componentName);
         didWarnStateUpdateForUnmountedComponent[warningKey] = true;
       }
     }
@@ -2798,12 +2753,18 @@ if (true) {
       }
     };
 
+    var emptyObject = {};
+    {
+      Object.freeze(emptyObject);
+    }
+
     /**
      * Base class helpers for the updating state of a component.
      */
     function Component(props, context, updater) {
       this.props = props;
       this.context = context;
+      // If a component has string refs, we will assign a different object later.
       this.refs = emptyObject;
       // We initialize the default updater but the real one gets injected by the
       // renderer.
@@ -2894,6 +2855,7 @@ if (true) {
     function PureComponent(props, context, updater) {
       this.props = props;
       this.context = context;
+      // If a component has string refs, we will assign a different object later.
       this.refs = emptyObject;
       this.updater = updater || ReactNoopUpdateQueue;
     }
@@ -2926,8 +2888,179 @@ if (true) {
        * @internal
        * @type {ReactComponent}
        */
-      current: null
+      current: null,
+      currentDispatcher: null
     };
+
+    var BEFORE_SLASH_RE = /^(.*)[\\\/]/;
+
+    var describeComponentFrame = function describeComponentFrame(name, source, ownerName) {
+      var sourceInfo = '';
+      if (source) {
+        var path = source.fileName;
+        var fileName = path.replace(BEFORE_SLASH_RE, '');
+        {
+          // In DEV, include code for a common special case:
+          // prefer "folder/index.js" instead of just "index.js".
+          if (/^index\./.test(fileName)) {
+            var match = path.match(BEFORE_SLASH_RE);
+            if (match) {
+              var pathBeforeSlash = match[1];
+              if (pathBeforeSlash) {
+                var folderName = pathBeforeSlash.replace(BEFORE_SLASH_RE, '');
+                fileName = folderName + '/' + fileName;
+              }
+            }
+          }
+        }
+        sourceInfo = ' (at ' + fileName + ':' + source.lineNumber + ')';
+      } else if (ownerName) {
+        sourceInfo = ' (created by ' + ownerName + ')';
+      }
+      return '\n    in ' + (name || 'Unknown') + sourceInfo;
+    };
+
+    var Resolved = 1;
+
+    function refineResolvedLazyComponent(lazyComponent) {
+      return lazyComponent._status === Resolved ? lazyComponent._result : null;
+    }
+
+    function getWrappedName(outerType, innerType, wrapperName) {
+      var functionName = innerType.displayName || innerType.name || '';
+      return outerType.displayName || (functionName !== '' ? wrapperName + '(' + functionName + ')' : wrapperName);
+    }
+
+    function getComponentName(type) {
+      if (type == null) {
+        // Host root, text node or just invalid type.
+        return null;
+      }
+      {
+        if (typeof type.tag === 'number') {
+          warningWithoutStack$1(false, 'Received an unexpected object in getComponentName(). ' + 'This is likely a bug in React. Please file an issue.');
+        }
+      }
+      if (typeof type === 'function') {
+        return type.displayName || type.name || null;
+      }
+      if (typeof type === 'string') {
+        return type;
+      }
+      switch (type) {
+        case REACT_CONCURRENT_MODE_TYPE:
+          return 'ConcurrentMode';
+        case REACT_FRAGMENT_TYPE:
+          return 'Fragment';
+        case REACT_PORTAL_TYPE:
+          return 'Portal';
+        case REACT_PROFILER_TYPE:
+          return 'Profiler';
+        case REACT_STRICT_MODE_TYPE:
+          return 'StrictMode';
+        case REACT_SUSPENSE_TYPE:
+          return 'Suspense';
+      }
+      if ((typeof type === 'undefined' ? 'undefined' : _typeof(type)) === 'object') {
+        switch (type.$$typeof) {
+          case REACT_CONTEXT_TYPE:
+            return 'Context.Consumer';
+          case REACT_PROVIDER_TYPE:
+            return 'Context.Provider';
+          case REACT_FORWARD_REF_TYPE:
+            return getWrappedName(type, type.render, 'ForwardRef');
+          case REACT_MEMO_TYPE:
+            return getComponentName(type.type);
+          case REACT_LAZY_TYPE:
+            {
+              var thenable = type;
+              var resolvedThenable = refineResolvedLazyComponent(thenable);
+              if (resolvedThenable) {
+                return getComponentName(resolvedThenable);
+              }
+            }
+        }
+      }
+      return null;
+    }
+
+    var ReactDebugCurrentFrame = {};
+
+    var currentlyValidatingElement = null;
+
+    function setCurrentlyValidatingElement(element) {
+      {
+        currentlyValidatingElement = element;
+      }
+    }
+
+    {
+      // Stack implementation injected by the current renderer.
+      ReactDebugCurrentFrame.getCurrentStack = null;
+
+      ReactDebugCurrentFrame.getStackAddendum = function () {
+        var stack = '';
+
+        // Add an extra top frame while an element is being validated
+        if (currentlyValidatingElement) {
+          var name = getComponentName(currentlyValidatingElement.type);
+          var owner = currentlyValidatingElement._owner;
+          stack += describeComponentFrame(name, currentlyValidatingElement._source, owner && getComponentName(owner.type));
+        }
+
+        // Delegate to the injected renderer-specific implementation
+        var impl = ReactDebugCurrentFrame.getCurrentStack;
+        if (impl) {
+          stack += impl() || '';
+        }
+
+        return stack;
+      };
+    }
+
+    var ReactSharedInternals = {
+      ReactCurrentOwner: ReactCurrentOwner,
+      // Used by renderers to avoid bundling object-assign twice in UMD bundles:
+      assign: _assign
+    };
+
+    {
+      _assign(ReactSharedInternals, {
+        // These should not be included in production.
+        ReactDebugCurrentFrame: ReactDebugCurrentFrame,
+        // Shim for React DOM 16.0.0 which still destructured (but not used) this.
+        // TODO: remove in React 17.0.
+        ReactComponentTreeHook: {}
+      });
+    }
+
+    /**
+     * Similar to invariant but only logs a warning if the condition is not met.
+     * This can be used to log issues in development environments in critical
+     * paths. Removing the logging code for production environments will keep the
+     * same logic and follow the same code paths.
+     */
+
+    var warning = warningWithoutStack$1;
+
+    {
+      warning = function warning(condition, format) {
+        if (condition) {
+          return;
+        }
+        var ReactDebugCurrentFrame = ReactSharedInternals.ReactDebugCurrentFrame;
+        var stack = ReactDebugCurrentFrame.getStackAddendum();
+        // eslint-disable-next-line react-internal/warning-and-invariant-args
+
+        for (var _len = arguments.length, args = Array(_len > 2 ? _len - 2 : 0), _key = 2; _key < _len; _key++) {
+          args[_key - 2] = arguments[_key];
+        }
+
+        warningWithoutStack$1.apply(undefined, [false, format + '%s'].concat(args, [stack]));
+      };
+    }
+
+    var warning$1 = warning;
 
     var hasOwnProperty = Object.prototype.hasOwnProperty;
 
@@ -2969,7 +3102,7 @@ if (true) {
       var warnAboutAccessingKey = function warnAboutAccessingKey() {
         if (!specialPropKeyWarningShown) {
           specialPropKeyWarningShown = true;
-          warning(false, '%s: `key` is not a prop. Trying to access it will result ' + 'in `undefined` being returned. If you need to access the same ' + 'value within the child component, you should pass it as a different ' + 'prop. (https://fb.me/react-special-props)', displayName);
+          warningWithoutStack$1(false, '%s: `key` is not a prop. Trying to access it will result ' + 'in `undefined` being returned. If you need to access the same ' + 'value within the child component, you should pass it as a different ' + 'prop. (https://fb.me/react-special-props)', displayName);
         }
       };
       warnAboutAccessingKey.isReactWarning = true;
@@ -2983,7 +3116,7 @@ if (true) {
       var warnAboutAccessingRef = function warnAboutAccessingRef() {
         if (!specialPropRefWarningShown) {
           specialPropRefWarningShown = true;
-          warning(false, '%s: `ref` is not a prop. Trying to access it will result ' + 'in `undefined` being returned. If you need to access the same ' + 'value within the child component, you should pass it as a different ' + 'prop. (https://fb.me/react-special-props)', displayName);
+          warningWithoutStack$1(false, '%s: `ref` is not a prop. Trying to access it will result ' + 'in `undefined` being returned. If you need to access the same ' + 'value within the child component, you should pass it as a different ' + 'prop. (https://fb.me/react-special-props)', displayName);
         }
       };
       warnAboutAccessingRef.isReactWarning = true;
@@ -3131,14 +3264,12 @@ if (true) {
       }
       {
         if (key || ref) {
-          if (typeof props.$$typeof === 'undefined' || props.$$typeof !== REACT_ELEMENT_TYPE) {
-            var displayName = typeof type === 'function' ? type.displayName || type.name || 'Unknown' : type;
-            if (key) {
-              defineKeyPropWarningGetter(props, displayName);
-            }
-            if (ref) {
-              defineRefPropWarningGetter(props, displayName);
-            }
+          var displayName = typeof type === 'function' ? type.displayName || type.name || 'Unknown' : type;
+          if (key) {
+            defineKeyPropWarningGetter(props, displayName);
+          }
+          if (ref) {
+            defineRefPropWarningGetter(props, displayName);
           }
         }
       }
@@ -3161,6 +3292,8 @@ if (true) {
      * See https://reactjs.org/docs/react-api.html#cloneelement
      */
     function cloneElement(element, config, children) {
+      !!(element === null || element === undefined) ? invariant(false, 'React.cloneElement(...): The argument must be a React element, but you passed %s.', element) : void 0;
+
       var propName = void 0;
 
       // Original props are copied
@@ -3226,26 +3359,11 @@ if (true) {
      * Verifies the object is a ReactElement.
      * See https://reactjs.org/docs/react-api.html#isvalidelement
      * @param {?object} object
-     * @return {boolean} True if `object` is a valid component.
+     * @return {boolean} True if `object` is a ReactElement.
      * @final
      */
     function isValidElement(object) {
       return (typeof object === 'undefined' ? 'undefined' : _typeof(object)) === 'object' && object !== null && object.$$typeof === REACT_ELEMENT_TYPE;
-    }
-
-    var ReactDebugCurrentFrame = {};
-
-    {
-      // Component that is being worked on
-      ReactDebugCurrentFrame.getCurrentStack = null;
-
-      ReactDebugCurrentFrame.getStackAddendum = function () {
-        var impl = ReactDebugCurrentFrame.getCurrentStack;
-        if (impl) {
-          return impl();
-        }
-        return null;
-      };
     }
 
     var SEPARATOR = '.';
@@ -3375,7 +3493,7 @@ if (true) {
           {
             // Warn about using Maps as children
             if (iteratorFn === children.entries) {
-              warning(didWarnAboutMaps, 'Using Maps as children is unsupported and will likely yield ' + 'unexpected results. Convert it to a sequence/iterable of keyed ' + 'ReactElements instead.%s', ReactDebugCurrentFrame.getStackAddendum());
+              !didWarnAboutMaps ? warning$1(false, 'Using Maps as children is unsupported and will likely yield ' + 'unexpected results. Convert it to a sequence/iterable of keyed ' + 'ReactElements instead.') : void 0;
               didWarnAboutMaps = true;
             }
           }
@@ -3453,7 +3571,7 @@ if (true) {
     /**
      * Iterates through children that are typically specified as `props.children`.
      *
-     * See https://reactjs.org/docs/react-api.html#react.children.foreach
+     * See https://reactjs.org/docs/react-api.html#reactchildrenforeach
      *
      * The provided forEachFunc(child, index) will be called for each
      * leaf child.
@@ -3479,7 +3597,9 @@ if (true) {
 
       var mappedChild = func.call(context, child, bookKeeping.count++);
       if (Array.isArray(mappedChild)) {
-        mapIntoWithKeyPrefixInternal(mappedChild, result, childKey, emptyFunction.thatReturnsArgument);
+        mapIntoWithKeyPrefixInternal(mappedChild, result, childKey, function (c) {
+          return c;
+        });
       } else if (mappedChild != null) {
         if (isValidElement(mappedChild)) {
           mappedChild = cloneAndReplaceKey(mappedChild,
@@ -3504,7 +3624,7 @@ if (true) {
     /**
      * Maps children that are typically specified as `props.children`.
      *
-     * See https://reactjs.org/docs/react-api.html#react.children.map
+     * See https://reactjs.org/docs/react-api.html#reactchildrenmap
      *
      * The provided mapFunction(child, key, index) will be called for each
      * leaf child.
@@ -3527,24 +3647,28 @@ if (true) {
      * Count the number of children that are typically specified as
      * `props.children`.
      *
-     * See https://reactjs.org/docs/react-api.html#react.children.count
+     * See https://reactjs.org/docs/react-api.html#reactchildrencount
      *
      * @param {?*} children Children tree container.
      * @return {number} The number of children.
      */
-    function countChildren(children, context) {
-      return traverseAllChildren(children, emptyFunction.thatReturnsNull, null);
+    function countChildren(children) {
+      return traverseAllChildren(children, function () {
+        return null;
+      }, null);
     }
 
     /**
      * Flatten a children object (typically specified as `props.children`) and
      * return an array with appropriately re-keyed children.
      *
-     * See https://reactjs.org/docs/react-api.html#react.children.toarray
+     * See https://reactjs.org/docs/react-api.html#reactchildrentoarray
      */
     function toArray(children) {
       var result = [];
-      mapIntoWithKeyPrefixInternal(children, result, null, emptyFunction.thatReturnsArgument);
+      mapIntoWithKeyPrefixInternal(children, result, null, function (child) {
+        return child;
+      });
       return result;
     }
 
@@ -3552,7 +3676,7 @@ if (true) {
      * Returns the first child in a collection of children and verifies that there
      * is only one child in the collection.
      *
-     * See https://reactjs.org/docs/react-api.html#react.children.only
+     * See https://reactjs.org/docs/react-api.html#reactchildrenonly
      *
      * The current implementation of this function assumes that a single child gets
      * passed without a wrapper, but the purpose of this helper function is to
@@ -3572,16 +3696,20 @@ if (true) {
         calculateChangedBits = null;
       } else {
         {
-          warning(calculateChangedBits === null || typeof calculateChangedBits === 'function', 'createContext: Expected the optional second argument to be a ' + 'function. Instead received: %s', calculateChangedBits);
+          !(calculateChangedBits === null || typeof calculateChangedBits === 'function') ? warningWithoutStack$1(false, 'createContext: Expected the optional second argument to be a ' + 'function. Instead received: %s', calculateChangedBits) : void 0;
         }
       }
 
       var context = {
         $$typeof: REACT_CONTEXT_TYPE,
         _calculateChangedBits: calculateChangedBits,
-        _defaultValue: defaultValue,
+        // As a workaround to support multiple concurrent renderers, we categorize
+        // some renderers as primary and others as secondary. We only expect
+        // there to be two concurrent renderers at most: React Native (primary) and
+        // Fabric (secondary); React DOM (primary) and React ART (secondary).
+        // Secondary renderers store their context values on separate fields.
         _currentValue: defaultValue,
-        _changedBits: 0,
+        _currentValue2: defaultValue,
         // These are circular
         Provider: null,
         Consumer: null
@@ -3591,18 +3719,94 @@ if (true) {
         $$typeof: REACT_PROVIDER_TYPE,
         _context: context
       };
-      context.Consumer = context;
+
+      var hasWarnedAboutUsingNestedContextConsumers = false;
+      var hasWarnedAboutUsingConsumerProvider = false;
+
+      {
+        // A separate object, but proxies back to the original context object for
+        // backwards compatibility. It has a different $$typeof, so we can properly
+        // warn for the incorrect usage of Context as a Consumer.
+        var Consumer = {
+          $$typeof: REACT_CONTEXT_TYPE,
+          _context: context,
+          _calculateChangedBits: context._calculateChangedBits
+        };
+        // $FlowFixMe: Flow complains about not setting a value, which is intentional here
+        Object.defineProperties(Consumer, {
+          Provider: {
+            get: function get() {
+              if (!hasWarnedAboutUsingConsumerProvider) {
+                hasWarnedAboutUsingConsumerProvider = true;
+                warning$1(false, 'Rendering <Context.Consumer.Provider> is not supported and will be removed in ' + 'a future major release. Did you mean to render <Context.Provider> instead?');
+              }
+              return context.Provider;
+            },
+            set: function set(_Provider) {
+              context.Provider = _Provider;
+            }
+          },
+          _currentValue: {
+            get: function get() {
+              return context._currentValue;
+            },
+            set: function set(_currentValue) {
+              context._currentValue = _currentValue;
+            }
+          },
+          _currentValue2: {
+            get: function get() {
+              return context._currentValue2;
+            },
+            set: function set(_currentValue2) {
+              context._currentValue2 = _currentValue2;
+            }
+          },
+          Consumer: {
+            get: function get() {
+              if (!hasWarnedAboutUsingNestedContextConsumers) {
+                hasWarnedAboutUsingNestedContextConsumers = true;
+                warning$1(false, 'Rendering <Context.Consumer.Consumer> is not supported and will be removed in ' + 'a future major release. Did you mean to render <Context.Consumer> instead?');
+              }
+              return context.Consumer;
+            }
+          }
+        });
+        // $FlowFixMe: Flow complains about missing properties because it doesn't understand defineProperty
+        context.Consumer = Consumer;
+      }
 
       {
         context._currentRenderer = null;
+        context._currentRenderer2 = null;
       }
 
       return context;
     }
 
+    function lazy(ctor) {
+      return {
+        $$typeof: REACT_LAZY_TYPE,
+        _ctor: ctor,
+        // React uses these fields to store the result.
+        _status: -1,
+        _result: null
+      };
+    }
+
     function forwardRef(render) {
       {
-        warning(typeof render === 'function', 'forwardRef requires a render function but was given %s.', render === null ? 'null' : typeof render === 'undefined' ? 'undefined' : _typeof(render));
+        if (typeof render !== 'function') {
+          warningWithoutStack$1(false, 'forwardRef requires a render function but was given %s.', render === null ? 'null' : typeof render === 'undefined' ? 'undefined' : _typeof(render));
+        } else {
+          !(
+          // Do not warn for 0 arguments because it could be due to usage of the 'arguments' object
+          render.length === 0 || render.length === 2) ? warningWithoutStack$1(false, 'forwardRef render functions accept exactly two parameters: props and ref. %s', render.length === 1 ? 'Did you forget to use the ref parameter?' : 'Any additional parameter will be undefined.') : void 0;
+        }
+
+        if (render != null) {
+          !(render.defaultProps == null && render.propTypes == null) ? warningWithoutStack$1(false, 'forwardRef render functions do not support propTypes or defaultProps. ' + 'Did you accidentally pass a React component?') : void 0;
+        }
       }
 
       return {
@@ -3611,36 +3815,23 @@ if (true) {
       };
     }
 
-    var describeComponentFrame = function describeComponentFrame(name, source, ownerName) {
-      return '\n    in ' + (name || 'Unknown') + (source ? ' (at ' + source.fileName.replace(/^.*[\\\/]/, '') + ':' + source.lineNumber + ')' : ownerName ? ' (created by ' + ownerName + ')' : '');
-    };
-
     function isValidElementType(type) {
       return typeof type === 'string' || typeof type === 'function' ||
       // Note: its typeof might be other than 'symbol' or 'number' if it's a polyfill.
-      type === REACT_FRAGMENT_TYPE || type === REACT_ASYNC_MODE_TYPE || type === REACT_STRICT_MODE_TYPE || (typeof type === 'undefined' ? 'undefined' : _typeof(type)) === 'object' && type !== null && (type.$$typeof === REACT_PROVIDER_TYPE || type.$$typeof === REACT_CONTEXT_TYPE || type.$$typeof === REACT_FORWARD_REF_TYPE);
+      type === REACT_FRAGMENT_TYPE || type === REACT_CONCURRENT_MODE_TYPE || type === REACT_PROFILER_TYPE || type === REACT_STRICT_MODE_TYPE || type === REACT_SUSPENSE_TYPE || (typeof type === 'undefined' ? 'undefined' : _typeof(type)) === 'object' && type !== null && (type.$$typeof === REACT_LAZY_TYPE || type.$$typeof === REACT_MEMO_TYPE || type.$$typeof === REACT_PROVIDER_TYPE || type.$$typeof === REACT_CONTEXT_TYPE || type.$$typeof === REACT_FORWARD_REF_TYPE);
     }
 
-    function getComponentName(fiber) {
-      var type = fiber.type;
-
-      if (typeof type === 'function') {
-        return type.displayName || type.name;
+    function memo(type, compare) {
+      {
+        if (!isValidElementType(type)) {
+          warningWithoutStack$1(false, 'memo: The first argument must be a component. Instead ' + 'received: %s', type === null ? 'null' : typeof type === 'undefined' ? 'undefined' : _typeof(type));
+        }
       }
-      if (typeof type === 'string') {
-        return type;
-      }
-      switch (type) {
-        case REACT_FRAGMENT_TYPE:
-          return 'ReactFragment';
-        case REACT_PORTAL_TYPE:
-          return 'ReactPortal';
-        case REACT_CALL_TYPE:
-          return 'ReactCall';
-        case REACT_RETURN_TYPE:
-          return 'ReactReturn';
-      }
-      return null;
+      return {
+        $$typeof: REACT_MEMO_TYPE,
+        type: type,
+        compare: compare === undefined ? null : compare
+      };
     }
 
     /**
@@ -3650,46 +3841,15 @@ if (true) {
      * that support it.
      */
 
-    var currentlyValidatingElement = void 0;
     var propTypesMisspellWarningShown = void 0;
 
-    var getDisplayName = function getDisplayName() {};
-    var getStackAddendum = function getStackAddendum() {};
-
     {
-      currentlyValidatingElement = null;
-
       propTypesMisspellWarningShown = false;
-
-      getDisplayName = function getDisplayName(element) {
-        if (element == null) {
-          return '#empty';
-        } else if (typeof element === 'string' || typeof element === 'number') {
-          return '#text';
-        } else if (typeof element.type === 'string') {
-          return element.type;
-        } else if (element.type === REACT_FRAGMENT_TYPE) {
-          return 'React.Fragment';
-        } else {
-          return element.type.displayName || element.type.name || 'Unknown';
-        }
-      };
-
-      getStackAddendum = function getStackAddendum() {
-        var stack = '';
-        if (currentlyValidatingElement) {
-          var name = getDisplayName(currentlyValidatingElement);
-          var owner = currentlyValidatingElement._owner;
-          stack += describeComponentFrame(name, currentlyValidatingElement._source, owner && getComponentName(owner));
-        }
-        stack += ReactDebugCurrentFrame.getStackAddendum() || '';
-        return stack;
-      };
     }
 
     function getDeclarationErrorAddendum() {
       if (ReactCurrentOwner.current) {
-        var name = getComponentName(ReactCurrentOwner.current);
+        var name = getComponentName(ReactCurrentOwner.current.type);
         if (name) {
           return '\n\nCheck the render method of `' + name + '`.';
         }
@@ -3755,14 +3915,14 @@ if (true) {
       var childOwner = '';
       if (element && element._owner && element._owner !== ReactCurrentOwner.current) {
         // Give the component that originally created this child.
-        childOwner = ' It was passed a child from ' + getComponentName(element._owner) + '.';
+        childOwner = ' It was passed a child from ' + getComponentName(element._owner.type) + '.';
       }
 
-      currentlyValidatingElement = element;
+      setCurrentlyValidatingElement(element);
       {
-        warning(false, 'Each child in an array or iterator should have a unique "key" prop.' + '%s%s See https://fb.me/react-warning-keys for more information.%s', currentComponentErrorInfo, childOwner, getStackAddendum());
+        warning$1(false, 'Each child in an array or iterator should have a unique "key" prop.' + '%s%s See https://fb.me/react-warning-keys for more information.', currentComponentErrorInfo, childOwner);
       }
-      currentlyValidatingElement = null;
+      setCurrentlyValidatingElement(null);
     }
 
     /**
@@ -3815,22 +3975,31 @@ if (true) {
      * @param {ReactElement} element
      */
     function validatePropTypes(element) {
-      var componentClass = element.type;
-      if (typeof componentClass !== 'function') {
+      var type = element.type;
+      var name = void 0,
+          propTypes = void 0;
+      if (typeof type === 'function') {
+        // Class or function component
+        name = type.displayName || type.name;
+        propTypes = type.propTypes;
+      } else if ((typeof type === 'undefined' ? 'undefined' : _typeof(type)) === 'object' && type !== null && type.$$typeof === REACT_FORWARD_REF_TYPE) {
+        // ForwardRef
+        var functionName = type.render.displayName || type.render.name || '';
+        name = type.displayName || (functionName !== '' ? 'ForwardRef(' + functionName + ')' : 'ForwardRef');
+        propTypes = type.propTypes;
+      } else {
         return;
       }
-      var name = componentClass.displayName || componentClass.name;
-      var propTypes = componentClass.propTypes;
       if (propTypes) {
-        currentlyValidatingElement = element;
-        checkPropTypes(propTypes, element.props, 'prop', name, getStackAddendum);
-        currentlyValidatingElement = null;
-      } else if (componentClass.PropTypes !== undefined && !propTypesMisspellWarningShown) {
+        setCurrentlyValidatingElement(element);
+        checkPropTypes(propTypes, element.props, 'prop', name, ReactDebugCurrentFrame.getStackAddendum);
+        setCurrentlyValidatingElement(null);
+      } else if (type.PropTypes !== undefined && !propTypesMisspellWarningShown) {
         propTypesMisspellWarningShown = true;
-        warning(false, 'Component %s declared `PropTypes` instead of `propTypes`. Did you misspell the property assignment?', name || 'Unknown');
+        warningWithoutStack$1(false, 'Component %s declared `PropTypes` instead of `propTypes`. Did you misspell the property assignment?', name || 'Unknown');
       }
-      if (typeof componentClass.getDefaultProps === 'function') {
-        warning(componentClass.getDefaultProps.isReactClassApproved, 'getDefaultProps is only used on classic React.createClass ' + 'definitions. Use a static property named `defaultProps` instead.');
+      if (typeof type.getDefaultProps === 'function') {
+        !type.getDefaultProps.isReactClassApproved ? warningWithoutStack$1(false, 'getDefaultProps is only used on classic React.createClass ' + 'definitions. Use a static property named `defaultProps` instead.') : void 0;
       }
     }
 
@@ -3839,22 +4008,22 @@ if (true) {
      * @param {ReactElement} fragment
      */
     function validateFragmentProps(fragment) {
-      currentlyValidatingElement = fragment;
+      setCurrentlyValidatingElement(fragment);
 
       var keys = Object.keys(fragment.props);
       for (var i = 0; i < keys.length; i++) {
         var key = keys[i];
         if (key !== 'children' && key !== 'key') {
-          warning(false, 'Invalid prop `%s` supplied to `React.Fragment`. ' + 'React.Fragment can only have `key` and `children` props.%s', key, getStackAddendum());
+          warning$1(false, 'Invalid prop `%s` supplied to `React.Fragment`. ' + 'React.Fragment can only have `key` and `children` props.', key);
           break;
         }
       }
 
       if (fragment.ref !== null) {
-        warning(false, 'Invalid attribute `ref` supplied to `React.Fragment`.%s', getStackAddendum());
+        warning$1(false, 'Invalid attribute `ref` supplied to `React.Fragment`.');
       }
 
-      currentlyValidatingElement = null;
+      setCurrentlyValidatingElement(null);
     }
 
     function createElementWithValidation(type, props, children) {
@@ -3875,18 +4044,19 @@ if (true) {
           info += getDeclarationErrorAddendum();
         }
 
-        info += getStackAddendum() || '';
-
         var typeString = void 0;
         if (type === null) {
           typeString = 'null';
         } else if (Array.isArray(type)) {
           typeString = 'array';
+        } else if (type !== undefined && type.$$typeof === REACT_ELEMENT_TYPE) {
+          typeString = '<' + (getComponentName(type.type) || 'Unknown') + ' />';
+          info = ' Did you accidentally export a JSX literal instead of a component?';
         } else {
           typeString = typeof type === 'undefined' ? 'undefined' : _typeof(type);
         }
 
-        warning(false, 'React.createElement: type is invalid -- expected a string (for ' + 'built-in components) or a class/function (for composite ' + 'components) but got: %s.%s', typeString, info);
+        warning$1(false, 'React.createElement: type is invalid -- expected a string (for ' + 'built-in components) or a class/function (for composite ' + 'components) but got: %s.%s', typeString, info);
       }
 
       var element = createElement.apply(this, arguments);
@@ -3961,10 +4131,14 @@ if (true) {
 
       createContext: createContext,
       forwardRef: forwardRef,
+      lazy: lazy,
+      memo: memo,
 
       Fragment: REACT_FRAGMENT_TYPE,
       StrictMode: REACT_STRICT_MODE_TYPE,
-      unstable_AsyncMode: REACT_ASYNC_MODE_TYPE,
+      unstable_ConcurrentMode: REACT_CONCURRENT_MODE_TYPE,
+      Suspense: REACT_SUSPENSE_TYPE,
+      unstable_Profiler: REACT_PROFILER_TYPE,
 
       createElement: createElementWithValidation,
       cloneElement: cloneElementWithValidation,
@@ -3973,22 +4147,8 @@ if (true) {
 
       version: ReactVersion,
 
-      __SECRET_INTERNALS_DO_NOT_USE_OR_YOU_WILL_BE_FIRED: {
-        ReactCurrentOwner: ReactCurrentOwner,
-        // Used by renderers to avoid bundling object-assign twice in UMD bundles:
-        assign: _assign
-      }
+      __SECRET_INTERNALS_DO_NOT_USE_OR_YOU_WILL_BE_FIRED: ReactSharedInternals
     };
-
-    {
-      _assign(React.__SECRET_INTERNALS_DO_NOT_USE_OR_YOU_WILL_BE_FIRED, {
-        // These should not be included in production.
-        ReactDebugCurrentFrame: ReactDebugCurrentFrame,
-        // Shim for React DOM 16.0.0 which still destructured (but not used) this.
-        // TODO: remove in React 17.0.
-        ReactComponentTreeHook: {}
-      });
-    }
 
     var React$2 = Object.freeze({
       default: React
@@ -3998,7 +4158,7 @@ if (true) {
 
     // TODO: decide on the top-level export form.
     // This is hacky but makes it work with both Rollup and Jest.
-    var react = React$3['default'] ? React$3['default'] : React$3;
+    var react = React$3.default || React$3;
 
     module.exports = react;
   })();
