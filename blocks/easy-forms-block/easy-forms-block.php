@@ -45,6 +45,7 @@ class YIKES_Easy_Form_Block extends YIKES_Easy_Forms_Blocks {
 			'fetch_form_nonce'      => wp_create_nonce( 'fetch_form_nonce' ),
 			'fetch_forms_nonce'     => wp_create_nonce( 'fetch_forms_nonce' ),
 			'fetch_recaptcha_nonce' => wp_create_nonce( 'fetch_recaptcha_nonce' ),
+			'get_api_key_status'    => wp_create_nonce( 'get_api_key_status' ),
 			'block_namespace'       => parent::BLOCK_NAMESPACE,
 			'block_name'            => static::BLOCK,
 		) );

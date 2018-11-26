@@ -1,5 +1,8 @@
 == Changelog ==
 
+= 6.4.10 - November 26th, 2018 =
+* Improvements to the Easy Forms' Gutenberg block.
+
 = 6.4.9 - October 30th, 2018 =
 * Fixed PHP version compatibility issues.
 * Added a new filter to customize the placement of the WooCommerce checkbox integrations.
