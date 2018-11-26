@@ -1,5 +1,4 @@
 const constants = {
-
 	states: {
 		'': '—',
 		'AL': 'Alabama',
@@ -67,7 +66,6 @@ const constants = {
 		'NU': 'Nunavut',
 		'YT': 'Yukon',
 	},
-
 	countries: {
 		'US': 'United States',
 		'GB': 'United Kingdom',
@@ -314,7 +312,6 @@ const constants = {
 		'ZM': 'Zambia',
 		'ZW': 'Zimbabwe',
 	},
-
 	locales: {
 		"ar" : "Arabic",
 		"af" : "Afrikaans",
@@ -387,7 +384,6 @@ const constants = {
 		"vi" : "Vietnamese",
 		"zu" : "Zulu"
 	},
-
 	settings_url: 'wp-admin/admin.php?page=yikes-inc-easy-mailchimp-settings'
 }
 
