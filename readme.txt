@@ -5,7 +5,7 @@ Tags: MailChimp, MailChimp forms, MailChimp lists, opt-in forms, sign up form, M
 Requires at least: 4.0
 Tested up to: 5.0.0
 Requires PHP: 5.2.13
-Stable tag: 6.4.10
+Stable tag: 6.4.11
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -172,5 +172,5 @@ For information and code examples on how to implement the hooks and filters prov
 
 == Changelog ==
 
-= 6.4.10 - November 26th, 2018 =
-* Improvements to the Easy Forms' Gutenberg block.
+= 6.4.11 - December 11th, 2018 =
+* Properly enabling the Easy Forms for MailChimp gutenberg block.
