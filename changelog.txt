@@ -1,5 +1,8 @@
 == Changelog ==
 
+= 6.4.11 - December 11th, 2018 =
+* Properly enabling the Easy Forms for MailChimp gutenberg block.
+
 = 6.4.10 - November 26th, 2018 =
 * Improvements to the Easy Forms' Gutenberg block.
 
