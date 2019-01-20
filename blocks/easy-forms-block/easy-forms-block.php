@@ -51,7 +51,7 @@ class YIKES_Easy_Form_Block extends YIKES_Easy_Forms_Blocks {
 		) );
 		wp_enqueue_script( 'yikes-easy-forms-blocks' );
 
-		wp_enqueue_script( 'yikes-google-recaptcha', 'https://www.google.com/recaptcha/api.js', array( 'jquery' ), YIKES_MC_VERSION, true );
+		wp_enqueue_script( 'yikes-google-recaptcha', 'https://www.google.com/recaptcha/api.js', array( 'jquery' ), null, true );
 
 		if ( ! defined( 'YIKES_MAILCHIMP_EXCLUDE_STYLES' ) ) {
 			wp_enqueue_style( 'yikes-inc-easy-mailchimp-public-styles', YIKES_MC_URL . 'public/css/yikes-inc-easy-mailchimp-extender-public.min.css', array(), YIKES_MC_VERSION );
