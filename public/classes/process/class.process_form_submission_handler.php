@@ -386,13 +386,13 @@ class Yikes_Inc_Easy_MailChimp_Extender_Process_Submission_Handler {
 		}
 
 		/**
-		*	yikes-mailchimp-filter-before-submission || yikes-mailchimp-filter-before-submission-{$form_id}
-		*
-		*	Catch the merge variables before they get sent over to MailChimp
-		*	@since 6.0.0
-		*
-		*	@param array | $merge_variables | The user submitted form data
-		*/
+		 *	yikes-mailchimp-filter-before-submission || yikes-mailchimp-filter-before-submission-{$form_id}
+		 *
+		 *	Catch the merge variables before they get sent over to MailChimp
+		 *	@since 6.0.0
+		 *
+		 *	@param array | $merge_variables | The user submitted form data
+		 */
 		$merge_variables = apply_filters( 'yikes-mailchimp-filter-before-submission', $merge_variables );
 		$merge_variables = apply_filters( "yikes-mailchimp-filter-before-submission-{$this->form_id}", $merge_variables );
 
@@ -516,6 +516,10 @@ class Yikes_Inc_Easy_MailChimp_Extender_Process_Submission_Handler {
 
 			// Loop through the interest groups and create a single array like {group_id} => false
 			foreach ( $interest_groupings as $group_data ) {
+
+				if ( ! isset( $group_data['items'] ) || isset( $group_data['items'] ) && ( empty( $group_data['items'] ) || ! is_array( $group_data['items'] ) ) ) {
+					continue;
+				}
 
 				foreach ( $group_data['items'] as $item ) {
 					$groups[$item['id']] = false;
