@@ -625,17 +625,54 @@
 										<div id="postbox-container-1" class="postbox-container yikes-easy-mc-custom-messages-section-help">
 											<div class="meta-box-sortables">
 												<div class="postbox yikes-easy-mc-postbox">
-													<h3 class="edit-form-title"><span><?php _e( "Custom Message Help" , 'yikes-inc-easy-mailchimp-extender' ); ?></span></h3>
+													<h3 class="edit-form-title"><span><?php esc_html_e( "Custom Message Help", 'yikes-inc-easy-mailchimp-extender' ); ?></span></h3>
 													<div class="inside">
 														<ul>
-															<li class="yikes-easy-mc-success-message-help"><strong><?php _e( 'Success: Double opt-in' , 'yikes-inc-easy-mailchimp-extender' ); ?></strong> <?php _e( 'The message displayed after a double opt-in form has been submitted.' , 'yikes-inc-easy-mailchimp-extender' ); ?></li>
-															<li class="yikes-easy-mc-success-single-optin-message-help"><strong><?php _e( 'Success Message: Single opt-in' , 'yikes-inc-easy-mailchimp-extender' ); ?></strong> <?php _e( 'The message displayed after a single opt-in form has been submitted.' , 'yikes-inc-easy-mailchimp-extender' ); ?></li>
-															<li class="yikes-easy-mc-user-resubscribed-success-message-help"><strong><?php _e( 'Success: Re-subscriber' , 'yikes-inc-easy-mailchimp-extender' ); ?></strong> <?php _e( 'The message displayed after a subscriber submits a form for a list they are already subscribed to.' , 'yikes-inc-easy-mailchimp-extender' ); ?></li>
-															<li class="yikes-easy-mc-user-subscribed-update-link-help"><strong><?php _e( 'Success: Re-subscriber with link to email profile update message' , 'yikes-inc-easy-mailchimp-extender' ); ?></strong> <?php _e( 'The message displayed after a subscriber submits a form for a list they are already subscribed to. Wrap the text you want to be the link in <code>[link][/link]</code> tags.' , 'yikes-inc-easy-mailchimp-extender' ); ?></li>
-															<li class="yikes-easy-mc-update-email-successful-help"><strong><?php _e( 'Success: Update email successfully sent', 'yikes-inc-easy-mailchimp-extender' ); ?></strong> <?php _e( 'The message displayed after an update profile email is successfully sent.' , 'yikes-inc-easy-mailchimp-extender' ); ?></li>
-															<li class="yikes-easy-mc-update-email-failure-help"><strong><?php _e( 'Error: Update email failed to send' , 'yikes-inc-easy-mailchimp-extender' ); ?></strong> <?php _e( 'The message displayed after an update profile email failed to send.' , 'yikes-inc-easy-mailchimp-extender' ); ?></li>
-															<li class="yikes-easy-mc-user-subscribed-message-help"><strong><?php _e( 'Error: Re-subscribers not permitted' , 'yikes-inc-easy-mailchimp-extender' ); ?></strong> <?php _e( 'The message displayed after a subscriber tries to join a list they are already subscribed to. You can display the user\'s email in the message  using an <code>[email]</code> tag.' , 'yikes-inc-easy-mailchimp-extender' ); ?></li>
-															<li class="yikes-easy-mc-general-error-message-help"><strong><?php _e( 'Error: General' , 'yikes-inc-easy-mailchimp-extender' ); ?></strong> <?php _e( 'The message displayed if a form error has occurred.' , 'yikes-inc-easy-mailchimp-extender' ); ?></li>
+															<li class="yikes-easy-mc-success-message-help">
+																<strong><?php esc_html_e( 'Success: Double opt-in', 'yikes-inc-easy-mailchimp-extender' ); ?></strong>
+																<?php
+																	esc_html_e( 'The message displayed after a double opt-in form has been submitted.', 'yikes-inc-easy-mailchimp-extender' );
+																?>
+															</li>
+															<li class="yikes-easy-mc-success-single-optin-message-help">
+																<strong><?php esc_html_e( 'Success Message: Single opt-in', 'yikes-inc-easy-mailchimp-extender' ); ?></strong>
+																<?php
+																	esc_html_e( 'The message displayed after a single opt-in form has been submitted.', 'yikes-inc-easy-mailchimp-extender' );
+																?>
+															</li>
+															<li class="yikes-easy-mc-user-resubscribed-success-message-help">
+																<strong><?php esc_html_e( 'Success: Re-subscriber', 'yikes-inc-easy-mailchimp-extender' ); ?></strong>
+																<?php
+																	esc_html_e( 'The message displayed after a subscriber submits a form for a list they are already subscribed to.', 'yikes-inc-easy-mailchimp-extender' );
+																?>
+															</li>
+															<li class="yikes-easy-mc-user-subscribed-update-link-help">
+																<strong><?php esc_html_e( 'Success: Re-subscriber with link to email profile update message', 'yikes-inc-easy-mailchimp-extender' ); ?></strong>
+																<?php
+																	/* translators: HTML <code> tags */
+																	echo sprintf( esc_html__( 'The message displayed after a subscriber submits a form for a list they are already subscribed to. Wrap the text you want to be the link in %1$1s[link][/link]%2$2s tags.', 'yikes-inc-easy-mailchimp-extender' ), '<code>', '</code>' );
+																?>
+															</li>
+															<li class="yikes-easy-mc-update-email-successful-help">
+																<strong><?php esc_html_e( 'Success: Update email successfully sent', 'yikes-inc-easy-mailchimp-extender' ); ?></strong>
+																<?php
+																	esc_html_e( 'The message displayed after an update profile email is successfully sent.', 'yikes-inc-easy-mailchimp-extender' );
+																?>
+																</li>
+															<li class="yikes-easy-mc-update-email-failure-help">
+																<strong><?php esc_html_e( 'Error: Update email failed to send', 'yikes-inc-easy-mailchimp-extender' ); ?></strong>
+																<?php
+																	esc_html_e( 'The message displayed after an update profile email failed to send.', 'yikes-inc-easy-mailchimp-extender' );
+																?>
+															</li>
+															<li class="yikes-easy-mc-user-subscribed-message-help">
+																<strong><?php esc_html_e( 'Error: Re-subscribers not permitted', 'yikes-inc-easy-mailchimp-extender' ); ?></strong>
+																<?php
+																	/* translators: HTML <code> tags */
+																	echo sprintf( esc_html__( 'The message displayed after a subscriber tries to join a list they are already subscribed to. You can display the user\'s email in the message using an %1$1s[email]%2$2s tag.', 'yikes-inc-easy-mailchimp-extender' ), '<code>', '</code>' );
+																?>
+															</li>
+															<li class="yikes-easy-mc-general-error-message-help"><strong><?php esc_html_e( 'Error: General', 'yikes-inc-easy-mailchimp-extender' ); ?></strong> <?php esc_html_e( 'The message displayed if a form error has occurred.', 'yikes-inc-easy-mailchimp-extender' ); ?></li>
 														</ul>
 
 													</div>
@@ -643,23 +680,52 @@
 												</div>
 
 												<div class="postbox yikes-easy-mc-postbox yikes-easy-mc-custom-messages-email-section-help">
-													<h3 class="edit-form-title"><span><?php _e( "Email Message Help" , 'yikes-inc-easy-mailchimp-extender' ); ?></span></h3>
+													<h3 class="edit-form-title"><span><?php esc_html_e( "Email Message Help", 'yikes-inc-easy-mailchimp-extender' ); ?></span></h3>
 													<div class="inside">
 
 														<ul>
-															<li class="yikes-easy-mc-user-email-subject-help"><strong><?php _e( 'Email Subject' , 'yikes-inc-easy-mailchimp-extender' ); ?></strong> <?php _e( 'The subject of the email sent to the user.' , 'yikes-inc-easy-mailchimp-extender' ); ?></li>
+															<li class="yikes-easy-mc-user-email-subject-help"><strong><?php esc_html_e( 'Email Subject', 'yikes-inc-easy-mailchimp-extender' ); ?></strong> <?php esc_html_e( 'The subject of the email sent to the user.', 'yikes-inc-easy-mailchimp-extender' ); ?></li>
 															<li class="yikes-easy-mc-user-email-body-help">
-																<strong><?php _e( 'Email Body' , 'yikes-inc-easy-mailchimp-extender' ); ?></strong> 
-																<?php echo __( 'The text in the profile update verification email sent to the subscriber. Wrap the text you want to be the link in <code>[link][/link]</code> tags. The link is required in the email, please don\'t leave these tags out.', 'yikes-inc-easy-mailchimp-extender' ); ?>
+																<strong><?php esc_html_e( 'Email Body', 'yikes-inc-easy-mailchimp-extender' ); ?></strong> 
+																<?php
+																	/* translators: HTML <code> tags */
+																	echo sprintf( esc_html__( 'The text in the profile update verification email sent to the subscriber. Wrap the text you want to be the link in %1$1s[link][/link]%2$2s tags. The link is required in the email, please don\'t leave these tags out.', 'yikes-inc-easy-mailchimp-extender' ), '<code>', '</code>' );
+																?>
 															</li>
 															<li class="yikes-easy-mc-user-email-body-help">
-																<strong><?php echo __( 'Tags', 'yikes-inc-easy-mailchimp-extender' ); ?></strong> 
-																<?php echo __( 'You can also use these tags in your email:', 'yikes-inc-easy-mailchimp-extender' ); ?>
+																<strong><?php esc_html_e( 'Tags', 'yikes-inc-easy-mailchimp-extender' ); ?></strong> 
+																<?php esc_html_e( 'You can also use these tags in your email:', 'yikes-inc-easy-mailchimp-extender' ); ?>
 																<ul>
-																	<li><?php echo sprintf( __( '<code>[url]</code> displays your website\'s URL (i.e. %s).', 'yikes-inc-easy-mailchimp-extender' ), get_home_url() ); ?></li>
-																	<li><?php echo __( '<code>[email]</code> displays the subscriber\'s email address.', 'yikes-inc-easy-mailchimp-extender' ); ?></li>
-																	<li><?php echo __( '<code>[subscriber_id]</code> displays the subscriber\'s unique email ID.', 'yikes-inc-easy-mailchimp-extender' ); ?></li>
-																	<li><?php echo sprintf( __( '<code>[form_name]</code> displays your form\'s name (i.e. %s).', 'yikes-inc-easy-mailchimp-extender' ), $form['form_name'] ); ?></li>
+																	<li>
+																	<?php
+																		/* translators: First two placeholders are HTML <code> tags, third one is the website's home URL */
+																		echo sprintf( esc_html__( '%1$1s[url]%2$2s displays your website\'s URL (i.e. %3$3s).', 'yikes-inc-easy-mailchimp-extender' ), '<code>', '</code>', esc_url( get_home_url() ) );
+																	?>
+																	</li>
+																	<li>
+																	<?php
+																		/* translators: HTML <code> tags */
+																		echo sprintf( esc_html__( '%1$1s[email]%2$2s displays the subscriber\'s email address.', 'yikes-inc-easy-mailchimp-extender' ), '<code>', '</code>' );
+																	?>
+																	</li>
+																	<li>
+																	<?php
+																		/* translators: HTML <code> tags */
+																		echo sprintf( esc_html__( '%1$1s[subscriber_id]%2$2s displays the subscriber\'s unique email ID.', 'yikes-inc-easy-mailchimp-extender' ), '<code>', '</code>' );
+																	?>
+																	</li>
+																	<li>
+																	<?php
+																		/* translators: First two placeholders are HTML <code> tags, third one is the form's name  */
+																		echo sprintf( esc_html__( '%1$1s[form_name]%2$2s displays your form\'s name (i.e. %3$3s).', 'yikes-inc-easy-mailchimp-extender' ), '<code>', '</code>', esc_html( $form['form_name'] ) );
+																	?>
+																	</li>
+																	<li>
+																	<?php
+																		/* translators: HTML <code> tags */
+																		echo sprintf( esc_html__( '%1$1s[fname]/[lname]%2$2s displays your subscriber\'s first name/last name.', 'yikes-inc-easy-mailchimp-extender' ), '<code>', '</code>' );
+																	?>
+																	</li>
 																</ul>
 															</li>
 														</ul>

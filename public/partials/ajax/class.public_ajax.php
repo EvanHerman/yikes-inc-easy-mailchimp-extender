@@ -163,22 +163,26 @@ class YIKES_Inc_Easy_MailChimp_Public_Ajax {
 		/* Run our replacement strings for the email body. */
 
 		// We let the user use [link] text [/link] for the update profile link so replace [link] with the <a> tag.
-		$email_body = str_replace( '[link]', $update_link_tag, $email_body );
+		$email_body = str_replace( array( '[link]', '[LINK]' ), $update_link_tag, $email_body );
 
 		// And replace [/link] with the closing </a> tag.
-		$email_body = str_replace( '[/link]', '</a>', $email_body );
+		$email_body = str_replace( array( '[/link]', '[/LINK]' ), '</a>', $email_body );
 
 		// We let the user use [url] for their website so replace [url] with get_home_url().
-		$email_body = str_replace( '[url]', get_home_url(), $email_body );
+		$email_body = str_replace( array( '[url]', '[URL]' ), get_home_url(), $email_body );
 
 		// We let the user use [email] for the subscriber's email so replace [email] with the subscriber's email.
-		$email_body = str_replace( '[email]', $user_email, $email_body );
+		$email_body = str_replace( array( '[email]', '[EMAIL]' ), $user_email, $email_body );
 
 		// We let the user use [subscriber_id] for the subscriber's unique email ID so replace [subscriber_id] with the subscriber's unique email ID.
-		$email_body = str_replace( '[subscriber_id]', $subscriber_id, $email_body );
+		$email_body = str_replace( array( '[subscriber_id]', '[SUBSCRIBER_ID]' ), $subscriber_id, $email_body );
 
 		// We let the user use [form_name] for the form's name so replace [form_name] with the form's name.
-		$email_body = str_replace( '[form_name]', $form_data['form_name'], $email_body );
+		$email_body = str_replace( array( '[form_name]', '[FORM_NAME]' ), $form_data['form_name'], $email_body );
+
+		// We let the user use [fname] and [lname] so replace those.
+		$email_body = str_replace( array( '[fname]', '[FNAME]' ), isset( $subscriber_account_details['merge_fields']['FNAME'] ) ? $subscriber_account_details['merge_fields']['FNAME'] : '', $email_body );
+		$email_body = str_replace( array( '[lname]', '[LNAME]' ), isset( $subscriber_account_details['merge_fields']['LNAME'] ) ? $subscriber_account_details['merge_fields']['LNAME'] : '', $email_body );
 
 		/* Confirm that the email was sent */
 		if ( wp_mail( $user_email, apply_filters( 'yikes-mailchimp-update-email-subject', $email_subject ), apply_filters( 'yikes-mailchimp-update-email-content', $email_body, $update_link_href ), $headers ) ) {
