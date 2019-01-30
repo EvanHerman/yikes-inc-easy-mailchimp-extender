@@ -488,7 +488,6 @@ ul.support-option-list {
 
 		.yikes-mc-settings-expansion-section .form-table td p.description {
  			line-height: 1;
-			margin-top: 2px;
 		}
 
 	.expansion-section-title {
@@ -823,16 +822,13 @@ ul.support-option-list {
 	/* Form Field Radios/Checkboxes */
 	.form-field-container tr.yikes-checkbox-container input[type="checkbox"] {
 	    float: left;
-	    margin: 5px;
+	    margin-right: 5px;
+	    margin-top: 2px;
 	}
 
 	.form-field-container tr.yikes-checkbox-container-first td {
 		padding-top: 12px !important;
 	}
-
-		.form-field-container tr.yikes-checkbox-container td {
-			padding: 2px 12px;
-		}
 
 		.form-field-container td input[type="checkbox"]:first-child,
 		.form-field-container td input[type="radio"]:first-child {

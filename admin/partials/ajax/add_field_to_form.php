@@ -246,7 +246,7 @@ $merge_field_data = $available_merge_variables['merge_fields'][ $index ];
 					</td>
 				</tr>
 				<!-- Description Above Field -->
-				<tr valign="top">
+				<tr valign="top" class="yikes-checkbox-container">
 					<td scope="row">
 						<label for="description_above_<?php echo esc_attr( $merge_field_data['tag'] ); ?>">
 							<?php _e( 'Description Above Field' , 'yikes-inc-easy-mailchimp-extender' ); ?>
@@ -254,7 +254,7 @@ $merge_field_data = $available_merge_variables['merge_fields'][ $index ];
 					</td>
 					<td>
 						<input type="checkbox" id="description_above_<?php echo esc_attr( $merge_field_data['tag'] ); ?>" class="widefat field-description-input" name="field[<?php echo $merge_field_data['tag']; ?>][description_above]" value="1" />
-						<span class="description"><small><?php _e( "By default the description will appear undearneath the field. Check this box if you'd like the description to appear above the field.", 'yikes-inc-easy-mailchimp-extender' );?></small></span>
+						<p class="description"><small><?php _e( "By default the description will appear undearneath the field. Check this box if you'd like the description to appear above the field.", 'yikes-inc-easy-mailchimp-extender' );?></small></p>
 					</td>
 				</tr>
 				<!-- Additional Classes -->
@@ -270,7 +270,7 @@ $merge_field_data = $available_merge_variables['merge_fields'][ $index ];
 					</td>
 				</tr>
 					<!-- Required Toggle -->
-					<tr valign="top">
+					<tr valign="top" class="yikes-checkbox-container">
 						<td scope="row">
 							<label for="field-required">
 								<?php _e( 'Field Required?' , 'yikes-inc-easy-mailchimp-extender' ); ?>
@@ -282,7 +282,7 @@ $merge_field_data = $available_merge_variables['merge_fields'][ $index ];
 						</td>
 					</tr>
 					<!-- Visible Toggle -->
-					<tr valign="top">
+					<tr valign="top" class="yikes-checkbox-container">
 						<td scope="row">
 							<label for="hide-field">
 								<?php _e( 'Hide Field' , 'yikes-inc-easy-mailchimp-extender' ); ?>
@@ -294,7 +294,7 @@ $merge_field_data = $available_merge_variables['merge_fields'][ $index ];
 						</td>
 					</tr>
 					<!-- Toggle Field Label Visibility -->
-					<tr valign="top">
+					<tr valign="top" class="yikes-checkbox-container">
 						<td scope="row">
 							<label for="placeholder">
 								<?php _e( 'Hide Label' , 'yikes-inc-easy-mailchimp-extender' ); ?>

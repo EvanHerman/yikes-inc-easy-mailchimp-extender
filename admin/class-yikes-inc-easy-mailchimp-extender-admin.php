@@ -2000,7 +2000,7 @@ class Yikes_Inc_Easy_Mailchimp_Forms_Admin {
 											</td>
 										</tr>
 										<!-- Description Above Field -->
-										<tr valign="top">
+										<tr valign="top" class="yikes-checkbox-container">
 											<td scope="row">
 												<label for="description_above_<?php echo esc_attr( $field['merge'] ); ?>">
 													<?php _e( 'Description Above Field', 'yikes-inc-easy-mailchimp-extender' ); ?>
@@ -2008,7 +2008,7 @@ class Yikes_Inc_Easy_Mailchimp_Forms_Admin {
 											</td>
 											<td>
 												<input type="checkbox" id="description_above_<?php echo esc_attr( $field['merge'] ); ?>" class="widefat field-description-input" name="field[<?php echo $field['merge']; ?>][description_above]" value="1" <?php echo isset( $field['description_above'] ) && $field['description_above'] === '1' ? 'checked="checked"' : ''; ?> />
-												<span class="description"><small><?php _e( "By default the description will appear undearneath the field. Check this box if you'd like the description to appear above the field.", 'yikes-inc-easy-mailchimp-extender' );?></small></span>
+												<p class="description"><small><?php _e( "By default the description will appear undearneath the field. Check this box if you'd like the description to appear above the field.", 'yikes-inc-easy-mailchimp-extender' );?></small></p>
 											</td>
 										</tr>
 										<!-- Additional Classes -->
@@ -2281,7 +2281,7 @@ class Yikes_Inc_Easy_Mailchimp_Forms_Admin {
 										</tr>
 
 										<!-- Description Above Field -->
-										<tr valign="top">
+										<tr valign="top" class="yikes-checkbox-container">
 											<td scope="row">
 												<label for="description_above_<?php echo $field['group_id']; ?>">
 													<?php _e( 'Description Above Field', 'yikes-inc-easy-mailchimp-extender' ); ?>
@@ -2289,7 +2289,7 @@ class Yikes_Inc_Easy_Mailchimp_Forms_Admin {
 											</td>
 											<td>
 												<input type="checkbox" id="description_above_<?php echo $field['group_id']; ?>" class="widefat field-description-input" name="field[<?php echo $field['group_id']; ?>][description_above]" value="1" <?php echo isset( $field['description_above'] ) && $field['description_above'] === '1' ? 'checked="checked"' : ''; ?> />
-												<span class="description"><small><?php _e( "By default the description will appear undearneath the field. Check this box if you'd like the description to appear above the field.", 'yikes-inc-easy-mailchimp-extender' );?></small></span>
+												<p class="description"><small><?php _e( "By default the description will appear undearneath the field. Check this box if you'd like the description to appear above the field.", 'yikes-inc-easy-mailchimp-extender' );?></small></p>
 											</td>
 										</tr>
 
@@ -2306,7 +2306,7 @@ class Yikes_Inc_Easy_Mailchimp_Forms_Admin {
 											</td>
 										</tr>
 										<!-- Required Toggle -->
-										<tr valign="top">
+										<tr valign="top" class="yikes-checkbox-container">
 											<td scope="row">
 												<label for="field-required-<?php echo esc_attr( $field['group_id'] ); ?>">
 													<?php _e( 'Field Required?', 'yikes-inc-easy-mailchimp-extender' ); ?>
@@ -2319,7 +2319,7 @@ class Yikes_Inc_Easy_Mailchimp_Forms_Admin {
 											</td>
 										</tr>
 										<!-- Visible Toggle -->
-										<tr valign="top">
+										<tr valign="top" class="yikes-checkbox-container">
 											<td scope="row">
 												<label for="hide-field-<?php echo esc_attr( $field['group_id'] ); ?>">
 													<?php _e( 'Hide Field', 'yikes-inc-easy-mailchimp-extender' ); ?>
@@ -2332,7 +2332,7 @@ class Yikes_Inc_Easy_Mailchimp_Forms_Admin {
 											</td>
 										</tr>
 										<!-- Toggle Field Label Visibility -->
-										<tr valign="top">
+										<tr valign="top" class="yikes-checkbox-container">
 											<td scope="row">
 												<label for="hide-label-<?php echo esc_attr( $field['group_id'] ); ?>">
 													<?php _e( 'Hide Label', 'yikes-inc-easy-mailchimp-extender' ); ?>
