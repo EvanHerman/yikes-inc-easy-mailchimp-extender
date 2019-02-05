@@ -7,28 +7,33 @@
 	*	@since 6.0.0
 	*	Author: Yikes Inc. | https://www.yikesinc.com
 	*/
-	class YIKES_Inc_Easy_MailChimp_Process_Ajax
-	{
+	class YIKES_Inc_Easy_MailChimp_Process_Ajax {
 
 		public function __construct() {
 
-			// Ajax send merge variable to form builder
+			// Ajax send merge variable to form builder.
 			add_action( 'wp_ajax_add_field_to_form', array( $this , 'send_field_to_form' ), 10 );
 
-			// Ajax send interest group to form builder
-			add_action( 'wp_ajax_add_interest_group_to_form', array( $this , 'send_interest_group_to_form' ), 10 );
+			// Ajax send interest group to form builder.
+			add_action( 'wp_ajax_add_interest_group_to_form', array( $this, 'send_interest_group_to_form' ), 10 );
 
-			// Return new list data + activity (for dashboard widget )
-			add_action( 'wp_ajax_get_new_list_data', array( $this , 'get_new_list_data' ), 10 );
+			// Ajax add a tag to the form.
+			add_action( 'wp_ajax_add_tag_to_form', array( $this, 'add_tags_to_form' ), 10 );
 
-			// Return new list data + activity (for dashboard widget )
-			add_action( 'wp_ajax_check_list_for_interest_groups', array( $this , 'check_list_for_interest_groups' ), 10 );
+			// Ajax remove tag from form.
+			add_action( 'wp_ajax_remove_tag_from_form', array( $this, 'remove_tag_from_form' ), 10 );
 
-			// Add a new notification to a form
-			add_action( 'wp_ajax_add_notification_to_form', array( $this , 'add_notification_to_form' ), 10 , 1 );
+			// Return new list data + activity (for dashboard widget).
+			add_action( 'wp_ajax_get_new_list_data', array( $this, 'get_new_list_data' ), 10 );
 
-			// Save field label edits
-			add_action( 'wp_ajax_save_field_label_edits', array( $this , 'save_field_label_edits' ), 10 , 1 );
+			// Return new list data + activity (for dashboard widget).
+			add_action( 'wp_ajax_check_list_for_interest_groups', array( $this, 'check_list_for_interest_groups' ), 10 );
+
+			// Add a new notification to a form.
+			add_action( 'wp_ajax_add_notification_to_form', array( $this, 'add_notification_to_form' ), 10, 1 );
+
+			// Save field label edits.
+			add_action( 'wp_ajax_save_field_label_edits', array( $this, 'save_field_label_edits' ), 10, 1 );
 		}
 
 		/*
@@ -36,8 +41,8 @@
 		*	- return a single container
 		*/
 		public function add_notification_to_form() {
-			if( $_POST['notification_name'] ) {
-				include_once( YIKES_MC_PATH . 'admin/partials/ajax/add_notification_to_form.php' );
+			if ( isset( $_POST['notification_name'] ) ) {
+				include_once YIKES_MC_PATH . 'admin/partials/ajax/add_notification_to_form.php';
 			}
 			exit();
 		}
@@ -81,7 +86,7 @@
 				$error_logging = new Yikes_Inc_Easy_Mailchimp_Error_Logging();
 				$error_logging->maybe_write_to_log( 
 					$interest_groupings->get_error_code(), 
-					__( "Get Interest Groups" , 'yikes-inc-easy-mailchimp-extender' ), 
+					__( "Get Interest Groups", 'yikes-inc-easy-mailchimp-extender' ), 
 					"class.ajax.php" 
 				);
 				$interest_groupings = array();
@@ -107,6 +112,64 @@
 		public function send_interest_group_to_form() {
 			include YIKES_MC_PATH . 'admin/partials/ajax/add_interest_group_to_form.php';
 			exit();
+		}
+
+		/**
+		 * Add a tag to the form.
+		 */
+		public function add_tags_to_form() {
+			// Verify Nonce.
+			if ( ! check_ajax_referer( 'add-tag', 'nonce', false ) ) {
+				wp_send_json_error( '1' );
+			}
+			$tags    = isset( $_POST['tags'] ) ? wp_unslash( $_POST['tags'] ) : array();
+			$list_id = isset( $_POST['list_id'] ) ? filter_var( wp_unslash( $_POST['list_id'] ), FILTER_SANITIZE_STRING ) : '';
+			$form_id = isset( $_POST['form_id'] ) ? filter_var( wp_unslash( $_POST['form_id'] ), FILTER_SANITIZE_NUMBER_INT ) : 0;
+
+			if ( empty( $tags ) || empty( $list_id ) || empty( $form_id ) ) {
+				wp_send_json_error( '2' );
+			}
+
+			$form_interface = yikes_easy_mailchimp_extender_get_form_interface();
+			$form           = $form_interface->get_form( $form_id );
+			$form_tags      = array();
+
+			// This data came from $_POST so sanitize it.
+			foreach ( $tags as $tag ) {
+				$form_tags[ filter_var( $tag['tag_id'], FILTER_SANITIZE_NUMBER_INT ) ] = array(
+					'name' => filter_var( $tag['tag_name'], FILTER_SANITIZE_STRING ),
+					'id'   => filter_var( $tag['tag_id'], FILTER_SANITIZE_NUMBER_INT ),
+				);
+			}
+
+			$form['tags'] = $form_tags + ( isset( $form['tags'] ) ? $form['tags'] : array() );
+			$form_interface->update_form( $form_id, $form );
+			wp_send_json_success( array( 'tags' => $form_tags ) );
+		}
+
+		/**
+		 * Remove a tag from a form.
+		 */
+		public function remove_tag_from_form() {
+			// Verify Nonce.
+			if ( ! check_ajax_referer( 'remove-tag', 'nonce', false ) ) {
+				wp_send_json_error( '1' );
+			}
+			$tag     = isset( $_POST['tag'] ) ? filter_var( wp_unslash( $_POST['tag'] ), FILTER_SANITIZE_NUMBER_INT ) : array();
+			$list_id = isset( $_POST['list_id'] ) ? filter_var( wp_unslash( $_POST['list_id'] ), FILTER_SANITIZE_STRING ) : '';
+			$form_id = isset( $_POST['form_id'] ) ? filter_var( wp_unslash( $_POST['form_id'] ), FILTER_SANITIZE_NUMBER_INT ) : 0;
+
+			if ( empty( $tag ) || empty( $list_id ) || empty( $form_id ) ) {
+				wp_send_json_error( '2' );
+			}
+
+			$form_interface = yikes_easy_mailchimp_extender_get_form_interface();
+			$form           = $form_interface->get_form( $form_id );
+			if ( isset( $form['tags'] ) && isset( $form['tags'][ $tag ] ) ) {
+				unset( $form['tags'][ $tag ] );
+			}
+			$form_interface->update_form( $form_id, $form );
+			wp_send_json_success();			
 		}
 
 		/*
@@ -149,7 +212,7 @@
 				$error_logging = new Yikes_Inc_Easy_Mailchimp_Error_Logging();
 				$error_logging->maybe_write_to_log( 
 					$merge_field->get_error_code(), 
-					__( "Updating merge field" , 'yikes-inc-easy-mailchimp-extender' ), 
+					__( "Updating merge field", 'yikes-inc-easy-mailchimp-extender' ), 
 					"class.ajax.php"
 				);
 				wp_send_json_error( array(

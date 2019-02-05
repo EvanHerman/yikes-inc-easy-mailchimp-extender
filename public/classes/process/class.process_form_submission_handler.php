@@ -1420,4 +1420,21 @@ class Yikes_Inc_Easy_MailChimp_Extender_Process_Submission_Handler {
 		return $redirect_array;
 	}
 
+	public function maybe_add_tags( $form_data, $subscriber_data ) {
+
+		// Add the form's tags
+		$form_tags = isset( $form_data['tags'] ) ? $form_data['tags'] : array();
+		$form_tags = apply_filters( 'yikes_mailchimp_subscriber_tags', $form_tags, $form_data, $this->list_id, $subscriber_data );
+
+		if ( ! empty( $form_tags ) ) {
+			$list_handler = yikes_get_mc_api_manager()->get_list_handler();
+			foreach ( $form_tags as $tag ) {
+				$add_tag = apply_filters( 'yikes_mailchimp_subscriber_tag_active', true, $tag, $this->list_id, $subscriber_data );
+
+				if ( $add_tag ) {
+					$list_handler->create_member_tags( $this->list_id, $tag['id'], array( 'email_address' => $this->email ) );
+				}
+			}
+		}
+	}
 }

@@ -250,6 +250,10 @@ $subscribe_response = $list_handler->member_subscribe( $list_id, md5( $sanitized
 if ( is_wp_error( $subscribe_response ) ) {
 	$success_array = $submission_handler->handle_submission_response_error( $subscribe_response, $form_fields );
 } else {
+
+	// Check if we have any tags to add.
+	$tags_response = $submission_handler->maybe_add_tags( $form_data, $data );
+
 	$submission_handler->handle_submission_response_success( $submission_settings, array(), $merge_variables, $notifications, $optin_settings, $new_subscriber );
 }
 

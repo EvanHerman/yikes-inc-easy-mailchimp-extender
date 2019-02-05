@@ -44,8 +44,8 @@ if ( is_wp_error( $interest_groupings ) ) {
 }
 
 $no_interest_groupings = '<p class="description">' . __( 'Interest groups are not enabled for this list.', 'yikes-inc-easy-mailchimp-extender' ) . '</p>';
-$no_segments = __( 'No segments set up for this list.', 'yikes-inc-easy-mailchimp-extender' );
-$segments = $list_helper->get_segments( $list_id );
+$no_segments           = __( 'No segments set up for this list.', 'yikes-inc-easy-mailchimp-extender' );
+$segments              = $list_helper->get_segments( $list_id );
 
 // Get the full list of members.
 $members = $list_helper->get_members( $list_id );

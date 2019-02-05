@@ -4,8 +4,8 @@
  * @since 1.0
  */
 
-// Check if an API Constant is set
-$yikes_mc_api_constant = ( defined( 'YIKES_MC_API_KEY' ) ) ? true : false;
+// Check if an API Constant is set.
+$yikes_mc_api_constant = defined( 'YIKES_MC_API_KEY' );
 ?>
 
 <h3><span><?php _e( 'General Settings' , 'yikes-inc-easy-mailchimp-extender' ); ?></span><?php echo $api_connection; ?></h3>
