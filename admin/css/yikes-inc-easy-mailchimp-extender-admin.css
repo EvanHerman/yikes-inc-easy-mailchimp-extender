@@ -1207,31 +1207,45 @@ a.yikes-delete-subscriber,
 	line-height: 1.8;
 }
 
-.tags-title {
-    margin-left: 2em;
-    padding: .75em;
-    margin-right: 2em;
-    cursor: default;
+.tags-title-text {
+	margin-left: 1em;
+    position: absolute;
+    top: 16%;
 }
 
-.tags-title > span {
+.tags-title-container {
+    margin-right: 2em;
+    margin-left: 4em;
+}
+
+.tags-title {
+    padding-top: 1em;
+    padding-bottom: .75em;
+    cursor: default;
+    font-weight: 500;
+}
+
+.tags-title-container > span.mailchimp-tag {
     font-size: .875em;
     margin-right: 1em;
-    padding: .25em .4em;
+    padding: .25em .4em 0em;
     border: 2px solid #00a0d2;
     border-radius: 10px;
     cursor: default;
+    vertical-align: middle;
+    display: inline-block;
+    margin-top: 1em;
 }
-.tags-title span.dashicons {
-    line-height: 1;
+.tags-title-container span.dashicons {
+    line-height: .8;
     font-size: 1.5em;
     padding-bottom: 0;
     cursor: pointer;
+    margin-bottom: -4px;
 }
 
-.tags-title .tag-divider {
+.tags-title-container .tag-divider {
 	border: 1px solid #00a0d2;
-    padding-top: 2px;
     padding-bottom: 2px;
     margin-left: 3px;
 }
@@ -2045,6 +2059,10 @@ body.wp-customizer #available-widgets [id*="_yikes_easy_mc_widget"]>div.widget-t
 		background-repeat: no-repeat;
 		background-position-y: 29px;
 	}
+
+#edit-yikes-mc-form #post-body.columns-2 #postbox-container-1 {
+    width: 280px;
+}
 
 /** Break Points **/
 

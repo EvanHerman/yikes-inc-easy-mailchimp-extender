@@ -209,7 +209,10 @@ do_action( 'yikes-mailchimp-edit-form-notice' );
 												<div class="postbox yikes-easy-mc-postbox">
 													<!-- container title -->
 													<h3 class="edit-form-title" id="form-builder-div" data-form-id="<?php echo esc_attr( $form['id'] ); ?>" data-list-id="<?php echo esc_attr( $form['list_id'] ); ?>" ><?php _e( 'Form Builder', 'yikes-inc-easy-mailchimp-extender' ); ?></h3>
-													<h4 class="tags-title" style="display: none;"></h4>
+													<div class="tags-title" style="display: none;">
+														<span class="tags-title-text">Tags</span>
+														<div class="tags-title-container"></div>
+													</div>
 													<p id="edit-form-description" class="description edit-form-description-form-builder"><?php _e( 'Click a field to show its advanced options or drag fields to re-arrange them. Click <span class="dashicons dashicons-edit"></span> to edit a field label. Make sure you hit "Update Form" to save all of your changes.', 'yikes-inc-easy-mailchimp-extender' );?></p>
 													<div id="form-builder-container" class="inside">
 														<!-- #poststuff -->

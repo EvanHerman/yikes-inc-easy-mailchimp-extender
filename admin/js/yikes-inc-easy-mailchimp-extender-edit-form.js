@@ -247,6 +247,9 @@ window.yikes_mailchimp_edit_form = window.yikes_mailchimp_edit_form || {};
 
 		// Remove tag.
 		$( 'body' ).on( 'click' , '.mailchimp-tag .dashicons.dashicons-no-alt', function() {
+			// Prevent any other tag from being removed during the process.
+			$( '.mailchimp-tag' ).css( { 'pointer-events': 'none', 'opacity': '.5' } );
+
 			const icon   = $( this );
 			const elem   = icon.parents( '.mailchimp-tag' );
 			const tag_id = elem.data( 'tag-id' );
@@ -273,6 +276,7 @@ window.yikes_mailchimp_edit_form = window.yikes_mailchimp_edit_form || {};
 					elem.fadeOut( 'slow', function(){ 
 						elem.remove();
 						tags_container_check(); 
+						$( '.mailchimp-tag' ).css( { 'pointer-events': 'auto', 'opacity': '1.0' } );
 					});
 				},
 				error: function( jqXHR, textStatus, errorThrown ) {
@@ -281,7 +285,7 @@ window.yikes_mailchimp_edit_form = window.yikes_mailchimp_edit_form || {};
 					console.log( jqXHR.responseText );
 				},
 				complete: function( jqXHR, textStatus ) {
-					clearInterval( interval )
+					clearInterval( interval );
 				}
 			});
 
@@ -505,7 +509,7 @@ window.yikes_mailchimp_edit_form = window.yikes_mailchimp_edit_form || {};
 	}
 
 	function add_tags_to_form( tags ) {
-		const tags_container = $( '.tags-title' );
+		const tags_container = $( '.tags-title-container' );
 		$.each( tags, function( tag_id, tag ) {
 			const tag_html = create_tag( tag );
 			tags_container.append( tag_html );
