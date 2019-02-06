@@ -52,7 +52,7 @@ if ( ! defined( 'YIKES_MC_VERSION' ) ) {
  * 	@since 6.0.0
  */
 if ( ! defined( 'YIKES_MC_PATH' ) ) {
-	define( 'YIKES_MC_PATH' , plugin_dir_path( __FILE__ ) );
+	define( 'YIKES_MC_PATH', plugin_dir_path( __FILE__ ) );
 }
 
 /**
@@ -61,7 +61,7 @@ if ( ! defined( 'YIKES_MC_PATH' ) ) {
  * 	@since 6.0.0
  */
 if ( ! defined( 'YIKES_MC_URL' ) ) {
-	define( 'YIKES_MC_URL' , plugin_dir_url( __FILE__ ) );
+	define( 'YIKES_MC_URL', plugin_dir_url( __FILE__ ) );
 }
 
 // Include our autoloader
@@ -84,13 +84,10 @@ function activate_yikes_inc_easy_mailchimp_extender( $network_wide ) {
 }
 
 /**
- *	uninstall_yikes_inc_easy_mailchimp_extender();
- * 	The code that runs during uninstall.
+ *	deactivate_yikes_inc_easy_mailchimp_extender();
+ * 	The code that runs during deactivate.
  *
- * 	This action is documented in includes/class-yikes-inc-easy-mailchimp-extender-uninstall.php
- *	and carries out the deletion of MailChimp transients, plugin options and MailChimp form tables.
- *
- * @since 6.0.0
+ *      @since 6.0.0
  *	@return void
  */
 register_deactivation_hook( __FILE__, 'deactivate_yikes_inc_easy_mailchimp_extender' );
@@ -106,7 +103,7 @@ function deactivate_yikes_inc_easy_mailchimp_extender() {
  * 	This action is documented in includes/class-yikes-inc-easy-mailchimp-extender-uninstall.php
  *	and carries out the deletion of MailChimp transients, plugin options and MailChimp form tables.
  *
- * @since 6.0.0
+ *      @since 6.0.0
  *	@return void
  */
 register_uninstall_hook( __FILE__, 'uninstall_yikes_inc_easy_mailchimp_extender' );
@@ -226,6 +223,6 @@ function yikes_mailchimp_plugin_textdomain() {
 }
 
 /*
-*	Enjoy this wonderfully powerful (and free) plugin.
-*	~<|:D
-*/
+ *	Enjoy this wonderfully powerful (and free) plugin.
+ *	~<|:D
+ */
