@@ -27,8 +27,7 @@
 		$_REQUEST['section'] = preg_replace('/[^\w-]/', '', strip_tags ( $_REQUEST['section'] ) );
 	}
 ?>
-	<!-- Actual Settings Form
-		 Chyea -->
+	<!-- Actual Settings Form -->
 	<div class="wrap">
 
 		<!-- Freddie Logo -->

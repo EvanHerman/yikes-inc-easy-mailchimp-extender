@@ -258,26 +258,27 @@ class Yikes_Inc_Easy_MailChimp_API_Lists extends Yikes_Inc_Easy_MailChimp_API_Ab
 	 * @author Jeremy Pry
 	 *
 	 * @param string $list_id       The list ID.
+	 * @param string $type          The segment type. Valid types are saved, static, or fuzzy.
 	 * @param bool   $use_transient Whether to use a transient.
 	 *
 	 * @return array|WP_Error
 	 */
-	public function get_segments( $list_id, $use_transient = true ) {
-		$transient = get_transient( "yikes_eme_segments_{$list_id}" );
+	public function get_segments( $list_id, $type = 'saved', $use_transient = true ) {
+		$transient = get_transient( "yikes_eme_segments_{$list_id}_{$type}" );
 		if ( false !== $transient && $use_transient ) {
 			return $transient;
 		}
 
 		// @todo: Include members in the segments?
 		$base_path = "{$this->base_path}/{$list_id}/segments";
-		$base_path = add_query_arg( 'type', 'saved', $base_path );
+		$base_path = add_query_arg( 'type', $type, $base_path );
 		$segments  = $this->maybe_return_error( $this->loop_items( $base_path, 'segments' ) );
 
 		if ( is_wp_error( $segments ) ) {
 			return $segments;
 		}
 
-		set_transient( "yikes_eme_segments_{$list_id}", $segments, HOUR_IN_SECONDS );
+		set_transient( "yikes_eme_segments_{$list_id}_{$type}", $segments, HOUR_IN_SECONDS );
 
 		return $segments;
 	}
@@ -436,6 +437,24 @@ class Yikes_Inc_Easy_MailChimp_API_Lists extends Yikes_Inc_Easy_MailChimp_API_Ab
 	public function create_member_note( $list_id, $member_id, $notes_data ) {
 		$path     = "{$this->base_path}/{$list_id}/members/{$member_id}/notes";
 		$response = $this->post_to_api( $path, $notes_data );
+
+		return $this->maybe_return_error( $response );
+	}
+
+	/**
+	 * Add a tag to a subscriber.
+	 *
+	 * @author Kevin Utz
+	 *
+	 * @param string $list_id The list ID.
+	 * @param string $tag_id  The tag ID.
+	 * @param array  $email   The user's email, in the format array( 'email_address' => 'theemail' ).
+	 *
+	 * @return array|WP_Error
+	 */
+	public function create_member_tags( $list_id, $tag_id, $email ) {
+		$path     = "{$this->base_path}/{$list_id}/segments/{$tag_id}/members";
+		$response = $this->post_to_api( $path, $email );
 
 		return $this->maybe_return_error( $response );
 	}

@@ -386,13 +386,13 @@ class Yikes_Inc_Easy_MailChimp_Extender_Process_Submission_Handler {
 		}
 
 		/**
-		*	yikes-mailchimp-filter-before-submission || yikes-mailchimp-filter-before-submission-{$form_id}
-		*
-		*	Catch the merge variables before they get sent over to MailChimp
-		*	@since 6.0.0
-		*
-		*	@param array | $merge_variables | The user submitted form data
-		*/
+		 *	yikes-mailchimp-filter-before-submission || yikes-mailchimp-filter-before-submission-{$form_id}
+		 *
+		 *	Catch the merge variables before they get sent over to MailChimp
+		 *	@since 6.0.0
+		 *
+		 *	@param array | $merge_variables | The user submitted form data
+		 */
 		$merge_variables = apply_filters( 'yikes-mailchimp-filter-before-submission', $merge_variables );
 		$merge_variables = apply_filters( "yikes-mailchimp-filter-before-submission-{$this->form_id}", $merge_variables );
 
@@ -516,6 +516,10 @@ class Yikes_Inc_Easy_MailChimp_Extender_Process_Submission_Handler {
 
 			// Loop through the interest groups and create a single array like {group_id} => false
 			foreach ( $interest_groupings as $group_data ) {
+
+				if ( ! isset( $group_data['items'] ) || isset( $group_data['items'] ) && ( empty( $group_data['items'] ) || ! is_array( $group_data['items'] ) ) ) {
+					continue;
+				}
 
 				foreach ( $group_data['items'] as $item ) {
 					$groups[$item['id']] = false;
@@ -1416,4 +1420,21 @@ class Yikes_Inc_Easy_MailChimp_Extender_Process_Submission_Handler {
 		return $redirect_array;
 	}
 
+	public function maybe_add_tags( $form_data, $subscriber_data ) {
+
+		// Add the form's tags
+		$form_tags = isset( $form_data['tags'] ) ? $form_data['tags'] : array();
+		$form_tags = apply_filters( 'yikes_mailchimp_subscriber_tags', $form_tags, $form_data, $this->list_id, $subscriber_data );
+
+		if ( ! empty( $form_tags ) ) {
+			$list_handler = yikes_get_mc_api_manager()->get_list_handler();
+			foreach ( $form_tags as $tag ) {
+				$add_tag = apply_filters( 'yikes_mailchimp_subscriber_tag_active', true, $tag, $this->list_id, $subscriber_data );
+
+				if ( $add_tag ) {
+					$list_handler->create_member_tags( $this->list_id, $tag['id'], array( 'email_address' => $this->email ) );
+				}
+			}
+		}
+	}
 }

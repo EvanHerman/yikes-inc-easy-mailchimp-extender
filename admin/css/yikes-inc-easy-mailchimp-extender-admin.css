@@ -488,7 +488,6 @@ ul.support-option-list {
 
 		.yikes-mc-settings-expansion-section .form-table td p.description {
  			line-height: 1;
-			margin-top: 2px;
 		}
 
 	.expansion-section-title {
@@ -823,16 +822,13 @@ ul.support-option-list {
 	/* Form Field Radios/Checkboxes */
 	.form-field-container tr.yikes-checkbox-container input[type="checkbox"] {
 	    float: left;
-	    margin: 5px;
+	    margin-right: 5px;
+	    margin-top: 2px;
 	}
 
 	.form-field-container tr.yikes-checkbox-container-first td {
 		padding-top: 12px !important;
 	}
-
-		.form-field-container tr.yikes-checkbox-container td {
-			padding: 2px 12px;
-		}
 
 		.form-field-container td input[type="checkbox"]:first-child,
 		.form-field-container td input[type="radio"]:first-child {
@@ -909,16 +905,17 @@ ul.support-option-list {
 		position: absolute;
 	}
 	.mv_ig_list a {
-		width: 48%;
+		width: 40%;
 		padding: 5px 0 !important;
 		text-align: center;
 		margin: 0;
+		float: left;
 	}
 	.mv_ig_list a:first-child {
-		margin-right: 0;
+		width: 32%;
 	}
 	.mv_ig_list a:last-child {
-		float: right;
+		width: 25%;
 	}
 
 	.mv_ig_list {
@@ -936,7 +933,6 @@ ul.support-option-list {
 	.mv_ig_list .arrow-down {
 		position: absolute;
 		margin-top: 21px;
-		margin-left: 50px;
 		width: 0;
 		height: 0;
 		border-left: 12px solid transparent;
@@ -944,17 +940,31 @@ ul.support-option-list {
 		border-top: 12px solid #00a0d2;
 	}
 
+	#nav-tab-merge-variables .arrow-down {
+	    left: 16%;
+	}
+
+	#nav-tab-interest-groups .arrow-down {
+	    left: 49%;
+	}
+
+	#nav-tab-tags .arrow-down {
+	    left: 79%;
+	}
+
 #container-container {
 	display: inline-block;
-	width: 540px;
+	width: 1000px;
 }
 	#container-container .list-container {
-		float: left;
 		width: 254px;
 		position: relative;
-	}
-	#container-container .list-container:last-child {
+		display: inline-block;
 		margin-left: 2em;
+		vertical-align: top;
+	}
+	#container-container .list-container:first-child {
+		margin-left: 0;
 	}
 
 #yikes_easy_mc_toolbar {
@@ -1168,7 +1178,8 @@ a.yikes-delete-subscriber,
 		}
 /* Available Form Field List */
 #available-fields li,
-#available-interest-groups li {
+#available-interest-groups li,
+#available-tags li {
 	text-decoration: none;
 	display: block;
 	border: 1px solid rgba(177, 177, 177, 0.71);
@@ -1177,12 +1188,14 @@ a.yikes-delete-subscriber,
 	margin: .5em 0;
 }
 	#available-fields li.not-available,
-	#available-interest-groups li.not-available {
+	#available-interest-groups li.not-available,
+	#available-tags li.not-available {
 		opacity: .6 !important;
 	}
 
-	#available-fields li.field-to-add-to-form,
-	#available-interest-groups li.group-to-add-to-form {
+	#available-fields li.add-to-form,
+	#available-interest-groups li.add-to-form,
+	#available-tags li.add-to-form {
 		background: rgba(46, 162, 204, 0.25);
 	}
 
@@ -1192,6 +1205,49 @@ a.yikes-delete-subscriber,
 	width: 15px;
 	font-size: 15px;
 	line-height: 1.8;
+}
+
+.tags-title-text {
+	margin-left: 1em;
+    position: absolute;
+    top: 60px;
+}
+
+.tags-title-container {
+    margin-right: 2em;
+    margin-left: 4em;
+}
+
+.tags-title {
+    padding-top: 1em;
+    padding-bottom: .75em;
+    cursor: default;
+    font-weight: 500;
+}
+
+.tags-title-container > span.mailchimp-tag {
+    font-size: .875em;
+    margin-right: 1em;
+    padding: .25em .4em 0em;
+    border: 2px solid #00a0d2;
+    border-radius: 10px;
+    cursor: default;
+    vertical-align: middle;
+    display: inline-block;
+    margin-top: 1em;
+}
+.tags-title-container span.dashicons {
+    line-height: .8;
+    font-size: 1.5em;
+    padding-bottom: 0;
+    cursor: pointer;
+    margin-bottom: -4px;
+}
+
+.tags-title-container .tag-divider {
+	border: 1px solid #00a0d2;
+    padding-bottom: 2px;
+    margin-left: 3px;
 }
 
 /*	Form Builder Clear Form Fields Button */
@@ -2003,6 +2059,10 @@ body.wp-customizer #available-widgets [id*="_yikes_easy_mc_widget"]>div.widget-t
 		background-repeat: no-repeat;
 		background-position-y: 29px;
 	}
+
+#edit-yikes-mc-form #post-body.columns-2 #postbox-container-1 {
+    width: 280px;
+}
 
 /** Break Points **/
 

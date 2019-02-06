@@ -5,7 +5,7 @@ Tags: MailChimp, MailChimp forms, MailChimp lists, opt-in forms, sign up form, M
 Requires at least: 4.0
 Tested up to: 5.0.0
 Requires PHP: 5.2.13
-Stable tag: 6.4.11
+Stable tag: 6.5.0
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -172,5 +172,10 @@ For information and code examples on how to implement the hooks and filters prov
 
 == Changelog ==
 
-= 6.4.11 - December 11th, 2018 =
-* Properly enabling the Easy Forms for MailChimp gutenberg block.
+= 6.5.0 - February 6th, 2019 =
+* Added tags! You can now add tags to your Easy Form's Forms! Any tag attached to a form will be attached to subscribers of that form. When applying tags to new subscribers, they can be filtered with the following filters: `yikes_mailchimp_subscriber_tags` (filters the list of tabs being applied) and `yikes_mailchimp_subscriber_tag_active` (decides whether a certain tag will be added).
+* Added `[fname]` and `[lname]` as email replacement tags. 
+* Cleaned up code. 
+* Fixed some PHP warnings/notices.
+* Fixed some styling issues inside the form builder.
+* Fixed & cleaned some things in the Easy Form's Gutenberg block.

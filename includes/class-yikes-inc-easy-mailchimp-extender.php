@@ -111,7 +111,7 @@ class Yikes_Inc_Easy_Mailchimp_Extender {
 		/**
 		 * The class responsible for orchestrating the actions and filters for the Gutenberg blocks
 		 */
-		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'blocks/blocks.php';
+		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'blocks/maybe-do-blocks.php';
 		$this->loader = new Yikes_Inc_Easy_Mailchimp_Extender_Loader();
 	}
 	/**

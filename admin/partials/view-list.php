@@ -44,8 +44,8 @@ if ( is_wp_error( $interest_groupings ) ) {
 }
 
 $no_interest_groupings = '<p class="description">' . __( 'Interest groups are not enabled for this list.', 'yikes-inc-easy-mailchimp-extender' ) . '</p>';
-$no_segments = __( 'No segments set up for this list.', 'yikes-inc-easy-mailchimp-extender' );
-$segments = $list_helper->get_segments( $list_id );
+$no_segments           = __( 'No segments set up for this list.', 'yikes-inc-easy-mailchimp-extender' );
+$segments              = $list_helper->get_segments( $list_id );
 
 // Get the full list of members.
 $members = $list_helper->get_members( $list_id );
@@ -177,7 +177,7 @@ $subscribers_list = array_slice( $members, $page_offset, $limit );
 																'mailchimp-list' => $list_id,
 																'email-id'       => $user_id,
 															), admin_url() . 'admin.php?page=yikes-mailchimp-view-user' ) ); ?>
-															<span><a href="<?php echo $view_user_info_url; ?>"><?php _e( "View Info.", 'yikes-inc-easy-mailchimp-extender' ); ?></a> |</span>
+															<span><a href="<?php echo $view_user_info_url; ?>"><?php _e( 'View Info', 'yikes-inc-easy-mailchimp-extender' ); ?></a> |</span>
 															<?php $url = esc_url_raw( add_query_arg( array(
 																'action'         => 'yikes-easy-mc-unsubscribe-user',
 																'mailchimp-list' => $list_id,

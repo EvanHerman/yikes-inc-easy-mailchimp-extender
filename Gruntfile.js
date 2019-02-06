@@ -92,8 +92,7 @@ module.exports = function(grunt) {
 	// Register task.
 	grunt.registerTask( 'default', [
 		'uglify',
-		'cssmin',
-		'pot'
+		'cssmin'
 	]);
 
 };

@@ -128,10 +128,10 @@ class Yikes_Easy_MC_WooCommerce_Checkbox_Class extends Yikes_Easy_MC_Checkbox_In
 
 		if ( '1' === $do_optin ) {
 			$order      = new WC_Order( $order_id );
-			$email      = $order->billing_email;
+			$email      = $order->get_billing_email();
 			$merge_vars = array(
-				'FNAME' => $order->billing_first_name,
-				'LNAME' => $order->billing_last_name,
+				'FNAME' => $order->get_billing_first_name(),
+				'LNAME' => $order->get_billing_last_name(),
 			);
 
 			// Subscribe the user.

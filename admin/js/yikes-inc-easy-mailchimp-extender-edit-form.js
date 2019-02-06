@@ -8,10 +8,13 @@ window.yikes_mailchimp_edit_form = window.yikes_mailchimp_edit_form || {};
 
 	 $( document ).ready( function() {
 
+	 	// Show tags added to this form.
+	 	add_tags_to_form_onload();
+
 	 	// On page load, check if there are any fields in the form builder
 	 	// If we find fields, show the field instructions
 	 	// If we don't find fields, hide the field instructions
-	 	if ( jQuery( '#form-builder-container' ).children().length > 0 ) {
+	 	if ( jQuery( '#form-builder-container > section' ).length === 0 ) {
 	 		jQuery( '.edit-form-description-form-builder' ).hide();
 	 	}
 
@@ -72,8 +75,9 @@ window.yikes_mailchimp_edit_form = window.yikes_mailchimp_edit_form || {};
 
 			// Display our form instructions (we hide these if there are no fields)
 			jQuery( '.edit-form-description-form-builder' ).show();
+			const clicked_button = $( this );
 
-			$( '.field-to-add-to-form' ).each( function() {
+			$( '#available-fields .add-to-form' ).each( function() {
 				/* get the length, to decide if we should clear the html and append, or just append */
 				var form_builder_length = $( '#form-builder-container' ).find( '.draggable' ).length;
 
@@ -81,17 +85,16 @@ window.yikes_mailchimp_edit_form = window.yikes_mailchimp_edit_form || {};
 				var merge_tag = field.attr( 'alt' );
 
 				/* temporarily disable all of the possible merge variables and interest groups (to prevent some weird stuff happening) */
-				$( '#available-fields' ).children( 'li' ).removeClass( 'available-form-field' );
-				var clicked_button = $( this );
+				$( '#available-fields li' ).removeClass( 'available-field' );
 				clicked_button.attr( 'disabled' , 'disabled' ).attr( 'onclick' , 'return false;' ).removeClass( 'add-field-to-editor' );
 
 				/* build our data */
 				var data = {
-					'action' : 'add_field_to_form',
+					'action'     : 'add_field_to_form',
 					'field_name' : field.attr( 'data-attr-field-name' ),
-					'merge_tag' : merge_tag,
+					'merge_tag'  : merge_tag,
 					'field_type' : field.attr( 'data-attr-field-type' ),
-					'list_id' : field.attr( 'data-attr-form-id' ) /* grab the form ID to query the API for field data */
+					'list_id'    : get_list_id()
 				};
 
 				/* submit our ajax request */
@@ -101,8 +104,7 @@ window.yikes_mailchimp_edit_form = window.yikes_mailchimp_edit_form || {};
 					data: data,
 					dataType: 'html',
 					success : function( response, textStatus, jqXHR) {
-						field.removeClass( 'field-to-add-to-form' ).addClass( 'not-available' );
-						$( '.add-field-to-editor' ).hide();
+						field.removeClass( 'add-to-form' ).addClass( 'not-available' );
 
 						/* If the banner is visible, this means that there is no fields assigned to the form - clear it */
 						if ( $( '.no-fields-assigned-notice' ).is( ':visible') ) {
@@ -123,10 +125,10 @@ window.yikes_mailchimp_edit_form = window.yikes_mailchimp_edit_form || {};
 					complete : function( jqXHR, textStatus ) {
 						/* console.log( 'field successfully added to the form' ); */
 						/* temporarily disable all of the possible merge variables and interest groups (to prevent some weird stuff happening) */
-						$( '#available-fields' ).children( 'li' ).addClass( 'available-form-field' );
-						clicked_button.removeAttr( 'disabled' ).removeAttr( 'onclick' );
-						/* re-hide the add field to form builder button */
-						$( '.add-field-to-editor' ).hide();
+						$( '#available-fields li' ).addClass( 'available-field' );
+						clicked_button.fadeOut( 'fast', function() {
+							clicked_button.removeAttr( 'disabled' ).removeAttr( 'onclick' ).addClass( 'add-field-to-editor' ).fadeOut();
+						});
 					}
 				});
 			});
@@ -142,7 +144,7 @@ window.yikes_mailchimp_edit_form = window.yikes_mailchimp_edit_form || {};
 			var form_builder_length = $( '#form-builder-container' ).find( '.draggable' ).length;
 
 			var interest_groups = [];
-			$( '.group-to-add-to-form' ).each( function() {
+			$( '#available-interest-groups .add-to-form' ).each( function() {
 				interest_groups.push({
 					'group_id'  : $( this ).attr( 'alt' ),
 					'field_type': $( this ).attr( 'data-attr-field-type' ),
@@ -151,7 +153,7 @@ window.yikes_mailchimp_edit_form = window.yikes_mailchimp_edit_form || {};
 			});
 
 			/* temporarily disable all of the possible merge variables and interest groups (to prevent some weird stuff happening) */
-			$( '#available-interest-groups' ).children( 'li' ).removeClass( 'available-interest-group' );
+			$( '#available-interest-groups li' ).removeClass( 'available-field' );
 
 			var button = $( this );
 			button.attr( 'disabled' , 'disabled' ).attr( 'onclick' , 'return false;' ).removeClass( 'add-interest-group-to-editor' );
@@ -160,7 +162,7 @@ window.yikes_mailchimp_edit_form = window.yikes_mailchimp_edit_form || {};
 			var data = {
 				'action' : 'add_interest_group_to_form',
 				'interest_groups': interest_groups,
-				'list_id' : $( '.group-to-add-to-form' ).attr( 'data-attr-form-id' ) /* grab the form ID to query the API for field data */
+				'list_id' : get_list_id()
 			};
 
 			/* submit our ajax request */
@@ -170,9 +172,8 @@ window.yikes_mailchimp_edit_form = window.yikes_mailchimp_edit_form || {};
 				data: data,
 				dataType: 'html',
 				success : function( response, textStatus, jqXHR) {
-					$( '.group-to-add-to-form' ).removeClass( 'group-to-add-to-form' ).addClass( 'not-available' );
-					$( '.add-interest-group-to-editor' ).hide();
-					if( form_builder_length < 1 ) {
+					$( '#available-interest-groups .add-to-form' ).removeClass( 'add-to-form' ).addClass( 'not-available' );
+					if ( form_builder_length < 1 ) {
 						$( '#form-builder-container' ).html( '' ).append( response );
 						$( '.clear-form-fields' ).show();
 						$( '.clear-form-fields' ).next().show(); /* Update Form button next to clear form fields */
@@ -186,15 +187,110 @@ window.yikes_mailchimp_edit_form = window.yikes_mailchimp_edit_form || {};
 				complete : function( jqXHR, textStatus ) {
 					/* console.log( 'interest group successfully added to the form..' ); */
 					/* temporarily disable all of the possible merge variables and interest groups (to prevent some weird stuff happening) */
-					$( '#available-interest-groups' ).children( 'li' ).addClass( 'available-interest-group' );
-					button.removeAttr( 'disabled' ).removeAttr( 'onclick' ).addClass( 'add-interest-group-to-editor' );
-					/* re-hide the add field to form builder button */
-					$( '.add-interest-group-to-editor' ).hide();
+					$( '#available-interest-groups' ).children( 'li' ).addClass( 'available-field' );
+					button.fadeOut( 'fast', function() {
+						button.removeAttr( 'disabled' ).removeAttr( 'onclick' ).addClass( 'add-interest-group-to-editor' );
+					});
 				}
 			});
 			return false;
 		}); /* end add field to form builder */
 
+		$( 'body' ).on( 'click' , '.add-tag-to-editor' , function() {
+			const elem  = $( this );
+			const tags  = [];
+			const items = $( '#available-tags li' );
+			$( '#available-tags .add-to-form' ).each( function() {
+				const tag = $( this );
+				tags.push({
+					'tag_name': tag.data( 'tag-name' ),
+					'tag_id'  : tag.data( 'tag-id' ),
+				});
+			});
+
+			// Disable ability to add tags to the form while AJAX is running.
+			items.removeClass( 'available-field' );
+			elem.attr( 'disabled' , 'disabled' ).removeClass( 'add-tag-to-editor' );
+
+			const data = {
+				'action' : 'add_tag_to_form',
+				'tags'   : tags,
+				'list_id': get_list_id(),
+				'form_id': get_form_id(),
+				'nonce'  : app.l10n.add_tag_nonce
+			};
+
+			// Ajax.
+			$.ajax({
+				url : app.l10n.ajax_url,
+				type: 'POST',
+				data: data,
+				success: function( response, textStatus, jqXHR ) {
+					$( '#available-tags .add-to-form' ).removeClass( 'add-to-form' ).addClass( 'not-available' );
+					add_tags_to_form( response.data.tags );
+				},
+				error: function( jqXHR, textStatus, errorThrown ) {
+					console.log( textStatus );
+					console.log( jqXHR.status );
+					console.log( jqXHR.responseText );
+				},
+				complete: function( jqXHR, textStatus ) {
+
+					// Enable ability to add the tags to the form.
+					items.addClass( 'available-field' );
+					elem.removeAttr( 'disabled' ).addClass( 'add-tag-to-editor' ).hide();
+				}
+			});
+
+			return false;
+		});
+
+		// Remove tag.
+		$( 'body' ).on( 'click' , '.mailchimp-tag .dashicons.dashicons-no-alt', function() {
+			// Prevent any other tag from being removed during the process.
+			$( '.mailchimp-tag' ).css( { 'pointer-events': 'none', 'opacity': '.5' } );
+
+			const icon   = $( this );
+			const elem   = icon.parents( '.mailchimp-tag' );
+			const tag_id = elem.data( 'tag-id' );
+			const data   = {
+				'action' : 'remove_tag_from_form',
+				'tag'    : tag_id,
+				'list_id': get_list_id(),
+				'form_id': get_form_id(),
+				'nonce'  : app.l10n.remove_tag_nonce
+			};
+
+			icon.removeClass( 'dashicons-no-alt' ).addClass( 'dashicons-trash' ).fadeOut( 550 ).fadeIn( 550 );
+			const interval = setInterval( function () {
+				icon.fadeOut( 550 ).fadeIn( 550 );
+			}, 700 );
+
+			// Ajax.
+			$.ajax({
+				url : app.l10n.ajax_url,
+				type: 'POST',
+				data: data,
+				success: function( response, textStatus, jqXHR ) {
+					$( `#tag-${ tag_id }` ).removeClass( 'not-available' ).removeAttr( 'disabled' );
+					elem.fadeOut( 'slow', function(){ 
+						elem.remove();
+						tags_container_check(); 
+						$( '.mailchimp-tag' ).css( { 'pointer-events': 'auto', 'opacity': '1.0' } );
+					});
+				},
+				error: function( jqXHR, textStatus, errorThrown ) {
+					console.log( textStatus );
+					console.log( jqXHR.status );
+					console.log( jqXHR.responseText );
+				},
+				complete: function( jqXHR, textStatus ) {
+					clearInterval( interval );
+				}
+			});
+
+			return false;
+		});
 
 		/* initialize color pickers */
 		$('.color-picker').each(function() {
@@ -209,39 +305,21 @@ window.yikes_mailchimp_edit_form = window.yikes_mailchimp_edit_form || {};
 		});
 
 		/* Toggle Selected Class (Available Merge Vars) */
-		$( 'body' ).on( 'click' , '.available-form-field' , function() {
-			if( $( this ).hasClass( 'not-available' ) ) {
+		$( 'body' ).on( 'click' , '#container-container .available-field' , function() {
+			const element = $( this );
+			if ( element.hasClass( 'not-available' ) ) {
 				return false;
 			} else {
-				if( $( this ).hasClass( 'field-to-add-to-form' ) ) {
-					$( this ).removeClass( 'field-to-add-to-form' );
-					$( '.add-field-to-editor' ).stop().fadeOut();
-				} else {
-					/* Remove the class that decides what icons will be added to our form */
-					/* $( '.field-to-add-to-form' ).removeClass( 'field-to-add-to-form' ); */
-					$( this ).toggleClass( 'field-to-add-to-form' );
-					$( '.add-field-to-editor' ).stop().fadeIn();
-				}
-			}
-		});
-
-		/* Toggle Selected Class (Available Merge Vars) */
-		$( 'body' ).on( 'click' , '.available-interest-group' , function() {
-			if( $( this ).hasClass( 'not-available' ) ) {
-				return false;
-			} else {
-				if( $( this ).hasClass( 'group-to-add-to-form' ) ) {
-					$( this ).removeClass( 'group-to-add-to-form' );
-				} else {
-					$( this ).toggleClass( 'group-to-add-to-form' );
-				}
+				element.toggleClass( 'add-to-form' );
 			}
 
-			// Check if we have groups to add still
-			if ( $( '.group-to-add-to-form' ).length > 0 ) {
-				$( '.add-interest-group-to-editor' ).stop().fadeIn();
-			} else {
-				$( '.add-interest-group-to-editor' ).stop().fadeOut();
+			const ul            = element.parents( 'ul' );
+			const add_to_editor = ul.siblings( '.add-to-editor' );
+
+			if ( ul.children( '.add-to-form' ).length === 0 ) {
+				add_to_editor.stop().fadeOut();
+			}  else {
+				add_to_editor.stop().fadeIn();
 			}
 		});
 
@@ -262,42 +340,41 @@ window.yikes_mailchimp_edit_form = window.yikes_mailchimp_edit_form || {};
 			return false;
 		});
 
-		/* Toggle between 'Merge Varialbe' & 'Interest Group' Tabs */
+		/* Toggle between tabs */
 		$( 'body' ).on( 'click' , '.mv_ig_list .nav-tab' , function() {
-			if( $( this ).hasClass( 'nav-tab-active' ) ) {
+			const element      = $( this );
+			const prev_element = $( '.nav-tab-active' );
+			if ( element.hasClass( 'nav-tab-active' ) || element.hasClass( 'nav-tab-disabled' ) ) {
 				return false;
 			}
-			if( $( this ).hasClass( 'nav-tab-disabled' ) ) {
-				return false;
-			}
-			$( '.mv_ig_list .nav-tab' ).removeClass( 'nav-tab-active' );
+			const clicked_tab_position      = parseInt( element.index() );
+			prev_element.removeClass( 'nav-tab-active' );
 			$( '.arrow-down' ).remove();
-			$( this ).addClass( 'nav-tab-active' ).prepend( '<div class="arrow-down"></div>' );
-			$( '.mv_ig_list .nav-tab' ).addClass( 'nav-tab-disabled' );
-			var clicked_tab = $( this ).attr( 'alt' );
-			if( clicked_tab == 'merge-variables' ) {
-				$( '#merge-variables-container' ).stop().animate({
-					left: '0px'
-				}, function() {
-					$( '.mv_ig_list .nav-tab' ).removeClass( 'nav-tab-disabled' );
+			element.addClass( 'nav-tab-active' ).prepend( '<div class="arrow-down"></div>' );
+
+			const containers              = $( '#container-container .list-container' );
+			const num_containers          = containers.length;
+			const selected_container      = $( '#container-container .list-container:eq(' + clicked_tab_position + ')' );
+			const non_selected_containers = $( '#container-container .list-container' ).not( selected_container );
+			const width                   = -283;
+			var left = width * clicked_tab_position;
+
+			$.each( containers, function( index, ele ) {
+
+				let position = parseInt( $( ele ).index() );
+
+				if ( position !== clicked_tab_position ) {
+					if ( position > clicked_tab_position ) {
+						left = 0;
+					} else {
+						left = ( position + 1 ) * width;
+					}
+				}
+
+				$( ele ).stop().animate({
+					left:  left + 'px'
 				});
-				$( '#interest-groups-container' ).stop().animate({
-					left: '+=278px'
-				}, function() {
-					$( '.mv_ig_list .nav-tab' ).removeClass( 'nav-tab-disabled' );
-				});
-			} else {
-				$( '#merge-variables-container' ).stop().animate({
-					left: '-=278px'
-				}, function() {
-					$( '.mv_ig_list .nav-tab' ).removeClass( 'nav-tab-disabled' );
-				});
-				$( '#interest-groups-container' ).stop().animate({
-					left: '-=278px'
-				}, function() {
-					$( '.mv_ig_list .nav-tab' ).removeClass( 'nav-tab-disabled' );
-				});
-			}
+			});
 			return false;
 		});
 
@@ -353,15 +430,6 @@ window.yikes_mailchimp_edit_form = window.yikes_mailchimp_edit_form || {};
 		$( '.yikes-mc-edit-field-label-input' ).click( function( event ) { yikes_mc_prevent_default_stop_prop( event ) } );
 
 		/**
-		* Show the pencil for editing field labels when a user hovers over the expansion section
-		* and hide it when a user's mouse leaves the expansion section
-		*/
-		// $( '.expansion-section-title' ).hover( 
-		// 	function() { $( this ).children( '.yikes-mc-edit-field-label-icon.dashicons-edit' ).show(); },
-		// 	function() { $( this ).children( '.yikes-mc-edit-field-label-icon.dashicons-edit' ).hide(); } 
-		// );
-
-		/**
 		* Save field label edit changes
 		*/
 		$( '.yikes-mc-save-field-label-edits-icon' ).click( function( event ) {
@@ -376,7 +444,7 @@ window.yikes_mailchimp_edit_form = window.yikes_mailchimp_edit_form || {};
 			var clicked_element = this;
 
 			// Get the current list ID
-			var list_id = jQuery( '#form-builder-div' ).data( 'list-id' );
+			var list_id = get_list_id();
 
 			// Capture the field data
 			var field_name	= jQuery( this ).siblings( '.yikes-mc-edit-field-label-input' ).val();
@@ -421,7 +489,46 @@ window.yikes_mailchimp_edit_form = window.yikes_mailchimp_edit_form || {};
 
 	});
 
+	function get_list_id() {
+		return $( '#form-builder-div' ).data( 'list-id' );
+	}
 
+	function get_form_id() {
+		return $( '#form-builder-div' ).data( 'form-id' );
+	}
+
+	function add_tags_to_form_onload() {
+		const data = {};
+		$( '#available-tags .not-available' ).each( function( index, element ) {
+			const tag_el = $( element );
+			const tag_id = tag_el.data( 'tag-id' );
+			const name   = tag_el.data( 'tag-name' );
+			data[tag_id] = { id: tag_id, name: name };
+		});
+		add_tags_to_form( data );
+	}
+
+	function add_tags_to_form( tags ) {
+		const tags_container = $( '.tags-title-container' );
+		$.each( tags, function( tag_id, tag ) {
+			const tag_html = create_tag( tag );
+			tags_container.append( tag_html );
+		});
+		tags_container_check();
+	}
+
+	function create_tag( tag ) {
+		return `<span class="mailchimp-tag" id="${ tag.id }" data-tag-name="${ tag.name }" data-tag-id="${ tag.id }">${ tag.name }<span class="tag-divider"></span><span class="dashicons dashicons-no-alt"></span></span>`;
+	}
+
+	function tags_container_check() {
+		const tags_container = $( '.tags-title' );
+		if ( $( '.mailchimp-tag' ).length === 0 ) {
+			tags_container.slideUp();
+		} else {
+			tags_container.slideDown();
+		}
+	}
 
 
 })( window, document, jQuery, Yikes_MailChimp_Edit_Form );

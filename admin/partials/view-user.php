@@ -125,62 +125,64 @@ $list_name     = $additional_lists[ $list_id ];
 			</a>
 			&nbsp;&#187;&nbsp;
 			<span title="<?php echo $user_email; ?>">
-					<?php echo $user_email; ?>
-				</span>
+				<?php echo esc_html( $user_email ); ?>
+			</span>
 		</section>
 
 		<!-- Customer Container -->
 		<div id="yikes-mc-subscriber-card-wrapper">
 			<section class="yikes-mc-card-top">
 				<?php echo $gravatar_image; ?>
-				<h2><?php echo $user_email; ?></h2>
-				<?php echo '<span class="member-star-rating-container" title="' . sprintf( _n( 'Member Rating: %s star', 'Member Rating: %s stars', $member_rating, 'yikes-inc-easy-mailchimp-extender' ), $member_rating ) . '">' . $member_rating_stars . '</span>'; ?>
+				<h2><?php echo esc_html( $user_email ); ?></h2>
+				<?php /* translators: the placeholder is a number between 1-5 */ ?>
+				<span class="member-star-rating-container" title="<?php echo esc_html( sprintf( _n( 'Member Rating: %s star', 'Member Rating: %s stars', esc_attr( $member_rating ), 'yikes-inc-easy-mailchimp-extender' ), esc_attr( $member_rating ) ) ); ?>">
+					<?php echo $member_rating_stars; ?>
+				</span>
 				<span class="member-subscription-date">
-						<?php echo __( 'Subscribed:', 'yikes-inc-easy-mailchimp-extender' ) . ' ' . gmdate( 'F jS, Y h:i a', $last_changed ); ?>
-					</span>
-				<?php if ( isset( $user_data['location'] ) && ! empty( $user_data['location'] ) ) { ?>
-					<?php if ( isset( $user_data['location']['latitude'] ) && isset( $user_data['location']['longitude'] ) ) { ?>
-						<span class="member-location-data">
-								<?php echo __( 'Location:', 'yikes-inc-easy-mailchimp-extender' ) . ' ' . yikes_mc_geocode_subscriber_data( $user_data['location']['latitude'], $user_data['location']['longitude'] ); ?>
-							</span>
-					<?php } else { ?>
-						<span class="member-location-data">
-							<?php echo __( 'Location:', 'yikes-inc-easy-mailchimp-extender' ) . ' ' . $user_data['location']['timezone'] . ', ' . $user_data['location']['country_code']; ?>
-						</span>
 						<?php
-					}
-				}
-				?>
+							/* translators: the placeholder is a datetime string. */
+							echo sprintf( esc_html__( 'Subscribed: %1$1s', 'yikes-inc-easy-mailchimp-extender' ), esc_html( gmdate( 'F jS, Y h:i a', $last_changed ) ) );
+						?>
+					</span>
+				<?php if ( isset( $user_data['location'] ) && isset( $user_data['location']['timezone'] ) && ! empty( $user_data['location']['timezone'] ) && isset( $user_data['location']['country_code'] ) && ! empty( $user_data['location']['country_code'] ) ) { ?>
+					<span class="member-location-data">
+						<?php
+							/* translators: the placeholders are a timezone and a country code */
+							echo sprintf( esc_html__( 'Location: %1$1s, %2$2s', 'yikes-inc-easy-mailchimp-extender' ), esc_html( $user_data['location']['timezone'] ), esc_html( $user_data['location']['country_code'] ) );
+						?>
+					</span>
+				<?php } ?>
 			</section>
 
 			<hr class="yikes-mc-subscriber-hr" />
 
 			<?php
-			if ( ! isset( $_GET['section'] ) || ( isset( $_GET['section'] ) && $_GET['section'] == 'subscriber-data' ) ) {
-			?>
+			if ( ! isset( $_GET['section'] ) || ( isset( $_GET['section'] ) && filter_var( wp_unslash( $_GET['section'] ), FILTER_SANITIZE_STRING ) === 'subscriber-data' ) ) {
+				?>
 			<section class="yikes-mc-card-body merge-variable-section">
-				<h3><?php _e( 'Fields:', 'yikes-inc-easy-mailchimp-extender' ); ?></h3>
+				<h3><?php esc_html_e( 'Fields:', 'yikes-inc-easy-mailchimp-extender' ); ?></h3>
 				<?php
 				if ( ! empty( $merge_variable_fields ) ) {
 					?>
 					<?php foreach ( $merge_variable_fields as $field_name => $value ) { ?>
 						<li>
 							<label>
-								<strong class="section-label"><?php echo $field_name; ?></strong>
-								<p class="section-value"><em><?php echo $value; ?></em></p>
+								<strong class="section-label"><?php echo esc_html( $field_name ); ?></strong>
+								<p class="section-value"><em><?php echo esc_html( $value ); ?></em></p>
 							</label>
 						</li>
 					<?php }
 				} else {
 					?>
-					<strong><?php _e( 'No Subscriber Data Found', 'yikes-inc-easy-mailchimp-extender' ); ?></strong>
+					<strong><?php esc_html_e( 'No Subscriber Data Found', 'yikes-inc-easy-mailchimp-extender' ); ?></strong>
 					<?php
 				}
-				if ( isset( $user_data['ip_signup'] ) && $user_data['ip_signup'] != '' ) {
+				if ( isset( $user_data['ip_signup'] ) && ! empty( $user_data['ip_signup'] ) ) {
 					?>
 					<li>
 						<label>
-							<strong class="section-label"><?php echo __( 'Signup IP', 'yikes-inc-easy-mailchimp-extender' ) . '</strong><p class="section-value"><em>' . $user_data['ip_signup']; ?></strong></p>
+							<strong class="section-label"><?php esc_html_e( 'Signup IP', 'yikes-inc-easy-mailchimp-extender' ); ?></strong>
+							<p class="section-value"><em><?php esc_html_e( $user_data['ip_signup'] ); ?></em></p>
 						</label>
 					</li>
 					<?php
@@ -312,23 +314,3 @@ $list_name     = $additional_lists[ $list_id ];
 		</div>
 
 	</div>
-<?php
-
-
-
-function yikes_mc_geocode_subscriber_data( $latitude, $longitude ) {
-	$geocode_url      = 'https://maps.googleapis.com/maps/api/geocode/json?latlng=' . $latitude . ',' . $longitude;
-	$geocode_response = wp_remote_get( $geocode_url );
-	if ( is_wp_error( $geocode_response ) ) {
-		return;
-	}
-	$geocode_response_body = json_decode( wp_remote_retrieve_body( $geocode_response ), true );
-	if ( is_wp_error( $geocode_response_body ) ) {
-		return;
-	}
-	$city    = $geocode_response_body['results'][0]['address_components'][2]['short_name'];
-	$state   = $geocode_response_body['results'][0]['address_components'][5]['short_name'];
-	$country = $geocode_response_body['results'][0]['address_components'][6]['short_name'];
-
-	return $link = '<a href="http://maps.google.com/maps?q=' . $latitude . ',' . $longitude . '" target="_blank" title="' . __( 'View Google Map', 'yikes-inc-easy-mailchimp-extender' ) . '">' . $city . ', ' . $state . ', ' . $country . '</a>&nbsp;<span class="flag-icon flag-icon-' . strtolower( $country ) . '"></span>';
-}

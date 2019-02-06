@@ -51,7 +51,7 @@ class YIKES_Easy_Form_Block extends YIKES_Easy_Forms_Blocks {
 		) );
 		wp_enqueue_script( 'yikes-easy-forms-blocks' );
 
-		wp_enqueue_script( 'yikes-google-recaptcha', 'https://www.google.com/recaptcha/api.js', array( 'jquery' ), YIKES_MC_VERSION, true );
+		wp_enqueue_script( 'yikes-google-recaptcha', 'https://www.google.com/recaptcha/api.js', array( 'jquery' ), null, true );
 
 		if ( ! defined( 'YIKES_MAILCHIMP_EXCLUDE_STYLES' ) ) {
 			wp_enqueue_style( 'yikes-inc-easy-mailchimp-public-styles', YIKES_MC_URL . 'public/css/yikes-inc-easy-mailchimp-extender-public.min.css', array(), YIKES_MC_VERSION );
@@ -78,7 +78,7 @@ class YIKES_Easy_Form_Block extends YIKES_Easy_Forms_Blocks {
 			'description'                => isset( $attributes['show_description'] ) && true === $attributes['show_description'] ? '1' : '0',
 			'custom_description'         => isset( $attributes['form_description'] ) ? $attributes['form_description'] : '',
 			'ajax'                       => isset( $attributes['is_ajax'] ) && true === $attributes['is_ajax'] ? '1' : '0',
-			'recaptcha'                  => isset( $attributes['recaptcha'] ) && false === $attributes['recaptcha'] ? '0' : '',
+			'recaptcha'                  => ! isset( $attributes['recaptcha'] ) || isset( $attributes['recaptcha'] ) && false === $attributes['recaptcha'] ? '0' : '',
 			'recaptcha_lang'             => isset( $attributes['recaptcha_lang'] ) ? $attributes['recaptcha_lang'] : '',
 			'recaptcha_type'             => isset( $attributes['recaptcha_type'] ) ? $attributes['recaptcha_type'] : '',
 			'recaptcha_theme'            => isset( $attributes['recaptcha_theme'] ) ? $attributes['recaptcha_theme'] : '',
@@ -89,6 +89,23 @@ class YIKES_Easy_Form_Block extends YIKES_Easy_Forms_Blocks {
 		);
 
 		// We want to run process_mailchimp_shortcode() but we need to return the plaintext shortcode or Gutenberg will autop() the shortcode content.
-		return '[yikes-mailchimp form="' . $shortcode_attributes['form'] . '" submit="' . $shortcode_attributes['submit'] . '" title="' . $shortcode_attributes['title'] . '" custom_title="' . $shortcode_attributes['custom_title'] . '" description="' . $shortcode_attributes['description'] . '" custom_description="' . $shortcode_attributes['custom_description'] . '" ajax="' . $shortcode_attributes['ajax'] . '" recaptcha="' . $shortcode_attributes['recaptcha'] . '"  recaptcha_lang="' . $shortcode_attributes['recaptcha_lang'] . '" recaptcha_type="' . $shortcode_attributes['recaptcha_type'] . '" recaptcha_theme="' . $shortcode_attributes['recaptcha_theme'] . '" recaptcha_size="' . $shortcode_attributes['recaptcha_size'] . '" recaptcha_data_callback="' . $shortcode_attributes['recaptcha_data_callback'] . '" recaptcha_expired_callback="' . $shortcode_attributes['recaptcha_expired_callback'] . '" inline="' . $shortcode_attributes['inline'] . '"]';
+		return sprintf(
+			'[yikes-mailchimp form="%s" submit="%s" title="%s" custom_title="%s" description="%s" custom_description="%s" ajax="%s" recaptcha="%s"  recaptcha_lang="%s" recaptcha_type="%s" recaptcha_theme="%s" recaptcha_size="%s" recaptcha_data_callback="%s" recaptcha_expired_callback="%s" inline="%s"]',
+			$shortcode_attributes['form'],
+			$shortcode_attributes['submit'],
+			$shortcode_attributes['title'],
+			$shortcode_attributes['custom_title'],
+			$shortcode_attributes['description'],
+			$shortcode_attributes['custom_description'],
+			$shortcode_attributes['ajax'],
+			$shortcode_attributes['recaptcha'],
+			$shortcode_attributes['recaptcha_lang'],
+			$shortcode_attributes['recaptcha_type'],
+			$shortcode_attributes['recaptcha_theme'],
+			$shortcode_attributes['recaptcha_size'],
+			$shortcode_attributes['recaptcha_data_callback'],
+			$shortcode_attributes['recaptcha_expired_callback'],
+			$shortcode_attributes['inline']
+		);
 	}
 }
