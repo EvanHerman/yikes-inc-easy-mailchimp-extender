@@ -5,10 +5,10 @@
  * Setup the variables for this add-on
  * @since 6.1
  */
-$addon_image = YIKES_MC_URL . 'includes/add_ons/images/reverse-zip-lookup.png';
-$add_on_title = esc_attr__( 'US Reverse Zip Lookup for Easy Forms for MailChimp', 'yikes-inc-easy-mailchimp-extender' );
-$permalink = esc_url( 'https://yikesplugins.com/plugin/us-zip-lookup-extension-for-easy-mailchimp/' );
-$description = esc_attr__( 'Reverse lookup the city and state of the user based on zip code. Integrates the Google Geocode API.', 'yikes-inc-easy-mailchimp-extender' );
+$addon_image  = YIKES_MC_URL . 'includes/add_ons/images/reverse-zip-lookup.png';
+$add_on_title = esc_attr__( 'US Reverse Zip Lookup for Easy Forms for Mailchimp', 'yikes-inc-easy-mailchimp-extender' );
+$permalink    = esc_url( 'https://yikesplugins.com/plugin/us-zip-lookup-extension-for-easy-mailchimp/' );
+$description  = esc_attr__( 'Reverse lookup the city and state of the user based on zip code. Integrates the Google Geocode API.', 'yikes-inc-easy-mailchimp-extender' );
 ?>
 
 <div class="type-download">

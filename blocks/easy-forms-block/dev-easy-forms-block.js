@@ -136,7 +136,7 @@ const save_easy_form = function( props ) {
 }
 
 const settings = {
-  title     : __( 'Easy Forms for MailChimp' ),
+  title     : __( 'Easy Forms for Mailchimp' ),
   category  : 'common', // Options include "common", "formatting", "layout", "widgets" and "embed."
   icon      : 'email-alt',
   keywords  : ['mailchimp', 'easy forms for mailchimp', 'yikes'],

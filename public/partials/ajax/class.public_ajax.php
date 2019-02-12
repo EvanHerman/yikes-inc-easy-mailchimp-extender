@@ -140,7 +140,7 @@ class YIKES_Inc_Easy_MailChimp_Public_Ajax {
 		$headers         .= 'Content-type: text/html';
 
 		if ( ! isset( $email_subject ) ) {
-			$email_subject = __( 'MailChimp Profile Update', 'yikes-inc-easy-mailchimp-extender' );
+			$email_subject = __( 'Mailchimp Profile Update', 'yikes-inc-easy-mailchimp-extender' );
 		}
 
 		// Check if the email_body was set.

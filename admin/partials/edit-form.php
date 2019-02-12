@@ -124,13 +124,13 @@ $url = add_query_arg(
 );
 ?>
 <!-- Freddie Logo -->
-<img src="<?php echo esc_url( YIKES_MC_URL . 'includes/images/MailChimp_Assets/Freddie_60px.png' ); ?>" alt="<?php esc_attr_e( 'Freddie - MailChimp Mascot', 'yikes-inc-easy-mailchimp-extender' ); ?>" class="yikes-mc-freddie-logo" />
+<img src="<?php echo esc_url( YIKES_MC_URL . 'includes/images/MailChimp_Assets/Freddie_60px.png' ); ?>" alt="<?php esc_attr_e( 'Freddie - Mailchimp Mascot', 'yikes-inc-easy-mailchimp-extender' ); ?>" class="yikes-mc-freddie-logo" />
 
 <?php /* translators: the placeholder is the form's name */ ?>
-<h1>YIKES Easy Forms for MailChimp | <?php echo sprintf( esc_html__( 'Edit %1s', 'yikes-inc-easy-mailchimp-extender' ), esc_html( $form['form_name'] ) ); ?></h1>
+<h1>YIKES Easy Forms for Mailchimp | <?php echo sprintf( esc_html__( 'Edit %1s', 'yikes-inc-easy-mailchimp-extender' ), esc_html( $form['form_name'] ) ); ?></h1>
 
 <!-- Settings Page Description -->
-<p class="yikes-easy-mc-about-text about-text"><?php esc_html_e( 'Update this MailChimp form\'s fields, styles and settings below.', 'yikes-inc-easy-mailchimp-extender' ); ?></p>
+<p class="yikes-easy-mc-about-text about-text"><?php esc_html_e( 'Update this Mailchimp form\'s fields, styles and settings below.', 'yikes-inc-easy-mailchimp-extender' ); ?></p>
 
 <?php
 if ( isset( $_REQUEST['updated-form'] ) && filter_var( $_REQUEST['updated-form'], FILTER_SANITIZE_STRING ) === 'true' ) {
@@ -560,8 +560,8 @@ do_action( 'yikes-mailchimp-edit-form-notice' );
 																'success-resubscribed' => __( 'Thank you for already being a subscriber! Your profile info has been updated.', 'yikes-inc-easy-mailchimp-extender' ),
 																'general-error' => __( "Whoops! It looks like something went wrong. Please try again.", 'yikes-inc-easy-mailchimp-extender' ),
 																'email-exists-error' => __( "The email you entered is already a subscriber to this list.", 'yikes-inc-easy-mailchimp-extender' ),
-																'update-link' => __( "You're already subscribed. To update your MailChimp profile, please [link]click to send yourself an update link[/link].", 'yikes-inc-easy-mailchimp-extender' ),
-																'email-subject' => __( 'MailChimp Profile Update', 'yikes-inc-easy-mailchimp-extender' ),
+																'update-link' => __( "You're already subscribed. To update your Mailchimp profile, please [link]click to send yourself an update link[/link].", 'yikes-inc-easy-mailchimp-extender' ),
+																'email-subject' => __( 'Mailchimp Profile Update', 'yikes-inc-easy-mailchimp-extender' ),
 																'update-email-success' => sprintf( __( '%s Update email successfully sent. Please check your inbox for the message.', 'yikes-inc-easy-mailchimp-extender' ), '&#10004;' ),
 																'update-email-failure' => sprintf( __( '%s Email failed to send. Please contact the site administrator.', 'yikes-inc-easy-mailchimp-extender' ), '&#10005;' ),
 
@@ -831,15 +831,15 @@ do_action( 'yikes-mailchimp-edit-form-notice' );
 											</p>
 										<?php } else { ?>
 											<p class="description">
-												<?php _e( "It looks like you first need to create a list to assign this form to. Head over to", 'yikes-inc-easy-mailchimp-extender' ); ?> <a href="http://www.MailChimp.com" title="<?php _e( 'Create a new list', 'yikes-inc-easy-mailchimp-extender' ); ?>">MailChimp</a> <?php _e( 'to create your first list', 'yikes-inc-easy-mailchimp-extender' ); ?>.
+												<?php _e( "It looks like you first need to create a list to assign this form to. Head over to", 'yikes-inc-easy-mailchimp-extender' ); ?> <a href="http://www.Mailchimp.com" title="<?php _e( 'Create a new list', 'yikes-inc-easy-mailchimp-extender' ); ?>">Mailchimp</a> <?php _e( 'to create your first list', 'yikes-inc-easy-mailchimp-extender' ); ?>.
 											</p>
 										<?php } ?>
 
 										<!-- Display our Clear API Cache button -->
 										<?php if ( false === get_transient( 'yikes-easy-mailchimp-list-data' ) && false === get_transient( 'yikes-easy-mailchimp-profile-data' ) && false === get_transient( 'yikes-easy-mailchimp-account-data' ) && false === get_transient( 'yikesinc_eme_list_ids' ) && false === get_transient( 'yikes_eme_lists' ) ) { ?>
-											<p><a href="#" class="button-secondary" disabled="disabled" title="<?php _e( 'No MailChimp data found in temporary cache storage.', 'yikes-inc-easy-mailchimp-extender' ); ?>"><?php _e( 'Clear MailChimp API Cache', 'yikes-inc-easy-mailchimp-extender' ); ?></a></p>
+											<p><a href="#" class="button-secondary" disabled="disabled" title="<?php _e( 'No Mailchimp data found in temporary cache storage.', 'yikes-inc-easy-mailchimp-extender' ); ?>"><?php _e( 'Clear Mailchimp API Cache', 'yikes-inc-easy-mailchimp-extender' ); ?></a></p>
 										<?php } else { ?>
-											<p><a href="<?php echo esc_url_raw( add_query_arg( array( 'action' => 'yikes-easy-mc-clear-transient-data', 'nonce' => wp_create_nonce( 'clear-mc-transient-data' ) ) ) ); ?>" class="button-primary"><?php _e( 'Clear MailChimp API Cache', 'yikes-inc-easy-mailchimp-extender' ); ?></a></p>
+											<p><a href="<?php echo esc_url_raw( add_query_arg( array( 'action' => 'yikes-easy-mc-clear-transient-data', 'nonce' => wp_create_nonce( 'clear-mc-transient-data' ) ) ) ); ?>" class="button-primary"><?php _e( 'Clear Mailchimp API Cache', 'yikes-inc-easy-mailchimp-extender' ); ?></a></p>
 										<?php } ?>
 									</label>
 								</p>

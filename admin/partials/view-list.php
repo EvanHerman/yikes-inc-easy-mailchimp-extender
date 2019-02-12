@@ -90,9 +90,9 @@ $subscribers_list = array_slice( $members, $page_offset, $limit );
 ?>
 <div class="wrap">
 	<!-- Freddie Logo -->
-	<img src="<?php echo YIKES_MC_URL . 'includes/images/MailChimp_Assets/Freddie_60px.png'; ?>" alt="<?php __( 'Freddie - MailChimp Mascot' , 'yikes-inc-easy-mailchimp-extender' ); ?>" class="yikes-mc-freddie-logo" />
+	<img src="<?php echo YIKES_MC_URL . 'includes/images/MailChimp_Assets/Freddie_60px.png'; ?>" alt="<?php __( 'Freddie - Mailchimp Mascot' , 'yikes-inc-easy-mailchimp-extender' ); ?>" class="yikes-mc-freddie-logo" />
 
-	<h1>YIKES Easy Forms for MailChimp | <?php echo $list_data['name']; ?></h1>
+	<h1>YIKES Easy Forms for Mailchimp | <?php echo $list_data['name']; ?></h1>
 
 	<!-- Settings Page Description -->
 	<p class="yikes-easy-mc-about-text about-text"><?php _e( 'View all subscribers below. View additional subscriber info, or add additional fields to this list.' , 'yikes-inc-easy-mailchimp-extender' ); ?></p>
@@ -374,7 +374,7 @@ $subscribers_list = array_slice( $members, $page_offset, $limit );
 							<!--
 								<a class="edit-segments-button" href="#" onclick="return false;" class="button-primary"><?php _e( 'Edit Segments' , 'yikes-inc-easy-mailchimp-extender' ); ?></a>
 							-->
-							<p class="description edit-segment-description"><?php _e( 'To edit this lists segments, head over to' , 'yikes-inc-easy-mailchimp-extender' ); ?> <a href="http://www.MailChimp.com" target="_blank">MailChimp</a></p>
+							<p class="description edit-segment-description"><?php _e( 'To edit this lists segments, head over to' , 'yikes-inc-easy-mailchimp-extender' ); ?> <a href="http://www.Mailchimp.com" target="_blank">Mailchimp</a></p>
 
 						</div>
 

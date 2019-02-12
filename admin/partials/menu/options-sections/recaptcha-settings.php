@@ -16,7 +16,7 @@
 
 <div class="inside">
 	<p>
-		<?php _e( 'reCAPTCHA is a free CAPTCHA service, from Google, that helps protect your site against spam, malicious registrations and other forms of attacks where computers try to disguise themselves as a human. reCAPTCHA will help prevent spammers and bots from submitting data through your MailChimp forms.', 'yikes-inc-easy-mailchimp-extender' ); ?>
+		<?php _e( 'reCAPTCHA is a free CAPTCHA service, from Google, that helps protect your site against spam, malicious registrations and other forms of attacks where computers try to disguise themselves as a human. reCAPTCHA will help prevent spammers and bots from submitting data through your Mailchimp forms.', 'yikes-inc-easy-mailchimp-extender' ); ?>
 	</p>
 
 	<p>

@@ -525,7 +525,7 @@ var MailChimpForms = function (_Component) {
         wp.element.createElement(
           'option',
           { key: 'select', value: '' },
-          'Select MailChimp Form...'
+          'Select Mailchimp Form...'
         ),
         this.state.forms.map(function (form) {
           return wp.element.createElement(
@@ -1160,7 +1160,6 @@ Object.defineProperty(exports, "__esModule", {
 	value: true
 });
 var constants = {
-
 	states: {
 		'': '—',
 		'AL': 'Alabama',
@@ -1228,7 +1227,6 @@ var constants = {
 		'NU': 'Nunavut',
 		'YT': 'Yukon'
 	},
-
 	countries: {
 		'US': 'United States',
 		'GB': 'United Kingdom',
@@ -1475,7 +1473,6 @@ var constants = {
 		'ZM': 'Zambia',
 		'ZW': 'Zimbabwe'
 	},
-
 	locales: {
 		"ar": "Arabic",
 		"af": "Afrikaans",
@@ -1548,7 +1545,6 @@ var constants = {
 		"vi": "Vietnamese",
 		"zu": "Zulu"
 	},
-
 	settings_url: 'wp-admin/admin.php?page=yikes-inc-easy-mailchimp-settings'
 };
 
@@ -1779,7 +1775,7 @@ var save_easy_form = function save_easy_form(props) {
 };
 
 var settings = {
-  title: __('Easy Forms for MailChimp'),
+  title: __('Easy Forms for Mailchimp'),
   category: 'common', // Options include "common", "formatting", "layout", "widgets" and "embed."
   icon: 'email-alt',
   keywords: ['mailchimp', 'easy forms for mailchimp', 'yikes'],

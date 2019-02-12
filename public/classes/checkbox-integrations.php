@@ -129,7 +129,7 @@ class Yikes_Easy_MC_Checkbox_Integration_Class {
 			$content .= '</p>';
 			$content  = apply_filters( 'yikes_mailchimp_checkbox_integration_checkbox_html', $content, $this->type, $checkbox_options );
 			$after    = apply_filters( 'yikes-mailchimp-after-checkbox-html', '' );
-			$after   .= '<!-- Easy Forms for MailChimp -->';
+			$after   .= '<!-- Easy Forms for Mailchimp -->';
 			$checkbox = $before . $content . $after;
 			return apply_filters( 'yikes_mailchimp_checkbox_integration_html', $checkbox, $this->type, $checkbox_options );
 		}

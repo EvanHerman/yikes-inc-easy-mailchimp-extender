@@ -1,6 +1,6 @@
 {
 	"name": "yikesinc/yikes-inc-easy-mailchimp-extender",
-    "description": "Powerful MailChimp plugin for WordPress created by Yikes Inc.",
+    "description": "Powerful Mailchimp plugin for WordPress created by Yikes Inc.",
     "keywords": ["mailchimp", "plugin", "WordPress", "mailing", "list"],
     "homepage": "http://packagist.org/",
     "type": "wordpress-plugin",

@@ -214,7 +214,7 @@ class Yikes_Inc_Easy_MailChimp_API {
 	protected function get_user_agent() {
 		global $wp_version;
 
-		$user_agent = 'WordPress/' . $wp_version . '; Yikes Easy MailChimp Extender; ' . get_bloginfo( 'url' );
+		$user_agent = 'WordPress/' . $wp_version . '; Yikes Easy Mailchimp Extender; ' . get_bloginfo( 'url' );
 		/**
 		 * Filter the User Agent used in API requests.
 		 *

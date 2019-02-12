@@ -211,7 +211,7 @@ window.Yikes_Mailchimp_Ajax = window.Yikes_Mailchimp_Ajax || {};
 					console.log( textStatus );
 				},
 				complete : function( jqXHR, textStatus ) {
-					/* console.log( 'Yikes Easy MailChimp AJAX submission complete.' ); */
+					/* console.log( 'Yikes Easy Mailchimp AJAX submission complete.' ); */
 					/* enable the button to prevent double click */
 					submitted_form.find( '.yikes-easy-mc-submit-button' ).removeAttr( 'disabled' , 'disabled' );
 				}

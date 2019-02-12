@@ -6,7 +6,7 @@
 
 	/* Get and Store Option Values */
 	if( get_option( 'yikes-mc-api-validation' , 'invalid_api_key' ) === 'valid_api_key' ) {
-		$api_connection = '<span id="connection-container" class="api-connected" title="' . __( "Your site is currently connected to the MailChimp API" , "yikes-inc-easy-mailchimp-extender" ) . '"><span class="dashicons dashicons-yes yikes-mc-api-connected"></span> ' . __( "Connected" , 'yikes-inc-easy-mailchimp-extender' ) . '</span>';
+		$api_connection = '<span id="connection-container" class="api-connected" title="' . __( "Your site is currently connected to the Mailchimp API" , "yikes-inc-easy-mailchimp-extender" ) . '"><span class="dashicons dashicons-yes yikes-mc-api-connected"></span> ' . __( "Connected" , 'yikes-inc-easy-mailchimp-extender' ) . '</span>';
 		$api_error_response = '';
 	} else {
 		$api_connection = '<span id="connection-container" class="api-not-connected"><span class="dashicons dashicons-no-alt yikes-mc-api-not-connected"></span>  ' . __( "Not Connected" , 'yikes-inc-easy-mailchimp-extender' ) . '</span>';
@@ -31,12 +31,12 @@
 	<div class="wrap">
 
 		<!-- Freddie Logo -->
-		<img src="<?php echo YIKES_MC_URL . 'includes/images/MailChimp_Assets/Freddie_60px.png'; ?>" alt="<?php _e( 'Freddie - MailChimp Mascot' , 'yikes-inc-easy-mailchimp-extender' ); ?>" class="yikes-mc-freddie-logo" />
+		<img src="<?php echo YIKES_MC_URL . 'includes/images/MailChimp_Assets/Freddie_60px.png'; ?>" alt="<?php _e( 'Freddie - Mailchimp Mascot' , 'yikes-inc-easy-mailchimp-extender' ); ?>" class="yikes-mc-freddie-logo" />
 
-		<h1>Easy Forms for MailChimp | <?php if ( isset( $_REQUEST['section'] ) ) { echo ucwords( str_replace( '-', ' ', $_REQUEST['section'] ) ); } else { echo __( 'General Settings' , 'yikes-inc-easy-mailchimp-extender' ); } ?></h1>
+		<h1>Easy Forms for Mailchimp | <?php if ( isset( $_REQUEST['section'] ) ) { echo ucwords( str_replace( '-', ' ', $_REQUEST['section'] ) ); } else { echo __( 'General Settings' , 'yikes-inc-easy-mailchimp-extender' ); } ?></h1>
 
 		<!-- Settings Page Description -->
-		<p class="yikes-easy-mc-about-text about-text"><?php _e( 'Manage the overall settings for Easy forms for MailChimp.' , 'yikes-inc-easy-mailchimp-extender' ); ?></p>
+		<p class="yikes-easy-mc-about-text about-text"><?php _e( 'Manage the overall settings for Easy forms for Mailchimp.' , 'yikes-inc-easy-mailchimp-extender' ); ?></p>
 		<?php
 			/* Success Messages on Options Updated */
 			if( isset( $_REQUEST['settings-updated'] ) && $_REQUEST['settings-updated'] == 'true' ) {
@@ -50,7 +50,7 @@
 			if( isset( $_REQUEST['transient-cleared'] ) && $_REQUEST['transient-cleared'] == 'true' ) {
 				?>
 				<div class="updated manage-form-admin-notice">
-					<p><?php _e( 'MailChimp API Cache successfully cleared.', 'yikes-inc-easy-mailchimp-extender' ); ?></p>
+					<p><?php _e( 'Mailchimp API Cache successfully cleared.', 'yikes-inc-easy-mailchimp-extender' ); ?></p>
 				</div>
 				<?php
 			}
@@ -97,7 +97,7 @@
 				} elseif( isset( $_GET['section'] ) && $_GET['section'] == 'import-export-forms' && isset( $_GET['import-settings'] ) && $_GET['import-settings'] == 'true' ) {
 					?>
 					<div class="updated">
-						<p><?php printf( __( 'YIKES Easy Forms for MailChimp settings successfully imported.', 'yikes-inc-easy-mailchimp-extender' ), esc_url_raw( admin_url( 'admin.php?page=yikes-inc-easy-mailchimp' ) ) ); ?></p>
+						<p><?php printf( __( 'YIKES Easy Forms for Mailchimp settings successfully imported.', 'yikes-inc-easy-mailchimp-extender' ), esc_url_raw( admin_url( 'admin.php?page=yikes-inc-easy-mailchimp' ) ) ); ?></p>
 					</div>
 					<?php
 				}

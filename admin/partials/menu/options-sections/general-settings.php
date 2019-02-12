@@ -21,14 +21,14 @@ $yikes_mc_api_constant = defined( 'YIKES_MC_API_KEY' );
 		<!-- MailChimp API Input Field -->
 		<label for="yks-mailchimp-api-key">
 
-			<p><?php _e( 'Enter your API key in the field below to connect your site to your MailChimp account.' , 'yikes-inc-easy-mailchimp-extender' ); ?></p>
+			<p><?php _e( 'Enter your API key in the field below to connect your site to your Mailchimp account.' , 'yikes-inc-easy-mailchimp-extender' ); ?></p>
 
-			<p><strong><?php _e( 'MailChimp API Key' , 'yikes-inc-easy-mailchimp-extender' ); ?></strong></p>
+			<p><strong><?php _e( 'Mailchimp API Key' , 'yikes-inc-easy-mailchimp-extender' ); ?></strong></p>
 
-			<input autocomplete="off" <?php if ( $yikes_mc_api_constant ) { echo 'readonly="readonly"'; } if( strlen( yikes_get_mc_api_key() ) > 0 ) { ?> type="password" <?php } else { ?> type="text" <?php } ?> value="<?php echo yikes_get_mc_api_key(); ?>" placeholder="<?php _e( 'MailChimp API Key' , 'yikes-inc-easy-mailchimp-extender' ); ?>" name="yikes-mc-api-key" id="yikes-mc-api-key" class="settings-page-input" />
+			<input autocomplete="off" <?php if ( $yikes_mc_api_constant ) { echo 'readonly="readonly"'; } if( strlen( yikes_get_mc_api_key() ) > 0 ) { ?> type="password" <?php } else { ?> type="text" <?php } ?> value="<?php echo yikes_get_mc_api_key(); ?>" placeholder="<?php _e( 'Mailchimp API Key' , 'yikes-inc-easy-mailchimp-extender' ); ?>" name="yikes-mc-api-key" id="yikes-mc-api-key" class="settings-page-input" />
 
 			<?php if ( $yikes_mc_api_constant ) { ?>
-				<p class="description"><?php printf( __( "Your MailChimp API key has been defined using the %s constant, in a PHP file.", "yikes-inc-easy-mailchimp-extender" ), '<code>YIKES_MC_API_KEY</code>' ); ?></p>
+				<p class="description"><?php printf( __( "Your Mailchimp API key has been defined using the %s constant, in a PHP file.", "yikes-inc-easy-mailchimp-extender" ), '<code>YIKES_MC_API_KEY</code>' ); ?></p>
 			<?php } ?>
 
 			<?php echo $api_error_response; ?>

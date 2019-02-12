@@ -6,9 +6,9 @@
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: yikes-inc-easy-mailchimp-extender 6.5.0\n"
+"Project-Id-Version: yikes-inc-easy-mailchimp-extender 6.5.1\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-02-05 14:10-0500\n"
+"POT-Creation-Date: 2019-02-12 13:08-0500\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -29,8 +29,8 @@ msgstr ""
 
 #: admin/class-yikes-inc-easy-mailchimp-extender-admin.php:299
 msgid ""
-"Disclaimer: <strong>Easy Forms for MailChimp</strong> is in no way endorsed, "
-"affiliated or backed by MailChimp, or its parent company Rocket Science "
+"Disclaimer: <strong>Easy Forms for Mailchimp</strong> is in no way endorsed, "
+"affiliated or backed by Mailchimp, or its parent company Rocket Science "
 "Group."
 msgstr ""
 
@@ -95,26 +95,26 @@ msgstr ""
 
 #: admin/class-yikes-inc-easy-mailchimp-extender-admin.php:632
 msgid ""
-"Easy Forms for MailChimp requires a minimum of PHP 5.3. The plugin will not "
+"Easy Forms for Mailchimp requires a minimum of PHP 5.3. The plugin will not "
 "function properly until you update. Please reach out to your host provider "
 "for assistance."
 msgstr ""
 
 #: admin/class-yikes-inc-easy-mailchimp-extender-admin.php:689
 #: includes/third-party-integrations/visual-composer/visual-composer.php:121
-msgid "Please Import Some MailChimp Lists"
+msgid "Please Import Some Mailchimp Lists"
 msgstr ""
 
 #: admin/class-yikes-inc-easy-mailchimp-extender-admin.php:697
 #: admin/class-yikes-inc-easy-mailchimp-extender-admin.php:698
 #: includes/third-party-integrations/visual-composer/visual-composer.php:36
 #: includes/third-party-integrations/visual-composer/visual-composer.php:102
-msgid "Easy Forms for MailChimp"
+msgid "Easy Forms for Mailchimp"
 msgstr ""
 
 #: admin/class-yikes-inc-easy-mailchimp-extender-admin.php:699
 #: includes/third-party-integrations/visual-composer/visual-composer.php:55
-msgid "MailChimp Opt-In Form"
+msgid "Mailchimp Opt-In Form"
 msgstr ""
 
 #: admin/class-yikes-inc-easy-mailchimp-extender-admin.php:700
@@ -226,12 +226,12 @@ msgid "Edit Form"
 msgstr ""
 
 #: admin/class-yikes-inc-easy-mailchimp-extender-admin.php:982
-msgid "Us Easy Forms for MailChimp Upgrade Options Structure"
+msgid "Us Easy Forms for Mailchimp Upgrade Options Structure"
 msgstr ""
 
 #: admin/class-yikes-inc-easy-mailchimp-extender-admin.php:992
 #: admin/class-yikes-inc-easy-mailchimp-extender-admin.php:993
-#: admin/partials/edit-form.php:824 admin/partials/view-user.php:119
+#: admin/partials/edit-form.php:827 admin/partials/view-user.php:119
 msgid "View List"
 msgstr ""
 
@@ -247,7 +247,7 @@ msgstr ""
 #: admin/class-yikes-inc-easy-mailchimp-extender-admin.php:1108
 #: admin/partials/menu/options-sections/general-settings.php:26
 #: admin/partials/menu/options-sections/general-settings.php:28
-msgid "MailChimp API Key"
+msgid "Mailchimp API Key"
 msgstr ""
 
 #: admin/class-yikes-inc-easy-mailchimp-extender-admin.php:1129
@@ -276,7 +276,7 @@ msgid "Your API key appears to be invalid."
 msgstr ""
 
 #: admin/class-yikes-inc-easy-mailchimp-extender-admin.php:1223
-msgid "Connecting to MailChimp"
+msgid "Connecting to Mailchimp"
 msgstr ""
 
 #: admin/class-yikes-inc-easy-mailchimp-extender-admin.php:1223
@@ -371,7 +371,7 @@ msgstr ""
 
 #: admin/class-yikes-inc-easy-mailchimp-extender-admin.php:1498
 msgid ""
-"Give your form a name, select a MailChimp list to assign users to, then "
+"Give your form a name, select a Mailchimp list to assign users to, then "
 "click 'Create'."
 msgstr ""
 
@@ -390,7 +390,7 @@ msgid "Form Description"
 msgstr ""
 
 #: admin/class-yikes-inc-easy-mailchimp-extender-admin.php:1511
-#: admin/partials/edit-form.php:806
+#: admin/partials/edit-form.php:809
 msgid "Associated List"
 msgstr ""
 
@@ -403,13 +403,13 @@ msgid "No lists were found on the account."
 msgstr ""
 
 #: admin/class-yikes-inc-easy-mailchimp-extender-admin.php:1540
-msgid "MailChimp list data has been succesfully refreshed."
+msgid "Mailchimp list data has been succesfully refreshed."
 msgstr ""
 
 #: admin/class-yikes-inc-easy-mailchimp-extender-admin.php:1550
 #, php-format
 msgid ""
-"Head over to <a href=\"http://www.MailChimp.com\" title=\"%s\">MailChimp</a> "
+"Head over to <a href=\"http://www.Mailchimp.com\" title=\"%s\">Mailchimp</a> "
 "to create a new list."
 msgstr ""
 
@@ -422,7 +422,7 @@ msgid "Create"
 msgstr ""
 
 #: admin/class-yikes-inc-easy-mailchimp-extender-admin.php:1561
-msgid "Please enter a valid MailChimp API key to get started."
+msgid "Please enter a valid Mailchimp API key to get started."
 msgstr ""
 
 #: admin/class-yikes-inc-easy-mailchimp-extender-admin.php:1563
@@ -483,7 +483,7 @@ msgid "About YIKES"
 msgstr ""
 
 #: admin/class-yikes-inc-easy-mailchimp-extender-admin.php:1721
-msgid "Easy Forms for MailChimp Add-Ons"
+msgid "Easy Forms for Mailchimp Add-Ons"
 msgstr ""
 
 #: admin/class-yikes-inc-easy-mailchimp-extender-admin.php:1723
@@ -718,8 +718,8 @@ msgstr ""
 #: admin/partials/ajax/add_field_to_form.php:349
 #, php-format
 msgid ""
-"To change the %s please head over to <a href=\"%s\" title=\"MailChimp\" "
-"target=\"_blank\">MailChimp</a>. If you alter the format, you should re-"
+"To change the %s please head over to <a href=\"%s\" title=\"Mailchimp\" "
+"target=\"_blank\">Mailchimp</a>. If you alter the format, you should re-"
 "import this field."
 msgstr ""
 
@@ -819,7 +819,7 @@ msgstr ""
 
 #: admin/class-yikes-inc-easy-mailchimp-extender-admin.php:2431
 msgid ""
-"You can use any of the following tags to populate a MailChimp text field "
+"You can use any of the following tags to populate a Mailchimp text field "
 "with dynamic content. This can be used to determine which page the user "
 "signed up on, if the user was logged in and more."
 msgstr ""
@@ -859,7 +859,7 @@ msgstr ""
 
 #: admin/class-yikes-inc-easy-mailchimp-extender-admin.php:2834
 msgid ""
-"A request has been made to update your MailChimp account profile information."
+"A request has been made to update your Mailchimp account profile information."
 msgstr ""
 
 #: admin/class-yikes-inc-easy-mailchimp-extender-admin.php:2835
@@ -867,7 +867,7 @@ msgid " To do so please use the following link: "
 msgstr ""
 
 #: admin/class-yikes-inc-easy-mailchimp-extender-admin.php:2837
-msgid "Update MailChimp Profile Info"
+msgid "Update Mailchimp Profile Info"
 msgstr ""
 
 #: admin/class-yikes-inc-easy-mailchimp-extender-admin.php:2841
@@ -940,7 +940,7 @@ msgid "Get Account Lists"
 msgstr ""
 
 #: admin/partials/ajax/class.ajax.php:61
-msgid "MailChimp Widget"
+msgid "Mailchimp Widget"
 msgstr ""
 
 #: admin/partials/ajax/class.ajax.php:201
@@ -960,7 +960,7 @@ msgid "Preloader"
 msgstr ""
 
 #: admin/partials/dashboard-widgets/class.list-activity-widget.php:58
-msgid "MailChimp List Stats"
+msgid "Mailchimp List Stats"
 msgstr ""
 
 #: admin/partials/dashboard-widgets/class.list-activity-widget.php:75
@@ -979,7 +979,7 @@ msgstr ""
 
 #: admin/partials/dashboard-widgets/class.list-activity-widget.php:103
 msgid ""
-"Whoops, you don't have any lists set up. Head over to MailChimp to set up "
+"Whoops, you don't have any lists set up. Head over to Mailchimp to set up "
 "lists."
 msgstr ""
 
@@ -1068,8 +1068,8 @@ msgstr ""
 msgid "debug settings page"
 msgstr ""
 
-#: admin/partials/edit-form.php:54 admin/partials/edit-form.php:375
-#: admin/partials/edit-form.php:376
+#: admin/partials/edit-form.php:54 admin/partials/edit-form.php:378
+#: admin/partials/edit-form.php:379
 #: admin/partials/front-end-widgets/front-end-widget-form.php:45
 #: admin/partials/front-end-widgets/front-end-widget-form.php:110
 #: includes/class-yikes-inc-easy-mailchimp-extender-forms-abstract.php:43
@@ -1087,7 +1087,7 @@ msgid ""
 msgstr ""
 
 #: admin/partials/edit-form.php:61 admin/partials/edit-form.php:63
-#: admin/partials/edit-form.php:417 admin/partials/edit-form.php:433
+#: admin/partials/edit-form.php:420 admin/partials/edit-form.php:436
 #: includes/class-yikes-inc-easy-mailchimp-extender-forms-abstract.php:49
 #: includes/class-yikes-inc-easy-mailchimp-extender-forms-abstract.php:50
 msgid "at"
@@ -1114,7 +1114,7 @@ msgstr ""
 #: admin/partials/menu/manage-lists.php:30 admin/partials/menu/options.php:34
 #: admin/partials/menu/support.php:12 admin/partials/view-list.php:93
 #: admin/partials/view-user.php:111
-msgid "Freddie - MailChimp Mascot"
+msgid "Freddie - Mailchimp Mascot"
 msgstr ""
 
 #: admin/partials/edit-form.php:130
@@ -1123,7 +1123,7 @@ msgid "Edit %1s"
 msgstr ""
 
 #: admin/partials/edit-form.php:133
-msgid "Update this MailChimp form's fields, styles and settings below."
+msgid "Update this Mailchimp form's fields, styles and settings below."
 msgstr ""
 
 #: admin/partials/edit-form.php:139
@@ -1155,7 +1155,7 @@ msgstr ""
 msgid "Form Builder"
 msgstr ""
 
-#: admin/partials/edit-form.php:185 admin/partials/edit-form.php:779
+#: admin/partials/edit-form.php:185 admin/partials/edit-form.php:782
 msgid "Form Settings"
 msgstr ""
 
@@ -1163,289 +1163,289 @@ msgstr ""
 msgid "Customize Form Messages"
 msgstr ""
 
-#: admin/partials/edit-form.php:188 admin/partials/edit-form.php:549
+#: admin/partials/edit-form.php:188 admin/partials/edit-form.php:552
 msgid "Custom Messages"
 msgstr ""
 
-#: admin/partials/edit-form.php:213
+#: admin/partials/edit-form.php:216
 msgid ""
 "Click a field to show its advanced options or drag fields to re-arrange "
 "them. Click <span class=\"dashicons dashicons-edit\"></span> to edit a field "
 "label. Make sure you hit \"Update Form\" to save all of your changes."
 msgstr ""
 
-#: admin/partials/edit-form.php:220
+#: admin/partials/edit-form.php:223
 msgid "Clear Form Fields"
 msgstr ""
 
-#: admin/partials/edit-form.php:227 admin/partials/edit-form.php:991
+#: admin/partials/edit-form.php:230 admin/partials/edit-form.php:994
 msgid "Update Form"
 msgstr ""
 
-#: admin/partials/edit-form.php:240
+#: admin/partials/edit-form.php:243
 msgid "Form Fields, Interest Groups, & Tags"
 msgstr ""
 
-#: admin/partials/edit-form.php:244
+#: admin/partials/edit-form.php:247
 msgid "Merge Variables"
 msgstr ""
 
-#: admin/partials/edit-form.php:245 admin/partials/view-list.php:293
+#: admin/partials/edit-form.php:248 admin/partials/view-list.php:293
 msgid "Form Fields"
 msgstr ""
 
-#: admin/partials/edit-form.php:248 admin/partials/edit-form.php:250
+#: admin/partials/edit-form.php:251 admin/partials/edit-form.php:253
 msgid "Interest Groups"
 msgstr ""
 
-#: admin/partials/edit-form.php:250
+#: admin/partials/edit-form.php:253
 msgid "No Interest Groups Exist"
 msgstr ""
 
-#: admin/partials/edit-form.php:252 admin/partials/edit-form.php:706
+#: admin/partials/edit-form.php:255 admin/partials/edit-form.php:709
 msgid "Tags"
 msgstr ""
 
-#: admin/partials/edit-form.php:260
+#: admin/partials/edit-form.php:263
 msgid "Select the fields below to add to the form builder."
 msgstr ""
 
-#: admin/partials/edit-form.php:271
+#: admin/partials/edit-form.php:274
 msgid "Select an interest group below to add to the form builder."
 msgstr ""
 
-#: admin/partials/edit-form.php:282
+#: admin/partials/edit-form.php:285
 msgid ""
 "Select a tag to add to the form builder. Selected tags will be added to all "
 "subscribers of this form."
 msgstr ""
 
-#: admin/partials/edit-form.php:318
+#: admin/partials/edit-form.php:321
 msgid "Additional Form Settings"
 msgstr ""
 
-#: admin/partials/edit-form.php:322
+#: admin/partials/edit-form.php:325
 msgid "Adjust some additional form settings below."
 msgstr ""
 
-#: admin/partials/edit-form.php:325
+#: admin/partials/edit-form.php:328
 msgid "Overall Form Classes"
 msgstr ""
 
-#: admin/partials/edit-form.php:329
+#: admin/partials/edit-form.php:332
 msgid "Form Classes"
 msgstr ""
 
-#: admin/partials/edit-form.php:330
+#: admin/partials/edit-form.php:333
 msgid "Add additional classes to this opt-in form."
 msgstr ""
 
-#: admin/partials/edit-form.php:331
+#: admin/partials/edit-form.php:334
 #, php-format
 msgid "Add additional class names to the %s element."
 msgstr ""
 
-#: admin/partials/edit-form.php:338 admin/partials/edit-form.php:519
+#: admin/partials/edit-form.php:341 admin/partials/edit-form.php:522
 msgid "Form Layout"
 msgstr ""
 
-#: admin/partials/edit-form.php:343
+#: admin/partials/edit-form.php:346
 msgid "Inline Form"
 msgstr ""
 
-#: admin/partials/edit-form.php:345
+#: admin/partials/edit-form.php:348
 msgid "Enable"
 msgstr ""
 
-#: admin/partials/edit-form.php:348
+#: admin/partials/edit-form.php:351
 msgid "Disable"
 msgstr ""
 
-#: admin/partials/edit-form.php:350
+#: admin/partials/edit-form.php:353
 msgid ""
 "Programatically setup this form so that all fields are on the same line."
 msgstr ""
 
-#: admin/partials/edit-form.php:351
+#: admin/partials/edit-form.php:354
 #, php-format
 msgid ""
 "If you are having issues with your theme not displaying the inline form "
 "properly, please see the following %s."
 msgstr ""
 
-#: admin/partials/edit-form.php:351
+#: admin/partials/edit-form.php:354
 msgid "knowledge base article"
 msgstr ""
 
-#: admin/partials/edit-form.php:357 admin/partials/edit-form.php:520
+#: admin/partials/edit-form.php:360 admin/partials/edit-form.php:523
 msgid "Submit Button"
 msgstr ""
 
-#: admin/partials/edit-form.php:361
+#: admin/partials/edit-form.php:364
 msgid "Submit Button Type"
 msgstr ""
 
-#: admin/partials/edit-form.php:363
+#: admin/partials/edit-form.php:366
 msgid "Text"
 msgstr ""
 
-#: admin/partials/edit-form.php:366
+#: admin/partials/edit-form.php:369
 msgid "Image"
 msgstr ""
 
-#: admin/partials/edit-form.php:368
+#: admin/partials/edit-form.php:371
 msgid "Select the submit button type for this form."
 msgstr ""
 
-#: admin/partials/edit-form.php:374
+#: admin/partials/edit-form.php:377
 #: includes/third-party-integrations/visual-composer/visual-composer.php:87
 msgid "Submit Button Text"
 msgstr ""
 
-#: admin/partials/edit-form.php:376
+#: admin/partials/edit-form.php:379
 #, php-format
 msgid "Set the submit button text. Leaving this blank will default to %s."
 msgstr ""
 
-#: admin/partials/edit-form.php:378
+#: admin/partials/edit-form.php:381
 msgid ""
 "The submit button text set above, can be overwritten on a per-form basis "
 "using shortcodes."
 msgstr ""
 
-#: admin/partials/edit-form.php:385
+#: admin/partials/edit-form.php:388
 msgid "Submit Button URL"
 msgstr ""
 
-#: admin/partials/edit-form.php:386
+#: admin/partials/edit-form.php:389
 msgid "http://"
 msgstr ""
 
-#: admin/partials/edit-form.php:387
+#: admin/partials/edit-form.php:390
 msgid ""
 "Enter the URL of an image you would like to use as the submit button for "
 "this form."
 msgstr ""
 
-#: admin/partials/edit-form.php:394
+#: admin/partials/edit-form.php:397
 msgid "Submit Button Classes"
 msgstr ""
 
-#: admin/partials/edit-form.php:395
+#: admin/partials/edit-form.php:398
 msgid "Add additional classes to this submit button."
 msgstr ""
 
-#: admin/partials/edit-form.php:396
+#: admin/partials/edit-form.php:399
 msgid "Add custom classes to the submit button."
 msgstr ""
 
-#: admin/partials/edit-form.php:404 admin/partials/edit-form.php:521
+#: admin/partials/edit-form.php:407 admin/partials/edit-form.php:524
 msgid "Form Restrictions"
 msgstr ""
 
-#: admin/partials/edit-form.php:408
+#: admin/partials/edit-form.php:411
 msgid "Schedule Form"
 msgstr ""
 
-#: admin/partials/edit-form.php:410
+#: admin/partials/edit-form.php:413
 msgid ""
 "Set a time period that this form should be active on your site. (mm/dd/yyyy)"
 msgstr ""
 
-#: admin/partials/edit-form.php:411
+#: admin/partials/edit-form.php:414
 msgid ""
 "Once the end date & time have passed, users will no longer be able to signup "
 "for your mailing list."
 msgstr ""
 
-#: admin/partials/edit-form.php:415
+#: admin/partials/edit-form.php:418
 msgid "Start Date"
 msgstr ""
 
-#: admin/partials/edit-form.php:421
+#: admin/partials/edit-form.php:424
 msgid "Start Time"
 msgstr ""
 
-#: admin/partials/edit-form.php:424
+#: admin/partials/edit-form.php:427
 msgid "Set the dates that this form should display on your site."
 msgstr ""
 
-#: admin/partials/edit-form.php:431
+#: admin/partials/edit-form.php:434
 msgid "End Date"
 msgstr ""
 
-#: admin/partials/edit-form.php:437
+#: admin/partials/edit-form.php:440
 msgid "End Time"
 msgstr ""
 
-#: admin/partials/edit-form.php:440
+#: admin/partials/edit-form.php:443
 msgid "Set the dates that this form should no longer display on your site."
 msgstr ""
 
-#: admin/partials/edit-form.php:443
+#: admin/partials/edit-form.php:446
 msgid "Pending Message"
 msgstr ""
 
-#: admin/partials/edit-form.php:455
+#: admin/partials/edit-form.php:458
 msgid "Set the message that should display prior to the form being active."
 msgstr ""
 
-#: admin/partials/edit-form.php:458
+#: admin/partials/edit-form.php:461
 msgid "Expired Message"
 msgstr ""
 
-#: admin/partials/edit-form.php:470
+#: admin/partials/edit-form.php:473
 msgid ""
 "Set the message that should display once the end date has passed for this "
 "form."
 msgstr ""
 
-#: admin/partials/edit-form.php:476
+#: admin/partials/edit-form.php:479
 msgid "Require Login"
 msgstr ""
 
-#: admin/partials/edit-form.php:478
+#: admin/partials/edit-form.php:481
 msgid ""
 "Require users to be logged in before they can view and submit this opt-in "
 "form."
 msgstr ""
 
-#: admin/partials/edit-form.php:482
+#: admin/partials/edit-form.php:485
 msgid "Required Login Message"
 msgstr ""
 
-#: admin/partials/edit-form.php:494
+#: admin/partials/edit-form.php:497
 msgid ""
 "Set the message that non-logged in users should see when viewing this form."
 msgstr ""
 
-#: admin/partials/edit-form.php:495
+#: admin/partials/edit-form.php:498
 #, php-format
 msgid "To display a login form, use %s"
 msgstr ""
 
-#: admin/partials/edit-form.php:514
+#: admin/partials/edit-form.php:517
 msgid "Form Settings Explained"
 msgstr ""
 
-#: admin/partials/edit-form.php:518
+#: admin/partials/edit-form.php:521
 msgid "Classes"
 msgstr ""
 
-#: admin/partials/edit-form.php:518
+#: admin/partials/edit-form.php:521
 msgid ""
 "Add additional classes to this form, allowing you to target it more easily "
 "for customization via CSS."
 msgstr ""
 
-#: admin/partials/edit-form.php:519
+#: admin/partials/edit-form.php:522
 msgid ""
 "Toggle the layout of this form between single column and an inline layout. "
 "The inline layout places all of your form fields and the submit button on a "
 "single line."
 msgstr ""
 
-#: admin/partials/edit-form.php:520
+#: admin/partials/edit-form.php:523
 msgid ""
 "Adjust setting specific to the submit button. Change the submit button text, "
 "or set it to a specified image. Use the \"Submit Button Classes\" to  assign "
@@ -1453,143 +1453,143 @@ msgid ""
 "theme."
 msgstr ""
 
-#: admin/partials/edit-form.php:521
+#: admin/partials/edit-form.php:524
 msgid ""
 "Adjust the restrictions for this form. Limit form visibility to a given time "
 "period, require users to be logged in to sign up or combine the two!"
 msgstr ""
 
-#: admin/partials/edit-form.php:555
+#: admin/partials/edit-form.php:558
 msgid ""
 "Thank You for subscribing! Check your email for the confirmation message."
 msgstr ""
 
-#: admin/partials/edit-form.php:556
+#: admin/partials/edit-form.php:559
 #: admin/partials/upgrade-helpers/upgrade-migrate-options.php:22
 #: public/classes/process/class.process_form_submission_handler.php:263
 msgid "Thank you for subscribing!"
 msgstr ""
 
-#: admin/partials/edit-form.php:557
+#: admin/partials/edit-form.php:560
 #: admin/partials/upgrade-helpers/upgrade-migrate-options.php:23
 #: public/classes/process/class.process_form_submission_handler.php:265
 msgid ""
 "Thank you for already being a subscriber! Your profile info has been updated."
 msgstr ""
 
-#: admin/partials/edit-form.php:558
+#: admin/partials/edit-form.php:561
 #: admin/partials/upgrade-helpers/upgrade-migrate-options.php:20
 #: public/classes/process/class.process_form_submission_handler.php:253
 msgid "Whoops! It looks like something went wrong. Please try again."
 msgstr ""
 
-#: admin/partials/edit-form.php:559
+#: admin/partials/edit-form.php:562
 #: admin/partials/upgrade-helpers/upgrade-migrate-options.php:21
 #: public/classes/process/class.process_form_submission_handler.php:252
 msgid "The email you entered is already a subscriber to this list."
 msgstr ""
 
-#: admin/partials/edit-form.php:560
+#: admin/partials/edit-form.php:563
 msgid ""
-"You're already subscribed. To update your MailChimp profile, please "
+"You're already subscribed. To update your Mailchimp profile, please "
 "[link]click to send yourself an update link[/link]."
 msgstr ""
 
-#: admin/partials/edit-form.php:561
+#: admin/partials/edit-form.php:564
 #: admin/partials/upgrade-helpers/upgrade-migrate-options.php:25
 #: public/partials/ajax/class.public_ajax.php:143
-msgid "MailChimp Profile Update"
+msgid "Mailchimp Profile Update"
 msgstr ""
 
-#: admin/partials/edit-form.php:562
+#: admin/partials/edit-form.php:565
 #: public/partials/ajax/class.public_ajax.php:155
 #, php-format
 msgid ""
 "%s Update email successfully sent. Please check your inbox for the message."
 msgstr ""
 
-#: admin/partials/edit-form.php:563
+#: admin/partials/edit-form.php:566
 #: public/partials/ajax/class.public_ajax.php:160
 #, php-format
 msgid "%s Email failed to send. Please contact the site administrator."
 msgstr ""
 
-#: admin/partials/edit-form.php:568
+#: admin/partials/edit-form.php:571
 msgid ""
 "Customize the response messages for this form. Leave the field blank to use "
 "the default message. The messages shown below depend on the Opt-in Settings "
 "chosen."
 msgstr ""
 
-#: admin/partials/edit-form.php:571 admin/partials/edit-form.php:642
+#: admin/partials/edit-form.php:574 admin/partials/edit-form.php:645
 msgid "Success: Double opt-in"
 msgstr ""
 
-#: admin/partials/edit-form.php:575
+#: admin/partials/edit-form.php:578
 msgid "Success: Single opt-in"
 msgstr ""
 
-#: admin/partials/edit-form.php:579 admin/partials/edit-form.php:654
+#: admin/partials/edit-form.php:582 admin/partials/edit-form.php:657
 msgid "Success: Re-subscriber"
 msgstr ""
 
-#: admin/partials/edit-form.php:584 admin/partials/edit-form.php:660
+#: admin/partials/edit-form.php:587 admin/partials/edit-form.php:663
 msgid "Success: Re-subscriber with link to email profile update message"
 msgstr ""
 
-#: admin/partials/edit-form.php:589 admin/partials/edit-form.php:679
+#: admin/partials/edit-form.php:592 admin/partials/edit-form.php:682
 msgid "Error: Re-subscribers not permitted"
 msgstr ""
 
-#: admin/partials/edit-form.php:594 admin/partials/edit-form.php:667
+#: admin/partials/edit-form.php:597 admin/partials/edit-form.php:670
 msgid "Success: Update email successfully sent"
 msgstr ""
 
-#: admin/partials/edit-form.php:599 admin/partials/edit-form.php:673
+#: admin/partials/edit-form.php:602 admin/partials/edit-form.php:676
 msgid "Error: Update email failed to send"
 msgstr ""
 
-#: admin/partials/edit-form.php:604 admin/partials/edit-form.php:685
+#: admin/partials/edit-form.php:607 admin/partials/edit-form.php:688
 msgid "Error: General"
 msgstr ""
 
-#: admin/partials/edit-form.php:612
+#: admin/partials/edit-form.php:615
 msgid ""
 "Customize the profile verification email sent to re-subscribers. Leave the "
 "text unedited to use the default message."
 msgstr ""
 
-#: admin/partials/edit-form.php:614 admin/partials/edit-form.php:697
+#: admin/partials/edit-form.php:617 admin/partials/edit-form.php:700
 msgid "Email Subject"
 msgstr ""
 
-#: admin/partials/edit-form.php:618 admin/partials/edit-form.php:699
+#: admin/partials/edit-form.php:621 admin/partials/edit-form.php:702
 msgid "Email Body"
 msgstr ""
 
-#: admin/partials/edit-form.php:638
+#: admin/partials/edit-form.php:641
 msgid "Custom Message Help"
 msgstr ""
 
-#: admin/partials/edit-form.php:644
+#: admin/partials/edit-form.php:647
 msgid "The message displayed after a double opt-in form has been submitted."
 msgstr ""
 
-#: admin/partials/edit-form.php:648
+#: admin/partials/edit-form.php:651
 msgid "Success Message: Single opt-in"
 msgstr ""
 
-#: admin/partials/edit-form.php:650
+#: admin/partials/edit-form.php:653
 msgid "The message displayed after a single opt-in form has been submitted."
 msgstr ""
 
-#: admin/partials/edit-form.php:656
+#: admin/partials/edit-form.php:659
 msgid ""
 "The message displayed after a subscriber submits a form for a list they are "
 "already subscribed to."
 msgstr ""
 
-#: admin/partials/edit-form.php:663
+#: admin/partials/edit-form.php:666
 #, php-format
 msgid ""
 "The message displayed after a subscriber submits a form for a list they are "
@@ -1597,16 +1597,16 @@ msgid ""
 "link]%2$2s tags."
 msgstr ""
 
-#: admin/partials/edit-form.php:669
+#: admin/partials/edit-form.php:672
 msgid ""
 "The message displayed after an update profile email is successfully sent."
 msgstr ""
 
-#: admin/partials/edit-form.php:675
+#: admin/partials/edit-form.php:678
 msgid "The message displayed after an update profile email failed to send."
 msgstr ""
 
-#: admin/partials/edit-form.php:682
+#: admin/partials/edit-form.php:685
 #, php-format
 msgid ""
 "The message displayed after a subscriber tries to join a list they are "
@@ -1614,19 +1614,19 @@ msgid ""
 "an %1$1s[email]%2$2s tag."
 msgstr ""
 
-#: admin/partials/edit-form.php:685
+#: admin/partials/edit-form.php:688
 msgid "The message displayed if a form error has occurred."
 msgstr ""
 
-#: admin/partials/edit-form.php:693
+#: admin/partials/edit-form.php:696
 msgid "Email Message Help"
 msgstr ""
 
-#: admin/partials/edit-form.php:697
+#: admin/partials/edit-form.php:700
 msgid "The subject of the email sent to the user."
 msgstr ""
 
-#: admin/partials/edit-form.php:702
+#: admin/partials/edit-form.php:705
 #, php-format
 msgid ""
 "The text in the profile update verification email sent to the subscriber. "
@@ -1634,111 +1634,111 @@ msgid ""
 "link is required in the email, please don't leave these tags out."
 msgstr ""
 
-#: admin/partials/edit-form.php:707
+#: admin/partials/edit-form.php:710
 msgid "You can also use these tags in your email:"
 msgstr ""
 
-#: admin/partials/edit-form.php:712
+#: admin/partials/edit-form.php:715
 #, php-format
 msgid "%1$1s[url]%2$2s displays your website's URL (i.e. %3$3s)."
 msgstr ""
 
-#: admin/partials/edit-form.php:718
+#: admin/partials/edit-form.php:721
 #, php-format
 msgid "%1$1s[email]%2$2s displays the subscriber's email address."
 msgstr ""
 
-#: admin/partials/edit-form.php:724
+#: admin/partials/edit-form.php:727
 #, php-format
 msgid "%1$1s[subscriber_id]%2$2s displays the subscriber's unique email ID."
 msgstr ""
 
-#: admin/partials/edit-form.php:730
+#: admin/partials/edit-form.php:733
 #, php-format
 msgid "%1$1s[form_name]%2$2s displays your form's name (i.e. %3$3s)."
 msgstr ""
 
-#: admin/partials/edit-form.php:736
+#: admin/partials/edit-form.php:739
 #, php-format
 msgid ""
 "%1$1s[fname]/[lname]%2$2s displays your subscriber's first name/last name."
 msgstr ""
 
-#: admin/partials/edit-form.php:783
+#: admin/partials/edit-form.php:786
 msgid "Edit Another Form"
 msgstr ""
 
-#: admin/partials/edit-form.php:793 admin/partials/menu/manage-forms.php:147
+#: admin/partials/edit-form.php:796 admin/partials/menu/manage-forms.php:147
 msgid "Shortcode"
 msgstr ""
 
-#: admin/partials/edit-form.php:800
+#: admin/partials/edit-form.php:803
 msgid "Associated List Settings"
 msgstr ""
 
-#: admin/partials/edit-form.php:817
+#: admin/partials/edit-form.php:820
 msgid "No Lists Found"
 msgstr ""
 
-#: admin/partials/edit-form.php:827
+#: admin/partials/edit-form.php:830
 msgid ""
 "Users who sign up via this form will be added to the list selected above."
 msgstr ""
 
-#: admin/partials/edit-form.php:831
+#: admin/partials/edit-form.php:834
 msgid ""
 "It looks like you first need to create a list to assign this form to. Head "
 "over to"
 msgstr ""
 
-#: admin/partials/edit-form.php:831
+#: admin/partials/edit-form.php:834
 msgid "Create a new list"
 msgstr ""
 
-#: admin/partials/edit-form.php:831
+#: admin/partials/edit-form.php:834
 msgid "to create your first list"
 msgstr ""
 
-#: admin/partials/edit-form.php:837
+#: admin/partials/edit-form.php:840
 #: admin/partials/menu/options-sections/api-cache-settings.php:15
-msgid "No MailChimp data found in temporary cache storage."
+msgid "No Mailchimp data found in temporary cache storage."
 msgstr ""
 
-#: admin/partials/edit-form.php:837 admin/partials/edit-form.php:839
+#: admin/partials/edit-form.php:840 admin/partials/edit-form.php:842
 #: admin/partials/menu/options-sections/api-cache-settings.php:15
 #: admin/partials/menu/options-sections/api-cache-settings.php:17
-msgid "Clear MailChimp API Cache"
+msgid "Clear Mailchimp API Cache"
 msgstr ""
 
-#: admin/partials/edit-form.php:846
+#: admin/partials/edit-form.php:849
 msgid "Opt-in Settings"
 msgstr ""
 
-#: admin/partials/edit-form.php:856
+#: admin/partials/edit-form.php:859
 msgid "Single or Double Opt-in"
 msgstr ""
 
-#: admin/partials/edit-form.php:858
+#: admin/partials/edit-form.php:861
 msgid "Single"
 msgstr ""
 
-#: admin/partials/edit-form.php:859
+#: admin/partials/edit-form.php:862
 msgid "Double"
 msgstr ""
 
-#: admin/partials/edit-form.php:861
+#: admin/partials/edit-form.php:864
 msgid ""
 "Double opt-in requires users to confirm their email address before being "
 "added to a list (recommended)"
 msgstr ""
 
-#: admin/partials/edit-form.php:870
+#: admin/partials/edit-form.php:873
 msgid "Update Existing Subscriber"
 msgstr ""
 
-#: admin/partials/edit-form.php:872 admin/partials/edit-form.php:888
-#: admin/partials/edit-form.php:908 admin/partials/edit-form.php:923
-#: admin/partials/edit-form.php:940 admin/partials/edit-form.php:957
+#: admin/partials/edit-form.php:875 admin/partials/edit-form.php:891
+#: admin/partials/edit-form.php:911 admin/partials/edit-form.php:926
+#: admin/partials/edit-form.php:943 admin/partials/edit-form.php:960
 #: admin/partials/menu/options-sections/integration-settings.php:188
 #: includes/third-party-integrations/visual-composer/visual-composer.php:68
 #: includes/third-party-integrations/visual-composer/visual-composer.php:79
@@ -1746,116 +1746,116 @@ msgstr ""
 msgid "Yes"
 msgstr ""
 
-#: admin/partials/edit-form.php:873 admin/partials/edit-form.php:889
-#: admin/partials/edit-form.php:909 admin/partials/edit-form.php:924
-#: admin/partials/edit-form.php:944 admin/partials/edit-form.php:958
+#: admin/partials/edit-form.php:876 admin/partials/edit-form.php:892
+#: admin/partials/edit-form.php:912 admin/partials/edit-form.php:927
+#: admin/partials/edit-form.php:947 admin/partials/edit-form.php:961
 #: admin/partials/menu/options-sections/integration-settings.php:189
 #: public/classes/checkbox-integrations/class.contact_form_7-checkbox.php:51
 msgid "No"
 msgstr ""
 
-#: admin/partials/edit-form.php:875
+#: admin/partials/edit-form.php:878
 #, php-format
 msgid ""
 "Update an existing subscriber's profile information instead of displaying a "
 "%s message."
 msgstr ""
 
-#: admin/partials/edit-form.php:875 admin/partials/edit-form.php:891
+#: admin/partials/edit-form.php:878 admin/partials/edit-form.php:894
 msgid "\"user already subscribed\""
 msgstr ""
 
-#: admin/partials/edit-form.php:886
+#: admin/partials/edit-form.php:889
 msgid "Send Update Email"
 msgstr ""
 
-#: admin/partials/edit-form.php:891
+#: admin/partials/edit-form.php:894
 msgid ""
 "Send an email to the user granting their permission to update their profile "
 "information. Otherwise, an existing subscriber filling out this form, will "
 "have their profile information updated without any further interaction."
 msgstr ""
 
-#: admin/partials/edit-form.php:897
+#: admin/partials/edit-form.php:900
 msgid "Submission Settings"
 msgstr ""
 
-#: admin/partials/edit-form.php:906
+#: admin/partials/edit-form.php:909
 msgid "Enable AJAX Submission"
 msgstr ""
 
-#: admin/partials/edit-form.php:911
+#: admin/partials/edit-form.php:914
 msgid ""
 "AJAX form submissions transmit data without requiring the page to refresh."
 msgstr ""
 
-#: admin/partials/edit-form.php:921
+#: admin/partials/edit-form.php:924
 msgid "Redirect On Submission"
 msgstr ""
 
-#: admin/partials/edit-form.php:927
+#: admin/partials/edit-form.php:930
 msgid "When the user signs up would you like to redirect them to another page?"
 msgstr ""
 
-#: admin/partials/edit-form.php:938
+#: admin/partials/edit-form.php:941
 msgid "Open Redirect URL in a New Window"
 msgstr ""
 
-#: admin/partials/edit-form.php:946
+#: admin/partials/edit-form.php:949
 msgid "Should the redirect URL open in a new window/tab?"
 msgstr ""
 
-#: admin/partials/edit-form.php:955
+#: admin/partials/edit-form.php:958
 msgid "Hide Form After Sign Up"
 msgstr ""
 
-#: admin/partials/edit-form.php:960
+#: admin/partials/edit-form.php:963
 msgid "Should the form be hidden after the user successfully signs up?"
 msgstr ""
 
-#: admin/partials/edit-form.php:969
+#: admin/partials/edit-form.php:972
 msgid "Existing Interest Groups"
 msgstr ""
 
-#: admin/partials/edit-form.php:971
+#: admin/partials/edit-form.php:974
 msgid "Replace"
 msgstr ""
 
-#: admin/partials/edit-form.php:972
+#: admin/partials/edit-form.php:975
 msgid "Update"
 msgstr ""
 
-#: admin/partials/edit-form.php:975
+#: admin/partials/edit-form.php:978
 msgid ""
 "<strong>Replace</strong>: Replace all interest groups with the new ones "
 "submitted."
 msgstr ""
 
-#: admin/partials/edit-form.php:978
+#: admin/partials/edit-form.php:981
 msgid ""
 "<strong>Update</strong>: Update <em>only</em> the ones submitted. Leave "
 "existing interest groups as is."
 msgstr ""
 
-#: admin/partials/edit-form.php:993
+#: admin/partials/edit-form.php:996
 msgid "Are you sure you want to delete this form? This cannot be undone."
 msgstr ""
 
-#: admin/partials/edit-form.php:993
+#: admin/partials/edit-form.php:996
 msgid "Delete Form"
 msgstr ""
 
 #: admin/partials/front-end-widgets/front-end-widget-form.php:26
-msgid "Easy MailChimp Forms"
+msgid "Easy Mailchimp Forms"
 msgstr ""
 
 #: admin/partials/front-end-widgets/front-end-widget-form.php:28
-msgid "MailChimp opt-in widget for your sidebar."
+msgid "Mailchimp opt-in widget for your sidebar."
 msgstr ""
 
 #: admin/partials/front-end-widgets/front-end-widget-form.php:42
 #: admin/partials/front-end-widgets/front-end-widget-form.php:96
-msgid "MailChimp Signup Form"
+msgid "Mailchimp Signup Form"
 msgstr ""
 
 #: admin/partials/front-end-widgets/front-end-widget-form.php:86
@@ -1870,7 +1870,7 @@ msgstr ""
 
 #: admin/partials/front-end-widgets/front-end-widget-form.php:115
 msgid ""
-"Please enter a valid MailChimp API key to connect your site to MailChimp."
+"Please enter a valid Mailchimp API key to connect your site to Mailchimp."
 msgstr ""
 
 #: admin/partials/front-end-widgets/front-end-widget-form.php:123
@@ -1925,7 +1925,7 @@ msgstr ""
 
 #: admin/partials/helpers/free-support.php:38
 msgid ""
-"I don't see all of my MailChimp lists in the dropdown when I go to make a "
+"I don't see all of my Mailchimp lists in the dropdown when I go to make a "
 "new form. Why?"
 msgstr ""
 
@@ -2032,7 +2032,7 @@ msgstr ""
 #: admin/partials/menu/add-ons.php:15
 msgid ""
 "Below you'll find all free and paid add-ons available for Easy Forms for "
-"MailChimp. Each add-on extends the functionality of the free plugin."
+"Mailchimp. Each add-on extends the functionality of the free plugin."
 msgstr ""
 
 #: admin/partials/menu/manage-forms.php:28
@@ -2040,13 +2040,13 @@ msgid "Manage Forms"
 msgstr ""
 
 #: admin/partials/menu/manage-forms.php:31
-msgid "Create and manage your MailChimp forms."
+msgid "Create and manage your Mailchimp forms."
 msgstr ""
 
 #: admin/partials/menu/manage-forms.php:38
 #, php-format
 msgid ""
-"You need to connect to MailChimp before you can start creating forms. Head "
+"You need to connect to Mailchimp before you can start creating forms. Head "
 "over to the <a href=\"%s\" title=\"Settings Page\">Settings Page</a> and "
 "enter your API key."
 msgstr ""
@@ -2056,7 +2056,7 @@ msgid "Opt-in form successfully deleted."
 msgstr ""
 
 #: admin/partials/menu/manage-forms.php:54
-msgid "MailChimp Form successfully cloned."
+msgid "Mailchimp Form successfully cloned."
 msgstr ""
 
 #: admin/partials/menu/manage-forms.php:62
@@ -2136,12 +2136,12 @@ msgstr ""
 
 #: admin/partials/menu/manage-forms.php:215
 msgid ""
-"No MailChimp forms found. Use the form to the right to create a new one."
+"No Mailchimp forms found. Use the form to the right to create a new one."
 msgstr ""
 
 #: admin/partials/menu/manage-lists.php:5
 msgid ""
-"It looks like you need to re-validate your MailChimp API key before you can "
+"It looks like you need to re-validate your Mailchimp API key before you can "
 "continue."
 msgstr ""
 
@@ -2150,13 +2150,13 @@ msgid "Manage Mailing Lists"
 msgstr ""
 
 #: admin/partials/menu/manage-lists.php:35
-msgid "Make edits to your MailChimp lists."
+msgid "Make edits to your Mailchimp lists."
 msgstr ""
 
 #: admin/partials/menu/manage-lists.php:42
 #, php-format
 msgid ""
-"You need to connect to MailChimp before you can start creating forms. Head "
+"You need to connect to Mailchimp before you can start creating forms. Head "
 "over to the %s and enter your API key."
 msgstr ""
 
@@ -2181,18 +2181,18 @@ msgstr ""
 #: admin/partials/menu/manage-lists.php:120
 #, php-format
 msgid ""
-"No MailChimp lists found. Head over to <a href=\"%s\" title=\"MailChimp.com"
-"\">MailChimp.com</a> to setup your first mailing list. Once thats done you "
+"No Mailchimp lists found. Head over to <a href=\"%s\" title=\"Mailchimp.com"
+"\">Mailchimp.com</a> to setup your first mailing list. Once thats done you "
 "can head back here to customize it!"
 msgstr ""
 
 #: admin/partials/menu/manage-lists.php:140
 #: admin/partials/menu/manage-lists.php:141
-msgid "MailChimp Site"
+msgid "Mailchimp Site"
 msgstr ""
 
 #: admin/partials/menu/manage-lists.php:153
-msgid "MailChimp avatar"
+msgid "Mailchimp avatar"
 msgstr ""
 
 #: admin/partials/menu/manage-lists.php:159
@@ -2213,13 +2213,13 @@ msgstr ""
 
 #: admin/partials/menu/options-sections/api-cache-settings.php:12
 msgid ""
-"Delete all MailChimp data stored in your sites cache. Most data is stored in "
+"Delete all Mailchimp data stored in your sites cache. Most data is stored in "
 "the cache for 1 hour."
 msgstr ""
 
 #: admin/partials/menu/options-sections/debug-settings.php:19
 msgid ""
-"If you encounter an issue with Easy Forms for MailChimp you can toggle on "
+"If you encounter an issue with Easy Forms for Mailchimp you can toggle on "
 "debugging to display advanced error messages and start logging errors."
 msgstr ""
 
@@ -2241,14 +2241,14 @@ msgstr ""
 
 #: admin/partials/menu/options-sections/general-settings.php:24
 msgid ""
-"Enter your API key in the field below to connect your site to your MailChimp "
+"Enter your API key in the field below to connect your site to your Mailchimp "
 "account."
 msgstr ""
 
 #: admin/partials/menu/options-sections/general-settings.php:31
 #, php-format
 msgid ""
-"Your MailChimp API key has been defined using the %s constant, in a PHP file."
+"Your Mailchimp API key has been defined using the %s constant, in a PHP file."
 msgstr ""
 
 #: admin/partials/menu/options-sections/general-settings.php:37
@@ -2270,7 +2270,7 @@ msgstr ""
 #: admin/partials/menu/options-sections/import-export-forms.php:14
 msgid ""
 "Select the forms you would like to export. When you click the download "
-"button below, Easy Forms for MailChimp will create a CSV file for you to "
+"button below, Easy Forms for Mailchimp will create a CSV file for you to "
 "save to your computer. Once you've saved the download file, you can use the "
 "Import tool to import the forms to this or any other site."
 msgstr ""
@@ -2298,7 +2298,7 @@ msgid "Export Settings"
 msgstr ""
 
 #: admin/partials/menu/options-sections/import-export-forms.php:41
-msgid "Export YIKES Easy Forms for MailChimp plugin settings."
+msgid "Export YIKES Easy Forms for Mailchimp plugin settings."
 msgstr ""
 
 #: admin/partials/menu/options-sections/import-export-forms.php:45
@@ -2312,7 +2312,7 @@ msgstr ""
 
 #: admin/partials/menu/options-sections/import-export-forms.php:54
 msgid ""
-"Select the Easy Forms for MailChimp export file you would like to import. "
+"Select the Easy Forms for Mailchimp export file you would like to import. "
 "You can use this field to import your opt-in forms or settings. "
 msgstr ""
 
@@ -2414,7 +2414,7 @@ msgid "Please %s to setup your integrations."
 msgstr ""
 
 #: admin/partials/menu/options-sections/integration-settings.php:98
-msgid "enter a valid MailChimp API key"
+msgid "enter a valid Mailchimp API key"
 msgstr ""
 
 #: admin/partials/menu/options-sections/integration-settings.php:109
@@ -2422,7 +2422,7 @@ msgid ""
 "An opt-in checkbox will be added to the forms generated by the checked off "
 "items below. For example, checking off \"WordPress Comment Form\" will "
 "generate a checkbox below the WordPress comment form to add new commenters "
-"to your MailChimp mailing lists."
+"to your Mailchimp mailing lists."
 msgstr ""
 
 #: admin/partials/menu/options-sections/integration-settings.php:141
@@ -2436,7 +2436,7 @@ msgstr ""
 
 #: admin/partials/menu/options-sections/integration-settings.php:174
 msgid ""
-"You have not setup any lists. Head over to MailChimp and setup your first "
+"You have not setup any lists. Head over to Mailchimp and setup your first "
 "list."
 msgstr ""
 
@@ -2461,7 +2461,7 @@ msgid ""
 "reCAPTCHA is a free CAPTCHA service, from Google, that helps protect your "
 "site against spam, malicious registrations and other forms of attacks where "
 "computers try to disguise themselves as a human. reCAPTCHA will help prevent "
-"spammers and bots from submitting data through your MailChimp forms."
+"spammers and bots from submitting data through your Mailchimp forms."
 msgstr ""
 
 #: admin/partials/menu/options-sections/recaptcha-settings.php:23
@@ -2499,7 +2499,7 @@ msgid ""
 msgstr ""
 
 #: admin/partials/menu/options.php:9
-msgid "Your site is currently connected to the MailChimp API"
+msgid "Your site is currently connected to the Mailchimp API"
 msgstr ""
 
 #: admin/partials/menu/options.php:9
@@ -2511,7 +2511,7 @@ msgid "Not Connected"
 msgstr ""
 
 #: admin/partials/menu/options.php:39
-msgid "Manage the overall settings for Easy forms for MailChimp."
+msgid "Manage the overall settings for Easy forms for Mailchimp."
 msgstr ""
 
 #: admin/partials/menu/options.php:45
@@ -2519,7 +2519,7 @@ msgid "Settings successfully updated."
 msgstr ""
 
 #: admin/partials/menu/options.php:53
-msgid "MailChimp API Cache successfully cleared."
+msgid "Mailchimp API Cache successfully cleared."
 msgstr ""
 
 #: admin/partials/menu/options.php:62
@@ -2545,7 +2545,7 @@ msgid ""
 msgstr ""
 
 #: admin/partials/menu/options.php:100
-msgid "YIKES Easy Forms for MailChimp settings successfully imported."
+msgid "YIKES Easy Forms for Mailchimp settings successfully imported."
 msgstr ""
 
 #: admin/partials/menu/options.php:138
@@ -2558,7 +2558,7 @@ msgstr ""
 
 #: admin/partials/menu/support.php:19
 msgid ""
-"Users of the free version of Easy Forms for MailChimp can post questions to "
+"Users of the free version of Easy Forms for Mailchimp can post questions to "
 "our support forum on the WordPress Plugin Directory. We aim to respond to "
 "support requests for the free version of the plugin within a week."
 msgstr ""
@@ -2601,7 +2601,7 @@ msgstr ""
 
 #: admin/partials/upgrade-helpers/upgrade-migrate-options.php:24
 msgid ""
-"To update your MailChimp profile, please [link]click to send yourself an "
+"To update your Mailchimp profile, please [link]click to send yourself an "
 "update link[/link]."
 msgstr ""
 
@@ -2883,7 +2883,7 @@ msgstr ""
 #: admin/partials/view-user.php:235
 #, php-format
 msgid ""
-"Deleting this subscriber will completely remove %s from the \"%s\" MailChimp "
+"Deleting this subscriber will completely remove %s from the \"%s\" Mailchimp "
 "list."
 msgstr ""
 
@@ -2905,7 +2905,7 @@ msgid "Error initializing the Easy Forms' Gutenberg block functions."
 msgstr ""
 
 #: includes/add_ons/customizer.php:9
-msgid "Form Customizer for Easy Forms for MailChimp"
+msgid "Form Customizer for Easy Forms for Mailchimp"
 msgstr ""
 
 #: includes/add_ons/customizer.php:11
@@ -2922,17 +2922,17 @@ msgid "View Add-on"
 msgstr ""
 
 #: includes/add_ons/eu-compliance.php:9
-msgid "EU Compliance for Easy Forms for MailChimp"
+msgid "EU Compliance for Easy Forms for Mailchimp"
 msgstr ""
 
 #: includes/add_ons/eu-compliance.php:11
 msgid ""
-"Add a check box below your MailChimp signup forms with a custom message, to "
+"Add a check box below your Mailchimp signup forms with a custom message, to "
 "ensure compliance with EU laws."
 msgstr ""
 
 #: includes/add_ons/incentives.php:9
-msgid "Incentives for Easy Forms for MailChimp"
+msgid "Incentives for Easy Forms for Mailchimp"
 msgstr ""
 
 #: includes/add_ons/incentives.php:11
@@ -2942,7 +2942,7 @@ msgid ""
 msgstr ""
 
 #: includes/add_ons/popups.php:9
-msgid "Popups for Easy Forms for MailChimp"
+msgid "Popups for Easy Forms for Mailchimp"
 msgstr ""
 
 #: includes/add_ons/popups.php:11
@@ -2952,7 +2952,7 @@ msgid ""
 msgstr ""
 
 #: includes/add_ons/reverse-zip-lookup.php:9
-msgid "US Reverse Zip Lookup for Easy Forms for MailChimp"
+msgid "US Reverse Zip Lookup for Easy Forms for Mailchimp"
 msgstr ""
 
 #: includes/add_ons/reverse-zip-lookup.php:11
@@ -3049,7 +3049,7 @@ msgid ""
 msgstr ""
 
 #: includes/third-party-integrations/visual-composer/visual-composer.php:40
-msgid "Display a MailChimp Opt-In form"
+msgid "Display a Mailchimp Opt-In form"
 msgstr ""
 
 #: includes/third-party-integrations/visual-composer/visual-composer.php:58
@@ -3074,7 +3074,7 @@ msgstr ""
 
 #: includes/upsells/customizer.php:11
 msgid ""
-"Quickly and easily customize every aspect of your MailChimp opt-in forms "
+"Quickly and easily customize every aspect of your Mailchimp opt-in forms "
 "using our powerful customizer add-on."
 msgstr ""
 
@@ -3159,7 +3159,7 @@ msgstr ""
 
 #: public/classes/process/class.process_form_submission_handler.php:255
 msgid ""
-"To update your MailChimp profile, please click to send yourself an update "
+"To update your Mailchimp profile, please click to send yourself an update "
 "link"
 msgstr ""
 
@@ -3212,8 +3212,8 @@ msgstr ""
 
 #: public/partials/shortcodes/process_form_shortcode.php:34
 msgid ""
-"Whoops, you're not connected to MailChimp. You need to enter a valid "
-"MailChimp API key."
+"Whoops, you're not connected to Mailchimp. You need to enter a valid "
+"Mailchimp API key."
 msgstr ""
 
 #: public/partials/shortcodes/process_form_shortcode.php:39
@@ -3246,7 +3246,7 @@ msgstr ""
 
 #: public/partials/shortcodes/process_form_shortcode.php:221
 msgid ""
-"An email field is required for all MailChimp forms. Please add an email "
+"An email field is required for all Mailchimp forms. Please add an email "
 "field to this form."
 msgstr ""
 
@@ -3302,7 +3302,7 @@ msgid "Success! You've been unsubscribed from this list."
 msgstr ""
 
 #: public/partials/shortcodes/yikes-mailchimp-subscriber-count.php:23
-msgid "You don't appear to be connected to MailChimp."
+msgid "You don't appear to be connected to Mailchimp."
 msgstr ""
 
 #: public/partials/shortcodes/yikes-mailchimp-subscriber-count.php:35

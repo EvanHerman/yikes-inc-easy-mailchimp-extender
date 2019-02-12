@@ -21,8 +21,8 @@
 		'email-exists-error' => __( "The email you entered is already a subscriber to this list." , 'yikes-inc-easy-mailchimp-extender' ),
 		'success-single-optin' => __( 'Thank you for subscribing!' , 'yikes-inc-easy-mailchimp-extender' ),
 		'success-resubscribed' => __( 'Thank you for already being a subscriber! Your profile info has been updated.', 'yikes-inc-easy-mailchimp-extender' ),
-		'update-link' => __( "To update your MailChimp profile, please [link]click to send yourself an update link[/link].", 'yikes-inc-easy-mailchimp-extender' ),
-		'email-subject' => __( 'MailChimp Profile Update', 'yikes-inc-easy-mailchimp-extender' ),
+		'update-link' => __( "To update your Mailchimp profile, please [link]click to send yourself an update link[/link].", 'yikes-inc-easy-mailchimp-extender' ),
+		'email-subject' => __( 'Mailchimp Profile Update', 'yikes-inc-easy-mailchimp-extender' ),
 	);
 	
 	// if old options are defined...

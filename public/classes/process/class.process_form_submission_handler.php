@@ -252,7 +252,7 @@ class Yikes_Inc_Easy_MailChimp_Extender_Process_Submission_Handler {
 		$this->handle_disallowed_existing_user_update_message = __( 'The email you entered is already a subscriber to this list.', 'yikes-inc-easy-mailchimp-extender' );
 		$this->default_error_response_message                 = __( 'Whoops! It looks like something went wrong. Please try again.', 'yikes-inc-easy-mailchimp-extender' );
 		$this->handle_updating_existing_user_message          = __( 'You\'re already subscribed. ', 'yikes-inc-easy-mailchimp-extender' );
-		$this->handle_updating_existing_user_link_message     = __( 'To update your MailChimp profile, please click to send yourself an update link', 'yikes-inc-easy-mailchimp-extender' );
+		$this->handle_updating_existing_user_link_message     = __( 'To update your Mailchimp profile, please click to send yourself an update link', 'yikes-inc-easy-mailchimp-extender' );
 		$this->handle_empty_required_field_message            = __( 'A required field is missing.', 'yikes-inc-easy-mailchimp-extender' );
 		$this->handle_empty_required_interest_group_message   = __( 'A required interest group is missing.', 'yikes-inc-easy-mailchimp-extender' );
 		$this->handle_nonce_message                           = __( 'Error: Sorry, the nonce security check didn\'t pass. Please reload the page and try again. You may want to try clearing your browser cache as a last attempt.' , 'yikes-inc-easy-mailchimp-extender' );

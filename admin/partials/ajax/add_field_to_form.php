@@ -346,7 +346,7 @@ $merge_field_data = $available_merge_variables['merge_fields'][ $index ];
 										<strong><?php echo $format; ?></strong>
 										<input type="hidden" name="field[<?php echo $merge_field_data['tag']; ?>][<?php echo $format_name; ?>]" value="<?php echo $format; ?>" />
 										<p class="description"><small>
-											<?php printf( __( 'To change the %s please head over to <a href="%s" title="MailChimp" target="_blank">MailChimp</a>. If you alter the format, you should re-import this field.', 'yikes-inc-easy-mailchimp-extender' ), strtolower( $type ), esc_url( 'http://www.mailchimp.com' ) ); ?>
+											<?php printf( __( 'To change the %s please head over to <a href="%s" title="Mailchimp" target="_blank">Mailchimp</a>. If you alter the format, you should re-import this field.', 'yikes-inc-easy-mailchimp-extender' ), strtolower( $type ), esc_url( 'http://www.mailchimp.com' ) ); ?>
 										</small></p>
 									</td>
 								</tr>

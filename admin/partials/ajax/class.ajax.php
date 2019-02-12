@@ -58,7 +58,7 @@
 				$error_logging->maybe_write_to_log(
 					$list_data->get_error_code(),
 					__( "Get Account Lists", 'yikes-inc-easy-mailchimp-extender' ),
-					__( "MailChimp Widget", 'yikes-inc-easy-mailchimp-extender' )
+					__( "Mailchimp Widget", 'yikes-inc-easy-mailchimp-extender' )
 				);
 				exit();
 			}

@@ -1,27 +1,27 @@
 <?php
 /**
- * Plugin Name: Easy Forms for MailChimp
+ * Plugin Name: Easy Forms for Mailchimp
  * Plugin URI:  https://yikesplugins.com/plugin/easy-forms-for-mailchimp/
- * Description: The ultimate MailChimp WordPress plugin. Easily build <strong>unlimited forms for your MailChimp lists</strong>, add them to your site and track subscriber activity. To get started, go to the settings page and enter your <a href="https://yikesplugins.com/support/knowledge-base/finding-your-mailchimp-api-key/" target="_blank">MailChimp API key</a>.
- * Version:     6.5.0
+ * Description: The ultimate Mailchimp WordPress plugin. Easily build <strong>unlimited forms for your Mailchimp lists</strong>, add them to your site and track subscriber activity. To get started, go to the settings page and enter your <a href="https://yikesplugins.com/support/knowledge-base/finding-your-mailchimp-api-key/" target="_blank">Mailchimp API key</a>.
+ * Version:     6.5.1
  * Author:      YIKES, Inc.
  * Author URI:  https://www.yikesplugins.com/
  * License:     GPL-3.0+
  * License URI: http://www.gnu.org/licenses/gpl-3.0.txt
  * Text Domain: yikes-inc-easy-mailchimp-extender
  *
- * Easy Forms for MailChimp is free software: you can redistribute it and/or modify
+ * Easy Forms for Mailchimp is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 2 of the License, or
  * any later version.
  *
- * Easy Forms for MailChimp is distributed in the hope that it will be useful,
+ * Easy Forms for Mailchimp is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
  * GNU General Public License for more details.
  *
  * You should have received a copy of the GNU General Public License
- * along with Easy Forms for MailChimp. If not, see <http://www.gnu.org/licenses/>.
+ * along with Easy Forms for Mailchimp. If not, see <http://www.gnu.org/licenses/>.
  *
  * We at YIKES, Inc. embrace the open source philosophy on a daily basis. We donate company time back to the WordPress project,
  * and constantly strive to improve the WordPress project and community as a whole.
@@ -43,7 +43,7 @@ if ( ! defined( 'WPINC' ) ) {
  * 	@since 6.1.3
  */
 if ( ! defined( 'YIKES_MC_VERSION' ) ) {
-	define( 'YIKES_MC_VERSION' , '6.5.0' );
+	define( 'YIKES_MC_VERSION' , '6.5.1' );
 }
 
 /**

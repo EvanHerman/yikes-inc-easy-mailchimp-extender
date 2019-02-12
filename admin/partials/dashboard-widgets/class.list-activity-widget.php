@@ -55,7 +55,7 @@ class YIKES_Inc_Easy_MailChimp_Dashboard_Widgets {
 			/* List Stats Dashboard Widget */
 			wp_add_dashboard_widget(
 				'yikes_easy_mc_list_stats_widget',         // Widget slug.
-				__( 'MailChimp List Stats', 'yikes-inc-easy-mailchimp-extender' ),         // Title.
+				__( 'Mailchimp List Stats', 'yikes-inc-easy-mailchimp-extender' ),         // Title.
 				array( $this, 'list_stats_dashboard_widget' ) // Display function.
 			);
 		}
@@ -100,7 +100,7 @@ class YIKES_Inc_Easy_MailChimp_Dashboard_Widgets {
 			</section>
 		<?php } else { ?>
 			<section id="yikes-easy-mc-dashboard-widget-stats">
-				<p class="no-lists-error"><?php _e( "Whoops, you don't have any lists set up. Head over to MailChimp to set up lists.", 'yikes-inc-easy-mailchimp-extender' ); ?></p>
+				<p class="no-lists-error"><?php _e( "Whoops, you don't have any lists set up. Head over to Mailchimp to set up lists.", 'yikes-inc-easy-mailchimp-extender' ); ?></p>
 			</section>
 		<?php }
 	}

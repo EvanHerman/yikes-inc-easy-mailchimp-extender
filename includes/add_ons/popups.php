@@ -5,10 +5,10 @@
  * Setup the variables for this add-on
  * @since 6.1
  */
-$addon_image = YIKES_MC_URL . 'includes/add_ons/images/popups.png';
-$add_on_title = esc_attr__( 'Popups for Easy Forms for MailChimp', 'yikes-inc-easy-mailchimp-extender' );
-$permalink = esc_url( 'https://yikesplugins.com/plugin/pop-ups-easy-forms-mailchimp/' );
-$description = esc_attr__( 'Create custom popups to grab user attention. Increase email subscriptions and user engagement immediately.', 'yikes-inc-easy-mailchimp-extender' );
+$addon_image  = YIKES_MC_URL . 'includes/add_ons/images/popups.png';
+$add_on_title = esc_attr__( 'Popups for Easy Forms for Mailchimp', 'yikes-inc-easy-mailchimp-extender' );
+$permalink    = esc_url( 'https://yikesplugins.com/plugin/pop-ups-easy-forms-mailchimp/' );
+$description  = esc_attr__( 'Create custom popups to grab user attention. Increase email subscriptions and user engagement immediately.', 'yikes-inc-easy-mailchimp-extender' );
 ?>
 
 <div class="type-download">

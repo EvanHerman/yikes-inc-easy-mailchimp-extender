@@ -20,7 +20,7 @@ function yikes_mailchimp_subscriber_count_shortcode( $attributes ) {
 	/* If the user hasn't authenticated yet - bail */
 	if ( get_option( 'yikes-mc-api-validation', 'invalid_api_key' ) != 'valid_api_key' ) {
 		if ( WP_DEBUG ) {
-			return '<strong>' . __( "You don't appear to be connected to MailChimp.", "yikes-inc-easy-mailchimp-extender" ) . '</strong>';
+			return '<strong>' . __( "You don't appear to be connected to Mailchimp.", "yikes-inc-easy-mailchimp-extender" ) . '</strong>';
 		}
 
 		return '';

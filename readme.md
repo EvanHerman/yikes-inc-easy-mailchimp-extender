@@ -2,7 +2,7 @@
 [![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/yikesinc/yikes-inc-easy-mailchimp-extender/badges/quality-score.png?b=staging)](https://scrutinizer-ci.com/g/yikesinc/yikes-inc-easy-mailchimp-extender/?branch=staging)
 [![Code Coverage](https://scrutinizer-ci.com/g/yikesinc/yikes-inc-easy-mailchimp-extender/badges/coverage.png?b=staging)](https://scrutinizer-ci.com/g/yikesinc/yikes-inc-easy-mailchimp-extender/?branch=staging)
 [![Build Status](https://scrutinizer-ci.com/g/yikesinc/yikes-inc-easy-mailchimp-extender/badges/build.png?b=staging)](https://scrutinizer-ci.com/g/yikesinc/yikes-inc-easy-mailchimp-extender/build-status/staging)
-Easy Forms for MailChimp
+Easy Forms for Mailchimp
 =====================
 [![WordPress](https://img.shields.io/wordpress/plugin/dt/yikes-inc-easy-mailchimp-extender.svg)]()
 ![Rating](https://img.shields.io/wordpress/plugin/r/yikes-inc-easy-mailchimp-extender.svg)
@@ -12,7 +12,7 @@ Easy Forms for MailChimp
 
 <strong>Latest Stable Beta Release Candidate</strong>
 
-This is the development repo for the [Easy Forms for MailChimp](https://wordpress.org/plugins/yikes-inc-easy-mailchimp-extender/) plugin by [YIKES, Inc.](https://yikesinc.com/) where we work on new features and bug fixes.
+This is the development repo for the [Easy Forms for Mailchimp](https://wordpress.org/plugins/yikes-inc-easy-mailchimp-extender/) plugin by [YIKES, Inc.](https://yikesinc.com/) where we work on new features and bug fixes.
 
 Feel free to beta test this plugin now, but remember, it's not a stable release.
 
@@ -30,7 +30,7 @@ Feel free to beta test this plugin now, but remember, it's not a stable release.
 For full documentation, please visit [our Knowledge Base](https://yikesplugins.com/support/knowledge-base/product/easy-forms-for-mailchimp/).
 
 ####### Integrations
-Easy Forms for MailChimp integrates well with many popular third party plugins for WordPress:
+Easy Forms for Mailchimp integrates well with many popular third party plugins for WordPress:
 
 * WooCommerce
 * Easy Digital Downloads
@@ -101,8 +101,8 @@ Example:
 - `yikes-mailchimp-form-description` - Alter the output of the form description of the specified form. @params: $description, $form_id
 - `yikes-mailchimp-redirect-timer` - Alter the amount of time in *milliseconds* the user sees the success message before being redirected. Default: `1500` - @params: $time, $form_id
 - `yikes-mailchimp-redirect-url` - Alter the URL of the page that the user will be redirected to on a successful submission. @params: $url, $form_id, $page_data
-- `yikes-mailchimp-filter-before-submission` and `yikes-mailchimp-filter-before-submission-{$form_id}` - Catch the merge variables before they get sent over to MailChimp. @params: $merge_variables
-- `yikes-mailchimp-after-submission` and `yikes-mailchimp-after-submission-{$form_id}` - Catch the merge variables after they get sent over to MailChimp. @params: $merge_variables
+- `yikes-mailchimp-filter-before-submission` and `yikes-mailchimp-filter-before-submission-{$form_id}` - Catch the merge variables before they get sent over to Mailchimp. @params: $merge_variables
+- `yikes-mailchimp-after-submission` and `yikes-mailchimp-after-submission-{$form_id}` - Catch the merge variables after they get sent over to Mailchimp. @params: $merge_variables
 - `yikes-mailchimp-user-role-access` - Alter who can access this plugin page by capability. Default: `manage_options` - @params: $capability
 - `yikes-mailchimp-international-phone-pattern` - Alter the regex pattern for acceptable international phone number formats. Default: `'[0-9,-,+]{1,}'` - @params: $regex_pattern
 - `yikes-mailchimp-us-phone-pattern` - Alter the regex pattern for acceptable US phone number formats. Default: `^(\([0-9]{3}\)|[0-9]{3}-)[0-9]{3}-[0-9]{4}$` - @params: $regex_pattern
@@ -120,7 +120,7 @@ Example:
 - `yikes-mailchimp-custom-default-value-tags` - Define your own custom pre-defined tags to populate the default value fields with - these tags appear in the modal. @params: $pre_defined_tags_array
 - `yikes-mailchimp-parse-custom-default-value` - Process your custom default merge tag into a custom value to populate the form field with (note: Goes hand in hand with `yikes-mailchimp-custom-default-value-tags` filter). @params: $default_tag
 - `yikes-mailchimp-field-data` - Filter form field data such as placeholder, label, etc. @params: $field_array, $field, $form_id
-- `yikes-mailchimp-subscriber-count-value` - Alter the returned value for the total subscriber count of a given MailChimp list. @params: $subscriber_count
+- `yikes-mailchimp-subscriber-count-value` - Alter the returned value for the total subscriber count of a given Mailchimp list. @params: $subscriber_count
 - `yikes-mailchimp-frontend-content` - Custom content filter for this plugin to prevent others from hooking in where not wanted.
 - `yikes-mailchimp-recaptcha-parameters` - Alter any of the possible reCAPTCHA shortcode parameters. @params: $recaptcha_parameter_array, $form_id
 - `yikes-mailchimp-preloader` - Add a custom preloader image. Default: WordPress's wpspin_light.gif. @params: $url_to_spinner_gif
@@ -129,7 +129,7 @@ Example:
 - `yikes-mailchimp-success-response` - Alter *any* success response text. @params: $response_text, $form_id, $submitted_form_variables
 - `yikes-mailchimp-default-country-value` - Alter the default country selected in the country dropdown. Default: `US` - @params: $country_slug
 - `yikes-mailchimp-recaptcha-required-error` - Filter the error displayed back to the user when an error occurs during the reCAPTCHA submission process. @params: $error_text, $form_id
-- `yikes-mailchimp-sslverify` - Toggle sslverify on/off when attempting to validate your API key with the MailChimp API servers. Default: `true` (on) - @params: $use_ssl
+- `yikes-mailchimp-sslverify` - Toggle sslverify on/off when attempting to validate your API key with the Mailchimp API servers. Default: `true` (on) - @params: $use_ssl
 - Version 6.3.0:
 * `yikes-mailchimp-success-double-optin-response` - Filter the "Success: Double opt-in" custom message. @params: $message, $form_id
 * `yikes-mailchimp-success-single-optin-response` - Filter the "Success: Single opt-in" custom message. @params: $message, $form_id
@@ -139,14 +139,14 @@ Example:
 * `yikes-mailchimp-user-already-subscribed-text` - Filter the "Error: Re-subscribers not permitted" custom message (note: this replaced `yikes-mailchimp-user-already-subscribed-error`). @params: $message, $form_id
 * `yikes-mailchimp-filter-groups-before-submission` and `yikes-mailchimp-filter-groups-before-submission-{$form_id}` - Filter the interest groups before they're submitted. @params: $groups, $form_id
 * `yikes-mailchimp-address-2-required` - Change the address 2 field's `required` value. Default: `''` (it is never required) - @params: $required, $form_id
-* `yikes-mailchimp-filter-subscribe-request` and `yikes-mailchimp-filter-subscribe-request-{$form_id}` - Filter all of the fields sent over to the MailChimp API (not just the form fields). @params: $subscribe_body, $form_id
+* `yikes-mailchimp-filter-subscribe-request` and `yikes-mailchimp-filter-subscribe-request-{$form_id}` - Filter all of the fields sent over to the Mailchimp API (not just the form fields). @params: $subscribe_body, $form_id
 * `yikesinc_eme_default_api_version` - Filter the API version. Default: `3.0` - @params: $version
-* `yikesinc_eme_api_url` - Filter the URL used for a request to the MailChimp API. @params: $full_path, $path
+* `yikesinc_eme_api_url` - Filter the URL used for a request to the Mailchimp API. @params: $full_path, $path
 * `yikesinc_eme_api_user_agent` - Filter the user agent used in API request. @params: $user_agent
 * `yikesinc_eme_api_auth_headers` - Filter the authentication headers used in the API request. @params: $auth_headers, $api_version
-* `yikesinc_eme_api_headers` - Filter the headers used for a request to the MailChimp API. @params: $headers, $path, $method, $params
+* `yikesinc_eme_api_headers` - Filter the headers used for a request to the Mailchimp API. @params: $headers, $path, $method, $params
 * `yikesinc_eme_api_timeout` - Filter the timeout (in *seconds*) used when sending an API request. Default: `15` @params: $timeout
-* `yikesinc_eme_api_args` - Filter the arguments used for a request to the MailChimp API. @params: $args, $path, $method, $params
+* `yikesinc_eme_api_args` - Filter the arguments used for a request to the Mailchimp API. @params: $args, $path, $method, $params
 
 ###### Hooks
 
@@ -168,7 +168,7 @@ Example:
 
 ###### Hooks for Extensions
 
-- `yikes-mailchimp-menu` - hook to add additional menu items inside of the "Easy MailChimp" menu item
+- `yikes-mailchimp-menu` - hook to add additional menu items inside of the "Easy Mailchimp" menu item
 - `yikes-mailchimp-settings-field` - hook to register additional settings fields for add-ons
 - `yikes-mailchimp-ADDON-SLUG-options-path` - hook to load up a custom settings page
 
