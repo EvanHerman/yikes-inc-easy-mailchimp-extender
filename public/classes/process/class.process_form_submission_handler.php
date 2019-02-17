@@ -517,12 +517,12 @@ class Yikes_Inc_Easy_MailChimp_Extender_Process_Submission_Handler {
 			// Loop through the interest groups and create a single array like {group_id} => false
 			foreach ( $interest_groupings as $group_data ) {
 
-				if ( ! isset( $group_data['items'] ) || isset( $group_data['items'] ) && ( empty( $group_data['items'] ) || ! is_array( $group_data['items'] ) ) ) {
+				if ( empty( $group_data['items'] ) || ! is_array( $group_data['items'] ) ) {
 					continue;
 				}
 
 				foreach ( $group_data['items'] as $item ) {
-					$groups[$item['id']] = false;
+					$groups[ $item['id'] ] = false;
 				}
 
 			}
