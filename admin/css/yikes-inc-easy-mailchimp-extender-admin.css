@@ -284,7 +284,7 @@
 
  /* Logo */
  #review-yikes-easy-mailchimp-notice #yikes-mailchimp-logo {
-	background: url('../../includes/images/Welcome_Page/yikes-mailchimp-welcome-logo.png') no-repeat;
+	background: url('../../includes/images/MailChimp_Assets/yikes-mailchimp-welcome-logo.png') no-repeat;
 	background-size: 60px;
 	float: left;
 	font-size: 14px;
@@ -319,7 +319,7 @@ ul.support-option-list {
 	width: 132px;
 	font-size: 14px;
 	text-align: center;
-	background: url('../../includes/images/Welcome_Page/yikes-mailchimp-welcome-logo.png') no-repeat;
+	background: url('../../includes/images/MailChimp_Assets/yikes-mailchimp-welcome-logo.png') no-repeat;
 }
 
 .yikes-easy-mc-feature-image.yikes-easy-mc-feature-v3-image {

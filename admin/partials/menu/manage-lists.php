@@ -138,7 +138,7 @@ if ( is_wp_error( $list_data ) ) {
 						<div class="inside">
 
 							<a href="https://us3.admin.mailchimp.com/" title="<?php _e( 'Mailchimp Site' , 'yikes-inc-easy-mailchimp-extender' ); ?>" target="_blank">
-								<img src="<?php echo YIKES_MC_URL . 'includes/images/Welcome_Page/mailchimp-logo.png'; ?>" title="<?php _e( 'Mailchimp Site' , 'yikes-inc-easy-mailchimp-extender' ); ?>" class="list-page-mailchimp-logo">
+								<img src="<?php echo YIKES_MC_URL . 'includes/images/MailChimp_Assets/mailchimp-logo.png'; ?>" title="<?php _e( 'Mailchimp Site' , 'yikes-inc-easy-mailchimp-extender' ); ?>" class="list-page-mailchimp-logo">
 							</a>
 
 						</div>
