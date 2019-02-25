@@ -736,13 +736,6 @@ class Yikes_Inc_Easy_Mailchimp_Forms_Admin {
 		if ( get_current_screen()->base == 'easy-forms_page_yikes-inc-easy-mailchimp-addons' ) {
 			wp_enqueue_style( 'yikes-inc-easy-mailchimp-extender-addons-styles', plugin_dir_url( __FILE__ ) . 'css/yikes-inc-easy-mailchimp-extender-addons.min.css', array(), $this->version, 'all' );
 		}
-
-		/*
-		*	Enqueue Subscriber Profile Flags.
-		*/
-		if ( get_current_screen()->base == 'admin_page_yikes-mailchimp-view-user' ) {
-			wp_enqueue_style( 'yikes-inc-easy-mailchimp-extender-subscriber-flags', plugin_dir_url( __FILE__ ) . 'css/flag-icon.min.css', array(), $this->version, 'all' );
-		}
 	}
 	/**
 	 * Register the JavaScript for the admin area.
@@ -974,16 +967,6 @@ class Yikes_Inc_Easy_Mailchimp_Forms_Admin {
 			apply_filters( 'yikes-mailchimp-user-role-access', 'manage_options' ),
 			'yikes-mailchimp-edit-form',
 			array( $this, 'generateEditFormPage' )
-		);
-
-		/* Add Hidden Migrate Options Page */
-		add_submenu_page(
-			'options-writing.php',
-			__( 'Us Easy Forms for Mailchimp Upgrade Options Structure', 'yikes-inc-easy-mailchimp-extender' ),
-			'Us Easy Forms for Mailchimp Upgrade Options Structure',
-			'manage_options',
-			'yikes-inc-easy-mailchimp-update',
-			array( $this, 'migrate_old_yks_mc_options' )
 		);
 
 		/* Add Hidden 'View List' Page */
@@ -1276,16 +1259,6 @@ class Yikes_Inc_Easy_Mailchimp_Forms_Admin {
 				add_action( 'admin_notices', array( $this , 'display_options_migrate_notice' ) , 11 );
 			}
 		}
-	}
-
-	/**
-	 * Migrate our old options , to the new options API
-	 * moving from 5.5 and beyond..
-	 * @since
-	*/
-	public function migrate_old_yks_mc_options() {
-		// include our migrate options helper file
-		include_once YIKES_MC_PATH . 'admin/partials/upgrade-helpers/upgrade-migrate-options.php';
 	}
 
 	/**
