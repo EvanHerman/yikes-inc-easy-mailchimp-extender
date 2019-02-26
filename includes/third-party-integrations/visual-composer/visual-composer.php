@@ -1,7 +1,7 @@
 <?php
 
 /*
-*	Custom class to allow Easy Forms for MailChimp to extend visual composer
+*	Custom class to allow Easy Forms for Mailchimp to extend visual composer
 *	@since 6.0.3
 */
 

@@ -1,12 +1,12 @@
 <?php
 /**
- * Easy forms for MailChimp by YIKES
+ * Easy forms for Mailchimp by YIKES
  *
- * @package Easy Forms for MAilChimp by YIKES
+ * @package Easy Forms for Mailchimp by YIKES
  */
 
 /**
- * YIKES MailChimp Test Base Class
+ * YIKES Mailchimp Test Base Class
  */
 class YIKES_MailChimp_Test_Base extends WP_UnitTestCase {
 

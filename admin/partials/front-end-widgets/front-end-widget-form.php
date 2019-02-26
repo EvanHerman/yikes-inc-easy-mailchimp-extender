@@ -1,6 +1,6 @@
 <?php
 /*
-*	Front facing MailChimp widget in sidebars
+*	Front facing Mailchimp widget in sidebars
 *	@since 6.0.0
 *	By: Yikes Inc. | https://www.yikesinc.com
 */

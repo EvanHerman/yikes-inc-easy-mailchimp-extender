@@ -46,7 +46,7 @@
 				</div>
 				<?php
 			}
-			/* MailChimp API Cleared Successfully message */
+			/* Mailchimp API Cleared Successfully message */
 			if( isset( $_REQUEST['transient-cleared'] ) && $_REQUEST['transient-cleared'] == 'true' ) {
 				?>
 				<div class="updated manage-form-admin-notice">
@@ -63,7 +63,7 @@
 					</div>
 					<?php
 				}
-				/* MailChimp API Cleared Successfully message */
+				/* Mailchimp API Cleared Successfully message */
 				if( isset( $_REQUEST['error-log-cleared'] ) && $_REQUEST['error-log-cleared'] == 'false' ) {
 					?>
 					<div class="error manage-form-admin-notice">

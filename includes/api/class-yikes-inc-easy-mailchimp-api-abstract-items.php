@@ -232,7 +232,7 @@ abstract class Yikes_Inc_Easy_MailChimp_API_Abstract_Items {
 		// JSON-decode the body.
 		$body = json_decode( wp_remote_retrieve_body( $response ), true );
 
-		// MailChimp uses the application/problem+json type for errors
+		// Mailchimp uses the application/problem+json type for errors.
 		$headers = wp_remote_retrieve_headers( $response );
 
 		if ( isset( $headers['content-type'] ) ) {

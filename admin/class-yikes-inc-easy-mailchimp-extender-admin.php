@@ -144,7 +144,7 @@ class Yikes_Inc_Easy_Mailchimp_Forms_Admin {
 		}
 
 		/**************************************************/
-		/**     Clear Store MailChimp Transient Data   **/
+		/**     Clear Store Mailchimp Transient Data   **/
 		/*************************************************/
 		if ( isset( $_REQUEST['action'] ) && $_REQUEST['action'] == 'yikes-easy-mc-clear-transient-data' ) {
 
@@ -194,7 +194,7 @@ class Yikes_Inc_Easy_Mailchimp_Forms_Admin {
 		add_action( 'admin_init', array( $this, 'yikes_easy_mailchimp_stop_bugging_me' ), 5 );
 
 		/**************************************************/
-		/**        Clear MailChimp Error Log Data        **/
+		/**        Clear Mailchimp Error Log Data        **/
 		/*************************************************/
 		if ( isset( $_REQUEST['action'] ) && $_REQUEST['action'] == 'yikes-easy-mc-clear-error-log' ) {
 
@@ -203,7 +203,7 @@ class Yikes_Inc_Easy_Mailchimp_Forms_Admin {
 		}
 
 		/*********************************************/
-		/**        Export MailChimp Opt-in Forms   **/
+		/**        Export Mailchimp Opt-in Forms   **/
 		/*******************************************/
 		if ( isset( $_REQUEST['action'] ) && $_REQUEST['action'] == 'yikes-easy-mc-export-forms' ) {
 
@@ -250,7 +250,7 @@ class Yikes_Inc_Easy_Mailchimp_Forms_Admin {
 		/** Parse default value into usable dynamic data **/
 		add_filter( 'yikes-mailchimp-process-default-tag', array( $this, 'parse_mailchimp_default_tag' ) );
 
-		/** Add a disclaimer to ensure that we let people know we are not endorsed/backed by MailChimp at all **/
+		/** Add a disclaimer to ensure that we let people know we are not endorsed/backed by Mailchimp at all **/
 		add_filter( 'admin_footer_text', array( $this, 'yikes_easy_forms_admin_disclaimer' ) );
 
 		/** Add custom plugin action links **/
@@ -283,8 +283,8 @@ class Yikes_Inc_Easy_Mailchimp_Forms_Admin {
 		}
 
 		/**
-		 * Add a disclaimer to the admin footer for all YIKES pages to ensure that users understand there is no correlation between this plugin and MailChimp.
-		 * This plugin simply provides the service of linking MailChimp with your site.
+		 * Add a disclaimer to the admin footer for all YIKES pages to ensure that users understand there is no correlation between this plugin and Mailchimp.
+		 * This plugin simply provides the service of linking Mailchimp with your site.
 		 *
 		 * @since  6.0
 		 *
@@ -305,7 +305,7 @@ class Yikes_Inc_Easy_Mailchimp_Forms_Admin {
 
 		/*
 		*	Parse our default tag into dynamic data
-		*	to be passed to MailChimp
+		*	to be passed to Mailchimp
 		*
 		*	@since 6.0.0
 		*	@return	parsed tag content
@@ -389,14 +389,14 @@ class Yikes_Inc_Easy_Mailchimp_Forms_Admin {
 
 			// run the export function.
 			// parameters: ( $table_name, $form_ids, $file_name ).
-			Yikes_Inc_Easy_MailChimp_Export_Class::yikes_mailchimp_form_export('Yikes-Inc-Easy-MailChimp-Forms-Export', $forms );
+			Yikes_Inc_Easy_MailChimp_Export_Class::yikes_mailchimp_form_export('Yikes-Inc-Easy-Mailchimp-Forms-Export', $forms );
 			// re-direct the user back to the page.
 			wp_redirect( esc_url_raw( admin_url( 'admin.php?page=yikes-inc-easy-mailchimp-settings&section=import-export-forms' ) ) );
 			die();
 		}
 
 		/*
-		*	Custom export function to export YIKES Easy Forms for MailChimp Plugin Settings
+		*	Custom export function to export YIKES Easy Forms for Mailchimp Plugin Settings
 		*	to allow for easy transpot to other sites
 		*	@since 		6.0.0
 		*	@return 	CSV export file
@@ -411,7 +411,7 @@ class Yikes_Inc_Easy_Mailchimp_Forms_Admin {
 
 			// run the export function.
 			// parameters: ( $table_name, $form_ids, $file_name ).
-			Yikes_Inc_Easy_MailChimp_Export_Class::yikes_mailchimp_settings_export( 'Yikes-Inc-Easy-MailChimp-Settings-Export' );
+			Yikes_Inc_Easy_MailChimp_Export_Class::yikes_mailchimp_settings_export( 'Yikes-Inc-Easy-Mailchimp-Settings-Export' );
 			// re-direct the user back to the page.
 			wp_redirect( esc_url_raw( admin_url( 'admin.php?page=yikes-inc-easy-mailchimp-settings&section=import-export-forms' ) ) );
 			die();
@@ -707,7 +707,7 @@ class Yikes_Inc_Easy_Mailchimp_Forms_Admin {
 	/* End TinyMCE Functions */
 
 	/**
-	 *  Fix the MailChimp icon spacing in the admin menu.
+	 *  Fix the Mailchimp icon spacing in the admin menu.
 	 */
 	public function fix_menu_icon_spacing() {
 		?>
@@ -885,7 +885,7 @@ class Yikes_Inc_Easy_Mailchimp_Forms_Admin {
 	**/
 	public function register_admin_pages() {
 
-		/* Top Level Menu 'Easy MailChimp' */
+		/* Top Level Menu 'Easy Mailchimp' */
 		add_menu_page(
 			__( 'Easy Forms', 'yikes-inc-easy-mailchimp-extender' ),
 			'Easy Forms',
@@ -898,9 +898,9 @@ class Yikes_Inc_Easy_Mailchimp_Forms_Admin {
 		// Sub Pages
 		/*************/
 
-		/* Easy MailChimp Settings */
+		/* Easy Mailchimp Settings */
 
-		/* Easy MailChimp Manage Forms */
+		/* Easy Mailchimp Manage Forms */
 		add_submenu_page(
 			'yikes-inc-easy-mailchimp',
 			__( 'Opt-in Forms', 'yikes-inc-easy-mailchimp-extender' ),
@@ -910,7 +910,7 @@ class Yikes_Inc_Easy_Mailchimp_Forms_Admin {
 			array( $this, 'generateManageFormsPage' )
 		);
 
-		/* Easy MailChimp Manage Lists */
+		/* Easy Mailchimp Manage Lists */
 		add_submenu_page(
 			'yikes-inc-easy-mailchimp',
 			__( 'Mailing Lists', 'yikes-inc-easy-mailchimp-extender' ),
@@ -927,7 +927,7 @@ class Yikes_Inc_Easy_Mailchimp_Forms_Admin {
 		*/
 		do_action( 'yikes-mailchimp-menu' );
 
-		/* Easy MailChimp Settings */
+		/* Easy Mailchimp Settings */
 		add_submenu_page(
 			'yikes-inc-easy-mailchimp',
 			__( 'Settings.', 'yikes-inc-easy-mailchimp-extender' ),
@@ -1001,7 +1001,7 @@ class Yikes_Inc_Easy_Mailchimp_Forms_Admin {
 	}
 
 	/**
-	* Generate Us Easy MailChimp Manage Forms Page
+	* Generate Us Easy Mailchimp Manage Forms Page
 	*
 	* @since    1.0.0
 	*/
@@ -1010,7 +1010,7 @@ class Yikes_Inc_Easy_Mailchimp_Forms_Admin {
 	}
 
 	/**
-	* Generate Us Easy MailChimp Manage Lists Page
+	* Generate Us Easy Mailchimp Manage Lists Page
 	*
 	* @since    1.0.0
 	*/
@@ -1019,7 +1019,7 @@ class Yikes_Inc_Easy_Mailchimp_Forms_Admin {
 	}
 
 	/**
-	* Generate Us Easy MailChimp Support Page
+	* Generate Us Easy Mailchimp Support Page
 	*
 	* @since    1.0.0
 	*/
@@ -1030,7 +1030,7 @@ class Yikes_Inc_Easy_Mailchimp_Forms_Admin {
 	}
 
 	/**
-	* Generate Us Easy MailChimp Edit Form Page
+	* Generate Us Easy Mailchimp Edit Form Page
 	*
 	* @since    1.0.0
 	*/
@@ -1039,7 +1039,7 @@ class Yikes_Inc_Easy_Mailchimp_Forms_Admin {
 	}
 
 	/**
-	* Generate Us Easy MailChimp View List Page
+	* Generate Us Easy Mailchimp View List Page
 	*
 	* @since    1.0.0
 	*/
@@ -1048,7 +1048,7 @@ class Yikes_Inc_Easy_Mailchimp_Forms_Admin {
 	}
 
 	/**
-	* Generate Us Easy MailChimp View User Page
+	* Generate Us Easy Mailchimp View User Page
 	*
 	* @since    1.0.0
 	*/
@@ -1212,7 +1212,7 @@ class Yikes_Inc_Easy_Mailchimp_Forms_Admin {
 	}
 
 	/**
-	* Generate Us Easy Forms for MailChimp Options Page
+	* Generate Us Easy Forms for Mailchimp Options Page
 	*
 	* @since    1.0.0
 	*/
@@ -1729,12 +1729,12 @@ class Yikes_Inc_Easy_Mailchimp_Forms_Admin {
 
 			if ( ! empty( $form_fields ) ) {
 
-				// find any fields that are assigned to this form, that don't exist in MailChimp
+				// find any fields that are assigned to this form, that don't exist in Mailchimp
 				// or else were going to run into issues when we submit the form
 				$available_merge_variables	= array();
 				$available_interest_groups	= array();
 
-				// Default variables as arrays - these are used for holding the MailChimp merge field ID
+				// Default variables as arrays - these are used for holding the Mailchimp merge field ID
 				$merge_field_ids			= array();
 				$mailchimp_merge_field_ids	= array();
 
@@ -2899,9 +2899,9 @@ class Yikes_Inc_Easy_Mailchimp_Forms_Admin {
 		}
 
 		/**
-		 * Return an array of MailChimp lists associated with this account
+		 * Return an array of Mailchimp lists associated with this account
 		 *
-		 * Used when deleting the sites MailChimp cache stored
+		 * Used when deleting the sites Mailchimp cache stored
 		 *
 		 * @since 6.0.2
 		 * @return $list_id_array - array of list id's to loop over

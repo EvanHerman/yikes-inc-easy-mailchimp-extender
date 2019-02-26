@@ -1,6 +1,6 @@
 <!--
-	MailChimp API Clear Stored Cache Template
-	-	Clear MailChimp transient data such as forms, form fields, list data, subscribers etc.
+	Mailchimp API Clear Stored Cache Template
+	-	Clear Mailchimp transient data such as forms, form fields, list data, subscribers etc.
 		*	transient cache is stored for 60 minutes.
 -->
 <h3><span><?php _e( 'API Cache Settings' , 'yikes-inc-easy-mailchimp-extender' ); ?></span></h3>

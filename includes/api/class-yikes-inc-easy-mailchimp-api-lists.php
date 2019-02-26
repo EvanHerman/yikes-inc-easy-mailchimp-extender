@@ -64,7 +64,7 @@ class Yikes_Inc_Easy_MailChimp_API_Lists extends Yikes_Inc_Easy_MailChimp_API_Ab
 	 *
 	 * @author Jeremy Pry
 	 *
-	 * @param string $list_id       The list ID in MailChimp.
+	 * @param string $list_id       The list ID in Mailchimp.
 	 * @param array  $limit_fields  Array of fields to limit the results. The fields should be keys in the array.
 	 * @param bool   $use_transient Whether to use a transient.
 	 *
@@ -128,7 +128,7 @@ class Yikes_Inc_Easy_MailChimp_API_Lists extends Yikes_Inc_Easy_MailChimp_API_Ab
 	 *
 	 * @author Jeremy Pry
 	 *
-	 * @param string $list_id       The list ID in MailChimp.
+	 * @param string $list_id       The list ID in Mailchimp.
 	 * @param bool   $use_transient Whether to use a transient.
 	 *
 	 * @return array|WP_Error
@@ -187,7 +187,7 @@ class Yikes_Inc_Easy_MailChimp_API_Lists extends Yikes_Inc_Easy_MailChimp_API_Ab
 	*
 	* @since 6.3.3
 	*
-	* @param string | $list_id			| The ID of the MailChimp list
+	* @param string | $list_id			| The ID of the Mailchimp list
 	* @param string | $field_id			| The ID of the merge field
 	* @param array  | $field_data		| An array of field data constituting the body of our API request
 	* @param bool	| $clear_transient	| Flag whether we should delete the transients associated with this list
@@ -381,7 +381,7 @@ class Yikes_Inc_Easy_MailChimp_API_Lists extends Yikes_Inc_Easy_MailChimp_API_Ab
 	/**
 	 * Subscribe a member to the list.
 	 *
-	 * For keys to include in the $member_data array, see the MailChimp API documentation (link below).
+	 * For keys to include in the $member_data array, see the Mailchimp API documentation (link below).
 	 *
 	 * @author Jeremy Pry
 	 * @see    http://developer.mailchimp.com/documentation/mailchimp/reference/lists/members/#edit-put_lists_list_id_members_subscriber_hash

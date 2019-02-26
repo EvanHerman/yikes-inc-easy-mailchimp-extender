@@ -870,13 +870,13 @@ ul.support-option-list {
 			background-position: bottom center;
 			background-size: 105px;
 		}
-	/* Yikes MailChimp Preloader */
+	/* Yikes Mailchimp Preloader */
 	.yikes-easy-mc-widget-preloader {
 		position: absolute;
 		left: 48%;
 		margin-top: -96px;
 	}
-	/* Yikes MailChimp Widget */
+	/* Yikes Mailchimp Widget */
 	.yikes-dashboard-widget-section {
 		padding: 0 12px 12px;
 	}
@@ -889,7 +889,7 @@ ul.support-option-list {
 	. error-descripion {
 		padding-top: .5em;
 	}
-	/* MailChimp Freddie Logo */
+	/* Mailchimp Freddie Logo */
 	.yikes-mc-freddie-logo {
 		float: left;
 		margin-right: 10px;

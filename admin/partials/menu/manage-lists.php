@@ -7,7 +7,7 @@ if ( ! $this->is_user_mc_api_valid_form( false ) ) {
 
 $manager = yikes_get_mc_api_manager();
 
-// MailChimp Account/Profile info
+// Mailchimp Account/Profile info
 $account_details = $manager->get_account_handler()->get_account();
 
 // List data

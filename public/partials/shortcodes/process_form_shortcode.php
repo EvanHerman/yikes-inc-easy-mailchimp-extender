@@ -211,7 +211,7 @@ function process_mailchimp_shortcode( $atts ) {
 	}
 
 	// ensure there is an 'email' field the user can fill out
-	// or else MailChimp throws errors at you
+	// or else Mailchimp throws errors at you
 	// extract our array keys
 	// @todo Remove array_keys() and in_array() usage here.
 	if( isset( $form_data['fields'] ) && ! empty( $form_data['fields'] ) ) {
@@ -803,7 +803,7 @@ function process_mailchimp_shortcode( $atts ) {
 														*
 														* U.S. users may want to default their subscribers. 
 														* However, this filter is more for non-U.S. users, where the zip field is hidden. 
-														* MailChimp requires a zip code (for all submissions/countries), so this filter allows users users to set a default value.
+														* Mailchimp requires a zip code (for all submissions/countries), so this filter allows users users to set a default value.
 														*
 														*	'yikes-mailchimp-default-zip-code'
 														*

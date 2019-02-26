@@ -1,7 +1,7 @@
 <?php
 
 /**
- * The MailChimp API manager.
+ * The Mailchimp API manager.
  *
  * Used to retrieve API functionality for use elsewhere.
  *
@@ -35,7 +35,7 @@ class Yikes_Inc_Easy_MailChimp_API_Manager {
 	protected $api_key = '';
 
 	/**
-	 * The Datacenter for the MailChimp account.
+	 * The Datacenter for the Mailchimp account.
 	 *
 	 * @since 6.3.0
 	 * @var string
@@ -63,7 +63,7 @@ class Yikes_Inc_Easy_MailChimp_API_Manager {
 	 *
 	 * @since 6.3.0
 	 *
-	 * @param string $api_key The full API key from MailChimp.
+	 * @param string $api_key The full API key from Mailchimp.
 	 */
 	public function __construct( $api_key = '' ) {
 		if ( empty( $api_key ) ) {
@@ -104,11 +104,11 @@ class Yikes_Inc_Easy_MailChimp_API_Manager {
 	}
 
 	/**
-	 * Get the Datacenter for the MailChimp account.
+	 * Get the Datacenter for the Mailchimp account.
 	 *
 	 * @author Jeremy Pry
 	 * @since  6.3.0
-	 * @return string The datacenter for the MailChimp Account.
+	 * @return string The datacenter for the Mailchimp Account.
 	 */
 	public function get_datacenter() {
 		return $this->dc;
@@ -123,11 +123,11 @@ class Yikes_Inc_Easy_MailChimp_API_Manager {
 	 */
 	public function get_default_api_version() {
 		/**
-		 * Filter the default MailChimp API version.
+		 * Filter the default Mailchimp API version.
 		 *
 		 * @since 6.3.0
 		 *
-		 * @param string $version The default MailChimp API version.
+		 * @param string $version The default Mailchimp API version.
 		 */
 		return apply_filters( 'yikesinc_eme_default_api_version', '3.0' );
 	}

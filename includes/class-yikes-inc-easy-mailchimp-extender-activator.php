@@ -68,7 +68,7 @@ class Yikes_Inc_Easy_Mailchimp_Extender_Activator {
 		*/
 		$charset_collate = $wpdb->get_charset_collate();
 
-		// create the Yikes Inc. Easy MailChimp database table
+		// create the Yikes Inc. Easy Mailchimp database table
 		$sql = "CREATE TABLE $custom_table_name (
 		id INT NOT NULL AUTO_INCREMENT,
 		list_id TEXT NOT NULL,

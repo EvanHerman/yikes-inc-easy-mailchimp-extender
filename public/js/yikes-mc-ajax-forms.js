@@ -173,7 +173,7 @@ window.Yikes_Mailchimp_Ajax = window.Yikes_Mailchimp_Ajax || {};
 								console.error( errorThrown );
 							}
 						});
-						/* console.log( 'Successfully submit subscriber data to MailChimp.' ); */
+						/* console.log( 'Successfully submit subscriber data to Mailchimp.' ); */
 					} else {
 						response = response.data;
 

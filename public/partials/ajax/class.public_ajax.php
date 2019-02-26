@@ -120,7 +120,7 @@ class YIKES_Inc_Easy_MailChimp_Public_Ajax {
 		// Check for errors in any of the calls.
 		if ( $is_error ) {
 			$error_message = '<br>' . join( '<br>', $errors );
-			/* translators: the placeholder is a string of errors returned from MailChimp. */
+			/* translators: the placeholder is a string of errors returned from Mailchimp. */
 			$error_message = sprintf( __( 'Error sending update profile email. <strong>Error(s): %s</strong>. Please contact the site administrator.', 'yikes-inc-easy-mailchimp-extender' ), $error_message );
 			wp_send_json_error(
 				array(

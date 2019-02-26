@@ -1,5 +1,5 @@
 <!--
-	MailChimp API Debug Settings / Debug Log Table
+	Mailchimp API Debug Settings / Debug Log Table
 	- display installation stuff here
 	- php version, wp version, plugin version and debug log
 -->

@@ -40,7 +40,7 @@ class YIKES_Inc_Easy_MailChimp_Dashboard_Widgets {
 	}
 
 	/*******************************************************
-	 * Custom Dashboard MailChimp Account Activity Widget
+	 * Custom Dashboard Mailchimp Account Activity Widget
 	 ********************************************************/
 	/**
 	 * Add a widget to the dashboard.

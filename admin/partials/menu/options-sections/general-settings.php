@@ -18,7 +18,7 @@ $yikes_mc_api_constant = defined( 'YIKES_MC_API_KEY' );
 
 		<!-- Start Option Inputs -->
 
-		<!-- MailChimp API Input Field -->
+		<!-- Mailchimp API Input Field -->
 		<label for="yks-mailchimp-api-key">
 
 			<p><?php _e( 'Enter your API key in the field below to connect your site to your Mailchimp account.' , 'yikes-inc-easy-mailchimp-extender' ); ?></p>

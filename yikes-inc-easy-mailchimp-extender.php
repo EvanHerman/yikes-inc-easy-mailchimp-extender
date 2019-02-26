@@ -86,8 +86,13 @@ function activate_yikes_inc_easy_mailchimp_extender( $network_wide ) {
 /**
  *	deactivate_yikes_inc_easy_mailchimp_extender();
  * 	The code that runs during deactivate.
+ *	uninstall_yikes_inc_easy_mailchimp_extender();
+ * 	The code that runs during uninstall.
  *
- *      @since 6.0.0
+ * 	This action is documented in includes/class-yikes-inc-easy-mailchimp-extender-uninstall.php
+ *	and carries out the deletion of Mailchimp transients, plugin options and Mailchimp form tables.
+ *
+ * @since 6.0.0
  *	@return void
  */
 register_deactivation_hook( __FILE__, 'deactivate_yikes_inc_easy_mailchimp_extender' );
@@ -101,10 +106,10 @@ function deactivate_yikes_inc_easy_mailchimp_extender() {
  * 	The code that runs during uninstall.
  *
  * 	This action is documented in includes/class-yikes-inc-easy-mailchimp-extender-uninstall.php
- *	and carries out the deletion of MailChimp transients, plugin options and MailChimp form tables.
+ *	and carries out the deletion of Mailchimp transients, plugin options and Mailchimp form tables.
  *
- *      @since 6.0.0
- *	@return void
+ * @since 6.0.0
+ * @return void
  */
 register_uninstall_hook( __FILE__, 'uninstall_yikes_inc_easy_mailchimp_extender' );
 function uninstall_yikes_inc_easy_mailchimp_extender() {
@@ -189,7 +194,7 @@ yikes_inc_easy_mailchimp_extender()->run();
 /**
  * Helper function to return our API key
  * Support the use of a PHP constant
- * @return string MailChimp API key from the PHP constant, or the options
+ * @return string Mailchimp API key from the PHP constant, or the options
  * @security strip away tags and patch security
  * @since 6.2.2
  */
@@ -223,6 +228,6 @@ function yikes_mailchimp_plugin_textdomain() {
 }
 
 /*
- *	Enjoy this wonderfully powerful (and free) plugin.
- *	~<|:D
- */
+*	Enjoy this wonderfully powerful (and free) plugin.
+*	~<|:D
+*/

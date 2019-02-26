@@ -117,7 +117,7 @@ if ( isset( $merge_variables['error'] ) ) {
 	$submission_handler->handle_merge_variables_error( $merge_variables['error'], $merge_error_message );
 }
 
-// This is the array we're going to pass through to the MailChimp API
+// This is the array we're going to pass through to the Mailchimp API
 $member_data = array(
 	'email_address' => $sanitized_email,
 	'merge_fields'  => $merge_variables,
@@ -167,7 +167,7 @@ if ( is_wp_error( $member_exists ) || $double_optin_resubscribe === true ) {
 
 	// If this member already exists, then we need to go through our optin settings and run some more logic
 
-	// But first let's set our flag, and set the MailChimp status flag
+	// But first let's set our flag, and set the Mailchimp status flag
 	$new_subscriber = false;
 	$member_data['status'] = 'subscribed';
 
@@ -195,7 +195,7 @@ if ( is_wp_error( $member_exists ) || $double_optin_resubscribe === true ) {
  *
  * @since 6.3.0
  *
- * @param array  | $member_data | Array of all the variables sent to the MailChimp API
+ * @param array  | $member_data | Array of all the variables sent to the Mailchimp API
  * @param string | $form_id		| The form ID
  */
 $member_data = apply_filters( 'yikes-mailchimp-filter-subscribe-request', $member_data, $form_id );
