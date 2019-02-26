@@ -43,7 +43,7 @@ if ( ! defined( 'WPINC' ) ) {
  * 	@since 6.1.3
  */
 if ( ! defined( 'YIKES_MC_VERSION' ) ) {
-	define( 'YIKES_MC_VERSION' , '6.5.1' );
+	define( 'YIKES_MC_VERSION', '6.5.1' );
 }
 
 /**
@@ -84,8 +84,6 @@ function activate_yikes_inc_easy_mailchimp_extender( $network_wide ) {
 }
 
 /**
- *	deactivate_yikes_inc_easy_mailchimp_extender();
- * 	The code that runs during deactivate.
  *	uninstall_yikes_inc_easy_mailchimp_extender();
  * 	The code that runs during uninstall.
  *
