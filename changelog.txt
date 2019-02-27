@@ -1,7 +1,7 @@
 == Changelog ==
 
-= 6.5.1 - February 12th, 2019 =
-* Changed all strings from MailChimp -> Mailchimp.
+= 6.5.1 - February 27th, 2019 =
+* Changed all strings from MailChimp to Mailchimp.
 
 = 6.5.0 - February 6th, 2019 =
 * Added tags! You can now add tags to your Easy Form's Forms! Any tag attached to a form will be attached to subscribers of that form. When applying tags to new subscribers, they can be filtered with the following filters: `yikes_mailchimp_subscriber_tags` (filters the list of tabs being applied) and `yikes_mailchimp_subscriber_tag_active` (decides whether a certain tag will be added).
