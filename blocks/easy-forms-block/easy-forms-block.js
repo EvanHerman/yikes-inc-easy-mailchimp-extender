@@ -169,9 +169,9 @@ exports.default = EasyFormsAPI;
 
 /***/ }),
 
-/***/ "./blocks/components/class.MailChimpForms.js":
+/***/ "./blocks/components/class.MailchimpForms.js":
 /*!***************************************************!*\
-  !*** ./blocks/components/class.MailChimpForms.js ***!
+  !*** ./blocks/components/class.MailchimpForms.js ***!
   \***************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
@@ -229,13 +229,13 @@ var _wp$components = wp.components,
     SelectControl = _wp$components.SelectControl;
 var Component = wp.element.Component;
 
-var MailChimpForms = function (_Component) {
-  _inherits(MailChimpForms, _Component);
+var MailchimpForms = function (_Component) {
+  _inherits(MailchimpForms, _Component);
 
-  function MailChimpForms(props) {
-    _classCallCheck(this, MailChimpForms);
+  function MailchimpForms(props) {
+    _classCallCheck(this, MailchimpForms);
 
-    var _this = _possibleConstructorReturn(this, (MailChimpForms.__proto__ || Object.getPrototypeOf(MailChimpForms)).apply(this, arguments));
+    var _this = _possibleConstructorReturn(this, (MailchimpForms.__proto__ || Object.getPrototypeOf(MailchimpForms)).apply(this, arguments));
 
     _this.state = {
       api_key_status: 'valid',
@@ -265,7 +265,7 @@ var MailChimpForms = function (_Component) {
    */
 
 
-  _createClass(MailChimpForms, [{
+  _createClass(MailchimpForms, [{
     key: 'componentDidMount',
     value: function componentDidMount() {
       var _this2 = this;
@@ -1139,10 +1139,10 @@ var MailChimpForms = function (_Component) {
     }
   }]);
 
-  return MailChimpForms;
+  return MailchimpForms;
 }(Component);
 
-exports.default = MailChimpForms;
+exports.default = MailchimpForms;
 
 /***/ }),
 
@@ -1636,9 +1636,9 @@ var _api = __webpack_require__(/*! ../components/api.js */ "./blocks/components/
 
 var _api2 = _interopRequireDefault(_api);
 
-var _classMailChimpForms = __webpack_require__(/*! ../components/class.MailChimpForms.js */ "./blocks/components/class.MailChimpForms.js");
+var _classMailchimpForms = __webpack_require__(/*! ../components/class.MailchimpForms.js */ "./blocks/components/class.MailchimpForms.js");
 
-var _classMailChimpForms2 = _interopRequireDefault(_classMailChimpForms);
+var _classMailchimpForms2 = _interopRequireDefault(_classMailchimpForms);
 
 __webpack_require__(/*! ./easy-forms-block.scss */ "./blocks/easy-forms-block/easy-forms-block.scss");
 
@@ -1732,7 +1732,7 @@ var edit_easy_form = function edit_easy_form(props) {
     props.setAttributes({ submit_button_text: value });
   };
 
-  return wp.element.createElement(_classMailChimpForms2.default, {
+  return wp.element.createElement(_classMailchimpForms2.default, {
     className: (0, _classnames2.default)(props.className),
     onChangeForm: onChangeForm,
     formID: props.attributes.form_id,

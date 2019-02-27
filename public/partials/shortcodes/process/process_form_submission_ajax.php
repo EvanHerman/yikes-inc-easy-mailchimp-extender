@@ -5,7 +5,7 @@
 */
 
 // Instantiate our submission handler class
-$submission_handler = new Yikes_Inc_Easy_MailChimp_Extender_Process_Submission_Handler( $is_ajax = true );
+$submission_handler = new Yikes_Inc_Easy_Mailchimp_Extender_Process_Submission_Handler( $is_ajax = true );
 
 // parse our form data
 parse_str( $_POST['form_data'], $data );

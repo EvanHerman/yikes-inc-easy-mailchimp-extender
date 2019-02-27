@@ -31,7 +31,7 @@
 	<div class="wrap">
 
 		<!-- Freddie Logo -->
-		<img src="<?php echo YIKES_MC_URL . 'includes/images/MailChimp_Assets/Freddie_60px.png'; ?>" alt="<?php _e( 'Freddie - Mailchimp Mascot' , 'yikes-inc-easy-mailchimp-extender' ); ?>" class="yikes-mc-freddie-logo" />
+		<img src="<?php echo YIKES_MC_URL . 'includes/images/Mailchimp_Assets/Freddie_60px.png'; ?>" alt="<?php _e( 'Freddie - Mailchimp Mascot' , 'yikes-inc-easy-mailchimp-extender' ); ?>" class="yikes-mc-freddie-logo" />
 
 		<h1>Easy Forms for Mailchimp | <?php if ( isset( $_REQUEST['section'] ) ) { echo ucwords( str_replace( '-', ' ', $_REQUEST['section'] ) ); } else { echo __( 'General Settings' , 'yikes-inc-easy-mailchimp-extender' ); } ?></h1>
 

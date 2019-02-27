@@ -11,7 +11,7 @@ const { RichText, InspectorControls, PlainText } = wp.editor;
 const { Spinner, TextControl, PanelBody, PanelRow, FormToggle, SelectControl } = wp.components;
 const { Component } = wp.element;
 
-export default class MailChimpForms extends Component {
+export default class MailchimpForms extends Component {
   constructor( props ) {
     super( ...arguments );
     this.state = {

@@ -139,7 +139,7 @@ function yikes_easy_mailchimp_new_network_site( $blog_id, $user_id, $domain, $pa
  * overridden by a constant, YIKES_MC_CUSTOM_DB.
  *
  * @author Jeremy Pry
- * @return Yikes_Inc_Easy_MailChimp_Extender_Form_Interface
+ * @return Yikes_Inc_Easy_Mailchimp_Extender_Form_Interface
  */
 function yikes_easy_mailchimp_extender_get_form_interface() {
 	static $interface = null;
@@ -147,9 +147,9 @@ function yikes_easy_mailchimp_extender_get_form_interface() {
 	if ( null === $interface ) {
 		if ( yikes_inc_easy_mailchimp_extender_use_custom_db() ) {
 			global $wpdb;
-			$interface = new Yikes_Inc_Easy_MailChimp_Extender_Forms( $wpdb );
+			$interface = new Yikes_Inc_Easy_Mailchimp_Extender_Forms( $wpdb );
 		} else {
-			$interface = new Yikes_Inc_Easy_MailChimp_Extender_Option_Forms();
+			$interface = new Yikes_Inc_Easy_Mailchimp_Extender_Option_Forms();
 		}
 	}
 
@@ -208,13 +208,13 @@ function yikes_get_mc_api_key() {
  * Get the API Manager instance.
  *
  * @author Jeremy Pry
- * @return Yikes_Inc_Easy_MailChimp_API_Manager
+ * @return Yikes_Inc_Easy_Mailchimp_API_Manager
  */
 function yikes_get_mc_api_manager() {
 	static $manager = null;
 
 	if ( null === $manager ) {
-		$manager = new Yikes_Inc_Easy_MailChimp_API_Manager( yikes_get_mc_api_key() );
+		$manager = new Yikes_Inc_Easy_Mailchimp_API_Manager( yikes_get_mc_api_key() );
 	}
 
 	return $manager;

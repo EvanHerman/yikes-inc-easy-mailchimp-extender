@@ -9,7 +9,7 @@ class Yikes_Inc_Easy_Mailchimp_Extender_Widget extends WP_Widget {
 	/**
 	 * Our form interface.
 	 *
-	 * @var Yikes_Inc_Easy_MailChimp_Extender_Form_Interface
+	 * @var Yikes_Inc_Easy_Mailchimp_Extender_Form_Interface
 	 */
 	protected $form_interface;
 

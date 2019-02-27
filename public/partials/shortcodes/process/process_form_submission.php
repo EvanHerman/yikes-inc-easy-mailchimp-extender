@@ -8,7 +8,7 @@
 global $form_submitted, $process_submission_response;
 
 // Instantiate our submission handler class
-$submission_handler = new Yikes_Inc_Easy_MailChimp_Extender_Process_Submission_Handler( $is_ajax = false );
+$submission_handler = new Yikes_Inc_Easy_Mailchimp_Extender_Process_Submission_Handler( $is_ajax = false );
 
 // Capture our form data
 $data = $_POST;

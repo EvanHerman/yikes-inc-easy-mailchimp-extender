@@ -8,7 +8,7 @@
 /**
  * YIKES Mailchimp Test Base Class
  */
-class YIKES_MailChimp_Test_Base extends WP_UnitTestCase {
+class YIKES_Mailchimp_Test_Base extends WP_UnitTestCase {
 
 	/**
 	 * A single example test.

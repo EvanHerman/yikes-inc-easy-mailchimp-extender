@@ -32,7 +32,7 @@ class Yikes_Inc_Easy_Mailchimp_Forms_Admin {
 	/**
 	 * Our form interface instance.
 	 *
-	 * @var Yikes_Inc_Easy_MailChimp_Extender_Form_Interface
+	 * @var Yikes_Inc_Easy_Mailchimp_Extender_Form_Interface
 	 */
 	private $form_interface;
 
@@ -43,12 +43,12 @@ class Yikes_Inc_Easy_Mailchimp_Forms_Admin {
 	 *
 	 * @param string                                           $yikes_inc_easy_mailchimp_extender The name of this plugin.
 	 * @param string                                           $version                           The version of this plugin.
-	 * @param Yikes_Inc_Easy_MailChimp_Extender_Form_Interface $form_interface
+	 * @param Yikes_Inc_Easy_Mailchimp_Extender_Form_Interface $form_interface
 	 */
 	public function __construct(
 		$yikes_inc_easy_mailchimp_extender,
 		$version,
-		Yikes_Inc_Easy_MailChimp_Extender_Form_Interface $form_interface
+		Yikes_Inc_Easy_Mailchimp_Extender_Form_Interface $form_interface
 	) {
 		$this->yikes_inc_easy_mailchimp_extender = $yikes_inc_easy_mailchimp_extender;
 		$this->version                           = $version;
@@ -81,16 +81,16 @@ class Yikes_Inc_Easy_Mailchimp_Forms_Admin {
 		add_action( 'admin_init', array( $this, 'yikes_easy_mc_settings_init' ) );
 
 		// Include Third Party Extensions.
-		new YIKES_MailChimp_ThirdParty_Integrations();
+		new YIKES_Mailchimp_ThirdParty_Integrations();
 
 		// Include our dashboard widget class.
-		new YIKES_Inc_Easy_MailChimp_Dashboard_Widgets();
+		new YIKES_Inc_Easy_Mailchimp_Dashboard_Widgets();
 
 		// Include our front end widget class.
 		add_action( 'widgets_init', array( $this, 'register_optin_widget' ) );
 
 		// Include our ajax processing class.
-		new YIKES_Inc_Easy_MailChimp_Process_Ajax();
+		new YIKES_Inc_Easy_Mailchimp_Process_Ajax();
 
 		// load up our helper class.
 		add_action( 'admin_init', array( $this, 'yikes_mailchimp_load_helper_class' ) );
@@ -389,7 +389,7 @@ class Yikes_Inc_Easy_Mailchimp_Forms_Admin {
 
 			// run the export function.
 			// parameters: ( $table_name, $form_ids, $file_name ).
-			Yikes_Inc_Easy_MailChimp_Export_Class::yikes_mailchimp_form_export('Yikes-Inc-Easy-Mailchimp-Forms-Export', $forms );
+			Yikes_Inc_Easy_Mailchimp_Export_Class::yikes_mailchimp_form_export('Yikes-Inc-Easy-Mailchimp-Forms-Export', $forms );
 			// re-direct the user back to the page.
 			wp_redirect( esc_url_raw( admin_url( 'admin.php?page=yikes-inc-easy-mailchimp-settings&section=import-export-forms' ) ) );
 			die();
@@ -411,7 +411,7 @@ class Yikes_Inc_Easy_Mailchimp_Forms_Admin {
 
 			// run the export function.
 			// parameters: ( $table_name, $form_ids, $file_name ).
-			Yikes_Inc_Easy_MailChimp_Export_Class::yikes_mailchimp_settings_export( 'Yikes-Inc-Easy-Mailchimp-Settings-Export' );
+			Yikes_Inc_Easy_Mailchimp_Export_Class::yikes_mailchimp_settings_export( 'Yikes-Inc-Easy-Mailchimp-Settings-Export' );
 			// re-direct the user back to the page.
 			wp_redirect( esc_url_raw( admin_url( 'admin.php?page=yikes-inc-easy-mailchimp-settings&section=import-export-forms' ) ) );
 			die();
@@ -429,13 +429,13 @@ class Yikes_Inc_Easy_Mailchimp_Forms_Admin {
 				wp_die( __( "We've run into an error. The security check didn't pass. Please try again." , 'yikes-inc-easy-mailchimp-extender' ) , __( "Failed nonce validation" , 'yikes-inc-easy-mailchimp-extender' ) , array( 'response' => 500 , 'back_link' => true ) );
 			}
 			// include the export class.
-			if ( ! class_exists( 'Yikes_Inc_Easy_MailChimp_Import_Class' ) ) {
+			if ( ! class_exists( 'Yikes_Inc_Easy_Mailchimp_Import_Class' ) ) {
 				include_once( YIKES_MC_PATH . 'includes/import-export/yikes-easy-mailchimp-import.class.php' );
 			}
 			// run the import function.
 			// parameters: ( $_FILES ).
-			Yikes_Inc_Easy_MailChimp_Import_Class::yikes_mailchimp_import_forms( $_FILES );
-			$import_query_arg = Yikes_Inc_Easy_MailChimp_Import_Class::yikes_mailchimp_import_type( $_FILES );
+			Yikes_Inc_Easy_Mailchimp_Import_Class::yikes_mailchimp_import_forms( $_FILES );
+			$import_query_arg = Yikes_Inc_Easy_Mailchimp_Import_Class::yikes_mailchimp_import_type( $_FILES );
 			// re-direct the user back to the page.
 			wp_redirect( esc_url_raw( admin_url( 'admin.php?page=yikes-inc-easy-mailchimp-settings&section=import-export-forms&' . $import_query_arg . '=true' ) ) );
 			die();
@@ -892,7 +892,7 @@ class Yikes_Inc_Easy_Mailchimp_Forms_Admin {
 			apply_filters( 'yikes-mailchimp-user-role-access', 'manage_options' ),
 			'yikes-inc-easy-mailchimp',
 			'', // no callback,
-			YIKES_MC_URL . 'includes/images/MailChimp_Assets/Freddie_wink_icon.png'
+			YIKES_MC_URL . 'includes/images/Mailchimp_Assets/Freddie_wink_icon.png'
 		);
 
 		// Sub Pages
@@ -1189,7 +1189,7 @@ class Yikes_Inc_Easy_Mailchimp_Forms_Admin {
 		$api_key = strip_tags ( trim( $input ) );
 		$dash_position = strpos( trim( $input ), '-' );
 		if ( $dash_position !== false ) {
-			$manager = new Yikes_Inc_Easy_MailChimp_API_Manager( $api_key );
+			$manager = new Yikes_Inc_Easy_Mailchimp_API_Manager( $api_key );
 		} else {
 			update_option( 'yikes-mc-api-invalid-key-response', __( 'Your API key appears to be invalid.', 'yikes-inc-easy-mailchimp-extender' ) );
 			update_option( 'yikes-mc-api-validation', 'invalid_api_key' );
@@ -3108,8 +3108,8 @@ class Yikes_Inc_Easy_Mailchimp_Forms_Admin {
 		/** @var wpdb */
 		global $wpdb;
 
-		$db_interface     = new Yikes_Inc_Easy_MailChimp_Extender_Forms( $wpdb );
-		$option_interface = new Yikes_Inc_Easy_MailChimp_Extender_Option_Forms();
+		$db_interface     = new Yikes_Inc_Easy_Mailchimp_Extender_Forms( $wpdb );
+		$option_interface = new Yikes_Inc_Easy_Mailchimp_Extender_Option_Forms();
 		$form_option      = array();
 		$form_ids         = $db_interface->get_form_ids();
 

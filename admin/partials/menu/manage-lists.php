@@ -27,7 +27,7 @@ if ( is_wp_error( $list_data ) ) {
 ?>
 <div class="wrap">
 	<!-- Freddie Logo -->
-	<img src="<?php echo YIKES_MC_URL . 'includes/images/MailChimp_Assets/Freddie_60px.png'; ?>" alt="<?php __( 'Freddie - Mailchimp Mascot' , 'yikes-inc-easy-mailchimp-extender' ); ?>" class="yikes-mc-freddie-logo" />
+	<img src="<?php echo YIKES_MC_URL . 'includes/images/Mailchimp_Assets/Freddie_60px.png'; ?>" alt="<?php __( 'Freddie - Mailchimp Mascot' , 'yikes-inc-easy-mailchimp-extender' ); ?>" class="yikes-mc-freddie-logo" />
 
 	<h1>Easy Forms for Mailchimp | <?php _e( 'Manage Mailing Lists' , 'yikes-inc-easy-mailchimp-extender' ); ?></h1>
 
@@ -138,7 +138,7 @@ if ( is_wp_error( $list_data ) ) {
 						<div class="inside">
 
 							<a href="https://us3.admin.mailchimp.com/" title="<?php _e( 'Mailchimp Site' , 'yikes-inc-easy-mailchimp-extender' ); ?>" target="_blank">
-								<img src="<?php echo YIKES_MC_URL . 'includes/images/MailChimp_Assets/mailchimp-logo.png'; ?>" title="<?php _e( 'Mailchimp Site' , 'yikes-inc-easy-mailchimp-extender' ); ?>" class="list-page-mailchimp-logo">
+								<img src="<?php echo YIKES_MC_URL . 'includes/images/Mailchimp_Assets/mailchimp-logo.png'; ?>" title="<?php _e( 'Mailchimp Site' , 'yikes-inc-easy-mailchimp-extender' ); ?>" class="list-page-mailchimp-logo">
 							</a>
 
 						</div>

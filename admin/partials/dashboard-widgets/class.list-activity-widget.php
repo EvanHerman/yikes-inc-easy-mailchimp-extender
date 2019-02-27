@@ -4,7 +4,7 @@
 * Our ajax is processed inside of class.ajax.php
 */
 
-class YIKES_Inc_Easy_MailChimp_Dashboard_Widgets {
+class YIKES_Inc_Easy_Mailchimp_Dashboard_Widgets {
 
 	// Construction
 	public function __construct() {

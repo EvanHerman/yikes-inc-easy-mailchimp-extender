@@ -3,12 +3,12 @@
 /**
  *
  */
-class Yikes_Inc_Easy_MailChimp_API_Lists extends Yikes_Inc_Easy_MailChimp_API_Abstract_Items {
+class Yikes_Inc_Easy_Mailchimp_API_Lists extends Yikes_Inc_Easy_Mailchimp_API_Abstract_Items {
 
 	/**
 	 * Our API object.
 	 *
-	 * @var Yikes_Inc_Easy_MailChimp_API
+	 * @var Yikes_Inc_Easy_Mailchimp_API
 	 */
 	protected $api;
 

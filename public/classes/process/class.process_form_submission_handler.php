@@ -1,6 +1,6 @@
 <?php
 
-class Yikes_Inc_Easy_MailChimp_Extender_Process_Submission_Handler {
+class Yikes_Inc_Easy_Mailchimp_Extender_Process_Submission_Handler {
 
 	/**
 	* A flag signifying whether we're dealing with an AJAX submission or standard form submission
@@ -605,7 +605,7 @@ class Yikes_Inc_Easy_MailChimp_Extender_Process_Submission_Handler {
 	public function handle_submission_response_success( $submission_settings, $page_data, $merge_variables, $notifications, $optin_settings, $new_subscriber ) {
 
 		// Check if we should redirect, and collect the redirect info in an array
-		$redirect_array = Yikes_Inc_Easy_MailChimp_Extender_Process_Submission_Handler::handle_submission_response_success_redirect( $this->form_id, $submission_settings, $page_data );
+		$redirect_array = Yikes_Inc_Easy_Mailchimp_Extender_Process_Submission_Handler::handle_submission_response_success_redirect( $this->form_id, $submission_settings, $page_data );
 
 		// Fire off our actions
 

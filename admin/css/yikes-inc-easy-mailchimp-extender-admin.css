@@ -96,7 +96,7 @@
 
 	/** List Statistics **/
 	#yikes_easy_mc_list_stats_widget h3 span {
-		background: url( '../../includes/images/MailChimp_Assets/Freddie_original.png' ) no-repeat scroll 8px 4px / 25px auto;
+		background: url( '../../includes/images/Mailchimp_Assets/Freddie_original.png' ) no-repeat scroll 8px 4px / 25px auto;
 		background-size: 25px;
 		display: block;
 		height: 30px;
@@ -247,7 +247,7 @@
 	/* TinyMCE Modal */
 	#yikes_mailchimp_tinyMCE_modal-title {
 		padding-left: 42px;
-		background: transparent url('../../includes/images/MailChimp_Assets/Freddie_original.png');
+		background: transparent url('../../includes/images/Mailchimp_Assets/Freddie_original.png');
 		background-repeat: no-repeat;
 		background-size: 25px;
 		background-position: left;
@@ -274,7 +274,7 @@
 /*		Front end Widget	 */
 /**************************/
 *[id*="_yikes_easy_mc_widget"] > div.widget-top > div.widget-title > h4 {
-	background: #FAFAFA url('../../includes/images/MailChimp_Assets/Freddie_original.png') no-repeat scroll 2% 50% / 25px auto;
+	background: #FAFAFA url('../../includes/images/Mailchimp_Assets/Freddie_original.png') no-repeat scroll 2% 50% / 25px auto;
 	padding-left: 40px;
 }
 
@@ -284,7 +284,7 @@
 
  /* Logo */
  #review-yikes-easy-mailchimp-notice #yikes-mailchimp-logo {
-	background: url('../../includes/images/MailChimp_Assets/yikes-mailchimp-welcome-logo.png') no-repeat;
+	background: url('../../includes/images/Mailchimp_Assets/yikes-mailchimp-welcome-logo.png') no-repeat;
 	background-size: 60px;
 	float: left;
 	font-size: 14px;
@@ -319,7 +319,7 @@ ul.support-option-list {
 	width: 132px;
 	font-size: 14px;
 	text-align: center;
-	background: url('../../includes/images/MailChimp_Assets/yikes-mailchimp-welcome-logo.png') no-repeat;
+	background: url('../../includes/images/Mailchimp_Assets/yikes-mailchimp-welcome-logo.png') no-repeat;
 }
 
 .yikes-easy-mc-feature-image.yikes-easy-mc-feature-v3-image {
@@ -1981,7 +1981,7 @@ body.admin_page_yikes-mailchimp-edit-form .ui-datepicker .ui-datepicker-calendar
 /** Front end Custoizer Widget Icon **/
 #available-widgets [class*=yikes_easy] .widget-title:before {
 	content: "" !important;
-	background: url(../../includes/images/MailChimp_Assets/Freddie_original.png) no-repeat #FAFAFA;
+	background: url(../../includes/images/Mailchimp_Assets/Freddie_original.png) no-repeat #FAFAFA;
 	background-size: contain;
 }
 

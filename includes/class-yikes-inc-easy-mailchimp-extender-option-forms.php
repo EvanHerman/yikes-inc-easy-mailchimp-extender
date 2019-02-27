@@ -3,7 +3,7 @@
 /**
  * Form interface class that uses the native Options API.
  */
-class Yikes_Inc_Easy_MailChimp_Extender_Option_Forms extends Yikes_Inc_Easy_MailChimp_Extender_Forms_Abstract {
+class Yikes_Inc_Easy_Mailchimp_Extender_Option_Forms extends Yikes_Inc_Easy_Mailchimp_Extender_Forms_Abstract {
 
 	/**
 	 * The base name of our option in the options table.

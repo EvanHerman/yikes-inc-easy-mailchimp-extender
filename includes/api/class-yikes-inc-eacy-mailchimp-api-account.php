@@ -3,7 +3,7 @@
 /**
  *
  */
-class Yikes_Inc_Easy_MailChimp_API_Account extends Yikes_Inc_Easy_MailChimp_API_Abstract_Items {
+class Yikes_Inc_Easy_Mailchimp_API_Account extends Yikes_Inc_Easy_Mailchimp_API_Abstract_Items {
 
 	/**
 	 * Get general account info.

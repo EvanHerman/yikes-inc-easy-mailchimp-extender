@@ -3,7 +3,7 @@
 /**
  * Interface for dealing with our forms.
  */
-interface Yikes_Inc_Easy_MailChimp_Extender_Form_Interface {
+interface Yikes_Inc_Easy_Mailchimp_Extender_Form_Interface {
 
 	/**
 	 * Get a form with the given ID.

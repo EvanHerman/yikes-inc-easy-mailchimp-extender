@@ -6,7 +6,7 @@
  * @author Jeremy Pry
  * @since  6.3.0
  */
-class Yikes_Inc_Easy_MailChimp_API {
+class Yikes_Inc_Easy_Mailchimp_API {
 
 	/**
 	 * The API key.
@@ -43,7 +43,7 @@ class Yikes_Inc_Easy_MailChimp_API {
 	protected $datacenter = '';
 
 	/**
-	 * Yikes_Inc_Easy_MailChimp_API constructor.
+	 * Yikes_Inc_Easy_Mailchimp_API constructor.
 	 *
 	 * @since 6.3.0
 	 *

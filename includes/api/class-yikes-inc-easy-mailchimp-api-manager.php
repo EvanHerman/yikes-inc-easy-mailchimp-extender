@@ -8,13 +8,13 @@
  * @author Jeremy Pry
  * @since  6.3.0
  */
-class Yikes_Inc_Easy_MailChimp_API_Manager {
+class Yikes_Inc_Easy_Mailchimp_API_Manager {
 
 	/**
 	 * The account manager instance.
 	 *
 	 * @since 6.3.0
-	 * @var Yikes_Inc_Easy_MailChimp_API_Account
+	 * @var Yikes_Inc_Easy_Mailchimp_API_Account
 	 */
 	protected $account_manager = null;
 
@@ -22,7 +22,7 @@ class Yikes_Inc_Easy_MailChimp_API_Manager {
 	 * Our API instance.
 	 *
 	 * @since 6.3.0
-	 * @var Yikes_Inc_Easy_MailChimp_API[]
+	 * @var Yikes_Inc_Easy_Mailchimp_API[]
 	 */
 	protected $api = array();
 
@@ -54,12 +54,12 @@ class Yikes_Inc_Easy_MailChimp_API_Manager {
 	 * The list manager instance.
 	 *
 	 * @since 6.3.0
-	 * @var Yikes_Inc_Easy_MailChimp_API_Lists
+	 * @var Yikes_Inc_Easy_Mailchimp_API_Lists
 	 */
 	protected $list_manager = null;
 
 	/**
-	 * Yikes_Inc_Easy_MailChimp_API_Manager constructor.
+	 * Yikes_Inc_Easy_Mailchimp_API_Manager constructor.
 	 *
 	 * @since 6.3.0
 	 *
@@ -140,13 +140,13 @@ class Yikes_Inc_Easy_MailChimp_API_Manager {
 	 *
 	 * @param string $version The API version instance to retrieve.
 	 *
-	 * @return Yikes_Inc_Easy_MailChimp_API
+	 * @return Yikes_Inc_Easy_Mailchimp_API
 	 */
 	public function get_api( $version = '' ) {
 		$version = $version ?: $this->get_default_api_version();
 
 		if ( ! array_key_exists( $version, $this->api ) || null === $this->api[ $version ] ) {
-			$this->api[ $version ] = new Yikes_Inc_Easy_MailChimp_API( $this->get_datacenter(), $this->get_api_key(), $version );
+			$this->api[ $version ] = new Yikes_Inc_Easy_Mailchimp_API( $this->get_datacenter(), $this->get_api_key(), $version );
 		}
 
 		return $this->api[ $version ];
@@ -157,11 +157,11 @@ class Yikes_Inc_Easy_MailChimp_API_Manager {
 	 *
 	 * @author Jeremy Pry
 	 * @since  6.3.0
-	 * @return Yikes_Inc_Easy_MailChimp_API_Lists
+	 * @return Yikes_Inc_Easy_Mailchimp_API_Lists
 	 */
 	public function get_list_handler() {
 		if ( null == $this->list_manager ) {
-			$this->list_manager = new Yikes_Inc_Easy_MailChimp_API_Lists( $this->get_api() );
+			$this->list_manager = new Yikes_Inc_Easy_Mailchimp_API_Lists( $this->get_api() );
 		}
 
 		return $this->list_manager;
@@ -172,11 +172,11 @@ class Yikes_Inc_Easy_MailChimp_API_Manager {
 	 *
 	 * @author Jeremy Pry
 	 * @since  6.3.0
-	 * @return Yikes_Inc_Easy_MailChimp_API_Account
+	 * @return Yikes_Inc_Easy_Mailchimp_API_Account
 	 */
 	public function get_account_handler() {
 		if ( null === $this->account_manager ) {
-			$this->account_manager = new Yikes_Inc_Easy_MailChimp_API_Account( $this->get_api() );
+			$this->account_manager = new Yikes_Inc_Easy_Mailchimp_API_Account( $this->get_api() );
 		}
 
 		return $this->account_manager;

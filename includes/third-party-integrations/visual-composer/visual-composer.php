@@ -5,7 +5,7 @@
 *	@since 6.0.3
 */
 
-class YIKES_MailChimp_Visual_Composer_Extension {
+class YIKES_Mailchimp_Visual_Composer_Extension {
 
 	/**
 	 * Constructor
@@ -35,7 +35,7 @@ class YIKES_MailChimp_Visual_Composer_Extension {
 		vc_map( array(
 			'name'        => __( 'Easy Forms for Mailchimp', 'yikes-inc-easy-mailchimp-extender' ),
 			'base'        => 'yikes-mailchimp',
-			'icon'        => YIKES_MC_URL . 'includes/images/MailChimp_Assets/yikes-mailchimp-welcome-logo.png',
+			'icon'        => YIKES_MC_URL . 'includes/images/Mailchimp_Assets/yikes-mailchimp-welcome-logo.png',
 			'category'    => 'Content',
 			'description' => __( 'Display a Mailchimp Opt-In form', 'yikes-inc-easy-mailchimp-extender' ),
 			'params'      => array(
@@ -99,7 +99,7 @@ class YIKES_MailChimp_Visual_Composer_Extension {
 	 * @since 6.0.3
 	 */
 	public function yikes_mailchimp_logo_vc_section() {
-		return '<img style="width:250px;display:block;margin:0 auto;" src="' . YIKES_MC_URL . 'includes/images/MailChimp_Assets/mailchimp-logo.png" title="' . __( 'Easy Forms for Mailchimp', 'yikes-inc-easy-mailchimp-extender' ) . '" />';
+		return '<img style="width:250px;display:block;margin:0 auto;" src="' . YIKES_MC_URL . 'includes/images/Mailchimp_Assets/mailchimp-logo.png" title="' . __( 'Easy Forms for Mailchimp', 'yikes-inc-easy-mailchimp-extender' ) . '" />';
 	}
 
 	/**

@@ -23,7 +23,7 @@ if( $this->is_user_mc_api_valid_form( false ) == 'valid' ) {
 ?>
 <div class="wrap">
 	<!-- Freddie Logo -->
-	<img src="<?php echo YIKES_MC_URL . 'includes/images/MailChimp_Assets/Freddie_60px.png'; ?>" alt="<?php _e( 'Freddie - Mailchimp Mascot' , 'yikes-inc-easy-mailchimp-extender' ); ?>" class="yikes-mc-freddie-logo" />
+	<img src="<?php echo YIKES_MC_URL . 'includes/images/Mailchimp_Assets/Freddie_60px.png'; ?>" alt="<?php _e( 'Freddie - Mailchimp Mascot' , 'yikes-inc-easy-mailchimp-extender' ); ?>" class="yikes-mc-freddie-logo" />
 
 	<h1>Easy Forms for Mailchimp | <?php _e( 'Manage Forms' , 'yikes-inc-easy-mailchimp-extender' ) ?></h1>
 

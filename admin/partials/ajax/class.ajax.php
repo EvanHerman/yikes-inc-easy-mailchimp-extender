@@ -7,7 +7,7 @@
 	*	@since 6.0.0
 	*	Author: Yikes Inc. | https://www.yikesinc.com
 	*/
-	class YIKES_Inc_Easy_MailChimp_Process_Ajax {
+	class YIKES_Inc_Easy_Mailchimp_Process_Ajax {
 
 		public function __construct() {
 

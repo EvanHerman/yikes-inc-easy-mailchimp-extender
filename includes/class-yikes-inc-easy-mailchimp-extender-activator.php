@@ -100,8 +100,8 @@ class Yikes_Inc_Easy_Mailchimp_Extender_Activator {
 		}
 
 		// Create an option for the forms.
-		if ( class_exists( 'Yikes_Inc_Easy_MailChimp_Extender_Option_Forms' ) ) {
-			$option_class = new Yikes_Inc_Easy_MailChimp_Extender_Option_Forms();
+		if ( class_exists( 'Yikes_Inc_Easy_Mailchimp_Extender_Option_Forms' ) ) {
+			$option_class = new Yikes_Inc_Easy_Mailchimp_Extender_Option_Forms();
 			$option_class->create_option();
 		}
 

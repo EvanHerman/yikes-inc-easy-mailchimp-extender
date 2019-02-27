@@ -124,7 +124,7 @@ $url = add_query_arg(
 );
 ?>
 <!-- Freddie Logo -->
-<img src="<?php echo esc_url( YIKES_MC_URL . 'includes/images/MailChimp_Assets/Freddie_60px.png' ); ?>" alt="<?php esc_attr_e( 'Freddie - Mailchimp Mascot', 'yikes-inc-easy-mailchimp-extender' ); ?>" class="yikes-mc-freddie-logo" />
+<img src="<?php echo esc_url( YIKES_MC_URL . 'includes/images/Mailchimp_Assets/Freddie_60px.png' ); ?>" alt="<?php esc_attr_e( 'Freddie - Mailchimp Mascot', 'yikes-inc-easy-mailchimp-extender' ); ?>" class="yikes-mc-freddie-logo" />
 
 <?php /* translators: the placeholder is the form's name */ ?>
 <h1>YIKES Easy Forms for Mailchimp | <?php echo sprintf( esc_html__( 'Edit %1s', 'yikes-inc-easy-mailchimp-extender' ), esc_html( $form['form_name'] ) ); ?></h1>

@@ -164,7 +164,7 @@
 											<!-- If interest groups have been selected already, load them here -->
 											<?php
 											if ( in_array( $list['id'], $selected_list ) && $list_interest_groups ) {
-												YIKES_Inc_Easy_MailChimp_Process_Ajax::check_list_for_interest_groups( $list['id'], $class, true );
+												YIKES_Inc_Easy_Mailchimp_Process_Ajax::check_list_for_interest_groups( $list['id'], $class, true );
 											}
 											?>
 

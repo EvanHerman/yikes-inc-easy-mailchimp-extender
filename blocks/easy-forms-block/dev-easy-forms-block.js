@@ -1,6 +1,6 @@
 import EasyFormsAPI from '../components/api.js'
 
-import MailChimpForms from '../components/class.MailChimpForms.js';
+import MailchimpForms from '../components/class.MailchimpForms.js';
 
 import './easy-forms-block.scss'
 
@@ -91,7 +91,7 @@ const edit_easy_form = function( props ) {
   }
 
   return (
-    <MailChimpForms
+    <MailchimpForms
       className={ props.className }
       onChangeForm={ onChangeForm }
       formID={ props.attributes.form_id }

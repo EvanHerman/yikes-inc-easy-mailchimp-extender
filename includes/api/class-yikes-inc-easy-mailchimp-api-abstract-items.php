@@ -6,13 +6,13 @@
  * @author Jeremy Pry
  * @since  6.3.0
  */
-abstract class Yikes_Inc_Easy_MailChimp_API_Abstract_Items {
+abstract class Yikes_Inc_Easy_Mailchimp_API_Abstract_Items {
 
 	/**
 	 * Our API object.
 	 *
 	 * @since 6.3.0
-	 * @var Yikes_Inc_Easy_MailChimp_API
+	 * @var Yikes_Inc_Easy_Mailchimp_API
 	 */
 	protected $api;
 
@@ -33,15 +33,15 @@ abstract class Yikes_Inc_Easy_MailChimp_API_Abstract_Items {
 	protected $requires_v2 = false;
 
 	/**
-	 * Yikes_Inc_Easy_MailChimp_API_Lists constructor.
+	 * Yikes_Inc_Easy_Mailchimp_API_Lists constructor.
 	 *
 	 * @since 6.3.0
 	 *
-	 * @param Yikes_Inc_Easy_MailChimp_API $api The API connection.
+	 * @param Yikes_Inc_Easy_Mailchimp_API $api The API connection.
 	 *
 	 * @throws \Exception When a V2 API connection is required and not received.
 	 */
-	public function __construct( Yikes_Inc_Easy_MailChimp_API $api ) {
+	public function __construct( Yikes_Inc_Easy_Mailchimp_API $api ) {
 		// If a V2 API is required, throw an exception if we don't have it.
 		if ( $this->requires_v2 && ! version_compare( '3.0', $api->get_version(), '>' ) ) {
 			throw new \Exception( sprintf( 'The %s class requires a V2 API instance.', get_class( $this ) ) );
