@@ -174,3 +174,4 @@ For information and code examples on how to implement the hooks and filters prov
 
 = 6.5.1 - February 27th, 2019 =
 * Changed all strings from MailChimp to Mailchimp.
+* Removed unused files.
