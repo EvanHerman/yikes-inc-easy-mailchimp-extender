@@ -1,6 +1,6 @@
 <?php
 
-class Yikes_Inc_Easy_MailChimp_Export_Class {
+class Yikes_Inc_Easy_Mailchimp_Export_Class {
 
 	/**
 	 * Export our forms.

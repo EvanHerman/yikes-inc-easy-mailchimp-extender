@@ -1,6 +1,6 @@
 <?php
 /*
-*	Front facing MailChimp widget in sidebars
+*	Front facing Mailchimp widget in sidebars
 *	@since 6.0.0
 *	By: Yikes Inc. | https://www.yikesinc.com
 */
@@ -9,7 +9,7 @@ class Yikes_Inc_Easy_Mailchimp_Extender_Widget extends WP_Widget {
 	/**
 	 * Our form interface.
 	 *
-	 * @var Yikes_Inc_Easy_MailChimp_Extender_Form_Interface
+	 * @var Yikes_Inc_Easy_Mailchimp_Extender_Form_Interface
 	 */
 	protected $form_interface;
 
@@ -23,9 +23,9 @@ class Yikes_Inc_Easy_Mailchimp_Extender_Widget extends WP_Widget {
 			// Base ID of your widget
 			'yikes_easy_mc_widget',
 			// Widget name will appear in UI
-			__( 'Easy MailChimp Forms', 'yikes-inc-easy-mailchimp-extender' ),
+			__( 'Easy Mailchimp Forms', 'yikes-inc-easy-mailchimp-extender' ),
 			// Widget description
-			array( 'description' => __( 'MailChimp opt-in widget for your sidebar.', 'yikes-inc-easy-mailchimp-extender' ), )
+			array( 'description' => __( 'Mailchimp opt-in widget for your sidebar.', 'yikes-inc-easy-mailchimp-extender' ), )
 		);
 	}
 
@@ -39,7 +39,7 @@ class Yikes_Inc_Easy_Mailchimp_Extender_Widget extends WP_Widget {
 		// Get all form IDs so we can use the first one as a default.
 		$form_ids = $this->form_interface->get_form_ids();
 
-		$title              = isset( $instance['title'] ) ? apply_filters( 'widget_title', $instance['title'] ) : __( 'MailChimp Signup Form', 'yikes-inc-easy-mailchimp-extender' );
+		$title              = isset( $instance['title'] ) ? apply_filters( 'widget_title', $instance['title'] ) : __( 'Mailchimp Signup Form', 'yikes-inc-easy-mailchimp-extender' );
 		$form_id            = isset( $instance['form_id'] ) ? $instance['form_id'] : $form_ids[0];
 		$form_description   = isset( $instance['form_description'] ) ? $instance['form_description'] : '';
 		$submit_button_text = isset( $instance['submit_text'] ) ? $instance['submit_text'] : __( 'Submit', 'yikes-inc-easy-mailchimp-extender' );
@@ -93,7 +93,7 @@ class Yikes_Inc_Easy_Mailchimp_Extender_Widget extends WP_Widget {
 		if ( isset( $instance[ 'title' ] ) ) {
 			$title = $instance[ 'title' ];
 		} else {
-			$title = __( 'MailChimp Signup Form', 'yikes-inc-easy-mailchimp-extender' );
+			$title = __( 'Mailchimp Signup Form', 'yikes-inc-easy-mailchimp-extender' );
 		}
 
 		// Selected Form
@@ -112,7 +112,7 @@ class Yikes_Inc_Easy_Mailchimp_Extender_Widget extends WP_Widget {
 
 		 if( get_option( 'yikes-mc-api-validation' , 'invalid_api_key' ) == 'invalid_api_key' ) {
 			?>
-				<p class="enter-valid-api-error-widget"><strong><?php _e( 'Please enter a valid MailChimp API key to connect your site to MailChimp.' , 'yikes-inc-easy-mailchimp-extender' ); ?></strong></p>
+				<p class="enter-valid-api-error-widget"><strong><?php _e( 'Please enter a valid Mailchimp API key to connect your site to Mailchimp.' , 'yikes-inc-easy-mailchimp-extender' ); ?></strong></p>
 			<?php
 			return;
 		}

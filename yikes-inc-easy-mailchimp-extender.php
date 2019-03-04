@@ -1,27 +1,27 @@
 <?php
 /**
- * Plugin Name: Easy Forms for MailChimp
+ * Plugin Name: Easy Forms for Mailchimp
  * Plugin URI:  https://yikesplugins.com/plugin/easy-forms-for-mailchimp/
- * Description: The ultimate MailChimp WordPress plugin. Easily build <strong>unlimited forms for your MailChimp lists</strong>, add them to your site and track subscriber activity. To get started, go to the settings page and enter your <a href="https://yikesplugins.com/support/knowledge-base/finding-your-mailchimp-api-key/" target="_blank">MailChimp API key</a>.
- * Version:     6.5.0
+ * Description: The ultimate Mailchimp WordPress plugin. Easily build <strong>unlimited forms for your Mailchimp lists</strong>, add them to your site and track subscriber activity. To get started, go to the settings page and enter your <a href="https://yikesplugins.com/support/knowledge-base/finding-your-mailchimp-api-key/" target="_blank">Mailchimp API key</a>.
+ * Version:     6.5.1
  * Author:      YIKES, Inc.
  * Author URI:  https://www.yikesplugins.com/
  * License:     GPL-3.0+
  * License URI: http://www.gnu.org/licenses/gpl-3.0.txt
  * Text Domain: yikes-inc-easy-mailchimp-extender
  *
- * Easy Forms for MailChimp is free software: you can redistribute it and/or modify
+ * Easy Forms for Mailchimp is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 2 of the License, or
  * any later version.
  *
- * Easy Forms for MailChimp is distributed in the hope that it will be useful,
+ * Easy Forms for Mailchimp is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
  * GNU General Public License for more details.
  *
  * You should have received a copy of the GNU General Public License
- * along with Easy Forms for MailChimp. If not, see <http://www.gnu.org/licenses/>.
+ * along with Easy Forms for Mailchimp. If not, see <http://www.gnu.org/licenses/>.
  *
  * We at YIKES, Inc. embrace the open source philosophy on a daily basis. We donate company time back to the WordPress project,
  * and constantly strive to improve the WordPress project and community as a whole.
@@ -43,7 +43,7 @@ if ( ! defined( 'WPINC' ) ) {
  * 	@since 6.1.3
  */
 if ( ! defined( 'YIKES_MC_VERSION' ) ) {
-	define( 'YIKES_MC_VERSION' , '6.5.0' );
+	define( 'YIKES_MC_VERSION', '6.5.1' );
 }
 
 /**
@@ -84,10 +84,13 @@ function activate_yikes_inc_easy_mailchimp_extender( $network_wide ) {
 }
 
 /**
- *	deactivate_yikes_inc_easy_mailchimp_extender();
- * 	The code that runs during deactivate.
+ *	uninstall_yikes_inc_easy_mailchimp_extender();
+ * 	The code that runs during uninstall.
  *
- *      @since 6.0.0
+ * 	This action is documented in includes/class-yikes-inc-easy-mailchimp-extender-uninstall.php
+ *	and carries out the deletion of Mailchimp transients, plugin options and Mailchimp form tables.
+ *
+ * @since 6.0.0
  *	@return void
  */
 register_deactivation_hook( __FILE__, 'deactivate_yikes_inc_easy_mailchimp_extender' );
@@ -101,10 +104,10 @@ function deactivate_yikes_inc_easy_mailchimp_extender() {
  * 	The code that runs during uninstall.
  *
  * 	This action is documented in includes/class-yikes-inc-easy-mailchimp-extender-uninstall.php
- *	and carries out the deletion of MailChimp transients, plugin options and MailChimp form tables.
+ *	and carries out the deletion of Mailchimp transients, plugin options and Mailchimp form tables.
  *
- *      @since 6.0.0
- *	@return void
+ * @since 6.0.0
+ * @return void
  */
 register_uninstall_hook( __FILE__, 'uninstall_yikes_inc_easy_mailchimp_extender' );
 function uninstall_yikes_inc_easy_mailchimp_extender() {
@@ -136,7 +139,7 @@ function yikes_easy_mailchimp_new_network_site( $blog_id, $user_id, $domain, $pa
  * overridden by a constant, YIKES_MC_CUSTOM_DB.
  *
  * @author Jeremy Pry
- * @return Yikes_Inc_Easy_MailChimp_Extender_Form_Interface
+ * @return Yikes_Inc_Easy_Mailchimp_Extender_Form_Interface
  */
 function yikes_easy_mailchimp_extender_get_form_interface() {
 	static $interface = null;
@@ -144,9 +147,9 @@ function yikes_easy_mailchimp_extender_get_form_interface() {
 	if ( null === $interface ) {
 		if ( yikes_inc_easy_mailchimp_extender_use_custom_db() ) {
 			global $wpdb;
-			$interface = new Yikes_Inc_Easy_MailChimp_Extender_Forms( $wpdb );
+			$interface = new Yikes_Inc_Easy_Mailchimp_Extender_Forms( $wpdb );
 		} else {
-			$interface = new Yikes_Inc_Easy_MailChimp_Extender_Option_Forms();
+			$interface = new Yikes_Inc_Easy_Mailchimp_Extender_Option_Forms();
 		}
 	}
 
@@ -189,7 +192,7 @@ yikes_inc_easy_mailchimp_extender()->run();
 /**
  * Helper function to return our API key
  * Support the use of a PHP constant
- * @return string MailChimp API key from the PHP constant, or the options
+ * @return string Mailchimp API key from the PHP constant, or the options
  * @security strip away tags and patch security
  * @since 6.2.2
  */
@@ -205,13 +208,13 @@ function yikes_get_mc_api_key() {
  * Get the API Manager instance.
  *
  * @author Jeremy Pry
- * @return Yikes_Inc_Easy_MailChimp_API_Manager
+ * @return Yikes_Inc_Easy_Mailchimp_API_Manager
  */
 function yikes_get_mc_api_manager() {
 	static $manager = null;
 
 	if ( null === $manager ) {
-		$manager = new Yikes_Inc_Easy_MailChimp_API_Manager( yikes_get_mc_api_key() );
+		$manager = new Yikes_Inc_Easy_Mailchimp_API_Manager( yikes_get_mc_api_key() );
 	}
 
 	return $manager;
@@ -223,6 +226,6 @@ function yikes_mailchimp_plugin_textdomain() {
 }
 
 /*
- *	Enjoy this wonderfully powerful (and free) plugin.
- *	~<|:D
- */
+*	Enjoy this wonderfully powerful (and free) plugin.
+*	~<|:D
+*/

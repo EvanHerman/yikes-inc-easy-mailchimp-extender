@@ -3,7 +3,7 @@
 /**
  * Database helper class.
  */
-class Yikes_Inc_Easy_MailChimp_Extender_Forms extends Yikes_Inc_Easy_MailChimp_Extender_Forms_Abstract {
+class Yikes_Inc_Easy_Mailchimp_Extender_Forms extends Yikes_Inc_Easy_Mailchimp_Extender_Forms_Abstract {
 
 	/**
 	 * The WP database object.
@@ -27,7 +27,7 @@ class Yikes_Inc_Easy_MailChimp_Extender_Forms extends Yikes_Inc_Easy_MailChimp_E
 	protected $prefixed_table_name = '';
 
 	/**
-	 * Yikes_Inc_Easy_MailChimp_Customizer_Extender_DB constructor.
+	 * Yikes_Inc_Easy_Mailchimp_Customizer_Extender_DB constructor.
 	 *
 	 * @param wpdb $wpdb
 	 */

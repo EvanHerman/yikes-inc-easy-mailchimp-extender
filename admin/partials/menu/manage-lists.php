@@ -2,12 +2,12 @@
 
 // Let's confirm the user has a valid API key stored
 if ( ! $this->is_user_mc_api_valid_form( false ) ) {
-	wp_die( __( 'It looks like you need to re-validate your MailChimp API key before you can continue.', 'yikes-inc-easy-mailchimp-extender' ), 500 );
+	wp_die( __( 'It looks like you need to re-validate your Mailchimp API key before you can continue.', 'yikes-inc-easy-mailchimp-extender' ), 500 );
 }
 
 $manager = yikes_get_mc_api_manager();
 
-// MailChimp Account/Profile info
+// Mailchimp Account/Profile info
 $account_details = $manager->get_account_handler()->get_account();
 
 // List data
@@ -27,19 +27,19 @@ if ( is_wp_error( $list_data ) ) {
 ?>
 <div class="wrap">
 	<!-- Freddie Logo -->
-	<img src="<?php echo YIKES_MC_URL . 'includes/images/MailChimp_Assets/Freddie_60px.png'; ?>" alt="<?php __( 'Freddie - MailChimp Mascot' , 'yikes-inc-easy-mailchimp-extender' ); ?>" class="yikes-mc-freddie-logo" />
+	<img src="<?php echo YIKES_MC_URL . 'includes/images/Mailchimp_Assets/Freddie_60px.png'; ?>" alt="<?php __( 'Freddie - Mailchimp Mascot' , 'yikes-inc-easy-mailchimp-extender' ); ?>" class="yikes-mc-freddie-logo" />
 
-	<h1>Easy Forms for MailChimp | <?php _e( 'Manage Mailing Lists' , 'yikes-inc-easy-mailchimp-extender' ); ?></h1>
+	<h1>Easy Forms for Mailchimp | <?php _e( 'Manage Mailing Lists' , 'yikes-inc-easy-mailchimp-extender' ); ?></h1>
 
 	<!-- Settings Page Description -->
-	<p class="yikes-easy-mc-about-text about-text"><?php _e( 'Make edits to your MailChimp lists.' , 'yikes-inc-easy-mailchimp-extender' ); ?></p>
+	<p class="yikes-easy-mc-about-text about-text"><?php _e( 'Make edits to your Mailchimp lists.' , 'yikes-inc-easy-mailchimp-extender' ); ?></p>
 
 	<?php
 		/* If the user hasn't authenticated yet, lets kill off */
 		if( get_option( 'yikes-mc-api-validation' , 'invalid_api_key' ) != 'valid_api_key' ) {
 
 			$error_string = sprintf(
-				esc_html__( 'You need to connect to MailChimp before you can start creating forms. Head over to the %s and enter your API key.', 'yikes-inc-easy-mailchimp-extender' ),
+				esc_html__( 'You need to connect to Mailchimp before you can start creating forms. Head over to the %s and enter your API key.', 'yikes-inc-easy-mailchimp-extender' ),
 				sprintf(
 					'<a href="%s" title="Settings Page">' . esc_html__( 'Settings Page', 'yikes-inc-easy-mailchimp-extender' ) . '</a>',
 					admin_url( 'admin.php?page=yikes-inc-easy-mailchimp-settings' )
@@ -117,7 +117,7 @@ if ( is_wp_error( $list_data ) ) {
 											} else {
 											?>
 											<tr class="no-items">
-												<td class="colspanchange no-mailchimp-lists-found" colspan="3"><em><?php printf( __( 'No MailChimp lists found. Head over to <a href="%s" title="MailChimp.com">MailChimp.com</a> to setup your first mailing list. Once thats done you can head back here to customize it!' , 'yikes-inc-easy-mailchimp-extender' ), esc_url( 'http://mailchimp.com/' ) ); ?></em></td>
+												<td class="colspanchange no-mailchimp-lists-found" colspan="3"><em><?php printf( __( 'No Mailchimp lists found. Head over to <a href="%s" title="Mailchimp.com">Mailchimp.com</a> to setup your first mailing list. Once thats done you can head back here to customize it!' , 'yikes-inc-easy-mailchimp-extender' ), esc_url( 'http://mailchimp.com/' ) ); ?></em></td>
 											</tr>
 										<?php } ?>
 									</tbody>
@@ -137,8 +137,8 @@ if ( is_wp_error( $list_data ) ) {
 					<div class="postbox yikes-easy-mc-postbox">
 						<div class="inside">
 
-							<a href="https://us3.admin.mailchimp.com/" title="<?php _e( 'MailChimp Site' , 'yikes-inc-easy-mailchimp-extender' ); ?>" target="_blank">
-								<img src="<?php echo YIKES_MC_URL . 'includes/images/Welcome_Page/mailchimp-logo.png'; ?>" title="<?php _e( 'MailChimp Site' , 'yikes-inc-easy-mailchimp-extender' ); ?>" class="list-page-mailchimp-logo">
+							<a href="https://us3.admin.mailchimp.com/" title="<?php _e( 'Mailchimp Site' , 'yikes-inc-easy-mailchimp-extender' ); ?>" target="_blank">
+								<img src="<?php echo YIKES_MC_URL . 'includes/images/Mailchimp_Assets/mailchimp-logo.png'; ?>" title="<?php _e( 'Mailchimp Site' , 'yikes-inc-easy-mailchimp-extender' ); ?>" class="list-page-mailchimp-logo">
 							</a>
 
 						</div>
@@ -150,7 +150,7 @@ if ( is_wp_error( $list_data ) ) {
 
 							<h2 class="account-status"><?php echo $account_details['username']; ?> <small>(<?php echo $account_details['role']; ?>)</small></h2>
 
-							<img class="mailchimp-avatar" src="<?php echo esc_url_raw( $account_details['avatar_url'] ); ?>" title="<?php echo $account_details['username'] . ' ' . __( "MailChimp avatar" , 'yikes-inc-easy-mailchimp-extender' ); ?>">
+							<img class="mailchimp-avatar" src="<?php echo esc_url_raw( $account_details['avatar_url'] ); ?>" title="<?php echo $account_details['username'] . ' ' . __( "Mailchimp avatar" , 'yikes-inc-easy-mailchimp-extender' ); ?>">
 
 							<table class="form-table" id="account-details-table">
 								<tr valign="top">

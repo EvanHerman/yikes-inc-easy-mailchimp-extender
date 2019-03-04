@@ -5,10 +5,10 @@
  * Setup the variables for this add-on
  * @since 6.1
  */
-$addon_image = YIKES_MC_URL . 'includes/add_ons/images/incentives.png';
-$add_on_title = esc_attr__( 'Incentives for Easy Forms for MailChimp', 'yikes-inc-easy-mailchimp-extender' );
-$permalink = esc_url( 'https://yikesplugins.com/plugin/incentives-for-easy-forms-for-mailchimp/' );
-$description = esc_attr__( 'Send users who join your mailing lists a gift as an incentive for signing up, on a per list basis.', 'yikes-inc-easy-mailchimp-extender' );
+$addon_image  = YIKES_MC_URL . 'includes/add_ons/images/incentives.png';
+$add_on_title = esc_attr__( 'Incentives for Easy Forms for Mailchimp', 'yikes-inc-easy-mailchimp-extender' );
+$permalink    = esc_url( 'https://yikesplugins.com/plugin/incentives-for-easy-forms-for-mailchimp/' );
+$description  = esc_attr__( 'Send users who join your mailing lists a gift as an incentive for signing up, on a per list basis.', 'yikes-inc-easy-mailchimp-extender' );
 ?>
 
 <div class="type-download">

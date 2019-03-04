@@ -37,7 +37,6 @@ module.exports = function(grunt) {
 						cwd: 'admin/css',
 						src: [
 							'yikes-inc-easy-mailchimp-extender-admin.css',
-							'yikes-inc-easy-mailchimp-migrate-option-styles.css',
 						],
 						dest: 'admin/css',
 						ext: '.min.css'

@@ -54,7 +54,7 @@ class Yikes_Inc_Easy_Mailchimp_Extender_Public {
 		include_once( YIKES_MC_PATH . 'public/partials/shortcodes/yikes-mailchimp-subscriber-count.php' );
 
 		// include our ajax processing class
-		new YIKES_Inc_Easy_MailChimp_Public_Ajax();
+		new YIKES_Inc_Easy_Mailchimp_Public_Ajax();
 
 		// Include our error logging class
 		add_action( 'init' , array( $this , 'load_error_logging_class' ) , 1 );

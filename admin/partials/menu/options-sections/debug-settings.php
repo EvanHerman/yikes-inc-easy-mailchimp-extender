@@ -1,5 +1,5 @@
 <!--
-	MailChimp API Debug Settings / Debug Log Table
+	Mailchimp API Debug Settings / Debug Log Table
 	- display installation stuff here
 	- php version, wp version, plugin version and debug log
 -->
@@ -16,7 +16,7 @@
 		<label for="yikes-mailchimp-debug-status"><strong><?php _e( 'Enable Debugging' , 'yikes-inc-easy-mailchimp-extender' ); ?></strong>
 			<input type="checkbox" name="yikes-mailchimp-debug-status" id="yikes-mailchimp-debug-status" value="1" <?php checked( get_option( 'yikes-mailchimp-debug-status' , '' ) , '1' ); ?>>
 		</label>
-		<p class="description"><?php _e( "If you encounter an issue with Easy Forms for MailChimp you can toggle on debugging to display advanced error messages and start logging errors." , 'yikes-inc-easy-mailchimp-extender' ); ?></p>
+		<p class="description"><?php _e( "If you encounter an issue with Easy Forms for Mailchimp you can toggle on debugging to display advanced error messages and start logging errors." , 'yikes-inc-easy-mailchimp-extender' ); ?></p>
 		
 		<?php submit_button(); ?>
 									

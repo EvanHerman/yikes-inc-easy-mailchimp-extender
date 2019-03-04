@@ -1,6 +1,6 @@
 <?php
 
-class YIKES_Inc_Easy_MailChimp_Public_Ajax {
+class YIKES_Inc_Easy_Mailchimp_Public_Ajax {
 
 	/**
 	 * Thetext domain of this plugin
@@ -120,7 +120,7 @@ class YIKES_Inc_Easy_MailChimp_Public_Ajax {
 		// Check for errors in any of the calls.
 		if ( $is_error ) {
 			$error_message = '<br>' . join( '<br>', $errors );
-			/* translators: the placeholder is a string of errors returned from MailChimp. */
+			/* translators: the placeholder is a string of errors returned from Mailchimp. */
 			$error_message = sprintf( __( 'Error sending update profile email. <strong>Error(s): %s</strong>. Please contact the site administrator.', 'yikes-inc-easy-mailchimp-extender' ), $error_message );
 			wp_send_json_error(
 				array(
@@ -140,7 +140,7 @@ class YIKES_Inc_Easy_MailChimp_Public_Ajax {
 		$headers         .= 'Content-type: text/html';
 
 		if ( ! isset( $email_subject ) ) {
-			$email_subject = __( 'MailChimp Profile Update', 'yikes-inc-easy-mailchimp-extender' );
+			$email_subject = __( 'Mailchimp Profile Update', 'yikes-inc-easy-mailchimp-extender' );
 		}
 
 		// Check if the email_body was set.
@@ -189,7 +189,7 @@ class YIKES_Inc_Easy_MailChimp_Public_Ajax {
 
 			$update_email_success_message = apply_filters( 'yikes-mailchimp-update-email-success-message', $update_email_success_message, $form_id, $user_email );
 			$submission_settings          = isset( $form_data['submission_settings'] ) ? $form_data['submission_settings'] : null;
-			$redirect_settings            = Yikes_Inc_Easy_MailChimp_Extender_Process_Submission_Handler::handle_submission_response_success_redirect( $form_id, $submission_settings, $page_id );
+			$redirect_settings            = Yikes_Inc_Easy_Mailchimp_Extender_Process_Submission_Handler::handle_submission_response_success_redirect( $form_id, $submission_settings, $page_id );
 
 			wp_send_json_success(
 				array(

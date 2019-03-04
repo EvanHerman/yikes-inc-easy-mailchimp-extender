@@ -11,7 +11,7 @@ const { RichText, InspectorControls, PlainText } = wp.editor;
 const { Spinner, TextControl, PanelBody, PanelRow, FormToggle, SelectControl } = wp.components;
 const { Component } = wp.element;
 
-export default class MailChimpForms extends Component {
+export default class MailchimpForms extends Component {
   constructor( props ) {
     super( ...arguments );
     this.state = {
@@ -283,7 +283,7 @@ export default class MailChimpForms extends Component {
         className="yikes-mailchimp-forms-dropdown"
         key="yikes-mailchimp-forms-dropdown"
       >
-        <option key="select" value="">Select MailChimp Form...</option>
+        <option key="select" value="">Select Mailchimp Form...</option>
         { this.state.forms.map( ( form ) => {
           return <option key={ 'yikes-select-form-' + form.id } value={ form.id }>{ form.form_name }</option>
         })}

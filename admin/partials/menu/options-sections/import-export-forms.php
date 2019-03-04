@@ -11,7 +11,7 @@ $all_forms = $form_interface->get_all_forms();
 	<form action="<?php echo esc_url_raw( add_query_arg( array( 'action' => 'yikes-easy-mc-export-forms' , 'nonce' => wp_create_nonce( 'export-forms' ) ) ) ); ?>" method="post">
 		<p><strong><?php _e( "Export Forms" , 'yikes-inc-easy-mailchimp-extender' ); ?></strong></p>
 		<p class="description">
-			<?php _e( "Select the forms you would like to export. When you click the download button below, Easy Forms for MailChimp will create a CSV file for you to save to your computer. Once you've saved the download file, you can use the Import tool to import the forms to this or any other site." , "yikes-inc-easy-mailchimp-extender" ); ?>
+			<?php _e( "Select the forms you would like to export. When you click the download button below, Easy Forms for Mailchimp will create a CSV file for you to save to your computer. Once you've saved the download file, you can use the Import tool to import the forms to this or any other site." , "yikes-inc-easy-mailchimp-extender" ); ?>
 		</p>
 
 		<?php if ( empty( $all_forms ) ) { ?>
@@ -38,7 +38,7 @@ $all_forms = $form_interface->get_all_forms();
 	<form action="<?php echo esc_url_raw( add_query_arg( array( 'action' => 'yikes-easy-mc-export-settings' , 'nonce' => wp_create_nonce( 'export-settings' ) ) ) ); ?>" method="post">
 		<p><strong><?php _e( "Export Settings" , 'yikes-inc-easy-mailchimp-extender' ); ?></strong></p>
 		<p class="description">
-			<?php _e( "Export YIKES Easy Forms for MailChimp plugin settings." , 'yikes-inc-easy-mailchimp-extender' ); ?>
+			<?php _e( "Export YIKES Easy Forms for Mailchimp plugin settings." , 'yikes-inc-easy-mailchimp-extender' ); ?>
 		</p>
 
 		<!-- check if any of our transients contain data -->
@@ -51,7 +51,7 @@ $all_forms = $form_interface->get_all_forms();
 	<form action="<?php echo esc_url_raw( add_query_arg( array( 'action' => 'yikes-easy-mc-import-forms' , 'nonce' => wp_create_nonce( 'import-forms' ) ) ) ); ?>" method="post" enctype="multipart/form-data">
 		<p><strong><?php _e( "Import" , 'yikes-inc-easy-mailchimp-extender' ); ?></strong></p>
 		<p class="description">
-			<?php _e( "Select the Easy Forms for MailChimp export file you would like to import. You can use this field to import your opt-in forms or settings. " , 'yikes-inc-easy-mailchimp-extender' ); ?>
+			<?php _e( "Select the Easy Forms for Mailchimp export file you would like to import. You can use this field to import your opt-in forms or settings. " , 'yikes-inc-easy-mailchimp-extender' ); ?>
 		</p>
 		<label>
 			<input type="file" name="csv" id="forms_to_import">

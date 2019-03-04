@@ -1,6 +1,6 @@
 <?php
 
-class Yikes_Inc_Easy_MailChimp_Extender_Process_Submission_Handler {
+class Yikes_Inc_Easy_Mailchimp_Extender_Process_Submission_Handler {
 
 	/**
 	* A flag signifying whether we're dealing with an AJAX submission or standard form submission
@@ -25,7 +25,7 @@ class Yikes_Inc_Easy_MailChimp_Extender_Process_Submission_Handler {
 	/**** Form Variables ****/
 
 	/**
-	* The ID of the corresponding YIKES MailChimp form
+	* The ID of the corresponding YIKES Mailchimp form
 	* 
 	* @since 6.3.0
 	* @access public
@@ -34,7 +34,7 @@ class Yikes_Inc_Easy_MailChimp_Extender_Process_Submission_Handler {
 	public $form_id;
 
 	/**
-	* The ID of the corresponding MailChimp list
+	* The ID of the corresponding Mailchimp list
 	* 
 	* @since 6.3.0
 	* @access public
@@ -252,7 +252,7 @@ class Yikes_Inc_Easy_MailChimp_Extender_Process_Submission_Handler {
 		$this->handle_disallowed_existing_user_update_message = __( 'The email you entered is already a subscriber to this list.', 'yikes-inc-easy-mailchimp-extender' );
 		$this->default_error_response_message                 = __( 'Whoops! It looks like something went wrong. Please try again.', 'yikes-inc-easy-mailchimp-extender' );
 		$this->handle_updating_existing_user_message          = __( 'You\'re already subscribed. ', 'yikes-inc-easy-mailchimp-extender' );
-		$this->handle_updating_existing_user_link_message     = __( 'To update your MailChimp profile, please click to send yourself an update link', 'yikes-inc-easy-mailchimp-extender' );
+		$this->handle_updating_existing_user_link_message     = __( 'To update your Mailchimp profile, please click to send yourself an update link', 'yikes-inc-easy-mailchimp-extender' );
 		$this->handle_empty_required_field_message            = __( 'A required field is missing.', 'yikes-inc-easy-mailchimp-extender' );
 		$this->handle_empty_required_interest_group_message   = __( 'A required interest group is missing.', 'yikes-inc-easy-mailchimp-extender' );
 		$this->handle_nonce_message                           = __( 'Error: Sorry, the nonce security check didn\'t pass. Please reload the page and try again. You may want to try clearing your browser cache as a last attempt.' , 'yikes-inc-easy-mailchimp-extender' );
@@ -272,7 +272,7 @@ class Yikes_Inc_Easy_MailChimp_Extender_Process_Submission_Handler {
 	*
 	* @since 6.3.0
 	*
-	* @param int | $form_id | ID of the corresponding YIKES MailChimp form
+	* @param int | $form_id | ID of the corresponding YIKES Mailchimp form
 	*/
 	public function set_form_id( $form_id ) {
 		$this->form_id = $form_id;
@@ -283,7 +283,7 @@ class Yikes_Inc_Easy_MailChimp_Extender_Process_Submission_Handler {
 	*
 	* @since 6.3.0
 	*
-	* @param int | $list_id | ID of the corresponding MailChimp list
+	* @param int | $list_id | ID of the corresponding Mailchimp list
 	*/
 	public function set_list_id( $list_id ) {
 		$this->list_id = $list_id;
@@ -346,7 +346,7 @@ class Yikes_Inc_Easy_MailChimp_Extender_Process_Submission_Handler {
 	* @since 6.3.0
 	*
 	* @param array | $data 			 | The array of user-submitted form values
-	* @param array | $form_fields	 | The array of form field definitions for this YIKES MailChimp form
+	* @param array | $form_fields	 | The array of form field definitions for this YIKES Mailchimp form
 	* @return array| $merge_variables| The array of sanitized and formatted form values
 	*/
 	public function get_submitted_merge_values( $data, $form_fields ) {
@@ -388,7 +388,7 @@ class Yikes_Inc_Easy_MailChimp_Extender_Process_Submission_Handler {
 		/**
 		 *	yikes-mailchimp-filter-before-submission || yikes-mailchimp-filter-before-submission-{$form_id}
 		 *
-		 *	Catch the merge variables before they get sent over to MailChimp
+		 *	Catch the merge variables before they get sent over to Mailchimp
 		 *	@since 6.0.0
 		 *
 		 *	@param array | $merge_variables | The user submitted form data
@@ -450,7 +450,7 @@ class Yikes_Inc_Easy_MailChimp_Extender_Process_Submission_Handler {
 	*/
 	protected function handle_dd_mm_yyyy_date( $date ) {
 
-		// MailChimp wants the dates as 'MM/DD/YYYY' regardless of user-specified format, so convert
+		// Mailchimp wants the dates as 'MM/DD/YYYY' regardless of user-specified format, so convert
 
 		// Explode the date and then swap the pieces
 		$pieces = explode( '/', $date );
@@ -475,7 +475,7 @@ class Yikes_Inc_Easy_MailChimp_Extender_Process_Submission_Handler {
 	*/
 	protected function handle_dd_mm_birthday( $birthday ) {
 
-		// MailChimp wants the birthdays as 'MM/DD' regardless of user-specified format, so convert
+		// Mailchimp wants the birthdays as 'MM/DD' regardless of user-specified format, so convert
 
 		// Explode the date and then swap the pieces
 		$pieces = explode( '/', $birthday );
@@ -517,12 +517,12 @@ class Yikes_Inc_Easy_MailChimp_Extender_Process_Submission_Handler {
 			// Loop through the interest groups and create a single array like {group_id} => false
 			foreach ( $interest_groupings as $group_data ) {
 
-				if ( ! isset( $group_data['items'] ) || isset( $group_data['items'] ) && ( empty( $group_data['items'] ) || ! is_array( $group_data['items'] ) ) ) {
+				if ( empty( $group_data['items'] ) || ! is_array( $group_data['items'] ) ) {
 					continue;
 				}
 
 				foreach ( $group_data['items'] as $item ) {
-					$groups[$item['id']] = false;
+					$groups[ $item['id'] ] = false;
 				}
 
 			}
@@ -542,7 +542,7 @@ class Yikes_Inc_Easy_MailChimp_Extender_Process_Submission_Handler {
 	* @since 6.3.0
 	*
 	* @param array | $data			| The array of user-submitted form values
-	* @param array | $form_fields	| The array of form field definitions for this YIKES MailChimp form
+	* @param array | $form_fields	| The array of form field definitions for this YIKES Mailchimp form
 	* @param array | $groups		| The array of interest groups created by `get_default_interest_groups()`
 	* @return array| $groups		| The array of sanitized and formatted form values
 	*/
@@ -576,7 +576,7 @@ class Yikes_Inc_Easy_MailChimp_Extender_Process_Submission_Handler {
 		/**
 		*	yikes-mailchimp-filter-groups-before-submission
 		*
-		*	Catch the interest groups before they get sent over to MailChimp
+		*	Catch the interest groups before they get sent over to Mailchimp
 		*	@param array | $groups | User submitted interest group data
 		*	@optional int| $form_id| the ID of the form to filter
 		*	@since 6.3.0
@@ -605,14 +605,14 @@ class Yikes_Inc_Easy_MailChimp_Extender_Process_Submission_Handler {
 	public function handle_submission_response_success( $submission_settings, $page_data, $merge_variables, $notifications, $optin_settings, $new_subscriber ) {
 
 		// Check if we should redirect, and collect the redirect info in an array
-		$redirect_array = Yikes_Inc_Easy_MailChimp_Extender_Process_Submission_Handler::handle_submission_response_success_redirect( $this->form_id, $submission_settings, $page_data );
+		$redirect_array = Yikes_Inc_Easy_Mailchimp_Extender_Process_Submission_Handler::handle_submission_response_success_redirect( $this->form_id, $submission_settings, $page_data );
 
 		// Fire off our actions
 
 		/**
 		*	yikes-mailchimp-after-submission || yikes-mailchimp-after-submission-{$form_id}
 		*
-		*	Catch the merge variables after they've been sent over to MailChimp
+		*	Catch the merge variables after they've been sent over to Mailchimp
 		*	@since 6.0.0
 		*
 		*	@param array | $merge_variables | The array of user submitted form data
@@ -684,7 +684,7 @@ class Yikes_Inc_Easy_MailChimp_Extender_Process_Submission_Handler {
 	* @since 6.3.0
 	*
 	* @param object | $subscribe_response	| The response from the API
-	* @param array  | $form_fields			| The array of form field definitions for this YIKES MailChimp form
+	* @param array  | $form_fields			| The array of form field definitions for this YIKES Mailchimp form
 	*/
 	public function handle_submission_response_error( $subscribe_response, $form_fields ) {
 
@@ -732,7 +732,7 @@ class Yikes_Inc_Easy_MailChimp_Extender_Process_Submission_Handler {
 	* @since 6.3.0
 	*
 	* @param array | $data 			 | The array of user-submitted form values
-	* @param array | $form_fields	 | The array of form field definitions for this YIKES MailChimp form
+	* @param array | $form_fields	 | The array of form field definitions for this YIKES Mailchimp form
 	*/
 	public function check_for_required_form_fields( $data, $form_fields ) {
 
@@ -818,7 +818,7 @@ class Yikes_Inc_Easy_MailChimp_Extender_Process_Submission_Handler {
 	* @since 6.3.0
 	*
 	* @param array | $data 			 | The array of user-submitted form values
-	* @param array | $form_fields	 | The array of form field definitions for this YIKES MailChimp form
+	* @param array | $form_fields	 | The array of form field definitions for this YIKES Mailchimp form
 	*/
 	public function check_for_required_interest_groups( $data, $form_fields ) {
 

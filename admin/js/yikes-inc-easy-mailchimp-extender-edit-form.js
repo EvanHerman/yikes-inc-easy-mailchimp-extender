@@ -1,4 +1,4 @@
-window.Yikes_MailChimp_Edit_Form = window.Yikes_MailChimp_Edit_Form || {};
+window.Yikes_Mailchimp_Edit_Form = window.Yikes_Mailchimp_Edit_Form || {};
 window.yikes_mailchimp_edit_form = window.yikes_mailchimp_edit_form || {};
 
 (function( window, document, $, app, undefined ) {
@@ -531,7 +531,7 @@ window.yikes_mailchimp_edit_form = window.yikes_mailchimp_edit_form || {};
 	}
 
 
-})( window, document, jQuery, Yikes_MailChimp_Edit_Form );
+})( window, document, jQuery, Yikes_Mailchimp_Edit_Form );
 
 
 /* Toggle Page Slection for form submission redirection */

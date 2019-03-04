@@ -121,6 +121,8 @@ window.Yikes_Mailchimp_Ajax = window.Yikes_Mailchimp_Ajax || {};
 					// As of 6.3.0 we add a class to the form, so remove it if we're here
 					submitted_form.removeClass( 'yikes-mc-submitted-form-loading' );
 
+					submitted_form.trigger( 'yikes_mailchimp_ajax_submission', response );
+
 					/* Success */
 					if( response.success ) {
 						response = response.data;
@@ -173,7 +175,7 @@ window.Yikes_Mailchimp_Ajax = window.Yikes_Mailchimp_Ajax || {};
 								console.error( errorThrown );
 							}
 						});
-						/* console.log( 'Successfully submit subscriber data to MailChimp.' ); */
+						/* console.log( 'Successfully submit subscriber data to Mailchimp.' ); */
 					} else {
 						response = response.data;
 
@@ -211,7 +213,7 @@ window.Yikes_Mailchimp_Ajax = window.Yikes_Mailchimp_Ajax || {};
 					console.log( textStatus );
 				},
 				complete : function( jqXHR, textStatus ) {
-					/* console.log( 'Yikes Easy MailChimp AJAX submission complete.' ); */
+					/* console.log( 'Yikes Easy Mailchimp AJAX submission complete.' ); */
 					/* enable the button to prevent double click */
 					submitted_form.find( '.yikes-easy-mc-submit-button' ).removeAttr( 'disabled' , 'disabled' );
 				}

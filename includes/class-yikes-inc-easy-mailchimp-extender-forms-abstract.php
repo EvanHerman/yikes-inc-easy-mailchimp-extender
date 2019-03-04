@@ -6,7 +6,7 @@
  * This implements a few of the interface methods that should be common between
  * all ancestors of this class.
  */
-abstract class Yikes_Inc_Easy_MailChimp_Extender_Forms_Abstract implements Yikes_Inc_Easy_MailChimp_Extender_Form_Interface {
+abstract class Yikes_Inc_Easy_Mailchimp_Extender_Forms_Abstract implements Yikes_Inc_Easy_Mailchimp_Extender_Form_Interface {
 
 	/**
 	 * Get the default values for a form.

@@ -129,14 +129,14 @@ class Yikes_Easy_MC_Checkbox_Integration_Class {
 			$content .= '</p>';
 			$content  = apply_filters( 'yikes_mailchimp_checkbox_integration_checkbox_html', $content, $this->type, $checkbox_options );
 			$after    = apply_filters( 'yikes-mailchimp-after-checkbox-html', '' );
-			$after   .= '<!-- Easy Forms for MailChimp -->';
+			$after   .= '<!-- Easy Forms for Mailchimp -->';
 			$checkbox = $before . $content . $after;
 			return apply_filters( 'yikes_mailchimp_checkbox_integration_html', $checkbox, $this->type, $checkbox_options );
 		}
 	}
 
 	/**
-	 * Hook to submit the data to MailChimp when a new integration type is submitted.
+	 * Hook to submit the data to Mailchimp when a new integration type is submitted.
 	 *
 	 * @since 6.0.0
 	 *
@@ -197,7 +197,7 @@ class Yikes_Easy_MC_Checkbox_Integration_Class {
 			/**
 			 * 'yikes-mailchimp-checkbox-integration-body'
 			 *
-			 * Filter the request body for a MailChimp subscription via the checkbox integrations
+			 * Filter the request body for a Mailchimp subscription via the checkbox integrations
 			 *
 			 * @param array  | $data    | The request body
 			 * @param string | $type    | The integration type, e.g. 'contact_form_7'
@@ -208,7 +208,7 @@ class Yikes_Easy_MC_Checkbox_Integration_Class {
 			/**
 			 * 'yikes-mailchimp-checkbox-integration-list-id'
 			 *
-			 * Filter the list ID for a MailChimp subscription via the checkbox integrations
+			 * Filter the list ID for a Mailchimp subscription via the checkbox integrations
 			 *
 			 * @param string $list_id The list ID
 			 * @param array  $data    The request body
@@ -255,12 +255,12 @@ class Yikes_Easy_MC_Checkbox_Integration_Class {
 		}
 
 		/**
-		 * Filter the user variables passed to MailChimp.
+		 * Filter the user variables passed to Mailchimp.
 		 *
-		 * @param array   $merge_vars Merge variables to pass to MailChimp.
+		 * @param array   $merge_vars Merge variables to pass to Mailchimp.
 		 * @param WP_User $user       The WordPress user.
 		 *
-		 * @return array $merge_vars Merge variables to pass to MailChimp.
+		 * @return array $merge_vars Merge variables to pass to Mailchimp.
 		 */
 		$merge_vars = apply_filters( 'yikes-mailchimp-user-merge-vars', $merge_vars, $user );
 

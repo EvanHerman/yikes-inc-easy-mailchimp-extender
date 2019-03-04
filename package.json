@@ -1,6 +1,6 @@
 {
   "name": "yikes-inc-easy-mailchimp-extender",
-  "version": "6.5.0",
+  "version": "6.5.1",
   "devDependencies": {
     "autoprefixer": "^8.6.5",
     "babel-cli": "^6.26.0",

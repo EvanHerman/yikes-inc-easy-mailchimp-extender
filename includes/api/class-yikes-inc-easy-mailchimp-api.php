@@ -1,12 +1,12 @@
 <?php
 
 /**
- * A class to handle requests to the MailChimp API.
+ * A class to handle requests to the Mailchimp API.
  *
  * @author Jeremy Pry
  * @since  6.3.0
  */
-class Yikes_Inc_Easy_MailChimp_API {
+class Yikes_Inc_Easy_Mailchimp_API {
 
 	/**
 	 * The API key.
@@ -33,7 +33,7 @@ class Yikes_Inc_Easy_MailChimp_API {
 	protected $api_version = '';
 
 	/**
-	 * The datacenter where the MailChimp account is located.
+	 * The datacenter where the Mailchimp account is located.
 	 *
 	 * This is typically part of the API Key.
 	 *
@@ -43,11 +43,11 @@ class Yikes_Inc_Easy_MailChimp_API {
 	protected $datacenter = '';
 
 	/**
-	 * Yikes_Inc_Easy_MailChimp_API constructor.
+	 * Yikes_Inc_Easy_Mailchimp_API constructor.
 	 *
 	 * @since 6.3.0
 	 *
-	 * @param string $datacenter  The datacenter string where the MailChimp account is located.
+	 * @param string $datacenter  The datacenter string where the Mailchimp account is located.
 	 * @param string $api_key     The base API key, without the datacenter appended.
 	 * @param string $api_version The API version to use.
 	 */
@@ -59,7 +59,7 @@ class Yikes_Inc_Easy_MailChimp_API {
 	}
 
 	/**
-	 * Send a DELETE request to the MailChimp API.
+	 * Send a DELETE request to the Mailchimp API.
 	 *
 	 * @author Jeremy Pry
 	 * @since  6.3.0
@@ -75,7 +75,7 @@ class Yikes_Inc_Easy_MailChimp_API {
 	}
 
 	/**
-	 * Send a GET request to the MailChimp API.
+	 * Send a GET request to the Mailchimp API.
 	 *
 	 * @author Jeremy Pry
 	 * @since  6.3.0
@@ -91,7 +91,7 @@ class Yikes_Inc_Easy_MailChimp_API {
 	}
 
 	/**
-	 * Send a PATCH request to the MailChimp API.
+	 * Send a PATCH request to the Mailchimp API.
 	 *
 	 * @author Jeremy Pry
 	 * @since  6.3.0
@@ -118,7 +118,7 @@ class Yikes_Inc_Easy_MailChimp_API {
 	}
 
 	/**
-	 * Send a POST request to the MailChimp API.
+	 * Send a POST request to the Mailchimp API.
 	 *
 	 * @author Jeremy Pry
 	 * @since  6.3.0
@@ -145,7 +145,7 @@ class Yikes_Inc_Easy_MailChimp_API {
 	}
 
 	/**
-	 * Send a PUT request to the MailChimp API.
+	 * Send a PUT request to the Mailchimp API.
 	 *
 	 * @author Jeremy Pry
 	 * @since  6.3.0
@@ -172,7 +172,7 @@ class Yikes_Inc_Easy_MailChimp_API {
 	}
 
 	/**
-	 * Send a request to the MailChimp API.
+	 * Send a request to the Mailchimp API.
 	 *
 	 * @author Jeremy Pry
 	 * @since  6.3.0
@@ -192,7 +192,7 @@ class Yikes_Inc_Easy_MailChimp_API {
 		$args = $this->build_request_args( $path, $method, $headers, $params );
 
 		/**
-		 * Filter the URL used for a request to the MailChimp API.
+		 * Filter the URL used for a request to the Mailchimp API.
 		 *
 		 * @since 6.3.0
 		 *
@@ -214,7 +214,7 @@ class Yikes_Inc_Easy_MailChimp_API {
 	protected function get_user_agent() {
 		global $wp_version;
 
-		$user_agent = 'WordPress/' . $wp_version . '; Yikes Easy MailChimp Extender; ' . get_bloginfo( 'url' );
+		$user_agent = 'WordPress/' . $wp_version . '; Yikes Easy Mailchimp Extender; ' . get_bloginfo( 'url' );
 		/**
 		 * Filter the User Agent used in API requests.
 		 *
@@ -236,7 +236,7 @@ class Yikes_Inc_Easy_MailChimp_API {
 	 */
 	protected function get_auth_headers() {
 		/*
-		 * According to the MailChimp API docs, you can use any string you want, and the API
+		 * According to the Mailchimp API docs, you can use any string you want, and the API
 		 * key as the password. We're just going to use "yikesmailchimp" as the user.
 		 */
 		$user_pass    = base64_encode( "yikesmailchimp:{$this->api_key}" );
@@ -296,7 +296,7 @@ class Yikes_Inc_Easy_MailChimp_API {
 		// Combine the given headers and auth headers
 		$headers = wp_parse_args( $authorized_args['headers'], $headers );
 		/**
-		 * Filter the headers used for a request to the MailChimp API.
+		 * Filter the headers used for a request to the Mailchimp API.
 		 *
 		 * @since 6.3.0
 		 *
@@ -331,7 +331,7 @@ class Yikes_Inc_Easy_MailChimp_API {
 		);
 
 		/**
-		 * Filter the args used for a request to the MailChimp API.
+		 * Filter the args used for a request to the Mailchimp API.
 		 *
 		 * @since 6.3.0
 		 *

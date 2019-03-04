@@ -108,9 +108,9 @@ $list_name     = $additional_lists[ $list_id ];
 ?>
 	<div class="wrap view-user-data-wrap">
 		<!-- Freddie Logo -->
-		<img src="<?php echo YIKES_MC_URL . 'includes/images/MailChimp_Assets/Freddie_60px.png'; ?>" alt="<?php __( 'Freddie - MailChimp Mascot', 'yikes-inc-easy-mailchimp-extender' ); ?>" class="yikes-mc-freddie-logo" />
+		<img src="<?php echo YIKES_MC_URL . 'includes/images/Mailchimp_Assets/Freddie_60px.png'; ?>" alt="<?php __( 'Freddie - Mailchimp Mascot', 'yikes-inc-easy-mailchimp-extender' ); ?>" class="yikes-mc-freddie-logo" />
 
-		<h1>YIKES Easy Forms for MailChimp | <?php _e( 'Subscriber Details', 'yikes-inc-easy-mailchimp-extender' ); ?></h1>
+		<h1>YIKES Easy Forms for Mailchimp | <?php _e( 'Subscriber Details', 'yikes-inc-easy-mailchimp-extender' ); ?></h1>
 
 		<!-- Settings Page Description -->
 		<p class="yikes-easy-mc-about-text about-text"><?php printf( __( 'View %s subscriber details below.', 'yikes-inc-easy-mailchimp-extender' ), $user_email ); ?></p>
@@ -232,7 +232,7 @@ $list_name     = $additional_lists[ $list_id ];
 				?>
 				<form id="delete_subscriber" method="POST" action="<?php echo $unsubscribe_subscriber_url; ?>">
 					<p class="description">
-						<?php printf( __( 'Deleting this subscriber will completely remove %s from the "%s" MailChimp list.', 'yikes-inc-easy-mailchimp-extender' ), '<strong>' . $user_email . '</strong>', '<strong>' . $list_name . '</strong>' ); ?>
+						<?php printf( __( 'Deleting this subscriber will completely remove %s from the "%s" Mailchimp list.', 'yikes-inc-easy-mailchimp-extender' ), '<strong>' . $user_email . '</strong>', '<strong>' . $list_name . '</strong>' ); ?>
 					</p>
 					<br />
 					<label>

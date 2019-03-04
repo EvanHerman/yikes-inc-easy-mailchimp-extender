@@ -9,7 +9,7 @@ if ( ! defined( 'WPINC' ) ) {
 }
 
 /**
- * Custom autoloader for the Easy MailChimp Extender plugin.
+ * Custom autoloader for the Easy Mailchimp Extender plugin.
  *
  * @author Jeremy Pry
  * @since 6.2.0

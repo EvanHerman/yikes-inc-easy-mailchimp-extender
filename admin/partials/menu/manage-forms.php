@@ -23,19 +23,19 @@ if( $this->is_user_mc_api_valid_form( false ) == 'valid' ) {
 ?>
 <div class="wrap">
 	<!-- Freddie Logo -->
-	<img src="<?php echo YIKES_MC_URL . 'includes/images/MailChimp_Assets/Freddie_60px.png'; ?>" alt="<?php _e( 'Freddie - MailChimp Mascot' , 'yikes-inc-easy-mailchimp-extender' ); ?>" class="yikes-mc-freddie-logo" />
+	<img src="<?php echo YIKES_MC_URL . 'includes/images/Mailchimp_Assets/Freddie_60px.png'; ?>" alt="<?php _e( 'Freddie - Mailchimp Mascot' , 'yikes-inc-easy-mailchimp-extender' ); ?>" class="yikes-mc-freddie-logo" />
 
-	<h1>Easy Forms for MailChimp | <?php _e( 'Manage Forms' , 'yikes-inc-easy-mailchimp-extender' ) ?></h1>
+	<h1>Easy Forms for Mailchimp | <?php _e( 'Manage Forms' , 'yikes-inc-easy-mailchimp-extender' ) ?></h1>
 
 	<!-- Settings Page Description -->
-	<p class="yikes-easy-mc-about-text about-text"><?php _e( 'Create and manage your MailChimp forms.' , 'yikes-inc-easy-mailchimp-extender' ); ?></p>
+	<p class="yikes-easy-mc-about-text about-text"><?php _e( 'Create and manage your Mailchimp forms.' , 'yikes-inc-easy-mailchimp-extender' ); ?></p>
 
 	<!-- Action Notices -->
 	<?php
 
 	/* If the user hasn't authenticated yet, lets kill off */
 	if( get_option( 'yikes-mc-api-validation' , 'invalid_api_key' ) != 'valid_api_key' ) {
-		wp_die( '<div class="error"><p>' . sprintf( __( 'You need to connect to MailChimp before you can start creating forms. Head over to the <a href="%s" title="Settings Page">Settings Page</a> and enter your API key.' , 'yikes-inc-easy-mailchimp-extender' ), esc_url_raw( admin_url( 'admin.php?page=yikes-inc-easy-mailchimp-settings' ) ) ) . '</p></div>' , 500 );
+		wp_die( '<div class="error"><p>' . sprintf( __( 'You need to connect to Mailchimp before you can start creating forms. Head over to the <a href="%s" title="Settings Page">Settings Page</a> and enter your API key.' , 'yikes-inc-easy-mailchimp-extender' ), esc_url_raw( admin_url( 'admin.php?page=yikes-inc-easy-mailchimp-settings' ) ) ) . '</p></div>' , 500 );
 	}
 
 	/* Display our admin notices here */
@@ -51,7 +51,7 @@ if( $this->is_user_mc_api_valid_form( false ) == 'valid' ) {
 	if( isset( $_REQUEST['duplicated-form'] ) && $_REQUEST['duplicated-form'] == 'true' ) {
 		?>
 		<div class="updated manage-form-admin-notice">
-			<p><?php _e( 'MailChimp Form successfully cloned.', 'yikes-inc-easy-mailchimp-extender' ); ?></p>
+			<p><?php _e( 'Mailchimp Form successfully cloned.', 'yikes-inc-easy-mailchimp-extender' ); ?></p>
 		</div>
 		<?php
 	}
@@ -212,7 +212,7 @@ if( $this->is_user_mc_api_valid_form( false ) == 'valid' ) {
 											}
 										} else { ?>
 										<tr class="no-items">
-											<td class="colspanchange no-mailchimp-forms-found" colspan="8"><em><?php _e( 'No MailChimp forms found. Use the form to the right to create a new one.' , 'yikes-inc-easy-mailchimp-extender' ); ?></em></td>
+											<td class="colspanchange no-mailchimp-forms-found" colspan="8"><em><?php _e( 'No Mailchimp forms found. Use the form to the right to create a new one.' , 'yikes-inc-easy-mailchimp-extender' ); ?></em></td>
 										</tr>
 									<?php } ?>
 								</tbody>
