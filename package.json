@@ -37,6 +37,8 @@
     "grunt-contrib-uglify-es": "^3.3.0",
     "grunt-pot": "^0.3.0",
     "react-recaptcha": "^2.3.10",
-    "uglify-es": "^3.3.10"
+    "uglify-es": "^3.3.10",
+    "randomatic": ">=3.0.0",
+    "macaddress": ">=0.2.9"
   }
 }
