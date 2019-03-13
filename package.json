@@ -39,6 +39,7 @@
     "react-recaptcha": "^2.3.10",
     "uglify-es": "^3.3.10",
     "randomatic": ">=3.0.0",
-    "macaddress": ">=0.2.9"
+    "macaddress": ">=0.2.9",
+    "lodash": ">=4.17.11"
   }
 }
