@@ -5,7 +5,7 @@ Tags: Mailchimp, Mailchimp forms, Mailchimp lists, opt-in forms, sign up form, M
 Requires at least: 4.0
 Tested up to: 5.1.0
 Requires PHP: 5.2.13
-Stable tag: 6.5.1
+Stable tag: 6.5.2
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -172,6 +172,5 @@ For information and code examples on how to implement the hooks and filters prov
 
 == Changelog ==
 
-= 6.5.1 - February 27th, 2019 =
-* Changed all strings from MailChimp to Mailchimp.
-* Removed unused files.
+= 6.5.2 - March 21st, 2019 =
+* Fixing JS error.

@@ -1,5 +1,8 @@
 == Changelog ==
 
+= 6.5.2 - March 21st, 2019 =
+* Fixing JS error.
+
 = 6.5.1 - February 27th, 2019 =
 * Changed all strings from MailChimp to Mailchimp.
 * Removed unused files.
