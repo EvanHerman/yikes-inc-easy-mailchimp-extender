@@ -64,10 +64,11 @@ class Yikes_Easy_MC_CF7_Checkbox_Class extends Yikes_Easy_MC_Checkbox_Integratio
 		$integration_options = get_option( 'optin-checkbox-init', '' );
 		$submission          = WPCF7_Submission::get_instance();
 		if ( $submission ) {
-			$data   = $submission->get_posted_data();
-			$email  = isset( $data['your-email'] ) ? $data['your-email'] : '';
-			$fields = array( 'email' => $email );
-			$this->subscribe_user_integration( $email, $this->type, apply_filters( 'yikes-mailchimp-contact-form-7', $fields, $data ) );
+			$data      = $submission->get_posted_data();
+			$email     = isset( $data['your-email'] ) ? $data['your-email'] : '';
+			$fields    = array( 'email' => $email );
+			$addl_vars = apply_filters( 'yikes_mailchimp_checkbox_integration_additional_vars', array( 'cf7_data' => $data, 'contact_form' => $contact_form ), $this->type );
+			$this->subscribe_user_integration( $email, $this->type, apply_filters( 'yikes-mailchimp-contact-form-7', $fields, $data ), $addl_vars );
 		}
 	}
 }

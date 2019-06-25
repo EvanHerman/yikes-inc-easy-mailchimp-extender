@@ -79,8 +79,10 @@ class Yikes_Easy_MC_Comment_Checkbox_Class extends Yikes_Easy_MC_Checkbox_Integr
 			'OPTIN_IP' => $comment_data['comment_author_IP'],
 		);
 
+		$addl_vars = apply_filters( 'yikes_mailchimp_checkbox_integration_additional_vars', array( 'comment_data' => $comment_data ), $this->type );
+
 		// Subscribe the user.
-		$this->subscribe_user_integration( $comment_data['comment_author_email'], $this->type, $merge_vars );
+		$this->subscribe_user_integration( $comment_data['comment_author_email'], $this->type, $merge_vars, $addl_vars );
 	}
 }
 $yikes_easy_mc_comment_checkbox_class = new Yikes_Easy_MC_Comment_Checkbox_Class();
