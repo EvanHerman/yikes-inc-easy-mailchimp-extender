@@ -126,9 +126,11 @@ function process_mailchimp_shortcode( $atts ) {
 
 	// confirm we actually have fields, before looping
 	if ( isset( $form_data['fields'] ) && ! empty( $form_data['fields'] ) ) {
+
 		// loop over each field, if it's set to hidden -- subtract it from the field count
 		// this throws off the layout for inline forms setup below
 		foreach ( $form_data['fields'] as $form_field ) {
+
 			if ( isset( $form_field['hide'] ) && (string) $form_field['hide'] === '1' ) {
 				$field_count --;
 			}
@@ -381,6 +383,7 @@ function process_mailchimp_shortcode( $atts ) {
 				'preloader_url'                 => apply_filters( 'yikes-mailchimp-preloader', YIKES_MC_URL . 'includes/images/ripple.svg' ),
 				'loading_dots'                  => apply_filters( 'yikes-mailchimp-loading-dots', YIKES_MC_URL . 'includes/images/bars.svg' ),
 				'ajax_security_nonce'			=> wp_create_nonce( 'yikes_mc_form_submission_security_nonce' ),
+				'feedback_message_placement'    => apply_filters( 'yikes_mailchimp_feedback_message_placement', 'before', $form_data, $form_id ),
 			) );
 		}
 
