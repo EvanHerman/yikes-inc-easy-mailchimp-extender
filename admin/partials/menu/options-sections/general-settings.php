@@ -25,7 +25,7 @@ $yikes_mc_api_constant = defined( 'YIKES_MC_API_KEY' );
 
 			<p><strong><?php _e( 'Mailchimp API Key' , 'yikes-inc-easy-mailchimp-extender' ); ?></strong></p>
 
-			<input autocomplete="off" <?php if ( $yikes_mc_api_constant ) { echo 'readonly="readonly"'; } if( strlen( yikes_get_mc_api_key() ) > 0 ) { ?> type="password" <?php } else { ?> type="text" <?php } ?> value="<?php echo yikes_get_mc_api_key(); ?>" placeholder="<?php _e( 'Mailchimp API Key' , 'yikes-inc-easy-mailchimp-extender' ); ?>" name="yikes-mc-api-key" id="yikes-mc-api-key" class="settings-page-input" />
+			<input autocomplete="off" <?php if ( $yikes_mc_api_constant ) { echo 'readonly="readonly"'; } if( strlen( yikes_get_mc_api_key() ) > 0 ) { ?> type="password" <?php } else { ?> type="text" <?php } ?> value="<?php echo esc_attr( yikes_get_mc_api_key() ); ?>" placeholder="<?php _e( 'Mailchimp API Key' , 'yikes-inc-easy-mailchimp-extender' ); ?>" name="yikes-mc-api-key" id="yikes-mc-api-key" class="settings-page-input" />
 
 			<?php if ( $yikes_mc_api_constant ) { ?>
 				<p class="description"><?php printf( __( "Your Mailchimp API key has been defined using the %s constant, in a PHP file.", "yikes-inc-easy-mailchimp-extender" ), '<code>YIKES_MC_API_KEY</code>' ); ?></p>

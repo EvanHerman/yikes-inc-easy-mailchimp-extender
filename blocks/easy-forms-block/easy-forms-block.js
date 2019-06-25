@@ -806,7 +806,7 @@ var MailchimpForms = function (_Component) {
             key: field.group_id + '-' + ii + '-input-key',
             value: key,
             onChange: _this5.handleFormFieldChanges,
-            checked: field.default_choice.indexOf(key) !== -1
+            checked: field.default_choice && field.default_choice.indexOf(key) !== -1
           }),
           choice
         );
