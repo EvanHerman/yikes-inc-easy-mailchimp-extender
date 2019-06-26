@@ -19,7 +19,6 @@ if ( is_wp_error( $account_details ) ) {
 	$account_details = array();
 }
 
-
 // List data
 $list_data = $manager->get_list_handler()->get_lists();
 if ( is_wp_error( $list_data ) ) {

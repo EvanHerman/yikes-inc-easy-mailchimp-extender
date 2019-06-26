@@ -3,11 +3,10 @@
 	- display installation stuff here
 	- php version, wp version, plugin version and debug log
 -->
-
 <h3><span><?php _e( 'Debug Settings' , 'yikes-inc-easy-mailchimp-extender' ); ?></span></h3>
 
 <div class="inside">
-	
+
 	<!-- Settings Form -->
 	<form action='options.php' method='post'>
 	

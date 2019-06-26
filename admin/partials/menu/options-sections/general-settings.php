@@ -8,7 +8,29 @@
 $yikes_mc_api_constant = defined( 'YIKES_MC_API_KEY' );
 ?>
 
-<h3><span><?php _e( 'General Settings' , 'yikes-inc-easy-mailchimp-extender' ); ?></span><?php echo $api_connection; ?></h3>
+<?php
+if ( get_option( 'yikes-mc-api-validation', 'invalid_api_key' ) === 'valid_api_key' ) {
+	$list_handler    = yikes_get_mc_api_manager()->get_list_handler();
+	$connection_test = $list_handler->get_lists( array(), false );
+
+	if ( is_wp_error( $connection_test ) && $connection_test->get_error_code() === 'akamai_503' ) {
+		?>
+		<h3 class="error">
+			<span>
+			<?php
+				/* translators: placeholder is a reference number. */
+				echo sprintf( esc_html__( 'ERROR: Connectivity with Mailchimp is blocked by Akamai. Sign up forms will not function properly. %s', 'yikes-inc-easy-mailchimp-extender' ), esc_html( $connection_test->get_error_message( $connection_test->get_error_code() ) ) );
+			?>
+			</span>
+		</h3>
+		<?php
+	}
+} else {
+ ?>
+ <h3><span><?php _e( 'General Settings' , 'yikes-inc-easy-mailchimp-extender' ); ?></span><?php echo $api_connection; ?></h3>
+ <?php 	
+}
+?>
 <div class="inside">
 
 	<!-- Settings Form -->
@@ -37,7 +59,7 @@ $yikes_mc_api_constant = defined( 'YIKES_MC_API_KEY' );
 				<p class="description"><small><a href="https://admin.mailchimp.com/account/api" target="_blank" title="<?php _e( 'Get your API key here' , 'yikes-inc-easy-mailchimp-extender' ); ?>"><?php _e( 'Get your API key here' , 'yikes-inc-easy-mailchimp-extender' ); ?></a></small></p>
 			<?php } ?>
 
-			<p class="description">Warning: changing your API key will break your current forms.</p>
+			<p class="description"><?php esc_html_e( 'Warning: changing your API key may break your current forms.', 'yikes-inc-easy-mailchimp-extender' ); ?></p>
 		</label>
 
 		<!-- Use Nonce Validation Field -->		
