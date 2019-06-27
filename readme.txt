@@ -3,9 +3,9 @@ Contributors: yikesinc, eherman24, liljimmi, JPry, yikesitskevin
 Donate link: https://yikesplugins.com/?utm_source=wp_plugin_repo&utm_medium=donate_link&utm_campaign=easy_forms_for_mailchimp
 Tags: Mailchimp, Mailchimp forms, Mailchimp lists, opt-in forms, sign up form, Mailchimp, email, forms, mailing lists, marketing, newsletter, sign up
 Requires at least: 4.0
-Tested up to: 5.1.0
+Tested up to: 5.2
 Requires PHP: 5.2.13
-Stable tag: 6.5.2
+Stable tag: 6.5.3
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -172,5 +172,12 @@ For information and code examples on how to implement the hooks and filters prov
 
 == Changelog ==
 
-= 6.5.2 - March 21st, 2019 =
-* Fixing JS error.
+= 6.5.3 - July 1st, 2019 =
+* Added support for showing whether your site is being blocked by Mailchimp. If you're blocked, you will now see an error on the plugin's General Settings page.
+* Added a filter for our checkbox integrations, `yikes_mailchimp_checkbox_integration_additional_vars`. This allows you to use custom variables in our other filters.
+* Added a filter for changing the placement (above/below/both) of form error/success messages. See the filter `yikes_mailchimp_feedback_message_placement`.
+* Added support for setting the timestamp_signup Mailchimp merge variable to all new subscribers.
+* Removed support for setting the timestamp_opt variable for all subscribers. This plugin will no longer set the timestamp_opt Mailchimp merge variable.
+* Fixed an issue with default selected interest groups not working in our Gutenberg block.
+* Fixed admin input field code injection vulnerability. Thanks to Henri Salo from Nixu Corporation for finding and reporting this to us.
+* Fixed an error w/ error handling a failed API hit on the Manage Lists page.
