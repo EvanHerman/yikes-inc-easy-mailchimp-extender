@@ -6,31 +6,26 @@
 
 // Check if an API Constant is set.
 $yikes_mc_api_constant = defined( 'YIKES_MC_API_KEY' );
-?>
 
-<?php
 if ( get_option( 'yikes-mc-api-validation', 'invalid_api_key' ) === 'valid_api_key' ) {
 	$list_handler    = yikes_get_mc_api_manager()->get_list_handler();
 	$connection_test = $list_handler->get_lists( array(), false );
-
-	if ( is_wp_error( $connection_test ) && $connection_test->get_error_code() === 'akamai_503' ) {
-		?>
-		<h3 class="error">
-			<span>
-			<?php
-				/* translators: placeholder is a reference number. */
-				echo sprintf( esc_html__( 'ERROR: Connectivity with Mailchimp is blocked by Akamai. Sign up forms will not function properly. %s', 'yikes-inc-easy-mailchimp-extender' ), esc_html( $connection_test->get_error_message( $connection_test->get_error_code() ) ) );
-			?>
-			</span>
-		</h3>
-		<?php
-	}
-} else {
- ?>
- <h3><span><?php _e( 'General Settings' , 'yikes-inc-easy-mailchimp-extender' ); ?></span><?php echo $api_connection; ?></h3>
- <?php 	
+	$is_akamai_error = is_wp_error( $connection_test ) && 503 === (int) $connection_test->get_error_code();
 }
-?>
+
+if ( $is_akamai_error ) : ?>
+	<h3 class="error">
+		<span>
+		<?php
+			/* translators: placeholder is a reference number. */
+			echo sprintf( esc_html__( 'ERROR: Connectivity with Mailchimp is blocked by Akamai. Sign up forms will not function properly. %s', 'yikes-inc-easy-mailchimp-extender' ), esc_html( $connection_test->get_error_message( $connection_test->get_error_code() ) ) );
+		?>
+		</span>
+	</h3>
+<?php else : ?>
+	<h3><span><?php _e( 'General Settings' , 'yikes-inc-easy-mailchimp-extender' ); ?></span><?php echo $api_connection; ?></h3>
+<?php endif; ?>
+
 <div class="inside">
 
 	<!-- Settings Form -->

@@ -213,8 +213,8 @@ abstract class Yikes_Inc_Easy_Mailchimp_API_Abstract_Items {
 
 		if ( isset( $response['status'] ) && 503 === (int) $response['status'] ) {
 			return new WP_Error(
-				isset( $response['title'] ) ? $response['title'] : __( '503: This is most likely an Akamai error.', 'yikes-inc-easy-mailchimp-extender' ),
-				isset( $response['ref_no'] ) ? $response['ref_no'] : '',
+				$response['status'],
+				( isset( $response['ref_no'] ) ? $response['ref_no'] . '. ' : '' ) . ( isset( $response['title'] ) ? '(' . $response['title'] . ')' : '(akamai_503)' ),
 				array(
 					'status' => (int) $response['status'],
 					'data'   => isset( $response['ref_no'] ) ? $response['ref_no'] : '',
