@@ -6,6 +6,7 @@
 
 // Check if an API Constant is set.
 $yikes_mc_api_constant = defined( 'YIKES_MC_API_KEY' );
+$is_akamai_error       = false;
 
 if ( get_option( 'yikes-mc-api-validation', 'invalid_api_key' ) === 'valid_api_key' ) {
 	$list_handler    = yikes_get_mc_api_manager()->get_list_handler();
