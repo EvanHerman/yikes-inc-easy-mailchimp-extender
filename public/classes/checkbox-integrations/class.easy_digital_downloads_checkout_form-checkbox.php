@@ -87,8 +87,10 @@ class Yikes_Easy_MC_EDD_Checkbox_Class extends Yikes_Easy_MC_Checkbox_Integratio
 			$merge_vars['LNAME'] = $user_info['last_name'];
 		}
 
+		$addl_vars = apply_filters( 'yikes_mailchimp_checkbox_integration_additional_vars', array( 'user' => $user_info, 'payment_id' => $payment_id ), $this->type );
+
 		// Subscribe the user.
-		$this->subscribe_user_integration( $email, $this->type, $merge_vars );
+		$this->subscribe_user_integration( $email, $this->type, $merge_vars, $addl_vars );
 	}
 
 }

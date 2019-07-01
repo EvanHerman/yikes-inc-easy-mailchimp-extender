@@ -59,7 +59,8 @@ class Yikes_Easy_MC_BuddyPress_Checkbox_Class extends Yikes_Easy_MC_Checkbox_Int
 
 		$email      = $user->user_email;
 		$merge_vars = $this->user_merge_vars( $user );
-		$this->subscribe_user_integration( $email, $this->type, $merge_vars );
+		$addl_vars  = apply_filters( 'yikes_mailchimp_checkbox_integration_additional_vars', array( 'user' => $user ), $this->type );
+		$this->subscribe_user_integration( $email, $this->type, $merge_vars, $addl_vars );
 	}
 }
 $yikes_easy_mc_buddypress_checkbox_class = new Yikes_Easy_MC_BuddyPress_Checkbox_Class();

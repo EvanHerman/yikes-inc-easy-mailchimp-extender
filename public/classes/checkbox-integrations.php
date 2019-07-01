@@ -140,11 +140,12 @@ class Yikes_Easy_MC_Checkbox_Integration_Class {
 	 *
 	 * @since 6.0.0
 	 *
-	 * @param string $email      The email address.
-	 * @param string $type       The integration type.
-	 * @param array  $merge_vars The array of form data to send.
+	 * @param string $email            The email address.
+	 * @param string $type             The integration type.
+	 * @param array  $merge_vars       The array of form data to send.
+	 * @param array  $integration_vars An array of additional information that can be used to filter the subscribe request.
 	 */
-	public function subscribe_user_integration( $email, $type, $merge_vars ) {
+	public function subscribe_user_integration( $email, $type, $merge_vars, $integration_vars = array() ) {
 		$options = get_option( 'optin-checkbox-init', '' );
 
 		// Make sure we have a list ID.
@@ -167,7 +168,7 @@ class Yikes_Easy_MC_Checkbox_Integration_Class {
 		$id       = md5( $email );
 		$data     = array(
 			'email_address' => $email,
-			'merge_fields'  => apply_filters( 'yikes-mailchimp-checkbox-integration-merge-variables', $merge_vars, $type ),
+			'merge_fields'  => apply_filters( 'yikes-mailchimp-checkbox-integration-merge-variables', $merge_vars, $type, $integration_vars ),
 			'status_if_new' => 'pending',
 			'status'        => 'pending',
 			'ip_signup'     => $user_ip,
@@ -203,7 +204,7 @@ class Yikes_Easy_MC_Checkbox_Integration_Class {
 			 * @param string | $type    | The integration type, e.g. 'contact_form_7'
 			 * @param string | $list_id | The list ID
 			 */
-			$data = apply_filters( 'yikes-mailchimp-checkbox-integration-body', $data, $type, $list_id );
+			$data = apply_filters( 'yikes-mailchimp-checkbox-integration-body', $data, $type, $list_id, $integration_vars );
 
 			/**
 			 * 'yikes-mailchimp-checkbox-integration-list-id'
@@ -214,7 +215,7 @@ class Yikes_Easy_MC_Checkbox_Integration_Class {
 			 * @param array  $data    The request body
 			 * @param string $type    The integration type, e.g. 'contact_form_7'
 			 */
-			$list_id = apply_filters( 'yikes-mailchimp-checkbox-integration-list-id', $list_id, $data, $type );
+			$list_id = apply_filters( 'yikes-mailchimp-checkbox-integration-list-id', $list_id, $data, $type, $integration_vars );
 
 			// Don't send an empty merge fields array.
 			if ( empty( $data['merge_fields'] ) ) {

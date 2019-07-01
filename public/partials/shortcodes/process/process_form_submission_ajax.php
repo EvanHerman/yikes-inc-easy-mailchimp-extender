@@ -121,7 +121,6 @@ if ( isset( $merge_variables['error'] ) ) {
 $member_data = array(
 	'email_address' => $sanitized_email,
 	'merge_fields'  => $merge_variables,
-	'timestamp_opt' => current_time( 'Y-m-d H:i:s', 1 ),
 );
 
 // Only add groups if they exist
@@ -130,13 +129,20 @@ if ( ! empty( $groups ) ) {
 }
 
 // Check if this member already exists
-$member_exists = $list_handler->get_member( $list_id, md5( $sanitized_email ), $use_transient = false );
+$member_exists            = $list_handler->get_member( $list_id, md5( $sanitized_email ), $use_transient = false );
+$double_optin_resubscribe = false;
 
 // If this member does not exist, then we need to add the status_if_new flag and set our $new_subscriber variable
 // Likewise, if this member exists but their status is 'pending' it means we're dealing with a double opt-in list and they never confirmed
 // Or, if this member but their status is 'unsubscribed' it means we're dealing with someone who unsubscribed and they need to re-subscribe
 // Continue as if they're a new member to force another double opt-in email
-$double_optin_resubscribe = is_array( $member_exists ) && isset( $member_exists['status'] ) && ( $member_exists['status'] === 'pending' || $member_exists['status'] === 'unsubscribed' );
+if ( is_array( $member_exists ) && isset( $member_exists['status'] ) ) {
+	$double_optin_resubscribe = $member_exists['status'] === 'pending' || $member_exists['status'] === 'unsubscribed';
+} else {
+
+	// If this member doesn't exist, set their timestamp signup to the current time.
+	$member_data['timestamp_signup'] = current_time( 'Y-m-d H:i:s', 1 );
+}
 
 if ( is_wp_error( $member_exists ) || $double_optin_resubscribe === true ) {
 

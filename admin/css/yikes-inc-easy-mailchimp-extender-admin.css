@@ -418,6 +418,11 @@ ul.support-option-list {
 	font-weight: 800;
 	color: #ffffff;
  }
+
+ .yikes-easy-mc-postbox h3.error {
+ 	background: #dc3232;
+ 	font-weight: 700;
+ }
 	.yikes-easy-mc-postbox h3.bg-transparent {
 		color: #333;
 		font-weight: 400;

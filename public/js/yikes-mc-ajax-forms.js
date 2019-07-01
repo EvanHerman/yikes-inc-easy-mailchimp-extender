@@ -140,11 +140,18 @@ window.Yikes_Mailchimp_Ajax = window.Yikes_Mailchimp_Ajax || {};
 							/* hide the form */
 							submitted_form.hide();
 						}
-						if( $( '.yikes-easy-mc-form-description-'+form_id ).length > 0 ) {
-							 $( '.yikes-easy-mc-form-description-'+form_id ).before( '<p class="yikes-easy-mc-success-message yikes-easy-mc-success-message-'+form_id+' yikes-easy-mc-hidden">'+response.response+'</p>' );
-						} else {
-							submitted_form.before( '<p class="yikes-easy-mc-success-message yikes-easy-mc-success-message-'+form_id+' yikes-easy-mc-hidden">'+response.response+'</p>' );
+
+						var successMessage       = '<p class="yikes-easy-mc-success-message yikes-easy-mc-success-message-' + form_id + ' yikes-easy-mc-hidden">' + response.response + '</p>';
+						var successMessageAnchor = $( '.yikes-easy-mc-form-description-' + form_id ).length > 0 ? $( '.yikes-easy-mc-form-description-' + form_id ) : submitted_form;
+						if ( app.l10n.feedback_message_placement === 'before' ) {
+							successMessageAnchor.before( successMessage );	
+						} else if ( app.l10n.feedback_message_placement === 'after' ) {
+							submitted_form.after( successMessage );
+						} else if ( app.l10n.feedback_message_placement === 'both' ) {
+							successMessageAnchor.before( successMessage );	
+							submitted_form.after( successMessage );	
 						}
+
 						/* fade in our success message */
 						$( '.yikes-easy-mc-success-message-'+form_id ).fadeIn();
 						$( '.yikes-mailchimp-required-interest-group-error' ).remove();
@@ -181,14 +188,19 @@ window.Yikes_Mailchimp_Ajax = window.Yikes_Mailchimp_Ajax || {};
 
 						// Fire off our Google Analytics for an unsuccessful submission
 						if ( typeof( yikes_mailchimp_google_analytics_failure ) === 'function' ) { 
-							yikes_mailchimp_google_analytics_failure( response ); 
+							yikes_mailchimp_google_analytics_failure( response );
 						}
 
-						if( $( '.yikes-easy-mc-form-description-' + form_id ).length > 0 ) {
-							$( '.yikes-easy-mc-form-description-' + form_id ).before( '<p class="yikes-easy-mc-error-message yikes-easy-mc-error-message-' + form_id + '" yikes-easy-mc-hidden"> ' + response.response + '</p>' );
-						} else {
-							var response_message = ( typeof( response ) !== 'undefined' && typeof( response.response ) !== 'undefined' ) ? response.response : 'Error collecting the API response.'
-							submitted_form.before( '<p class="yikes-easy-mc-error-message yikes-easy-mc-error-message-' + form_id + ' yikes-easy-mc-hidden">' + response_message + '</p>' );
+						var errorMessage       = typeof response !== 'undefined' && typeof response.response !== 'undefined' ? response.response : 'Error collecting the API response.';
+						var errorMessageHTML   = '<p class="yikes-easy-mc-error-message yikes-easy-mc-error-message-' + form_id + ' yikes-easy-mc-hidden">' + errorMessage + '</p>';
+						var errorMessageAnchor = $( '.yikes-easy-mc-form-description-' + form_id ).length > 0 ? $( '.yikes-easy-mc-form-description-' + form_id ) : submitted_form;
+						if ( app.l10n.feedback_message_placement === 'before' ) {
+							errorMessageAnchor.before( errorMessageHTML );	
+						} else if ( app.l10n.feedback_message_placement === 'after' ) {
+							submitted_form.after( errorMessageHTML );
+						} else if ( app.l10n.feedback_message_placement === 'both' ) {
+							errorMessageAnchor.before( errorMessageHTML );	
+							submitted_form.after( errorMessageHTML );
 						}
 
 						// Check if we found a required field that's missing (server side check)

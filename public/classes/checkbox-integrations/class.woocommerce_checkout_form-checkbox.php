@@ -134,8 +134,12 @@ class Yikes_Easy_MC_WooCommerce_Checkbox_Class extends Yikes_Easy_MC_Checkbox_In
 				'LNAME' => $order->get_billing_last_name(),
 			);
 
+			$integration_vars = array(
+				'order' => $order,
+			);
+
 			// Subscribe the user.
-			$this->subscribe_user_integration( $email, $this->type, $merge_vars );
+			$this->subscribe_user_integration( $email, $this->type, $merge_vars, $integration_vars );
 		}
 	}
 }

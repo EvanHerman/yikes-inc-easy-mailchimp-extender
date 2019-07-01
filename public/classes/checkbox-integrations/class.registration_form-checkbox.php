@@ -53,9 +53,10 @@ class Yikes_Easy_MC_Registration_Checkbox_Class extends Yikes_Easy_MC_Checkbox_I
 
 		// Fetch the user's data.
 		$merge_variables = $this->user_merge_vars( $user );
+		$addl_vars       = apply_filters( 'yikes_mailchimp_checkbox_integration_additional_vars', array( 'user' => $user ), $this->type );
 
 		if ( false === $this->is_user_already_subscribed( $this->type, $user->user_email ) ) {
-			$this->subscribe_user_integration( $user->user_email, $this->type, $merge_variables );
+			$this->subscribe_user_integration( $user->user_email, $this->type, $merge_variables, $addl_vars );
 		}
 	}
 }

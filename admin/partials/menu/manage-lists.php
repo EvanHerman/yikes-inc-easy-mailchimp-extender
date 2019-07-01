@@ -9,6 +9,15 @@ $manager = yikes_get_mc_api_manager();
 
 // Mailchimp Account/Profile info
 $account_details = $manager->get_account_handler()->get_account();
+if ( is_wp_error( $account_details ) ) {
+	$error_logging = new Yikes_Inc_Easy_Mailchimp_Error_Logging();
+	$error_logging->maybe_write_to_log(
+		$list_data->get_error_code(),
+		__( "Get Account", 'yikes-inc-easy-mailchimp-extender' ),
+		"Manage Lists Page"
+	);
+	$account_details = array();
+}
 
 // List data
 $list_data = $manager->get_list_handler()->get_lists();
