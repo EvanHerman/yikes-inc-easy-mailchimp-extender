@@ -5,7 +5,7 @@ Tags: Mailchimp, Mailchimp forms, Mailchimp lists, opt-in forms, sign up form, M
 Requires at least: 4.0
 Tested up to: 5.2
 Requires PHP: 5.2.13
-Stable tag: 6.5.3
+Stable tag: 6.5.4
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -171,6 +171,9 @@ Alongside the default functionality of the plugin we've included a number of hoo
 For information and code examples on how to implement the hooks and filters provided by our plugin, please see our [Developer Documentation in the Knowledge Base](https://yikesplugins.com/support/knowledge-base/product/developer-documentation/?utm_source=wp_plugin_repo&utm_medium=link&utm_campaign=easy_forms_for_mailchimp).
 
 == Changelog ==
+
+= 6.5.4 - August 28th, 2019 =
+* Patched security vulnerability found in on of our dependencies.
 
 = 6.5.3 - July 1st, 2019 =
 * Added support for showing whether your site is being blocked by Mailchimp. If you're blocked, you will now see an error on the plugin's General Settings page.
