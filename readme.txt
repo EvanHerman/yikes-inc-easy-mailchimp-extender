@@ -172,6 +172,9 @@ For information and code examples on how to implement the hooks and filters prov
 
 == Changelog ==
 
+= 6.5.4 - August 28th, 2019 =
+* Patched security vulnerability found in on of our dependencies.
+
 = 6.5.3 - July 1st, 2019 =
 * Added support for showing whether your site is being blocked by Mailchimp. If you're blocked, you will now see an error on the plugin's General Settings page.
 * Added a filter for our checkbox integrations, `yikes_mailchimp_checkbox_integration_additional_vars`. This allows you to use custom variables in our other filters.
