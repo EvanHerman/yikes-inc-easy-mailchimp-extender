@@ -215,5 +215,8 @@ const EasyFormsBlock = registerBlockType(
   ez_forms_gb_data.block_namespace + ez_forms_gb_data.block_name,
 
   // Settings
-  settings
+  settings,
+
+  // Block category
+  {category: 'easy-forms'} 
 );
