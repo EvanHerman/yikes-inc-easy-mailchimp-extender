@@ -41,7 +41,7 @@ abstract class YIKES_Easy_Forms_Blocks {
 	 */
 	abstract public function render_block( $attributes, $content );
 
-	public function easy_forms_register_category( $categories, $post ) {
+	public function easy_forms_register_category( $categories ) {
 		return array_merge(
 			$categories,
 			array(
