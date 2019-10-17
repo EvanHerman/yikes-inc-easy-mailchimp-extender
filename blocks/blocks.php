@@ -12,6 +12,7 @@ abstract class YIKES_Easy_Forms_Blocks {
 	public function __construct() {
 		add_action( 'enqueue_block_editor_assets', array( $this, 'editor_scripts' ) );
 		add_action( 'init', array( $this, 'register_blocks' ), 11 );
+		add_filter( 'block_categories', array( $this, 'easy_forms_register_category' ), 10, 2);
 	}
 
 	/**
@@ -39,4 +40,17 @@ abstract class YIKES_Easy_Forms_Blocks {
 	 * @return string Block output.
 	 */
 	abstract public function render_block( $attributes, $content );
+
+	public function easy_forms_register_category( $categories, $post ) {
+		return array_merge(
+			$categories,
+			array(
+				array(
+					'slug' => 'easy-forms',
+					'title' => __( 'Easy Forms', 'easy-forms' ),
+				),
+			)
+		);
+	}
+	
 }

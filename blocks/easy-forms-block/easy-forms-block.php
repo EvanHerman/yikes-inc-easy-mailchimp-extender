@@ -109,16 +109,3 @@ class YIKES_Easy_Form_Block extends YIKES_Easy_Forms_Blocks {
 		);
 	}
 }
-
-function my_mario_block_category( $categories, $post ) {
-	return array_merge(
-		$categories,
-		array(
-			array(
-				'slug' => 'easy-forms',
-				'title' => __( 'Easy Forms', 'easy-forms' ),
-			),
-		)
-	);
-}
-add_filter( 'block_categories', 'easy_form_category', 10, 2);
