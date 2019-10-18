@@ -1776,7 +1776,7 @@ var save_easy_form = function save_easy_form(props) {
 
 var settings = {
   title: __('Easy Forms for Mailchimp'),
-  category: 'common', // Options include "common", "formatting", "layout", "widgets" and "embed."
+  category: 'easy-forms', // Options include "common", "formatting", "layout", "widgets" and "embed."
   icon: 'email-alt',
   keywords: ['mailchimp', 'easy forms for mailchimp', 'yikes'],
   attributes: {
@@ -1854,10 +1854,7 @@ var EasyFormsBlock = registerBlockType(
 ez_forms_gb_data.block_namespace + ez_forms_gb_data.block_name,
 
 // Settings
-settings,
-
-// Block category
-{category: 'easy-forms'} 
+settings, 
 
 );
 
