@@ -1,10 +1,10 @@
-import EasyFormsAPI from '../components/api.js'
+import EasyFormsAPI from './components/api.js'
 
-import MailchimpForms from '../components/class.MailchimpForms.js';
+import MailchimpForms from './components/class.MailchimpForms.js';
 
-import './easy-forms-block.scss'
+import '../css/easy-forms-block.scss'
 
-require( '../components/enable-submit-button-editing.js' );
+require( './components/enable-submit-button-editing.js' );
 
 // Get just the __() localization function from wp.i18n
 const { __ } = wp.i18n;
@@ -137,7 +137,7 @@ const save_easy_form = function( props ) {
 
 const settings = {
   title     : __( 'Easy Forms for Mailchimp' ),
-  category  : 'common', // Options include "common", "formatting", "layout", "widgets" and "embed."
+  category  : 'easy-forms', // Options include "common", "formatting", "layout", "widgets" and "embed."
   icon      : 'email-alt',
   keywords  : ['mailchimp', 'easy forms for mailchimp', 'yikes'],
   attributes:  {

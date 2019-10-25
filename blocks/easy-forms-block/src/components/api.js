@@ -10,7 +10,7 @@ export default class EasyFormsAPI {
 			nonce: ez_forms_gb_data.get_api_key_status,
 		}
 
-		let status = $.post( this.ajaxurl, data );
+		let status = jQuery.post( this.ajaxurl, data );
 
 		return status;
 	}
@@ -21,7 +21,7 @@ export default class EasyFormsAPI {
 			nonce: ez_forms_gb_data.fetch_recaptcha_nonce
 		}
 
-		let recaptcha_data = $.post( this.ajaxurl, data );
+		let recaptcha_data = jQuery.post( this.ajaxurl, data );
 
 		return recaptcha_data;
 	}
@@ -32,7 +32,7 @@ export default class EasyFormsAPI {
 			nonce: ez_forms_gb_data.fetch_forms_nonce,
 		}
 
-		let forms = $.post( this.ajaxurl, data );
+		let forms = jQuery.post( this.ajaxurl, data );
 
 		return forms;
 	}
@@ -44,7 +44,7 @@ export default class EasyFormsAPI {
 			nonce: ez_forms_gb_data.fetch_form_nonce
 		}
 
-		let form = $.post( this.ajaxurl, data );
+		let form = jQuery.post( this.ajaxurl, data );
 
 		return form;
 	}
