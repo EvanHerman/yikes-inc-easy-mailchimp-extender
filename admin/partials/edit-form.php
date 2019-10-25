@@ -283,7 +283,7 @@ do_action( 'yikes-mailchimp-edit-form-notice' );
 																<?php
 																if ( isset( $tags ) && ! isset( $tags['error'] ) ) {
 																	echo '<p class="description">' . __( "Select a tag to add to the form builder. Selected tags will be added to all subscribers of this form.", 'yikes-inc-easy-mailchimp-extender' ) . '</p>';
-																	echo '<p id="yikes-tags-error-message" class="hidden"><strong>' . __( 'Warning: due to limitations in Mailchimp\'s API, tags are not currently supported for double opt-in signups.', 'yikes-inc-easy-mailchimp-extender' ) . '</strong></p>';
+																	echo '<p id="yikes-tags-error-message" class="hidden"><strong>' . __( 'Double Opt-in Tagging Now Supported!', 'yikes-inc-easy-mailchimp-extender' ) . '</strong></p>';
 																	$this->build_available_tags( isset( $form['tags'] ) ? $form['tags'] : array(), $tags, $form['list_id'] );
 																} else {
 																	echo '<p class="description">' . $interest_groupings['error'] . '</p>';
