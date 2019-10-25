@@ -172,8 +172,8 @@ For information and code examples on how to implement the hooks and filters prov
 
 == Changelog ==
 
-= 6.5.6 - October 25, 2019 =
-* Fixing bug with WordPress 5.3 ahead of release.
+= 6.6.0 - October 25, 2019 =
+* Adding Double Opt-in Subscribe and Easy Forms Gutenberg Category.
 
 = 6.5.6 - October 24, 2019 =
 * Fixing bug with WordPress 5.3 ahead of release.
