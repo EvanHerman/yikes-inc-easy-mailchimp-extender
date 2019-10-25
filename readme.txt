@@ -3,9 +3,9 @@ Contributors: yikesinc, eherman24, liljimmi, JPry, yikesitskevin
 Donate link: https://yikesplugins.com/?utm_source=wp_plugin_repo&utm_medium=donate_link&utm_campaign=easy_forms_for_mailchimp
 Tags: Mailchimp, Mailchimp forms, Mailchimp lists, opt-in forms, sign up form, Mailchimp, email, forms, mailing lists, marketing, newsletter, sign up
 Requires at least: 4.0
-Tested up to: 5.2
+Tested up to: 5.3
 Requires PHP: 5.2.13
-Stable tag: 6.5.5
+Stable tag: 6.5.6
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -171,6 +171,9 @@ Alongside the default functionality of the plugin we've included a number of hoo
 For information and code examples on how to implement the hooks and filters provided by our plugin, please see our [Developer Documentation in the Knowledge Base](https://yikesplugins.com/support/knowledge-base/product/developer-documentation/?utm_source=wp_plugin_repo&utm_medium=link&utm_campaign=easy_forms_for_mailchimp).
 
 == Changelog ==
+
+= 6.5.6 - October 43, 2019 =
+* Fixing bug with WordPress 5.3 ahead of release.
 
 = 6.5.4 - August 28th, 2019 =
 * Patched security vulnerability found in on of our dependencies.

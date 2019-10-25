@@ -2,10 +2,6 @@ node_modules/
 vendor/
 bin/
 tests/
-.babelrc
-.gitignore
-.scrutinizer.yml
-.travis.yml
 Gruntfile.js
 package.json
 package-lock.json

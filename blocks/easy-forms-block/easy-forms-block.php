@@ -35,11 +35,14 @@ class YIKES_Easy_Form_Block extends YIKES_Easy_Forms_Blocks {
 
 		wp_register_script( 'yikes-datepicker-scripts', YIKES_MC_URL . 'public/js/yikes-datepicker-scripts.min.js', array( 'jquery-ui-datepicker' ), YIKES_MC_VERSION, true );
 		wp_localize_script( 'yikes-datepicker-scripts', 'datepicker_settings', $datepicker_options );
+
+		// Enqueueing styles.
 		wp_enqueue_script( 'yikes-datepicker-scripts' );
 		wp_enqueue_style( 'jquery-datepicker-styles', YIKES_MC_URL . 'public/css/jquery-ui.min.css', array(), YIKES_MC_VERSION );
 		wp_enqueue_style( 'yikes-datepicker-styles', YIKES_MC_URL . 'public/css/yikes-datepicker-styles.min.css', array(), YIKES_MC_VERSION );
+		wp_enqueue_style( 'yikes-easy-forms-blocks-css', YIKES_MC_URL . 'blocks/easy-forms-block/build/style.css', array(), YIKES_MC_VERSION );
 
-		wp_register_script( 'yikes-easy-forms-blocks', YIKES_MC_URL . 'blocks/easy-forms-block/easy-forms-block.js', array( 'wp-i18n', 'wp-element', 'wp-blocks', 'wp-components', 'wp-api' ), filemtime( YIKES_MC_PATH . 'blocks/easy-forms-block/easy-forms-block.js' ), true );
+		wp_register_script( 'yikes-easy-forms-blocks', YIKES_MC_URL . 'blocks/easy-forms-block/build/easy-forms-blocks.js', array( 'wp-i18n', 'wp-element', 'wp-blocks', 'wp-components', 'wp-api' ), filemtime( YIKES_MC_PATH . 'blocks/easy-forms-block/easy-forms-block.js' ), true );
 		wp_localize_script( 'yikes-easy-forms-blocks', 'ez_forms_gb_data', array(
 			'ajax_url'              => esc_url_raw( admin_url( 'admin-ajax.php' ) ),
 			'fetch_form_nonce'      => wp_create_nonce( 'fetch_form_nonce' ),
