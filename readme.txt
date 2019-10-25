@@ -1,5 +1,5 @@
 ﻿=== Easy Forms for Mailchimp ===
-Contributors: yikesinc, eherman24, liljimmi, JPry, yikesitskevin
+Contributors: yikesinc, eherman24, liljimmi, JPry, yikesitskevin, fmixell
 Donate link: https://yikesplugins.com/?utm_source=wp_plugin_repo&utm_medium=donate_link&utm_campaign=easy_forms_for_mailchimp
 Tags: Mailchimp, Mailchimp forms, Mailchimp lists, opt-in forms, sign up form, Mailchimp, email, forms, mailing lists, marketing, newsletter, sign up
 Requires at least: 4.0
@@ -76,7 +76,7 @@ If you experience any problems, please submit a New Issue on our [Github Issue T
 == Installation ==
 
 1. Download the plugin .zip file and make note of where on your computer you downloaded it to.
-2. In the WordPress admin (yourdomain.com/wp-admin) go to Plugins > Add New or click the "Add New" button on the main plugins screen.
+2. In the WordPress admin (example.com/wp-admin) go to Plugins > Add New or click the "Add New" button on the main plugins screen.
 3. On the following screen, click the "Upload Plugin" button.
 4. Browse your computer to where you downloaded the plugin .zip file, select it and click the "Install Now" button.
 5. After the plugin has successfully installed, click "Activate Plugin" and enjoy!
@@ -113,7 +113,7 @@ The submit button text can be customized to use any text you like. This is done 
 = How do I add new fields to my form? =
 The fields that are assigned to a list are managed on the Mailchimp site. To add or remove fields you need to log in to your account and manage them there.
 
-Please read the article [Manage List and Signup Form Fields](http://kb.mailchimp.com/lists/managing-subscribers/manage-list-and-signup-form-fields) to learn how to add and edit the fields for your lists.
+Please read the article [Manage List and Sign Up Form Fields](http://kb.mailchimp.com/lists/managing-subscribers/manage-list-and-signup-form-fields) to learn how to add and edit the fields for your lists.
 
 After you’ve added fields, they may not show up immediately in our plugin’s Form Builder. Our plugin pulls the information from your lists and stores it for a period of time before pulling it again. To get the new information immediately you will need to clear the Mailchimp API cache. Please read our article [API Cache Settings](https://yikesplugins.com/support/knowledge-base/api-cache-settings/) for instructions on how to clear the Mailchimp API cache.
 
@@ -173,7 +173,8 @@ For information and code examples on how to implement the hooks and filters prov
 == Changelog ==
 
 = 6.6.0 - October 25, 2019 =
-* Adding Double Opt-in Subscribe and Easy Forms Gutenberg Category.
+* Adding Double Opt-in Subscribe.
+* Easy Forms Gutenberg Category - Thanks to @Ajwerth.
 
 = 6.5.6 - October 24, 2019 =
 * Fixing bug with WordPress 5.3 ahead of release.
