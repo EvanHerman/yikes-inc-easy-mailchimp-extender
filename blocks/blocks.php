@@ -48,6 +48,7 @@ abstract class YIKES_Easy_Forms_Blocks {
 				array(
 					'slug' => 'easy-forms',
 					'title' => __( 'Easy Forms', 'easy-forms' ),
+					'icon' => 'email-alt2'
 				),
 			)
 		);
