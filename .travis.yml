@@ -15,22 +15,6 @@ env:
   - WP_VERSION=trunk WP_MULTISITE=0
   - WP_VERSION=trunk WP_MULTISITE=1
 
-matrix:
-  include:
-    - php: 5.3
-      dist: precise
-      env: WP_VERSION=4.9 WP_MULTISITE=0
-    - php: 5.4
-      env: WP_VERSION=latest WP_MULTISITE=1
-  exclude:
-    # https://github.com/WordPress/wordpress-develop/commit/ce8a915c06c42ef4e65e26ce39c20e5029e80293
-    - php: 7.0
-      env: WP_VERSION=4.6 WP_MULTISITE=0
-    - php: 7.0
-      env: WP_VERSION=4.3 WP_MULTISITE=0
-    - php: 7.0
-      env: WP_VERSION=4.0 WP_MULTISITE=0
-
 before_script:
   - |
     phpunit --version
