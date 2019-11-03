@@ -5,8 +5,6 @@ dist: trusty
 sudo: false
 
 php:
-  - 5.4
-  - 5.5
   - 5.6
   - 7.0
   # https://hhvm.com/blog/2018/09/12/end-of-php-support-future-of-hack.html
