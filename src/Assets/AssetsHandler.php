@@ -9,8 +9,8 @@
 
 namespace YIKES\EasyForms\Assets;
 
-use Yikes\EasyForms\Exception\InvalidAssetHandle;
-use Yikes\EasyForms\Registerable;
+use YIKES\EasyForms\Exception\InvalidAssetHandle;
+use YIKES\EasyForms\Registerable;
 
 /**
  * Class AssetsHandler.

@@ -9,8 +9,8 @@
 
 namespace YIKES\EasyForms\Assets;
 
-use Yikes\EasyForms\Exception\FailedToRegister;
-use Yikes\EasyForms\Plugin;
+use YIKES\EasyForms\Exception\FailedToRegister;
+use YIKES\EasyForms\Plugin;
 use Closure;
 
 /**

@@ -9,7 +9,7 @@
 
 namespace YIKES\EasyForms\Assets;
 
-use Yikes\EasyForms\Service;
+use YIKES\EasyForms\Service;
 
 /**
  * Class AdminStyles

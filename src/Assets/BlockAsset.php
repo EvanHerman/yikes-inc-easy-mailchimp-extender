@@ -9,7 +9,7 @@
 
 namespace YIKES\EasyForms\Assets;
 
-use Yikes\EasyForms\Plugin;
+use YIKES\EasyForms\Plugin;
 use Closure;
 
 /**

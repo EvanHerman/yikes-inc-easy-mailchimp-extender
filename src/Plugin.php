@@ -9,10 +9,10 @@
 
 namespace YIKES\EasyForms;
 
-use Yikes\EasyForms\Assets\AssetsAware;
-use Yikes\EasyForms\Assets\AssetsHandler;
-use Yikes\EasyForms\Exception\InvalidClass;
-use Yikes\EasyForms\CustomPostType\EasyForms;
+use YIKES\EasyForms\Assets\AssetsAware;
+use YIKES\EasyForms\Assets\AssetsHandler;
+use YIKES\EasyForms\Exception\InvalidClass;
+use YIKES\EasyForms\CustomPostType\EasyForms;
 
 /**
  * Class Plugin.

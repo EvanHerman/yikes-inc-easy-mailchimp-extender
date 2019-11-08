@@ -9,10 +9,10 @@
 
 namespace YIKES\EasyForms;
 
-// use Yikes\EasyForms\PluginHelper;
-// use Yikes\EasyForms\Roles\Administrator;
-// use Yikes\EasyForms\AdminPage\SettingsPage;
-// use Yikes\EasyForms\Settings\SettingsManager;
+// use YIKES\EasyForms\PluginHelper;
+// use YIKES\EasyForms\Roles\Administrator;
+// use YIKES\EasyForms\AdminPage\SettingsPage;
+// use YIKES\EasyForms\Settings\SettingsManager;
 
 /**
  * Class PluginFactory

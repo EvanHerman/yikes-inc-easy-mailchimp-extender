@@ -10,8 +10,8 @@
 namespace YIKES\EasyForms\Assets;
 
 use Closure;
-use Yikes\EasyForms\Plugin;
-use Yikes\EasyForms\Settings\DisableFrontEndCss;
+use YIKES\EasyForms\Plugin;
+use YIKES\EasyForms\Settings\DisableFrontEndCss;
 
 /**
  * Class StyleAsset.

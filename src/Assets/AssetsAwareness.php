@@ -9,7 +9,7 @@
 
 namespace YIKES\EasyForms\Assets;
 
-use Yikes\EasyForms\Exception\InvalidAssetHandle;
+use YIKES\EasyForms\Exception\InvalidAssetHandle;
 
 /**
  * Trait AssetsAwareness

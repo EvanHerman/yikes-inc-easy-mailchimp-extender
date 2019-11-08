@@ -10,8 +10,8 @@
 namespace YIKES\EasyForms\Assets;
 
 use Closure;
-use Yikes\EasyForms\Exception\InvalidURI;
-use Yikes\EasyForms\PluginHelper;
+use YIKES\EasyForms\Exception\InvalidURI;
+use YIKES\EasyForms\PluginHelper;
 
 /**
  * Abstract class BaseAsset.

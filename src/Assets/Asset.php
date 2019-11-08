@@ -9,7 +9,7 @@
 
 namespace YIKES\EasyForms\Assets;
 
-use Yikes\EasyForms\Registerable;
+use YIKES\EasyForms\Registerable;
 
 /**
  * Interface Asset.

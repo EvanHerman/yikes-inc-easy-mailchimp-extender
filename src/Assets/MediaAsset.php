@@ -12,7 +12,7 @@
 
 namespace YIKES\EasyForms\Assets;
 
-use Yikes\EasyForms\PluginHelper;
+use YIKES\EasyForms\PluginHelper;
 
 /**
  * Class MediaAsset.
