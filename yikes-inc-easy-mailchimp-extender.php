@@ -189,6 +189,9 @@ function yikes_inc_easy_mailchimp_extender() {
 }
 yikes_inc_easy_mailchimp_extender()->run();
 
+// Bootstrap the new plugin.
+require_once dirname( __FILE__ ) . '/src/load.php';
+
 /**
  * Helper function to return our API key
  * Support the use of a PHP constant
