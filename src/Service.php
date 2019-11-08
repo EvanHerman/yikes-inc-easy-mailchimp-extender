@@ -7,7 +7,7 @@
  * @license GPL2
  */
 
-namespace Yikes\EasyForms;
+namespace YIKES\EasyForms;
 
 /**
  * Interface Service.
