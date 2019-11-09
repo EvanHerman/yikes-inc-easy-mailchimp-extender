@@ -2,7 +2,7 @@
 /**
  * YIKES Inc. Easy Mailchimp Forms Plugin.
  *
- * @package   Yikes\EasyForms
+ * @package   YIKES\EasyForms
  * @author    Freddie Mixell
  * @license   GPL2
  */

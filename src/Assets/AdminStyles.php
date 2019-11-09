@@ -2,7 +2,7 @@
 /**
  * YIKES Inc. Easy Mailchimp Forms Plugin.
  *
- * @package   Yikes\EasyForms
+ * @package   YIKES\EasyForms
  * @author    Freddie Mixell
  * @license   GPL2
  */
@@ -17,7 +17,7 @@ use YIKES\EasyForms\Service;
  * Handles registration of stylesheet for the entire admin area.
  *
  * @since   %VERSION%
- * @package Yikes\EasyForms
+ * @package YIKES\EasyForms
  */
 class AdminStyles implements Service, AssetsAware {
 

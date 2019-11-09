@@ -2,7 +2,7 @@
 /**
  * YIKES Inc. Easy Mailchimp Forms Plugin.
  *
- * @package   Yikes\EasyForms
+ * @package   YIKES\EasyForms
  * @author    Freddie Mixell
  * @license   GPL2
  */
@@ -15,7 +15,7 @@ namespace YIKES\EasyForms;
  * Handle basic WordPress plugin variables like the plugin's path and URL.
  *
  * @since   %VERSION%
- * @package Yikes\EasyForms
+ * @package YIKES\EasyForms
  */
 trait PluginHelper {
 

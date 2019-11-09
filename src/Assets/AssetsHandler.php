@@ -2,7 +2,7 @@
 /**
  * YIKES Inc. Easy Mailchimp Forms Plugin.
  *
- * @package   Yikes\EasyForms
+ * @package   YIKES\EasyForms
  * @author    Freddie Mixell
  * @license   GPL2
  */
@@ -17,7 +17,7 @@ use YIKES\EasyForms\Registerable;
  *
  * @since   %VERSION%
  *
- * @package Yikes\EasyForms
+ * @package YIKES\EasyForms
  * @author  Freddie Mixell
  */
 final class AssetsHandler implements Registerable {

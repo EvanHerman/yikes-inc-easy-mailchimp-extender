@@ -22,7 +22,7 @@ use YIKES\EasyForms\PluginHelper;
  *
  * @since   %VERSION%
  *
- * @package Yikes\EasyForms
+ * @package YIKES\EasyForms
  * @author  Jeremy Pry
  */
 class BaseView implements View {

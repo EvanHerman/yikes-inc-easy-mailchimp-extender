@@ -2,7 +2,7 @@
 /**
  * YIKES Inc. Easy Mailchimp Forms Plugin.
  *
- * @package   Yikes\EasyForms
+ * @package   YIKES\EasyForms
  * @author    Freddie Mixell
  * @license   GPL2
  */
@@ -16,7 +16,7 @@ use YIKES\EasyForms\Exception\InvalidAssetHandle;
  *
  * @since   %VERSION%
  *
- * @package Yikes\EasyForms
+ * @package YIKES\EasyForms
  * @author  Freddie Mixell
  */
 trait AssetsAwareness {

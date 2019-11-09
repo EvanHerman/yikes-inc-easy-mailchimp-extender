@@ -2,7 +2,7 @@
 /**
  * YIKES Inc. Easy Mailchimp Forms Plugin.
  *
- * @package   Yikes\EasyForms
+ * @package   YIKES\EasyForms
  * @author    Freddie Mixell
  * @license   GPL2
  */
@@ -14,7 +14,7 @@ namespace YIKES\EasyForms\Exception;
  *
  * @since   %VERSION%
  *
- * @package Yikes\EasyForms\Exception
+ * @package YIKES\EasyForms\Exception
  * @author  Freddie Mixell
  */
 class NoDefault extends \LogicException implements Exception {

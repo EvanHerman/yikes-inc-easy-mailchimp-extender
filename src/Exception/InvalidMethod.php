@@ -2,7 +2,7 @@
 /**
  * YIKES Inc. Easy Mailchimp Forms Plugin.
  *
- * @package   Yikes\EasyForms
+ * @package   YIKES\EasyForms
  * @author    Freddie Mixell
  * @license   GPL2
  */
@@ -15,7 +15,7 @@ use LogicException;
  * Class InvalidMethod
  *
  * @since   %VERSION%
- * @package Yikes\EasyForms
+ * @package YIKES\EasyForms
  */
 class InvalidMethod extends LogicException implements Exception {
 

@@ -2,7 +2,7 @@
 /**
  * YIKES Inc. Easy Forms.
  *
- * @package Yikes\EasyForms
+ * @package YIKES\EasyForms
  * @author  Freddie Mixell
  * @license GPL2
  */
@@ -13,7 +13,7 @@ namespace YIKES\EasyForms;
  * Class Container
  *
  * @since   %VERSION%
- * @package Yikes\EasyForms
+ * @package YIKES\EasyForms
  */
 final class Container {
 

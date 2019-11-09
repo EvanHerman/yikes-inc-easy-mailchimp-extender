@@ -2,7 +2,7 @@
 /**
  * YIKES Inc. Easy Forms.
  *
- * @package Yikes\EasyForms
+ * @package YIKES\EasyForms
  * @author  Freddie Mixell
  * @license GPL2
  */
@@ -13,7 +13,7 @@ namespace YIKES\EasyForms;
  * Interface Activateable
  *
  * @since   %VERSION%
- * @package Yikes\EasyForms
+ * @package YIKES\EasyForms
  */
 interface Activateable {
 

@@ -2,7 +2,7 @@
 /**
  * YIKES Inc. Easy Mailchimp Forms Plugin.
  *
- * @package   Yikes\EasyForms
+ * @package   YIKES\EasyForms
  * @author    Freddie Mixell
  * @license   GPL2
  */
@@ -18,7 +18,7 @@ use YIKES\EasyForms\PluginHelper;
  *
  * @since   %VERSION%
  *
- * @package Yikes\EasyForms\Assets
+ * @package YIKES\EasyForms\Assets
  * @author  Freddie Mixell
  */
 abstract class BaseAsset implements Asset {

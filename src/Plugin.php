@@ -2,7 +2,7 @@
 /**
  * YIKES Inc. Easy Mailchimp Forms.
  *
- * @package   Yikes\EasyForms
+ * @package   YIKES\EasyForms
  * @author    Freddie Mixell
  * @license   GPL2
  */
@@ -22,7 +22,7 @@ use YIKES\EasyForms\CustomPostType\EasyForms;
  *
  * @since   %VERSION%
  *
- * @package Yikes\EasyForms
+ * @package YIKES\EasyForms
  * @author  Freddie Mixell
  */
 final class Plugin implements Registerable {

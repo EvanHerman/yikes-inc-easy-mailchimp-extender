@@ -2,7 +2,7 @@
 /**
  * YIKES Inc. Easy Mailchimp Forms Plugin.
  *
- * @package   Yikes\EasyForms
+ * @package   YIKES\EasyForms
  * @author    Freddie Mixell
  * @license   GPL2
  */
@@ -15,7 +15,7 @@ namespace YIKES\EasyForms\Exception;
  * This interface is implemented by all of this plugin's exceptions so that
  * we can catch "internal" exceptions only.
  *
- * @package Yikes\EasyForms\Exception
+ * @package YIKES\EasyForms\Exception
  * @author Freddie Mixell
  */
 interface Exception {

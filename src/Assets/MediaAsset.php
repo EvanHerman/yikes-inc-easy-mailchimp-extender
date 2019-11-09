@@ -5,7 +5,7 @@
  * All media assets should be defined as CONSTs in this class prior to usage.
  * Sample usage: <img src="<?php echo ( new MediaAsset() )->get_image( MediaAsset::BANNER ); ?>">
  *
- * @package   Yikes\EasyForms
+ * @package   YIKES\EasyForms
  * @author    Freddie Mixell
  * @license   GPL2
  */
@@ -19,7 +19,7 @@ use YIKES\EasyForms\PluginHelper;
  *
  * @since   %VERSION%
  *
- * @package Yikes\EasyForms\Assets
+ * @package YIKES\EasyForms\Assets
  * @author  Freddie Mixell
  */
 final class MediaAsset {
