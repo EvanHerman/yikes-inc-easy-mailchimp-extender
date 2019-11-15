@@ -81,7 +81,7 @@ final class EasyFormsShortcode extends BaseShortcode {
 			'description'                => '0',
 			'custom_description'         => '',
 			'ajax'                       => '',
-			'recaptcha'                  => '', // manually set googles recptcha state
+			'recaptcha'                  => '', // manually set googles recaptcha state
 			'recaptcha_lang'             => '', // manually set the recaptcha language in the shortcode - also available is the yikes-mailchimp-recaptcha-language filter
 			'recaptcha_type'             => '', // manually set the recaptcha type - audio/image - default image
 			'recaptcha_theme'            => '', // manually set the recaptcha theme - light/dark - default light
@@ -105,21 +105,36 @@ final class EasyFormsShortcode extends BaseShortcode {
 	 * @return array Context to pass onto view.
 	 * @throws InvalidPostID When the post ID is not valid.
 	 */
-	protected function get_context( array $atts ) {
-		$optin_form = ( new OptinFormRepository() )->find( $atts['form'] );
+	protected function get_context( array $attr ) {
+		$form_data = ( new EasyFormsModel() )->find( $attr['form'] );
 		/** @todo Recaptcha Settings. */
 		$this->is_submitted = $this->is_submitting_form();
-		// Set up the classes we'll use for the form and the individual fields.
-		$form_classes = $optin_form['form_settings']['yikes-easy-mc-form-class-names'];
+
+		$form_options = [
+			'recaptcha'                  => $attr['recaptcha'],
+			'recaptcha_lang'             => $attr['recaptcha_lang'],
+			'recaptcha_type'             => $attr['recaptcha_type'],
+			'recaptcha_theme'            => $attr['recaptcha_theme'],
+			'recaptcha_size'             => $attr['recaptcha_size'],
+			'recaptcha_data_callback'    => $attr['recaptcha_data_callback'],
+			'recaptcha_expired_callback' => $attr['recaptcha_expired_callback'],
+		];
 
 		// Set up the form object.
-		$form = $this->get_optin_form( $optin_form->get_id(), $optin_form, $field_classes );
+		$form = $this->get_optin_form( $attr['form'], $form_data, $form_options );
 		return [
-			'form_settings' => $optin_form['form_settings'],
-			'optin_form'    => $optin_form,
-			'form_id'       => $optin_form->get_id(),
-			'form_classes'  => $form_classes,
-			'submitted'     => $this->is_submitted,
+			
+			'title'                      => $attr['title'],
+			'custom_title'               => $attr['custom_title'],
+			'description'                => $attr['description'],
+			'custom_description'         => $attr['custom_description'],
+			'ajax'                       => $attr['ajax'],
+			'form_settings'              => $form_data['form_settings'],
+			'form_data'                  => $form_data,
+			'form'                       => $form,
+			'form_id'                    => $atts['form'],
+			'submit'                     => $attrs['submit'],
+			'submitted'                  => $this->is_submitted,
 		];
 	}
 
@@ -206,13 +221,13 @@ final class EasyFormsShortcode extends BaseShortcode {
 	 * @since %VERSION%
 	 *
 	 * @param int              $form_id       The ID for the form.
-	 * @param EasyFormsModel   $form   The form Object.
+	 * @param EasyFormsModel   $form_data  The form Object.
 	 * @param array            $field_classes The classes for fields in the form.
 	 *
 	 * @return EasyForm
 	 */
-	private function get_optin_form( $form_id, $form, $field_classes ) {
-		$form = new EasyForm( $form_id, $form, $field_classes );
+	private function get_optin_form( $form_id, $form_data, $form_options ) {
+		$form = new EasyForm( $form_id, $form_data, $form_options );
 		if ( $this->is_submitted ) {
 			$this->handle_submission( $form );
 		}
