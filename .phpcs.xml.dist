@@ -1,6 +1,12 @@
 <?xml version="1.0"?>
-<ruleset name="WordPress Coding Standards for Plugins">
-	<description>Generally-applicable sniffs for WordPress plugins</description>
+<ruleset name="Yikes Inc. Easy Mailchimp Extender">
+	<description>Rules for Yikes Inc. Easy Mailchimp Extender</description>
+
+	<arg name="extensions" value="php" />
+  <arg name="basepath" value="./" />
+  <file>./</file>
+	<arg name="colors"/>
+	<arg value="sp"/>
 
 	<rule ref="WordPress-Core">
 		<exclude name="WordPress.Files.FileName.InvalidClassFileName" />
