@@ -2,9 +2,10 @@
 <ruleset name="Yikes Inc. Easy Mailchimp Extender">
 	<description>Rules for Yikes Inc. Easy Mailchimp Extender</description>
 
+	<file>./</file>
+
 	<arg name="extensions" value="php" />
   <arg name="basepath" value="./" />
-  <file>./</file>
 	<arg name="colors"/>
 	<arg value="sp"/>
 
