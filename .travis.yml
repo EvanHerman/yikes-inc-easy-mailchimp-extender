@@ -48,12 +48,12 @@ before_script:
 script:
   - |
     if [[ ! -z "$WP_VERSION" ]] ; then
-      if [[ "$TRAVIS_PHP_VERSION" == 7.3 && "$WP_VERSION" == latest && "$WP_MULTISITE" == 0 ]]; then
+      if [[ "$TRAVIS_PHP_VERSION" == 7.3 && "$WP_VERSION" == latest ]]; then
           phpunit --coverage-clover=coverage.clover
       else
           phpunit
+          WP_MULTISITE=1 phpunit
       fi
-      WP_MULTISITE=1 phpunit
     fi
   - |
     if [[ "$WP_TRAVISCI" == "phpcs" ]] ; then
@@ -62,7 +62,7 @@ script:
 
 after_script:
   - |
-    if [[ "$TRAVIS_PHP_VERSION" == 7.3 && "$WP_VERSION" == latest && "$WP_MULTISITE" == 0 ]]; then
+    if [[ "$TRAVIS_PHP_VERSION" == 7.3 && "$WP_VERSION" == latest ]]; then
         wget "https://scrutinizer-ci.com/ocular.phar"
         php ocular.phar code-coverage:upload --format=php-clover coverage.clover
     fi
