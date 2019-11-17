@@ -1,37 +1,25 @@
+sudo: required
+
 language: php
 
-sudo: false
+dist: trusty
 
 php:
-  - 5.4
-  - 5.5
   - 5.6
-  - 7.0
-  # https://hhvm.com/blog/2018/09/12/end-of-php-support-future-of-hack.html
-  #- hhvm
+  - 7.1
+  - 7.3
 
 env:
   - WP_VERSION=latest WP_MULTISITE=0
+  - WP_VERSION=trunk WP_MULTISITE=0
   - WP_VERSION=4.9 WP_MULTISITE=0
   - WP_VERSION=4.6 WP_MULTISITE=0
-  - WP_VERSION=4.3 WP_MULTISITE=0
-  - WP_VERSION=4.0 WP_MULTISITE=0
+  - WP_VERSION=4.4 WP_MULTISITE=0
 
 matrix:
-  include:
-    - php: 5.3
-      dist: precise
-      env: WP_VERSION=4.9 WP_MULTISITE=0
-    - php: 5.4
-      env: WP_VERSION=latest WP_MULTISITE=1
   exclude:
-    # https://github.com/WordPress/wordpress-develop/commit/ce8a915c06c42ef4e65e26ce39c20e5029e80293
-    - php: 7.0
-      env: WP_VERSION=4.6 WP_MULTISITE=0
-    - php: 7.0
-      env: WP_VERSION=4.3 WP_MULTISITE=0
-    - php: 7.0
-      env: WP_VERSION=4.0 WP_MULTISITE=0
+    - php: 7.1
+      env: WP_VERSION=4.4 WP_MULTISITE=0
 
 before_script:
   - |
@@ -41,7 +29,7 @@ before_script:
 
 script:
   - |
-    if [[ "$TRAVIS_PHP_VERSION" == 5.5 && "$WP_VERSION" == latest && "$WP_MULTISITE" == 0 ]]; then
+    if [[ "$TRAVIS_PHP_VERSION" == 7.3 && "$WP_VERSION" == latest && "$WP_MULTISITE" == 0 ]]; then
         phpunit --coverage-clover=coverage.clover
     else
         phpunit
@@ -49,11 +37,11 @@ script:
 
 after_script:
   - |
-    if [[ "$TRAVIS_PHP_VERSION" == 5.5 && "$WP_VERSION" == latest && "$WP_MULTISITE" == 0 ]]; then
+    if [[ "$TRAVIS_PHP_VERSION" == 7.3 && "$WP_VERSION" == latest && "$WP_MULTISITE" == 0 ]]; then
         wget "https://scrutinizer-ci.com/ocular.phar"
     fi
   - |
-    if [[ "$TRAVIS_PHP_VERSION" == 5.5 && "$WP_VERSION" == latest && "$WP_MULTISITE" == 0 ]]; then
+    if [[ "$TRAVIS_PHP_VERSION" == 7.3 && "$WP_VERSION" == latest && "$WP_MULTISITE" == 0 ]]; then
         php ocular.phar code-coverage:upload --format=php-clover coverage.clover
     fi
 
