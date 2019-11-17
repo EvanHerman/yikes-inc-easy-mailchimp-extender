@@ -30,7 +30,9 @@ before_script:
   - export PATH="$HOME/.composer/vendor/bin:$PATH"
   - |
     if [ -f ~/.phpenv/versions/$(phpenv version-name)/etc/conf.d/xdebug.ini ]; then
-      phpenv config-rm xdebug.ini
+      if [[ "$TRAVIS_PHP_VERSION" != 7.3 ]]; then
+        phpenv config-rm xdebug.ini
+      fi
     else
       echo "xdebug.ini does not exist"
     fi
@@ -48,11 +50,11 @@ before_script:
 script:
   - |
     if [[ ! -z "$WP_VERSION" ]] ; then
-      if [[ "$TRAVIS_PHP_VERSION" == 7.3 && "$WP_VERSION" == latest ]]; then
-          phpunit --coverage-clover=coverage.clover
+      if [[ "$TRAVIS_PHP_VERSION" == 7.3 ]]; then
+        phpunit --coverage-clover=coverage.clover
       else
-          phpunit
-          WP_MULTISITE=1 phpunit
+        phpunit
+        WP_MULTISITE=1 phpunit
       fi
     fi
   - |
@@ -62,9 +64,9 @@ script:
 
 after_script:
   - |
-    if [[ "$TRAVIS_PHP_VERSION" == 7.3 && "$WP_VERSION" == latest ]]; then
-        wget "https://scrutinizer-ci.com/ocular.phar"
-        php ocular.phar code-coverage:upload --format=php-clover coverage.clover
+    if [[ "$TRAVIS_PHP_VERSION" == 7.3 ]]; then
+      wget "https://scrutinizer-ci.com/ocular.phar"
+      php ocular.phar code-coverage:upload --format=php-clover coverage.clover
     fi
 
 notifications:
