@@ -11,6 +11,7 @@ namespace YIKES\EasyForms;
 
 use YIKES\EasyForms\PluginHelper;
 use YIKES\EasyForms\Shortcode\EasyFormsShortcode;
+use YIKES\EasyForms\Util\Debugger;
 // use YIKES\EasyForms\Roles\Administrator;
 // use YIKES\EasyForms\AdminPage\SettingsPage;
 // use YIKES\EasyForms\Settings\SettingsManager;
@@ -55,6 +56,9 @@ final class PluginFactory {
 	private function get_service_container() {
 
 		$services = new Container();
+
+		// Start Debugging
+		$services->add_service( Debugger::class );
 
 		// Register Shortcode
 		$services->add_service( EasyFormsShortcode::class );
