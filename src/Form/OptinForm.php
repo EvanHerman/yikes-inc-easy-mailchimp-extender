@@ -16,7 +16,6 @@ use YIKES\EasyForms\Field\Field;
 use YIKES\EasyForms\Field\Hidden;
 use YIKES\EasyForms\Field\Types;
 use YIKES\EasyForms\Model\OptinForm as EasyFormsModel;
-use YIKES\EasyForms\Recaptcha\Recaptcha;
 
 /**
  * Class OptinForm
@@ -30,6 +29,7 @@ use YIKES\EasyForms\Recaptcha\Recaptcha;
  */
 final class OptinForm {
 
+	use FormHelper;
 	/**
 	 * The Optin Form object.
 	 *
@@ -99,13 +99,12 @@ final class OptinForm {
 	 * @param int            $form_id     The ID the optin form is for.
 	 * @param EasyFormsModel $form_data   The optin form object.
 	 */
-	public function __construct( $form_id, EasyFormsModel $form_data, FormOptions $form_options ) {
-		$this->form_id     = $form_id;
-		$this->form_data   = $form_data;
-		$this->field_count = $this->set_field_count();
-		try {
-			$this->recaptcha = new Recaptcha( $form_id, $form_options );
-		} catch ( InvalidRecaptcha $e ) {}
+	public function __construct( $form_id, $form_data, $form_options ) {
+		$this->form_id      = $form_id;
+		$this->form_data    = $form_data;
+		$this->field_count  = $this->set_field_count();
+		$this->form_options = $form_options;
+		$this->form_inline  = isset( $form_data['form_settings']['yikes-easy-mc-inline-form'] ) ? $form_data['form_settings']['yikes-easy-mc-inline-form'] : 0;
 	}
 
 	/**
@@ -116,6 +115,7 @@ final class OptinForm {
 	 * @return mixed
 	 */
 	public function __get( $name ) {
+		debugger( $name );
 		switch ( $name ) {
 			case 'fields':
 				$this->create_fields();
@@ -127,75 +127,6 @@ final class OptinForm {
 
 				return null;
 		}
-	}
-
-	private function reduce_field_count() {
-		$this->field_count = $this->field_count --;
-	}
-
-	public function set_field_count() {
-		return (int) count( $this->form_data['fields'] );
-	}
-
-	public function form_classes() {
-		return $this->form_data['settings']['yikes-easy-mc-form-class-names'];
-	}
-
-	public function inline_form() {
-		return $this->form_data['form_settings']['yikes-easy-mc-inline-form'];
-	}
-
-	public function inline_form_override() {
-		return isset( $this->has_recaptcha ) || ( function_exists( 'is_plugin_active' ) && is_plugin_active( 'eu-opt-in-compliance-for-mailchimp/yikes-inc-easy-mailchimp-eu-law-compliance-extension.php' ) );
-	}
-
-	public function submit_button_props() {
-		return [
-			'type' => $this->form_data['form_settings']['yikes-easy-mc-submit-button-type'],
-			'text' => esc_attr( $this->form_data['form_settings']['yikes-easy-mc-submit-button-text'] ),
-			'image' => esc_url( $this->form_data['form_settings']['yikes-easy-mc-submit-button-image'] ),
-			'classes' => esc_attr( $this->form_data['form_settings']['yikes-easy-mc-submit-button-classes'] ),
-		];
-	}
-
-	public function submit_button() {
-		$button_props = $this->submit_button_props();
-		$submit_button = '';
-
-		if ( $this->form_inline && ! $this->inline_form_override ) {
-
-			$submit_button_label_classes = [ 'empty-label' ];
-
-			// If the number of fields, is equal to the hidden label count, add our class
-			// eg: All field labels are set to hidden.
-			if ( absint( $this->field_count ) === absint( $this->hidden_label_count ) ) {
-				$submit_button_label_classes[] = 'labels-hidden';
-			}
-			$submit_button .= '<label class="empty-form-inline-label submit-button-inline-label"><span class="' . implode( ' ', $submit_button_label_classes ) . '">&nbsp;</span>';
-		}
-		// Display the image or text based button.
-		if ( $button_props['type'] === 'text' ) {
-			$submit_button .= apply_filters( 'yikes-mailchimp-form-submit-button', '<button type="submit" class="' . apply_filters( 'yikes-mailchimp-form-submit-button-classes', 'yikes-easy-mc-submit-button yikes-easy-mc-submit-button-' . esc_attr( $this->form_data['id'] ) . ' btn btn-primary' . $submit_button_classes . $admin_class, $this->form_data['id'] ) . '"> <span class="yikes-mailchimp-submit-button-span-text">' .  apply_filters( 'yikes-mailchimp-form-submit-button-text', esc_attr( stripslashes( $this->submit ) ), $this->form_data['id'] ) . '</span></button>', $this->form_data['id'] );
-		} else {
-			$submit_button .= apply_filters( 'yikes-mailchimp-form-submit-button', '<input type="image" alt="' . apply_filters( 'yikes-mailchimp-form-submit-button-text', esc_attr( stripslashes( $this->submit ) ), $this->form_data['id'] ) . '" src="' . $submit_button_image . '" class="' . apply_filters( 'yikes-mailchimp-form-submit-button-classes', 'yikes-easy-mc-submit-button yikes-easy-mc-submit-button-image yikes-easy-mc-submit-button-' . esc_attr( $form_data['id'] ) . ' btn btn-primary' . $submit_button_classes . $admin_class, $form_data['id'] ) . '">', $form_data['id'] );
-		}
-		if ( $this->form_inline && ! $this->inline_form_override ) {
-			$submit_button .= '</label>';
-		}
-
-		echo $submit_button;
-	}
-
-	public function edit_form_link() {
-		if( current_user_can( apply_filters( 'yikes-mailchimp-user-role-access' , 'manage_options' ) ) ) {
-			$edit_form_link = '<span class="edit-link">';
-			$edit_form_link .= '<a class="post-edit-link" href="' . esc_url( admin_url( 'admin.php?page=yikes-mailchimp-edit-form&id=' . $atts['form'] ) ) . '" title="' . __( 'Edit' , 'yikes-inc-easy-mailchimp-extender' ) . ' ' . ucwords( $form_data['form_name'] ) . '">' . __( 'Edit Form' , 'yikes-inc-easy-mailchimp-extender' ) . '</a>';
-			$edit_form_link .= '</span>';
-			$edit_form_link = apply_filters( 'yikes-mailchimp-front-end-form-action-links', $edit_form_link, $atts['form'], ucwords( $form_data['form_name'] ) );
-		} else {
-			$edit_form_link = '';
-		}
-		return $edit_form_link;
 	}
 
 	/**
@@ -222,100 +153,6 @@ final class OptinForm {
 		}
 
 		$this->fields = $fields;
-	}
-
-	/**
-	 * Get the label for the form field.
-	 *
-	 * @since %VERSION%
-	 *
-	 * @param string $field The field name.
-	 *
-	 * @return string
-	 */
-	private function get_field_label( $field ) {
-		$field_label = ucwords( str_replace( [ '-', '_' ], ' ', $field ) );
-
-		/**
-		 * Filter the label for the form field.
-		 *
-		 * @param string   $field_label The field label.
-		 * @param string   $field       The field name.
-		 * @param AppModel $application The application object.
-		 */
-		return apply_filters( 'lpf_application_form_field_label', $field_label, $field, $this->application );
-	}
-
-	/**
-	 * Get the class type for a particular field.
-	 *
-	 * @since %VERSION%
-	 *
-	 * @param string $field The field name.
-	 *
-	 * @return string The class name to instantiate that field.
-	 * @throws InvalidClass When a field type is returned to the filter that doesn't implement Field.
-	 */
-	private function get_field_type( $field ) {
-		$type = array_key_exists( $field, Meta::FIELD_MAP ) ? Meta::FIELD_MAP[ $field ] : Types::TEXT;
-
-		/**
-		 * Filter the class used to instantiate the field.
-		 *
-		 * @param string $type  The field class name. Must extend implment the Field interface.
-		 * @param string $field The field name.
-		 */
-		$type = apply_filters( 'lpf_application_form_field_type', $type, $field );
-
-		// Ensure that the field implements the Field interface..
-		$implements = class_implements( $type );
-		if ( ! isset( $implements[ Field::class ] ) ) {
-			throw InvalidClass::from_interface( $type, Field::class );
-		}
-
-		return $type;
-	}
-
-	/**
-	 * Instantiate a field.
-	 *
-	 * @since %VERSION%
-	 *
-	 * @param string $field The raw field name.
-	 *
-	 * @return Field[] Array of Field objects.
-	 */
-	private function instantiate_field( $field ) {
-		/**
-		 * Short-circuit the instantiation of a field object.
-		 *
-		 * To effectively short-circuit normal instantiation, an array of Field objects must be returned.
-		 *
-		 * @param array|null $pre         Array of Field objects or null.
-		 * @param string     $field       The raw field name.
-		 * @param AppModel   $application The application object.
-		 */
-		$pre = apply_filters( 'lpf_application_instantiate_field', null, $field, $this->application );
-		if ( is_array( $pre ) ) {
-			foreach ( $pre as $object ) {
-				$this->validate_is_field( $object );
-			}
-
-			return $pre;
-		}
-
-		$field_name  = $this->form_prefix( $field );
-		$field_label = $this->get_field_label( $field );
-		$type        = $this->get_field_type( $field );
-
-		return [
-			new $type(
-				$field_name,
-				$field_label,
-				$this->field_classes,
-				$this->application->is_required( $field )
-			),
-		];
 	}
 
 	/**
@@ -372,20 +209,5 @@ final class OptinForm {
 		}
 
 		$this->valid_data = $valid;
-	}
-
-	/**
-	 * Validate that the given object is a Field.
-	 *
-	 * @since %VERSION%
-	 *
-	 * @param object $maybe_field The object to validate.
-	 *
-	 * @throws InvalidClass When the object isn't a Field object.
-	 */
-	private function validate_is_field( $maybe_field ) {
-		if ( ! $maybe_field instanceof Field ) {
-			throw InvalidClass::from_interface( get_class( $maybe_field ), Field::class );
-		}
 	}
 }
