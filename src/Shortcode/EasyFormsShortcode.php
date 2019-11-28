@@ -17,6 +17,7 @@ use YIKES\EasyForms\Exception;
 use YIKES\EasyForms\View\FormEscapedView;
 use YIKES\EasyForms\View\NoOverrideLocationView;
 use YIKES\EasyForms\Form\OptinForm as EasyForm;
+use YIKES\EasyForms\Form\FormHelper;
 use YIKES\EasyForms\Model\Subscriber;
 use YIKES\EasyForms\Model\SubscriberRepository;
 use YIKES\EasyForms\Model\OptinForm as EasyFormsModel;
@@ -31,10 +32,12 @@ use YIkes\EasyForms\Model\OptinFormRepository;
 
 final class EasyFormsShortcode extends BaseShortcode {
 
+	use FormHelper;
+
     const TAG           = 'yikes-mailchimp';
 	const VIEW_URI      = 'views/easy-forms-shortcode';
 	const SUBMITTED_URI = 'views/easy-forms-shortcode-completed';
-
+	
 	/**
 	 * Whether a form has been submitted.
 	 *
@@ -76,9 +79,9 @@ final class EasyFormsShortcode extends BaseShortcode {
 		return [
 			'form'                       => '',
 			'submit'                     => '',
-			'title'                      => '0',
+			'title'                      => '',
 			'custom_title'               => '',
-			'description'                => '0',
+			'description'                => '',
 			'custom_description'         => '',
 			'ajax'                       => '',
 			'recaptcha'                  => '', // manually set googles recaptcha state
@@ -88,7 +91,7 @@ final class EasyFormsShortcode extends BaseShortcode {
 			'recaptcha_size'             => '', // set the recaptcha size - normal/compact - default normal
 			'recaptcha_data_callback'    => '', // set a custom js callback function to run after a successful recaptcha response - default none
 			'recaptcha_expired_callback' => '', // set a custom js callback function to run after the recaptcha has expired - default none
-			'inline'                     => '0',
+			'inline'                     => '',
 		];
 	}
 
@@ -106,8 +109,9 @@ final class EasyFormsShortcode extends BaseShortcode {
 	 * @throws InvalidPostID When the post ID is not valid.
 	 */
 	protected function get_context( array $attr ) {
-		$form_data = ( new EasyFormsModel() )->find( $attr['form'] );
-		/** @todo Recaptcha Settings. */
+		$form_id = $attr['form'] ? $attr['form'] : '1';
+		$form_data = ( new EasyFormsModel() )->find( $form_id );
+
 		$this->is_submitted = $this->is_submitting_form();
 
 		$form_options = [
@@ -121,20 +125,20 @@ final class EasyFormsShortcode extends BaseShortcode {
 		];
 
 		// Set up the form object.
-		$form = $this->get_optin_form( $attr['form'], $form_data, $form_options );
+		$form = $this->get_optin_form( $form_id, $form_data, $form_options );
+
 		return [
-			
-			'title'                      => $attr['title'],
-			'custom_title'               => $attr['custom_title'],
-			'description'                => $attr['description'],
-			'custom_description'         => $attr['custom_description'],
-			'ajax'                       => $attr['ajax'],
-			'form_settings'              => $form_data['form_settings'],
-			'form_data'                  => $form_data,
-			'form'                       => $form,
-			'form_id'                    => $atts['form'],
-			'submit'                     => $attrs['submit'],
-			'submitted'                  => $this->is_submitted,
+			'title'          => $form->form_title( $attr['title'], $attr['custom_title'], $form_data['form_name'] ),
+			'description'    => $form->form_description( $attr['description'], $attr['custom_description'] ),
+			'form_classes'   => $form->form_classes( $this->is_submitted ),
+			'edit_form_link' => $form->edit_form_link(),
+			'ajax'           => $attr['ajax'],
+			'form_settings'  => $form_data['form_settings'],
+			'form_data'      => $form_data,
+			'form'           => $form,
+			'form_id'        => $form_id,
+			'submit'         => $attr['submit'],
+			'submitted'      => $this->is_submitted,
 		];
 	}
 
@@ -168,10 +172,6 @@ final class EasyFormsShortcode extends BaseShortcode {
 	 * @return string View URI.
 	 */
 	protected function get_view_uri() {
-		if ( self::VIEW_URI !== $uri && self::SUBMITTED_URI !== $uri ) {
-			throw InvalidURI::from_list( $uri, [ self::VIEW_URI, self::SUBMITTED_URI ] );
-		}
-
 		return $this->view_uri;
     }
     
@@ -185,7 +185,7 @@ final class EasyFormsShortcode extends BaseShortcode {
 	private function set_view_uri( $uri ) {
 		$this->view_uri = $uri;
 	}
-	
+
 	/**
 	 * Determine whether a form is currently being submitted.
 	 *
