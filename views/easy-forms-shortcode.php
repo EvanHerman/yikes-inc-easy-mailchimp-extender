@@ -21,12 +21,13 @@ if ( ! defined( 'ABSPATH' ) ) {
  * can also be used as $this->var_name directly.
  */
 /** @var \YIKES\EasyForms\Model\OptinForm $form */
-$form_data     = $this->form_data;
-$title         = $this->title;
-$description   = $this->description;
-$form_id       = $this->form_id;
-$form_settings = $this->form_settings;
-$form_classes  = $this->form_classes;
+$form_data      = $this->form_data;
+$title          = $this->title;
+$description    = $this->description;
+$form_id        = $this->form_id;
+$form_settings  = $this->form_settings;
+$form_classes   = $this->form_classes;
+$edit_form_link = $this->edit_form_link;
 
 ?>
 <section
@@ -74,7 +75,7 @@ $debug->pretty_debug( '$form_data', $form_data );
 
 <?php
 // Form Edit Link
- echo $this->edit_form_link;
+ echo $edit_form_link;
 ?>
 
 <?php
