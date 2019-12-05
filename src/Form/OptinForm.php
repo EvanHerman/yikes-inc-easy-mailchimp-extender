@@ -95,6 +95,14 @@ final class OptinForm {
 	private $valid_data = [];
 
 	/**
+	 * Admin CSS Class
+	 *
+	 * @since %VERSION%
+	 * @var string
+	 */
+	private $admin_class = '';
+
+	/**
 	 * OptinForm constructor.
 	 *
 	 * @param int            $form_id     The ID the optin form is for.
@@ -106,6 +114,18 @@ final class OptinForm {
 		$this->field_count  = $this->set_field_count();
 		$this->form_options = $form_options;
 		$this->form_inline  = $form_data['form_settings']['yikes-easy-mc-inline-form'];
+	}
+
+	/**
+	 * Admin CSS Class
+	 *
+	 * @return string
+	 */
+	private function admin_class() {
+		$is_admin = is_user_logged_in() && current_user_can(
+			apply_filters( 'yikes-mailchimp-user-role-access' , 'manage_options' )
+		);
+		return $is_admin ? ' admin-logged-in' : '';
 	}
 
 	/**
@@ -127,18 +147,6 @@ final class OptinForm {
 
 				return null;
 		}
-	}
-
-	/**
-	 * Admin CSS Class
-	 *
-	 * @return string $admin_class Class to style if you want the admin to have a different look.
-	 */
-	private function admin_class() {
-		$is_admin = is_user_logged_in() && current_user_can(
-			apply_filters( 'yikes-mailchimp-user-role-access' , 'manage_options' )
-		);
-		return $is_admin ? ' admin-logged-in' : '';
 	}
 
 	/**
