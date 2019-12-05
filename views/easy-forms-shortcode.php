@@ -21,20 +21,20 @@ if ( ! defined( 'ABSPATH' ) ) {
  * can also be used as $this->var_name directly.
  */
 /** @var \YIKES\EasyForms\Model\OptinForm $form */
-$form_data           = $this->form_data;
-$title               = $this->title;
-$description         = $this->description;
-$form_id             = $this->form_id;
-$form_settings       = $this->form_settings;
-$form_classes        = $this->form_classes;
-$edit_form_link      = $this->edit_form_link;
-$submit_button_props = $this->submit_button_props;
-$submit_button_text  = $this->submit_button_text
+$form_data             = $this->form_data;
+$title                 = $this->title;
+$description           = $this->description;
+$form_id               = $this->form_id;
+$form_settings         = $this->form_settings;
+$form_classes          = $this->form_classes;
+$edit_form_link        = $this->edit_form_link;
+$submit_button_classes = $this->submit_button_classes;
+$submit_button_text    = $this->submit_button_text
 
 ?>
 <section
-	id="yikes-mailchimp-container-<?php echo $form_id; ?>"
-	class="yikes-mailchimp-container yikes-mailchimp-container-<?php echo $form_id; ?> <?php echo apply_filters( 'yikes-mailchimp-form-container-class', '', $form_id ); ?>"
+	id="yikes-mailchimp-container-<?= $form_id; ?>"
+	class="yikes-mailchimp-container yikes-mailchimp-container-<?= $form_id; ?> <?= apply_filters( 'yikes-mailchimp-form-container-class', '', $form_id ); ?>"
 >
 <?php
 /*
@@ -54,15 +54,15 @@ $debug->pretty_debug( '$form_data', $form_data );
 
 ?>
 	<!-- Form Title -->
-	<h3 class="yikes-mailchimp-form-title yikes-mailchimp-form-title-<?php echo absint( $form_id ); ?>"><?php echo esc_html( $title ); ?></h3>
+	<h3 class="yikes-mailchimp-form-title yikes-mailchimp-form-title-<?= absint( $form_id ); ?>"><?= esc_html( $title ); ?></h3>
 
 	<!-- Form Description -->
-	<section class="yikes-mailchimp-form-description yikes-mailchimp-form-description-<?php echo esc_attr( $form_id ); ?>"><?php echo esc_html( $description ); ?></section>
+	<section class="yikes-mailchimp-form-description yikes-mailchimp-form-description-<?= esc_attr( $form_id ); ?>"><?= esc_html( $description ); ?></section>
 
 	<form method="POST"
-		id="<?php echo esc_attr( $form_data['form_name'] ); ?>-<?php echo absint( $form_id ); ?>"
-		class="<?php echo $form_classes; ?>"
-		data-attr-form-id="<?php echo absint( $form_id ); ?>"
+		id="<?= esc_attr( $form_data['form_name'] ); ?>-<?= absint( $form_id ); ?>"
+		class="<?= $form_classes; ?>"
+		data-attr-form-id="<?= absint( $form_id ); ?>"
 	>
 		<!-- Form Fields -->
 		<?php //$form->render(); ?>
@@ -72,19 +72,16 @@ $debug->pretty_debug( '$form_data', $form_data );
 		?>
 			<button
 				type="submit"
-				class="<?php echo esc_attr( $submit_button_props['classes'] ); ?>"
+				class="<?= esc_attr( $submit_button_classes ); ?>"
 			>
 				<span class="yikes-mailchimp-submit-button-span-text">
-					<?= stripslashes( $submit_button_text ); ?>
+					<?= esc_html( $submit_button_text ); ?>
 				</span>
 			</button>
 	</form>
 
 
-<?php
-// Form Edit Link
- echo $edit_form_link;
-?>
+<?= $edit_form_link; ?>
 
 <?php
 /*
