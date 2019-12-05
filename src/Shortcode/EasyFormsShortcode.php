@@ -17,7 +17,6 @@ use YIKES\EasyForms\Exception;
 use YIKES\EasyForms\View\FormEscapedView;
 use YIKES\EasyForms\View\NoOverrideLocationView;
 use YIKES\EasyForms\Form\OptinForm as EasyForm;
-use YIKES\EasyForms\Form\FormHelper;
 use YIKES\EasyForms\Model\Subscriber;
 use YIKES\EasyForms\Model\SubscriberRepository;
 use YIKES\EasyForms\Model\OptinForm as EasyFormsModel;
@@ -31,8 +30,6 @@ use YIkes\EasyForms\Model\OptinFormRepository;
  */
 
 final class EasyFormsShortcode extends BaseShortcode {
-
-	use FormHelper;
 
     const TAG           = 'yikes-mailchimp';
 	const VIEW_URI      = 'views/easy-forms-shortcode';
@@ -128,17 +125,17 @@ final class EasyFormsShortcode extends BaseShortcode {
 		$form = $this->get_optin_form( $form_id, $form_data, $form_options );
 
 		return [
-			'title'          => $form->form_title( $attr['title'], $attr['custom_title'], $form_data['form_name'] ),
-			'description'    => $form->form_description( $attr['description'], $attr['custom_description'] ),
-			'form_classes'   => $form->form_classes( $this->is_submitted ),
-			'edit_form_link' => $form->edit_form_link(),
-			'ajax'           => $attr['ajax'],
-			'form_settings'  => $form_data['form_settings'],
-			'form_data'      => $form_data,
-			'form'           => $form,
-			'form_id'        => $form_id,
-			'submit'         => $attr['submit'],
-			'submitted'      => $this->is_submitted,
+			'title'               => $form->form_title( $attr['title'], $attr['custom_title'], $form_data['form_name'] ),
+			'description'         => $form->form_description( $attr['description'], $attr['custom_description'] ),
+			'form_classes'        => $form->form_classes( $this->is_submitted ),
+			'edit_form_link'      => $form->edit_form_link(),
+			'submit_button_props' => $form->submit_button_props(),
+			'submit_button_text'  => $form->submit_button_text( $attr['submit'] ),
+			'ajax'                => $attr['ajax'],
+			'form_settings'       => $form_data['form_settings'],
+			'form_data'           => $form_data,
+			'form'                => $form,
+			'form_id'             => $form_id,
 		];
 	}
 
