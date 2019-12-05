@@ -129,6 +129,18 @@ final class OptinForm {
 	}
 
 	/**
+	 * Admin CSS Class
+	 *
+	 * @return string $admin_class Class to style if you want the admin to have a different look.
+	 */
+	private function admin_class() {
+		$is_admin = is_user_logged_in() && current_user_can(
+			apply_filters( 'yikes-mailchimp-user-role-access' , 'manage_options' )
+		);
+		return $is_admin ? ' admin-logged-in' : '';
+	}
+
+	/**
 	 * Create the array of fields.
 	 *
 	 * @since %VERSION%
