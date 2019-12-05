@@ -30,6 +30,7 @@ use YIKES\EasyForms\Model\OptinForm as EasyFormsModel;
 final class OptinForm {
 
 	use FormHelper;
+	use SubmitButton;
 	/**
 	 * The Optin Form object.
 	 *

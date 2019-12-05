@@ -59,32 +59,6 @@ trait FormHelper {
 	public function inline_form_override() {
 		return isset( $this->has_recaptcha ) || ( function_exists( 'is_plugin_active' ) && is_plugin_active( 'eu-opt-in-compliance-for-mailchimp/yikes-inc-easy-mailchimp-eu-law-compliance-extension.php' ) );
 	}
-
-	public function submit_button_props() {
-		return [
-			'type' => $this->form_data['form_settings']['yikes-easy-mc-submit-button-type'],
-			'image' => esc_url( $this->form_data['form_settings']['yikes-easy-mc-submit-button-image'] ),
-            'classes' => esc_attr( $this->form_data['form_settings']['yikes-easy-mc-submit-button-classes'] ),
-		];
-    }
-
-    public function submit_button_text( $shortcode_prop ) {
-        $submit_button_text = '';
-        switch( true ) {
-            case ! empty( $shortcode_prop ):
-                $submit_button_text = $shortcode_prop;
-            break;
-
-            case $this->form_data['form_settings']['yikes-easy-mc-submit-button-text']:
-                $submit_button_text = $this->form_data['form_settings']['yikes-easy-mc-submit-button-text'];
-            break;
-
-            default:
-                $submit_button_text = __( 'Submit', 'yikes-inc-easy-mailchimp-extender' );
-            break;
-        }
-        return apply_filters( 'yikes-mailchimp-form-submit-button-text', $submit_button_text, $this->form_id );
-    }
     
     public function edit_form_link() {
 		if( current_user_can( apply_filters( 'yikes-mailchimp-user-role-access' , 'manage_options' ) ) ) {
