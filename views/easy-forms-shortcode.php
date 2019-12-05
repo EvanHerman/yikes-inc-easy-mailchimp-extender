@@ -65,7 +65,7 @@ $debug->pretty_debug( '$form_data', $form_data );
 		data-attr-form-id="<?= absint( $form_id ); ?>"
 	>
 		<!-- Form Fields -->
-		<?php //$form->render(); ?>
+		<?php $this->form->render(); ?>
 		<?php
 			// Show Recaptcha If Enabled.
 			//$form->recaptcha();
