@@ -21,13 +21,15 @@ if ( ! defined( 'ABSPATH' ) ) {
  * can also be used as $this->var_name directly.
  */
 /** @var \YIKES\EasyForms\Model\OptinForm $form */
-$form_data      = $this->form_data;
-$title          = $this->title;
-$description    = $this->description;
-$form_id        = $this->form_id;
-$form_settings  = $this->form_settings;
-$form_classes   = $this->form_classes;
-$edit_form_link = $this->edit_form_link;
+$form_data           = $this->form_data;
+$title               = $this->title;
+$description         = $this->description;
+$form_id             = $this->form_id;
+$form_settings       = $this->form_settings;
+$form_classes        = $this->form_classes;
+$edit_form_link      = $this->edit_form_link;
+$submit_button_props = $this->submit_button_props;
+$submit_button_text  = $this->submit_button_text
 
 ?>
 <section
@@ -68,8 +70,14 @@ $debug->pretty_debug( '$form_data', $form_data );
 			// Show Recaptcha If Enabled.
 			//$form->recaptcha();
 		?>
-		<!-- Submit Button -->
-		<?php //$form->submit_button(); ?>
+			<button
+				type="submit"
+				class="<?php echo esc_attr( $submit_button_props['classes'] ); ?>"
+			>
+				<span class="yikes-mailchimp-submit-button-span-text">
+					<?= stripslashes( $submit_button_text ); ?>
+				</span>
+			</button>
 	</form>
 
 
@@ -91,7 +99,8 @@ do_action( 'yikes-mailchimp-after-form', $this->form_id, $this->form_data );
 */
 if ( ! current_user_can( 'manage_options' ) ) {
 	$impressions = $form_data['impressions'] + 1;
-	$this->form->update_form_field( $form_id, 'impressions', $impressions );
+
+	$form_data->update_form_field( $form_id, 'impressions', $impressions );
 }
 
 ?>
