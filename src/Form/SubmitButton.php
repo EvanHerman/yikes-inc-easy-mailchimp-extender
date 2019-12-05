@@ -4,14 +4,6 @@ namespace YIKES\EasyForms\Form;
 
 trait SubmitButton {
 
-    public function submit_button_props() {
-		return [
-			'type' => $this->form_data['form_settings']['yikes-easy-mc-submit-button-type'],
-			'image' => esc_url( $this->form_data['form_settings']['yikes-easy-mc-submit-button-image'] ),
-            'classes' => esc_attr( $this->form_data['form_settings']['yikes-easy-mc-submit-button-classes'] ),
-		];
-    }
-
     public function submit_button_classes() {
         $submit_button_classes = 'yikes-easy-mc-submit-button yikes-easy-mc-submit-button-';
         $submit_button_classes .= $this->form_id;

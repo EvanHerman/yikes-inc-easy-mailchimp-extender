@@ -129,7 +129,6 @@ final class EasyFormsShortcode extends BaseShortcode {
 			'description'           => $form->form_description( $attr['description'], $attr['custom_description'] ),
 			'form_classes'          => $form->form_classes( $this->is_submitted ),
 			'edit_form_link'        => $form->edit_form_link(),
-			'submit_button_props'   => $form->submit_button_props(),
 			'submit_button_classes' => $form->submit_button_classes(),
 			'submit_button_text'    => $form->submit_button_text( $attr['submit'] ),
 			'ajax'                  => $attr['ajax'],
