@@ -41,10 +41,12 @@ class Hidden extends BaseField {
 	 * @param string $id      The ID for the field.
 	 * @param string $value   The value for the field.
 	 * @param array  $classes Array of classes to apply to the field.
+	 * @param string $form_id ID of the form these fields belong to.
 	 */
-	public function __construct( $id, $value, array $classes = [] ) {
-		parent::__construct( $id, '', $classes, true );
+	public function __construct( $id, $value, $form_id ) {
+		parent::__construct( $id, '', [], true );
 		$this->value = $value;
+		$this->form_id = $form_id;
 	}
 
 	/**
@@ -53,13 +55,13 @@ class Hidden extends BaseField {
 	 * @since %VERSION%
 	 */
 	public function render() {
-		$classes = array_merge( $this->classes, [ 'emf-field-hidden' ] );
+		$classes = 'emf-field-hidden';
 		?>
 		<input type="hidden"
-			   class="<?php echo esc_attr( join( ' ', $classes ) ); ?>"
-			   name="<?php echo esc_attr( $this->id ); ?>"
-			   id="<?php echo esc_attr( $this->id ); ?>"
-			   value="<?php echo esc_attr( $this->value ); ?>"
+			class="<?= esc_attr( $classes ); ?>"
+			name="<?= esc_attr( $this->id ); ?>"
+			id="<?= esc_attr( $this->id . $this->form_id ); ?>"
+			value="<?= esc_attr( $this->value ); ?>"
 			<?php $this->render_data_attributes(); ?>
 		/>
 		<?php
