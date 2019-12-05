@@ -125,17 +125,18 @@ final class EasyFormsShortcode extends BaseShortcode {
 		$form = $this->get_optin_form( $form_id, $form_data, $form_options );
 
 		return [
-			'title'               => $form->form_title( $attr['title'], $attr['custom_title'], $form_data['form_name'] ),
-			'description'         => $form->form_description( $attr['description'], $attr['custom_description'] ),
-			'form_classes'        => $form->form_classes( $this->is_submitted ),
-			'edit_form_link'      => $form->edit_form_link(),
-			'submit_button_props' => $form->submit_button_props(),
-			'submit_button_text'  => $form->submit_button_text( $attr['submit'] ),
-			'ajax'                => $attr['ajax'],
-			'form_settings'       => $form_data['form_settings'],
-			'form_data'           => $form_data,
-			'form'                => $form,
-			'form_id'             => $form_id,
+			'title'                 => $form->form_title( $attr['title'], $attr['custom_title'], $form_data['form_name'] ),
+			'description'           => $form->form_description( $attr['description'], $attr['custom_description'] ),
+			'form_classes'          => $form->form_classes( $this->is_submitted ),
+			'edit_form_link'        => $form->edit_form_link(),
+			'submit_button_props'   => $form->submit_button_props(),
+			'submit_button_classes' => $form->submit_button_classes(),
+			'submit_button_text'    => $form->submit_button_text( $attr['submit'] ),
+			'ajax'                  => $attr['ajax'],
+			'form_settings'         => $form_data['form_settings'],
+			'form_data'             => $form_data,
+			'form'                  => $form,
+			'form_id'               => $form_id,
 		];
 	}
 
