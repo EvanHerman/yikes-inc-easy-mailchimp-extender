@@ -104,7 +104,7 @@ final class OptinForm {
 		$this->form_data    = $form_data;
 		$this->field_count  = $this->set_field_count();
 		$this->form_options = $form_options;
-		$this->form_inline  = isset( $form_data['form_settings']['yikes-easy-mc-inline-form'] ) ? $form_data['form_settings']['yikes-easy-mc-inline-form'] : 0;
+		$this->form_inline  = $form_data['form_settings']['yikes-easy-mc-inline-form'];
 	}
 
 	/**
@@ -115,7 +115,6 @@ final class OptinForm {
 	 * @return mixed
 	 */
 	public function __get( $name ) {
-		debugger( $name );
 		switch ( $name ) {
 			case 'fields':
 				$this->create_fields();
@@ -160,7 +159,7 @@ final class OptinForm {
 	 *
 	 * @since %VERSION%
 	 */
-	public function render() {
+	public function render( array $context = [] ) {
 		foreach ( $this->fields as $field ) {
 			$field->render();
 		}
