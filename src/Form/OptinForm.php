@@ -158,19 +158,25 @@ final class OptinForm {
 		$fields = [];
 
 		// Manually add the hidden nonce and referrer fields.
-		$fields[] = new Hidden( 'lpf_nonce', wp_create_nonce( 'lpf_application_submit' ) );
-		$fields[] = new Hidden( '_wp_http_referer', wp_unslash( $_SERVER['REQUEST_URI'] ) );
+		$fields[] = new Hidden( "yikes_easy_mc_new_subscriber", wp_create_nonce( 'yikes_easy_mc_form_submit' ), $this->form_id );
+		$fields[] = new Hidden( '_wp_http_referer', wp_unslash( $_SERVER['REQUEST_URI'] ), $this->form_id );
 
-		// Manually add the hidden Job ID field.
-		$fields[] = new Hidden( 'job_id', $this->job_id );
+		// Honeypot Trap field.
+		$fields[] = new Hidden( 'yikes-mailchimp-honeypot', $this->form_data['list_id'], $this->form_id );
+
+		// List ID field.
+		$fields[] = new Hidden( 'yikes-mailchimp-associated-list-id', $this->form_data['list_id'], $this->form_id );
+
+		// The form that is being submitted! Used to display error/success messages above the correct form.
+		$fields[] = new Hidden( 'yikes-mailchimp-submitted-form', $this->form_id, $this->form_id );
 
 		// Add all of the active fields.
-		foreach ( $this->form_data['fields'] as $field ) {
-			if ( isset( $field['hide'] ) && (string) $field['hide'] === '1' ) {
-				$this->reduce_field_count();
-			}
-			$fields = array_merge( $fields, $this->instantiate_field( $field ) );
-		}
+		// foreach ( $this->form_data['fields'] as $field ) {
+		// 	if ( isset( $field['hide'] ) && (string) $field['hide'] === '1' ) {
+		// 		$this->reduce_field_count();
+		// 	}
+		// 	$fields = array_merge( $fields, $this->instantiate_field( $field ) );
+		// }
 
 		$this->fields = $fields;
 	}
