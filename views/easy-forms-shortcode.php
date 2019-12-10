@@ -66,10 +66,8 @@ $debug->pretty_debug( '$form_data', $form_data );
 	>
 		<!-- Form Fields -->
 		<?php $this->form->render(); ?>
-		<?php
-			// Show Recaptcha If Enabled.
-			//$form->recaptcha();
-		?>
+		<!-- Show Recaptcha If Enabled -->
+		<?php do_action( 'easy_forms_do_recaptcha_box', $this ); ?>
 			<button
 				type="submit"
 				class="<?= esc_attr( $submit_button_classes ); ?>"
