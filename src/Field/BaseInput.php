@@ -20,62 +20,147 @@ use YIKES\EasyForms\Exception\MustExtend;
 class BaseInput extends BaseField {
 
 	/**
-	 * The Input type.
+	 * Field ID.
 	 *
-	 * @see https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input
+	 * @var string
 	 */
-	const TYPE = '_basefield_';
+	private $field_id;
 
 	/**
-	 * Get the type of field.
+	 * Field's classes
 	 *
-	 * @since %VERSION%
-	 * @return string
-	 * @throws MustExtend When the type is not defined.
+	 * @var array
 	 */
-	protected function get_type() {
-		if ( self::TYPE === static::TYPE ) {
-			throw MustExtend::default_type( self::TYPE );
-		}
+	private $classes = [];
 
+	/**
+	 * Field placeholder.
+	 *
+	 * @var string
+	 */
+	private $placeholder;
+
+	/**
+	 * Field name.
+	 *
+	 * @var string
+	 */
+	private $name;
+
+	/**
+	 * Field value.
+	 *
+	 * @var string
+	 */
+	private $value;
+
+	/**
+	 * Construct Field
+	 *
+	 * @param string $id          Fields ID.
+	 * @param array  $classes     Field and label classes.
+	 * @param string $placeholder Fields placeholder.
+	 * @param string $name        Field name.
+	 */
+	public function __construct( $classes, $placeholder, $name, $label, $value, $description, $merge, $form_id, $hidden ) {
+		$this->classes     = $classes;
+		$this->placeholder = $placeholder;
+		$this->name        = $name;
+		$this->label       = $label;
+		$this->value       = $value;
+		$this->description = $this->set_description( $description );
+		$this->merge       = $merge;
+		$this->form_id     = $form_id;
+		$this->hidden      = $hidden;
+	}
+
+	const TYPE     = 'text';
+	const REQUIRED = false;
+
+	/**
+	 * Get Field Type
+	 *
+	 * @return string $field['type']
+	 */
+	public function get_type() {
 		return static::TYPE;
+	}
+
+	public function get_placeholder() {
+		return $this->placeholder;
+	}
+
+	public function field_classes() {
+		return $this->classes['field_classes'];
+	}
+
+	public function label_classes() {
+		return $this->classes['label_classes'];
+	}
+
+	public function get_name() {
+		return $this->merge;
+	}
+
+	public function get_id() {
+        return 'yikes-easy-mc-form-' . $this->form_id . '-' . $this->merge;
+    }
+
+	public function get_value() {
+		return $this->value;
+	}
+
+	public function set_description( $description ) {
+		$this->show_desc   = $description['show_description'];
+		$this->desc_above  = $description['description_above'];
+		$this->description = $description['description'];
 	}
 
 	/**
 	 * Render the field.
 	 *
 	 * @since %VERSION%
-	 * @throws MustExtend When the TYPE constant is not properly defined.
 	 */
 	public function render() {
-		$type      = $this->get_type();
-		$classes   = array_merge( $this->classes, [ "emf-field-{$type}" ] );
-		$has_error = ! empty( $this->error_message );
 		?>
-		<div class="emf-field-container">
-			<label class="emf-input-label emf-input-label-<?php echo esc_attr( $type ); ?><?php echo $has_error ? 'error-prompt' : ''; ?>" for="<?php echo esc_attr( $this->id ); ?>">
-				<?php $this->render_label(); ?>
-			</label>
-			<input type="<?php echo esc_attr( $type ); ?>"
-				class="<?php echo esc_attr( join( ' ', $classes ) ); ?>"
-				name="<?php echo esc_attr( $this->id ); ?>"
-				id="<?php echo esc_attr( $this->id ); ?>"
-				value="<?php echo esc_attr( $this->value ); ?>"
-				<?php $this->render_extra_attributes(); ?>
-			/>
-			<?php $this->render_error_message(); ?>
-		</div>
-		<?php
-	}
+		<label for="<?= esc_attr( $this->get_id() ); ?>" class="<?= esc_html( implode( ' ' , $this->label_classes() ) ); ?>" <?= esc_html( implode( ' ' , $this->label['props'] ) ); ?>>
 
-	/**
-	 * Get the type for use with errors.
-	 *
-	 * @since %VERSION%
-	 * @return string
-	 * @throws MustExtend When the type hasn't been defined correctly.
-	 */
-	protected function get_error_type() {
-		return $this->get_type();
+		<!-- dictate label visibility -->
+		<?php if ( ! isset( $this->label['hide-label'] ) ) { ?>
+			<span class="<?= esc_attr( $this->merge ) . '-label'; ?>">
+				<?= esc_html( apply_filters( 'yikes-mailchimp-'. $this->merge .'-label' , esc_attr( $this->label ), $this->form_id ) ); ?>
+			</span>
+		<?php }
+
+		if ( $this->show_desc === true && $this->desc_above === true ) :
+		?>
+
+        <p class="form-field-description" id="form-field-description-<?= esc_attr( $this->merge ); ?>">
+			<?= esc_html( apply_filters( 'yikes-mailchimp-' . $this->merge . '-description', $this->description, $this->form_id ) ); ?>
+		</p>
+
+        <?php
+        endif;
+		?>
+		<input type="<?= esc_attr( $this->get_type() ); ?>"
+			class="<?= esc_attr( implode( ' ' , $this->field_classes() ) ); ?>"
+			name="<?= esc_attr( $this->get_name() ); ?>"
+			placeholder="<?= esc_attr( $this->get_placeholder() ); ?>"
+			id="<?= esc_attr( $this->get_id() ); ?>"
+			value="<?= esc_attr( $this->get_value() ); ?>"
+			<?php if ( true === static::REQUIRED ) : ?>
+			required="required"
+			<?php endif; ?>
+			<?php if ( true === $this->hidden ) : ?>
+			style="display:none;"
+			<?php endif; ?>
+		/>
+		<?php
+		if ( $this->show_desc === true && $this->desc_above === false ) {
+			$desc_value = apply_filters( 'yikes-mailchimp-' . $this->merge . '-description', $this->description, $this->form_id );
+		?>
+            <p class="form-field-description" id="form-field-description-<?= esc_attr( $this->merge ); ?>"><?=  esc_html( $desc_value ); ?></p>
+        <?php
+        }
 	}
 }
