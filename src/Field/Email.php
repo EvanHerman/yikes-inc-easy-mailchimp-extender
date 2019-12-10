@@ -16,6 +16,5 @@ namespace YIKES\EasyForms\Field;
  * @package YIKES\EasyForms
  */
 class Email extends BaseInput {
-	const TYPE     = 'email';
-	const SANITIZE = FILTER_SANITIZE_EMAIL;
+	const TYPE = 'email';
 }
