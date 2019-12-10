@@ -62,10 +62,9 @@ class BaseInput extends BaseField {
 	 * @param string $placeholder Fields placeholder.
 	 * @param string $name        Field name.
 	 */
-	public function __construct( $classes, $placeholder, $name, $label, $value, $description, $merge, $form_id, $hidden ) {
+	public function __construct( $classes, $placeholder, $label, $value, $description, $merge, $form_id, $hidden ) {
 		$this->classes     = $classes;
 		$this->placeholder = $placeholder;
-		$this->name        = $name;
 		$this->label       = $label;
 		$this->value       = $value;
 		$this->description = $this->set_description( $description );
@@ -123,7 +122,7 @@ class BaseInput extends BaseField {
 	 */
 	public function render() {
 		?>
-		<label for="<?= esc_attr( $this->get_id() ); ?>" class="<?= esc_html( implode( ' ' , $this->label_classes() ) ); ?>" <?= esc_html( implode( ' ' , $this->label['props'] ) ); ?>>
+		<label for="<?= esc_attr( $this->get_id() ); ?>" class="<?= esc_html( implode( ' ' , $this->label_classes() ) ); ?>" <?= esc_html( implode( ' ' , $this->label['props'] ) ); ?> >
 
 		<!-- dictate label visibility -->
 		<?php if ( ! isset( $this->label['hide-label'] ) ) { ?>
@@ -161,6 +160,9 @@ class BaseInput extends BaseField {
 		?>
             <p class="form-field-description" id="form-field-description-<?= esc_attr( $this->merge ); ?>"><?=  esc_html( $desc_value ); ?></p>
         <?php
-        }
+		}
+		?>
+		</label>
+		<?php
 	}
 }
