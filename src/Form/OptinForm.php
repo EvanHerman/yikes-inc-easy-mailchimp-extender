@@ -314,7 +314,6 @@ final class OptinForm {
 			new $type(
 				$classes,
 				$placeholder,
-				$name,
 				$label,
 				$value,
 				$description,
