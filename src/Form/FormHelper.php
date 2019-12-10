@@ -39,7 +39,7 @@ trait FormHelper {
 	}
 
 	protected function set_field_count() {
-		return (int) count( $this->form_data['fields'] );
+		return isset( $this->form_data['fields'] ) ? count( $this->form_data['fields'] ) : 0;
 	}
 
 	public function form_classes( bool $is_submitted ) {
@@ -70,5 +70,5 @@ trait FormHelper {
 			$edit_form_link = '';
 		}
 		return $edit_form_link;
-	}
+    }
 }
