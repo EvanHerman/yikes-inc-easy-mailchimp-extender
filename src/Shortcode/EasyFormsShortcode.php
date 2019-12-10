@@ -9,18 +9,15 @@
 
 namespace YIKES\EasyForms\Shortcode;
 
-use YIKES\EasyForms\Asset;
-use YIKES\EasyForms\AssetAware;
-use YIKES\EasyForms\ScriptAsset;
-use YIKES\EasyForms\StyleAsset;
-use YIKES\EasyForms\Exception;
+use YIKES\EasyForms\Assets\ScriptAsset;
+use YIKES\EasyForms\Exception\Exception;
 use YIKES\EasyForms\View\FormEscapedView;
 use YIKES\EasyForms\View\NoOverrideLocationView;
 use YIKES\EasyForms\Form\OptinForm as EasyForm;
 use YIKES\EasyForms\Model\Subscriber;
 use YIKES\EasyForms\Model\SubscriberRepository;
 use YIKES\EasyForms\Model\OptinForm as EasyFormsModel;
-use YIkes\EasyForms\Model\OptinFormRepository;
+use YIKES\EasyForms\Model\Recaptcha as RecaptchaModel;
 
 /**
  * Class EasyFormsShortcode
@@ -55,18 +52,6 @@ final class EasyFormsShortcode extends BaseShortcode {
     private $view_uri = self::VIEW_URI;
     
     /**
-	 * Register the Shortcode.
-	 *
-	 * @since %VERSION%
-	 */
-	public function register() {
-		parent::register();
-		add_action( 'easy_forms_do_shortcode', function( $atts ) {
-			echo $this->process_shortcode( $atts ); // phpcs:ignore WordPress.Security.EscapeOutput
-		} );
-    }
-    
-    /**
 	 * Get the default array of attributes for the shortcode.
 	 *
 	 * @since %VERSION%
@@ -80,8 +65,8 @@ final class EasyFormsShortcode extends BaseShortcode {
 			'custom_title'               => '',
 			'description'                => '',
 			'custom_description'         => '',
-			'ajax'                       => '',
-			'recaptcha'                  => '', // manually set googles recaptcha state
+			'ajax'                       => '', // set a custom js callback function to run after the recaptcha has expired - default none
+			'recaptcha'                  => '', // manually set googles recptcha state
 			'recaptcha_lang'             => '', // manually set the recaptcha language in the shortcode - also available is the yikes-mailchimp-recaptcha-language filter
 			'recaptcha_type'             => '', // manually set the recaptcha type - audio/image - default image
 			'recaptcha_theme'            => '', // manually set the recaptcha theme - light/dark - default light
@@ -90,6 +75,11 @@ final class EasyFormsShortcode extends BaseShortcode {
 			'recaptcha_expired_callback' => '', // set a custom js callback function to run after the recaptcha has expired - default none
 			'inline'                     => '',
 		];
+	}
+
+	public function register() {
+		parent::register();
+		$this->enqueue_assets();
 	}
 
 	/**
@@ -106,23 +96,13 @@ final class EasyFormsShortcode extends BaseShortcode {
 	 * @throws InvalidPostID When the post ID is not valid.
 	 */
 	protected function get_context( array $attr ) {
-		$form_id = $attr['form'] ? $attr['form'] : '1';
+		$form_id   = $attr['form'] ? $attr['form'] : '1';
 		$form_data = ( new EasyFormsModel() )->find( $form_id );
 
 		$this->is_submitted = $this->is_submitting_form();
 
-		$form_options = [
-			'recaptcha'                  => $attr['recaptcha'],
-			'recaptcha_lang'             => $attr['recaptcha_lang'],
-			'recaptcha_type'             => $attr['recaptcha_type'],
-			'recaptcha_theme'            => $attr['recaptcha_theme'],
-			'recaptcha_size'             => $attr['recaptcha_size'],
-			'recaptcha_data_callback'    => $attr['recaptcha_data_callback'],
-			'recaptcha_expired_callback' => $attr['recaptcha_expired_callback'],
-		];
-
 		// Set up the form object.
-		$form = $this->get_optin_form( $form_id, $form_data, $form_options );
+		$form = $this->get_optin_form( $form_id, $form_data, $attr );
 
 		return [
 			'title'                 => $form->form_title( $attr['title'], $attr['custom_title'], $form_data['form_name'] ),
@@ -223,8 +203,8 @@ final class EasyFormsShortcode extends BaseShortcode {
 	 *
 	 * @return EasyForm
 	 */
-	private function get_optin_form( $form_id, $form_data, $form_options ) {
-		$form = new EasyForm( $form_id, $form_data, $form_options );
+	private function get_optin_form( $form_id, $form_data, $attr ) {
+		$form = new EasyForm( $form_id, $form_data, $attr );
 		if ( $this->is_submitted ) {
 			$this->handle_submission( $form );
 		}
@@ -268,4 +248,42 @@ final class EasyFormsShortcode extends BaseShortcode {
 			$e->getMessage()
 		);
 	}
+
+	public function load_assets() {
+		$submission_helper = new ScriptAsset(
+            'form-submission-helpers',
+            'assets/js/dev/form-submission-helpers',
+            [ 'jquery' ],
+            '1.0.0',
+            ScriptAsset::ENQUEUE_HEADER
+        );
+
+        $submission_helper->add_localization( 'form_submission_helpers', array(
+			'ajax_url'           => esc_url( admin_url( 'admin-ajax.php' ) ),
+			'preloader_url'      => apply_filters( 'yikes-mailchimp-preloader', esc_url_raw( admin_url( 'images/wpspin_light.gif' ) ) ),
+			'countries_with_zip' => $this->countries_with_zip(),
+			'page_data'          => $this->page_data(),
+		) );
+
+		$this->assets = [
+			$submission_helper,
+		];
+	}
+
+	public function countries_with_zip() {
+        return [
+            'US' => 'US', 'GB' => 'GB', 'CA' => 'CA', 
+            'IE' => 'IE', 'CN' => 'CN', 'IN' => 'IN', 
+            'AU' => 'AU', 'BR' => 'BR', 'MX' => 'MX',
+            'IT' => 'IT', 'NZ' => 'NZ', 'JP' => 'JP',
+            'FR' => 'FR', 'GR' => 'GR', 'DE' => 'DE',
+            'NL' => 'NL', 'PT' => 'PT', 'ES' => 'ES'
+        ];
+    }
+
+    public function page_data() {
+        global $post;
+		$page_data = isset( $post->ID ) ? $post->ID : 0;
+		return apply_filters( 'yikes-mailchimp-page-data', $page_data );
+    }
 }
