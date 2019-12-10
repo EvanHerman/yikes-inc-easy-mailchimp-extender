@@ -43,15 +43,6 @@ $submit_button_text    = $this->submit_button_text
 */
 do_action( 'yikes-mailchimp-before-form', $form_id, $form_data );
 
-?>	
-<?php
-$debug = new Debugger();
-
-$debug->pretty_log();
-$debug->pretty_debug( '$this', $this );
-$debug->pretty_debug( '$form_settings', $form_settings );
-$debug->pretty_debug( '$form_data', $form_data );
-
 ?>
 	<!-- Form Title -->
 	<h3 class="yikes-mailchimp-form-title yikes-mailchimp-form-title-<?= absint( $form_id ); ?>"><?= esc_html( $title ); ?></h3>
@@ -61,21 +52,24 @@ $debug->pretty_debug( '$form_data', $form_data );
 
 	<form method="POST"
 		id="<?= esc_attr( $form_data['form_name'] ); ?>-<?= absint( $form_id ); ?>"
-		class="<?= $form_classes; ?>"
+		class="<?= esc_attr( $form_classes ); ?>"
 		data-attr-form-id="<?= absint( $form_id ); ?>"
 	>
 		<!-- Form Fields -->
 		<?php $this->form->render(); ?>
+
 		<!-- Show Recaptcha If Enabled -->
 		<?php do_action( 'easy_forms_do_recaptcha_box', $this ); ?>
-			<button
-				type="submit"
-				class="<?= esc_attr( $submit_button_classes ); ?>"
-			>
-				<span class="yikes-mailchimp-submit-button-span-text">
-					<?= esc_html( $submit_button_text ); ?>
-				</span>
-			</button>
+
+		<button
+			type="submit"
+			class="<?= esc_attr( $submit_button_classes ); ?>"
+		>
+			<span class="yikes-mailchimp-submit-button-span-text">
+				<?= esc_html( $submit_button_text ); ?>
+			</span>
+		</button>
+
 	</form>
 
 
