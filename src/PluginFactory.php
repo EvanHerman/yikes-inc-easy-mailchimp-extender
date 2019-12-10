@@ -12,9 +12,7 @@ namespace YIKES\EasyForms;
 use YIKES\EasyForms\PluginHelper;
 use YIKES\EasyForms\Shortcode\EasyFormsShortcode;
 use YIKES\EasyForms\Util\Debugger;
-// use YIKES\EasyForms\Roles\Administrator;
-// use YIKES\EasyForms\AdminPage\SettingsPage;
-// use YIKES\EasyForms\Settings\SettingsManager;
+use YIKES\EasyForms\Recaptcha\Recaptcha;
 
 /**
  * Class PluginFactory
@@ -63,12 +61,8 @@ final class PluginFactory {
 		// Register Shortcode
 		$services->add_service( EasyFormsShortcode::class );
 
-		// Settings & Settings Page
-		// $services->add_service( SettingsPage::class );
-		// $services->add_service( SettingsManager::class );
-
-		// Roles
-		// $services->add_service( Administrator::class );
+		// Register Recaptcha
+		$services->add_service( Recaptcha::class );
 
 		return $services;
 	}
