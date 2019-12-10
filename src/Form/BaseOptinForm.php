@@ -12,7 +12,6 @@ namespace YIKES\EasyForms\Form;
 use Closure;
 use YIKES\EasyForms\Assets\AssetsAware;
 use YIKES\EasyForms\Assets\AssetsAwareness;
-use YIKES\EasyForms\Renderable;
 use YIKES\EasyForms\Service;
 use YIKES\EasyForms\View\FormEscapedView;
 use YIKES\EasyForms\View\TemplatedView;
@@ -23,7 +22,7 @@ use YIKES\EasyForms\View\TemplatedView;
  * @since   %VERSION%
  * @package YIKES\EasyForms
  */
-abstract class BaseForm implements Renderable, Service, AssetsAware {
+abstract class BaseForm implements Service, AssetsAware {
 
 	use AssetsAwareness;
 
@@ -34,77 +33,6 @@ abstract class BaseForm implements Renderable, Service, AssetsAware {
 	 */
 	public function register() {
 		$this->register_assets();
-		$this->register_persistence_hooks();
-	}
-
-	/**
-	 * Render the current Form.
-	 *
-	 * @since %VERSION%
-	 *
-	 * @param array $context Contextual arguments to pass to the view.
-	 *
-	 * @return string
-	 */
-	public function render( array $context = [] ) {
-		try {
-			$this->enqueue_assets();
-
-			$view = new FormEscapedView( new TemplatedView( $this->get_view_uri() ) );
-			return $view->render( $context );
-		} catch ( \Exception $e ) {
-			// Don't allow exceptions to bubble up. Render the exception message.
-			return sprintf( '<pre>%s</pre>', $e->getMessage() );
-		}
-	}
-
-	/**
-	 * Register our hooks to use when saving data.
-	 *
-	 * @since %VERSION%
-	 */
-	protected function register_persistence_hooks() {
-		$closure = $this->get_persistence_closure();
-		add_action( 'save_post', $closure );
-	}
-
-	/**
-	 * Get a closure that can verify and save the data submitted.
-	 *
-	 * @since %VERSION%
-	 * @return Closure
-	 */
-	protected function get_persistence_closure() {
-		return function ( $post_id ) {
-			// Verify nonce and bail early if it doesn't verify.
-			if ( ! $this->verify_nonce() ) {
-				return $post_id;
-			}
-
-			// Bail early if this is an autosave.
-			if ( wp_is_post_autosave( $post_id ) ) {
-				return $post_id;
-			}
-
-			// Bail early if this is a revision.
-			if ( wp_is_post_revision( $post_id ) ) {
-				return $post_id;
-			}
-
-			// Check the user's permissions.
-			if ( ! current_user_can( 'edit_post', $post_id ) ) {
-				return $post_id;
-			}
-
-			// Check if there was a multisite switch before.
-			if ( is_multisite() && ms_is_switched() ) {
-				return $post_id;
-			}
-
-			$this->persist( $post_id );
-
-			return $post_id;
-		};
 	}
 
 	/**
