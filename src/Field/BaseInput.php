@@ -128,7 +128,7 @@ class BaseInput extends BaseField {
 		<!-- dictate label visibility -->
 		<?php if ( ! isset( $this->label['hide-label'] ) ) { ?>
 			<span class="<?= esc_attr( $this->merge ) . '-label'; ?>">
-				<?= esc_html( apply_filters( 'yikes-mailchimp-'. $this->merge .'-label' , esc_attr( $this->label ), $this->form_id ) ); ?>
+				<?= esc_html( apply_filters( 'yikes-mailchimp-'. $this->merge .'-label' , esc_attr( $this->label['value'] ), $this->form_id ) ); ?>
 			</span>
 		<?php }
 
