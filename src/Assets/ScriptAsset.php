@@ -93,10 +93,11 @@ class ScriptAsset extends BaseAsset {
 		$source,
 		$dependencies = [],
 		$version = self::VERSION,
-		$in_footer = self::ENQUEUE_HEADER
+		$in_footer = self::ENQUEUE_HEADER,
+		$external = false
 	) {
 		$this->handle       = $handle;
-		$this->source       = $this->normalize_source( $source, static::DEFAULT_EXTENSION );
+		$this->source       = ! $external ? $this->normalize_source( $source, static::DEFAULT_EXTENSION ) : $source;
 		$this->dependencies = (array) $dependencies;
 		$this->version      = $version;
 		$this->in_footer    = $in_footer;
