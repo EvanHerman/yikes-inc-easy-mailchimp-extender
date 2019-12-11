@@ -32,10 +32,11 @@ final class FormEscapedView implements View {
 	 */
 	protected $form_tags = [
 		'form'     => [
-			'id'     => true,
-			'class'  => true,
-			'action' => true,
-			'method' => true,
+			'id'                => true,
+			'class'             => true,
+			'action'            => true,
+			'method'            => true,
+			'data-attr-form-id' => true,
 		],
 		'input'    => [
 			'id'        => true,
