@@ -9,6 +9,8 @@
 
 namespace YIKES\EasyForms;
 
+use YIKES\EasyForms\Util\Debugger;
+
 // Only run this within WordPress.
 if ( ! defined( 'ABSPATH' ) ) {
 	die();
@@ -41,6 +43,10 @@ do_action( 'yikes-mailchimp-before-form', $form_id, $form_data );
 	<?php do_action( 'easy_forms_do_form_title', $this ); ?>
 
 	<?php do_action( 'easy_forms_do_form_description', $this ); ?>
+
+	<?php
+		//$debugger = ( new Debugger )->pretty_debug( '$this', $this );
+	?>
 
 	<form method="POST"
 		id="<?= esc_attr( sanitize_title( $form_data['form_name'] ) ); ?>-<?= esc_attr( $form_id ); ?>"

@@ -310,6 +310,7 @@ final class OptinForm {
 		$description = $this->get_description( $field );
 		$merge       = $field['merge'];
 		$hidden      = $this->get_hidden( $field );
+		$required    = isset( $field['require'] ) ? true : false;
 		return [
 			new $type(
 				$classes,
@@ -319,7 +320,8 @@ final class OptinForm {
 				$description,
 				$merge,
 				$this->form_id,
-				$hidden
+				$hidden,
+				$required
 			),
 		];
 	}

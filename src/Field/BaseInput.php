@@ -62,7 +62,7 @@ class BaseInput extends BaseField {
 	 * @param string $placeholder Fields placeholder.
 	 * @param string $name        Field name.
 	 */
-	public function __construct( $classes, $placeholder, $label, $value, $description, $merge, $form_id, $hidden ) {
+	public function __construct( $classes, $placeholder, $label, $value, $description, $merge, $form_id, $hidden, $required ) {
 		$this->classes     = $classes;
 		$this->placeholder = $placeholder;
 		$this->label       = $label;
@@ -73,6 +73,7 @@ class BaseInput extends BaseField {
 		$this->merge       = $merge;
 		$this->form_id     = $form_id;
 		$this->hidden      = $hidden;
+		$this->required    = $required;
 	}
 
 	const TYPE     = 'text';
@@ -100,6 +101,13 @@ class BaseInput extends BaseField {
 			$this->classes['label_classes'][] = 'yikes-mailchimp-field-required';
 		}
 		return $this->classes['label_classes'];
+	}
+
+	public function get_required() {
+		if ( true === static::REQUIRED ) {
+			return true;
+		}
+		return $this->required;
 	}
 
 	public function get_name() {
@@ -147,7 +155,7 @@ class BaseInput extends BaseField {
 			placeholder="<?= esc_attr( $this->get_placeholder() ); ?>"
 			id="<?= esc_attr( $this->get_id() ); ?>"
 			value="<?= esc_attr( $this->get_value() ); ?>"
-			<?php if ( true === static::REQUIRED ) : ?>
+			<?php if ( true === $this->get_required() ) : ?>
 			required="required"
 			<?php endif; ?>
 			<?php if ( true === $this->hidden ) : ?>
