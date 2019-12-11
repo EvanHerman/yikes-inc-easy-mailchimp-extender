@@ -269,6 +269,10 @@ final class EasyFormsShortcode extends BaseShortcode {
 		);
 	}
 
+	private function skip_style() {
+		return defined( 'YIKES_MAILCHIMP_EXCLUDE_STYLES' );
+	}
+
 	public function load_assets() {
 		$submission_helper = new ScriptAsset(
             'form-submission-helpers',
@@ -285,10 +289,14 @@ final class EasyFormsShortcode extends BaseShortcode {
 			'page_data'          => $this->page_data(),
 		) );
 
-		$this->assets = [
+		$assets = $this->skip_style() === false ? [
 			new StyleAsset( 'yikes-inc-easy-mailchimp-public-styles', static::CSS_URI ),
 			$submission_helper,
+		] : [
+			$submission_helper,
 		];
+
+		$this->assets = $assets;
 	}
 
 	public function countries_with_zip() {
