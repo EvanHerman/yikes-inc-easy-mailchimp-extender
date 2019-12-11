@@ -16,5 +16,6 @@ namespace YIKES\EasyForms\Field;
  * @package YIKES\EasyForms
  */
 class Email extends BaseInput {
-	const TYPE = 'email';
+	const TYPE     = 'email';
+	const REQUIRED = true;
 }
