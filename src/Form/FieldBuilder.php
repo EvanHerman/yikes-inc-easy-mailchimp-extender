@@ -119,17 +119,11 @@ trait FieldBuilder {
     }
 
     protected function get_description( $field ) {
-        $show_description  = false;
-        $description_above = false;
         $description       = '';
-
-        if ( isset( $field['description'] ) && trim( $field['description'] ) !== '' ) {
-            $show_description = true;
-            $description = $field['description'];
-        }
-
-        if ( isset( $field['description_above'] ) && $field['description_above'] === '1' ) {
-            $description_above = true;
+        $show_description  = isset( $field['description'] ) ? true : false;
+        $description_above = isset( $field['description_above'] ) && $field['description_above'] === '1' ? true : false;
+        if ( $show_description === true ) {
+            $description = apply_filters( 'yikes-mailchimp-' . $field['merge'] . '-description', esc_attr( stripslashes( $field['description'] ) ), $this->form_id );
         }
         
         return [
