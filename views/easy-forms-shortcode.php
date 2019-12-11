@@ -31,8 +31,8 @@ $submit_button_text    = $this->submit_button_text
 
 ?>
 <section
-	id="yikes-mailchimp-container-<?= $form_id; ?>"
-	class="yikes-mailchimp-container yikes-mailchimp-container-<?= $form_id; ?> <?= apply_filters( 'yikes-mailchimp-form-container-class', '', $form_id ); ?>"
+	id="yikes-mailchimp-container-<?= esc_attr( $form_id ); ?>"
+	class="yikes-mailchimp-container yikes-mailchimp-container-<?= esc_attr( $form_id ); ?> <?= esc_attr( apply_filters( 'yikes-mailchimp-form-container-class', '', $form_id ) ); ?>"
 >
 <?php
 /*
@@ -47,9 +47,9 @@ do_action( 'yikes-mailchimp-before-form', $form_id, $form_data );
 	<?php do_action( 'easy_forms_do_form_description', $this ); ?>
 
 	<form method="POST"
-		id="<?= esc_attr( sanitize_title( $form_data['form_name'] ) ); ?>-<?= absint( $form_id ); ?>"
+		id="<?= esc_attr( sanitize_title( $form_data['form_name'] ) ); ?>-<?= esc_attr( $form_id ); ?>"
 		class="<?= esc_attr( $form_classes ); ?>"
-		data-attr-form-id="<?= absint( $form_id ); ?>"
+		data-attr-form-id="<?= esc_attr( $form_id ); ?>"
 	>
 		<!-- Form Fields -->
 		<?php $this->form->render(); ?>
