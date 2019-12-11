@@ -47,7 +47,7 @@ do_action( 'yikes-mailchimp-before-form', $form_id, $form_data );
 	<?php do_action( 'easy_forms_do_form_description', $this ); ?>
 
 	<form method="POST"
-		id="<?= esc_attr( $form_data['form_name'] ); ?>-<?= absint( $form_id ); ?>"
+		id="<?= esc_attr( sanitize_title( $form_data['form_name'] ) ); ?>-<?= absint( $form_id ); ?>"
 		class="<?= esc_attr( $form_classes ); ?>"
 		data-attr-form-id="<?= absint( $form_id ); ?>"
 	>
