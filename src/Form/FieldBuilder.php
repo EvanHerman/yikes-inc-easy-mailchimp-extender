@@ -14,6 +14,8 @@ trait FieldBuilder {
         $field_classes = [];
         $label_classes = [];
 
+        $label_classes[] = $field['merge'] . '-label';
+
         if( $field['additional-classes'] != '' ) {
 
             $field_classes = explode( ' ' , $field['additional-classes'] );
