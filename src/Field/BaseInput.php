@@ -94,6 +94,9 @@ class BaseInput extends BaseField {
 	}
 
 	public function label_classes() {
+		if ( true === static::REQUIRED ) {
+			$this->classes['label_classes'][] = 'yikes-mailchimp-field-required';
+		}
 		return $this->classes['label_classes'];
 	}
 
