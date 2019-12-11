@@ -18,12 +18,8 @@ if ( ! defined( 'ABSPATH' ) ) {
  * These variables are included here for easy visibility, but they
  * can also be used as $this->var_name directly.
  */
-/** @var \YIKES\EasyForms\Model\OptinForm $form */
 $form_data             = $this->form_data;
-$title                 = $this->title;
-$description           = $this->description;
 $form_id               = $this->form_id;
-$form_settings         = $this->form_settings;
 $form_classes          = $this->form_classes;
 $edit_form_link        = $this->edit_form_link;
 $submit_button_classes = $this->submit_button_classes;
