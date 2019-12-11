@@ -27,7 +27,7 @@ $form_settings         = $this->form_settings;
 $form_classes          = $this->form_classes;
 $edit_form_link        = $this->edit_form_link;
 $submit_button_classes = $this->submit_button_classes;
-$submit_button_text    = $this->submit_button_text
+$submit_button_text    = $this->submit_button_text;
 
 ?>
 <section
