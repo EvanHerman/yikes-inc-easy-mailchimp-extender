@@ -30,14 +30,5 @@ interface OptinMeta {
     const FIELD_MAP = [
 		self::EMAIL     => Types::EMAIL,
 		self::TEXT      => Types::TEXT,
-		self::NUMBER    => Types::NUMBER,
-		self::URL       => Types::URL,
-        self::IMAGE_URL => Types::IMAGE_URL,
-        self::PHONE     => Types::PHONE,
-        self::ZIP       => Types::ZIP,
-        self::ADDRESS   => Types::ADDRESS,
-        self::DATE      => Types::DATE,
-        self::BIRTHDAY  => Types::BIRTHDAY,
-        self::CHECKBOX  => Types::CHECKBOX,
 	];
 }
