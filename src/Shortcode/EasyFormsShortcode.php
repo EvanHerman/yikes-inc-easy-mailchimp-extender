@@ -9,6 +9,7 @@
 
 namespace YIKES\EasyForms\Shortcode;
 
+use YIKES\EasyForms\Assets\StyleAsset;
 use YIKES\EasyForms\Assets\ScriptAsset;
 use YIKES\EasyForms\Exception\Exception;
 use YIKES\EasyForms\View\FormEscapedView;
@@ -33,6 +34,7 @@ final class EasyFormsShortcode extends BaseShortcode {
 	const SUBMITTED_URI = 'views/easy-forms-shortcode-completed';
 	const TITLE_URI     = 'views/easy-forms-shortcode-title';
 	const DESC_URI      = 'views/easy-forms-shortcode-description';
+	const CSS_URI       = 'assets/css/shortcode-style';
 	
 	/**
 	 * Whether a form has been submitted.
@@ -284,6 +286,7 @@ final class EasyFormsShortcode extends BaseShortcode {
 		) );
 
 		$this->assets = [
+			new StyleAsset( 'yikes-inc-easy-mailchimp-public-styles', static::CSS_URI ),
 			$submission_helper,
 		];
 	}
