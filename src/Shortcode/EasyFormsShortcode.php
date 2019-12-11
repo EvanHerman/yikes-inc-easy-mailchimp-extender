@@ -31,6 +31,7 @@ final class EasyFormsShortcode extends BaseShortcode {
     const TAG           = 'yikes-mailchimp';
 	const VIEW_URI      = 'views/easy-forms-shortcode';
 	const SUBMITTED_URI = 'views/easy-forms-shortcode-completed';
+	const TITLE_URI     = 'views/easy-forms-shortcode-title';
 	const DESC_URI      = 'views/easy-forms-shortcode-description';
 	
 	/**
@@ -104,6 +105,15 @@ final class EasyFormsShortcode extends BaseShortcode {
 
 		// Set up the form object.
 		$form = $this->get_optin_form( $form_id, $form_data, $attr );
+
+		$title = $form->form_title( $attr['title'], $attr['custom_title'], $form_data['form_name'] );
+
+		if ( false !== $title ) {
+			add_action( 'easy_forms_do_form_title', function( $view ) {
+				echo $view->render_partial( static::TITLE_URI ); // phpcs:ignore WordPress.Security.EscapeOutput
+			} );
+		}
+
 		$description = $form->form_description( $attr['description'], $attr['custom_description'] );
 		
 		if ( false !== $description ) {
@@ -113,7 +123,7 @@ final class EasyFormsShortcode extends BaseShortcode {
 		}
 
 		return [
-			'title'                 => $form->form_title( $attr['title'], $attr['custom_title'], $form_data['form_name'] ),
+			'title'                 => $title,
 			'description'           => $description,
 			'form_classes'          => $form->form_classes( $this->is_submitted ),
 			'edit_form_link'        => $form->edit_form_link(),

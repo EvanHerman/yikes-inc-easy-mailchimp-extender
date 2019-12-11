@@ -42,8 +42,7 @@ $submit_button_text    = $this->submit_button_text
 do_action( 'yikes-mailchimp-before-form', $form_id, $form_data );
 
 ?>
-	<!-- Form Title -->
-	<h3 class="yikes-mailchimp-form-title yikes-mailchimp-form-title-<?= absint( $form_id ); ?>"><?= esc_html( $title ); ?></h3>
+	<?php do_action( 'easy_forms_do_form_title', $this ); ?>
 
 	<?php do_action( 'easy_forms_do_form_description', $this ); ?>
 

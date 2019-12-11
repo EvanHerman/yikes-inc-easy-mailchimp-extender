@@ -4,20 +4,21 @@ namespace YIKES\EasyForms\Form;
 
 trait FormHelper {
     public function form_title( $title, $custom_title, $form_name ) {
-        $form_title = '';
-        switch( true ) {
-            case ! empty( $custom_title ) && isset( $custom_title ):
-                $form_title = $custom_title;
-            break;
-            case ! empty( $title ) && isset( $title ):
-                $form_title = $title;
-            break;
-            default:
-                $form_title = $form_name;
-            break;
+        if ( $title ) {
+			if ( ! empty( $custom_title ) ) {
+				/**
+				 * Filter the title that is displayed through the shortcode.
+				 *
+				 * @param string $title   The title to display.
+				 * @param int    $form_id The form ID.
+				 */
+				return apply_filters( 'yikes-mailchimp-form-title', apply_filters( 'the_title', $custom_title ), $this->form_id );
+			} else {
+			    return apply_filters( 'yikes-mailchimp-form-title', apply_filters( 'the_title', $form_name ), $this->form_id );
+			}
         }
-
-        return apply_filters( 'yikes-mailchimp-form-title', apply_filters( 'the_title', $form_title ), $this->form_id );
+        
+        return false;
     }
 
     public function form_description( $description, $custom_description ) {
