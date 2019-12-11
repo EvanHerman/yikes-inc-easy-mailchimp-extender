@@ -48,17 +48,22 @@ trait FormHelper {
 	}
 
 	public function form_classes( bool $is_submitted ) {
-        $form_classes = 'yikes-easy-mc-form yikes-easy-mc-form-' . $this->form_id;
+		$form_classes = $this->form_data['form_settings']['yikes-easy-mc-form-class-names'];
+		$form_classes .= ' yikes-easy-mc-form yikes-easy-mc-form-' . $this->form_id;
+
         if ( isset( $this->form_inline ) && $this->form_inline != 0 ) {
-            $form_classes .= ' yikes-mailchimp-form-inline';
+            $form_classes .= ' yikes-mailchimp-form-inline ';
         }
 
-        if ( $is_submitted && $this->form_data['submission_settings']['hide_form_post_signup'] == 1 ) {
-            $form_classes .=  ' yikes-easy-mc-display-none';
-        }
+		$form_classes .= ' ';
 
-        $form_classes .= $this->form_data['form_settings']['yikes-easy-mc-form-class-names'];
-        return apply_filters( 'yikes-mailchimp-form-class', $form_classes, $this->form_id );
+		$form_classes = apply_filters( 'yikes-mailchimp-form-class', $form_classes, $this->form_id );
+
+		if ( $is_submitted && $this->form_data['submission_settings']['hide_form_post_signup'] == 1 ) {
+			$form_classes .= ' yikes-easy-mc-display-none';
+		}
+
+    	return $form_classes;
 	}
 
 	public function inline_form_override() {
