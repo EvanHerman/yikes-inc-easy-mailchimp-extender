@@ -9,8 +9,6 @@
 
 namespace YIKES\EasyForms;
 
-use YIKES\EasyForms\Util\Debugger;
-
 // Only run this within WordPress.
 if ( ! defined( 'ABSPATH' ) ) {
 	die();
