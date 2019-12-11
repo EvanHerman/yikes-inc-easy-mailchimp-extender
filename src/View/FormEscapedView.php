@@ -39,13 +39,15 @@ final class FormEscapedView implements View {
 			'data-attr-form-id' => true,
 		],
 		'input'    => [
-			'id'        => true,
-			'class'     => true,
-			'type'      => true,
-			'name'      => true,
-			'value'     => true,
-			'required'  => true,
-			'maxlength' => true,
+			'id'          => true,
+			'class'       => true,
+			'type'        => true,
+			'name'        => true,
+			'value'       => true,
+			'required'    => true,
+			'maxlength'   => true,
+			'placeholder' => true,
+			'style'       => true,
 		],
 		'select'   => [
 			'id'       => true,
@@ -77,6 +79,10 @@ final class FormEscapedView implements View {
 		'fieldset' => [
 			'data-add-new-label' => true,
 		],
+		'p'        => [
+			'class' => true,
+			'id'    => true,
+		]
 	];
 
 	/**
