@@ -21,17 +21,21 @@ trait FormHelper {
     }
 
     public function form_description( $description, $custom_description ) {
-        $form_description = '';
-        switch( true ) {
-            case ! empty( $custom_description ) && isset( $custom_description ):
-                $form_description = $custom_description;
-            break;
-            default:
-                $form_description = $description;
-            break;
+        if ( $description ) {
+			if ( ! empty( $custom_description ) ) {
+				/**
+				 * Filter the description that is displayed through the shortcode.
+				 *
+				 * @param string $title   The title to display.
+				 * @param int    $form_id The form ID.
+				 */
+				return apply_filters( 'yikes-mailchimp-form-description', $custom_description, $this->form_id );
+			} else {
+				return apply_filters( 'yikes-mailchimp-form-description', $this->form_data['form_description'], $this->form_id );
+			}
+		} else {
+            return false;
         }
-
-        return apply_filters( 'yikes-mailchimp-form-description', $form_description, $this->form_id );
     }
 
     protected function reduce_field_count() {
