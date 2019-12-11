@@ -256,7 +256,7 @@ final class OptinForm {
 	 */
 	private function get_field_type( $field ) {
 
-		$type = Types::TEXT;
+		$type = array_key_exists( $field['type'], Meta::FIELD_MAP ) ? Meta::FIELD_MAP[ $field['type'] ] : Types::TEXT;
 
 		/**
 		 * Filter the class used to instantiate the field.
