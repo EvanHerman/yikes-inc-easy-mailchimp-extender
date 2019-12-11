@@ -108,11 +108,11 @@ trait FieldBuilder {
     }
 
     protected function get_hidden( $field ) {
-        $visible = true;
+        $visible = false;
         // if both hide label and hide field are checked, we gotta hide the field!
         if( isset( $field['hide' ] ) && $field['hide'] == 1 ) {
             if( isset( $field['hide-label' ] ) && $field['hide-label'] == 1 ) {
-                $visible = false;
+                $visible = true;
             }
         }
         return $visible;

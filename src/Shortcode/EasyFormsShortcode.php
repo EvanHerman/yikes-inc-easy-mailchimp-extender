@@ -84,6 +84,10 @@ final class EasyFormsShortcode extends BaseShortcode {
 	public function register() {
 		parent::register();
 		$this->enqueue_assets();
+		add_filter( 'safe_style_css', function( $styles ) {
+			$styles[] = 'display';
+			return $styles;
+		} );
 	}
 
 	/**
