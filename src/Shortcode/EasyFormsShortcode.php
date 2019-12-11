@@ -106,9 +106,11 @@ final class EasyFormsShortcode extends BaseShortcode {
 		$form = $this->get_optin_form( $form_id, $form_data, $attr );
 		$description = $form->form_description( $attr['description'], $attr['custom_description'] );
 		
-		add_action( 'easy_forms_do_form_description', function( $view ) {
-			echo $view->render_partial( static::DESC_URI ); // phpcs:ignore WordPress.Security.EscapeOutput
-		} );
+		if ( false !== $description ) {
+			add_action( 'easy_forms_do_form_description', function( $view ) {
+				echo $view->render_partial( static::DESC_URI ); // phpcs:ignore WordPress.Security.EscapeOutput
+			} );
+		}
 
 		return [
 			'title'                 => $form->form_title( $attr['title'], $attr['custom_title'], $form_data['form_name'] ),
