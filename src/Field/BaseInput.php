@@ -67,7 +67,9 @@ class BaseInput extends BaseField {
 		$this->placeholder = $placeholder;
 		$this->label       = $label;
 		$this->value       = $value;
-		$this->description = $this->set_description( $description );
+		$this->description = $description['description'];
+		$this->show_desc   = $description['show_description'];
+		$this->desc_above  = $description['description_above'];
 		$this->merge       = $merge;
 		$this->form_id     = $form_id;
 		$this->hidden      = $hidden;
@@ -112,18 +114,13 @@ class BaseInput extends BaseField {
 		return $this->value;
 	}
 
-	public function set_description( $description ) {
-		$this->show_desc   = $description['show_description'];
-		$this->desc_above  = $description['description_above'];
-		$this->description = $description['description'];
-	}
-
 	/**
 	 * Render the field.
 	 *
 	 * @since %VERSION%
 	 */
 	public function render() {
+
 		?>
 		<label for="<?= esc_attr( $this->get_id() ); ?>" class="<?= esc_html( implode( ' ' , $this->label_classes() ) ); ?>" <?= esc_html( implode( ' ' , $this->label['props'] ) ); ?> >
 
@@ -158,10 +155,8 @@ class BaseInput extends BaseField {
 			<?php endif; ?>
 		/>
 		<?php
-		if ( $this->show_desc === true && $this->desc_above === false ) {
-			$desc_value = apply_filters( 'yikes-mailchimp-' . $this->merge . '-description', $this->description, $this->form_id );
-		?>
-            <p class="form-field-description" id="form-field-description-<?= esc_attr( $this->merge ); ?>"><?=  esc_html( $desc_value ); ?></p>
+		if ( $this->show_desc === true && $this->desc_above === false ) { ?>
+            <p class="form-field-description" id="form-field-description-<?= esc_attr( $this->merge ); ?>"><?=  esc_html( $this->description ); ?></p>
         <?php
 		}
 		?>
