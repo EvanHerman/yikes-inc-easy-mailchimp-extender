@@ -62,17 +62,8 @@ class Yikes_Inc_Easy_Mailchimp_Forms_Admin {
 	 */
 	public function hooks() {
 
-		// check for old plugin options and migrate if exist.
+		// Register admin pages.
 		add_action( 'admin_menu', array( $this, 'register_admin_pages' ), 11 );
-
-		// check for old plugin options and migrate if exist.
-		add_action( 'admin_init', array( $this, 'check_for_old_yks_mc_options' ) );
-
-		// Ajax function to update new options...
-		add_action( 'wp_ajax_migrate_old_plugin_settings', array( $this, 'migrate_archived_options' ) );
-
-		// Ajax function to migrate our forms.
-		add_action( 'wp_ajax_migrate_prevoious_forms', array( $this, 'migrate_previously_setup_forms' ) );
 
 		// fix menu icon spacing.
 		add_action( 'admin_head', array( $this, 'fix_menu_icon_spacing' ) );
@@ -238,15 +229,6 @@ class Yikes_Inc_Easy_Mailchimp_Forms_Admin {
 
 		}
 
-		/****************************************/
-		/**    Dismiss Options Migrations        **/
-		/****************************************/
-		if ( isset( $_REQUEST['dismiss_migration_nonce'] ) ) {
-
-			add_action( 'init', array( $this, 'yikes_easy_mailchimp_dismiss_option_migrate' ) );
-
-		}
-
 		/** Parse default value into usable dynamic data **/
 		add_filter( 'yikes-mailchimp-process-default-tag', array( $this, 'parse_mailchimp_default_tag' ) );
 
@@ -265,9 +247,6 @@ class Yikes_Inc_Easy_Mailchimp_Forms_Admin {
 		// ensure that the upgrade went smoothly, else we have to let the user know we need to upgrade the database.
 		// after upgrading f rom 6.0.3.7 users need to upgrade the database as well
 		add_action( 'plugins_loaded', array( $this, 'check_yikes_mc_table_version' ) );
-
-		// Run a check to see if we need to convert the custom DB table to options.
-		add_action( 'plugins_loaded', array( $this, 'check_db_version' ) );
 
 	}
 
@@ -507,22 +486,6 @@ class Yikes_Inc_Easy_Mailchimp_Forms_Admin {
 					return defined( 'YIKES_MC_POPUP_EDD_ITEM_ID' ) ? YIKES_MC_POPUP_EDD_ITEM_ID : '';
 				break;
 			}
-		}
-
-		/**
-		*	Dismiss the migrate options notice (incase the user wants to do things manually)
-		*
-		*	@since 6.0.0
-		**/
-		public function yikes_easy_mailchimp_dismiss_option_migrate() {
-			// delete the options and allow the user to manually update things.
-
-			// Verify the NONCE is valid.
-			check_admin_referer( 'yikes-mc-dismiss-migration', 'dismiss_migration_nonce' );
-
-			// re-direct the user back to the page.
-			wp_redirect( esc_url_raw( admin_url( 'index.php?yikes-mc-options-migration-dismissed="true"' ) ) );
-			die();
 		}
 
 		/**
@@ -1241,81 +1204,9 @@ class Yikes_Inc_Easy_Mailchimp_Forms_Admin {
 	}
 
 	/**
-	 * Check for existing plugin options
-	 *	if they exist, we need to migrate our options to
-	 * the correct WordPress options API (old plugin stored options wierdly)
-	 *
-	 * @since    1.0.0
-	 * @param      string    $yikes_inc_easy_mailchimp_extender       The name of this plugin.
-	 * @param      string    $version    The version of this plugin.
+	 * Admin Notices
+	 *	- Notifications displayed at the top of admin pages, back to the user
 	 */
-	public function check_for_old_yks_mc_options() {
-		$old_plugin_options = get_option( 'ykseme_storage' );
-		// only perform options migrations if the site is not a multi-site setup
-		if ( !is_multisite() ) {
-			if ( apply_filters( 'yikes_mc_old_options_filter', $old_plugin_options ) ) {
-				// display a notice to the user that they should 'migrate'
-				// from the old plugin settings to the new ones
-				add_action( 'admin_notices', array( $this , 'display_options_migrate_notice' ) , 11 );
-			}
-		}
-	}
-
-	/**
-		Admin Notices
-		- Notifications displayed at the top of admin pages, back to the user
-	**/
-
-		/**
-		 * Check for existing plugin options
-		 *	if they exist, we need to migrate our options to
-		 * the correct WordPress options API (old plugin stored options wierdly)
-		 *
-		 * @since    1.0.0
-		 * @param      string    $yikes_inc_easy_mailchimp_extender       The name of this plugin.
-		 * @param      string    $version    The version of this plugin.
-		 */
-		public function display_options_migrate_notice() {
-
-			// Confirm that the necessary forms table in the database exists, else bail
-			global $wpdb;
-			if ( $wpdb->get_var("show tables like '" . $wpdb->prefix . "yikes_easy_mc_forms'") != $wpdb->prefix . "yikes_easy_mc_forms" ) {
-				return;
-			}
-
-			if ( isset( $_GET['yikes-mc-options-migration-dismissed'] ) && $_GET['yikes-mc-options-migration-dismissed'] == 'true' ) {
-					// Delete the options, start a-new! (this will disable the migration notice altogether)
-					delete_option( 'widget_yikes_mc_widget' );
-					delete_option( 'api_validation' );
-					delete_option( 'ykseme_storage' );
-					delete_option( 'yikes-mc-lists' );
-				?>
-					<div class="yikes-easy-mc-updated migrate-options-notice">
-						<p><?php printf( __( "The previously stored options for %s have been cleared from the database. You should update the plugin options on the <a href='%s' title='Settings Page'>settings page</a> before continuing. You should also update the shortcodes used to generate your forms, and any widgets you may have previously set-up.", 'yikes-inc-easy-mailchimp-extender' ), '<strong>Us Easy Forms for Mailchimp</strong>', admin_url( 'admin.php?page=yikes-inc-easy-mailchimp-settings' ) ); ?></p>
-					</div>
-				<?php
-			} else {
-			?>
-				<div class="yikes-easy-mc-updated migrate-options-notice">
-					<p><?php printf( __( "It looks like you're upgrading from a previous version of %s.", 'yikes-inc-easy-mailchimp-extender' ), '<strong>Us Easy Forms for Mailchimp</strong>' ); ?> <?php printf( __( "In the newest version of %s, the options data structure has changed. We've also moved the mailing lists into its own database table to allow for some higher level customization. Now you can easily create multiple forms and assign them to the same mailing list." , 'yikes-inc-easy-mailchimp-extender' ), '<strong>Us Easy Forms for Mailchimp</strong>' ); ?></p>
-					<p><?php _e( "Before you continue, it's strongly recommended you the perform the migration to ensure the plugin continues to function properly.", 'yikes-inc-easy-mailchimp-extender' ); ?></p>
-					<p><em><?php _e( "It's also strongly recommended that you take a backup of your database.", 'yikes-inc-easy-mailchimp-extender' ); ?></em></p>
-					<section id="migration-buttons">
-						<!-- migrate button -->
-						<form>
-							<input type="hidden" name="yikes-mc-update-option-structure" value="yikes-mc-update-option-structure" />
-							<a href="<?php echo wp_nonce_url( esc_url_raw( admin_url( 'admin.php?page=yikes-inc-easy-mailchimp-update' ) ), 'yikes-mc-migrate-options', 'migrate_options_nonce' ); ?>" class="button-secondary"><?php _e( 'Perform Migration', 'yikes-inc-easy-mailchimp-extender' ); ?></a>
-						</form>
-						<!-- dismiss button -->
-						<form>
-							<a href="<?php echo wp_nonce_url( esc_url_raw( admin_url() ), 'yikes-mc-dismiss-migration', 'dismiss_migration_nonce' ); ?>" class="button-secondary"><?php _e( 'Dismiss Notice', 'yikes-inc-easy-mailchimp-extender' ); ?></a>
-						</form>
-					</section>
-
-				</div>
-			<?php
-			}
-		}
 
 		/*
 		*	Search through multi dimensional array
@@ -1330,69 +1221,6 @@ class Yikes_Inc_Easy_Mailchimp_Forms_Admin {
 		   }
 		   return null;
 		} // end
-
-		/* Ajax Migrate Options */
-		function migrate_archived_options() {
-			// all options prefixed with 'yikes-mc-'
-			$option_name = 'yikes-mc-'.$_POST['option_name'];
-			$option_value = $_POST['option_value'];
-			if ( json_decode( $option_value ) ) {
-				// decode our lists() array, and store it
-				$opt_value = json_decode( $option_value, true );
-			} else {
-				$opt_value = $option_value;
-			}
-			update_option( $option_name, $opt_value );
-			wp_die(); // this is required to terminate immediately and return a proper response
-			exit;
-		}
-
-		/* Ajax Migrate Forms */
-		function migrate_previously_setup_forms() {
-			$option_name = $_POST['option_name'];
-			$done = $_POST['done_import'];
-			// Create some starter forms for the user
-			// based on previously imported lists (to our old version)
-			if ( $option_name == 'yikes-mc-lists' ) {
-				$option_value = $_POST['option_value'];
-				$new_options = json_decode( stripslashes_deep( $option_value ) , true );
-
-				$list_id = $new_options['id'];
-				$form_name = $new_options['name'];
-				$fields = $new_options['fields']; // our fields array
-
-				$custom_styles = isset( $new_options['custom_styles'] ) ? $new_options['custom_styles']: '0'; // store as an array with all of our styles
-				$custom_template = isset( $new_options['custom_template'] ) ? $new_options['custom_template'] : '0'; // store template data as an array ( active , template used )
-				$redirect_user_on_submit = isset( $new_options['yks_mailchimp_redirect_'.$list_id] ) ? '1' : '0';
-				$redirect_page = isset( $new_options['page_id_'.$list_id] ) ? $new_options['page_id_'.$list_id] : '';
-
-				/* Insert Forms Function  */
-				$this->form_interface->create_form( array(
-					'list_id'                 => $list_id,
-					'form_name'               => $form_name,
-					'form_description'        => '',
-					'fields'                  => $fields,
-					'custom_styles'           => $custom_styles,
-					'custom_template'         => $custom_template,
-					'redirect_user_on_submit' => $redirect_user_on_submit,
-					'redirect_page'           => $redirect_page,
-					'submission_settings'     => '',
-					'optin_settings'          => '',
-					'error_messages'          => '',
-					'custom_notifications'    => '',
-					'impressions'             => '0',
-					'submissions'             => '0',
-					'custom_fields'           => '',
-				) );
-			}
-			if ( $done == 'done' ) {
-				wp_send_json( array( 'form_name' => $form_name, 'completed_import' => true ) );
-			} else {
-				wp_send_json( array( 'form_name' => $form_name, 'completed_import' => false ) );
-			}
-			wp_die();
-			exit;
-		}
 
 		/*
 		*	generate_options_pages_sidebar_menu();
@@ -3081,47 +2909,6 @@ class Yikes_Inc_Easy_Mailchimp_Forms_Admin {
 		delete_transient( 'yikes-easy-mailchimp-profile-data' );
 		delete_transient( 'yikesinc_eme_list_ids' );
 		delete_transient( 'yikes_eme_lists' );
-	}
-
-	/**
-	 * Perform a DB version check to see if we need to migrate our forms.
-	 *
-	 * @author Jeremy Pry
-	 */
-	public function check_db_version() {
-		$option = get_option( 'yikes_easy_mailchimp_extender_version', '0.0.0' );
-		if ( version_compare( $option, '6.2.0', '<' ) ) {
-			$this->convert_db_to_option();
-		}
-
-		if ( version_compare( $option, YIKES_MC_VERSION, '<' ) ) {
-			update_option( 'yikes_easy_mailchimp_extender_version', YIKES_MC_VERSION );
-		}
-	}
-
-	/**
-	 * Handle the conversion from custom table to WP Options.
-	 *
-	 * @author Jeremy Pry
-	 */
-	public function convert_db_to_option() {
-		/** @var wpdb */
-		global $wpdb;
-
-		$db_interface     = new Yikes_Inc_Easy_Mailchimp_Extender_Forms( $wpdb );
-		$option_interface = new Yikes_Inc_Easy_Mailchimp_Extender_Option_Forms();
-		$form_option      = array();
-		$form_ids         = $db_interface->get_form_ids();
-
-		if ( empty( $form_ids ) ) {
-			return;
-		}
-
-		foreach ( $form_ids as $form_id ) {
-			$form_option[ $form_id ] = $db_interface->get_form( $form_id );
-		}
-
-		$option_interface->import_forms( $form_option, true );
 	}
 
 	/**
