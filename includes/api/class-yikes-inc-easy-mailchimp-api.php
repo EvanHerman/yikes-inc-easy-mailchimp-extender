@@ -185,6 +185,7 @@ class Yikes_Inc_Easy_Mailchimp_API {
 	 * @return array|WP_Error
 	 */
 	protected function send_request( $path, $method, $headers = array(), $params = array() ) {
+		$headers = apply_filters( 'yikesinc_eme_mailchimp_headers', $headers );
 
 		// Remove leading slashes from $path, as we'll add that ourselves later.
 		$path = ltrim( $path, '/' );
