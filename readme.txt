@@ -172,6 +172,10 @@ For information and code examples on how to implement the hooks and filters prov
 
 == Changelog ==
 
+= 6.4.0 - June 15th, 2020 =
+* New filter: yikesinc_eme_mailchimp_headers filters the Mailchimp API headers.
+* This allows users to filter the api request to send specific language responses to users.
+
 = 6.6.3 - February, 27, 2020 =
 * Important security release.
 
