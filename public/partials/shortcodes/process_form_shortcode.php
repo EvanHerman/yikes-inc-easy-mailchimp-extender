@@ -112,8 +112,8 @@ function process_mailchimp_shortcode( $atts ) {
 
 			$v3_site_key = get_option( 'yikes-mc-recaptcha-site-key-three' , '' );
 
-			wp_enqueue_script( 'google-recaptcha-v3-js', 'https://www.google.com/recaptcha/api.js?render=' . $v3_site_key, array(), '1.0.0', true );
-			wp_enqueue_script( 'yikes-recaptcha-v3-funcs', plugins_url( 'public/js/yikes-recaptcha-v3.js', __FILE__ ), array( 'google-recaptcha-v3-js' ), '1.0.0', true );
+			wp_enqueue_script( 'google-recaptcha-v3-js', 'https://www.google.com/recaptcha/api.js?render=' . $v3_site_key, array(), null, true );
+			wp_enqueue_script( 'yikes-recaptcha-v3-funcs', YIKES_MC_URL . 'public/js/yikes-recaptcha-v3.js', array( 'google-recaptcha-v3-js' ), null, true );
 
 			// Pass the site key through localization.
 			wp_localize_script(
