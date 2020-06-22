@@ -1083,6 +1083,10 @@ class Yikes_Inc_Easy_Mailchimp_Forms_Admin {
 			register_setting( 'yikes_inc_easy_mc_recaptcha_settings_page', 'yikes-mc-recaptcha-status' );
 			register_setting( 'yikes_inc_easy_mc_recaptcha_settings_page', 'yikes-mc-recaptcha-site-key' );
 			register_setting( 'yikes_inc_easy_mc_recaptcha_settings_page', 'yikes-mc-recaptcha-secret-key' );
+
+			/* Version 3 Settings */
+			register_setting( 'yikes_inc_easy_mc_recaptcha_settings_page', 'yikes-mc-recaptcha-site-key-three' );
+			register_setting( 'yikes_inc_easy_mc_recaptcha_settings_page', 'yikes-mc-recaptcha-secret-key-three' );
 			register_setting( 'yikes_inc_easy_mc_recaptcha_settings_page', 'yikes-mc-recaptcha-version-three' );
 
 			/* Register reCAPTCHA Settings Section */
