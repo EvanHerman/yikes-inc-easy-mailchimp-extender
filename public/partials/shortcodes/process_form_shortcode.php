@@ -55,7 +55,7 @@ function process_mailchimp_shortcode( $atts ) {
 	if ( get_option( 'yikes-mc-recaptcha-status' , '' ) == '1' ) {
 
 		// Allow users to manually set recaptcha (instead of globally - recaptcha="1"/recaptcha="0" - but still needs to be globally enabled on the settings page).
-		if ( $atts['recaptcha'] != '0' ) {
+		if ( $atts['recaptcha'] != '0' && ! get_option( 'yikes-mc-recaptcha-version-three', false ) ) {
 
 			// If either of the Private the Secret key is left blank, we should display an error back to the user.
 			if ( get_option( 'yikes-mc-recaptcha-site-key' , '' ) == '' ) {
