@@ -14,6 +14,7 @@ function process_mailchimp_shortcode( $atts ) {
 			'custom_description'         => '',
 			'ajax'                       => '',
 			'recaptcha'                  => '', // manually set googles recptcha state
+			'recaptcha_version'          => 2,
 			'recaptcha_lang'             => '', // manually set the recaptcha language in the shortcode - also available is the yikes-mailchimp-recaptcha-language filter
 			'recaptcha_type'             => '', // manually set the recaptcha type - audio/image - default image
 			'recaptcha_theme'            => '', // manually set the recaptcha theme - light/dark - default light
@@ -55,7 +56,7 @@ function process_mailchimp_shortcode( $atts ) {
 	if ( get_option( 'yikes-mc-recaptcha-status' , '' ) == '1' ) {
 
 		// Allow users to manually set recaptcha (instead of globally - recaptcha="1"/recaptcha="0" - but still needs to be globally enabled on the settings page).
-		if ( $atts['recaptcha'] != '0' && ! get_option( 'yikes-mc-recaptcha-version-three', false ) ) {
+		if ( $atts['recaptcha'] != '0' && ( ! get_option( 'yikes-mc-recaptcha-version-three', false ) && absint( $atts['recaptcha_version'] ) !== 3 ) ) {
 
 			// If either of the Private the Secret key is left blank, we should display an error back to the user.
 			if ( get_option( 'yikes-mc-recaptcha-site-key' , '' ) == '' ) {
