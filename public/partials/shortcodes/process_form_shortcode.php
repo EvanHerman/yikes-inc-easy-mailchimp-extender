@@ -98,6 +98,18 @@ function process_mailchimp_shortcode( $atts ) {
 			$recaptcha_site_key = get_option( 'yikes-mc-recaptcha-site-key' , '' );
 			$recaptcha_box      = '<div class="g-recaptcha" data-sitekey="' . esc_attr( $recaptcha_site_key ) . '" data-theme="' . esc_attr( $recaptcha_shortcode_params['theme'] ) . '" data-type="' . esc_attr( $recaptcha_shortcode_params['type'] ) . '" data-size="' . esc_attr( $recaptcha_shortcode_params['size'] ) . '" data-callback="' . esc_attr( $recaptcha_shortcode_params['success_callback'] ) . '" data-expired-callback="' . esc_attr( $recaptcha_shortcode_params['expired_callback'] ) . '"></div>';
 		}
+
+		// Allow users to manually override version 3 and use 2 on some forms.
+		if ( $atts['recaptcha'] != '0' && ( ! get_option( 'yikes-mc-recaptcha-version-three', false ) && $attrs['recaptcha_version'] === 3 ) || ( get_option( 'yikes-mc-recaptcha-version-three', false ) ) ) {
+			
+			// If either of the Private the Secret key is left blank, we should display an error back to the user.
+			if ( get_option( 'yikes-mc-recaptcha-site-key-three' , '' ) == '' ) {
+				return __( "Whoops! It looks like you enabled reCAPTCHA but forgot to enter the reCAPTCHA V3 site key!" , 'yikes-inc-easy-mailchimp-extender' ) . '<span class="edit-link yikes-easy-mc-edit-link"><a class="post-edit-link" href="' . esc_url( admin_url( 'admin.php?page=yikes-inc-easy-mailchimp-settings&section=recaptcha-settings' ) ) . '" title="' . __( 'ReCaptcha Settings' , 'yikes-inc-easy-mailchimp-extender' ) . '">' . __( 'Edit ReCaptcha Settings' , 'yikes-inc-easy-mailchimp-extender' ) . '</a></span>';
+			}
+			if ( get_option( 'yikes-mc-recaptcha-secret-key-three' , '' ) == '' ) {
+				return __( "Whoops! It looks like you enabled reCAPTCHA but forgot to enter the reCAPTCHA V3 secret key!" , 'yikes-inc-easy-mailchimp-extender' ) . '<span class="edit-link yikes-easy-mc-edit-link"><a class="post-edit-link" href="' . esc_url( admin_url( 'admin.php?page=yikes-inc-easy-mailchimp-settings&section=recaptcha-settings' ) ) . '" title="' . __( 'ReCaptcha Settings' , 'yikes-inc-easy-mailchimp-extender' ) . '">' . __( 'Edit ReCaptcha Settings' , 'yikes-inc-easy-mailchimp-extender' ) . '</a></span>';
+			}
+		}
 	}
 
 	// place our results into a separate variable for easy looping
