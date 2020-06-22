@@ -1,17 +1,18 @@
 /**
  * Recaptcha Version 3
  */
-function yikesRecaptchaV3( siteKey, passedFunc ) {
-    if ( typeof grecaptcha !== 'function' ) {
-        console.error( 'grecaptcha not defined.' );
+function yikesRecaptchaV3( passedFunc ) {
+    if ( typeof window.yikesGoogleRecaptchaV3 === 'undefined' ) {
+        console.error( 'Localization failed for v3 recaptcha.' );
         return;
     }
-    if ( ! siteKey ) {
+    if ( ! window.yikesGoogleRecaptchaV3.siteKey ) {
         console.error( 'No site key passed' );
         return;
     }
     grecaptcha.ready( function() {
-      grecaptcha.execute( siteKey, { action: 'submit' } ).then(function(token) {
+      grecaptcha.execute( window.yikesGoogleRecaptchaV3.siteKey, { action: 'submit' } ).then(function( token ) {
+          console.log( 'Recaptcha verification passed.' );
           return passedFunc();
       } );
     } );
