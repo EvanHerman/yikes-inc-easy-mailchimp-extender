@@ -38,12 +38,20 @@
 				<strong><?php _e( 'Enable reCAPTCHA Protection', 'yikes-inc-easy-mailchimp-extender' ); ?></strong>
 			</label>
 
-			<label for="yikes-mc-recaptcha-api-key"><strong><?php _e( 'reCAPTCHA Site Key', 'yikes-inc-easy-mailchimp-extender' ); ?></strong>
+			<label for="yikes-mc-recaptcha-api-key"><strong><?php _e( 'reCAPTCHA V2 Site Key', 'yikes-inc-easy-mailchimp-extender' ); ?></strong>
 				<input type="text" class="widefat recaptcha-setting-checkbox" name="yikes-mc-recaptcha-site-key" value="<?php echo esc_attr( get_option( 'yikes-mc-recaptcha-site-key', '' ) ); ?>">
 			</label>
 
-			<label for="yikes-mc-recaptcha-private-api-key"><strong><?php _e( 'reCAPTCHA Secret Key', 'yikes-inc-easy-mailchimp-extender' ); ?></strong>
+			<label for="yikes-mc-recaptcha-private-api-key"><strong><?php _e( 'reCAPTCHA V2 Secret Key', 'yikes-inc-easy-mailchimp-extender' ); ?></strong>
 				<input type="text" class="widefat recaptcha-setting-checkbox" name="yikes-mc-recaptcha-secret-key" id="" value="<?php echo esc_attr( get_option( 'yikes-mc-recaptcha-secret-key', '' ) ); ?>">
+			</label>
+
+			<label for="yikes-mc-recaptcha-site-key-three"><strong><?php _e( 'reCAPTCHA V3 Site Key', 'yikes-inc-easy-mailchimp-extender' ); ?></strong>
+				<input type="text" class="widefat recaptcha-setting-checkbox" name="yikes-mc-recaptcha-site-key-three" value="<?php echo esc_attr( get_option( 'yikes-mc-recaptcha-site-key-three', '' ) ); ?>">
+			</label>
+
+			<label for="yikes-mc-recaptcha-private-api-key-three"><strong><?php _e( 'reCAPTCHA V3 Secret Key', 'yikes-inc-easy-mailchimp-extender' ); ?></strong>
+				<input type="text" class="widefat recaptcha-setting-checkbox" name="yikes-mc-recaptcha-secret-key-three" id="" value="<?php echo esc_attr( get_option( 'yikes-mc-recaptcha-secret-key-three', '' ) ); ?>">
 			</label>
 
 			<a href="#" onclick="jQuery(this).next().slideToggle();return false;" class="recaptcha-preview-link"><?php _e( 'View reCAPTCHA Preview', 'yikes-inc-easy-mailchimp-extender' ); ?></a>
