@@ -109,6 +109,10 @@ function process_mailchimp_shortcode( $atts ) {
 			if ( get_option( 'yikes-mc-recaptcha-secret-key-three' , '' ) == '' ) {
 				return __( "Whoops! It looks like you enabled reCAPTCHA but forgot to enter the reCAPTCHA V3 secret key!" , 'yikes-inc-easy-mailchimp-extender' ) . '<span class="edit-link yikes-easy-mc-edit-link"><a class="post-edit-link" href="' . esc_url( admin_url( 'admin.php?page=yikes-inc-easy-mailchimp-settings&section=recaptcha-settings' ) ) . '" title="' . __( 'ReCaptcha Settings' , 'yikes-inc-easy-mailchimp-extender' ) . '">' . __( 'Edit ReCaptcha Settings' , 'yikes-inc-easy-mailchimp-extender' ) . '</a></span>';
 			}
+
+			$v3_site_key = get_option( 'yikes-mc-recaptcha-site-key-three' , '' );
+
+			wp_enqueue_script( 'google-recaptcha-v3-js', 'https://www.google.com/recaptcha/api.js?render=' . $v3_site_key, array(), '1.0.0', true );
 		}
 	}
 
