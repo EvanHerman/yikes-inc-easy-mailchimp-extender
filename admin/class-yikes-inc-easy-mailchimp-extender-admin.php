@@ -1114,6 +1114,13 @@ class Yikes_Inc_Easy_Mailchimp_Forms_Admin {
 				'yikes_easy_mc_settings_recpatcha_section'
 			);
 
+			add_settings_field(
+				'yikes-mc-recaptcha-version-three',
+				__( 'Enable Version 3', 'yikes-inc-easy-mailchimp-extender' ),
+				'',  // callback + validation inside of admin/partials/menu/options.php
+				'yikes_easy_mc_settings_recpatcha_section'
+			);
+
 		/* End reCAPTCHA Settings */
 
 		/* Debug Settings */
