@@ -112,15 +112,37 @@ function process_mailchimp_shortcode( $atts ) {
 
 			$v3_site_key = get_option( 'yikes-mc-recaptcha-site-key-three' , '' );
 
-			wp_enqueue_script( 'google-recaptcha-v3-js', 'https://www.google.com/recaptcha/api.js?render=' . $v3_site_key, array(), null, true );
-			wp_enqueue_script( 'yikes-recaptcha-v3-funcs', YIKES_MC_URL . 'public/js/yikes-recaptcha-v3.js', array( 'google-recaptcha-v3-js' ), null, true );
-
-			// Pass the site key through localization.
+			wp_enqueue_script(
+				'yikes-google-recaptcha-v3',
+				"https://www.google.com/recaptcha/api.js?render=" . $v3_site_key,
+				array(),
+				null,
+				true
+			);
+			wp_enqueue_script(
+				'yikes-recaptcha-js',
+				YIKES_MC_URL . 'public/js/yikes-recaptcha-v3.js',
+				array( 'jquery', 'yikes-google-recaptcha-v3' ),
+				null,
+				true
+			);
+	
 			wp_localize_script(
-				'yikes-recaptcha-v3-funcs',
-				'yikesGoogleRecaptchaV3',
+				'yikes-recaptcha-js',
+				'yikesRecaptcha',
 				array(
 					'siteKey' => $v3_site_key,
+				)
+			);
+
+			$recaptcha_box = wp_kses(
+				'<input type="hidden" name="recaptcha_three_response" id="recaptcha_three_response" />',
+				array(
+					'input' => array(
+						'type' => array(),
+						'name' => array(),
+						'id'   => array(),
+					)
 				)
 			);
 		}
