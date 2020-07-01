@@ -87,6 +87,10 @@ if ( isset( $data['g-recaptcha-response'] ) ) {
 	$submission_handler->handle_recaptcha( $recaptcha_response );
 }
 
+if ( isset( $data['recaptcha_three_response'] ) ) {
+	$submission_handler->handle_recaptcha( $data['recaptcha_three_response'], 3 );
+}
+
 // Loop through the submitted data to sanitize and format values
 $merge_variables = $submission_handler->get_submitted_merge_values( $data, $form_fields );
 
