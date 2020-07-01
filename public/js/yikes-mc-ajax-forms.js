@@ -104,132 +104,265 @@ window.Yikes_Mailchimp_Ajax = window.Yikes_Mailchimp_Ajax || {};
 			};
 
 			/* submit our ajax request */
-			$.ajax({
-				url: app.l10n.ajax_url,
-				type: 'POST',
-				data: data,
-				success : function( response, textStatus, jqXHR) {
-
-					submitted_form.find( 'input, label, button' ).not( ':hidden' ).fadeTo( 'fast', 1 );
-					submitted_form.find( '.yikes-mailchimp-preloader' ).remove();
-
-					// As of 6.3.0 we just show/hide the button text instead of removing it, so:
-					// Remove loading dots && show button text
-					$( '.yikes-mc-loading-dots' ).remove();
-					$( '.yikes-mailchimp-submit-button-span-text' ).show();
-
-					// As of 6.3.0 we add a class to the form, so remove it if we're here
-					submitted_form.removeClass( 'yikes-mc-submitted-form-loading' );
-
-					submitted_form.trigger( 'yikes_mailchimp_ajax_submission', response );
-
-					/* Success */
-					if( response.success ) {
-						response = response.data;
-
-						// Fire off our Google Analytics for a successful submission
-						if ( typeof( yikes_mailchimp_google_analytics_success ) === 'function' ) { 
-							yikes_mailchimp_google_analytics_success( response ); 
-						}
-
-						if( response.hide == 1 ) {
-							/* hide the description if visible */
-							if( $( '.yikes-easy-mc-form-description-'+form_id ).length > 0 ) {
-								$( '.yikes-easy-mc-form-description-'+form_id ).hide();
+			if ( typeof window.yikesGoogleRecaptchaV3 !== 'undefined' ) {
+				yikesRecaptchaV3(
+					function() {
+						return $.ajax({
+						url: app.l10n.ajax_url,
+						type: 'POST',
+						data: data,
+						success : function( response, textStatus, jqXHR) {
+		
+							submitted_form.find( 'input, label, button' ).not( ':hidden' ).fadeTo( 'fast', 1 );
+							submitted_form.find( '.yikes-mailchimp-preloader' ).remove();
+		
+							// As of 6.3.0 we just show/hide the button text instead of removing it, so:
+							// Remove loading dots && show button text
+							$( '.yikes-mc-loading-dots' ).remove();
+							$( '.yikes-mailchimp-submit-button-span-text' ).show();
+		
+							// As of 6.3.0 we add a class to the form, so remove it if we're here
+							submitted_form.removeClass( 'yikes-mc-submitted-form-loading' );
+		
+							submitted_form.trigger( 'yikes_mailchimp_ajax_submission', response );
+		
+							/* Success */
+							if( response.success ) {
+								response = response.data;
+		
+								// Fire off our Google Analytics for a successful submission
+								if ( typeof( yikes_mailchimp_google_analytics_success ) === 'function' ) { 
+									yikes_mailchimp_google_analytics_success( response ); 
+								}
+		
+								if( response.hide == 1 ) {
+									/* hide the description if visible */
+									if( $( '.yikes-easy-mc-form-description-'+form_id ).length > 0 ) {
+										$( '.yikes-easy-mc-form-description-'+form_id ).hide();
+									}
+									/* hide the form */
+									submitted_form.hide();
+								}
+		
+								var successMessage       = '<p class="yikes-easy-mc-success-message yikes-easy-mc-success-message-' + form_id + ' yikes-easy-mc-hidden">' + response.response + '</p>';
+								var successMessageAnchor = $( '.yikes-easy-mc-form-description-' + form_id ).length > 0 ? $( '.yikes-easy-mc-form-description-' + form_id ) : submitted_form;
+								if ( app.l10n.feedback_message_placement === 'before' ) {
+									successMessageAnchor.before( successMessage );	
+								} else if ( app.l10n.feedback_message_placement === 'after' ) {
+									submitted_form.after( successMessage );
+								} else if ( app.l10n.feedback_message_placement === 'both' ) {
+									successMessageAnchor.before( successMessage );	
+									submitted_form.after( successMessage );	
+								}
+		
+								/* fade in our success message */
+								$( '.yikes-easy-mc-success-message-'+form_id ).fadeIn();
+								$( '.yikes-mailchimp-required-interest-group-error' ).remove();
+		
+								/* redirect if setup */
+								if ( response.redirection === 1 ) {
+									yikes_mc_redirect_after_submission( response.redirect, response.redirect_timer, response.new_window );
+								}
+		
+								/* clear the inputs - but don't clear submit button, radio, select, list_id, or form */
+								submitted_form.trigger( 'yikes_clear_input_fields_after_successful_submission' );
+								submitted_form.find( 'input' ).not( '.yikes-easy-mc-submit-button, input[type="radio"], input[type="select"], input[type="checkbox"], input[name="yikes-mailchimp-associated-list-id"], input[name="yikes-mailchimp-submitted-form"]' ).val( '' );
+		
+								/* ajax to increase submission count by 1 */
+								var new_data = {
+									'action' : 'increase_submission_count',
+									'form_id' : form_id
+								};
+								$.ajax({
+									url: app.l10n.ajax_url,
+									type: 'POST',
+									data: new_data,
+									success : function( response, textStatus, jqXHR) {
+										/* console.log( 'submission count increased by 1' ); */
+									},
+									error : function( jqXHR, textStatus, errorThrown ) {
+										/* display the error back to the user in the console */
+										console.error( errorThrown );
+									}
+								});
+								/* console.log( 'Successfully submit subscriber data to Mailchimp.' ); */
+							} else {
+								response = response.data;
+		
+								// Fire off our Google Analytics for an unsuccessful submission
+								if ( typeof( yikes_mailchimp_google_analytics_failure ) === 'function' ) { 
+									yikes_mailchimp_google_analytics_failure( response );
+								}
+		
+								var errorMessage       = typeof response !== 'undefined' && typeof response.response !== 'undefined' ? response.response : 'Error collecting the API response.';
+								var errorMessageHTML   = '<p class="yikes-easy-mc-error-message yikes-easy-mc-error-message-' + form_id + ' yikes-easy-mc-hidden">' + errorMessage + '</p>';
+								var errorMessageAnchor = $( '.yikes-easy-mc-form-description-' + form_id ).length > 0 ? $( '.yikes-easy-mc-form-description-' + form_id ) : submitted_form;
+								if ( app.l10n.feedback_message_placement === 'before' ) {
+									errorMessageAnchor.before( errorMessageHTML );	
+								} else if ( app.l10n.feedback_message_placement === 'after' ) {
+									submitted_form.after( errorMessageHTML );
+								} else if ( app.l10n.feedback_message_placement === 'both' ) {
+									errorMessageAnchor.before( errorMessageHTML );	
+									submitted_form.after( errorMessageHTML );
+								}
+		
+								// Check if we found a required field that's missing (server side check)
+								if ( typeof( response ) !== 'undefined' && typeof( response.missing_required_field ) !== 'undefined' && response.missing_required_field === true ) {
+									if ( typeof ( response.missing_required_field_data ) !== 'undefined' ) {
+		
+										// Capture the field data and highlight the field
+										var field_data = response.missing_required_field_data;
+										var is_interest_group = ( typeof( response.is_interest_group ) !== 'undefined' ) ? response.is_interest_group : false;
+										highlight_missing_required_fields( field_data, is_interest_group );
+									}
+								}
+		
+								// Fade in the error message
+								$( '.yikes-easy-mc-error-message' ).fadeIn();
 							}
-							/* hide the form */
-							submitted_form.hide();
+						},
+						error : function( jqXHR, textStatus, errorThrown ) {  /* someother error is happening, and should be investigated... */
+							/* alert( errorThrown ); */
+							console.error( errorThrown );
+							console.log( jqXHR );
+							console.log( textStatus );
+						},
+						complete : function( jqXHR, textStatus ) {
+							/* console.log( 'Yikes Easy Mailchimp AJAX submission complete.' ); */
+							/* enable the button to prevent double click */
+							submitted_form.find( '.yikes-easy-mc-submit-button' ).removeAttr( 'disabled' , 'disabled' );
 						}
-
-						var successMessage       = '<p class="yikes-easy-mc-success-message yikes-easy-mc-success-message-' + form_id + ' yikes-easy-mc-hidden">' + response.response + '</p>';
-						var successMessageAnchor = $( '.yikes-easy-mc-form-description-' + form_id ).length > 0 ? $( '.yikes-easy-mc-form-description-' + form_id ) : submitted_form;
-						if ( app.l10n.feedback_message_placement === 'before' ) {
-							successMessageAnchor.before( successMessage );	
-						} else if ( app.l10n.feedback_message_placement === 'after' ) {
-							submitted_form.after( successMessage );
-						} else if ( app.l10n.feedback_message_placement === 'both' ) {
-							successMessageAnchor.before( successMessage );	
-							submitted_form.after( successMessage );	
-						}
-
-						/* fade in our success message */
-						$( '.yikes-easy-mc-success-message-'+form_id ).fadeIn();
-						$( '.yikes-mailchimp-required-interest-group-error' ).remove();
-
-						/* redirect if setup */
-						if ( response.redirection === 1 ) {
-							yikes_mc_redirect_after_submission( response.redirect, response.redirect_timer, response.new_window );
-						}
-
-						/* clear the inputs - but don't clear submit button, radio, select, list_id, or form */
-						submitted_form.trigger( 'yikes_clear_input_fields_after_successful_submission' );
-						submitted_form.find( 'input' ).not( '.yikes-easy-mc-submit-button, input[type="radio"], input[type="select"], input[type="checkbox"], input[name="yikes-mailchimp-associated-list-id"], input[name="yikes-mailchimp-submitted-form"]' ).val( '' );
-
-						/* ajax to increase submission count by 1 */
-						var new_data = {
-							'action' : 'increase_submission_count',
-							'form_id' : form_id
-						};
-						$.ajax({
-							url: app.l10n.ajax_url,
-							type: 'POST',
-							data: new_data,
-							success : function( response, textStatus, jqXHR) {
-								/* console.log( 'submission count increased by 1' ); */
-							},
-							error : function( jqXHR, textStatus, errorThrown ) {
-								/* display the error back to the user in the console */
-								console.error( errorThrown );
+					}) }
+				);
+			} else {
+				$.ajax({
+					url: app.l10n.ajax_url,
+					type: 'POST',
+					data: data,
+					success : function( response, textStatus, jqXHR) {
+	
+						submitted_form.find( 'input, label, button' ).not( ':hidden' ).fadeTo( 'fast', 1 );
+						submitted_form.find( '.yikes-mailchimp-preloader' ).remove();
+	
+						// As of 6.3.0 we just show/hide the button text instead of removing it, so:
+						// Remove loading dots && show button text
+						$( '.yikes-mc-loading-dots' ).remove();
+						$( '.yikes-mailchimp-submit-button-span-text' ).show();
+	
+						// As of 6.3.0 we add a class to the form, so remove it if we're here
+						submitted_form.removeClass( 'yikes-mc-submitted-form-loading' );
+	
+						submitted_form.trigger( 'yikes_mailchimp_ajax_submission', response );
+	
+						/* Success */
+						if( response.success ) {
+							response = response.data;
+	
+							// Fire off our Google Analytics for a successful submission
+							if ( typeof( yikes_mailchimp_google_analytics_success ) === 'function' ) { 
+								yikes_mailchimp_google_analytics_success( response ); 
 							}
-						});
-						/* console.log( 'Successfully submit subscriber data to Mailchimp.' ); */
-					} else {
-						response = response.data;
-
-						// Fire off our Google Analytics for an unsuccessful submission
-						if ( typeof( yikes_mailchimp_google_analytics_failure ) === 'function' ) { 
-							yikes_mailchimp_google_analytics_failure( response );
-						}
-
-						var errorMessage       = typeof response !== 'undefined' && typeof response.response !== 'undefined' ? response.response : 'Error collecting the API response.';
-						var errorMessageHTML   = '<p class="yikes-easy-mc-error-message yikes-easy-mc-error-message-' + form_id + ' yikes-easy-mc-hidden">' + errorMessage + '</p>';
-						var errorMessageAnchor = $( '.yikes-easy-mc-form-description-' + form_id ).length > 0 ? $( '.yikes-easy-mc-form-description-' + form_id ) : submitted_form;
-						if ( app.l10n.feedback_message_placement === 'before' ) {
-							errorMessageAnchor.before( errorMessageHTML );	
-						} else if ( app.l10n.feedback_message_placement === 'after' ) {
-							submitted_form.after( errorMessageHTML );
-						} else if ( app.l10n.feedback_message_placement === 'both' ) {
-							errorMessageAnchor.before( errorMessageHTML );	
-							submitted_form.after( errorMessageHTML );
-						}
-
-						// Check if we found a required field that's missing (server side check)
-						if ( typeof( response ) !== 'undefined' && typeof( response.missing_required_field ) !== 'undefined' && response.missing_required_field === true ) {
-							if ( typeof ( response.missing_required_field_data ) !== 'undefined' ) {
-
-								// Capture the field data and highlight the field
-								var field_data = response.missing_required_field_data;
-								var is_interest_group = ( typeof( response.is_interest_group ) !== 'undefined' ) ? response.is_interest_group : false;
-								highlight_missing_required_fields( field_data, is_interest_group );
+	
+							if( response.hide == 1 ) {
+								/* hide the description if visible */
+								if( $( '.yikes-easy-mc-form-description-'+form_id ).length > 0 ) {
+									$( '.yikes-easy-mc-form-description-'+form_id ).hide();
+								}
+								/* hide the form */
+								submitted_form.hide();
 							}
+	
+							var successMessage       = '<p class="yikes-easy-mc-success-message yikes-easy-mc-success-message-' + form_id + ' yikes-easy-mc-hidden">' + response.response + '</p>';
+							var successMessageAnchor = $( '.yikes-easy-mc-form-description-' + form_id ).length > 0 ? $( '.yikes-easy-mc-form-description-' + form_id ) : submitted_form;
+							if ( app.l10n.feedback_message_placement === 'before' ) {
+								successMessageAnchor.before( successMessage );	
+							} else if ( app.l10n.feedback_message_placement === 'after' ) {
+								submitted_form.after( successMessage );
+							} else if ( app.l10n.feedback_message_placement === 'both' ) {
+								successMessageAnchor.before( successMessage );	
+								submitted_form.after( successMessage );	
+							}
+	
+							/* fade in our success message */
+							$( '.yikes-easy-mc-success-message-'+form_id ).fadeIn();
+							$( '.yikes-mailchimp-required-interest-group-error' ).remove();
+	
+							/* redirect if setup */
+							if ( response.redirection === 1 ) {
+								yikes_mc_redirect_after_submission( response.redirect, response.redirect_timer, response.new_window );
+							}
+	
+							/* clear the inputs - but don't clear submit button, radio, select, list_id, or form */
+							submitted_form.trigger( 'yikes_clear_input_fields_after_successful_submission' );
+							submitted_form.find( 'input' ).not( '.yikes-easy-mc-submit-button, input[type="radio"], input[type="select"], input[type="checkbox"], input[name="yikes-mailchimp-associated-list-id"], input[name="yikes-mailchimp-submitted-form"]' ).val( '' );
+	
+							/* ajax to increase submission count by 1 */
+							var new_data = {
+								'action' : 'increase_submission_count',
+								'form_id' : form_id
+							};
+							$.ajax({
+								url: app.l10n.ajax_url,
+								type: 'POST',
+								data: new_data,
+								success : function( response, textStatus, jqXHR) {
+									/* console.log( 'submission count increased by 1' ); */
+								},
+								error : function( jqXHR, textStatus, errorThrown ) {
+									/* display the error back to the user in the console */
+									console.error( errorThrown );
+								}
+							});
+							/* console.log( 'Successfully submit subscriber data to Mailchimp.' ); */
+						} else {
+							response = response.data;
+	
+							// Fire off our Google Analytics for an unsuccessful submission
+							if ( typeof( yikes_mailchimp_google_analytics_failure ) === 'function' ) { 
+								yikes_mailchimp_google_analytics_failure( response );
+							}
+	
+							var errorMessage       = typeof response !== 'undefined' && typeof response.response !== 'undefined' ? response.response : 'Error collecting the API response.';
+							var errorMessageHTML   = '<p class="yikes-easy-mc-error-message yikes-easy-mc-error-message-' + form_id + ' yikes-easy-mc-hidden">' + errorMessage + '</p>';
+							var errorMessageAnchor = $( '.yikes-easy-mc-form-description-' + form_id ).length > 0 ? $( '.yikes-easy-mc-form-description-' + form_id ) : submitted_form;
+							if ( app.l10n.feedback_message_placement === 'before' ) {
+								errorMessageAnchor.before( errorMessageHTML );	
+							} else if ( app.l10n.feedback_message_placement === 'after' ) {
+								submitted_form.after( errorMessageHTML );
+							} else if ( app.l10n.feedback_message_placement === 'both' ) {
+								errorMessageAnchor.before( errorMessageHTML );	
+								submitted_form.after( errorMessageHTML );
+							}
+	
+							// Check if we found a required field that's missing (server side check)
+							if ( typeof( response ) !== 'undefined' && typeof( response.missing_required_field ) !== 'undefined' && response.missing_required_field === true ) {
+								if ( typeof ( response.missing_required_field_data ) !== 'undefined' ) {
+	
+									// Capture the field data and highlight the field
+									var field_data = response.missing_required_field_data;
+									var is_interest_group = ( typeof( response.is_interest_group ) !== 'undefined' ) ? response.is_interest_group : false;
+									highlight_missing_required_fields( field_data, is_interest_group );
+								}
+							}
+	
+							// Fade in the error message
+							$( '.yikes-easy-mc-error-message' ).fadeIn();
 						}
-
-						// Fade in the error message
-						$( '.yikes-easy-mc-error-message' ).fadeIn();
+					},
+					error : function( jqXHR, textStatus, errorThrown ) {  /* someother error is happening, and should be investigated... */
+						/* alert( errorThrown ); */
+						console.error( errorThrown );
+						console.log( jqXHR );
+						console.log( textStatus );
+					},
+					complete : function( jqXHR, textStatus ) {
+						/* console.log( 'Yikes Easy Mailchimp AJAX submission complete.' ); */
+						/* enable the button to prevent double click */
+						submitted_form.find( '.yikes-easy-mc-submit-button' ).removeAttr( 'disabled' , 'disabled' );
 					}
-				},
-				error : function( jqXHR, textStatus, errorThrown ) {  /* someother error is happening, and should be investigated... */
-					/* alert( errorThrown ); */
-					console.error( errorThrown );
-					console.log( jqXHR );
-					console.log( textStatus );
-				},
-				complete : function( jqXHR, textStatus ) {
-					/* console.log( 'Yikes Easy Mailchimp AJAX submission complete.' ); */
-					/* enable the button to prevent double click */
-					submitted_form.find( '.yikes-easy-mc-submit-button' ).removeAttr( 'disabled' , 'disabled' );
-				}
-			});
+				});
+			}
+			
 			/* prevent default form action */
 			return false;
 		});

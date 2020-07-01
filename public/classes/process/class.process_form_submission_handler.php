@@ -874,8 +874,9 @@ class Yikes_Inc_Easy_Mailchimp_Extender_Process_Submission_Handler {
 	* @since 6.3.0
 	*
 	* @param string | $recaptcha_response | The form value of the recaptcha field
+	* @param int    | $version            | The version of recaptcha to use.
 	*/
-	public function handle_recaptcha( $recaptcha_response ) {
+	public function handle_recaptcha( $recaptcha_response, $version = 2 ) {
 
 		// Before we the hit the API, let's check that we actually got a response.
 		// If the user did not fill anything in (e.g. did not hit the checkbox), then the response will be empty.
@@ -891,8 +892,20 @@ class Yikes_Inc_Easy_Mailchimp_Extender_Process_Submission_Handler {
 			return $this->yikes_fail( $hide = 0, $error = 1, $response, array(), $return_response_non_ajax = true );
 		}
 
+		$recaptcha_secret = '';
+
+		switch ( $version ) {
+			case 2:
+				$recaptcha_secret_key = get_option( 'yikes-mc-recaptcha-secret-key', '' );
+			break;
+
+			case 3:
+				$recaptcha_secret_key = get_option( 'yikes-mc-recaptcha-secret-key-three' , '' );
+			break;
+		}
+
 		// Construct the API URL
-		$url           = esc_url_raw( 'https://www.google.com/recaptcha/api/siteverify?secret=' . get_option( 'yikes-mc-recaptcha-secret-key', '' ) . '&response=' . $recaptcha_response . '&remoteip=' . $_SERVER['REMOTE_ADDR'] );
+		$url           = esc_url_raw( 'https://www.google.com/recaptcha/api/siteverify?secret=' . $recaptcha_secret_key . '&response=' . $recaptcha_response . '&remoteip=' . $_SERVER['REMOTE_ADDR'] );
 		$response      = wp_remote_get( $url );
 		$response_body = json_decode( $response['body'], true );
 
