@@ -3,7 +3,7 @@ Contributors: yikesinc, eherman24, liljimmi, JPry, yikesitskevin, fmixell
 Donate link: https://yikesplugins.com/?utm_source=wp_plugin_repo&utm_medium=donate_link&utm_campaign=easy_forms_for_mailchimp
 Tags: Mailchimp, Mailchimp forms, Mailchimp lists, opt-in forms, sign up form, Mailchimp, email, forms, mailing lists, marketing, newsletter, sign up
 Requires at least: 4.0
-Tested up to: 5.3
+Tested up to: 5.4
 Requires PHP: 5.2.13
 Stable tag: 6.6.4
 License: GPLv2 or later
@@ -172,8 +172,14 @@ For information and code examples on how to implement the hooks and filters prov
 
 == Changelog ==
 
+<<<<<<< HEAD
+= 6.4.0 - June 15th, 2020 =
+* New filter: yikesinc_eme_mailchimp_headers filters the Mailchimp API headers.
+* This allows users to filter the api request to send specific language responses to users.
+=======
 = 6.6.4 - March, 26, 2020 =
 * Fixes "Freddie" logo image path.
+>>>>>>> 6237d4c00dfffd00dc6fc756e78ceb67e0eb40c2
 
 = 6.6.3 - February, 27, 2020 =
 * Important security release.
