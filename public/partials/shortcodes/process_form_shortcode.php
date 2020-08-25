@@ -14,6 +14,7 @@ function process_mailchimp_shortcode( $atts ) {
 			'custom_description'         => '',
 			'ajax'                       => '',
 			'recaptcha'                  => '', // manually set googles recptcha state
+			'recaptcha_version'          => 2,
 			'recaptcha_lang'             => '', // manually set the recaptcha language in the shortcode - also available is the yikes-mailchimp-recaptcha-language filter
 			'recaptcha_type'             => '', // manually set the recaptcha type - audio/image - default image
 			'recaptcha_theme'            => '', // manually set the recaptcha theme - light/dark - default light
@@ -55,14 +56,14 @@ function process_mailchimp_shortcode( $atts ) {
 	if ( get_option( 'yikes-mc-recaptcha-status' , '' ) == '1' ) {
 
 		// Allow users to manually set recaptcha (instead of globally - recaptcha="1"/recaptcha="0" - but still needs to be globally enabled on the settings page).
-		if ( $atts['recaptcha'] != '0' ) {
+		if ( $atts['recaptcha'] != '0' && ( ! get_option( 'yikes-mc-recaptcha-version-three', false ) && absint( $atts['recaptcha_version'] ) !== 3 ) ) {
 
 			// If either of the Private the Secret key is left blank, we should display an error back to the user.
 			if ( get_option( 'yikes-mc-recaptcha-site-key' , '' ) == '' ) {
-				return __( "Whoops! It looks like you enabled reCAPTCHA but forgot to enter the reCAPTCHA site key!" , 'yikes-inc-easy-mailchimp-extender' ) . '<span class="edit-link yikes-easy-mc-edit-link"><a class="post-edit-link" href="' . esc_url( admin_url( 'admin.php?page=yikes-inc-easy-mailchimp-settings&section=recaptcha-settings' ) ) . '" title="' . __( 'ReCaptcha Settings' , 'yikes-inc-easy-mailchimp-extender' ) . '">' . __( 'Edit ReCaptcha Settings' , 'yikes-inc-easy-mailchimp-extender' ) . '</a></span>';
+				return __( "Whoops! It looks like you enabled reCAPTCHA but forgot to enter the reCAPTCHA V2 site key!" , 'yikes-inc-easy-mailchimp-extender' ) . '<span class="edit-link yikes-easy-mc-edit-link"><a class="post-edit-link" href="' . esc_url( admin_url( 'admin.php?page=yikes-inc-easy-mailchimp-settings&section=recaptcha-settings' ) ) . '" title="' . __( 'ReCaptcha Settings' , 'yikes-inc-easy-mailchimp-extender' ) . '">' . __( 'Edit ReCaptcha Settings' , 'yikes-inc-easy-mailchimp-extender' ) . '</a></span>';
 			}
 			if ( get_option( 'yikes-mc-recaptcha-secret-key' , '' ) == '' ) {
-				return __( "Whoops! It looks like you enabled reCAPTCHA but forgot to enter the reCAPTCHA secret key!" , 'yikes-inc-easy-mailchimp-extender' ) . '<span class="edit-link yikes-easy-mc-edit-link"><a class="post-edit-link" href="' . esc_url( admin_url( 'admin.php?page=yikes-inc-easy-mailchimp-settings&section=recaptcha-settings' ) ) . '" title="' . __( 'ReCaptcha Settings' , 'yikes-inc-easy-mailchimp-extender' ) . '">' . __( 'Edit ReCaptcha Settings' , 'yikes-inc-easy-mailchimp-extender' ) . '</a></span>';
+				return __( "Whoops! It looks like you enabled reCAPTCHA but forgot to enter the reCAPTCHA V2 secret key!" , 'yikes-inc-easy-mailchimp-extender' ) . '<span class="edit-link yikes-easy-mc-edit-link"><a class="post-edit-link" href="' . esc_url( admin_url( 'admin.php?page=yikes-inc-easy-mailchimp-settings&section=recaptcha-settings' ) ) . '" title="' . __( 'ReCaptcha Settings' , 'yikes-inc-easy-mailchimp-extender' ) . '">' . __( 'Edit ReCaptcha Settings' , 'yikes-inc-easy-mailchimp-extender' ) . '</a></span>';
 			}
 
 			$has_recaptcha = true;
@@ -96,6 +97,54 @@ function process_mailchimp_shortcode( $atts ) {
 
 			$recaptcha_site_key = get_option( 'yikes-mc-recaptcha-site-key' , '' );
 			$recaptcha_box      = '<div class="g-recaptcha" data-sitekey="' . esc_attr( $recaptcha_site_key ) . '" data-theme="' . esc_attr( $recaptcha_shortcode_params['theme'] ) . '" data-type="' . esc_attr( $recaptcha_shortcode_params['type'] ) . '" data-size="' . esc_attr( $recaptcha_shortcode_params['size'] ) . '" data-callback="' . esc_attr( $recaptcha_shortcode_params['success_callback'] ) . '" data-expired-callback="' . esc_attr( $recaptcha_shortcode_params['expired_callback'] ) . '"></div>';
+		}
+
+		// Allow users to manually override version 3 and use 2 on some forms.
+		if ( $atts['recaptcha'] != '0' && ( ! get_option( 'yikes-mc-recaptcha-version-three', false ) && $attrs['recaptcha_version'] === 3 ) || ( get_option( 'yikes-mc-recaptcha-version-three', false ) ) ) {
+			
+			// If either of the Private the Secret key is left blank, we should display an error back to the user.
+			if ( get_option( 'yikes-mc-recaptcha-site-key-three' , '' ) == '' ) {
+				return __( "Whoops! It looks like you enabled reCAPTCHA but forgot to enter the reCAPTCHA V3 site key!" , 'yikes-inc-easy-mailchimp-extender' ) . '<span class="edit-link yikes-easy-mc-edit-link"><a class="post-edit-link" href="' . esc_url( admin_url( 'admin.php?page=yikes-inc-easy-mailchimp-settings&section=recaptcha-settings' ) ) . '" title="' . __( 'ReCaptcha Settings' , 'yikes-inc-easy-mailchimp-extender' ) . '">' . __( 'Edit ReCaptcha Settings' , 'yikes-inc-easy-mailchimp-extender' ) . '</a></span>';
+			}
+			if ( get_option( 'yikes-mc-recaptcha-secret-key-three' , '' ) == '' ) {
+				return __( "Whoops! It looks like you enabled reCAPTCHA but forgot to enter the reCAPTCHA V3 secret key!" , 'yikes-inc-easy-mailchimp-extender' ) . '<span class="edit-link yikes-easy-mc-edit-link"><a class="post-edit-link" href="' . esc_url( admin_url( 'admin.php?page=yikes-inc-easy-mailchimp-settings&section=recaptcha-settings' ) ) . '" title="' . __( 'ReCaptcha Settings' , 'yikes-inc-easy-mailchimp-extender' ) . '">' . __( 'Edit ReCaptcha Settings' , 'yikes-inc-easy-mailchimp-extender' ) . '</a></span>';
+			}
+
+			$v3_site_key = get_option( 'yikes-mc-recaptcha-site-key-three' , '' );
+
+			wp_enqueue_script(
+				'yikes-google-recaptcha-v3',
+				"https://www.google.com/recaptcha/api.js?render=" . $v3_site_key,
+				array(),
+				null,
+				true
+			);
+			wp_enqueue_script(
+				'yikes-recaptcha-js',
+				YIKES_MC_URL . 'public/js/yikes-recaptcha-v3.js',
+				array( 'jquery', 'yikes-google-recaptcha-v3' ),
+				null,
+				true
+			);
+	
+			wp_localize_script(
+				'yikes-recaptcha-js',
+				'yikesRecaptcha',
+				array(
+					'siteKey' => $v3_site_key,
+				)
+			);
+
+			$recaptcha_box = wp_kses(
+				'<input type="hidden" name="recaptcha_three_response" id="recaptcha_three_response" />',
+				array(
+					'input' => array(
+						'type' => array(),
+						'name' => array(),
+						'id'   => array(),
+					)
+				)
+			);
 		}
 	}
 

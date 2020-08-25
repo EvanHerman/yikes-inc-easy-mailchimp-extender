@@ -7,3 +7,5 @@ package.json
 package-lock.json
 phpunit.xml.dist
 webpack.config.js
+composer.json
+composer.lock
