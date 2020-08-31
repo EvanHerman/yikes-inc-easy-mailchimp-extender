@@ -4,7 +4,7 @@ if REV=$(git rev-parse -q --verify HEAD); then
 	against=HEAD
 else
 	# Initial commit: diff against an empty tree object
-	against=11c6571f125426e67055b3c7dee23d6cb1021fde
+	against=a64b5adf274cd5c28236ecb10df23814567ef4d2
 fi
 
 FILES=$(git diff-index --name-only --cached --diff-filter=ACMR $against -- | grep .php )
