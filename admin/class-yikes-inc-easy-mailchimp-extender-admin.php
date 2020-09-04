@@ -1684,6 +1684,7 @@ class Yikes_Inc_Easy_Mailchimp_Forms_Admin {
 											case 'date':
 											case 'zip':
 											case 'phone':
+											case 'dropdown':
 										?>
 										<!-- Placeholder -->
 										<tr valign="top">

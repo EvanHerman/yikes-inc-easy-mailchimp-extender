@@ -82,6 +82,7 @@ $merge_field_data = $available_merge_variables['merge_fields'][ $index ];
 					case 'phone':
 					case 'birthday':
 					case 'zip':
+					case 'dropdown':
 			?>
 					<!-- Placeholder -->
 					<tr valign="top">
@@ -213,7 +214,7 @@ $merge_field_data = $available_merge_variables['merge_fields'][ $index ];
 							<tr valign="top">
 								<td scope="row">
 									<label for="placeholder">
-										<?php _e( 'Default Selection' , 'yikes-inc-easy-mailchimp-extender' ); ?>
+										<?php _e( 'Default DROPDOWN Selection' , 'yikes-inc-easy-mailchimp-extender' ); ?>
 									</label>
 								</td>
 								<td>
