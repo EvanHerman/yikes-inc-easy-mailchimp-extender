@@ -1801,6 +1801,7 @@ class Yikes_Inc_Easy_Mailchimp_Forms_Admin {
 														<p class="description"><small><?php _e( "Assign a placeholder value for the select option.", 'yikes-inc-easy-mailchimp-extender' );?></small></p>
 													</td>
 												</tr>
+
 												<tr valign="top">
 													<td scope="row">
 														<label for="placeholder">
@@ -1817,7 +1818,12 @@ class Yikes_Inc_Easy_Mailchimp_Forms_Admin {
 														<p class="description"><small><?php _e( "Which option should be selected by default?", 'yikes-inc-easy-mailchimp-extender' );?></small></p>
 													</td>
 												</tr>
-
+												
+												<?php
+												if ( $default_selected === 'no-default' ) {
+													
+												}
+												?>
 										<?php
 												break;
 

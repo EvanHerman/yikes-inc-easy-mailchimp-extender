@@ -167,14 +167,6 @@ foreach( $interest_groups as $group ) {
 							</tr>
 
 							<?php
-								echo '<pre>';
-								$pre_selected = ! empty( $field_data['default_choice'] ) ? $field_data['default_choice'] : 'no-default';
-								var_dump($pre_selected);
-								echo '</pre>';
-								die;
-							?>
-
-							<?php
 							break;
 						} ?>
 
