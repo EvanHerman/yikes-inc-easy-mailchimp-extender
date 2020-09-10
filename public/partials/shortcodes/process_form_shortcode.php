@@ -1370,4 +1370,4 @@ function process_mailchimp_shortcode( $atts ) {
 	return ob_get_clean();
 
 }
-add_shortcode( 'yikes-mailchimp', 'process_mailchimp_shortcode' );
+//add_shortcode( 'yikes-mailchimp', 'process_mailchimp_shortcode' );

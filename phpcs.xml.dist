@@ -1,0 +1,86 @@
+<?xml version="1.0"?>
+<ruleset name="Yikes-LPF">
+	<description>Generally-applicable sniffs for WordPress plugins</description>
+
+	<!-- Configuration options -->
+	<config name="minimum_supported_wp_version" value="4.8"/>
+
+	<!-- Default WordPress sniffs -->
+	<rule ref="WordPress-Core">
+		<exclude name="Generic.Files.LineEndings"/>
+		<exclude name="PEAR.Files.IncludingFile.BracketsNotRequired"/>
+		<exclude name="PEAR.Functions.FunctionCallSignature"/>
+		<exclude name="PSR2.Classes.PropertyDeclaration.Underscore"/>
+		<exclude name="WordPress.Files.FileName"/>
+		<exclude name="WordPress.Security.NonceVerification.Recommended"/>
+		<exclude name="WordPress.WhiteSpace.PrecisionAlignment.Found"/>
+	</rule>
+
+	<!-- Change behavior of some sniffs -->
+	<rule ref="Generic.Commenting.DocComment.MissingShort">
+		<message>Inline Doc Comment detected</message>
+		<severity>3</severity>
+	</rule>
+	<rule ref="Generic.Commenting.DocComment.SpacingBeforeTags">
+		<message>There must be exactly one blank line before the tags in a doc comment</message>
+		<severity>3</severity>
+	</rule>
+	<rule ref="WordPress.PHP.DevelopmentFunctions">
+		<properties>
+			<property name="exclude" type="array">
+				<element value="error_log"/>
+			</property>
+		</properties>
+	</rule>
+	<rule ref="WordPress.PHP.DiscouragedPHPFunctions">
+		<properties>
+			<property name="exclude" type="array">
+				<element value="obfuscation"/>
+			</property>
+		</properties>
+	</rule>
+	<rule ref="WordPress.WP.AlternativeFunctions">
+		<properties>
+			<!-- wp_json_encode() recommended for compatibility with older PHP versions. We require 5.6+, so no need. -->
+			<property name="exclude" type="array">
+				<element value="json_encode"/>
+			</property>
+		</properties>
+	</rule>
+	<rule ref="WordPress.WP.I18n">
+		<properties>
+			<property name="text_domain" value="level-playing-field"/>
+		</properties>
+	</rule>
+
+	<!-- Some directories have relaxed rules -->
+	<rule ref="WordPress.NamingConventions.PrefixAllGlobals">
+		<properties>
+			<property name="prefixes" type="array">
+				<element value="lpf"/>
+				<element value="ylpf"/>
+				<element value="yikes_levelplayingfield"/>
+			</property>
+		</properties>
+		<exclude-pattern type="relative">/views/*</exclude-pattern>
+		<exclude-pattern type="relative">/libraries/awesome-yikes-framework/*</exclude-pattern>
+	</rule>
+	<rule ref="WordPress.Security.EscapeOutput.OutputNotEscaped">
+		<exclude-pattern type="relative">/views/*</exclude-pattern>
+	</rule>
+
+	<!-- Check all PHP files in directory tree by default. -->
+	<arg name="extensions" value="php"/>
+	<file>.</file>
+
+	<!-- Show sniff codes in all reports -->
+	<arg value="ps"/>
+
+	<exclude-pattern>*/node_modules/*</exclude-pattern>
+	<exclude-pattern type="relative">vendor/*</exclude-pattern>
+	<exclude-pattern type="relative">libraries/*</exclude-pattern>
+	<exclude-pattern type="relative">build/*</exclude-pattern>
+	<exclude-pattern type="relative">.idea/*</exclude-pattern>
+	<exclude-pattern type="relative">old/*</exclude-pattern>
+	<exclude-pattern type="relative">tests/*</exclude-pattern>
+</ruleset>

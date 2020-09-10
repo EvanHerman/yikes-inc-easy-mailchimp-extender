@@ -83,18 +83,7 @@ $merge_field_data = $available_merge_variables['merge_fields'][ $index ];
 					case 'birthday':
 					case 'zip':
 			?>
-					<!-- Placeholder -->
-					<tr valign="top">
-						<td scope="row">
-							<label for="placeholder">
-								<?php _e( 'Placeholder' , 'yikes-inc-easy-mailchimp-extender' ); ?>
-							</label>
-						</td>
-						<td>
-						<input type="text" class="widefat" name="field[<?php echo $merge_field_data['tag']; ?>][placeholder]" value="<?php echo isset( $merge_field_data['placeholder'] ) ? stripslashes( wp_strip_all_tags( $merge_field_data['placeholder'] ) ): '' ; ?>" />
-							<p class="description"><small><?php _e( "Assign a placeholder value to this field.", 'yikes-inc-easy-mailchimp-extender' );?></small></p>
-						</td>
-					</tr>
+					
 
 			<?php
 					/*
@@ -210,6 +199,7 @@ $merge_field_data = $available_merge_variables['merge_fields'][ $index ];
 
 						case 'dropdown':
 							?>
+							<!-- Default Selection -->
 							<tr valign="top">
 								<td scope="row">
 									<label for="placeholder">
@@ -227,6 +217,28 @@ $merge_field_data = $available_merge_variables['merge_fields'][ $index ];
 									<p class="description"><small><?php _e( "Which option should be selected by default?", 'yikes-inc-easy-mailchimp-extender' );?></small></p>
 								</td>
 							</tr>
+							<?php
+							$field_merge = $merge_field_data['tag'];
+							$selectedValue = "field[" . $field_merge . "][default_choice]";
+							switch ( $_POST[ $selectedValue ] ) {
+								case 'no-default':
+								?>
+								<!-- Placeholder -->
+								<tr valign="top">
+									<td scope="row">
+										<label for="placeholder">
+											<?php _e( 'Default Value' , 'yikes-inc-easy-mailchimp-extender' ); ?>
+										</label>
+									</td>
+									<td>
+										<input type="text" class="widefat" name="field[<?php echo $merge_field_data['tag']; ?>][default]" <?php if( $form_data['field_type'] != 'url' ) { ?> value="<?php echo isset( $merge_field_data['default_value'] ) ? stripslashes( wp_strip_all_tags( $merge_field_data['default_value'] ) ) : ''; ?>" <?php } else { ?> value="<?php echo isset( $merge_field_data['default_value'] ) ? stripslashes( wp_strip_all_tags( esc_url_raw( $merge_field_data['default_value'] ) ) ) : ''; } ?>" />
+										<p class="description"><small><?php _e( "Assign a default value to populate this field with on initial page load.", 'yikes-inc-easy-mailchimp-extender' );?></small></p>
+									</td>
+								</tr>
+								<?php
+								break;
+							}
+							?>
 
 						<?php
 							break;
@@ -240,7 +252,7 @@ $merge_field_data = $available_merge_variables['merge_fields'][ $index ];
 							<?php _e( 'Description' , 'yikes-inc-easy-mailchimp-extender' ); ?>
 						</label>
 					</td>
-					<td>
+					<td>  
 						<textarea class="widefat field-description-input" name="field[<?php echo $merge_field_data['tag']; ?>][description]"></textarea>
 						<p class="description"><small><?php _e( "Enter the description for the form field. This will be displayed to the user and provide some direction on how the field should be filled out or selected.", 'yikes-inc-easy-mailchimp-extender' );?></small></p>
 					</td>

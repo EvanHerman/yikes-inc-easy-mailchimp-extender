@@ -28,5 +28,15 @@
         "wp-coding-standards/wpcs": "dev-master",
         "codeclimate/php-test-reporter": "dev-master",
         "symfony/class-loader": "^3.1"
+    },
+    "scripts": {
+        "post-install-cmd": [
+            "./bin/git-setup-pre-commit-hook"
+        ]
+    },
+    "config": {
+        "platform": {
+            "php": "5.6"
+        }
     }
 }
