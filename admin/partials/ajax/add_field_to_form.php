@@ -199,18 +199,6 @@ $merge_field_data = $available_merge_variables['merge_fields'][ $index ];
 
 						case 'dropdown':
 							?>
-							<!-- Placeholder -->
-							<tr valign="top">
-								<td scope="row">
-									<label for="placeholder_<?php echo esc_attr( $field['merge'] ); ?>">
-										<?php _e( 'Placeholder', 'yikes-inc-easy-mailchimp-extender' ); ?>
-									</label>
-								</td>
-								<td>
-									<input type="text" id="placeholder_<?php echo esc_attr( $field['merge'] ); ?>" class="widefat" name="field[<?php echo $field['merge']; ?>][placeholder]" value="<?php echo isset( $field['placeholder'] ) ? $field['placeholder'] : '' ; ?>" />
-									<p class="description"><small><?php _e( "Assign a placeholder value for the select option.", 'yikes-inc-easy-mailchimp-extender' );?></small></p>
-								</td>
-							</tr>
 							<!-- Default Selection -->
 							<tr valign="top">
 								<td scope="row">
@@ -222,7 +210,6 @@ $merge_field_data = $available_merge_variables['merge_fields'][ $index ];
 									<select type="default" name="field[<?php echo $merge_field_data['tag']; ?>][default_choice]">
 										<?php $pre_selected = ! empty( $merge_field_data['default_choice'] ) ? $merge_field_data['default_choice'] : 'no-default'; ?>
 										<option value="no-default" <?php selected( $pre_selected, $choice ); ?>>No Default</option>
-										
 										<?php foreach ( $merge_field_data['options']['choices'] as $choice => $value ) { ?>
 											<option value="<?php echo $choice; ?>" <?php selected( $pre_selected, $choice ); ?>><?php echo stripslashes( $value ); ?></option>
 										<?php } ?>
@@ -230,6 +217,24 @@ $merge_field_data = $available_merge_variables['merge_fields'][ $index ];
 									<p class="description"><small><?php _e( "Which option should be selected by default?", 'yikes-inc-easy-mailchimp-extender' );?></small></p>
 								</td>
 							</tr>
+							<?php
+							if ( $pre_selected == 'no-default' ) {
+								?>
+								<!-- Placeholder -->
+								<tr valign="top">
+									<td scope="row">
+										<label for="placeholder">
+											<?php _e( 'Default Value' , 'yikes-inc-easy-mailchimp-extender' ); ?>
+										</label>
+									</td>
+									<td>
+										<input type="text" class="widefat" name="field[<?php echo $merge_field_data['tag']; ?>][default]" <?php if( $form_data['field_type'] != 'url' ) { ?> value="<?php echo isset( $merge_field_data['default_value'] ) ? stripslashes( wp_strip_all_tags( $merge_field_data['default_value'] ) ) : ''; ?>" <?php } else { ?> value="<?php echo isset( $merge_field_data['default_value'] ) ? stripslashes( wp_strip_all_tags( esc_url_raw( $merge_field_data['default_value'] ) ) ) : ''; } ?>" />
+										<p class="description"><small><?php _e( "Assign a default value to populate this field with on initial page load.", 'yikes-inc-easy-mailchimp-extender' );?></small></p>
+									</td>
+								</tr>
+								<?php
+							}
+							?>
 
 						<?php
 							break;

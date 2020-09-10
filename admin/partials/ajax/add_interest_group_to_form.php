@@ -135,19 +135,6 @@ foreach( $interest_groups as $group ) {
 
 						case 'dropdown':
 							?>
-							<!-- Placeholder -->
-							<tr valign="top">
-								<td scope="row">
-									<label for="placeholder_<?php echo esc_attr( $field['merge'] ); ?>">
-										<?php _e( 'Placeholder', 'yikes-inc-easy-mailchimp-extender' ); ?>
-									</label>
-								</td>
-								<td>
-									<input type="text" id="placeholder_<?php echo esc_attr( $field['merge'] ); ?>" class="widefat" name="field[<?php echo $field['merge']; ?>][placeholder]" value="<?php echo isset( $field['placeholder'] ) ? $field['placeholder'] : '' ; ?>" />
-									<p class="description"><small><?php _e( "Assign a placeholder value for the select option.", 'yikes-inc-easy-mailchimp-extender' );?></small></p>
-								</td>
-							</tr>
-
 							<tr valign="top">
 								<td scope="row">
 									<label for="placeholder">
@@ -165,6 +152,24 @@ foreach( $interest_groups as $group ) {
 									<p class="description"><small><?php _e( "Which option should be selected by default?", 'yikes-inc-easy-mailchimp-extender' );?></small></p>
 								</td>
 							</tr>
+							<?php
+							if ( $pre_selected == 'no-default' ) {
+								?>
+								<!-- Placeholder -->
+								<tr valign="top">
+									<td scope="row">
+										<label for="placeholder_<?php echo esc_attr( $field['merge'] ); ?>">
+											<?php _e( 'Placeholder', 'yikes-inc-easy-mailchimp-extender' ); ?>
+										</label>
+									</td>
+									<td>
+										<input type="text" id="placeholder_<?php echo esc_attr( $field['merge'] ); ?>" class="widefat" name="field[<?php echo $field['merge']; ?>][placeholder]" value="<?php echo isset( $field['placeholder'] ) ? $field['placeholder'] : '' ; ?>" />
+										<p class="description"><small><?php _e( "Assign a placeholder value for the select option.", 'yikes-inc-easy-mailchimp-extender' );?></small></p>
+									</td>
+								</tr>
+								<?php
+							}
+							?>
 
 							<?php
 							break;
