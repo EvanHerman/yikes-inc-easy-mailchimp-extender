@@ -218,7 +218,10 @@ $merge_field_data = $available_merge_variables['merge_fields'][ $index ];
 								</td>
 							</tr>
 							<?php
-							if ( $pre_selected == 'no-default' ) {
+							$field_merge = $merge_field_data['tag'];
+							$selectedValue = "field[" . $field_merge . "][default_choice]";
+							switch ( $_POST[ $selectedValue ] ) {
+								case 'no-default':
 								?>
 								<!-- Placeholder -->
 								<tr valign="top">
@@ -233,6 +236,7 @@ $merge_field_data = $available_merge_variables['merge_fields'][ $index ];
 									</td>
 								</tr>
 								<?php
+								break;
 							}
 							?>
 

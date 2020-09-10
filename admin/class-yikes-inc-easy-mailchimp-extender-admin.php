@@ -1807,7 +1807,10 @@ class Yikes_Inc_Easy_Mailchimp_Forms_Admin {
 												</tr>
 												
 												<?php
-												if ( $default_selected === 'no-default' ) {
+												$field_merge = $field['merge'];
+												$selectedValue = "field[" . $field_merge . "][default_choice]";
+												switch ( $_POST[ $selectedValue ] ) {
+													case 'no-default':
 													?>
 													<!-- Placeholder -->
 													<tr valign="top">
@@ -1822,6 +1825,7 @@ class Yikes_Inc_Easy_Mailchimp_Forms_Admin {
 														</td>
 													</tr>
 													<?php
+													break;
 												}
 												?>
 										<?php

@@ -153,7 +153,10 @@ foreach( $interest_groups as $group ) {
 								</td>
 							</tr>
 							<?php
-							if ( $pre_selected == 'no-default' ) {
+							$field_merge = $group['group_id'];
+							$selectedValue = "field[" . $field_merge . "][default_choice]";
+							switch ( $_POST[ $selectedValue ] ) {
+								case 'no-default':
 								?>
 								<!-- Placeholder -->
 								<tr valign="top">
@@ -168,6 +171,7 @@ foreach( $interest_groups as $group ) {
 									</td>
 								</tr>
 								<?php
+								break;
 							}
 							?>
 
