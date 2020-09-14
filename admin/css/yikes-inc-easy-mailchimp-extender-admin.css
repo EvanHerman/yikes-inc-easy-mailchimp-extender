@@ -829,8 +829,7 @@ ul.support-option-list {
 		/* float: left; */
 		display:inline-block;
 		vertical-align:middle;
-	    margin-right: 5px;
-		margin-top: 2px;
+	    margin-left: 5px;
 	}
 
 	.form-field-container tr.yikes-checkbox-container-first td {
@@ -839,7 +838,7 @@ ul.support-option-list {
 
 		.form-field-container td input[type="checkbox"]:first-child,
 		.form-field-container td input[type="radio"]:first-child {
-			margin-left: 0 !important;
+			/* margin-left: 0 !important; */
 		}
 		
 	/* Merge variable ID */
