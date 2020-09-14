@@ -975,7 +975,14 @@ function process_mailchimp_shortcode( $atts ) {
 							break;
 
 							case 'dropdown':
-								$no_default     = $field['default_choice'] === 'no-default' || isset( $field['default_choice'][0] ) && $field['default_choice'][0] === 'no-default';
+								$no_default = $field['default_choice'] === 'no-default' || isset( $field['default_choice'][0] ) && $field['default_choice'][0] === 'no-default';
+								$no_default_name = __( 'Select...',  'yikes-inc-easy-mailchimp-extender' );
+
+								if ( isset( $field['placeholder'] ) && 'no-default' === $field['default_choice'] ) {
+									$no_default = true;
+									$no_default_name = $field['placeholder'];
+								}
+
 								$default_choice = is_array( $field['default_choice'] ) ? $field['default_choice'] : array( $field['default_choice'] );
 
 								// store empty number for looping
@@ -1004,7 +1011,7 @@ function process_mailchimp_shortcode( $atts ) {
 
 										<select <?php echo implode( ' ' , $field_array ); ?>>
 											<?php
-												$no_default_name = apply_filters( 'yikes-mailchimp-dropdown-field-no-default-option-name', __( 'Select...', 'yikes-inc-easy-mailchimp-extender' ), $form_id );
+												$no_default_name = apply_filters( 'yikes-mailchimp-dropdown-field-no-default-option-name', $no_default_name, $form_id );
 												echo $no_default === true ? '<option value="">' . $no_default_name . '</option>' : '';
 												foreach( $choices as $choice ) { ?>
 													<option 

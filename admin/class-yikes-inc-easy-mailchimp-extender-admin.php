@@ -1789,6 +1789,18 @@ class Yikes_Inc_Easy_Mailchimp_Forms_Admin {
 
 											case 'dropdown':
 											?>
+												<!-- Placeholder -->
+												<tr valign="top">
+													<td scope="row">
+														<label for="placeholder_<?php echo esc_attr( $field['merge'] ); ?>">
+															<?php _e( 'Placeholder', 'yikes-inc-easy-mailchimp-extender' ); ?>
+														</label>
+													</td>
+													<td>
+														<input type="text" id="placeholder_<?php echo esc_attr( $field['merge'] ); ?>" class="widefat" name="field[<?php echo $field['merge']; ?>][placeholder]" value="<?php echo isset( $field['placeholder'] ) ? $field['placeholder'] : '' ; ?>" />
+														<p class="description"><small><?php _e( "Assign a placeholder value to this field.", 'yikes-inc-easy-mailchimp-extender' );?></small></p>
+													</td>
+												</tr>
 												<tr valign="top">
 													<td scope="row">
 														<label for="placeholder">
