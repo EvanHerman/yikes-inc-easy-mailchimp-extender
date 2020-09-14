@@ -122,7 +122,10 @@ foreach( $interest_groups as $group ) {
 									foreach ( $field_data['items'] as $id => $interest_group ) {
 										$pre_selected = ! empty( $field_data['default_choice'] ) ? $field_data['default_choice'] : '0';
 										?>
-										<input type="checkbox" name="field[<?php echo $group['group_id']; ?>][default_choice][]" value="<?php echo $id; ?>" <?php checked( $pre_selected, $id ); ?>><?php echo stripslashes( $interest_group['name'] ); ?>
+										<label>
+											<input type="checkbox" name="field[<?php echo $group['group_id']; ?>][default_choice][]" value="<?php echo $id; ?>" <?php checked( $pre_selected, $id ); ?>>
+											<?php echo stripslashes( $interest_group['name'] ); ?>
+										</label>
 										<?php
 									}
 									?>
