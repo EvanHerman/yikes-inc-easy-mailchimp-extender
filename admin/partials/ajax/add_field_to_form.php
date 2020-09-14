@@ -218,8 +218,8 @@ $merge_field_data = $available_merge_variables['merge_fields'][ $index ];
 									</label>
 								</td>
 								<td>
-									<input type="text" class="widefat" name="field[<?php echo $merge_field_data['tag']; ?>][default]" <?php if( $form_data['field_type'] != 'url' ) { ?> value="<?php echo isset( $merge_field_data['default_value'] ) ? stripslashes( wp_strip_all_tags( $merge_field_data['default_value'] ) ) : ''; ?>" <?php } else { ?> value="<?php echo isset( $merge_field_data['default_value'] ) ? stripslashes( wp_strip_all_tags( esc_url_raw( $merge_field_data['default_value'] ) ) ) : ''; } ?>" />
-									<p class="description"><small><?php _e( "Assign a default value to populate this field with on initial page load.", 'yikes-inc-easy-mailchimp-extender' );?></small></p>
+								<input type="text" id="placeholder_<?php echo esc_attr( $field['merge'] ); ?>" class="widefat" name="field[<?php echo $field['merge']; ?>][placeholder]" value="<?php echo isset( $field['placeholder'] ) ? $field['placeholder'] : '' ; ?>" />
+									<p class="description"><small><?php _e( "Assign a default value to populate a placeholder for selection drop-down", 'yikes-inc-easy-mailchimp-extender' );?></small></p>
 								</td>
 							</tr>
 
