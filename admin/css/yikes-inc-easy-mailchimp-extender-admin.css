@@ -826,7 +826,9 @@ ul.support-option-list {
 	}
 	/* Form Field Radios/Checkboxes */
 	.form-field-container tr.yikes-checkbox-container input[type="checkbox"] {
-	    float: left;
+		/* float: left; */
+		display:inline-block;
+		vertical-align:middle;
 	    margin-right: 5px;
 	    margin-top: 2px;
 	}
