@@ -93,5 +93,6 @@ module.exports = function(grunt) {
 		'uglify',
 		'cssmin'
 	]);
+	grunt.registerTask( 'css', [ 'cssmin' ]);
 
 };
