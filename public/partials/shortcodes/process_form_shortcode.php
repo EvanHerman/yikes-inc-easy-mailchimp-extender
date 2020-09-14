@@ -978,9 +978,9 @@ function process_mailchimp_shortcode( $atts ) {
 								$no_default = $field['default_choice'] === 'no-default' || isset( $field['default_choice'][0] ) && $field['default_choice'][0] === 'no-default';
 								$no_default_name = __( 'Select...',  'yikes-inc-easy-mailchimp-extender' );
 
-								if ( 'no-default' === $field['default_choice'] && 'Select...' !== $field['default'] ) {
+								if ( isset( $field['placeholder'] ) && 'no-default' === $field['default_choice'] ) {
 									$no_default = true;
-									$no_default_name = $field['default'];
+									$no_default_name = $field['placeholder'];
 								}
 
 								$default_choice = is_array( $field['default_choice'] ) ? $field['default_choice'] : array( $field['default_choice'] );
