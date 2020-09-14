@@ -210,6 +210,19 @@ $merge_field_data = $available_merge_variables['merge_fields'][ $index ];
 
 						case 'dropdown':
 							?>
+							<!-- Placeholder -->
+							<tr valign="top">
+								<td scope="row">
+									<label for="placeholder">
+										<?php _e( 'Default Value' , 'yikes-inc-easy-mailchimp-extender' ); ?>
+									</label>
+								</td>
+								<td>
+								<input type="text" id="placeholder_<?php echo esc_attr( $field['merge'] ); ?>" class="widefat" name="field[<?php echo $field['merge']; ?>][placeholder]" value="<?php echo isset( $field['placeholder'] ) ? $field['placeholder'] : '' ; ?>" />
+									<p class="description"><small><?php _e( "Assign a default value to populate a placeholder for selection drop-down", 'yikes-inc-easy-mailchimp-extender' );?></small></p>
+								</td>
+							</tr>
+
 							<tr valign="top">
 								<td scope="row">
 									<label for="placeholder">
