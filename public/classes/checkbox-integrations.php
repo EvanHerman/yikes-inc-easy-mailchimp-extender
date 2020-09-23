@@ -114,7 +114,7 @@ class Yikes_Easy_MC_Checkbox_Integration_Class {
 
 		// Get our options.
 		$checkbox_options = get_option( 'optin-checkbox-init', array() );
-		$has_list_ids     = isset( $checkbox_options[ $this->type ]['associated-list'] ) && '-' !== $checkbox_options[ $this->type ]['associated-list'];
+		$has_list_ids     = isset( $checkbox_options[ $this->type ]['associated-list'] ) && '-' !== $checkbox_options[ $this->type ]['associated-list'] && is_array( $checkbox_options[ $this->type ]['associated-list'] );
 		$has_list_ids     = $has_list_ids && ! in_array( '-', $checkbox_options[ $this->type ]['associated-list'], true );
 
 		if ( $has_list_ids ) {
