@@ -17,8 +17,8 @@
 	
 	<!-- Dropdown -->
 	<select class="custom-select-field" name="custom-field[<?php echo $field['id']; ?>]">
+	<option value="" disabled selected><?php echo isset( $field['placeholder'] ) ? $field['placeholder'] : 'Select...'; ?></option>
 		<?php foreach( $field['options'] as $value => $label ) { ?>
-			<option value="" disabled selected><?php echo isset( $field['placeholder'] ) ? $field['placeholder'] : 'Select...'; ?></option>
 			<option value="<?php echo $value; ?>" <?php if( isset( $field_data[$field['id']] ) ) { selected( $field_data[$field['id']] , $value ); } ?>><?php echo $label; ?></option>
 		<?php } ?>
 	</select>
