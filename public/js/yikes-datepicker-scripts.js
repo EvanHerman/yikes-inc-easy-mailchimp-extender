@@ -12,6 +12,7 @@
 			firstDay: datepicker_settings.first_day,
 			changeMonth: datepicker_settings.change_month,
 			changeYear: datepicker_settings.change_year,
+                        yearRange: datepicker_settings.year_range,
 			minDate: datepicker_settings.min_date,
 			maxDate: datepicker_settings.max_date,
 			defaultDate: datepicker_settings.default_date,
