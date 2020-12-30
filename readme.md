@@ -2,6 +2,7 @@
 [![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/yikesinc/yikes-inc-easy-mailchimp-extender/badges/quality-score.png?b=staging)](https://scrutinizer-ci.com/g/yikesinc/yikes-inc-easy-mailchimp-extender/?branch=staging)
 [![Code Coverage](https://scrutinizer-ci.com/g/yikesinc/yikes-inc-easy-mailchimp-extender/badges/coverage.png?b=staging)](https://scrutinizer-ci.com/g/yikesinc/yikes-inc-easy-mailchimp-extender/?branch=staging)
 [![Build Status](https://scrutinizer-ci.com/g/yikesinc/yikes-inc-easy-mailchimp-extender/badges/build.png?b=staging)](https://scrutinizer-ci.com/g/yikesinc/yikes-inc-easy-mailchimp-extender/build-status/staging)
+
 Easy Forms for Mailchimp
 =====================
 [![WordPress](https://img.shields.io/wordpress/plugin/dt/yikes-inc-easy-mailchimp-extender.svg)]()
@@ -29,7 +30,7 @@ Feel free to beta test this plugin now, but remember, it's not a stable release.
 
 For full documentation, please visit [our Knowledge Base](https://yikesplugins.com/support/knowledge-base/product/easy-forms-for-mailchimp/).
 
-####### Integrations
+#### Integrations
 Easy Forms for Mailchimp integrates well with many popular third party plugins for WordPress:
 
 * WooCommerce
