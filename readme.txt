@@ -172,20 +172,24 @@ For information and code examples on how to implement the hooks and filters prov
 
 == Changelog ==
 
-= 6.8.0 - September, 14, 2020 =
+= 6.8.1 - December 30, 2020 =
+* Added 'yearRange' to jQuery UI Datepicker Options
+Thank you to @ptsteadman
+
+= 6.8.0 - September 14, 2020 =
 * Added 'Placeholder' for dropdown.
 * Patched bug for checkbox interest group.
 
-= 6.7.0 - July, 1, 2020 =
+= 6.7.0 - July 1, 2020 =
 * Adding support for Google Recaptcha Version 3.
 
-= 6.6.4 - March, 26, 2020 =
+= 6.6.4 - March 26, 2020 =
 * Fixes "Freddie" logo image path.
 
-= 6.6.3 - February, 27, 2020 =
+= 6.6.3 - February 27, 2020 =
 * Important security release.
 
-= 6.6.2 - November, 3, 2019 =
+= 6.6.2 - November 3, 2019 =
 * Bug scrub WCUS! Fixed issues with adding tags on resubscribe.
 
 = 6.6.0 - October 25, 2019 =
