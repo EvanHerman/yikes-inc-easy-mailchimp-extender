@@ -541,7 +541,7 @@ class Yikes_Inc_Easy_Mailchimp_Forms_Admin {
 			/* Lets only display our admin notice on YT4WP pages to not annoy the hell out of people :) */
 			if ( in_array( get_current_screen()->base , array( 'dashboard', 'post', 'edit' ) ) || strpos( get_current_screen()->base ,'yikes-inc-easy-mailchimp') !== false ) {
 
-				// The URL of the page the user is currently on 
+				// The URL of the page the user is currently on
 				$current_uri  	  = isset( $_SERVER['REQUEST_URI'] ) && ! empty( $_SERVER['REQUEST_URI'] ) ? $_SERVER['REQUEST_URI'] : false;
 				$current_host	  = isset( $_SERVER['HTTP_HOST'] ) && ! empty( $_SERVER['HTTP_HOST'] ) ? $_SERVER['HTTP_HOST'] : false;
 				$current_protocol = is_ssl() === true ? 'https://' : 'http://';
@@ -559,15 +559,15 @@ class Yikes_Inc_Easy_Mailchimp_Forms_Admin {
 				$nobugurl	= ( ! empty( $nobugurl ) ) ? $nobugurl : '';
 
 				$review_message = '<div id="yikes-mailchimp-logo"></div>';
-				$review_message .= sprintf( 
-					__( 'It looks like you\'ve been using %1$s for 2 weeks now. We hope you\'re enjoying the features included with the free version. If so, please consider leaving us a review. Reviews only help to catch other users attention as well as provide us with feedback to grow and improve upon. If you\'re really enjoying the plugin, consider buying an add-on or developer license for some really awesome features and premium support.', 'yikes-inc-easy-mailchimp-extender' ) 
+				$review_message .= sprintf(
+					__( 'It looks like you\'ve been using %1$s for 2 weeks now. We hope you\'re enjoying the features included with the free version. If so, please consider leaving us a review. Reviews only help to catch other users attention as well as provide us with feedback to grow and improve upon. If you\'re really enjoying the plugin, consider buying an add-on or developer license for some really awesome features and premium support.', 'yikes-inc-easy-mailchimp-extender' )
 					. '<span class="button-container"> <a href="%2$s" target="_blank" class="button-secondary"><span class="dashicons dashicons-star-filled"></span>'
-						. __( "Leave A Review" , 'yikes-inc-easy-mailchimp-extender' ) 
+						. __( "Leave A Review" , 'yikes-inc-easy-mailchimp-extender' )
 					. '</a> <a href="%3$s" class="button-secondary"><span class="dashicons dashicons-upload"></span>'
-						. __( "View Addons" , 'yikes-inc-easy-mailchimp-extender' ) 
+						. __( "View Addons" , 'yikes-inc-easy-mailchimp-extender' )
 					. '</a> <a href="%4$s" class="button-secondary"><span class="dashicons dashicons-no-alt"></span>'
-						. __( "Dismiss" , 'yikes-inc-easy-mailchimp-extender' ) 
-					. "</a> </span>", 
+						. __( "Dismiss" , 'yikes-inc-easy-mailchimp-extender' )
+					. "</a> </span>",
 				$plugin_name, $reviewurl, $addons_url, $nobugurl );
 				?>
 					<div id="review-yikes-easy-mailchimp-notice">
@@ -988,7 +988,7 @@ class Yikes_Inc_Easy_Mailchimp_Forms_Admin {
 	*/
 	function generateSupportPage() {
 
-		wp_enqueue_script( 'yikes-inc-easy-mailchimp-extender-support-scripts', plugin_dir_url( __FILE__ ) . 'js/support.js', array( 'jquery' ), $this->version, false );	
+		wp_enqueue_script( 'yikes-inc-easy-mailchimp-extender-support-scripts', plugin_dir_url( __FILE__ ) . 'js/support.js', array( 'jquery' ), $this->version, false );
 		require_once YIKES_MC_PATH . 'admin/partials/menu/support.php';
 	}
 
@@ -1596,9 +1596,9 @@ class Yikes_Inc_Easy_Mailchimp_Forms_Admin {
 				if ( ! empty( $merge_variables['merge_fields'] ) ) {
 					$available_merge_variables = wp_list_pluck( $merge_variables['merge_fields'], 'tag' );
 					$mailchimp_merge_field_ids = wp_list_pluck( $merge_variables['merge_fields'], 'merge_id' );
-					
+
 					// Array will look like $merge_tag => $merge_id
-					foreach( $available_merge_variables as $index => $merge_tag ) { 
+					foreach( $available_merge_variables as $index => $merge_tag ) {
 						$merge_field_ids[$merge_tag] = $mailchimp_merge_field_ids[$index];
 					}
 				}
@@ -1612,6 +1612,10 @@ class Yikes_Inc_Easy_Mailchimp_Forms_Admin {
 				$assigned_fields = array_keys( $form_fields );
 				$merged_fields   = array_merge( $available_merge_variables, $available_interest_groups );
 				$excluded_fields = array_diff( $assigned_fields, $merged_fields );
+
+				$form_fields = array_filter($form_fields, function($field){
+					return isset($field['type']);
+				});
 
 				$i = 1;
 				foreach( $form_fields as $field ) {
@@ -1646,8 +1650,8 @@ class Yikes_Inc_Easy_Mailchimp_Forms_Admin {
 								<input type="hidden" class="yikes-mc-merge-field-type" name="field[<?php echo $field['merge']; ?>][type]" value="<?php echo $field['type']; ?>" />
 								<input type="hidden" class="yikes-mc-merge-field-tag" name="field[<?php echo $field['merge']; ?>][merge]" value="<?php echo $field['merge']; ?>" />
 								<input type="hidden" class="field-<?php echo $field['merge']; ?>-position position-input" name="field[<?php echo $field['merge']; ?>][position]" value="<?php echo $i++; ?>" />
-								<?php if ( isset( $merge_field_ids[ $field['merge'] ] ) && is_int( $merge_field_ids[ $field['merge'] ] ) ) { ?> 
-									<input type="hidden" class="yikes-mc-merge-field-id" name="field[<?php echo $field['merge']; ?>][id]" value="<?php echo $merge_field_ids[ $field['merge'] ] ?>" />  
+								<?php if ( isset( $merge_field_ids[ $field['merge'] ] ) && is_int( $merge_field_ids[ $field['merge'] ] ) ) { ?>
+									<input type="hidden" class="yikes-mc-merge-field-id" name="field[<?php echo $field['merge']; ?>][id]" value="<?php echo $merge_field_ids[ $field['merge'] ] ?>" />
 								<?php } ?>
 
 								<?php if ( $field['type'] == 'radio' || $field['type'] == 'dropdown' || $field['type'] == 'select' ) {
@@ -2059,7 +2063,7 @@ class Yikes_Inc_Easy_Mailchimp_Forms_Admin {
 																	<input id="<?php echo $field_id . 'no-default'; ?>"
 																	    type="<?php echo $field_type; ?>"
 																	    name="<?php echo $field_name; ?>"
-																	    value="no-default" 
+																	    value="no-default"
 																	    <?php is_array( $field['default_choice'] ) ? checked( current( $field['default_choice'] ), 'no-default' ) : checked( $field['default_choice'], 'no-default' ); ?>>
 																	No Default&nbsp;
 																</label>
@@ -2370,11 +2374,11 @@ class Yikes_Inc_Easy_Mailchimp_Forms_Admin {
 					foreach ( $available_interest_groups as $interest_group ) {
 						$not_available = isset( $fields_assigned_to_form[ $interest_group['id'] ] );
 						?>
-						<li class="available-field <?php echo $not_available ? 'not-available' : ''; ?>" 
-							alt="<?php echo esc_attr( $interest_group['id'] ); ?>" 
-							data-group-id="<?php echo esc_attr( $interest_group['id'] ); ?>" 
-							data-attr-field-name="<?php echo esc_attr( htmlspecialchars( $interest_group['title'] ) ); ?>" 
-							data-attr-field-type="<?php echo esc_attr( $interest_group['type'] ); ?>" 
+						<li class="available-field <?php echo $not_available ? 'not-available' : ''; ?>"
+							alt="<?php echo esc_attr( $interest_group['id'] ); ?>"
+							data-group-id="<?php echo esc_attr( $interest_group['id'] ); ?>"
+							data-attr-field-name="<?php echo esc_attr( htmlspecialchars( $interest_group['title'] ) ); ?>"
+							data-attr-field-type="<?php echo esc_attr( $interest_group['type'] ); ?>"
 							data-attr-form-id="<?php echo esc_attr( $list_id ); ?>"
 							title="<?php echo $not_available ? __( 'Already assigned to your form', 'yikes-inc-easy-mailchimp-extender' ) : ''; ?>"
 							<?php echo $not_available ? 'disabled="disabled"' : ''; ?>
@@ -2508,7 +2512,7 @@ class Yikes_Inc_Easy_Mailchimp_Forms_Admin {
 			*
 			* @param $post_id_to_clone | int   | ID of the original form
 			* @param $result           | mixed | ID of the new form OR false if the operation failed
-			* @param $form_data        | array | Array of the form data 
+			* @param $form_data        | array | Array of the form data
 			*
 			*/
 			do_action( 'yikes-mailchimp-after-duplicating-form', $post_id_to_clone, $result, $form_data );
@@ -2679,7 +2683,7 @@ class Yikes_Inc_Easy_Mailchimp_Forms_Admin {
 		}
 
 		public static function generate_default_email_body() {
-			$email_body  = '<p>' . __( 'Greetings,', 'yikes-inc-easy-mailchimp-extender' ) . '</p>'; 
+			$email_body  = '<p>' . __( 'Greetings,', 'yikes-inc-easy-mailchimp-extender' ) . '</p>';
 
 			$email_body .= '<p>';
 			$email_body .= 	__( 'A request has been made to update your Mailchimp account profile information.', 'yikes-inc-easy-mailchimp-extender' );
@@ -2880,7 +2884,7 @@ class Yikes_Inc_Easy_Mailchimp_Forms_Admin {
 			$addons = get_option( 'yikes-easy-mc-active-addons', array() );
 
 			// If we have premium add-ons...
-			if ( ! empty( $addons ) ) { 
+			if ( ! empty( $addons ) ) {
 
 				// Add our premium support partial.
 				include_once( YIKES_MC_PATH . 'admin/partials/helpers/premium-support.php' );
