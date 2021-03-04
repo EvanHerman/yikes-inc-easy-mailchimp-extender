@@ -3,7 +3,7 @@
  * Plugin Name: Easy Forms for Mailchimp
  * Plugin URI:  https://yikesplugins.com/plugin/easy-forms-for-mailchimp/
  * Description: The ultimate Mailchimp WordPress plugin. Easily build <strong>unlimited forms for your Mailchimp lists</strong>, add them to your site and track subscriber activity. To get started, go to the settings page and enter your <a href="https://yikesplugins.com/support/knowledge-base/finding-your-mailchimp-api-key/" target="_blank">Mailchimp API key</a>.
- * Version:     6.8.2
+ * Version:     6.8.3
  * Author:      YIKES, Inc.
  * Author URI:  https://www.yikesplugins.com/
  * License:     GPL-3.0+
@@ -28,7 +28,6 @@
  *
  * "'Free software' is a matter of liberty, not price. To understand the concept, you should think of 'free' as in 'free speech,' not as in 'free beer'."
  * - Richard Stallman
- *
  */
 
 
@@ -38,27 +37,27 @@ if ( ! defined( 'WPINC' ) ) {
 }
 
 /**
- * 	Define version constant
+ *  Define version constant
  *
- * 	@since 6.1.3
+ *  @since 6.1.3
  */
 if ( ! defined( 'YIKES_MC_VERSION' ) ) {
-	define( 'YIKES_MC_VERSION', '6.8.2' );
+	define( 'YIKES_MC_VERSION', '6.8.3' );
 }
 
 /**
- * 	Define path constant to our plugin directory.
+ *  Define path constant to our plugin directory.
  *
- * 	@since 6.0.0
+ *  @since 6.0.0
  */
 if ( ! defined( 'YIKES_MC_PATH' ) ) {
 	define( 'YIKES_MC_PATH', plugin_dir_path( __FILE__ ) );
 }
 
 /**
- * 	Define URL constant to our plugin directory.
+ *  Define URL constant to our plugin directory.
  *
- * 	@since 6.0.0
+ *  @since 6.0.0
  */
 if ( ! defined( 'YIKES_MC_URL' ) ) {
 	define( 'YIKES_MC_URL', plugin_dir_url( __FILE__ ) );
@@ -68,15 +67,15 @@ if ( ! defined( 'YIKES_MC_URL' ) ) {
 require_once dirname( __FILE__ ) . '/class-loader.php';
 
 /**
- *	activate_yikes_inc_easy_mailchimp_extender();
- * 	Fires during activation.
+ *  activate_yikes_inc_easy_mailchimp_extender();
+ *  Fires during activation.
  *
- * 	This action is documented in includes/class-yikes-inc-easy-mailchimp-extender-activator.php
- * 	and carries out some important tasks such as creating our custom database table if it doesn't
- * 	already exist, and defining default options.
+ *  This action is documented in includes/class-yikes-inc-easy-mailchimp-extender-activator.php
+ *  and carries out some important tasks such as creating our custom database table if it doesn't
+ *  already exist, and defining default options.
  *
- * 	@since 6.0.0
- *	@return void
+ *  @since 6.0.0
+ *  @return void
  */
 register_activation_hook( __FILE__, 'activate_yikes_inc_easy_mailchimp_extender' );
 function activate_yikes_inc_easy_mailchimp_extender( $network_wide ) {
@@ -84,14 +83,14 @@ function activate_yikes_inc_easy_mailchimp_extender( $network_wide ) {
 }
 
 /**
- *	uninstall_yikes_inc_easy_mailchimp_extender();
- * 	The code that runs during uninstall.
+ *  uninstall_yikes_inc_easy_mailchimp_extender();
+ *  The code that runs during uninstall.
  *
- * 	This action is documented in includes/class-yikes-inc-easy-mailchimp-extender-uninstall.php
- *	and carries out the deletion of Mailchimp transients, plugin options and Mailchimp form tables.
+ *  This action is documented in includes/class-yikes-inc-easy-mailchimp-extender-uninstall.php
+ *  and carries out the deletion of Mailchimp transients, plugin options and Mailchimp form tables.
  *
  * @since 6.0.0
- *	@return void
+ *  @return void
  */
 register_deactivation_hook( __FILE__, 'deactivate_yikes_inc_easy_mailchimp_extender' );
 function deactivate_yikes_inc_easy_mailchimp_extender() {
@@ -100,11 +99,11 @@ function deactivate_yikes_inc_easy_mailchimp_extender() {
 }
 
 /**
- *	uninstall_yikes_inc_easy_mailchimp_extender();
- * 	The code that runs during uninstall.
+ *  uninstall_yikes_inc_easy_mailchimp_extender();
+ *  The code that runs during uninstall.
  *
- * 	This action is documented in includes/class-yikes-inc-easy-mailchimp-extender-uninstall.php
- *	and carries out the deletion of Mailchimp transients, plugin options and Mailchimp form tables.
+ *  This action is documented in includes/class-yikes-inc-easy-mailchimp-extender-uninstall.php
+ *  and carries out the deletion of Mailchimp transients, plugin options and Mailchimp form tables.
  *
  * @since 6.0.0
  * @return void
@@ -115,13 +114,13 @@ function uninstall_yikes_inc_easy_mailchimp_extender() {
 }
 
 /**
- * 	Multi-site blog creation
+ *  Multi-site blog creation
  *
- *	If a new blog is created on a mutli-site network
- *	we should run our activation hook to create the necessary form table
+ *  If a new blog is created on a mutli-site network
+ *  we should run our activation hook to create the necessary form table
  *
- * 	@since 6.0.0
- *	@return void
+ *  @since 6.0.0
+ *  @return void
  */
 add_action( 'wpmu_new_blog', 'yikes_easy_mailchimp_new_network_site', 10, 6 );
 function yikes_easy_mailchimp_new_network_site( $blog_id, $user_id, $domain, $path, $site_id, $meta ) {
@@ -172,10 +171,10 @@ function yikes_inc_easy_mailchimp_extender_use_custom_db() {
 }
 
 /**
- * 	Begins execution of the plugin.
+ *  Begins execution of the plugin.
  *
- * 	@since 6.0.0
- *	@return Yikes_Inc_Easy_Mailchimp_Extender
+ *  @since 6.0.0
+ *  @return Yikes_Inc_Easy_Mailchimp_Extender
  */
 function yikes_inc_easy_mailchimp_extender() {
 	static $plugin = null;
@@ -192,6 +191,7 @@ yikes_inc_easy_mailchimp_extender()->run();
 /**
  * Helper function to return our API key
  * Support the use of a PHP constant
+ *
  * @return string Mailchimp API key from the PHP constant, or the options
  * @security strip away tags and patch security
  * @since 6.2.2
