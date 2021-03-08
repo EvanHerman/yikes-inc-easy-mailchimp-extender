@@ -1,0 +1,23 @@
+# Directories
+/.wordpress-org
+/.git
+/.github
+/bin
+/node_modules
+/tests
+
+# Files
+.distignore
+.gitignore
+.scrutinizer.yml
+.svnignore
+.travis.yml
+Gruntfile.js
+changelog.txt
+composer.json
+composer.lock
+license.txt
+package.json
+package-lock.json
+phpunit.xml.dist
+readme.md
