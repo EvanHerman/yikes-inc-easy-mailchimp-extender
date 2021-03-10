@@ -100,7 +100,7 @@ function process_mailchimp_shortcode( $atts ) {
 		}
 
 		// Allow users to manually override version 3 and use 2 on some forms.
-		if ( $atts['recaptcha'] != '0' && ( ! get_option( 'yikes-mc-recaptcha-version-three', false ) && $attrs['recaptcha_version'] === 3 ) || ( get_option( 'yikes-mc-recaptcha-version-three', false ) ) ) {
+		if ( $atts['recaptcha'] != '0' && ( ! get_option( 'yikes-mc-recaptcha-version-three', false ) && $atts['recaptcha_version'] === 3 ) || ( get_option( 'yikes-mc-recaptcha-version-three', false ) ) ) {
 			
 			// If either of the Private the Secret key is left blank, we should display an error back to the user.
 			if ( get_option( 'yikes-mc-recaptcha-site-key-three' , '' ) == '' ) {
