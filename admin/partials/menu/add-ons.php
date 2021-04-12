@@ -4,7 +4,7 @@
  *	@since 6.0.0
  */
 ?>
-<div class="wrap">
+<div class="wrap yikes-easy-mc-wrap">
 
 	<!-- Freddie Logo -->
 	<img src="<?php echo esc_url( YIKES_MC_URL . 'includes/images/Mailchimp_Assets/Freddie_60px.png' ); ?>" alt="<?php esc_attr_e( 'Freddie - Mailchimp Mascot' , 'yikes-inc-easy-mailchimp-extender' ); ?>" class="yikes-mc-freddie-logo" />

@@ -34,7 +34,7 @@ if ( is_wp_error( $list_data ) ) {
 
 
 ?>
-<div class="wrap">
+<div class="wrap yikes-easy-mc-wrap">
 	<!-- Freddie Logo -->
 	<img src="<?php echo YIKES_MC_URL . 'includes/images/Mailchimp_Assets/Freddie_60px.png'; ?>" alt="<?php __( 'Freddie - Mailchimp Mascot' , 'yikes-inc-easy-mailchimp-extender' ); ?>" class="yikes-mc-freddie-logo" />
 

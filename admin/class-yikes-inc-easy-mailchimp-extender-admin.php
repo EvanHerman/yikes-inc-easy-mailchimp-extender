@@ -683,6 +683,24 @@ class Yikes_Inc_Easy_Mailchimp_Forms_Admin {
 	}
 
 	/**
+	 * Conditionally run the asset registration functions
+	 *
+	 * @since 6.8.2
+	 */
+	public function maybe_enqueue_assets( $hook_suffix ) {
+		// Enqueue styles on dashboard
+		if ( 'index.php' === $hook_suffix ) {
+			$this->enqueue_styles();
+		}
+
+		// Enqueue styles and scripts on plugin admin pages
+		if ( strpos( $hook_suffix, 'yikes' ) !== false && strpos( $hook_suffix, 'mailchimp' ) !== false ) {
+			$this->enqueue_scripts();
+			$this->enqueue_styles();
+		}
+	}
+
+	/**
 	 * Register the stylesheets for the admin area.
 	 *
 	 * @since    6.0.0
