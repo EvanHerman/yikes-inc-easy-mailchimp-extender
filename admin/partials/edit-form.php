@@ -1,4 +1,4 @@
-<div class="wrap">
+<div class="wrap yikes-easy-mc-wrap">
 <?php
 
 // If an error was returned.
