@@ -124,8 +124,7 @@ class Yikes_Inc_Easy_Mailchimp_Extender {
 	private function define_admin_hooks() {
 		$plugin_admin = new Yikes_Inc_Easy_Mailchimp_Forms_Admin( $this->get_yikes_inc_easy_mailchimp_extender(), $this->get_version(), $this->form_interface );
 		$plugin_admin->hooks();
-		$this->loader->add_action( 'admin_enqueue_scripts', $plugin_admin, 'enqueue_styles' );
-		$this->loader->add_action( 'admin_enqueue_scripts', $plugin_admin, 'enqueue_scripts' );
+		$this->loader->add_action( 'admin_enqueue_scripts', $plugin_admin, 'maybe_enqueue_assets' );
 	}
 	/**
 	 * Register all of the hooks related to the public-facing functionality

@@ -6,7 +6,7 @@
 *	By: Yikes Inc. | https://www.yikesinc.com
 */
 ?>
-<div class="wrap yikes-easy-mc-support-wrap"> 
+<div class="wrap yikes-easy-mc-support-wrap yikes-easy-mc-wrap">
 
 	<!-- Freddie Logo -->
 	<img src="<?php echo YIKES_MC_URL . 'includes/images/Mailchimp_Assets/Freddie_60px.png'; ?>" alt="<?php _e( 'Freddie - Mailchimp Mascot' , 'yikes-inc-easy-mailchimp-extender' ); ?>" class="yikes-mc-freddie-logo" />

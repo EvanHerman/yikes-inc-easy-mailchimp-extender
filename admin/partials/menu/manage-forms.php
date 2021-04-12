@@ -21,7 +21,7 @@ if( $this->is_user_mc_api_valid_form( false ) == 'valid' ) {
 	$list_data = array();
 }
 ?>
-<div class="wrap">
+<div class="wrap yikes-easy-mc-wrap">
 	<!-- Freddie Logo -->
 	<img src="<?php echo YIKES_MC_URL . 'includes/images/Mailchimp_Assets/Freddie_60px.png'; ?>" alt="<?php _e( 'Freddie - Mailchimp Mascot' , 'yikes-inc-easy-mailchimp-extender' ); ?>" class="yikes-mc-freddie-logo" />
 
