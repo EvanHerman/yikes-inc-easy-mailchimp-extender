@@ -15,7 +15,7 @@ abstract class YIKES_Easy_Forms_Blocks {
 		add_action( 'init', array( $this, 'register_blocks' ), 11 );
 
 		// The 'block_categories' filter has been deprecated in WordPress 5.8 and replaced by 'block_categories_all'.
-		if ( class_exists( 'WP_Block_Editor_Context' ) ) {
+		if ( !class_exists( 'WP_Block_Editor_Context' ) ) {
 			add_filter( 'block_categories', array( $this, 'easy_forms_register_category' ), 10, 2 );
 		} else {
 			add_filter( 'block_categories_all', array( $this, 'easy_forms_register_category' ), 10, 2 );
