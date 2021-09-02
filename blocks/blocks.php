@@ -12,7 +12,12 @@ abstract class YIKES_Easy_Forms_Blocks {
 	public function __construct() {
 		add_action( 'enqueue_block_editor_assets', array( $this, 'editor_scripts' ) );
 		add_action( 'init', array( $this, 'register_blocks' ), 11 );
-		add_filter( 'block_categories', array( $this, 'easy_forms_register_category' ), 10, 2);
+		// The 'block_categories' filter has been deprecated in WordPress 5.8 and replaced by 'block_categories_all'.
+		if ( version_compare( $GLOBALS['wp_version'], '5.8-beta0', '<' ) ) {
+			add_filter( 'block_categories', [ $this, 'easy_forms_register_category' ], 10, 2 );
+		} else {
+			add_filter( 'block_categories_all', [ $this, 'easy_forms_register_category' ], 10, 2 );
+		}
 	}
 
 	/**
