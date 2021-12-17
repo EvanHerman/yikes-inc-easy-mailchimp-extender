@@ -1,9 +1,9 @@
 <?php
 $form_data = array(
-	'field_name' => $_POST['field_name'],
-	'merge_tag'  => $_POST['merge_tag'],
-	'field_type' => $_POST['field_type'],
-	'list_id'    => $_POST['list_id'],
+	'field_name' => isset( $_POST['field_name'] ) ? sanitize_text_field($_POST['field_name']) : '',
+	'merge_tag'  => isset( $_POST['merge_tag'] ) ? sanitize_text_field($_POST['merge_tag']) : '',
+	'field_type' => isset( $_POST['field_type'] ) ? sanitize_text_field($_POST['field_type']) : '',
+	'list_id'    => isset( $_POST['list_id'] ) ? sanitize_text_field($_POST['list_id']) : '',
 );
 
 // Grab our list handler.
@@ -33,12 +33,12 @@ $index = $this->findMCListIndex( $form_data['merge_tag'], $available_merge_varia
 // store it and use it to pre-populate field data (only on initial add to form)
 $merge_field_data = $available_merge_variables['merge_fields'][ $index ];
 ?>
-<section class="draggable" id="<?php echo $form_data['field_name']; ?>">
+<section class="draggable" id="<?php echo esc_attr( $form_data['field_name'] ); ?>">
 	<!-- top -->
 	<a href="#" class="expansion-section-title settings-sidebar">
 		<span class="dashicons dashicons-plus yikes-mc-expansion-toggle" title="<?php _e( 'Expand Field' , 'yikes-inc-easy-mailchimp-extender' ); ?>"></span>
-		<?php echo stripslashes( $form_data['field_name'] ); ?>
-		<span class="field-type-text"><small><?php echo __( 'type' , 'yikes-inc-easy-mailchimp-extender' ) . ' : ' . $form_data['field_type']; ?></small></span>
+		<?php echo wp_kses_post( stripslashes( $form_data['field_name'] ) ); ?>
+		<span class="field-type-text"><small><?php echo __( 'type' , 'yikes-inc-easy-mailchimp-extender' ) . ' : ' . esc_html( $form_data['field_type'] ); ?></small></span>
 	</a>
 	<!-- expansion section -->
 	<div class="yikes-mc-settings-expansion-section">
@@ -46,8 +46,8 @@ $merge_field_data = $available_merge_variables['merge_fields'][ $index ];
 		<!-- Single or Double Opt-in -->
 		<p class="type-container form-field-container"><!-- necessary to prevent skipping on slideToggle(); -->
 			<!-- store the label -->
-			<input type="hidden" name="field[<?php echo $merge_field_data['tag']; ?>][label]" value="<?php echo htmlspecialchars( $form_data['field_name'] ); ?>" />
-			<input type="hidden" name="field[<?php echo $merge_field_data['tag']; ?>][type]" value="<?php echo $form_data['field_type']; ?>" />
+			<input type="hidden" name="field[<?php echo $merge_field_data['tag']; ?>][label]" value="<?php echo esc_attr( htmlspecialchars( $form_data['field_name'] ) ); ?>" />
+			<input type="hidden" name="field[<?php echo $merge_field_data['tag']; ?>][type]" value="<?php echo esc_attr( $form_data['field_type'] ); ?>" />
 			<input type="hidden" name="field[<?php echo $merge_field_data['tag']; ?>][merge]" value="<?php echo $merge_field_data['tag']; ?>" />
 			<input type="hidden" class="field-<?php echo $merge_field_data['tag']; ?>-position position-input" name="field[<?php echo $merge_field_data['tag']; ?>][position]" value="" />
 
