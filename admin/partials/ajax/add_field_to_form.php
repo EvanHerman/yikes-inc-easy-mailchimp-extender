@@ -1,9 +1,9 @@
 <?php
 $form_data = array(
-	'field_name' => $_POST['field_name'] ? sanitize_text_field($_POST['field_name']) : '',
-	'merge_tag'  => $_POST['merge_tag'] ? sanitize_text_field($_POST['merge_tag']) : '',
-	'field_type' => $_POST['field_type'] ? sanitize_text_field($_POST['field_type']) : '',
-	'list_id'    => $_POST['list_id'] ? sanitize_text_field($_POST['list_id']) : '',
+	'field_name' => isset( $_POST['field_name'] ) ? sanitize_text_field($_POST['field_name']) : '',
+	'merge_tag'  => isset( $_POST['merge_tag'] ) ? sanitize_text_field($_POST['merge_tag']) : '',
+	'field_type' => isset( $_POST['field_type'] ) ? sanitize_text_field($_POST['field_type']) : '',
+	'list_id'    => isset( $_POST['list_id'] ) ? sanitize_text_field($_POST['list_id']) : '',
 );
 
 // Grab our list handler.
