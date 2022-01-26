@@ -3,7 +3,7 @@ Contributors: yikesinc, eherman24, liljimmi, JPry, yikesitskevin, fmixell, vochr
 Donate link: https://yikesplugins.com/?utm_source=wp_plugin_repo&utm_medium=donate_link&utm_campaign=easy_forms_for_mailchimp
 Tags: Mailchimp, Mailchimp forms, Mailchimp lists, opt-in forms, sign up form, Mailchimp, email, forms, mailing lists, marketing, newsletter, sign up
 Requires at least: 4.0
-Tested up to: 5.8
+Tested up to: 5.9
 Requires PHP: 5.2.13
 Stable tag: 6.8.6
 License: GPLv2 or later
