@@ -30,7 +30,7 @@
 		"lodash": ">=4.17.13",
 		"macaddress": ">=0.2.9",
 		"mini-css-extract-plugin": "^0.8.0",
-		"node-sass": "^4.13.0",
+		"node-sass": "^7.0.0",
 		"randomatic": ">=3.0.0",
 		"react-recaptcha": "^2.3.10",
 		"sass-loader": "^8.0.0",
