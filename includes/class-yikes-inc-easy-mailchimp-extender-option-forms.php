@@ -31,10 +31,14 @@ class Yikes_Inc_Easy_Mailchimp_Extender_Option_Forms extends Yikes_Inc_Easy_Mail
 	 * Get the IDs of all registered forms.
 	 *
 	 * @author Jeremy Pry
-	 * @return array All form IDs.
+	 * @return array|bool All form IDs.
 	 */
 	public function get_form_ids() {
-		return array_keys( $this->get_all_forms() );
+		if ( is_array( $this->get_all_forms() ) ) {
+			return array_keys( $this->get_all_forms() );
+		}
+
+		return false;
 	}
 
 	/**
@@ -77,7 +81,12 @@ class Yikes_Inc_Easy_Mailchimp_Extender_Option_Forms extends Yikes_Inc_Easy_Mail
 
 		// Grab our existing IDs and determine what the next one should be.
 		$all_ids         = $this->get_form_ids();
-		$last_id         = end( $all_ids );
+		$last_id         = 0;
+
+		if ( is_array( $all_ids ) ) {
+			$last_id = end( $all_ids );
+		}
+
 		$new_id          = false === $last_id ? 1 : $last_id + 1;
 		$form_data['id'] = $new_id;
 
