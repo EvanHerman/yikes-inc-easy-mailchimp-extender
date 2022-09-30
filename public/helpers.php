@@ -11,7 +11,7 @@
 *	
 *	@since 6.0.0
 */
-function yksemeProcessSnippet( $submit_text, $list=false ) {
+function yksemeProcessSnippet( $list=false, $submit_text=null ) {
 	$submit_text = ( isset( $submit_text ) ) ? 'submit="' . $submit_text . '"' : '';
 	return do_shortcode( '[yikes-mailchimp form="' . $list . '" ' . $submit_text . ']' );
 }
