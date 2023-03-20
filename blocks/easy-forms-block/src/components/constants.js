@@ -384,7 +384,7 @@ const constants = {
 		"vi" : "Vietnamese",
 		"zu" : "Zulu"
 	},
-	settings_url: 'wp-admin/admin.php?page=yikes-inc-easy-mailchimp-settings'
+	settings_url: '/wp-admin/admin.php?page=yikes-inc-easy-mailchimp-settings'
 }
 
 export default constants;

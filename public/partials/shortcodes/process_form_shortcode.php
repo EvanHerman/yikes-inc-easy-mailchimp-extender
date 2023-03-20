@@ -101,7 +101,7 @@ function process_mailchimp_shortcode( $atts ) {
 
 		// Allow users to manually override version 3 and use 2 on some forms.
 		if ( $atts['recaptcha'] != '0' && ( ! get_option( 'yikes-mc-recaptcha-version-three', false ) && $attrs['recaptcha_version'] === 3 ) || ( get_option( 'yikes-mc-recaptcha-version-three', false ) ) ) {
-			
+
 			// If either of the Private the Secret key is left blank, we should display an error back to the user.
 			if ( get_option( 'yikes-mc-recaptcha-site-key-three' , '' ) == '' ) {
 				return __( "Whoops! It looks like you enabled reCAPTCHA but forgot to enter the reCAPTCHA V3 site key!" , 'yikes-inc-easy-mailchimp-extender' ) . '<span class="edit-link yikes-easy-mc-edit-link"><a class="post-edit-link" href="' . esc_url( admin_url( 'admin.php?page=yikes-inc-easy-mailchimp-settings&section=recaptcha-settings' ) ) . '" title="' . __( 'ReCaptcha Settings' , 'yikes-inc-easy-mailchimp-extender' ) . '">' . __( 'Edit ReCaptcha Settings' , 'yikes-inc-easy-mailchimp-extender' ) . '</a></span>';
@@ -126,7 +126,7 @@ function process_mailchimp_shortcode( $atts ) {
 				null,
 				true
 			);
-	
+
 			wp_localize_script(
 				'yikes-recaptcha-js',
 				'yikesRecaptcha',
@@ -150,7 +150,7 @@ function process_mailchimp_shortcode( $atts ) {
 
 	// place our results into a separate variable for easy looping
 	$additional_form_settings = ( isset( $form_data['form_settings'] ) ) ? $form_data['form_settings'] : false;
-	
+
 	// store our options from the additional form settings array
 	$form_classes = ( $additional_form_settings ) ? $additional_form_settings['yikes-easy-mc-form-class-names'] : '';
 	$inline_form = ( $additional_form_settings ) ? $additional_form_settings['yikes-easy-mc-inline-form'] : '';
@@ -346,12 +346,12 @@ function process_mailchimp_shortcode( $atts ) {
 	*	Filter which countries show the zip field
 	*
 	*	@param array | An array of country codes that the zip field will appear for - default: US, GB, CA
-	*				   Note: please return the array with the country code as the KEY! This allows for optimal searching. 
+	*				   Note: please return the array with the country code as the KEY! This allows for optimal searching.
 	*	@param int   | $form_id
 	*/
-	$countries_with_zip_code_field = apply_filters( 'yikes-mailchimp-countries-with-zip', 
-										array( 'US' => 'US', 'GB' => 'GB', 'CA' => 'CA', 
-											   'IE' => 'IE', 'CN' => 'CN', 'IN' => 'IN', 
+	$countries_with_zip_code_field = apply_filters( 'yikes-mailchimp-countries-with-zip',
+										array( 'US' => 'US', 'GB' => 'GB', 'CA' => 'CA',
+											   'IE' => 'IE', 'CN' => 'CN', 'IN' => 'IN',
 											   'AU' => 'AU', 'BR' => 'BR', 'MX' => 'MX',
 											   'IT' => 'IT', 'NZ' => 'NZ', 'JP' => 'JP',
 											   'FR' => 'FR', 'GR' => 'GR', 'DE' => 'DE',
@@ -431,7 +431,7 @@ function process_mailchimp_shortcode( $atts ) {
 				'interest_group_checkbox_error' => apply_filters( 'yikes-mailchimp-interest-group-checkbox-error', __( 'This field is required.', 'yikes-inc-easy-mailchimp-extender' ), $form_id ),
 				'preloader_url'                 => apply_filters( 'yikes-mailchimp-preloader', YIKES_MC_URL . 'includes/images/ripple.svg' ),
 				'loading_dots'                  => apply_filters( 'yikes-mailchimp-loading-dots', YIKES_MC_URL . 'includes/images/bars.svg' ),
-				'ajax_security_nonce'			=> wp_create_nonce( 'yikes_mc_form_submission_security_nonce' ),
+				'ajax_security_nonce'           => wp_create_nonce( 'yikes_mc_form_submission_security_nonce' ),
 				'feedback_message_placement'    => apply_filters( 'yikes_mailchimp_feedback_message_placement', 'before', $form_data, $form_id ),
 			) );
 		}
@@ -448,15 +448,15 @@ function process_mailchimp_shortcode( $atts ) {
 		do_action( 'yikes-mailchimp-google-analytics', $form_id );
 
 		/*
-		*	If a form was submitted, and the response was returned
-		*	let's display it back to the user
-		*	@since 6.0.3.4
+		* If a form was submitted, and the response was returned
+		* let's display it back to the user
+		* @since 6.0.3.4
 		*/
 		echo $process_submission_response;
 
 		// render the form!
 		?>
-			<form id="<?php echo sanitize_title( $form_data['form_name'] ); ?>-<?php echo $form_id; ?>" class="yikes-easy-mc-form yikes-easy-mc-form-<?php echo $form_id . ' '; if ( $form_inline )  { echo 'yikes-mailchimp-form-inline '; } echo ' ' . apply_filters( 'yikes-mailchimp-form-class', $form_classes, $form_id ); if( !empty( $_POST ) && $form_submitted == 1 && $form_data['submission_settings']['hide_form_post_signup'] == 1 ) { echo ' yikes-easy-mc-display-none'; } ?>" method="POST" data-attr-form-id="<?php echo esc_attr( $form_id ); ?>">
+			<form id="<?php echo esc_attr( sanitize_title( $form_data['form_name'] ) ); ?>-<?php echo esc_attr( $form_id ); ?>" class="yikes-easy-mc-form yikes-easy-mc-form-<?php echo esc_attr( $form_id ) . ' '; if ( $form_inline )  { echo 'yikes-mailchimp-form-inline '; } echo ' ' . apply_filters( 'yikes-mailchimp-form-class', $form_classes, $form_id ); if( !empty( $_POST ) && $form_submitted == 1 && $form_data['submission_settings']['hide_form_post_signup'] == 1 ) { echo ' yikes-easy-mc-display-none'; } ?>" method="POST" data-attr-form-id="<?php echo esc_attr( $form_id ); ?>">
 
 				<?php
 				// Set a default constant for hidden fields
@@ -475,7 +475,7 @@ function process_mailchimp_shortcode( $atts ) {
 							$custom_classes = explode( ' ' , $field['additional-classes'] );
 							// check our custom class array for field-left/field-right
 							// if it's set we need to assign it to our label and remove it from the field classes
-							 // input half left
+							// input half left
 							if( in_array( 'field-left-half' , $custom_classes ) ) {
 								// $label_array['class'] = 'class="field-left-half"';
 								$label_class_array[] = 'field-left-half';
@@ -595,7 +595,7 @@ function process_mailchimp_shortcode( $atts ) {
 							*	'yikes-mailchimp-' . $field['merge'] . '-description-html' (e.g. yikes-mailchimp-FNAME-description-html)
 							*
 							* 	Filter the description HTML block
-							*	
+							*
 							*	@param string | $description 			| The full HTML description block
 							*	@param string | $field['description']	| The field's description text
 							*	@param int	  | $form_id
@@ -741,7 +741,7 @@ function process_mailchimp_shortcode( $atts ) {
 
 								// Placeholder logic
 								if ( ! empty( $field_array['placeholder'] ) ) {
-									
+
 									$use_address_placeholder = true;
 
 									// Don't use the address field's array placeholder - use the custom placeholder
@@ -787,7 +787,7 @@ function process_mailchimp_shortcode( $atts ) {
 														<?php echo ucwords( apply_filters( 'yikes-mailchimp-address-' . $type . '-label' , esc_attr( $label ), $form_id ) ); ?>
 													</span>
 												<?php } ?>
-												
+
 												<input <?php echo implode( ' ' , $field_array ); ?> placeholder="<?php echo $placeholder; ?>" type="text" value="<?php if( isset( $_POST[$field['merge']][$type] ) && $form_submitted != 1 ) { echo esc_attr( $_POST[$field['merge']][$type] ); } ?>">
 
 											</label>
@@ -808,7 +808,7 @@ function process_mailchimp_shortcode( $atts ) {
 
 													<select <?php echo implode( ' ' , $field_array ); ?>>
 														<?php
-															$state_and_province_list = file_get_contents( YIKES_MC_PATH . 'public/partials/shortcodes/templates/state-and-province-dropdown.php' ); 
+															$state_and_province_list = file_get_contents( YIKES_MC_PATH . 'public/partials/shortcodes/templates/state-and-province-dropdown.php' );
 															/**
 															*	'yikes-mailchimp-state-province-list'
 															*
@@ -820,7 +820,7 @@ function process_mailchimp_shortcode( $atts ) {
 															*	@return string | $state_and_province_list | Filtered HTML string of state/province options
 															*/
 															echo apply_filters( 'yikes-mailchimp-state-province-list', $state_and_province_list, $form_id );
-															
+
 														?>
 													</select>
 
@@ -840,21 +840,21 @@ function process_mailchimp_shortcode( $atts ) {
 													</span>
 												<?php } ?>
 
-												<?php 
+												<?php
 													// If zip lookup plugin is installed, the ZIP field comes back as an array and we need to handle it differently...
 													if( isset( $_POST[$field['merge']] ) && $form_submitted != 1 ) {
 														if ( is_array( $_POST[$field['merge']] ) && isset( $_POST[$field['merge']]['zip'] ) ) {
 															$zip_value = $_POST[$field['merge']]['zip'];
 														} else {
-															$zip_value = $_POST[$field['merge']]; 
+															$zip_value = $_POST[$field['merge']];
 														}
-													} else { 
+													} else {
 
 														/**
 														* A filter to set the default zip code value.
 														*
-														* U.S. users may want to default their subscribers. 
-														* However, this filter is more for non-U.S. users, where the zip field is hidden. 
+														* U.S. users may want to default their subscribers.
+														* However, this filter is more for non-U.S. users, where the zip field is hidden.
 														* Mailchimp requires a zip code (for all submissions/countries), so this filter allows users users to set a default value.
 														*
 														*	'yikes-mailchimp-default-zip-code'
@@ -947,7 +947,7 @@ function process_mailchimp_shortcode( $atts ) {
 
 								$default_value = ( isset( $field['default'] ) ? esc_attr( $field['default'] ) : '' );
 								$default_value = apply_filters( 'yikes-mailchimp-' . $field['merge'] . '-default-value', $default_value, $field, $form_id );
-								
+
 								// store empty number for looping
 								$x = 0;
 
@@ -1014,7 +1014,7 @@ function process_mailchimp_shortcode( $atts ) {
 												$no_default_name = apply_filters( 'yikes-mailchimp-dropdown-field-no-default-option-name', $no_default_name, $form_id );
 												echo $no_default === true ? '<option value="">' . $no_default_name . '</option>' : '';
 												foreach( $choices as $choice ) { ?>
-													<option 
+													<option
 														value="<?php echo esc_attr( $choice ); ?>"
 														<?php if ( $no_default !== true && in_array( $x, $default_choice ) || in_array( $choice, $default_choice, true ) ) { echo 'selected="selected"'; } ?>>
 														<?php echo esc_attr( stripslashes( $choice ) ); ?>
@@ -1069,10 +1069,10 @@ function process_mailchimp_shortcode( $atts ) {
 									foreach( $choices as $choice ) {
 										?>
 										<label for="<?php echo esc_attr( $field['merge'] ) . '-' . $i; ?>" class="yikes-easy-mc-checkbox-label <?php echo implode( ' ' , $custom_classes ); if( $i === $count ) { ?> last-selection<?php } ?>">
-											<input 
-												type="<?php echo esc_attr( $field['type'] ); ?>" 
-												name="<?php echo esc_attr( $field['merge'] ); ?>" 
-												id="<?php echo esc_attr( $field['merge'] . '-' . $i ); ?>" 
+											<input
+												type="<?php echo esc_attr( $field['type'] ); ?>"
+												name="<?php echo esc_attr( $field['merge'] ); ?>"
+												id="<?php echo esc_attr( $field['merge'] . '-' . $i ); ?>"
 												<?php if ( $no_default !== true && in_array( $x, $default_choice ) || in_array( $choice, $default_choice, true ) ) { echo 'checked="checked"'; } ?>
 												<?php echo $field_array['required']; ?>
 												value="<?php echo esc_attr( $choice ); ?>">
@@ -1108,7 +1108,7 @@ function process_mailchimp_shortcode( $atts ) {
 							*	'yikes-mailchimp-' . $field['group_id'] . '-description-html' (e.g. yikes-mailchimp-0ab8f8c84b-description-html)
 							*
 							* 	Filter the description HTML block
-							*	
+							*
 							*	@param string | $description 			| The full HTML description block
 							*	@param string | $field['description']	| The field's description text
 							*	@param int	  | $form_id
@@ -1175,13 +1175,13 @@ function process_mailchimp_shortcode( $atts ) {
 
 											?>
 											<label for="<?php echo esc_attr( $field['group_id'] ) . '-' . $i; ?>" class="yikes-easy-mc-checkbox-label <?php echo implode( ' ' , $custom_classes ); if( $x === $count ) { ?> last-selection<?php } ?>">
-												<input 
-													<?php if( isset( $field['require'] ) && $field['require'] == 1 ) { if ( $field['type'] !== 'checkboxes' ) { ?> required="required" <?php } ?> 
-													class="yikes-interest-group-required" <?php } ?> 
+												<input
+													<?php if( isset( $field['require'] ) && $field['require'] == 1 ) { if ( $field['type'] !== 'checkboxes' ) { ?> required="required" <?php } ?>
+													class="yikes-interest-group-required" <?php } ?>
 													type="<?php echo esc_attr( $type ); ?>"
-													name="group-<?php echo esc_attr( $field['group_id'] ); ?>[]" 
+													name="group-<?php echo esc_attr( $field['group_id'] ); ?>[]"
 													id="<?php echo esc_attr( $field['group_id'] . '-' . $i ); ?>"
-													<?php if ( in_array( $group_id, $default_choice ) ) { echo 'checked="checked"'; } ?> 
+													<?php if ( in_array( $group_id, $default_choice ) ) { echo 'checked="checked"'; } ?>
 													value="<?php echo esc_attr( $group_id ); ?>">
 													<?php echo esc_attr( $name ); ?>
 											</label>
@@ -1221,7 +1221,7 @@ function process_mailchimp_shortcode( $atts ) {
 												echo $no_default === true ? '<option value="">' . $no_default_name . '</option>' : '';
 
 												$i = 0;
-												foreach( $groups as $group_id => $name ) { 
+												foreach( $groups as $group_id => $name ) {
 
 													// If the form was submitted and failed, set the submitted/chosen values as the default
 													if( isset( $_POST[ 'group-' . $field['group_id'] ] ) && $form_submitted === 0 ) {
@@ -1230,12 +1230,12 @@ function process_mailchimp_shortcode( $atts ) {
 														$default_choice = ( is_array( $_POST[ 'group-' . $field['group_id'] ] ) ) ? $_POST[ 'group-' . $field['group_id'] ] : array( $_POST[ 'group-' . $field['group_id'] ] );
 													}
 											?>
-													<option 
-														<?php if ( in_array( $group_id, $default_choice ) ) { echo 'selected="selected"'; } ?> 
+													<option
+														<?php if ( in_array( $group_id, $default_choice ) ) { echo 'selected="selected"'; } ?>
 														value="<?php echo esc_attr( $group_id ); ?>">
 														<?php echo esc_attr( $name ); ?>
 													</option>
-											<?php 
+											<?php
 												$i++;
 												}
 											?>
@@ -1270,12 +1270,12 @@ function process_mailchimp_shortcode( $atts ) {
 										// Turn $default_choice into an array if it isn't already
 										$default_choice = ( isset( $default_choice ) && is_array( $default_choice ) ) ? $default_choice : array( $default_choice );
 
-										foreach( $groups as $group_id => $name ) { 
+										foreach( $groups as $group_id => $name ) {
 											?>
 											<label for="<?php echo esc_attr( $field['group_id'] ) . '-' . $i; ?>" class="yikes-easy-mc-checkbox-label <?php echo implode( ' ' , $custom_classes ); if ( $x === $count ) { echo ' last-selection'; } ?>" style="display:none;">
-												<input 
-													type="checkbox" 
-													name="group-<?php echo esc_attr( $field['group_id'] ); ?>[]" 
+												<input
+													type="checkbox"
+													name="group-<?php echo esc_attr( $field['group_id'] ); ?>[]"
 													id="<?php echo esc_attr( $field['group_id'] ) . '-' . $i; ?>"
 													value="<?php echo esc_attr( $group_id ) ?>"
 													<?php if ( in_array( $group_id, $default_choice ) ) { echo 'checked="checked"'; } ?>
@@ -1343,7 +1343,7 @@ function process_mailchimp_shortcode( $atts ) {
 				<!-- Nonce Security Check -->
 				<input type="hidden" id="yikes_easy_mc_new_subscriber_<?php echo esc_attr( $form_id ); ?>" name="yikes_easy_mc_new_subscriber" value="<?php echo wp_create_nonce( 'yikes_easy_mc_form_submit' ); ?>">
 				<?php wp_referer_field(); ?>
-				
+
 			</form>
 			<!-- Mailchimp Form generated by Easy Forms for Mailchimp v<?php echo YIKES_MC_VERSION; ?> (https://wordpress.org/plugins/yikes-inc-easy-mailchimp-extender/) -->
 
