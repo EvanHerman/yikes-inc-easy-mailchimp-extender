@@ -3,9 +3,9 @@ Contributors: yikesinc, eherman24, liljimmi, JPry, yikesitskevin, fmixell, vochr
 Donate link: https://yikesplugins.com/?utm_source=wp_plugin_repo&utm_medium=donate_link&utm_campaign=easy_forms_for_mailchimp
 Tags: Mailchimp, Mailchimp forms, Mailchimp lists, opt-in forms, sign up form, Mailchimp, email, forms, mailing lists, marketing, newsletter, sign up
 Requires at least: 4.0
-Tested up to: 6.0
+Tested up to: 6.2
 Requires PHP: 5.2.13
-Stable tag: 6.8.6
+Stable tag: 6.8.7
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -172,6 +172,9 @@ For information and code examples on how to implement the hooks and filters prov
 
 == Changelog ==
 
+= 6.8.7 - December 17, 2021 =
+* Altered code to adhere to WordPress Coding Standards.
+
 = 6.8.6 - December 17, 2021 =
 * Addressed potential XSS vulnerability
 
@@ -179,7 +182,7 @@ For information and code examples on how to implement the hooks and filters prov
 * Deprecated filter block_categories is replaced by block_categories_all in WP 5.8
 
 = 6.8.4 - April 12, 2021 =
-* Increase specifity of admin asset inclusion to prevent conflicts with other plugins.
+* Increase specificity of admin asset inclusion to prevent conflicts with other plugins.
 
 = 6.8.3 - March 4, 2021 =
 * Rename assets folder
