@@ -15,8 +15,6 @@ Easy Forms for Mailchimp
 
 This is the development repo for the [Easy Forms for Mailchimp](https://wordpress.org/plugins/yikes-inc-easy-mailchimp-extender/) plugin by [YIKES, Inc.](https://yikesinc.com/) where we work on new features and bug fixes.
 
-Feel free to beta test this plugin now, but remember, it's not a stable release.
-
 
 #### Minimum Requirements
 - WordPress 3.8+
@@ -155,7 +153,7 @@ Example:
 - `yikes-mailchimp-after-submission` and `yikes-mailchimp-after-submission-{$form_id}` - Do something with only the $merge_variables (note: these actions are fired off directly after `yikes-mailchimp-form-submission`).
 - `yikes-mailchimp-before-submission` and `yikes-mailchimp-before-submission-{$form_id}` - Do something with the $merge_variables before the API request. @params: $merge_variables
 - `yikes-mailchimp-after-form` - Do something after a form has been loaded. @params: $form_id
-- `yikes-mailchimp-before-checkbox` - Do something (e.g. output custom content) before the opt-in checkbox for all integrations. 
+- `yikes-mailchimp-before-checkbox` - Do something (e.g. output custom content) before the opt-in checkbox for all integrations.
 - `yikes-mailchimp-after-checkbox` - Do something (e.g. output custom content) after the opt-in checkbox for all integrations
 - `yikes-mailchimp-support-page` - Do something (e.g. output custom content) on the support page (note: we use this to add our support form for premium users).
 - `yikes-mailchimp-edit-form-section-links` - Add additional links to the edit form page next to 'Custom Messages'.
