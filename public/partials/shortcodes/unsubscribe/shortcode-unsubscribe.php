@@ -36,14 +36,14 @@ function process_yikes_unsubscribe_shortcode( $args ) {
 
 	// Include our JS AJAX functions
 	wp_register_script( 'yikes-mailchimp-unsubscribe-script', plugin_dir_url( __FILE__ ) . '/unsubscribe.js', array( 'jquery' ), YIKES_MC_VERSION, true );
-	wp_localize_script( 'yikes-mailchimp-unsubscribe-script', 'yikes_unsubscribe_data', 
-		array( 
+	wp_localize_script( 'yikes-mailchimp-unsubscribe-script', 'yikes_unsubscribe_data',
+		array(
 			'ajax_url' => admin_url( 'admin-ajax.php' ),
 			'error1'   => apply_filters( 'yikes-mailchimp-unsubscribe-general-error', __( 'An error occurred.', 'yikes-inc-easy-mailchimp-extender' ) ),
 			'error2'   => apply_filters( 'yikes-mailchimp-unsubscribe-not-found-error', __( 'It looks like you\'re already unsubscribed.', 'yikes-inc-easy-mailchimp-extender' ) ),
 			'success'  => apply_filters( 'yikes-mailchimp-unsubscribe-success', __( 'Success! You\'ve been unsubscribed from this list.', 'yikes-inc-easy-mailchimp-extender' ) ),
 			'loader'   => apply_filters( 'yikes-mailchimp-unsubscribe-loader', YIKES_MC_URL . 'includes/images/ripple.svg' ),
-		) 
+		)
 	);
 	wp_enqueue_script ( 'yikes-mailchimp-unsubscribe-script' );
 
@@ -52,27 +52,27 @@ function process_yikes_unsubscribe_shortcode( $args ) {
 
 	ob_start();
 	?>
-		<section id="yikes-mailchimp-unsubscribe-container-<?php echo $list_id; ?>" class="yikes-mailchimp-unsubscribe-container">
+		<section id="yikes-mailchimp-unsubscribe-container-<?php echo esc_attr( $list_id ); ?>" class="yikes-mailchimp-unsubscribe-container">
 
-			<div id="yikes-mailchimp-unsubscribe-title-<?php echo $list_id; ?>" class="yikes-mailchimp-unsubscribe-title">
-				<h2><?php echo apply_filters( 'yikes-mailchimp-unsubscribe-title', $values['title'] ); ?></h2>
+			<div id="yikes-mailchimp-unsubscribe-title-<?php echo esc_attr( $list_id ); ?>" class="yikes-mailchimp-unsubscribe-title">
+				<h2><?php echo apply_filters( 'yikes-mailchimp-unsubscribe-title', esc_html( $values['title'] ) ); ?></h2>
 			</div>
 
-			<div id="yikes-mailchimp-unsubscribe-description-<?php echo $list_id; ?>" class="yikes-mailchimp-unsubscribe-description">
-				<?php echo apply_filters( 'yikes-mailchimp-unsubscribe-description', $values['description'] ); ?>
+			<div id="yikes-mailchimp-unsubscribe-description-<?php echo esc_attr( $list_id ); ?>" class="yikes-mailchimp-unsubscribe-description">
+				<?php echo apply_filters( 'yikes-mailchimp-unsubscribe-description', esc_html( $values['description'] ) ); ?>
 			</div>
 
 			<?php do_action( 'yikes-mailchimp-unsubscribe-before-form' ); ?>
 
 			<div class="yikes-mailchimp-unsubscribe-feedback" style="display: none;"></div>
 
-			<form id="yikes-mailchimp-unsubscribe-form-<?php echo $list_id; ?>" class="yikes-mailchimp-unsubscribe-form" method="POST">
+			<form id="yikes-mailchimp-unsubscribe-form-<?php echo esc_attr( $list_id ); ?>" class="yikes-mailchimp-unsubscribe-form" method="POST">
 
 				<!-- Email -->
 				<?php do_action( 'yikes-mailchimp-unsubscribe-before-email' ); ?>
 				<label for="yikes-mailchimp-unsubscribe-email" class="EMAIL-label">
-					<span class="EMAIL-label"><?php echo $values['email_label']; ?></span>
-					<input name="EMAIL" placeholder="<?php echo $values['email_placeholder']; ?>" class="yikes-mailchimp-unsubscribe-email" id="yikes-mailchimp-unsubscribe-email" required="required" type="email" value="<?php echo esc_attr( apply_filters( 'yikes-mailchimp-unsubscribe-email-default', '' ) ); ?>">
+					<span class="EMAIL-label"><?php echo esc_html( $values['email_label'] ); ?></span>
+					<input name="EMAIL" placeholder="<?php echo esc_attr( $values['email_placeholder'] ); ?>" class="yikes-mailchimp-unsubscribe-email" id="yikes-mailchimp-unsubscribe-email" required="required" type="email" value="<?php echo esc_attr( apply_filters( 'yikes-mailchimp-unsubscribe-email-default', '' ) ); ?>">
 				</label>
 				<?php do_action( 'yikes-mailchimp-unsubscribe-after-email' ); ?>
 
@@ -80,11 +80,11 @@ function process_yikes_unsubscribe_shortcode( $args ) {
 				<input type="hidden" class="yikes-mailchimp-honeypot" name="yikes-mailchimp-honeypot" value="">
 
 				<!-- List ID -->
-				<input type="hidden" class="yikes-mailchimp-unsubscribe-list-id" name="yikes-mailchimp-unsubscribe-list-id" value="<?php echo $list_id; ?>">
+				<input type="hidden" class="yikes-mailchimp-unsubscribe-list-id" name="yikes-mailchimp-unsubscribe-list-id" value="<?php echo esc_attr( $list_id ); ?>">
 
 				<!-- Submit Button -->
 				<button type="submit" class="yikes-mailchimp-unsubscribe-submit-button">
-					<span class="yikes-mailchimp-submit-button-span-text"><?php echo $values['submit_label']; ?></span>
+					<span class="yikes-mailchimp-submit-button-span-text"><?php echo esc_html( $values['submit_label'] ); ?></span>
 				</button>
 
 				<input type="hidden" class="yikes-mailchimp-unsubscribe-nonce" name="yikes-mailchimp-unsubscribe-nonce" value="<?php echo wp_create_nonce( 'yikes-mailchimp-unsubscribe' ); ?>">

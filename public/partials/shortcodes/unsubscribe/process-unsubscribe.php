@@ -1,7 +1,7 @@
 <?php
 
 class YIKES_Mailchimp_Process_Unsubscribe {
-	
+
 	public function __construct() {
 		$this->define_unsubscribe_ajax();
 	}

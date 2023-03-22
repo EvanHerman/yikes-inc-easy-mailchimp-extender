@@ -72,6 +72,13 @@ class Yikes_Inc_Easy_Mailchimp_Extender_Option_Forms extends Yikes_Inc_Easy_Mail
 	 * @return int|bool The new form ID, or false on failure.
 	 */
 	public function create_form( $form_data ) {
+		// Sanitize the form name and description.
+		if ( isset( $form_data['form_name'] ) ) {
+			$form_data['form_name'] = sanitize_text_field( $form_data['form_name'] );
+		}
+		if ( isset( $form_data['form_description'] ) ) {
+			$form_data['form_description'] = sanitize_textarea_field( $form_data['form_description'] );
+		}
 		// Include default form data
 		$form_data = yikes_deep_parse_args( $form_data, $this->get_form_defaults() );
 

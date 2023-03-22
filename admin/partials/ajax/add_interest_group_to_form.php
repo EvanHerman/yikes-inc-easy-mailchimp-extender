@@ -57,7 +57,7 @@ foreach( $interest_groups as $group ) {
 	$groups     = wp_list_pluck( $field_data['items'], 'name' );
 
 	?>
-	<section class="draggable" id="<?php echo $group['group_id']; ?>">
+	<section class="draggable" id="<?php echo esc_attr( $group['group_id'] ); ?>">
 		<!-- top -->
 		<a href="#" class="expansion-section-title settings-sidebar">
 			<span class="dashicons dashicons-plus yikes-mc-expansion-toggle" title="<?php _e( 'Expand Field' , 'yikes-inc-easy-mailchimp-extender' ); ?>"></span>
@@ -70,10 +70,10 @@ foreach( $interest_groups as $group ) {
 			<!-- Single or Double Opt-in -->
 			<p class="type-container"><!-- necessary to prevent skipping on slideToggle(); -->
 				<!-- store the label -->
-				<input type="hidden" name="field[<?php echo $group['group_id']; ?>][label]" value="<?php echo htmlspecialchars( $group['field_name'] ); ?>" />
-				<input type="hidden" name="field[<?php echo $group['group_id']; ?>][type]" value="<?php echo $group['field_type']; ?>" />
-				<input type="hidden" name="field[<?php echo $group['group_id']; ?>][group_id]" value="<?php echo $group['group_id']; ?>" />
-				<input type="hidden" name="field[<?php echo $group['group_id']; ?>][groups]" value='<?php echo esc_attr( json_encode( $groups, true ) ); ?>' />
+				<input type="hidden" name="field[<?php echo esc_attr( $group['group_id'] ); ?>][label]" value="<?php echo htmlspecialchars( $group['field_name'] ); ?>" />
+				<input type="hidden" name="field[<?php echo esc_attr( $group['group_id'] ); ?>][type]" value="<?php echo esc_attr( $group['field_type'] ); ?>" />
+				<input type="hidden" name="field[<?php echo esc_attr( $group['group_id'] ); ?>][group_id]" value="<?php echo esc_attr( $group['group_id'] ); ?>" />
+				<input type="hidden" name="field[<?php echo esc_attr( $group['group_id'] ); ?>][groups]" value='<?php echo esc_attr( json_encode( $groups, true ) ); ?>' />
 
 
 				<table class="form-table form-field-container">
@@ -94,10 +94,10 @@ foreach( $interest_groups as $group ) {
 									<?php $pre_selected = ! empty( $field_data['default_choice'] ) ? $field_data['default_choice'] : 'no-default'; ?>
 
 									<!-- No Default option for radio buttons -->
-									<input type="radio" name="field[<?php echo $group['group_id']; ?>][default_choice][]" value="no-default" <?php checked( $pre_selected, 'no-default' ); ?>>No Default
+									<input type="radio" name="field[<?php echo esc_attr( $group['group_id'] ); ?>][default_choice][]" value="no-default" <?php checked( $pre_selected, 'no-default' ); ?>>No Default
 
 									<?php foreach ( $field_data['items'] as $id => $interest_group ) { ?>
-										<input type="radio" name="field[<?php echo $group['group_id']; ?>][default_choice][]" value="<?php echo esc_attr( $id ); ?>" <?php checked( $pre_selected, $id ); ?>><?php echo stripslashes( $interest_group['name'] );
+										<input type="radio" name="field[<?php echo esc_attr( $group['group_id'] ); ?>][default_choice][]" value="<?php echo esc_attr( $id ); ?>" <?php checked( $pre_selected, $id ); ?>><?php echo stripslashes( $interest_group['name'] );
 									} ?>
 
 									<p class="description"><small><?php _e( "Select the option that should be selected by default.", 'yikes-inc-easy-mailchimp-extender' );?></small></p>
@@ -123,7 +123,7 @@ foreach( $interest_groups as $group ) {
 										$pre_selected = ! empty( $field_data['default_choice'] ) ? $field_data['default_choice'] : '0';
 										?>
 										<label>
-											<input type="checkbox" name="field[<?php echo $group['group_id']; ?>][default_choice][]" value="<?php echo $id; ?>" <?php checked( $pre_selected, $id ); ?>>
+											<input type="checkbox" name="field[<?php echo esc_attr( $group['group_id'] ); ?>][default_choice][]" value="<?php echo $id; ?>" <?php checked( $pre_selected, $id ); ?>>
 											<?php echo stripslashes( $interest_group['name'] ); ?>
 										</label>
 										<?php
@@ -157,7 +157,7 @@ foreach( $interest_groups as $group ) {
 									</label>
 								</td>
 								<td>
-									<select type="default" name="field[<?php echo $group['group_id']; ?>][default_choice]">
+									<select type="default" name="field[<?php echo esc_attr( $group['group_id'] ); ?>][default_choice]">
 										<?php $pre_selected = ! empty( $field_data['default_choice'] ) ? $field_data['default_choice'] : 'no-default'; ?>
 										<option value="no-default">No Default</option>
 										<?php foreach ( $field_data['items'] as $id => $interest_group ) { ?>
@@ -180,7 +180,7 @@ foreach( $interest_groups as $group ) {
 							</label>
 						</td>
 						<td>
-							<textarea class="widefat field-description-input" name="field[<?php echo $group['group_id']; ?>][description]"></textarea>
+							<textarea class="widefat field-description-input" name="field[<?php echo esc_attr( $group['group_id'] ); ?>][description]"></textarea>
 							<p class="description"><small><?php _e( "Enter the description for the form field. This will be displayed to the user and provide some direction on how the field should be filled out or selected.", 'yikes-inc-easy-mailchimp-extender' );?></small></p>
 						</td>
 					</tr>
@@ -193,7 +193,7 @@ foreach( $interest_groups as $group ) {
 							</label>
 						</td>
 						<td>
-							<input type="checkbox" id="description_above_<?php echo esc_attr( $group['group_id'] ); ?>" class="widefat field-description-input" name="field[<?php echo $group['group_id']; ?>][description_above]" value="1" />
+							<input type="checkbox" id="description_above_<?php echo esc_attr( $group['group_id'] ); ?>" class="widefat field-description-input" name="field[<?php echo esc_attr( $group['group_id'] ); ?>][description_above]" value="1" />
 							<p class="description"><small><?php _e( "By default the description will appear undearneath the field. Check this box if you'd like the description to appear above the field.", 'yikes-inc-easy-mailchimp-extender' );?></small></p>
 						</td>
 					</tr>
@@ -206,7 +206,7 @@ foreach( $interest_groups as $group ) {
 							</label>
 						</td>
 						<td>
-							<input type="text" class="widefat" name="field[<?php echo $group['group_id']; ?>][additional-classes]" value="<?php echo isset( $group['classes'] ) ? stripslashes( wp_strip_all_tags( $group['classes'] ) ) : '' ; ?>" />
+							<input type="text" class="widefat" name="field[<?php echo esc_attr( $group['group_id'] ); ?>][additional-classes]" value="<?php echo isset( $group['classes'] ) ? stripslashes( wp_strip_all_tags( $group['classes'] ) ) : '' ; ?>" />
 							<p class="description"><small><?php printf( __( "Assign additional classes to this field. %s.", 'yikes-inc-easy-mailchimp-extender' ), '<a target="_blank" href="' . esc_url( 'https://yikesplugins.com/support/knowledge-base/bundled-css-classes/' ) . '">' . __( 'View bundled classes', 'yikes-inc-easy-mailchimp-extender' ) . '</a>' );?></small></p>
 						</td>
 						</tr>
@@ -218,7 +218,7 @@ foreach( $interest_groups as $group ) {
 								</label>
 							</td>
 							<td>
-								<input type="checkbox" class="widefat" value="1" name="field[<?php echo $group['group_id']; ?>][require]">
+								<input type="checkbox" class="widefat" value="1" name="field[<?php echo esc_attr( $group['group_id'] ); ?>][require]">
 								<p class="description"><small><?php _e( "Require this field to be filled in before the form can be submitted.", 'yikes-inc-easy-mailchimp-extender' );?></small></p>
 							</td>
 						</tr>
@@ -230,7 +230,7 @@ foreach( $interest_groups as $group ) {
 								</label>
 							</td>
 							<td>
-								<input type="checkbox" class="widefat" value="1" name="field[<?php echo $group['group_id']; ?>][hide]">
+								<input type="checkbox" class="widefat" value="1" name="field[<?php echo esc_attr( $group['group_id'] ); ?>][hide]">
 								<p class="description"><small><?php _e( "Hide this field from being displayed on the front end.", 'yikes-inc-easy-mailchimp-extender' );?></small></p>
 							</td>
 						</tr>
@@ -242,7 +242,7 @@ foreach( $interest_groups as $group ) {
 								</label>
 							</td>
 							<td>
-								<input type="checkbox" name="field[<?php echo $group['group_id']; ?>][hide-label]" value="1" />
+								<input type="checkbox" name="field[<?php echo esc_attr( $group['group_id'] ); ?>][hide-label]" value="1" />
 								<p class="description"><small><?php _e( "Toggle field label visibility.", 'yikes-inc-easy-mailchimp-extender' );?></small></p>
 							</td>
 						</tr>
@@ -254,7 +254,7 @@ foreach( $interest_groups as $group ) {
 							<td>
 								<span class="toggle-container">
 									<a href="#" class="hide-field"><?php _e( "Close" , 'yikes-inc-easy-mailchimp-extender' ); ?></a> |
-									<a href="#" class="remove-field" alt="<?php echo $group['group_id']; ?>"><?php _e( "Remove Field" , 'yikes-inc-easy-mailchimp-extender' ); ?></a>
+									<a href="#" class="remove-field" alt="<?php echo esc_attr( $group['group_id'] ); ?>"><?php _e( "Remove Field" , 'yikes-inc-easy-mailchimp-extender' ); ?></a>
 								</span>
 							</td>
 						</tr>
