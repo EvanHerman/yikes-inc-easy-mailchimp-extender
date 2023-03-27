@@ -56,6 +56,14 @@ class Yikes_Inc_Easy_Mailchimp_Extender_Option_Forms extends Yikes_Inc_Easy_Mail
 		}
 
 		$new_data = array_merge( $all_forms[ $form_id ], $data );
+
+		// Data hasn't changed, so don't bother updating.
+		if ( $new_data === $all_forms[ $form_id ] ) {
+
+			return true;
+
+		}
+
 		ksort( $new_data );
 		$all_forms[ $form_id ] = $new_data;
 

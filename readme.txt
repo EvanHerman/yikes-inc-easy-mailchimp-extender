@@ -5,7 +5,7 @@ Tags: Mailchimp, Mailchimp forms, Mailchimp lists, opt-in forms, sign up form, M
 Requires at least: 4.0
 Tested up to: 6.2
 Requires PHP: 5.2.13
-Stable tag: 6.8.7
+Stable tag: 6.8.8
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -172,7 +172,12 @@ For information and code examples on how to implement the hooks and filters prov
 
 == Changelog ==
 
-= 6.8.7 - December 17, 2021 =
+= 6.8.8 - March 27, 2023 =
+* Escaped and sanitize form fields in admin.
+* Fix block breaking bug with interest group form field descriptions.
+* Fix incorrect error returned when a form field submission data is reset.
+
+= 6.8.7 - March 23, 2023 =
 * Altered code to adhere to WordPress Coding Standards.
 
 = 6.8.6 - December 17, 2021 =

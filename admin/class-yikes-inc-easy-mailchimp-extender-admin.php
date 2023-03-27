@@ -2562,7 +2562,7 @@ class Yikes_Inc_Easy_Mailchimp_Forms_Admin {
 				$form_id_to_reset,
 				array(
 					'impressions' => 0,
-					'submissions' => 0
+					'submissions' => 0,
 				)
 			);
 

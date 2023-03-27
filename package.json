@@ -1,6 +1,6 @@
 {
 	"name": "yikes-inc-easy-mailchimp-extender",
-	"version": "6.8.7",
+	"version": "6.8.8",
 	"devDependencies": {
 		"@wordpress/scripts": "^26",
 		"braces": ">=2.3.1",
