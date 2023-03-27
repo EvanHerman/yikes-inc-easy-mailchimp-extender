@@ -673,9 +673,9 @@ export default class MailchimpForms extends Component {
             }
           } else {
 
-            // var desc = field.description.length > 0 ? 
-            //   <p className="form-field-description" id={ "form-field-description-" + field.group_id } key={ "form-field-description-" + field.group_id }>{ field.description }</p>
-            // : '';
+            var desc = field.description && field.description.length > 0 ? 
+              <p className="form-field-description" id={ "form-field-description-" + field.group_id } key={ "form-field-description-" + field.group_id }>{ field.description }</p>
+            : '';
 
             var label = field['hide-label'] !== '1' ?
               <span key={ field.group_id + "-label-span-key" } className={ field.group_id + "-label checkbox-parent-label" }>{ field.label }</span> 
