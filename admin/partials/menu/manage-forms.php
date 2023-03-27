@@ -134,17 +134,17 @@ if( $this->is_user_mc_api_valid_form( false ) == 'valid' ) {
 										?>
 										<tr class="<?php if( $i % 2 == 0 ) { echo 'alternate'; } ?>">
 											<th class="check-column num" scope="row"><input type="checkbox" /></th>
-											<td class="column-columnname num"><span class="form-id-container"><?php echo intval( $id ); ?></span></td>
+											<td class="column-columnname num"><span class="form-id-container"><?php echo esc_html( intval( $id ) ); ?></span></td>
 											<td class="column-columnname">
 												<!-- row title/link -->
 												<a href="<?php echo esc_url_raw( add_query_arg( array( 'id' => $id ) , admin_url( 'admin.php?page=yikes-mailchimp-edit-form' ) ) ); ?>" class="row-title">
-													<?php echo stripslashes( $form['form_name'] ); ?>
+													<?php echo esc_html( stripslashes( $form['form_name'] ) ); ?>
 												</a>
 												<div class="row-actions">
-													<span><a href="<?php echo esc_url_raw( add_query_arg( array( 'id' => $id ) , admin_url( 'admin.php?page=yikes-mailchimp-edit-form' ) ) ); ?>"><?php _e( "Edit" , 'yikes-inc-easy-mailchimp-extender' ); ?></a> |</span>
-													<span><a href="<?php echo esc_url_raw( add_query_arg( array( 'action' => 'yikes-easy-mc-duplicate-form', 'mailchimp-form' => $id , 'nonce' => wp_create_nonce( 'duplicate-mailchimp-form-'.$id ) ) , admin_url( 'admin.php?page=yikes-inc-easy-mailchimp' ) ) ); ?>"><?php _e( "Duplicate" , 'yikes-inc-easy-mailchimp-extender' ); ?></a> |</span>
-													<span><a href="<?php echo esc_url_raw( add_query_arg( array( 'action' => 'yikes-easy-mc-reset-stats', 'mailchimp-form' => $id , 'nonce' => wp_create_nonce( 'reset-stats-mailchimp-form-'.$id ) ) , admin_url( 'admin.php?page=yikes-inc-easy-mailchimp' ) ) ); ?>"><?php _e( "Reset Stats" , 'yikes-inc-easy-mailchimp-extender' ); ?></a> |</span>
-													<span><a href="#" class="view-yikes-mc-form-shortcode" data-alt-text="<?php _e( 'Stats' , 'yikes-inc-easy-mailchimp-extender' ); ?>"><?php _e( "Shortcode" , 'yikes-inc-easy-mailchimp-extender' ); ?></a> |</span>
+													<span><a href="<?php echo esc_url_raw( add_query_arg( array( 'id' => $id ) , admin_url( 'admin.php?page=yikes-mailchimp-edit-form' ) ) ); ?>"><?php esc_html_e( "Edit", 'yikes-inc-easy-mailchimp-extender' ); ?></a> |</span>
+													<span><a href="<?php echo esc_url_raw( add_query_arg( array( 'action' => 'yikes-easy-mc-duplicate-form', 'mailchimp-form' => $id , 'nonce' => wp_create_nonce( 'duplicate-mailchimp-form-'.$id ) ) , admin_url( 'admin.php?page=yikes-inc-easy-mailchimp' ) ) ); ?>"><?php esc_html_e( "Duplicate", 'yikes-inc-easy-mailchimp-extender' ); ?></a> |</span>
+													<span><a href="<?php echo esc_url_raw( add_query_arg( array( 'action' => 'yikes-easy-mc-reset-stats', 'mailchimp-form' => $id , 'nonce' => wp_create_nonce( 'reset-stats-mailchimp-form-'.$id ) ) , admin_url( 'admin.php?page=yikes-inc-easy-mailchimp' ) ) ); ?>"><?php esc_html_e( "Reset Stats", 'yikes-inc-easy-mailchimp-extender' ); ?></a> |</span>
+													<span><a href="#" class="view-yikes-mc-form-shortcode" data-alt-text="<?php _e( 'Stats' , 'yikes-inc-easy-mailchimp-extender' ); ?>"><?php esc_html_e( "Shortcode" , 'yikes-inc-easy-mailchimp-extender' ); ?></a> |</span>
 													<?php
 														/*
 														*	Custom action to allow users to add additional action links
@@ -153,7 +153,7 @@ if( $this->is_user_mc_api_valid_form( false ) == 'valid' ) {
 														*/
 														do_action( 'yikes-mailchimp-custom-form-actions' , $id );
 													?>
-													<span><a href="<?php echo esc_url_raw( add_query_arg( array( 'action' => 'yikes-easy-mc-delete-form', 'mailchimp-form' => $id , 'nonce' => wp_create_nonce( 'delete-mailchimp-form-'.$id ) ) , admin_url( 'admin.php?page=yikes-inc-easy-mailchimp' ) ) ); ?>" class="yikes-delete-mailchimp-form" onclick="return confirm('<?php printf( __( 'Are you sure you want to delete the %s form? This cannot be undone.' , 'yikes-inc-easy-mailchimp-extender' ), stripslashes( $form['form_name'] ) ); ?>');"><?php _e( "Delete" , 'yikes-inc-easy-mailchimp-extender' ); ?></a></span>
+													<span><a href="<?php echo esc_url_raw( add_query_arg( array( 'action' => 'yikes-easy-mc-delete-form', 'mailchimp-form' => $id , 'nonce' => wp_create_nonce( 'delete-mailchimp-form-'.$id ) ) , admin_url( 'admin.php?page=yikes-inc-easy-mailchimp' ) ) ); ?>" class="yikes-delete-mailchimp-form" onclick="return confirm('<?php printf( __( 'Are you sure you want to delete the %s form? This cannot be undone.' , 'yikes-inc-easy-mailchimp-extender' ), stripslashes( $form['form_name'] ) ); ?>');"><?php esc_html_e( "Delete", 'yikes-inc-easy-mailchimp-extender' ); ?></a></span>
 												</div>
 											</td>
 
@@ -165,7 +165,7 @@ if( $this->is_user_mc_api_valid_form( false ) == 'valid' ) {
 													if ( isset( $parsed[ $form['list_id'] ] ) ) {
 														echo esc_textarea( $parsed[ $form['list_id'] ] );
 													} else {
-														echo '<strong>' . __( 'List Not Found', 'yikes-inc-easy-mailchimp-extender' ) . '</strong>';
+														echo '<strong>' . esc_html__( 'List Not Found', 'yikes-inc-easy-mailchimp-extender' ) . '</strong>';
 													}
 												} ?>
 											</td>
@@ -173,13 +173,13 @@ if( $this->is_user_mc_api_valid_form( false ) == 'valid' ) {
 											<td class="column-columnname num stat-container">
 												<?php
 													$impressions = number_format( $form['impressions'] );
-													echo '<span title="' . __( 'Impressions' , 'yikes-inc-easy-mailchimp-extender' ) . '">' . $impressions . '</span>';
+													echo '<span title="' . esc_attr__( 'Impressions' , 'yikes-inc-easy-mailchimp-extender' ) . '">' . esc_html( $impressions ) . '</span>';
 												?>
 											</td>
 											<td class="column-columnname num stat-container">
 												<?php
 													$submissions = number_format( $form['submissions'] );
-													echo '<span title="' . __( 'Submissions' , 'yikes-inc-easy-mailchimp-extender' ) . '">' . $submissions . '</span>';
+													echo '<span title="' . esc_attr__( 'Submissions' , 'yikes-inc-easy-mailchimp-extender' ) . '">' . esc_html( $submissions ) . '</span>';
 												?>
 											</td>
 											<td class="column-columnname num stat-container">
@@ -199,12 +199,12 @@ if( $this->is_user_mc_api_valid_form( false ) == 'valid' ) {
 														$conversion_rate = '0';
 														$conversion_color = '#333333';
 													}
-													echo '<span style="color:' . esc_attr( $conversion_color ) . ';" title="' . esc_attr__( 'Conversion Rate' , 'yikes-inc-easy-mailchimp-extender' ) . '">' . $conversion_rate . '%</span>';
+													echo '<span style="color:' . esc_attr( $conversion_color ) . ';" title="' . esc_attr__( 'Conversion Rate' , 'yikes-inc-easy-mailchimp-extender' ) . '">' . esc_html( $conversion_rate ) . '%</span>';
 												?>
 											</td>
 											<!-- shortcode -->
 											<td class="column-columnname shortcode hidden-class" colspan="3">
-												<input type="text" class="yikes-mc-shortcode-input yikes-mc-shortcode-input-<?php echo $id; ?>" onclick="this.setSelectionRange(0, this.value.length)" readonly value='[yikes-mailchimp form="<?php echo $id; ?>"]' />
+												<input type="text" class="yikes-mc-shortcode-input yikes-mc-shortcode-input-<?php echo esc_attr( $id ); ?>" onclick="this.setSelectionRange(0, this.value.length)" readonly value='[yikes-mailchimp form="<?php echo esc_attr( $id ); ?>"]' />
 											</td>
 										</tr>
 									<?php
@@ -212,7 +212,7 @@ if( $this->is_user_mc_api_valid_form( false ) == 'valid' ) {
 											}
 										} else { ?>
 										<tr class="no-items">
-											<td class="colspanchange no-mailchimp-forms-found" colspan="8"><em><?php _e( 'No Mailchimp forms found. Use the form to the right to create a new one.' , 'yikes-inc-easy-mailchimp-extender' ); ?></em></td>
+											<td class="colspanchange no-mailchimp-forms-found" colspan="8"><em><?php esc_html_e( 'No Mailchimp forms found. Use the form to the right to create a new one.', 'yikes-inc-easy-mailchimp-extender' ); ?></em></td>
 										</tr>
 									<?php } ?>
 								</tbody>

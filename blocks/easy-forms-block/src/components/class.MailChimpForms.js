@@ -55,15 +55,15 @@ export default class MailchimpForms extends Component {
   }
 
   handleFormFieldChanges( event ) {
-  	// console.log( event );
-  	
-  	// console.log( value );
-  	// console.log( this );
-  	// console.log( typeof this.setState );
+    // console.log( event );
 
-  	// const target = event.target;
-   //  const value  = target.type === 'checkbox' ? target.checked : target.value;
-   //  const name   = target.name;
+    // console.log( value );
+    // console.log( this );
+    // console.log( typeof this.setState );
+
+    // const target = event.target;
+    //  const value  = target.type === 'checkbox' ? target.checked : target.value;
+    //  const name   = target.name;
 
     // return this.setState( { [name]: value } );
   }
@@ -673,9 +673,9 @@ export default class MailchimpForms extends Component {
             }
           } else {
 
-            var desc = field.description.length > 0 ? 
-              <p className="form-field-description" id={ "form-field-description-" + field.group_id } key={ "form-field-description-" + field.group_id }>{ field.description }</p>
-            : '';
+            // var desc = field.description.length > 0 ? 
+            //   <p className="form-field-description" id={ "form-field-description-" + field.group_id } key={ "form-field-description-" + field.group_id }>{ field.description }</p>
+            // : '';
 
             var label = field['hide-label'] !== '1' ?
               <span key={ field.group_id + "-label-span-key" } className={ field.group_id + "-label checkbox-parent-label" }>{ field.label }</span> 
@@ -703,7 +703,7 @@ export default class MailchimpForms extends Component {
                     ( field.type === 'dropdown' ? this.get_dropdown_interest_group( field ) : '' ) ) ) )
                   }
 
-                  { field.description_above !== '1' && field.description.length > 0 && desc }
+                  { field.description && field.description_above !== '1' && field.description.length > 0 && desc }
 
                 </label>
               )
