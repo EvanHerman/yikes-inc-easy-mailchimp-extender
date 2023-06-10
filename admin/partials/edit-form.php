@@ -5,7 +5,7 @@
 if ( isset( $_GET['sql_error'] ) ) {
 
 	if ( get_option( 'yikes-mailchimp-debug-status', '' ) === '1' ) {
-		wp_die( '<strong>' . __( 'Error Creating Form', 'yikes-inc-easy-mailchimp-extender' ) . '</strong> <p>' . stripslashes( urldecode( $_GET['sql_error'] ) ) . '</p>' . __( 'Error Creating Form', 'yikes-inc-easy-mailchimp-extender' ) );
+		wp_die( '<strong>' . __( 'Error Creating Form', 'yikes-inc-easy-mailchimp-extender' ) . '</strong> <p>' . esc_html( urldecode( $_GET['sql_error'] ) ) . '</p>' . __( 'Error Creating Form', 'yikes-inc-easy-mailchimp-extender' ) );
 	} else {
 		wp_die( '<strong>' . __( 'Error Creating Form', 'yikes-inc-easy-mailchimp-extender' ) . '</strong><p>' . __( "Please try again. If the error persists please get in contact with the YIKES Inc. support team.", 'yikes-inc-easy-mailchimp-extender' ) . '</p>' );
 	}

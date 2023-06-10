@@ -543,20 +543,20 @@ class Yikes_Inc_Easy_Mailchimp_Forms_Admin {
 
 				// The URL of the page the user is currently on
 				$current_uri  	  = isset( $_SERVER['REQUEST_URI'] ) && ! empty( $_SERVER['REQUEST_URI'] ) ? $_SERVER['REQUEST_URI'] : false;
-				$current_host	  = isset( $_SERVER['HTTP_HOST'] ) && ! empty( $_SERVER['HTTP_HOST'] ) ? $_SERVER['HTTP_HOST'] : false;
+				$current_host	    = isset( $_SERVER['HTTP_HOST'] ) && ! empty( $_SERVER['HTTP_HOST'] ) ? $_SERVER['HTTP_HOST'] : false;
 				$current_protocol = is_ssl() === true ? 'https://' : 'http://';
-				$current_url	  = ( $current_uri !== false && $current_host !== false ) ? $current_protocol . $current_host . $current_uri : admin_url();
+				$current_url	    = ( $current_uri !== false && $current_host !== false ) ? $current_protocol . $current_host . $current_uri : admin_url();
 
 				$plugin_name = '<strong>Easy Forms for Mailchimp</strong>';
 				// Review URL - Change to the URL of your plugin on WordPress.org.
-				$reviewurl = 'https://wordpress.org/support/view/plugin-reviews/yikes-inc-easy-mailchimp-extender';
-				$addons_url = esc_url( admin_url( 'admin.php?page=yikes-inc-easy-mailchimp-addons' ) );
-				$nobugurl = esc_url_raw( add_query_arg( 'yikes_easy_mc_icons_nobug', '1', $current_url ) );
+				$reviewurl   = 'https://wordpress.org/support/view/plugin-reviews/yikes-inc-easy-mailchimp-extender';
+				$addons_url  = esc_url( admin_url( 'admin.php?page=yikes-inc-easy-mailchimp-addons' ) );
+				$nobugurl    = esc_url_raw( add_query_arg( 'yikes_easy_mc_icons_nobug', '1', $current_url ) );
 
 				// Make sure all of our variables have values.
 				$reviewurl  = ( ! empty( $reviewurl ) ) ? $reviewurl : '';
 				$addons_url = ( ! empty( $addons_url ) ) ? $addons_url : '';
-				$nobugurl	= ( ! empty( $nobugurl ) ) ? $nobugurl : '';
+				$nobugurl   = ( ! empty( $nobugurl ) ) ? $nobugurl : '';
 
 				$review_message = '<div id="yikes-mailchimp-logo"></div>';
 				$review_message .= sprintf(
@@ -1359,17 +1359,17 @@ class Yikes_Inc_Easy_Mailchimp_Forms_Admin {
 							if ( ! empty( $lists ) ) {
 								foreach( $lists as $mailing_list ) {
 									?>
-									<option value="<?php echo $mailing_list['id']; ?>"><?php echo stripslashes( $mailing_list['name'] ) . ' (' . $mailing_list['stats']['member_count'] . ') '; ?></option>
+									<option value="<?php echo esc_attr( $mailing_list['id'] ); ?>"><?php echo esc_html( $mailing_list['name'] ) . ' (' . esc_html( $mailing_list['stats']['member_count'] ) . ') '; ?></option>
 									<?php
 								}
 							} else {
 								if ( get_option( 'yikes-mc-api-validation', 'invalid_api_key' ) == 'invalid_api_key' ) {
 									?>
-									<option><?php echo __( "Please enter a valid API key." , 'yikes-inc-easy-mailchimp-extender' ); ?></option>
+									<option><?php _e( "Please enter a valid API key." , 'yikes-inc-easy-mailchimp-extender' ); ?></option>
 									<?php
 								} else {
 									?>
-									<option><?php echo __( "No lists were found on the account." , 'yikes-inc-easy-mailchimp-extender' ); ?></option>
+									<option><?php _e( "No lists were found on the account." , 'yikes-inc-easy-mailchimp-extender' ); ?></option>
 									<?php
 
 								}
@@ -2462,8 +2462,8 @@ class Yikes_Inc_Easy_Mailchimp_Forms_Admin {
 
 			$result = $this->form_interface->create_form( array(
 				'list_id'          => sanitize_key( $_POST['associated-list'] ),
-				'form_name'        => stripslashes( $_POST['form-name'] ),
-				'form_description' => stripslashes( $_POST['form-description'] ),
+				'form_name'        => sanitize_text_field( $_POST['form-name'] ),
+				'form_description' => sanitize_text_field( $_POST['form-description'] ),
 			) );
 
 			// if an error occurs during the form creation process
@@ -2599,7 +2599,7 @@ class Yikes_Inc_Easy_Mailchimp_Forms_Admin {
 
 			// Store our values!
 			$list_id                 = $_POST['associated-list'];
-			$form_name               = stripslashes( $_POST['form-name'] );
+			$form_name               = sanitize_text_field( $_POST['form-name'] );
 			$form_description        = sanitize_text_field( stripslashes( $_POST['form-description'] ) );
 			$redirect_user_on_submit = $_POST['redirect-user-on-submission'];
 			$redirect_page           = $_POST['redirect-user-to-selection'];
