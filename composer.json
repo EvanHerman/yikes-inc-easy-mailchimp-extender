@@ -5,6 +5,14 @@
     "homepage": "http://packagist.org/",
     "type": "wordpress-plugin",
     "license": "GPL-2.0+",
+    "config": {
+        "platform": {
+            "php": "7.4"
+        },
+        "allow-plugins": {
+            "dealerdirect/phpcodesniffer-composer-installer": true
+        }
+    },
     "authors": [
         {
             "name": "Yikes Inc.",
@@ -24,9 +32,14 @@
         "php": ">=5.3"
     },
     "require-dev": {
+        "dealerdirect/phpcodesniffer-composer-installer": "^0.7",
         "phpunit/phpunit": "4.5.*",
         "wp-coding-standards/wpcs": "dev-master",
-        "codeclimate/php-test-reporter": "dev-master",
-        "symfony/class-loader": "^3.1"
+        "symfony/class-loader": "^3.1",
+        "phpcompatibility/phpcompatibility-wp": "*"
+    },
+    "scripts": {
+        "lint": "@php ./vendor/bin/phpcs --runtime-set ignore_warnings_on_exit 1",
+        "lint:fix": "@php ./vendor/bin/phpcbf"
     }
 }
