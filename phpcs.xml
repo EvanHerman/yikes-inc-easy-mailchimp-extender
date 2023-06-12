@@ -45,6 +45,8 @@
 		<exclude name="WordPress.Files.FileName.NotHyphenatedLowercase"/>
 	</rule>
 
+	<exclude name="Squiz.Commenting.FileComment.MissingSubpackageTag" />
+
 	<!-- Let's also check that everything is properly documented. -->
 	<rule ref="WordPress-Docs"/>
 

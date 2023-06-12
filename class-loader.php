@@ -1,6 +1,8 @@
 <?php
 /**
  * Autoloader.
+ *
+ * @package easy-mailchimp-extender
  */
 
 // Bail if WordPress isn't loaded.
@@ -14,17 +16,17 @@ if ( ! defined( 'WPINC' ) ) {
  * @author Jeremy Pry
  * @since 6.2.0
  *
- * @param string $class The name of the class to autoload.
+ * @param string $class_name The name of the class to autoload.
  */
-function yikes_inc_easy_mailchimp_extender_autoloader( $class ) {
+function yikes_inc_easy_mailchimp_extender_autoloader( $class_name ) { // phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedFunctionFound
 	static $map = null;
 	if ( null === $map ) {
-		$map = require( dirname( __FILE__ ) . '/class-map.php' );
+		$map = require __DIR__ . '/class-map.php';
 	}
 
-	$class = strtolower( $class );
+	$class = strtolower( $class_name );
 	if ( isset( $map[ $class ] ) ) {
-		require_once( dirname( __FILE__ ) . "/{$map[ $class ]}" );
+		require_once __DIR__ . "/{$map[ $class ]}";
 	}
 }
 
