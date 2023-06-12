@@ -5,7 +5,7 @@ Tags: Mailchimp, Mailchimp forms, Mailchimp lists, opt-in forms, sign up form, M
 Requires at least: 4.0
 Tested up to: 6.2
 Requires PHP: 5.2.13
-Stable tag: 6.8.8
+Stable tag: 6.8.9
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -171,6 +171,9 @@ Alongside the default functionality of the plugin we've included a number of hoo
 For information and code examples on how to implement the hooks and filters provided by our plugin, please see our [Developer Documentation in the Knowledge Base](https://yikesplugins.com/support/knowledge-base/product/developer-documentation/?utm_source=wp_plugin_repo&utm_medium=link&utm_campaign=easy_forms_for_mailchimp).
 
 == Changelog ==
+
+= 6.8.9 - June 12, 2023 =
+* Escaped and sanitize form fields when a form is created and displayed to the user.
 
 = 6.8.8 - March 27, 2023 =
 * Escaped and sanitize form fields in admin.
