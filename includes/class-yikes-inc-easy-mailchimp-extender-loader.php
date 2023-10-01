@@ -2,7 +2,7 @@
 /**
  * Register all actions and filters for the plugin
  *
- * @link       https://www.yikesplugins.com/
+ * @link       https://www.codeparrots.com/
  * @since      6.0.0
  *
  * @package    Yikes_Inc_Easy_Mailchimp_Extender
@@ -17,7 +17,7 @@
  *
  * @package    Yikes_Inc_Easy_Mailchimp_Extender
  * @subpackage Yikes_Inc_Easy_Mailchimp_Extender/includes
- * @author     YIKES Inc. <plugins@yikesinc.com>
+ * @author     Code Parrots <plugins@codeparrots.com>
  */
 class Yikes_Inc_Easy_Mailchimp_Extender_Loader {
 	/**

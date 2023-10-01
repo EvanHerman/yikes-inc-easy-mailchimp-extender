@@ -5,7 +5,7 @@
  * A class definition that includes attributes and functions used across both the
  * public-facing side of the site and the admin area.
  *
- * @link       https://www.yikesplugins.com/
+ * @link       https://www.codeparrots.com/
  * @since      1.0.0
  *
  * @package    Yikes_Inc_Easy_Mailchimp_Extender
@@ -23,7 +23,7 @@
  * @since      1.0.0
  * @package    Yikes_Inc_Easy_Mailchimp_Extender
  * @subpackage Yikes_Inc_Easy_Mailchimp_Extender/includes
- * @author     YIKES Inc. <plugins@yikesinc.com>
+ * @author     Code Parrots <plugins@codeparrots.com>
  */
 class Yikes_Inc_Easy_Mailchimp_Extender {
 	/**

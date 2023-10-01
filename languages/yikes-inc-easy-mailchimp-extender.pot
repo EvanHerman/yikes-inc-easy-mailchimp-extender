@@ -67,7 +67,7 @@ msgid "Failed nonce validation"
 msgstr ""
 
 #: admin/class-yikes-inc-easy-mailchimp-extender-admin.php:451
-msgid "We encountered an error. Please contact the YIKES Inc. support team."
+msgid "We encountered an error. Please contact the Code Parrots support team."
 msgstr ""
 
 #: admin/class-yikes-inc-easy-mailchimp-extender-admin.php:600
@@ -1103,7 +1103,7 @@ msgstr ""
 msgid "Get Tags"
 msgstr ""
 
-#. //www.yikesinc.com
+#. //www.codeparrots.com
 #.
 #: admin/partials/edit-form.php:128 admin/partials/menu/add-ons.php:10
 #: admin/partials/menu/manage-forms.php:26
@@ -2059,7 +2059,7 @@ msgstr ""
 #: admin/partials/menu/manage-forms.php:62
 msgid ""
 "There was an error trying to clone your form. Please try again. If this "
-"error persists, please contact the YIKES Inc. support team."
+"error persists, please contact the Code Parrots support team."
 msgstr ""
 
 #: admin/partials/menu/manage-forms.php:70
@@ -2069,7 +2069,7 @@ msgstr ""
 #: admin/partials/menu/manage-forms.php:78
 msgid ""
 "There was an error trying to reset the form submission stats/rates. Please "
-"try again. If this error persists, please contact the YIKES Inc. support "
+"try again. If this error persists, please contact the Code Parrots support "
 "team."
 msgstr ""
 
@@ -2542,7 +2542,7 @@ msgstr ""
 msgid ""
 "Whoops! We've encountered an error while trying to clear the error log. "
 "Please refresh the page and try again. If the error persists please get in "
-"touch with the YIKES Inc. support team."
+"touch with the Code Parrots support team."
 msgstr ""
 
 #: admin/partials/menu/options.php:79
@@ -2595,7 +2595,7 @@ msgstr ""
 #: admin/partials/menu/support.php:23
 msgid ""
 "If you have any problems with the form, send an email to <a href='mailto:"
-"support@yikesinc.com'>support@yikesinc.com</a> and a ticket will be created."
+"support@codeparrots.com'>support@codeparrots.com</a> and a ticket will be created."
 msgstr ""
 
 #: admin/partials/menu/support.php:26
@@ -2646,7 +2646,7 @@ msgstr ""
 #: admin/partials/view-list.php:114
 msgid ""
 "We've encountered an error trying to remove the subscriber. Please try "
-"again. If the error persists please get in contact with the YIKES Inc. "
+"again. If the error persists please get in contact with the Code Parrots "
 "support staff."
 msgstr ""
 
@@ -3000,7 +3000,7 @@ msgstr ""
 #: includes/import-export/yikes-easy-mailchimp-import.class.php:13
 msgid ""
 "There was an error during import. If you continue to run into issues, please "
-"reach out to the Yikes Inc. support team."
+"reach out to the Code Parrots support team."
 msgstr ""
 
 #: includes/import-export/yikes-easy-mailchimp-import.class.php:23

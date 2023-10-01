@@ -67,7 +67,7 @@
 				if( isset( $_REQUEST['error-log-cleared'] ) && $_REQUEST['error-log-cleared'] == 'false' ) {
 					?>
 					<div class="error manage-form-admin-notice">
-						<p><?php _e( "Whoops! We've encountered an error while trying to clear the error log. Please refresh the page and try again. If the error persists please get in touch with the YIKES Inc. support team.", 'yikes-inc-easy-mailchimp-extender' ); ?></p>
+						<p><?php _e( "Whoops! We've encountered an error while trying to clear the error log. Please refresh the page and try again. If the error persists please get in touch with the Code Parrots support team.", 'yikes-inc-easy-mailchimp-extender' ); ?></p>
 					</div>
 					<?php
 				}

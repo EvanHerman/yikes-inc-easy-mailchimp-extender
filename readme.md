@@ -13,7 +13,7 @@ Easy Forms for Mailchimp
 
 <strong>Latest Stable Beta Release Candidate</strong>
 
-This is the development repo for the [Easy Forms for Mailchimp](https://wordpress.org/plugins/yikes-inc-easy-mailchimp-extender/) plugin by [YIKES, Inc.](https://yikesinc.com/) where we work on new features and bug fixes.
+This is the development repo for the [Easy Forms for Mailchimp](https://wordpress.org/plugins/yikes-inc-easy-mailchimp-extender/) plugin by [YIKES, Inc.](https://codeparrots.com/) where we work on new features and bug fixes.
 
 
 #### Minimum Requirements
@@ -26,7 +26,7 @@ This is the development repo for the [Easy Forms for Mailchimp](https://wordpres
 
 #### Documentation
 
-For full documentation, please visit [our Knowledge Base](https://yikesplugins.com/support/knowledge-base/product/easy-forms-for-mailchimp/).
+For full documentation, please visit [our Knowledge Base](https://codeparrots.com/support/knowledge-base/product/easy-forms-for-mailchimp/).
 
 #### Integrations
 Easy Forms for Mailchimp integrates well with many popular third party plugins for WordPress:

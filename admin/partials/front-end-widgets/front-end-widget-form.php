@@ -2,7 +2,7 @@
 /*
 *	Front facing Mailchimp widget in sidebars
 *	@since 6.0.0
-*	By: Yikes Inc. | https://www.yikesinc.com
+*	By: Code Parrots | https://www.codeparrots.com
 */
 class Yikes_Inc_Easy_Mailchimp_Extender_Widget extends WP_Widget {
 

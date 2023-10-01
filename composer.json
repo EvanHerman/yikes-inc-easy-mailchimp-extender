@@ -1,24 +1,24 @@
 {
-	"name": "yikesinc/yikes-inc-easy-mailchimp-extender",
-    "description": "Powerful Mailchimp plugin for WordPress created by Yikes Inc.",
+	"name": "evanherman/yikes-inc-easy-mailchimp-extender",
+    "description": "Powerful Mailchimp plugin for WordPress created by Code Parrots.",
     "keywords": ["mailchimp", "plugin", "WordPress", "mailing", "list"],
     "homepage": "http://packagist.org/",
     "type": "wordpress-plugin",
     "license": "GPL-2.0+",
     "authors": [
         {
-            "name": "Yikes Inc.",
-            "email": "info@yikesinc.com",
-            "homepage": "http://www.yikesinc.com"
+            "name": "Code Parrots",
+            "email": "info@codeparrots.com",
+            "homepage": "http://www.codeparrots.com"
         },
         {
             "name": "Evan Herman",
-            "email": "Evan@yikesinc.com",
-            "homepage": "http://www.yikesinc.com"
+            "email": "evan@codeparrots.com",
+            "homepage": "http://www.codeparrots.com"
         }
     ],
     "support": {
-          "email": "support@yikesinc.com"
+          "email": "support@codeparrots.com"
     },
     "require": {
         "php": ">=5.3"

@@ -59,7 +59,7 @@ if( $this->is_user_mc_api_valid_form( false ) == 'valid' ) {
 	if( isset( $_REQUEST['duplicated-form'] ) && $_REQUEST['duplicated-form'] == 'false' ) {
 		?>
 		<div class="error manage-form-admin-notice">
-			<p><?php _e( 'There was an error trying to clone your form. Please try again. If this error persists, please contact the YIKES Inc. support team.', 'yikes-inc-easy-mailchimp-extender' ); ?></p>
+			<p><?php _e( 'There was an error trying to clone your form. Please try again. If this error persists, please contact the Code Parrots support team.', 'yikes-inc-easy-mailchimp-extender' ); ?></p>
 		</div>
 		<?php
 	}
@@ -75,7 +75,7 @@ if( $this->is_user_mc_api_valid_form( false ) == 'valid' ) {
 	if( isset( $_REQUEST['reset-stats'] ) && $_REQUEST['reset-stats'] == 'false' ) {
 		?>
 		<div class="error manage-form-admin-notice">
-			<p><?php _e( 'There was an error trying to reset the form submission stats/rates. Please try again. If this error persists, please contact the YIKES Inc. support team.', 'yikes-inc-easy-mailchimp-extender' ); ?></p>
+			<p><?php _e( 'There was an error trying to reset the form submission stats/rates. Please try again. If this error persists, please contact the Code Parrots support team.', 'yikes-inc-easy-mailchimp-extender' ); ?></p>
 		</div>
 		<?php
 	}

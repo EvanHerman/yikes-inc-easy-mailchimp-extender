@@ -7,7 +7,7 @@
  */
 $addon_image  = YIKES_MC_URL . 'includes/add_ons/images/eu-compliance.png';
 $add_on_title = esc_attr__( 'GDPR Compliance for Mailchimp', 'yikes-inc-easy-mailchimp-extender' );
-$permalink    = esc_url( 'https://yikesplugins.com/plugin/eu-compliance-extension-for-easy-mailchimp/' );
+$permalink    = esc_url( 'https://codeparrots.com/plugin/eu-compliance-extension-for-easy-mailchimp/' );
 $description  = esc_attr__( 'Add a check box below your Mailchimp signup forms with a custom message, to ensure compliance with GDPR laws.', 'yikes-inc-easy-mailchimp-extender' );
 ?>
 

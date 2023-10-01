@@ -9,7 +9,7 @@
 	<!-- Freddie Logo -->
 	<img src="<?php echo esc_url( YIKES_MC_URL . 'includes/images/Mailchimp_Assets/Freddie_60px.png' ); ?>" alt="<?php esc_attr_e( 'Freddie - Mailchimp Mascot' , 'yikes-inc-easy-mailchimp-extender' ); ?>" class="yikes-mc-freddie-logo" />
 
-	<h1>Easy Forms for Mailchimp | <?php echo esc_attr__( 'Add-Ons' , 'yikes-inc-easy-mailchimp-extender' ); ?> &nbsp; <a href="https://yikesplugins.com/plugins/?plugins=Mailchimp" target="_blank" class="button-primary coming-soon-button" title="<?php esc_attr_e( 'View All Add-Ons' , 'yikes-inc-easy-mailchimp-extender' ); ?>"><?php esc_attr_e( 'View All Add-Ons' , 'yikes-inc-easy-mailchimp-extender' ); ?> <span class="dashicons dashicons-external"></span></a></h1>
+	<h1>Easy Forms for Mailchimp | <?php echo esc_attr__( 'Add-Ons' , 'yikes-inc-easy-mailchimp-extender' ); ?> &nbsp; <a href="https://codeparrots.com/plugins/?plugins=Mailchimp" target="_blank" class="button-primary coming-soon-button" title="<?php esc_attr_e( 'View All Add-Ons' , 'yikes-inc-easy-mailchimp-extender' ); ?>"><?php esc_attr_e( 'View All Add-Ons' , 'yikes-inc-easy-mailchimp-extender' ); ?> <span class="dashicons dashicons-external"></span></a></h1>
 
 	<!-- Addons Page Description -->
 	<p class="yikes-easy-mc-about-text about-text"><?php esc_attr_e( "Below you'll find all free and paid add-ons available for Easy Forms for Mailchimp. Each add-on extends the functionality of the free plugin." , 'yikes-inc-easy-mailchimp-extender' ); ?></p>
