@@ -3,7 +3,7 @@
  * Plugin Name: Easy Forms for Mailchimp
  * Plugin URI:  https://codeparrots.com/plugin/easy-forms-for-mailchimp/
  * Description: The ultimate Mailchimp WordPress plugin. Easily build <strong>unlimited forms for your Mailchimp lists</strong>, add them to your site and track subscriber activity. To get started, go to the settings page and enter your <a href="https://codeparrots.com/support/knowledge-base/finding-your-mailchimp-api-key/" target="_blank">Mailchimp API key</a>.
- * Version:     6.8.9
+ * Version:     6.8.10
  * Author:      Code Parrots
  * Author URI:  https://www.codeparrots.com/
  * License:     GPL-3.0+
@@ -42,7 +42,7 @@ if ( ! defined( 'WPINC' ) ) {
  *  @since 6.1.3
  */
 if ( ! defined( 'YIKES_MC_VERSION' ) ) {
-	define( 'YIKES_MC_VERSION', '6.8.9' );
+	define( 'YIKES_MC_VERSION', '6.8.10' );
 }
 
 /**
