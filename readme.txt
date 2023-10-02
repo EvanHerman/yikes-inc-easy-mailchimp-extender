@@ -1,5 +1,5 @@
 ﻿=== Easy Forms for Mailchimp ===
-Contributors: yikesinc, eherman24, liljimmi, JPry, yikesitskevin, fmixell, vochr
+Contributors: yikesinc, eherman24, liljimmi, JPry, yikesitskevin, fmixell, vochr, codeparrots
 Donate link: https://codeparrots.com/?utm_source=wp_plugin_repo&utm_medium=donate_link&utm_campaign=easy_forms_for_mailchimp
 Tags: Mailchimp, Mailchimp forms, Mailchimp lists, opt-in forms, sign up form, Mailchimp, email, forms, mailing lists, marketing, newsletter, sign up
 Requires at least: 4.0
