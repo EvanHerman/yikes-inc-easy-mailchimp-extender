@@ -7,7 +7,7 @@
  *
  * @package    Yikes_Inc_Easy_Mailchimp_Forms
  * @subpackage Yikes_Inc_Easy_Mailchimp_Forms/admin
- * @author     YIKES, Inc. <plugins@yikesinc.com>
+ * @author     YIKES, Inc. <plugins@codeparrots.com>
  */
 class Yikes_Inc_Easy_Mailchimp_Forms_Admin {
 
@@ -257,7 +257,7 @@ class Yikes_Inc_Easy_Mailchimp_Forms_Admin {
 		 */
 		public function easy_forms_plugin_action_links( $links ) {
 			$links[] = '<a href="'. esc_url( get_admin_url(null, 'admin.php?page=yikes-inc-easy-mailchimp-settings') ) .'">' . __( 'Settings', 'yikes-inc-easy-mailchimp-extender' ) . '</a>';
-			$links[] = '<a href="' . esc_url( 'http://www.yikesplugins.com?utm_source=plugins-page&utm_medium=plugin-row&utm_campaign=admin' ) . '" target="_blank">' . __( 'More plugins by YIKES, Inc.', 'yikes-inc-easy-mailchimp-extender' ) . '</a>';
+			$links[] = '<a href="' . esc_url( 'http://www.codeparrots.com?utm_source=plugins-page&utm_medium=plugin-row&utm_campaign=admin' ) . '" target="_blank">' . __( 'More plugins by YIKES, Inc.', 'yikes-inc-easy-mailchimp-extender' ) . '</a>';
 			return $links;
 		}
 
@@ -427,7 +427,7 @@ class Yikes_Inc_Easy_Mailchimp_Forms_Admin {
 		public function yikes_easy_mailchimp_premium_support_request() {
 
 			if ( isset( $_POST['action'] ) && $_POST['action'] != 'yikes-support-request' ) {
-				return __( 'We encountered an error. Please contact the YIKES Inc. support team.', 'yikes-inc-easy-mailchimp-extender' );
+				return __( 'We encountered an error. Please contact the Code Parrots support team.', 'yikes-inc-easy-mailchimp-extender' );
 			}
 
 			$email       = isset( $_POST['user-email'] ) ? $_POST['user-email'] : '';
@@ -455,7 +455,7 @@ class Yikes_Inc_Easy_Mailchimp_Forms_Admin {
 				'api_version'      => '2'
 			);
 
-			$response = wp_remote_post( 'https://yikesplugins.com', array(
+			$response = wp_remote_post( 'https://codeparrots.com', array(
 				'timeout'   => 30,
 				'sslverify' => false,
 				'body'      => $ticket_array
@@ -1542,21 +1542,21 @@ class Yikes_Inc_Easy_Mailchimp_Forms_Admin {
 
 							<?php _e( 'Tweet about it', 'yikes-inc-easy-mailchimp-extender' ); ?>
 							<p class="sidebar-container">
-								<a href="https://twitter.com/share" class="twitter-share-button" data-url="https://wordpress.org/plugins/yikes-inc-easy-mailchimp-extender/" data-text="I'm using the Easy Forms for Mailchimp plugin by @YikesInc to grow my mailing list - it's awesome! -" data-hashtags="Mailchimp">Tweet</a>
+								<a href="https://twitter.com/share" class="twitter-share-button" data-url="https://wordpress.org/plugins/yikes-inc-easy-mailchimp-extender/" data-text="I'm using the Easy Forms for Mailchimp plugin by @codeparrots to grow my mailing list - it's awesome! -" data-hashtags="Mailchimp">Tweet</a>
 								<script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if (!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');</script>
 							</p>
 						</div>
 
-						<p class="description sidebar-footer-text"><?php printf( __( "This plugin made with %s by %s" , 'yikes-inc-easy-mailchimp-extender' ), '<span class="dashicons dashicons-heart yikes-love"></span>', '<a href="http://www.yikesinc.com" target="_blank" title="YIKES Inc.">YIKES Inc.</a>' ); ?> </p>
+						<p class="description sidebar-footer-text"><?php printf( __( "This plugin made with %s by %s" , 'yikes-inc-easy-mailchimp-extender' ), '<span class="dashicons dashicons-heart yikes-love"></span>', '<a href="http://www.codeparrots.com" target="_blank" title="Code Parrots">Code Parrots</a>' ); ?> </p>
 
 						<section id="about-yikes-inc" class="inside">
-							<a href="https://www.yikesinc.com" target="_blank" title="YIKES Inc.">
+							<a href="https://www.codeparrots.com" target="_blank" title="Code Parrots">
 								<img src="<?php echo YIKES_MC_URL . 'includes/images/About_Page/yikes-logo.png'; ?>" class="about-sidebar-yikes-logo" />
 							</a>
-							<p><strong>YIKES Inc.</strong> &mdash; <?php _e( 'is a web design and development company located in Philadelphia, Pennsylvania, US. YIKES specializes in custom WordPress theme and plugin development, site maintenance, eCommerce, custom-built web-based applications and more.', 'yikes-inc-easy-mailchimp-extender' ); ?></p>
+							<p><strong>Code Parrots</strong> &mdash; <?php _e( 'is a WordPress development shop located in Lancaster, Pennsylvania, US. Code Parrots specializes in custom WordPress plugin development.', 'yikes-inc-easy-mailchimp-extender' ); ?></p>
 						</section>
 
-						<p class="description sidebar-footer-text"><a href="#" class="about-yikes-inc-toggle" data-alt-text="<?php _e( 'Show YIKES Some Love', 'yikes-inc-easy-mailchimp-extender' ); ?>"><?php _e( 'About YIKES', 'yikes-inc-easy-mailchimp-extender' ); ?></a></p>
+						<p class="description sidebar-footer-text"><a href="#" class="about-yikes-inc-toggle" data-alt-text="<?php _e( 'Show Code Parrots Some Love', 'yikes-inc-easy-mailchimp-extender' ); ?>"><?php _e( 'About Code Parrots', 'yikes-inc-easy-mailchimp-extender' ); ?></a></p>
 
 					</div>
 
@@ -1883,7 +1883,7 @@ class Yikes_Inc_Easy_Mailchimp_Forms_Admin {
 											</td>
 											<td>
 												<input type="text" id="classes_<?php echo esc_attr( $field['merge'] ); ?>" class="widefat" name="field[<?php echo $field['merge']; ?>][additional-classes]" value="<?php echo isset( $field['additional-classes'] ) ? stripslashes( wp_strip_all_tags( $field['additional-classes'] ) ) : '' ; ?>" />
-												<p class="description"><small><?php printf( __( "Assign additional classes to this field. %s.", 'yikes-inc-easy-mailchimp-extender' ), '<a target="_blank" href="' . esc_url( 'https://yikesplugins.com/support/knowledge-base/bundled-css-classes/' ) . '">' . __( 'View bundled classes', 'yikes-inc-easy-mailchimp-extender' ) . '</a>' );?></small></p>
+												<p class="description"><small><?php printf( __( "Assign additional classes to this field. %s.", 'yikes-inc-easy-mailchimp-extender' ), '<a target="_blank" href="' . esc_url( 'https://codeparrots.com/support/knowledge-base/bundled-css-classes/' ) . '">' . __( 'View bundled classes', 'yikes-inc-easy-mailchimp-extender' ) . '</a>' );?></small></p>
 											</td>
 										</tr>
 										<!-- Required Toggle -->
@@ -2177,7 +2177,7 @@ class Yikes_Inc_Easy_Mailchimp_Forms_Admin {
 											</td>
 											<td>
 												<input type="text" id="classes_<?php echo esc_attr( $field['group_id'] ); ?>" class="widefat" name="field[<?php echo $field['group_id']; ?>][additional-classes]" value="<?php echo isset( $field['additional-classes'] ) ? stripslashes( wp_strip_all_tags( $field['additional-classes'] ) ) : '' ; ?>" />
-												<p class="description"><small><?php printf( __( "Assign additional classes to this field. %s.", 'yikes-inc-easy-mailchimp-extender' ), '<a target="_blank" href="' . esc_url( 'https://yikesplugins.com/support/knowledge-base/bundled-css-classes/' ) . '">' . __( 'View bundled classes', 'yikes-inc-easy-mailchimp-extender' ) . '</a>' );?></small></p>
+												<p class="description"><small><?php printf( __( "Assign additional classes to this field. %s.", 'yikes-inc-easy-mailchimp-extender' ), '<a target="_blank" href="' . esc_url( 'https://codeparrots.com/support/knowledge-base/bundled-css-classes/' ) . '">' . __( 'View bundled classes', 'yikes-inc-easy-mailchimp-extender' ) . '</a>' );?></small></p>
 											</td>
 										</tr>
 										<!-- Required Toggle -->
@@ -2717,7 +2717,7 @@ class Yikes_Inc_Easy_Mailchimp_Forms_Admin {
 			$email_body .= '<p>' . sprintf( __( 'This email was sent from: %s', 'yikes-inc-easy-mailchimp-extender' ), '[url]' ) . '</p>';
 			$email_body .= '<p>&nbsp;</p>';
 			$email_body .= '<p>&nbsp;</p>';
-			$email_body .= '<p style="font-size:13px;margin-top:5em;"><em>This email was generated by the <a href="http://www.wordpress.org/plugins/yikes-inc-easy-mailchimp-extender/" target="_blank">Easy Forms for Mailchimp</a> plugin, created by <a href="http://www.yikesinc.com" target="_blank">YIKES Inc.</a></em></p>';
+			$email_body .= '<p style="font-size:13px;margin-top:5em;"><em>This email was generated by the <a href="http://www.wordpress.org/plugins/yikes-inc-easy-mailchimp-extender/" target="_blank">Easy Forms for Mailchimp</a> plugin, created by <a href="http://www.codeparrots.com" target="_blank">Code Parrots</a></em></p>';
 
 			return $email_body;
 		}

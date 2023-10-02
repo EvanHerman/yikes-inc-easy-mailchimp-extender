@@ -111,7 +111,7 @@ $subscribers_list = array_slice( $members, $page_offset, $limit );
 		if( isset( $_REQUEST['user-unsubscribed'] ) && $_REQUEST['user-unsubscribed'] == 'false' ) {
 			?>
 			<div class="error manage-form-admin-notice">
-				<p><?php _e( "We've encountered an error trying to remove the subscriber. Please try again. If the error persists please get in contact with the YIKES Inc. support staff.", 'yikes-inc-easy-mailchimp-extender' ); ?></p>
+				<p><?php _e( "We've encountered an error trying to remove the subscriber. Please try again. If the error persists please get in contact with the Code Parrots support staff.", 'yikes-inc-easy-mailchimp-extender' ); ?></p>
 			</div>
 			<?php
 		}

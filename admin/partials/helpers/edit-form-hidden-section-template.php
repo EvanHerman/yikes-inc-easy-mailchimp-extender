@@ -3,7 +3,7 @@
 		*	Main template used to render/generate custom sections on the edit-form.php 
 		*	@since 6.0.0
 		*	For assistance on usage, please see our developer documentation
-		*	By: Yikes Inc. | https://www.yikesinc.com
+		*	By: Code Parrots | https://www.codeparrots.com
 		*/
 		// grab our global form_data;
 		global $form_data;

@@ -5,7 +5,7 @@
 	* 	Handles many of the ajax functionality on the admin side (ie. Adding new field to form, updating fields, grabbing list data etc.)
 	*
 	*	@since 6.0.0
-	*	Author: Yikes Inc. | https://www.yikesinc.com
+	*	Author: Code Parrots | https://www.codeparrots.com
 	*/
 	class YIKES_Inc_Easy_Mailchimp_Process_Ajax {
 

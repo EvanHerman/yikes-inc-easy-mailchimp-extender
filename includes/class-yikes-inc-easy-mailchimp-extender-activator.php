@@ -2,7 +2,7 @@
 /**
  * Fired during plugin activation
  *
- * @link       https://www.yikesplugins.com/
+ * @link       https://www.codeparrots.com/
  * @since      6.0.0
  *
  * @package    Yikes_Inc_Easy_Mailchimp_Extender
@@ -16,7 +16,7 @@
  * @since      6.0.0
  * @package    Yikes_Inc_Easy_Mailchimp_Extender
  * @subpackage Yikes_Inc_Easy_Mailchimp_Extender/includes
- * @author     YIKES Inc. <plugins@yikesinc.com>
+ * @author     Code Parrots <plugins@codeparrots.com>
  */
 class Yikes_Inc_Easy_Mailchimp_Extender_Activator {
 	/**
@@ -68,7 +68,7 @@ class Yikes_Inc_Easy_Mailchimp_Extender_Activator {
 		*/
 		$charset_collate = $wpdb->get_charset_collate();
 
-		// create the Yikes Inc. Easy Mailchimp database table
+		// create the Code Parrots Easy Mailchimp database table
 		$sql = "CREATE TABLE $custom_table_name (
 		id INT NOT NULL AUTO_INCREMENT,
 		list_id TEXT NOT NULL,

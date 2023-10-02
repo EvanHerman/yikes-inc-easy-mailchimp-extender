@@ -276,7 +276,7 @@ $merge_field_data = $available_merge_variables['merge_fields'][ $index ];
 					</td>
 					<td>
 						<input type="text" class="widefat" name="field[<?php echo esc_attr( $merge_field_data['tag'] ); ?>][additional-classes]" value="<?php echo isset( $form_data['classes'] ) ? stripslashes( wp_strip_all_tags( $form_data['classes'] ) ) : '' ; ?>" />
-						<p class="description"><small><?php printf( __( "Assign additional classes to this field. %s.", 'yikes-inc-easy-mailchimp-extender' ), '<a target="_blank" href="' . esc_url( 'https://yikesplugins.com/support/knowledge-base/bundled-css-classes/' ) . '">' . __( 'View bundled classes', 'yikes-inc-easy-mailchimp-extender' ) . '</a>' );?></small></p>
+						<p class="description"><small><?php printf( __( "Assign additional classes to this field. %s.", 'yikes-inc-easy-mailchimp-extender' ), '<a target="_blank" href="' . esc_url( 'https://codeparrots.com/support/knowledge-base/bundled-css-classes/' ) . '">' . __( 'View bundled classes', 'yikes-inc-easy-mailchimp-extender' ) . '</a>' );?></small></p>
 					</td>
 				</tr>
 					<!-- Required Toggle -->

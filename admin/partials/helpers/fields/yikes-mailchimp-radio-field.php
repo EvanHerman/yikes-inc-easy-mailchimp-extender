@@ -2,7 +2,7 @@
 	/*	
 	* 	Standard Radio Input Field
 	*
-	*	For help on using, see our documentation [https://yikesplugins.com/support/knowledge-base/product/easy-forms-for-mailchimp/]
+	*	For help on using, see our documentation [https://codeparrots.com/support/knowledge-base/product/easy-forms-for-mailchimp/]
 	* 	@since 6.0
 	*/
 	if ( is_string( $form_data['custom_fields'] ) ) {

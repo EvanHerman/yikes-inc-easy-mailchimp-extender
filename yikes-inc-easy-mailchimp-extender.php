@@ -1,11 +1,11 @@
 <?php
 /**
  * Plugin Name: Easy Forms for Mailchimp
- * Plugin URI:  https://yikesplugins.com/plugin/easy-forms-for-mailchimp/
- * Description: The ultimate Mailchimp WordPress plugin. Easily build <strong>unlimited forms for your Mailchimp lists</strong>, add them to your site and track subscriber activity. To get started, go to the settings page and enter your <a href="https://yikesplugins.com/support/knowledge-base/finding-your-mailchimp-api-key/" target="_blank">Mailchimp API key</a>.
- * Version:     6.8.9
- * Author:      YIKES, Inc.
- * Author URI:  https://www.yikesplugins.com/
+ * Plugin URI:  https://codeparrots.com/plugin/easy-forms-for-mailchimp/
+ * Description: The ultimate Mailchimp WordPress plugin. Easily build <strong>unlimited forms for your Mailchimp lists</strong>, add them to your site and track subscriber activity. To get started, go to the settings page and enter your <a href="https://codeparrots.com/support/knowledge-base/finding-your-mailchimp-api-key/" target="_blank">Mailchimp API key</a>.
+ * Version:     6.8.10
+ * Author:      Code Parrots
+ * Author URI:  https://www.codeparrots.com/
  * License:     GPL-3.0+
  * License URI: http://www.gnu.org/licenses/gpl-3.0.txt
  * Text Domain: yikes-inc-easy-mailchimp-extender
@@ -23,7 +23,7 @@
  * You should have received a copy of the GNU General Public License
  * along with Easy Forms for Mailchimp. If not, see <http://www.gnu.org/licenses/>.
  *
- * We at YIKES, Inc. embrace the open source philosophy on a daily basis. We donate company time back to the WordPress project,
+ * We at Code Parrots embrace the open source philosophy on a daily basis. We donate company time back to the WordPress project,
  * and constantly strive to improve the WordPress project and community as a whole.
  *
  * "'Free software' is a matter of liberty, not price. To understand the concept, you should think of 'free' as in 'free speech,' not as in 'free beer'."
@@ -42,7 +42,7 @@ if ( ! defined( 'WPINC' ) ) {
  *  @since 6.1.3
  */
 if ( ! defined( 'YIKES_MC_VERSION' ) ) {
-	define( 'YIKES_MC_VERSION', '6.8.9' );
+	define( 'YIKES_MC_VERSION', '6.8.10' );
 }
 
 /**

@@ -207,7 +207,7 @@ foreach( $interest_groups as $group ) {
 						</td>
 						<td>
 							<input type="text" class="widefat" name="field[<?php echo esc_attr( $group['group_id'] ); ?>][additional-classes]" value="<?php echo isset( $group['classes'] ) ? esc_attr( stripslashes( wp_strip_all_tags( $group['classes'] ) ) ) : '' ; ?>" />
-							<p class="description"><small><?php printf( esc_html__( "Assign additional classes to this field. %s.", 'yikes-inc-easy-mailchimp-extender' ), '<a target="_blank" href="' . esc_url( 'https://yikesplugins.com/support/knowledge-base/bundled-css-classes/' ) . '">' . esc_html__( 'View bundled classes', 'yikes-inc-easy-mailchimp-extender' ) . '</a>' );?></small></p>
+							<p class="description"><small><?php printf( esc_html__( "Assign additional classes to this field. %s.", 'yikes-inc-easy-mailchimp-extender' ), '<a target="_blank" href="' . esc_url( 'https://codeparrots.com/support/knowledge-base/bundled-css-classes/' ) . '">' . esc_html__( 'View bundled classes', 'yikes-inc-easy-mailchimp-extender' ) . '</a>' );?></small></p>
 						</td>
 						</tr>
 						<!-- Required Toggle -->

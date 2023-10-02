@@ -10,7 +10,7 @@ class Yikes_Inc_Easy_Mailchimp_Import_Class {
 	*/	
 	public static function yikes_mailchimp_import_forms( $csv_file ) {
 		if ( ! isset( $_REQUEST['action'] ) ||  $_REQUEST['action'] !== 'yikes-easy-mc-import-forms' ) {
-			wp_die( __( 'There was an error during import. If you continue to run into issues, please reach out to the Yikes Inc. support team.', 'yikes-inc-easy-mailchimp-extender' ) );
+			wp_die( __( 'There was an error during import. If you continue to run into issues, please reach out to the Code Parrots support team.', 'yikes-inc-easy-mailchimp-extender' ) );
 		}
 
 		$name      = $csv_file['csv']['name'];

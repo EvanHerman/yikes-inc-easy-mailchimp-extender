@@ -170,7 +170,7 @@
 * Quick fix to 6.3.15 - forgot to add a couple of files that handle the "Description Above Field" when a form field/interest group is initially added to the form.
 
 = 6.3.15 - April 26th, 2017 =
-* Google Analytics Event Tracking is here! We've added an action - `yikes-mailchimp-google-analytics` - where you can add Google Analytics JavaScript. Check out our knowledge base article (https://yikesplugins.com/support/knowledge-base/add-google-analytics-event-tracking/) for more instructions.
+* Google Analytics Event Tracking is here! We've added an action - `yikes-mailchimp-google-analytics` - where you can add Google Analytics JavaScript. Check out our knowledge base article (https://codeparrots.com/support/knowledge-base/add-google-analytics-event-tracking/) for more instructions.
 * The form builder field instructions are now hidden when there are no fields added to the form.
 * Added the Clear API Cache button to the form builder - you can find the button in the Associated List Settings box.
 * Added a new option to the fields in the form builder: the ability to place the description above the field. This also comes with some minor style changes and a couple new filters: `'yikes-mailchimp-{$interest_group_id}-description-html'` to filter the interest group's description HTML, and `'yikes-mailchimp-{$merge_tag}-description-html'` to filter a form/merge field's description HTML.
@@ -342,7 +342,7 @@ If you find that you *need* to do this, please contact us to let us know what yo
 * Swapped out `get_currentuserinfo()` for the correct, newer, functions.
 * Repaired undefined variable on the 'Birthday/Date' form fields, when no default was set.
 * Users can now bulk add fields to forms, instead of having to do it one at a time.
-* Removed any dependency to the RSS feeds served from https://www.yikesplugins.com, which could potentially cause issues if the servers are ever down.
+* Removed any dependency to the RSS feeds served from https://www.codeparrots.com, which could potentially cause issues if the servers are ever down.
 * Refactored the database creation function, and swapped out the field types - to support older versions of PHP (<v5.3).
 * Added new filter to allow users to alter who can view/access the admin dashboard widgets - `yikes-mailchimp-admin-widget-capability`
 * Added a new filter (`yikes-mailchimp-user-already-subscribed-error`) allowing the 'already subscribed' error message to be filtered.
@@ -449,7 +449,7 @@ If you find that you *need* to do this, please contact us to let us know what yo
 * Fixed the form editor being hidden on medium-width screens.
 
 = 6.0.3.7 - December 28th, 2015 =
-* Fixed certain [recaptcha parameters](https://yikesplugins.com/support/knowledge-base/how-do-i-customize-the-recaptcha-field/) not working properly
+* Fixed certain [recaptcha parameters](https://codeparrots.com/support/knowledge-base/how-do-i-customize-the-recaptcha-field/) not working properly
 
 = 6.0.3.6 - December 28th, 2015 =
 * Removed extra closing php tag after 'Interest Group' dropdown field
@@ -474,9 +474,9 @@ If you find that you *need* to do this, please contact us to let us know what yo
 = 6.0.3.2 - November 9th, 2015 =
 * International characters in custom messages causing some escaping issues for AJAX forms.
 * Added Google reCAPTCHA override to the shortcode recaptcha="1"/recpatcha="0" to manually set it on a per form basis (still needs to be globally enabled on the settings page).
-* Added additional reCAPTCHA parameters to the shortcode. (see <a href="https://yikesplugins.com/support/knowledge-base/how-do-i-customize-the-recaptcha-field/" target="_blank">https://yikesplugins.com/support/knowledge-base/how-do-i-customize-the-recaptcha-field/</a>).
+* Added additional reCAPTCHA parameters to the shortcode. (see <a href="https://codeparrots.com/support/knowledge-base/how-do-i-customize-the-recaptcha-field/" target="_blank">https://codeparrots.com/support/knowledge-base/how-do-i-customize-the-recaptcha-field/</a>).
 * Re-coded the redirect function for non-ajax forms, so that it properly utilizes `wp_redirect()` instead of a .js injection after submission.
-* Added new constant `YIKES_MAILCHIMP_NULL_DEBUG` to debug 'null' API response from Mailchimp API (see <a href="https://yikesplugins.com/support/knowledge-base/i-received-the-following-error-we-received-an-unexpected-error-null/" target="_blank">https://yikesplugins.com/support/knowledge-base/i-received-the-following-error-we-received-an-unexpected-error-null/</a>).
+* Added new constant `YIKES_MAILCHIMP_NULL_DEBUG` to debug 'null' API response from Mailchimp API (see <a href="https://codeparrots.com/support/knowledge-base/i-received-the-following-error-we-received-an-unexpected-error-null/" target="_blank">https://codeparrots.com/support/knowledge-base/i-received-the-following-error-we-received-an-unexpected-error-null/</a>).
 
 = 6.0.3.1 - November 2nd, 2015 =
 * Repair issue where multiple AJAX forms on same page was only submitting last displayed form.
@@ -563,8 +563,8 @@ If you find that you *need* to do this, please contact us to let us know what yo
 * Português do Brasil translated by @enxaqueca
 * reCAPTCHA now loads in the language of the site it's being displayed on.
 * All translations functions have been implemented for worldwide i18n.
-* We have built out an API and implemented a number of hooks and filters to enable developers to easily extend the plugin [see knowledge base](https://yikesplugins.com/support/knowledge-base/product/developer-documentation/?utm_source=wp_plugin_repo&utm_medium=link&utm_campaign=easy_forms_for_mailchimp)
-* We have started building out a number of add ons to extend the base functionality of the plugin. [check them out](https://yikesplugins.com/plugins/?utm_source=wp_plugin_repo&utm_medium=link&utm_campaign=easy_forms_for_mailchimp)
+* We have built out an API and implemented a number of hooks and filters to enable developers to easily extend the plugin [see knowledge base](https://codeparrots.com/support/knowledge-base/product/developer-documentation/?utm_source=wp_plugin_repo&utm_medium=link&utm_campaign=easy_forms_for_mailchimp)
+* We have started building out a number of add ons to extend the base functionality of the plugin. [check them out](https://codeparrots.com/plugins/?utm_source=wp_plugin_repo&utm_medium=link&utm_campaign=easy_forms_for_mailchimp)
 
 = 5.4.3 - March 17th, 2015 =
 * Fixed: Re-import form fields function not properly refreshing the page
@@ -768,7 +768,7 @@ We have added brand new functionality, allowing users to easily customize forms 
 * Swapped out `get_currentuserinfo()` for the correct, newer, functions.
 * Repaired undefined variable on the 'Birthday/Date' form fields, when no default was set.
 * Users can now bulk add fields to forms, instead of having to do it one at a time.
-* Removed any dependency to the RSS feeds served from https://www.yikesplugins.com, which could potentially cause issues if the servers are ever down.
+* Removed any dependency to the RSS feeds served from https://www.codeparrots.com, which could potentially cause issues if the servers are ever down.
 * Refactored the database creation function, and swapped out the field types - to support older versions of PHP (<v5.3).
 * Added new filter to allow users to alter who can view/access the admin dashboard widgets - `yikes-mailchimp-admin-widget-capability`
 * Added a new filter (`yikes-mailchimp-user-already-subscribed-error`) allowing the 'already subscribed' error message to be filtered.
@@ -889,7 +889,7 @@ We have added brand new functionality, allowing users to easily customize forms 
 
 = 6.0.3.7 - December 28th, 2015 =
 
-* Fixed certain [recaptcha parameters](https://yikesplugins.com/support/knowledge-base/how-do-i-customize-the-recaptcha-field/) not working properly
+* Fixed certain [recaptcha parameters](https://codeparrots.com/support/knowledge-base/how-do-i-customize-the-recaptcha-field/) not working properly
 
 = 6.0.3.6 - December 28th, 2015 =
 
@@ -919,9 +919,9 @@ We have added brand new functionality, allowing users to easily customize forms 
 
 * International characters in custom messages causing some escaping issues for AJAX forms.
 * Added Google ReCaptcha override to the shortcode recaptcha="1"/recpatcha="0" to manually set it on a per form basis (still needs to be globally enabled on the settings page).
-* Added additional reCAPTCHA parameters to the shortcode. (see <a href="https://yikesplugins.com/support/knowledge-base/how-do-i-customize-the-recaptcha-field/" tareget="_blank">https://yikesplugins.com/support/knowledge-base/how-do-i-customize-the-recaptcha-field/</a>).
+* Added additional reCAPTCHA parameters to the shortcode. (see <a href="https://codeparrots.com/support/knowledge-base/how-do-i-customize-the-recaptcha-field/" tareget="_blank">https://codeparrots.com/support/knowledge-base/how-do-i-customize-the-recaptcha-field/</a>).
 * Re-coded the redirect function for non-ajax forms, so that it properly utilizes `wp_redirect()` instead of a .js injection after submission.
-* Added new constant `YIKES_MAILCHIMP_NULL_DEBUG` to debug 'null' API response from Mailchimp API (see <a href="https://yikesplugins.com/support/knowledge-base/i-received-the-following-error-we-received-an-unexpected-error-null/" target="_blank">https://yikesplugins.com/support/knowledge-base/i-received-the-following-error-we-received-an-unexpected-error-null/</a>).
+* Added new constant `YIKES_MAILCHIMP_NULL_DEBUG` to debug 'null' API response from Mailchimp API (see <a href="https://codeparrots.com/support/knowledge-base/i-received-the-following-error-we-received-an-unexpected-error-null/" target="_blank">https://codeparrots.com/support/knowledge-base/i-received-the-following-error-we-received-an-unexpected-error-null/</a>).
 
 = 6.0.3.1 - November 2nd, 2015 =
 
@@ -1010,8 +1010,8 @@ We have added brand new functionality, allowing users to easily customize forms 
 * Português do Brasil translated by @enxaqueca
 * reCAPTCHA now loads in the language of the site it's being displayed on.
 * All translations functions have been implemented for worldwide i18n.
-* We have built out an API and implemented a number of hooks and filters to enable developers to easily extend the plugin [see Knowledge Base](https://yikesplugins.com/support/knowledge-base/product/developer-documentation/?utm_source=wp_plugin_repo&utm_medium=link&utm_campaign=easy_forms_for_mailchimp)
-* We have started building out a number of add ons to extend the base functionality of the plugin. [check them out](https://yikesplugins.com/plugins/?utm_source=wp_plugin_repo&utm_medium=link&utm_campaign=easy_forms_for_mailchimp)
+* We have built out an API and implemented a number of hooks and filters to enable developers to easily extend the plugin [see Knowledge Base](https://codeparrots.com/support/knowledge-base/product/developer-documentation/?utm_source=wp_plugin_repo&utm_medium=link&utm_campaign=easy_forms_for_mailchimp)
+* We have started building out a number of add ons to extend the base functionality of the plugin. [check them out](https://codeparrots.com/plugins/?utm_source=wp_plugin_repo&utm_medium=link&utm_campaign=easy_forms_for_mailchimp)
 
 = 4.3 - March 17th, 2015 =
 * Fixed: Re-import form fields function not properly refreshing the page

@@ -7,7 +7,7 @@
  */
 $addon_image  = YIKES_MC_URL . 'includes/add_ons/images/customizer.png';
 $add_on_title = esc_attr__( 'Form Customizer for Easy Forms for Mailchimp', 'yikes-inc-easy-mailchimp-extender' );
-$permalink    = esc_url( 'https://yikesplugins.com/plugin/form-customizer-for-easy-forms-for-mailchimp/' );
+$permalink    = esc_url( 'https://codeparrots.com/plugin/form-customizer-for-easy-forms-for-mailchimp/' );
 $description  = esc_attr__( 'Completely customize the look-and-feel of your form without needing to know any code.', 'yikes-inc-easy-mailchimp-extender' );
 ?>
 
