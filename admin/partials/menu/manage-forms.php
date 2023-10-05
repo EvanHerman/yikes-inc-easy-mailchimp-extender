@@ -128,7 +128,7 @@ if( $this->is_user_mc_api_valid_form( false ) == 'valid' ) {
 								<!-- TABLE BODY -->
 								<tbody>
 									<?php
-									if ( count( $all_forms ) > 0 ) {
+									if ( $all_forms && count( $all_forms ) > 0 ) {
 										$i = 1;
 										foreach( $all_forms as $id => $form ) {
 										?>
