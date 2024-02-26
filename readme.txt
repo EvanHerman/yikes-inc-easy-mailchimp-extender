@@ -172,6 +172,11 @@ For information and code examples on how to implement the hooks and filters prov
 
 == Changelog ==
 
+= 6.9.0 - February 26th, 2023 =
+* Sanitize all settings on save. [#917](https://github.com/EvanHerman/yikes-inc-easy-mailchimp-extender/pull/917)
+* Escape all settings on output. [#917](https://github.com/EvanHerman/yikes-inc-easy-mailchimp-extender/pull/917)
+* Replace all instances of `FILTER_SANITIZE_STRING` with `htmlspecialchars()`. [#917](https://github.com/EvanHerman/yikes-inc-easy-mailchimp-extender/pull/917)
+
 = 6.8.9 - June 12, 2023 =
 * Escaped and sanitize form fields when a form is created and displayed to the user.
 
