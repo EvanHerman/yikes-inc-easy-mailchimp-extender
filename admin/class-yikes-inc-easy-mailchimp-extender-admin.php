@@ -1046,9 +1046,24 @@ class Yikes_Inc_Easy_Mailchimp_Forms_Admin {
 
 		/* Register General Settings Section */
 
-		register_setting( 'yikes_inc_easy_mc_general_settings_page', 'yikes-mc-api-key', array( $this , 'yikes_mc_validate_api_key' ) );
+		register_setting(
+			'yikes_inc_easy_mc_general_settings_page',
+			'yikes-mc-api-key',
+			array( $this , 'yikes_mc_validate_api_key' ),
+			array(
+				'type'              => 'string',
+				'sanitize_callback' => 'sanitize_text_field'
+			)
+		);
 
-		register_setting( 'yikes_inc_easy_mc_general_settings_page', 'yikes-mailchimp-use-nonce' );
+		register_setting(
+			'yikes_inc_easy_mc_general_settings_page',
+			'yikes-mailchimp-use-nonce',
+			array(
+				'type'              => 'boolean',
+				'sanitize_callback' => 'sanitize_text_field'
+			)
+		);
 
 		add_settings_section(
 			'yikes_easy_mc_settings_general_section_callback',
@@ -1078,7 +1093,16 @@ class Yikes_Inc_Easy_Mailchimp_Forms_Admin {
 		/* End General Settings */
 
 		/* Checkbox Settings */
-		register_setting( 'yikes_inc_easy_mc_checkbox_settings_page', 'optin-checkbox-init' );
+		register_setting(
+			'yikes_inc_easy_mc_checkbox_settings_page',
+			'optin-checkbox-init',
+			array(
+				'type'              => 'object',
+				'sanitize_callback' => function( $input ) {
+					return map_deep( $input, 'sanitize_text_field' );
+				}
+			)
+		);
 
 		/* Register General Settings Section */
 		add_settings_section(
@@ -1098,89 +1122,142 @@ class Yikes_Inc_Easy_Mailchimp_Forms_Admin {
 
 		/* reCAPTCHA Settings */
 
-			register_setting( 'yikes_inc_easy_mc_recaptcha_settings_page', 'yikes-mc-recaptcha-status' );
-			register_setting( 'yikes_inc_easy_mc_recaptcha_settings_page', 'yikes-mc-recaptcha-site-key' );
-			register_setting( 'yikes_inc_easy_mc_recaptcha_settings_page', 'yikes-mc-recaptcha-secret-key' );
+		register_setting(
+			'yikes_inc_easy_mc_recaptcha_settings_page',
+			'yikes-mc-recaptcha-status',
+			array(
+				'type'              => 'boolean',
+				'sanitize_callback' => 'sanitize_text_field'
+			)
+		);
 
-			/* Version 3 Settings */
-			register_setting( 'yikes_inc_easy_mc_recaptcha_settings_page', 'yikes-mc-recaptcha-site-key-three' );
-			register_setting( 'yikes_inc_easy_mc_recaptcha_settings_page', 'yikes-mc-recaptcha-secret-key-three' );
-			register_setting( 'yikes_inc_easy_mc_recaptcha_settings_page', 'yikes-mc-recaptcha-version-three' );
+		register_setting(
+			'yikes_inc_easy_mc_recaptcha_settings_page',
+			'yikes-mc-recaptcha-site-key',
+			array(
+				'type'              => 'string',
+				'sanitize_callback' => 'sanitize_text_field'
+			)
+		);
 
-			/* Register reCAPTCHA Settings Section */
-			add_settings_section(
-				'yikes_easy_mc_settings_recpatcha_section',
-				'',
-				'',
-				'yikes_inc_easy_mc_recaptcha_settings_page'
-			);
+		register_setting(
+			'yikes_inc_easy_mc_recaptcha_settings_page',
+			'yikes-mc-recaptcha-secret-key',
+			array(
+				'type'              => 'string',
+				'sanitize_callback' => 'sanitize_text_field'
+			)
+		);
 
-			add_settings_field(
-				'yikes-mc-recaptcha-site-key',
-				__( 'Enter reCAPTCHA V2 Site Key', 'yikes-inc-easy-mailchimp-extender' ),
-				'',  // callback + validation inside of admin/partials/menu/options.php
-				'yikes_easy_mc_settings_recpatcha_section'
-			);
+		/* Version 3 Settings */
+		register_setting(
+			'yikes_inc_easy_mc_recaptcha_settings_page',
+			'yikes-mc-recaptcha-site-key-three',
+			array(
+				'type'              => 'string',
+				'sanitize_callback' => 'sanitize_text_field'
+			)
+		);
 
-			add_settings_field(
-				'yikes-mc-recaptcha-secret-key',
-				__( 'Enter reCAPTCHA V2 Secret Key', 'yikes-inc-easy-mailchimp-extender' ),
-				'',  // callback + validation inside of admin/partials/menu/options.php
-				'yikes_easy_mc_settings_recpatcha_section'
-			);
+		register_setting(
+			'yikes_inc_easy_mc_recaptcha_settings_page',
+			'yikes-mc-recaptcha-secret-key-three',
+			array(
+				'type'              => 'string',
+				'sanitize_callback' => 'sanitize_text_field'
+			)
+		);
 
-			add_settings_field(
-				'yikes-mc-recaptcha-status',
-				__( 'Enable ReCaptcha', 'yikes-inc-easy-mailchimp-extender' ),
-				'',  // callback + validation inside of admin/partials/menu/options.php
-				'yikes_easy_mc_settings_recpatcha_section'
-			);
+		register_setting(
+			'yikes_inc_easy_mc_recaptcha_settings_page',
+			'yikes-mc-recaptcha-version-three',
+			array(
+				'type'              => 'string',
+				'sanitize_callback' => 'sanitize_text_field'
+			)
+		);
 
-			add_settings_field(
-				'yikes-mc-recaptcha-version-three',
-				__( 'Enable Version 3', 'yikes-inc-easy-mailchimp-extender' ),
-				'',  // callback + validation inside of admin/partials/menu/options.php
-				'yikes_easy_mc_settings_recpatcha_section'
-			);
+		/* Register reCAPTCHA Settings Section */
+		add_settings_section(
+			'yikes_easy_mc_settings_recpatcha_section',
+			'',
+			'',
+			'yikes_inc_easy_mc_recaptcha_settings_page'
+		);
 
-			add_settings_field(
-				'yikes-mc-recaptcha-site-key-three',
-				__( 'Enter reCAPTCHA V3 Site Key', 'yikes-inc-easy-mailchimp-extender' ),
-				'',  // callback + validation inside of admin/partials/menu/options.php
-				'yikes_easy_mc_settings_recpatcha_section'
-			);
+		add_settings_field(
+			'yikes-mc-recaptcha-site-key',
+			__( 'Enter reCAPTCHA V2 Site Key', 'yikes-inc-easy-mailchimp-extender' ),
+			'',  // callback + validation inside of admin/partials/menu/options.php
+			'yikes_easy_mc_settings_recpatcha_section'
+		);
 
-			add_settings_field(
-				'yikes-mc-recaptcha-secret-key-three',
-				__( 'Enter reCAPTCHA V3 Secret Key', 'yikes-inc-easy-mailchimp-extender' ),
-				'',  // callback + validation inside of admin/partials/menu/options.php
-				'yikes_easy_mc_settings_recpatcha_section'
-			);
+		add_settings_field(
+			'yikes-mc-recaptcha-secret-key',
+			__( 'Enter reCAPTCHA V2 Secret Key', 'yikes-inc-easy-mailchimp-extender' ),
+			'',  // callback + validation inside of admin/partials/menu/options.php
+			'yikes_easy_mc_settings_recpatcha_section'
+		);
+
+		add_settings_field(
+			'yikes-mc-recaptcha-status',
+			__( 'Enable ReCaptcha', 'yikes-inc-easy-mailchimp-extender' ),
+			'',  // callback + validation inside of admin/partials/menu/options.php
+			'yikes_easy_mc_settings_recpatcha_section'
+		);
+
+		add_settings_field(
+			'yikes-mc-recaptcha-version-three',
+			__( 'Enable Version 3', 'yikes-inc-easy-mailchimp-extender' ),
+			'',  // callback + validation inside of admin/partials/menu/options.php
+			'yikes_easy_mc_settings_recpatcha_section'
+		);
+
+		add_settings_field(
+			'yikes-mc-recaptcha-site-key-three',
+			__( 'Enter reCAPTCHA V3 Site Key', 'yikes-inc-easy-mailchimp-extender' ),
+			'',  // callback + validation inside of admin/partials/menu/options.php
+			'yikes_easy_mc_settings_recpatcha_section'
+		);
+
+		add_settings_field(
+			'yikes-mc-recaptcha-secret-key-three',
+			__( 'Enter reCAPTCHA V3 Secret Key', 'yikes-inc-easy-mailchimp-extender' ),
+			'',  // callback + validation inside of admin/partials/menu/options.php
+			'yikes_easy_mc_settings_recpatcha_section'
+		);
 
 		/* End reCAPTCHA Settings */
 
 		/* Debug Settings */
-			register_setting( 'yikes_inc_easy_mc_debug_settings_page', 'yikes-mailchimp-debug-status' );
+		register_setting(
+			'yikes_inc_easy_mc_debug_settings_page',
+			'yikes-mailchimp-debug-status',
+			array(
+				'type'              => 'boolean',
+				'sanitize_callback' => 'sanitize_text_field'
+			)
+		);
 
-			/* Register Debug Settings Section */
-			add_settings_section(
-				'yikes_easy_mc_settings_debug_section',
-				'',
-				'',
-				'yikes_inc_easy_mc_debug_settings_page'
-			);
+		/* Register Debug Settings Section */
+		add_settings_section(
+			'yikes_easy_mc_settings_debug_section',
+			'',
+			'',
+			'yikes_inc_easy_mc_debug_settings_page'
+		);
 
-			add_settings_field(
-				'yikes-mailchimp-debug-status',
-				__( 'Enable Debugging', 'yikes-inc-easy-mailchimp-extender' ),
-				'',  // callback + validation inside of admin/partials/menu/options.php
-				'yikes_easy_mc_settings_debug_section'
-			);
+		add_settings_field(
+			'yikes-mailchimp-debug-status',
+			__( 'Enable Debugging', 'yikes-inc-easy-mailchimp-extender' ),
+			'',  // callback + validation inside of admin/partials/menu/options.php
+			'yikes_easy_mc_settings_debug_section'
+		);
 
 		/* Custom Action Hook For Addon Settings */
-			// custom action hook to allow our add-ons to take
-			// advantage of our base settings
-			do_action( 'yikes-mailchimp-settings-field' );
+		// custom action hook to allow our add-ons to take
+		// advantage of our base settings
+		do_action( 'yikes-mailchimp-settings-field' );
 
 	}
 
