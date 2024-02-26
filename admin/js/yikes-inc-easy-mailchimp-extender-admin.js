@@ -1,4 +1,4 @@
-(function( $ ) {Code ParrotsCode Parrots
+(function( $ ) {
 	'use strict';
 		
 		$( document ).ready( function() {
@@ -20,7 +20,7 @@
 				clicked.toggleText();
 				return false;
 			});
-				 			
+
 			/* Prevent disabled buttons/pagination from doing anything */
 			$( 'body' ).on( 'click', '.yikes-easy-mc-wrap .disabled' , function() {
 				return false;

@@ -3,9 +3,9 @@ Contributors: yikesinc, eherman24, liljimmi, JPry, yikesitskevin, fmixell, vochr
 Donate link: https://codeparrots.com/?utm_source=wp_plugin_repo&utm_medium=donate_link&utm_campaign=easy_forms_for_mailchimp
 Tags: Mailchimp, Mailchimp forms, Mailchimp lists, opt-in forms, sign up form, Mailchimp, email, forms, mailing lists, marketing, newsletter, sign up
 Requires at least: 4.0
-Tested up to: 6.3
+Tested up to: 6.4
 Requires PHP: 5.2.13
-Stable tag: 6.8.10
+Stable tag: 6.9.0
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -171,6 +171,11 @@ Alongside the default functionality of the plugin we've included a number of hoo
 For information and code examples on how to implement the hooks and filters provided by our plugin, please see our [Developer Documentation in the Knowledge Base](https://codeparrots.com/support/knowledge-base/product/developer-documentation/?utm_source=wp_plugin_repo&utm_medium=link&utm_campaign=easy_forms_for_mailchimp).
 
 == Changelog ==
+
+= 6.9.0 - February 26th, 2023 =
+* Sanitize all settings on save. [#917](https://github.com/EvanHerman/yikes-inc-easy-mailchimp-extender/pull/917)
+* Escape all settings on output. [#917](https://github.com/EvanHerman/yikes-inc-easy-mailchimp-extender/pull/917)
+* Replace all instances of `FILTER_SANITIZE_STRING` with `htmlspecialchars()`. [#917](https://github.com/EvanHerman/yikes-inc-easy-mailchimp-extender/pull/917)
 
 = 6.8.9 - June 12, 2023 =
 * Escaped and sanitize form fields when a form is created and displayed to the user.
