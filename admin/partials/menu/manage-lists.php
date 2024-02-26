@@ -118,7 +118,7 @@ if ( is_wp_error( $list_data ) ) {
 															?>
 														</div>
 													</td>
-													<td class="column-columnname num"><?php echo $list['stats']['member_count']; ?></td>
+													<td class="column-columnname num"><?php echo esc_html( $list['stats']['member_count'] ); ?></td>
 												</tr>
 												<?php
 												$i++;
@@ -157,9 +157,9 @@ if ( is_wp_error( $list_data ) ) {
 					<div class="postbox yikes-easy-mc-postbox list-page-sidebar">
 						<div class="inside">
 
-							<h2 class="account-status"><?php echo $account_details['username']; ?> <small>(<?php echo $account_details['role']; ?>)</small></h2>
+							<h2 class="account-status"><?php echo esc_html( $account_details['username'] ); ?> <small>(<?php echo esc_html( $account_details['role'] ); ?>)</small></h2>
 
-							<img class="mailchimp-avatar" src="<?php echo esc_url_raw( $account_details['avatar_url'] ); ?>" title="<?php echo $account_details['username'] . ' ' . __( "Mailchimp avatar" , 'yikes-inc-easy-mailchimp-extender' ); ?>">
+							<img class="mailchimp-avatar" src="<?php echo esc_url_raw( $account_details['avatar_url'] ); ?>" title="<?php echo esc_attr( $account_details['username'] ) . ' ' . __( "Mailchimp avatar" , 'yikes-inc-easy-mailchimp-extender' ); ?>">
 
 							<table class="form-table" id="account-details-table">
 								<tr valign="top">
@@ -168,7 +168,7 @@ if ( is_wp_error( $list_data ) ) {
 											<strong><?php _e( 'Company' , 'yikes-inc-easy-mailchimp-extender' ); ?></strong>
 										</label>
 									</td>
-									<td><?php echo $account_details['contact']['company']; ?><br /><?php echo $account_details['contact']['city'] . ', ' . $account_details['contact']['state']; ?></td>
+									<td><?php echo esc_html( $account_details['contact']['company'] ); ?><br /><?php echo esc_html( $account_details['contact']['city'] ) . ', ' . esc_html( $account_details['contact']['state'] ); ?></td>
 								</tr>
 								<tr valign="top">
 									<td scope="row">
@@ -176,7 +176,7 @@ if ( is_wp_error( $list_data ) ) {
 											<strong><?php _e( 'Industry' , 'yikes-inc-easy-mailchimp-extender' ); ?></strong>
 										</label>
 									</td>
-									<td><?php echo $account_details['account_industry']; ?></td>
+									<td><?php echo esc_html( $account_details['account_industry'] ); ?></td>
 								</tr>
 								<tr valign="top">
 									<td scope="row">
@@ -184,7 +184,7 @@ if ( is_wp_error( $list_data ) ) {
 											<strong><?php _e( 'Member Since' , 'yikes-inc-easy-mailchimp-extender' ); ?></strong>
 										</label>
 									</td>
-									<td><?php echo date( get_option('date_format') , strtotime( $account_details['member_since'] ) ); ?></td>
+									<td><?php echo esc_html( date( get_option('date_format') , strtotime( $account_details['member_since'] ) ) ); ?></td>
 								</tr>
 								<tr valign="top">
 									<td scope="row">
@@ -192,7 +192,7 @@ if ( is_wp_error( $list_data ) ) {
 											<strong><?php _e( 'Plan Type' , 'yikes-inc-easy-mailchimp-extender' ); ?></strong>
 										</label>
 									</td>
-									<td><?php echo ucwords( $account_details['pricing_plan_type'] ); ?></td>
+									<td><?php echo esc_html( ucwords( $account_details['pricing_plan_type'] ) ); ?></td>
 								</tr>
 							</table>
 

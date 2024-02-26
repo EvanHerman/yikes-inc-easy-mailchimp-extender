@@ -69,13 +69,13 @@ class Yikes_Inc_Easy_Mailchimp_Export_Class {
 
 		// get an array of all of our plugin settings (on the settings pages), to loop over
 		$plugin_settings = array(
-			'yikes-mc-api-key'              => yikes_get_mc_api_key(),
-			'yikes-mc-api-validation'       => get_option( 'yikes-mc-api-validation', 'invalid_api_key' ),
-			'optin-checkbox-init'           => get_option( 'optin-checkbox-init', '' ),
-			'yikes-mc-recaptcha-status'     => get_option( 'yikes-mc-recaptcha-status', '' ),
-			'yikes-mc-recaptcha-site-key'   => get_option( 'yikes-mc-recaptcha-site-key', '' ),
-			'yikes-mc-recaptcha-secret-key' => get_option( 'yikes-mc-recaptcha-secret-key', '' ),
-			'yikes-mailchimp-debug-status'  => get_option( 'yikes-mailchimp-debug-status', '' ),
+			'yikes-mc-api-key'              => esc_html( yikes_get_mc_api_key() ),
+			'yikes-mc-api-validation'       => esc_html( get_option( 'yikes-mc-api-validation', 'invalid_api_key' ) ),
+			'optin-checkbox-init'           => esc_html( get_option( 'optin-checkbox-init', '' ) ),
+			'yikes-mc-recaptcha-status'     => esc_html( get_option( 'yikes-mc-recaptcha-status', '' ) ),
+			'yikes-mc-recaptcha-site-key'   => esc_html( get_option( 'yikes-mc-recaptcha-site-key', '' ) ),
+			'yikes-mc-recaptcha-secret-key' => esc_html( get_option( 'yikes-mc-recaptcha-secret-key', '' ) ),
+			'yikes-mailchimp-debug-status'  => esc_html( get_option( 'yikes-mailchimp-debug-status', '' ) ),
 		);
 
 		$titles  = array();

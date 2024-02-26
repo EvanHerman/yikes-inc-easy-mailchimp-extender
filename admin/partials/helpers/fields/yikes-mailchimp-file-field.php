@@ -25,18 +25,18 @@
 ?>
 	
 	<div class="yikes-mailchimp-file-field">
-		<label for="image_url" class="widefat"><strong><?php echo $field['label']; ?></strong></label>
+		<label for="image_url" class="widefat"><strong><?php echo esc_html( $field['label'] ); ?></strong></label>
 		<?php foreach( $field_data['incentive-attachment'] as $attachment ) { ?>
-			<input type="text" name="custom-field[<?php echo $field['id']; ?>][<?php echo $i; ?>]" id="custom-field[<?php echo $field['id']; ?>][<?php echo $i; ?>]" class="file-attachment" value="<?php echo isset( $field_data[$field['id']][$i] ) ? $field_data[$field['id']][$i] : ''; ?>">
-			<input type="button" name="upload-btn" id="upload-btn" class="button-secondary" data-attr-position="<?php echo $i; ?>" value="<?php _e( 'Upload File' , 'yikes-inc-easy-mailchimp-extender' ); ?>">
+			<input type="text" name="custom-field[<?php echo esc_attr( $field['id'] ); ?>][<?php echo esc_attr( $i ); ?>]" id="custom-field[<?php echo esc_attr( $field['id'] ); ?>][<?php echo esc_attr( $i ); ?>]" class="file-attachment" value="<?php echo isset( $field_data[$field['id']][$i] ) ? esc_attr( $field_data[$field['id']][$i] ) : ''; ?>">
+			<input type="button" name="upload-btn" id="upload-btn" class="button-secondary" data-attr-position="<?php echo esc_attr( $i ); ?>" value="<?php _e( 'Upload File' , 'yikes-inc-easy-mailchimp-extender' ); ?>">
 			<div class="file-container">
 				<p class="file-remove-wrapper">
-					<a href="#" class="remove-file-button" data-attr-position="<?php echo $i; ?>"><?php _e( 'Remove File' , 'yikes-inc-easy-mailchimp-extender' ); ?></a>
+					<a href="#" class="remove-file-button" data-attr-position="<?php echo esc_attr( $i ); ?>"><?php _e( 'Remove File' , 'yikes-inc-easy-mailchimp-extender' ); ?></a>
 				</p>
 			</div>
 		<?php $i++; } ?>
 		<?php if( isset( $field['repeat'] ) ) { ?>
-			<a href="#" class="button-secondary add-new-incentive-attachment" data-attr-position="<?php echo $i; ?>"><span class="dashicons dashicons-plus"></span></a>
+			<a href="#" class="button-secondary add-new-incentive-attachment" data-attr-position="<?php echo esc_attr( $i ); ?>"><span class="dashicons dashicons-plus"></span></a>
 		<?php } ?>
-		<p class="description"><?php echo $field['description']; ?></p>
+		<p class="description"><?php echo esc_html( $field['description'] ); ?></p>
 	</div>

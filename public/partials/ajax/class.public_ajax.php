@@ -58,9 +58,9 @@ class YIKES_Inc_Easy_Mailchimp_Public_Ajax {
 		@since v6.0.4.1
 	*/
 	public function sendUpdateProfileEmail() {
-		$user_email    = filter_var( $_POST['user_email'], FILTER_SANITIZE_STRING );
+		$user_email    = htmlspecialchars( $_POST['user_email'] );
 		$user_id       = md5( $user_email );
-		$list_id       = filter_var( $_POST['list_id'], FILTER_SANITIZE_STRING );
+		$list_id       = htmlspecialchars( $_POST['list_id'] );
 		$form_id       = filter_var( $_POST['form_id'], FILTER_SANITIZE_NUMBER_INT );
 		$page_id       = filter_var( $_POST['page_id'], FILTER_SANITIZE_NUMBER_INT );
 		$full_site_url = get_bloginfo( 'url' );

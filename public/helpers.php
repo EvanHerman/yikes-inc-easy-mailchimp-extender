@@ -52,6 +52,6 @@ if ( ! function_exists( 'yikes_deep_parse_args' ) ) {
 		}
 
 		// Now we're ready for the regular wp_parse_args() function
-		return wp_parse_args( $args, $defaults );
+		return wp_parse_args( map_deep( $args, 'sanitize_text_field' ), $defaults );
 	}
 }

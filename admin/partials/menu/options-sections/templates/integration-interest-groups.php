@@ -33,7 +33,7 @@ $integration_options = get_option( 'optin-checkbox-init', '' );
 			$selected_interest_groups = isset( $selected_interest_groups[$list_id] ) ? $selected_interest_groups[$list_id] : $selected_interest_groups;
 			?>
 			<section class="interest-group-section">
-				<strong class="interest-group-section-title"><?php echo ucwords( $interest_group['title'] ); ?></strong>
+				<strong class="interest-group-section-title"><?php echo esc_html( ucwords( $interest_group['title'] ) ); ?></strong>
 			<?php
 
 			/*
@@ -53,9 +53,9 @@ $integration_options = get_option( 'optin-checkbox-init', '' );
 						?>
 						<label>
 							<input type="checkbox"
-								name="optin-checkbox-init[<?php echo $integration_type; ?>][interest-groups][<?php echo $list_id; ?>][<?php echo $id; ?>][]"
-								value="<?php echo $field_id; ?>" <?php echo $checked; ?>>
-							<?php echo $field['name']; ?>
+								name="optin-checkbox-init[<?php echo esc_attr( $integration_type ); ?>][interest-groups][<?php echo esc_attr( $list_id ); ?>][<?php echo esc_attr( $id ); ?>][]"
+								value="<?php echo esc_attr( $field_id ); ?>" <?php echo $checked; ?>>
+							<?php echo esc_html( $field['name'] ); ?>
 						</label>
 						<?php
 					}
@@ -69,9 +69,9 @@ $integration_options = get_option( 'optin-checkbox-init', '' );
 						?>
 						<label>
 							<input type="radio"
-								name="optin-checkbox-init[<?php echo $integration_type; ?>][interest-groups][<?php echo $list_id; ?>][<?php echo $id; ?>][]"
-								value="<?php echo $field_id; ?>" <?php echo $checked; ?>>
-							<?php echo $field['name']; ?>
+								name="optin-checkbox-init[<?php echo esc_attr( $integration_type ); ?>][interest-groups][<?php echo esc_attr( $list_id ); ?>][<?php echo esc_attr( $id ); ?>][]"
+								value="<?php echo esc_attr( $field_id ); ?>" <?php echo $checked; ?>>
+							<?php echo esc_html( $field['name'] ); ?>
 						</label>
 						<?php
 					}
@@ -81,15 +81,15 @@ $integration_options = get_option( 'optin-checkbox-init', '' );
 				case 'dropdown':
 					if ( ! empty( $interest_groups_fields ) ) {
 						?>
-						<select name="optin-checkbox-init[<?php echo $integration_type; ?>][interest-groups][<?php echo $list_id; ?>][<?php echo $id; ?>][]">
+						<select name="optin-checkbox-init[<?php echo esc_attr( $integration_type ); ?>][interest-groups][<?php echo esc_attr( $list_id ); ?>][<?php echo esc_attr( $id ); ?>][]">
 						<?php
 						foreach ( $interest_groups_fields as $field_id => $field ) {
 							if ( isset( $selected_interest_groups[ $id ] ) ) {
 								$selected = selected( true, in_array( $field_id, $selected_interest_groups[ $id ] ), false );
 							}
 						?>
-							<option value="<?php echo $field_id; ?>" <?php echo $selected; ?>>
-								<?php echo $field['name']; ?>
+							<option value="<?php echo esc_attr( $field_id ); ?>" <?php echo $selected; ?>>
+								<?php echo esc_html( $field['name'] ); ?>
 							</option>
 						<?php
 						}

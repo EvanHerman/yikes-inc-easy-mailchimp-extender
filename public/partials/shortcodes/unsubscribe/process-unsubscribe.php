@@ -35,7 +35,7 @@ class YIKES_Mailchimp_Process_Unsubscribe {
 		}
 
 		$email   = md5( strtolower( $email ) );
-		$list_id = filter_var( $list_id, FILTER_SANITIZE_STRING );
+		$list_id = htmlspecialchars( $list_id );
 
 		// Unsubscribe the member
 		$list_handler  = yikes_get_mc_api_manager()->get_list_handler();

@@ -11,7 +11,7 @@
 	} else {
 		$api_connection = '<span id="connection-container" class="api-not-connected"><span class="dashicons dashicons-no-alt yikes-mc-api-not-connected"></span>  ' . __( "Not Connected" , 'yikes-inc-easy-mailchimp-extender' ) . '</span>';
 		if( get_option( 'yikes-mc-api-invalid-key-response' , '' ) != '' ) {
-			$api_error_response = '<p><small><i class="dashicons dashicons-no-alt"></i> ' . get_option( 'yikes-mc-api-invalid-key-response' , '' ) . '</small></p>';
+			$api_error_response = '<p><small><i class="dashicons dashicons-no-alt"></i> ' . esc_html( wp_kses_post( 'yikes-mc-api-invalid-key-response' , '' ) ) . '</small></p>';
 		} else {
 			$api_error_response = '';
 		}

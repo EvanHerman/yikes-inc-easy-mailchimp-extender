@@ -125,7 +125,7 @@ class Yikes_Inc_Easy_Mailchimp_Error_Logging {
 	public function yikes_easy_mailchimp_write_to_error_log( $returned_error , $error_type , $page='' ) {
 		
 		// confirm error logging is toggled on, else lets exit
-		if( get_option( 'yikes-mailchimp-debug-status' , '' )  != '1' ) {
+		if( (string) get_option( 'yikes-mailchimp-debug-status' , '' )  != '1' ) {
 			return;
 		}
 		
@@ -143,13 +143,13 @@ class Yikes_Inc_Easy_Mailchimp_Error_Logging {
 			<tr>
 				<td class="row-title">
 					<label for="tablecell">
-						<em><?php echo ucwords( stripslashes( $returned_error ) ); ?></em>
+						<em><?php echo esc_html( ucwords( stripslashes( $returned_error ) ) ); ?></em>
 					</label>
 				</td>
 				<td>
-					<?php _e( 'Page:', 'yikes-inc-easy-mailchimp-extender' ); echo ' ' . $page; ?> || 
-					<?php _e( 'Type:', 'yikes-inc-easy-mailchimp-extender' ); echo ' ' . $error_type; ?> || 
-					<?php _e( 'Time:', 'yikes-inc-easy-mailchimp-extender' ); echo ' ' . date( get_option( 'date_format' ) . ' ' . get_option( 'time_format' ), current_time( 'timestamp' ) ); ?>
+					<?php _e( 'Page:', 'yikes-inc-easy-mailchimp-extender' ); echo ' ' . esc_html( $page ); ?> || 
+					<?php _e( 'Type:', 'yikes-inc-easy-mailchimp-extender' ); echo ' ' . esc_html( $error_type ); ?> || 
+					<?php _e( 'Time:', 'yikes-inc-easy-mailchimp-extender' ); echo ' ' . esc_html( date( get_option( 'date_format' ) . ' ' . get_option( 'time_format' ), current_time( 'timestamp' ) ) ); ?>
 				</td>
 			</tr>
 		<?php
@@ -158,7 +158,7 @@ class Yikes_Inc_Easy_Mailchimp_Error_Logging {
 		// file put contents $returned error + other data
 		file_put_contents( 
 			$this->error_log_file_path,
-			$new_contents
+			wp_kses_post( $new_contents )
 		);
 	}
 	
@@ -203,7 +203,7 @@ class Yikes_Inc_Easy_Mailchimp_Error_Logging {
 								<strong><span class='dashicons dashicons-no-alt'></span> <?php _e( 'Error Log Missing', 'yikes-inc-easy-mailchimp-extender' ); ?></strong>
 								<p class="error-log-missing-file">	
 									<em><?php _e( "It looks like your error log file is missing. You can attempt to create one by clicking the button below.", 'yikes-inc-easy-mailchimp-extender' ); ?></em>
-									
+
 									<?php
 									$url = esc_url_raw( 
 										add_query_arg(
@@ -214,10 +214,10 @@ class Yikes_Inc_Easy_Mailchimp_Error_Logging {
 										)
 									);
 									?>
-									<form id="create-error-log" method="POST" action="<?php echo $url; ?>">
+									<form id="create-error-log" method="POST" action="<?php echo esc_url( $url ); ?>">
 										<?php submit_button( __( 'Attempt to Create Error Log' , 'yikes-inc-easy-mailchimp-extender' ) , 'secondary' , '' , '' , array() ); ?>
 									</form>
-									
+
 								</p>
 							</td>
 						</tr>
@@ -234,5 +234,5 @@ class Yikes_Inc_Easy_Mailchimp_Error_Logging {
 			<?php
 		}
 	}
-		
+
 }

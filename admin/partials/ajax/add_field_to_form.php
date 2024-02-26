@@ -53,7 +53,7 @@ $merge_field_data = $available_merge_variables['merge_fields'][ $index ];
 
 			<?php if ( $form_data['field_type'] == 'radio' || $form_data['field_type'] == 'dropdown' ) { ?>
 				<?php $choices = ( isset( $merge_field_data['options']['choices'] ) ) ? esc_attr( json_encode( $merge_field_data['options']['choices'] ) ) : ''; ?>
-				<input type="hidden" name="field[<?php echo esc_attr( $merge_field_data['tag'] ); ?>][choices]" value='<?php echo $choices; ?>' />
+				<input type="hidden" name="field[<?php echo esc_attr( $merge_field_data['tag'] ); ?>][choices]" value='<?php echo esc_attr( $choices ); ?>' />
 			<?php } ?>
 
 			<table class="form-table form-field-container">
@@ -194,7 +194,7 @@ $merge_field_data = $available_merge_variables['merge_fields'][ $index ];
 									$x = 0;
 									foreach ( $merge_field_data['options']['choices'] as $choice => $value ) { ?>
 										<label>
-											<input type="radio" name="field[<?php echo esc_attr( $merge_field_data['tag'] ); ?>][default_choice]" value="<?php echo $x; ?>" <?php checked( $pre_selected, $choice ); ?>><?php echo $value; ?>
+											<input type="radio" name="field[<?php echo esc_attr( $merge_field_data['tag'] ); ?>][default_choice]" value="<?php echo esc_attr( $x ); ?>" <?php checked( $pre_selected, $choice ); ?>><?php echo esc_html( $value ); ?>
 										</label>
 										<?php $x++;
 									} ?>
@@ -215,7 +215,7 @@ $merge_field_data = $available_merge_variables['merge_fields'][ $index ];
 									</label>
 								</td>
 								<td>
-								<input type="text" id="placeholder_<?php echo esc_attr( $field['merge'] ); ?>" class="widefat" name="field[<?php echo $field['merge']; ?>][placeholder]" value="<?php echo isset( $field['placeholder'] ) ? $field['placeholder'] : '' ; ?>" />
+								<input type="text" id="placeholder_<?php echo esc_attr( $field['merge'] ); ?>" class="widefat" name="field[<?php echo esc_attr( $field['merge'] ); ?>][placeholder]" value="<?php echo isset( $field['placeholder'] ) ? esc_attr( $field['placeholder'] ) : '' ; ?>" />
 									<p class="description"><small><?php _e( "Assign a default value to populate a placeholder for selection drop-down", 'yikes-inc-easy-mailchimp-extender' );?></small></p>
 								</td>
 							</tr>
@@ -231,7 +231,7 @@ $merge_field_data = $available_merge_variables['merge_fields'][ $index ];
 										<?php $pre_selected = ! empty( $merge_field_data['default_choice'] ) ? $merge_field_data['default_choice'] : 'no-default'; ?>
 										<option value="no-default" <?php selected( $pre_selected, $choice ); ?>>No Default</option>
 										<?php foreach ( $merge_field_data['options']['choices'] as $choice => $value ) { ?>
-											<option value="<?php echo $choice; ?>" <?php selected( $pre_selected, $choice ); ?>><?php echo stripslashes( $value ); ?></option>
+											<option value="<?php echo esc_attr( $choice ); ?>" <?php selected( $pre_selected, $choice ); ?>><?php echo stripslashes( $value ); ?></option>
 										<?php } ?>
 									</select>
 									<p class="description"><small><?php _e( "Which option should be selected by default?", 'yikes-inc-easy-mailchimp-extender' );?></small></p>
@@ -348,15 +348,15 @@ $merge_field_data = $available_merge_variables['merge_fields'][ $index ];
 													$format_name = 'phone_format';
 													break;
 											}
-											echo $type;
+											echo esc_html( $type );
 										?>
 										</label>
 									</td>
 									<td>
-										<strong><?php echo $format; ?></strong>
-										<input type="hidden" name="field[<?php echo esc_attr( $merge_field_data['tag'] ); ?>][<?php echo $format_name; ?>]" value="<?php echo $format; ?>" />
+										<strong><?php echo esc_html( $format ); ?></strong>
+										<input type="hidden" name="field[<?php echo esc_attr( $merge_field_data['tag'] ); ?>][<?php echo esc_attr( $format_name ); ?>]" value="<?php echo esc_attr( $format ); ?>" />
 										<p class="description"><small>
-											<?php printf( __( 'To change the %s please head over to <a href="%s" title="Mailchimp" target="_blank">Mailchimp</a>. If you alter the format, you should re-import this field.', 'yikes-inc-easy-mailchimp-extender' ), strtolower( $type ), esc_url( 'http://www.mailchimp.com' ) ); ?>
+											<?php printf( __( 'To change the %s please head over to <a href="%s" title="Mailchimp" target="_blank">Mailchimp</a>. If you alter the format, you should re-import this field.', 'yikes-inc-easy-mailchimp-extender' ), esc_html( strtolower( $type ) ), esc_url( 'http://www.mailchimp.com' ) ); ?>
 										</small></p>
 									</td>
 								</tr>

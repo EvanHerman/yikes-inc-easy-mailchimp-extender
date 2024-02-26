@@ -74,7 +74,7 @@ function yikes_mailchimp_subscriber_count_shortcode( $attributes ) {
 	}
 
 	/* type cast the returned value as an integer */
-	echo (int) apply_filters( 'yikes-mailchimp-subscriber-count-value', $list_data['stats']['member_count'] );
+	echo (int) esc_html( apply_filters( 'yikes-mailchimp-subscriber-count-value', $list_data['stats']['member_count'] ) );
 
 	return ob_get_clean();
 

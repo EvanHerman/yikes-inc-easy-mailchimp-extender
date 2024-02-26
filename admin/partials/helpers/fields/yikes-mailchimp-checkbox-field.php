@@ -12,9 +12,9 @@
 	}
 ?>
 <label class="custom-field-section">
-	<strong><?php echo $field['label']; ?></strong>
-	<input type="checkbox" class="widefat" name="custom-field[<?php echo $field['id']; ?>]" id="custom-field" value="1" <?php checked( isset( $field_data[$field['id']] ) ? $field_data[$field['id']] : 0, 1, true ); ?>>
+	<strong><?php echo esc_html( $field['label'] ); ?></strong>
+	<input type="checkbox" class="widefat" name="custom-field[<?php echo esc_attr( $field['id'] ); ?>]" id="custom-field" value="1" <?php checked( isset( $field_data[$field['id']] ) ? $field_data[$field['id']] : 0, 1, true ); ?>>
 	<?php if( isset( $field['description'] ) && $field['description'] != '' ) { ?>
-	<p class="description"><?php echo $field['description']; ?></p>
+	<p class="description"><?php echo esc_html( $field['description'] ); ?></p>
 	<?php } ?>
 </label>

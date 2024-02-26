@@ -132,11 +132,11 @@
 					?>
 						<li class="yikes-mailchimp-checkbox-integration-item">
 							<label>
-								<input type="checkbox" name="optin-checkbox-init[<?php echo $class; ?>][value]" value="on" <?php echo $checked; ?> onclick="jQuery(this).parents('li').next().stop().slideToggle();"><?php echo ucwords( $value ); ?><span class="dashicons dashicons-editor-help"></span><div class="tooltiptext qtip-bootstrap" style="display:none;"><?php echo $class_descriptions[$class]; ?></div>
+								<input type="checkbox" name="optin-checkbox-init[<?php echo esc_attr( $class ); ?>][value]" value="on" <?php echo $checked; ?> onclick="jQuery(this).parents('li').next().stop().slideToggle();"><?php echo ucwords( esc_attr( $value ) ); ?><span class="dashicons dashicons-editor-help"></span><div class="tooltiptext qtip-bootstrap" style="display:none;"><?php echo esc_html( $class_descriptions[$class] ); ?></div>
 							</label>
 						</li>
 						<!-- checkbox settings, text - associated list etc. -->
-						<li class="optin-checkbox-init[<?php echo $class; ?>]-settings <?php echo $hidden; ?>">
+						<li class="optin-checkbox-init[<?php echo esc_attr( $class ); ?>]-settings <?php echo esc_attr( $hidden ); ?>">
 							<?php if( $class == 'contact_form_7' ) { ?>
 								<p style="margin-top:0;"><small class="contact-form-7-notice"><?php printf( __( 'Use %s in Contact Form 7 to display the checkbox.', 'yikes-inc-easy-mailchimp-extender' ), '<code>[yikes_mailchimp_checkbox]</code>' ); ?></small></p>
 							<?php } ?>
@@ -153,12 +153,12 @@
 												$list_interest_groups = isset( $list_interest_groups[ $list['id'] ] ) ? $list_interest_groups[ $list['id'] ] : $list_interest_groups;
 											?>
 
-											<label class="yikes-mailchimp-checkbox-integration-list" for="list-<?php echo $class ?>-<?php echo $list['id']; ?>">
-												<input type="checkbox" class="checkbox-settings-list-item" data-integration="<?php echo $class; ?>" 
-													name="optin-checkbox-init[<?php echo $class; ?>][associated-list][]"
-													value="<?php echo $list['id']; ?>" <?php echo in_array( $list['id'], $selected_list ) ? 'checked="checked"' : ''; ?> 
-													id="list-<?php echo $class ?>-<?php echo $list['id']; ?>">
-												<?php echo $list['name']; ?>
+											<label class="yikes-mailchimp-checkbox-integration-list" for="list-<?php echo esc_attr( $class ) ?>-<?php echo esc_attr( $list['id'] ); ?>">
+												<input type="checkbox" class="checkbox-settings-list-item" data-integration="<?php echo esc_attr( $class ); ?>" 
+													name="optin-checkbox-init[<?php echo esc_attr( $class ); ?>][associated-list][]"
+													value="<?php echo esc_attr( $list['id'] ); ?>" <?php echo in_array( $list['id'], $selected_list ) ? 'checked="checked"' : ''; ?> 
+													id="list-<?php echo esc_attr( $class ); ?>-<?php echo esc_attr( $list['id'] ); ?>">
+												<?php echo esc_attr( $list['name'] ); ?>
 											</label>
 
 											<!-- If interest groups have been selected already, load them here -->
@@ -179,12 +179,12 @@
 								<!-- checkbox text label -->
 								<label class="optin-checkbox-label">
 									<strong><?php _e( 'Opt-in Checkbox Label:', 'yikes-inc-easy-mailchimp-extender' ); ?></strong>
-									<input type="text" class="optin-checkbox-init[<?php echo $class; ?>][label] optin-checkbox-label-input" name="optin-checkbox-init[<?php echo $class; ?>][label]" value="<?php echo $checkbox_label; ?>">
+									<input type="text" class="optin-checkbox-init[<?php echo esc_attr( $class ); ?>][label] optin-checkbox-label-input" name="optin-checkbox-init[<?php echo esc_attr( $class ); ?>][label]" value="<?php echo esc_attr( $checkbox_label ); ?>">
 								</label>
 								<!-- prechecked? -->
 								<label class="optin-checkbox-label">
 									<strong><?php _e( 'Precheck Checkbox?', 'yikes-inc-easy-mailchimp-extender' ); ?></strong>
-									<select id="optin-checkbox-init[<?php echo $class; ?>][precheck]" name="optin-checkbox-init[<?php echo $class; ?>][precheck]" class="optin-checkbox-init[<?php echo $class; ?>][precheck] checkbox-settings-list-dropdown">
+									<select id="optin-checkbox-init[<?php echo esc_attr( $class ); ?>][precheck]" name="optin-checkbox-init[<?php echo esc_attr( $class ); ?>][precheck]" class="optin-checkbox-init[<?php echo esc_attr( $class ); ?>][precheck] checkbox-settings-list-dropdown">
 										<option value="true" <?php selected( $precheck_checkbox , 'true' ); ?>><?php _e( 'Yes', 'yikes-inc-easy-mailchimp-extender' ); ?></option>
 										<option value="false" <?php selected( $precheck_checkbox , 'false' ); ?>><?php _e( 'No', 'yikes-inc-easy-mailchimp-extender' ); ?></option>
 									</select>

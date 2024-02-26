@@ -9,7 +9,7 @@
 <div class="wrap yikes-easy-mc-support-wrap yikes-easy-mc-wrap">
 
 	<!-- Freddie Logo -->
-	<img src="<?php echo YIKES_MC_URL . 'includes/images/Mailchimp_Assets/Freddie_60px.png'; ?>" alt="<?php _e( 'Freddie - Mailchimp Mascot' , 'yikes-inc-easy-mailchimp-extender' ); ?>" class="yikes-mc-freddie-logo" />
+	<img src="<?php echo esc_url( YIKES_MC_URL . 'includes/images/Mailchimp_Assets/Freddie_60px.png' ); ?>" alt="<?php _e( 'Freddie - Mailchimp Mascot' , 'yikes-inc-easy-mailchimp-extender' ); ?>" class="yikes-mc-freddie-logo" />
 
 	<h1>Easy Forms for Mailchimp | <?php _e( 'Support' , 'yikes-inc-easy-mailchimp-extender' ); ?></h1>
 		<!-- Support Page Description -->

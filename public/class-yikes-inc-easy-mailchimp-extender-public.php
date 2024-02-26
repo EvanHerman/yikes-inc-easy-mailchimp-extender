@@ -102,7 +102,7 @@ class Yikes_Inc_Easy_Mailchimp_Extender_Public {
 			foreach( $integrations as $integration => $value ) {
 				if( isset( $value['value'] ) && $value['value'] == 'on' ) {
 					// load our class extensions
-					require_once YIKES_MC_PATH . 'public/classes/checkbox-integrations/class.'.$integration.'-checkbox.php';
+					require_once YIKES_MC_PATH . 'public/classes/checkbox-integrations/class.'.esc_html( $integration ).'-checkbox.php';
 				}
 			}
 		}

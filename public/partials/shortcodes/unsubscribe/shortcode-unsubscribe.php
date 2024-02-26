@@ -55,11 +55,11 @@ function process_yikes_unsubscribe_shortcode( $args ) {
 		<section id="yikes-mailchimp-unsubscribe-container-<?php echo esc_attr( $list_id ); ?>" class="yikes-mailchimp-unsubscribe-container">
 
 			<div id="yikes-mailchimp-unsubscribe-title-<?php echo esc_attr( $list_id ); ?>" class="yikes-mailchimp-unsubscribe-title">
-				<h2><?php echo apply_filters( 'yikes-mailchimp-unsubscribe-title', esc_html( $values['title'] ) ); ?></h2>
+				<h2><?php echo esc_html( (string) apply_filters( 'yikes-mailchimp-unsubscribe-title', $values['title'] ) ); ?></h2>
 			</div>
 
 			<div id="yikes-mailchimp-unsubscribe-description-<?php echo esc_attr( $list_id ); ?>" class="yikes-mailchimp-unsubscribe-description">
-				<?php echo apply_filters( 'yikes-mailchimp-unsubscribe-description', esc_html( $values['description'] ) ); ?>
+				<?php echo esc_html( (string) apply_filters( 'yikes-mailchimp-unsubscribe-description', $values['description'] ) ); ?>
 			</div>
 
 			<?php do_action( 'yikes-mailchimp-unsubscribe-before-form' ); ?>

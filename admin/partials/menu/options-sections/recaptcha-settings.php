@@ -56,7 +56,7 @@
 
 			<a href="#" onclick="jQuery(this).next().slideToggle();return false;" class="recaptcha-preview-link"><?php _e( 'View reCAPTCHA Preview', 'yikes-inc-easy-mailchimp-extender' ); ?></a>
 				<span class="recaptcha-preview-container">
-					<img src="<?php echo YIKES_MC_URL . 'includes/images/recaptcha/recaptcha-demo.gif'; ?>" alt="<?php _e( 'reCAPTCHA Preview', 'yikes-inc-easy-mailchimp-extender' ); ?>" class="recaptcha-demo-gif">
+					<img src="<?php echo esc_url( YIKES_MC_URL . 'includes/images/recaptcha/recaptcha-demo.gif' ); ?>" alt="<?php _e( 'reCAPTCHA Preview', 'yikes-inc-easy-mailchimp-extender' ); ?>" class="recaptcha-demo-gif">
 				</span>
 
 		<?php submit_button(); ?>

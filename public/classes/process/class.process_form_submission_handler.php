@@ -896,11 +896,11 @@ class Yikes_Inc_Easy_Mailchimp_Extender_Process_Submission_Handler {
 
 		switch ( $version ) {
 			case 2:
-				$recaptcha_secret_key = get_option( 'yikes-mc-recaptcha-secret-key', '' );
+				$recaptcha_secret_key = esc_html( get_option( 'yikes-mc-recaptcha-secret-key', '' ) );
 			break;
 
 			case 3:
-				$recaptcha_secret_key = get_option( 'yikes-mc-recaptcha-secret-key-three' , '' );
+				$recaptcha_secret_key = esc_html( get_option( 'yikes-mc-recaptcha-secret-key-three' , '' ) );
 			break;
 		}
 
@@ -953,7 +953,7 @@ class Yikes_Inc_Easy_Mailchimp_Extender_Process_Submission_Handler {
 	public function handle_nonce( $nonce_value, $nonce_name ) {
 
 		// First, check our option - this is set in the general settings page
-		if ( get_option( 'yikes-mailchimp-use-nonce' ) === '1' ) {
+		if ( (string) get_option( 'yikes-mailchimp-use-nonce' ) === '1' ) {
 
 			/**
 			*	yikes-mailchimp-use-nonce-verification
