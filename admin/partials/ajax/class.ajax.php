@@ -123,7 +123,7 @@
 				wp_send_json_error( '1' );
 			}
 			$tags    = isset( $_POST['tags'] ) ? wp_unslash( $_POST['tags'] ) : array();
-			$list_id = isset( $_POST['list_id'] ) ? filter_var( wp_unslash( $_POST['list_id'] ), FILTER_SANITIZE_STRING ) : '';
+			$list_id = isset( $_POST['list_id'] ) ? htmlspecialchars( wp_unslash( $_POST['list_id'] ) ) : '';
 			$form_id = isset( $_POST['form_id'] ) ? filter_var( wp_unslash( $_POST['form_id'] ), FILTER_SANITIZE_NUMBER_INT ) : 0;
 
 			if ( empty( $tags ) || empty( $list_id ) || empty( $form_id ) ) {
@@ -137,7 +137,7 @@
 			// This data came from $_POST so sanitize it.
 			foreach ( $tags as $tag ) {
 				$form_tags[ filter_var( $tag['tag_id'], FILTER_SANITIZE_NUMBER_INT ) ] = array(
-					'name' => filter_var( $tag['tag_name'], FILTER_SANITIZE_STRING ),
+					'name' => htmlspecialchars( $tag['tag_name'] ),
 					'id'   => filter_var( $tag['tag_id'], FILTER_SANITIZE_NUMBER_INT ),
 				);
 			}
@@ -156,7 +156,7 @@
 				wp_send_json_error( '1' );
 			}
 			$tag     = isset( $_POST['tag'] ) ? filter_var( wp_unslash( $_POST['tag'] ), FILTER_SANITIZE_NUMBER_INT ) : array();
-			$list_id = isset( $_POST['list_id'] ) ? filter_var( wp_unslash( $_POST['list_id'] ), FILTER_SANITIZE_STRING ) : '';
+			$list_id = isset( $_POST['list_id'] ) ? htmlspecialchars( wp_unslash( $_POST['list_id'] ) ) : '';
 			$form_id = isset( $_POST['form_id'] ) ? filter_var( wp_unslash( $_POST['form_id'] ), FILTER_SANITIZE_NUMBER_INT ) : 0;
 
 			if ( empty( $tag ) || empty( $list_id ) || empty( $form_id ) ) {

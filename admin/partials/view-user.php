@@ -157,7 +157,7 @@ $list_name     = $additional_lists[ $list_id ];
 			<hr class="yikes-mc-subscriber-hr" />
 
 			<?php
-			if ( ! isset( $_GET['section'] ) || ( isset( $_GET['section'] ) && filter_var( wp_unslash( $_GET['section'] ), FILTER_SANITIZE_STRING ) === 'subscriber-data' ) ) {
+			if ( ! isset( $_GET['section'] ) || ( isset( $_GET['section'] ) && $_GET['section'] === 'subscriber-data' ) ) {
 				?>
 			<section class="yikes-mc-card-body merge-variable-section">
 				<h3><?php esc_html_e( 'Fields:', 'yikes-inc-easy-mailchimp-extender' ); ?></h3>

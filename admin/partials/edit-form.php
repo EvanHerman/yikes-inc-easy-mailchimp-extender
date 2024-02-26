@@ -133,7 +133,7 @@ $url = add_query_arg(
 <p class="yikes-easy-mc-about-text about-text"><?php esc_html_e( 'Update this Mailchimp form\'s fields, styles and settings below.', 'yikes-inc-easy-mailchimp-extender' ); ?></p>
 
 <?php
-if ( isset( $_REQUEST['updated-form'] ) && filter_var( $_REQUEST['updated-form'], FILTER_SANITIZE_STRING ) === 'true' ) {
+if ( isset( $_REQUEST['updated-form'] ) && $_REQUEST['updated-form'] === 'true' ) {
 	?>
 	<div class="updated manage-form-admin-notice">
 		<p><?php esc_html_e( 'Opt-in form successfully updated.', 'yikes-inc-easy-mailchimp-extender' ); ?></p>
@@ -163,7 +163,7 @@ do_action( 'yikes-mailchimp-edit-form-notice' );
 								<h3 class="bg-transparent"><?php esc_html_e( 'Form Description', 'yikes-inc-easy-mailchimp-extender' ); ?></h3>
 								<textarea name="form-description" id="form-description" class="large-text edit-form-form-description"><?php echo isset( $form['form_description'] ) ? esc_textarea( stripslashes( $form['form_description'] ) ) : ''; ?></textarea>
 								<p class="description"><?php esc_html_e( 'Descriptions are optional and you may choose to display it to visitors to your site.', 'yikes-inc-easy-mailchimp-extender' ); ?></p>
-								<p class="description"><?php printf( esc_html_e( 'To display the number of subscribers for the list associated with this form, use %s in the form description field above.', 'yikes-inc-easy-mailchimp-extender' ), '<code>[yikes-mailchimp-subscriber-count]</code>' ); ?><p>
+								<p class="description"><?php printf( esc_html__( 'To display the number of subscribers for the list associated with this form, use %s in the form description field above.', 'yikes-inc-easy-mailchimp-extender' ), '<code>[yikes-mailchimp-subscriber-count]</code>' ); ?><p>
 							</label>
 
 						</div>
