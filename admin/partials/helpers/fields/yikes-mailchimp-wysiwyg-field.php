@@ -17,7 +17,7 @@
 ?>
 
 <div class="yikes-mailchimp-wysiwyg-field">
-    <label for="image_url" class="widefat"><strong><?php echo $field['label']; ?></strong></label>
+    <label for="image_url" class="widefat"><strong><?php echo esc_html( $field['label'] ); ?></strong></label>
     <?php wp_editor( $content, $field['id'], array( 'textarea_name' => $wysiwyg_id ) ); ?>
-    <p class="description"><?php echo $field['description']; ?></p>
+    <p class="description"><?php echo esc_html( $field['description'] ); ?></p>
 </div>

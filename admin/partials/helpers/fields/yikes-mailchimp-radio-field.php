@@ -13,18 +13,18 @@
 ?>
 <div class="custom-field-section">
 	<!-- title -->
-	<strong><?php echo $field['label']; ?></strong>
+	<strong><?php echo esc_html( $field['label'] ); ?></strong>
 	<!-- radio buttons -->
 	<section class="custom-radio-holder">
 		<?php foreach( $field['options'] as $value => $label ) { ?>
 			<label class="custom-radio-label">
-				<input type="radio" name="custom-field[<?php echo $field['id']; ?>][]" id="custom-field" value="<?php echo $value; ?>" <?php if( isset( $field_data[$field['id']] ) ) { checked( $field_data[$field['id']] , $value ); } ?>>
-				<?php echo $label; ?>
+				<input type="radio" name="custom-field[<?php echo esc_attr( $field['id'] ); ?>][]" id="custom-field" value="<?php echo esc_attr( $value ); ?>" <?php if( isset( $field_data[$field['id']] ) ) { checked( $field_data[$field['id']] , $value ); } ?>>
+				<?php echo esc_html( $label ); ?>
 			</label>
 		<?php } ?>
 	</section>
 	<!-- description -->
 	<?php if( isset( $field['description'] ) && $field['description'] != '' ) { ?>
-		<p class="description"><?php echo $field['description']; ?></p>
+		<p class="description"><?php echo esc_html( $field['description'] ); ?></p>
 	<?php } ?>
 </div>

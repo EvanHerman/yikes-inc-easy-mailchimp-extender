@@ -20,13 +20,13 @@ $user_data = $list_helper->get_member( $list_id, $email_id );
 if ( is_wp_error( $user_data ) ) {
 	$error_logging = new Yikes_Inc_Easy_Mailchimp_Error_Logging();
 	$error_logging->maybe_write_to_log(
-		$user_data->get_error_code(),
+		wp_kses_post( $user_data->get_error_code() ),
 		__( 'Get Member Info', 'yikes-inc-easy-mailchimp-extender' ),
 		'View User Page'
 	);
 
 	echo '<h4>Error</h4>';
-	echo $user_data->get_error_code() . '.';
+	echo esc_html( $user_data->get_error_code() . '.' );
 
 	return;
 }
@@ -113,18 +113,18 @@ $list_name     = $additional_lists[ $list_id ];
 		<h1>YIKES Easy Forms for Mailchimp | <?php _e( 'Subscriber Details', 'yikes-inc-easy-mailchimp-extender' ); ?></h1>
 
 		<!-- Settings Page Description -->
-		<p class="yikes-easy-mc-about-text about-text"><?php printf( __( 'View %s subscriber details below.', 'yikes-inc-easy-mailchimp-extender' ), $user_email ); ?></p>
+		<p class="yikes-easy-mc-about-text about-text"><?php printf( __( 'View %s subscriber details below.', 'yikes-inc-easy-mailchimp-extender' ), esc_html( $user_email ) ); ?></p>
 
 		<section class="yikes-mc-view-list-breadcrumbs">
 			<a href="<?php echo esc_url( admin_url( 'admin.php?page=yikes-inc-easy-mailchimp-lists' ) ); ?>" title="<?php _e( 'View List', 'yikes-inc-easy-mailchimp-extender' ); ?>">
 				<?php _e( 'Optin Forms', 'yikes-inc-easy-mailchimp-extender' ); ?>
 			</a>
 			&nbsp;&#187;&nbsp;
-			<a href="<?php echo esc_url( admin_url( 'admin.php?page=yikes-mailchimp-view-list&list-id=' . $list_id ) ); ?>" title="<?php echo $list_name; ?>">
-				<?php echo $list_name; ?>
+			<a href="<?php echo esc_url( admin_url( 'admin.php?page=yikes-mailchimp-view-list&list-id=' . $list_id ) ); ?>" title="<?php echo esc_attr( $list_name ); ?>">
+				<?php echo esc_html( $list_name ); ?>
 			</a>
 			&nbsp;&#187;&nbsp;
-			<span title="<?php echo $user_email; ?>">
+			<span title="<?php echo esc_attr( $user_email ); ?>">
 				<?php echo esc_html( $user_email ); ?>
 			</span>
 		</section>
@@ -204,10 +204,7 @@ $list_name     = $additional_lists[ $list_id ];
 							?>
 							<h3><?php _e( 'Additional Subscriptions:', 'yikes-inc-easy-mailchimp-extender' ); ?></h3>
 							<?php foreach ( $additional_lists as $listid => $name ) { ?>
-								<?php
-								$user_redirect_url = esc_url_raw( admin_url( 'admin.php?page=yikes-mailchimp-view-list&list-id=' . $listid ) );
-								?>
-								<li><a href="<?php echo $user_redirect_url; ?>"><?php echo $name; ?></a></li>
+								<li><a href="<?php echo esc_url_raw( admin_url( 'admin.php?page=yikes-mailchimp-view-list&list-id=' . esc_attr( $listid ) ) ); ?>"><?php echo esc_html( $name ); ?></a></li>
 							<?php }
 						}
 					} else {
@@ -223,14 +220,14 @@ $list_name     = $additional_lists[ $list_id ];
 
 			<?php
 			if ( isset( $_GET['section'] ) && $_GET['section'] == 'delete-subscriber' ) {
-				$unsubscribe_subscriber_url = esc_url_raw( add_query_arg( array(
+				$unsubscribe_subscriber_url = add_query_arg( array(
 					'action'         => 'yikes-easy-mc-unsubscribe-user',
 					'mailchimp-list' => $list_id,
 					'nonce'          => wp_create_nonce( 'unsubscribe-user-' . $email_id ),
 					'email_id'       => $email_id,
-				) ) );
+				) );
 				?>
-				<form id="delete_subscriber" method="POST" action="<?php echo $unsubscribe_subscriber_url; ?>">
+				<form id="delete_subscriber" method="POST" action="<?php echo esc_url_raw( $unsubscribe_subscriber_url ); ?>">
 					<p class="description">
 						<?php printf( __( 'Deleting this subscriber will completely remove %s from the "%s" Mailchimp list.', 'yikes-inc-easy-mailchimp-extender' ), '<strong>' . $user_email . '</strong>', '<strong>' . $list_name . '</strong>' ); ?>
 					</p>
@@ -278,7 +275,7 @@ $list_name     = $additional_lists[ $list_id ];
 			<ul id="customer-tab-wrapper-list">
 
 				<?php if ( isset( $_GET['section'] ) && $_GET['section'] != 'subscriber-data' ) { ?>
-				<a title="<?php _e( 'Subscriber Details', 'yikes-inc-easy-mailchimp-extender' ); ?>" aria-label="<?php _e( 'Subscriber Details', 'yikes-inc-easy-mailchimp-extender' ); ?>" href="<?php echo $subscriber_details; ?>">
+				<a title="<?php _e( 'Subscriber Details', 'yikes-inc-easy-mailchimp-extender' ); ?>" aria-label="<?php _e( 'Subscriber Details', 'yikes-inc-easy-mailchimp-extender' ); ?>" href="<?php echo esc_url( $subscriber_details ); ?>">
 					<?php } ?>
 
 					<li <?php if ( ! isset( $_GET['section'] ) || ( isset( $_GET['section'] ) && $_GET['section'] == 'subscriber-data' ) ) { ?>class="active" <?php } else { ?>class="inactive"<?php } ?>>
@@ -289,7 +286,7 @@ $list_name     = $additional_lists[ $list_id ];
 			<?php } ?>
 
 				<?php if ( ! isset( $_GET['section'] ) || ( isset( $_GET['section'] ) && $_GET['section'] != 'additional-subscriptions' ) ) { ?>
-				<a title="<?php _e( 'Additional Subscriptions', 'yikes-inc-easy-mailchimp-extender' ); ?>" aria-label="<?php _e( 'Additional Subscriptions', 'yikes-inc-easy-mailchimp-extender' ); ?>" href="<?php echo $additional_subscription_url; ?>">
+				<a title="<?php _e( 'Additional Subscriptions', 'yikes-inc-easy-mailchimp-extender' ); ?>" aria-label="<?php _e( 'Additional Subscriptions', 'yikes-inc-easy-mailchimp-extender' ); ?>" href="<?php echo esc_url( $additional_subscription_url ); ?>">
 					<?php } ?>
 
 					<li <?php if ( isset( $_GET['section'] ) && $_GET['section'] == 'additional-subscriptions' ) { ?>class="active" <?php } else { ?>class="inactive"<?php } ?>>

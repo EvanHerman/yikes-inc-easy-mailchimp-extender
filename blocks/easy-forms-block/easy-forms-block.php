@@ -20,7 +20,7 @@ class YIKES_Easy_Form_Block extends YIKES_Easy_Forms_Blocks {
 			'day_names'           => array_values( $wp_locale->weekday ),
 			'day_names_short'     => array_values( $wp_locale->weekday_abbrev ),
 			'day_names_min'       => array_values( $wp_locale->weekday_initial ),
-			'first_day'           => get_option( 'start_of_week' ),
+			'first_day'           => esc_html( get_option( 'start_of_week' ) ),
 			'change_month'        => false,
 			'change_year'         => false,
 			'min_date'            => null,

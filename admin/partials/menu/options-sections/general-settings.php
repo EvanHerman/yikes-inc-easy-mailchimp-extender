@@ -24,7 +24,7 @@ if ( $is_akamai_error ) : ?>
 		</span>
 	</h3>
 <?php else : ?>
-	<h3><span><?php _e( 'General Settings' , 'yikes-inc-easy-mailchimp-extender' ); ?></span><?php echo $api_connection; ?></h3>
+	<h3><span><?php _e( 'General Settings' , 'yikes-inc-easy-mailchimp-extender' ); ?></span><?php echo wp_kses_post( $api_connection ); ?></h3>
 <?php endif; ?>
 
 <div class="inside">
@@ -49,7 +49,7 @@ if ( $is_akamai_error ) : ?>
 				<p class="description"><?php printf( __( "Your Mailchimp API key has been defined using the %s constant, in a PHP file.", "yikes-inc-easy-mailchimp-extender" ), '<code>YIKES_MC_API_KEY</code>' ); ?></p>
 			<?php } ?>
 
-			<?php echo $api_error_response; ?>
+			<?php echo wp_kses_post( $api_error_response ); ?>
 
 			<?php if ( ! $yikes_mc_api_constant ) { ?>
 				<p class="description"><small><a href="https://admin.mailchimp.com/account/api" target="_blank" title="<?php _e( 'Get your API key here' , 'yikes-inc-easy-mailchimp-extender' ); ?>"><?php _e( 'Get your API key here' , 'yikes-inc-easy-mailchimp-extender' ); ?></a></small></p>

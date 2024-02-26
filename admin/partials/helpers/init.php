@@ -30,7 +30,7 @@
 						$link = '<li class="hidden_setting_list">';
 							$link .= '<a class="hidden_setting ' . esc_attr__( $link_data['id'] ) . '" data-attr-container="' . esc_attr__( $link_data['id'] ) . '" onclick="return false;" title="' . esc_attr__( $link_data['text'] ) . '" href="#">' . $icon . esc_attr__( $link_data['text'] ) . '</a>';
 						$link .= '</li>';
-						echo $link;
+						echo wp_kses_post( $link );
 					}
 				}
 			}
@@ -54,6 +54,7 @@
 					include ( YIKES_MC_PATH . 'admin/partials/helpers/edit-form-hidden-section-template.php' );
 					$section = ob_get_contents();
 					ob_end_clean();
+					// Content escaped in each form section template file.
 					echo $section;
 				}
 			}
@@ -65,7 +66,6 @@
 			*		-	Section Data - the array of data associated with the custom field you've set up
 			*/
 			public static function is_custom_section_two_column( $custom_section_data ) {
-				// print_r( $custom_section_data );
 				$value = ( isset( $custom_section_data['sidebar_title'] ) && isset( $custom_section_data['sidebar_fields'] ) && !empty( $custom_section_data['sidebar_fields'] ) ) ?  true : false;
 				return $value;
 			}

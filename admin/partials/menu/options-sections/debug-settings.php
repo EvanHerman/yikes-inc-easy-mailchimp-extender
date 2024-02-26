@@ -34,7 +34,7 @@
 				)
 			);
 		?>
-		<h2><?php _e( "Debug Log" , 'yikes-inc-easy-mailchimp-extender' ); ?> &nbsp; <a href="<?php echo $url; ?>" class="button-secondary"><?php _e( 'Clear Log', 'yikes-inc-easy-mailchimp-extender' ); ?></a></h2>
+		<h2><?php _e( "Debug Log" , 'yikes-inc-easy-mailchimp-extender' ); ?> &nbsp; <a href="<?php echo esc_url( $url ); ?>" class="button-secondary"><?php _e( 'Clear Log', 'yikes-inc-easy-mailchimp-extender' ); ?></a></h2>
 		
 		<table class="widefat" id="yikes-mailchimp-error-log">
 			<!-- table header -->

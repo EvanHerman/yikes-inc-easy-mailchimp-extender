@@ -63,7 +63,7 @@ if ( is_wp_error( $members ) ) {
 $paged			= isset( $_REQUEST['paged'] ) ? filter_var( $_REQUEST['paged'], FILTER_SANITIZE_NUMBER_INT ) : 0;
 $limit			= apply_filters( 'yikes_admin_list_subscriber_limit', 20 );
 $page_offset	= (int) $paged * (int) $limit;
-$sort_dir		= isset( $_REQUEST['sort'] ) ? $_REQUEST['sort'] : 'DESC';
+$sort_dir		= isset( $_REQUEST['sort'] ) ? sanitize_text_field( $_REQUEST['sort'] ) : 'DESC';
 
 if ( $sort_dir === 'DESC' ) {
 	$opposite_sort_dir = 'ASC';
@@ -92,7 +92,7 @@ $subscribers_list = array_slice( $members, $page_offset, $limit );
 	<!-- Freddie Logo -->
 	<img src="<?php echo YIKES_MC_URL . 'includes/images/Mailchimp_Assets/Freddie_60px.png'; ?>" alt="<?php __( 'Freddie - Mailchimp Mascot' , 'yikes-inc-easy-mailchimp-extender' ); ?>" class="yikes-mc-freddie-logo" />
 
-	<h1>YIKES Easy Forms for Mailchimp | <?php echo $list_data['name']; ?></h1>
+	<h1>YIKES Easy Forms for Mailchimp | <?php echo esc_html( $list_data['name'] ); ?></h1>
 
 	<!-- Settings Page Description -->
 	<p class="yikes-easy-mc-about-text about-text"><?php _e( 'View all subscribers below. View additional subscriber info, or add additional fields to this list.' , 'yikes-inc-easy-mailchimp-extender' ); ?></p>
@@ -164,7 +164,7 @@ $subscribers_list = array_slice( $members, $page_offset, $limit );
 											foreach ( $subscribers_list as $subscriber ) {
 												$user_id           = $subscriber['id'];
 												$path              = YIKES_MC_URL . "includes/images/na.png";
-												$email_client_icon = "<img width='35' src='" . $path . "' alt='" . __( 'not set', 'yikes-inc-easy-mailchimp-extender' ) . "' title='" . __( 'not set', 'yikes-inc-easy-mailchimp-extender' ) . "'>";
+												$email_client_icon = "<img width='35' src='" . esc_url( $path ) . "' alt='" . __( 'not set', 'yikes-inc-easy-mailchimp-extender' ) . "' title='" . __( 'not set', 'yikes-inc-easy-mailchimp-extender' ) . "'>";
 
 												?>
 												<tr class="<?php if ( $i % 2 == 0 ) { echo 'alternate'; } ?>">
@@ -177,14 +177,14 @@ $subscribers_list = array_slice( $members, $page_offset, $limit );
 																'mailchimp-list' => $list_id,
 																'email-id'       => $user_id,
 															), admin_url() . 'admin.php?page=yikes-mailchimp-view-user' ) ); ?>
-															<span><a href="<?php echo $view_user_info_url; ?>"><?php _e( 'View Info', 'yikes-inc-easy-mailchimp-extender' ); ?></a> |</span>
+															<span><a href="<?php echo esc_url( $view_user_info_url ); ?>"><?php _e( 'View Info', 'yikes-inc-easy-mailchimp-extender' ); ?></a> |</span>
 															<?php $url = esc_url_raw( add_query_arg( array(
 																'action'         => 'yikes-easy-mc-unsubscribe-user',
 																'mailchimp-list' => $list_id,
 																'nonce'          => wp_create_nonce( 'unsubscribe-user-' . $user_id ),
 																'email_id'       => $user_id,
 															) ) ); ?>
-															<span><a href="<?php echo $url; ?>" onclick="return confirm('<?php printf( __( "Are you sure you want to unsubscribe %s from this mailing list?", 'yikes-inc-easy-mailchimp-extender' ), sanitize_email( $subscriber['email_address'] ) ); ?>');" class="yikes-delete-subscriber"><?php _e( "Unsubscribe", 'yikes-inc-easy-mailchimp-extender' ); ?></a>
+															<span><a href="<?php echo esc_url( $url ); ?>" onclick="return confirm('<?php printf( __( "Are you sure you want to unsubscribe %s from this mailing list?", 'yikes-inc-easy-mailchimp-extender' ), sanitize_email( $subscriber['email_address'] ) ); ?>');" class="yikes-delete-subscriber"><?php _e( "Unsubscribe", 'yikes-inc-easy-mailchimp-extender' ); ?></a>
 														</div>
 													</td>
 													<td class="column-columnname num"><?php echo $email_client_icon; ?></td>
@@ -208,7 +208,7 @@ $subscribers_list = array_slice( $members, $page_offset, $limit );
 							<div class="tablenav-pages">
 								<a class='first-page <?php if( $paged == 0 ) { echo 'disabled'; } ?>' title='<?php _e( "Go to the first page" , 'yikes-inc-easy-mailchimp-extender' ); ?>' href='<?php echo esc_url_raw( add_query_arg( array( "paged" => 0 ) ) ); ?>'>&laquo;</a>
 								<a class='prev-page <?php if( $paged == 0 ) { echo 'disabled'; } ?>' title='<?php _e( "Go to the previous page" , 'yikes-inc-easy-mailchimp-extender' ); ?>' href='<?php echo esc_url_raw( add_query_arg( array( "paged" => intval( $paged - 1 ) ) ) ); ?>'>&lsaquo;</a>
-								<span class="paging-input"><input class='current-page' title='<?php _e( "Current page" , 'yikes-inc-easy-mailchimp-extender' ); ?>' type='text' name='paged' value='<?php if( $paged == 0 ) { echo '1'; } else { echo intval( $paged + 1 ); } ?>' size='1' /> <?php _e( 'of', 'yikes-inc-easy-mailchimp-extender' ); ?> <span class='total-pages'><?php echo $total_pages; ?></span></span>
+								<span class="paging-input"><input class='current-page' title='<?php _e( "Current page" , 'yikes-inc-easy-mailchimp-extender' ); ?>' type='text' name='paged' value='<?php if( $paged == 0 ) { echo '1'; } else { echo intval( $paged + 1 ); } ?>' size='1' /> <?php _e( 'of', 'yikes-inc-easy-mailchimp-extender' ); ?> <span class='total-pages'><?php echo esc_html( $total_pages ); ?></span></span>
 								<a class='next-page <?php if( $paged == intval( $total_pages - 1 ) ) { echo 'disabled'; } ?>' title='<?php _e( "Go to the next page" , 'yikes-inc-easy-mailchimp-extender' ); ?>' href='<?php echo esc_url_raw( add_query_arg( array( "paged" => intval( $paged + 1 ) ) ) ); ?>'>&rsaquo;</a>
 								<a class='last-page <?php if( $paged == intval( $total_pages - 1 ) ) { echo 'disabled'; } ?>' title='<?php _e( "Go to the last page" , 'yikes-inc-easy-mailchimp-extender' ); ?>' href='<?php echo esc_url_raw( add_query_arg( array( "paged" => intval( $total_pages - 1 ) ) ) ); ?>'>&raquo;</a>
 							</div>
@@ -252,7 +252,7 @@ $subscribers_list = array_slice( $members, $page_offset, $limit );
 								</tr>
 								<tr valign="top">
 									<td scope="row"><label for="tablecell"><strong><?php  _e( 'Average Subscribers' , 'yikes-inc-easy-mailchimp-extender' ); ?></strong></label></td>
-									<td><?php echo $list_data['stats']['avg_sub_rate']; ?><small> / <?php  _e( 'month' , 'yikes-inc-easy-mailchimp-extender' ); ?></small></td>
+									<td><?php echo esc_html( $list_data['stats']['avg_sub_rate'] ); ?><small> / <?php  _e( 'month' , 'yikes-inc-easy-mailchimp-extender' ); ?></small></td>
 								</tr>
 								<tr valign="top">
 									<td scope="row"><label for="tablecell"><strong><?php  _e( 'Subscriber Count' , 'yikes-inc-easy-mailchimp-extender' ); ?></strong></label></td>
@@ -264,11 +264,11 @@ $subscribers_list = array_slice( $members, $page_offset, $limit );
 								</tr>
 								<tr valign="top">
 									<td scope="row"><label for="tablecell"><strong><?php  _e( 'Created' , 'yikes-inc-easy-mailchimp-extender' ); ?></strong></label></td>
-									<td><?php echo date( get_option('date_format') , strtotime( $list_data['date_created'] ) ); ?></td>
+									<td><?php echo esc_html( date( get_option('date_format') , strtotime( $list_data['date_created'] ) ) ); ?></td>
 								</tr>
 								<tr valign="top">
 									<td scope="row"><label for="tablecell"><strong><?php  _e( 'List Fields' , 'yikes-inc-easy-mailchimp-extender' ); ?></strong></label></td>
-									<td><?php echo intval( $list_data['stats']['merge_field_count'] + 1 ); // add 1 for our email field.. ?></td>
+									<td><?php echo esc_html( intval( $list_data['stats']['merge_field_count'] + 1 ) ); // add 1 for our email field.. ?></td>
 								</tr>
 								<tr valign="top">
 									<td scope="row"><label for="tablecell"><strong><?php  _e( 'Short Signup URL' , 'yikes-inc-easy-mailchimp-extender' ); ?></strong></label></td>
@@ -280,7 +280,7 @@ $subscribers_list = array_slice( $members, $page_offset, $limit );
 								</tr>
 								<tr valign="top">
 									<td scope="row"><label for="tablecell"><strong><?php  _e( 'Default From Name' , 'yikes-inc-easy-mailchimp-extender' ); ?></strong></label></td>
-									<td><?php echo $list_data['campaign_defaults']['from_name']; ?></td>
+									<td><?php echo esc_html( $list_data['campaign_defaults']['from_name'] ); ?></td>
 								</tr>
 							</table>
 
@@ -297,7 +297,7 @@ $subscribers_list = array_slice( $members, $page_offset, $limit );
 										echo '<li class="interest-group-count">' . sprintf( _n( '%d Field', '%d Fields', intval( count( $merge_fields['merge_fields'] ) ), 'yikes-inc-easy-mailchimp-extender' ), intval( count( $merge_fields['merge_fields'] ) ) ) . '</li>';
 										foreach( $merge_fields['merge_fields'] as $merge_field ) {
 											// new action hook @since 6.0.3.8
-											echo '<li class="' . $merge_field['tag'] . '"><span class="dashicons dashicons-marker"></span>' . $merge_field['name'] . ' ' . do_action( 'yikes-mailchimp-list-field', $merge_field ) . '</li>';
+											echo '<li class="' . esc_attr( $merge_field['tag'] ) . '"><span class="dashicons dashicons-marker"></span>' . esc_attr( $merge_field['name'] ) . ' ' . do_action( 'yikes-mailchimp-list-field', esc_html( $merge_field ) ) . '</li>';
 										}
 									?></ul><?php
 								}
@@ -323,7 +323,7 @@ $subscribers_list = array_slice( $members, $page_offset, $limit );
 								foreach ( $interest_groupings as $interest_group ) {
 									// Build up the total subscribers
 									$count = array_sum( wp_list_pluck( $interest_group['items'], 'subscriber_count' ) );
-									echo '<li><span class="dashicons dashicons-marker"></span>' . $interest_group['title'] . '<span class="interest-group-title"></span><small title="' . $count . ' ' . __( "subscribers assigned to this group", 'yikes-inc-easy-mailchimp-extender' ) . '">(' . $count . ')</small></li>';
+									echo '<li><span class="dashicons dashicons-marker"></span>' . esc_html( $interest_group['title'] ) . '<span class="interest-group-title"></span><small title="' . esc_attr( $count ) . ' ' . esc_attr__( "subscribers assigned to this group", 'yikes-inc-easy-mailchimp-extender' ) . '">(' . esc_attr( $count ) . ')</small></li>';
 								}
 								?></ul><?php
 							} else {
@@ -354,10 +354,10 @@ $subscribers_list = array_slice( $members, $page_offset, $limit );
 									?><ul class="segment-ul"><?php
 										echo '<li class="segment-group-count">' . sprintf( _n( '%d Segment', '%d Segments', intval( count( $segments['saved'] ) ), 'yikes-inc-easy-mailchimp-extender' ), intval( count( $segments['saved'] ) ) ) . '</li>';
 									foreach( $segments['saved'] as $segment ) {
-										echo '<li><span class="dashicons dashicons-arrow-right"></span>' . $segment['name'] . ' <small><a href="#" onclick="jQuery(this).parent().parent().next().slideToggle();jQuery(this).toggleText();return false;" data-alt-text="' . __( 'hide conditions' , 'yikes-inc-easy-mailchimp-extender' ) . '">' . __( "view conditions" , 'yikes-inc-easy-mailchimp-extender' ) . '</a></small></li>';
+										echo '<li><span class="dashicons dashicons-arrow-right"></span>' . esc_html( $segment['name'] ) . ' <small><a href="#" onclick="jQuery(this).parent().parent().next().slideToggle();jQuery(this).toggleText();return false;" data-alt-text="' . __( 'hide conditions' , 'yikes-inc-easy-mailchimp-extender' ) . '">' . __( "view conditions" , 'yikes-inc-easy-mailchimp-extender' ) . '</a></small></li>';
 										?><div class="conditionals yikes-easy-mc-hidden"><?php
 										foreach( $segment['segment_opts']['conditions'] as $condition ) {
-											echo '<li><small>' . sprintf( __( 'condition #%s : If %s %s %s', 'yikes-inc-easy-mailchimp-extender' ), intval( $i ), $condition['field'],  $condition['op'], $condition['value'] ) . '</small></li>';
+											echo '<li><small>' . sprintf( __( 'condition #%s : If %s %s %s', 'yikes-inc-easy-mailchimp-extender' ), intval( $i ), esc_html( $condition['field'] ), esc_html( $condition['op'] ), esc_html( $condition['value'] ) ) . '</small></li>';
 											$i++;
 										}
 										?></div><?php
@@ -390,7 +390,7 @@ $subscribers_list = array_slice( $members, $page_offset, $limit );
 </div>
 <!-- JS -->
 <script type="text/javascript">
-	 /* Toggle Text - Stats/Shortcode (manage-forms.php)*/
+	/* Toggle Text - Stats/Shortcode (manage-forms.php)*/
 	jQuery.fn.toggleText = function() {
 		var altText = this.data("alt-text");
 		if (altText) {

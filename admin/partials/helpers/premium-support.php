@@ -26,7 +26,7 @@
 								$options = get_option( 'yikes-mailchimp-' . $extension . '-settings', array() );
 
 								if ( isset( $options['license'] ) && $options['status'] == 'valid' ) {
-									echo '<option data-plugin-slug="' . esc_attr( $extension ) . '" data-plugin-name="' . esc_attr( ucwords( str_replace( '-', ' ', $extension ) ) ) . '" value="' . esc_attr( trim( $options['license'] ) ) . '">' . ucwords( str_replace( '-', ' ', $extension ) ) . ' ' . '</option>';
+									echo '<option data-plugin-slug="' . esc_attr( $extension ) . '" data-plugin-name="' . esc_attr( ucwords( str_replace( '-', ' ', $extension ) ) ) . '" value="' . esc_attr( trim( $options['license'] ) ) . '">' . esc_html( ucwords( str_replace( '-', ' ', $extension ) ) ) . ' ' . '</option>';
 								}
 							}
 						?>

@@ -83,8 +83,8 @@ class YIKES_Easy_Forms_Blocks_API {
 
 		if ( get_option( 'yikes-mc-recaptcha-status', '' ) === '1' ) {
 
-			$site_key   = get_option( 'yikes-mc-recaptcha-site-key', '' );
-			$secret_key = get_option( 'yikes-mc-recaptcha-secret-key', '' );
+			$site_key   = esc_html( get_option( 'yikes-mc-recaptcha-site-key', '' ) );
+			$secret_key = esc_html( get_option( 'yikes-mc-recaptcha-secret-key', '' ) );
 
 			// If either of the Private the Secret key is left blank, we should display an error back to the user.
 			if ( empty( $site_key ) || empty( $secret_key ) ) {
